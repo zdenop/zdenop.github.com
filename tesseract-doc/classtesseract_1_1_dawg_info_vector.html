@@ -123,7 +123,10 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_dawg_info_vector.html#ae6b547bc520864c0b291530cb00d4ca5">clear</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_dawg_info_vector.html#afb770b4357771797dd410725d9e9eb10">add_unique</a> (const <a class="el" href="structtesseract_1_1_dawg_info.html">DawgInfo</a> &amp;new_info, bool debug, const char *debug_msg)</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="dawg_8h_source.html#l00314">314</a> of file <a class="el" href="dawg_8h_source.html">dawg.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a194b015eef92df80742a78f3ca240955"></a><!-- doxytag: member="tesseract::DawgInfoVector::~DawgInfoVector" ref="a194b015eef92df80742a78f3ca240955" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -140,6 +143,15 @@ Public Member Functions</h2></td></tr>
 
 <p>Overload destructor, since <a class="el" href="classtesseract_1_1_dawg_info_vector.html#ae6b547bc520864c0b291530cb00d4ca5">clear()</a> does not delete data_[] any more. </p>
 
+<p>Definition at line <a class="el" href="dawg_8h_source.html#l00317">317</a> of file <a class="el" href="dawg_8h_source.html">dawg.h</a>.</p>
+<div class="fragment"><pre class="fragment">                    {
+    <span class="keywordflow">if</span> (<a class="code" href="class_generic_vector.html#a651ead7f279fb6ed4bfb683989d573de">size_reserved_</a> &gt; 0) {
+      <span class="keyword">delete</span>[] <a class="code" href="class_generic_vector.html#ab88657a46d06c175dcfc76c0fcdaac7d">data_</a>;
+      <a class="code" href="class_generic_vector.html#ae7cf6cba62f831b6d56c7d03e9eff3bc">size_used_</a> = 0;
+      <a class="code" href="class_generic_vector.html#a651ead7f279fb6ed4bfb683989d573de">size_reserved_</a> = 0;
+    }
+  }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -175,6 +187,19 @@ Public Member Functions</h2></td></tr>
 <div class="memdoc">
 <p>Adds an entry for the given dawg_index with the given node to the vec. Returns false if the same entry already exists in the vector, true otherwise. </p>
 
+<p>Definition at line <a class="el" href="dawg_8h_source.html#l00330">330</a> of file <a class="el" href="dawg_8h_source.html">dawg.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                {
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="class_generic_vector.html#ae7cf6cba62f831b6d56c7d03e9eff3bc">size_used_</a>; ++i) {
+      <span class="keywordflow">if</span> (<a class="code" href="class_generic_vector.html#ab88657a46d06c175dcfc76c0fcdaac7d">data_</a>[i] == new_info) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+    }
+    <a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(new_info);
+    <span class="keywordflow">if</span> (debug) {
+      <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;%s[%d, &quot;</span> <a class="code" href="dawg_8h.html#a85a5bf216156dfa399c5edd26f3694db">REFFORMAT</a> <span class="stringliteral">&quot;]\n&quot;</span>, debug_msg,
+              new_info.dawg_index, new_info.ref);
+    }
+    <span class="keywordflow">return</span> <span class="keyword">true</span>;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae6b547bc520864c0b291530cb00d4ca5"></a><!-- doxytag: member="tesseract::DawgInfoVector::clear" ref="ae6b547bc520864c0b291530cb00d4ca5" args="()" -->
@@ -194,6 +219,9 @@ Public Member Functions</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="class_generic_vector.html#a9cdbff49b186574b83e43afba606fdd9">GenericVector&lt; DawgInfo &gt;</a>.</p>
 
+<p>Definition at line <a class="el" href="dawg_8h_source.html#l00326">326</a> of file <a class="el" href="dawg_8h_source.html">dawg.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <a class="code" href="class_generic_vector.html#ae7cf6cba62f831b6d56c7d03e9eff3bc">size_used_</a> = 0; }
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
@@ -220,7 +248,7 @@ Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:15 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:51 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

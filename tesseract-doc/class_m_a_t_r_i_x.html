@@ -122,7 +122,10 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_m_a_t_r_i_x.html#ae7d95ef06a8588c83fcbb7be65c1abe4">MATRIX</a> (int dimension)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_m_a_t_r_i_x.html#ae0f2489acb8b15666cb306f82ad2c6de">print</a> (const <a class="el" href="class_u_n_i_c_h_a_r_s_e_t.html">UNICHARSET</a> &amp;unicharset) const </td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="matrix_8h_source.html#l00193">193</a> of file <a class="el" href="matrix_8h_source.html">matrix.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="ae7d95ef06a8588c83fcbb7be65c1abe4"></a><!-- doxytag: member="MATRIX::MATRIX" ref="ae7d95ef06a8588c83fcbb7be65c1abe4" args="(int dimension)" -->
 <div class="memitem">
 <div class="memproto">
@@ -138,6 +141,10 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="matrix_8h_source.html#l00195">195</a> of file <a class="el" href="matrix_8h_source.html">matrix.h</a>.</p>
+<div class="fragment"><pre class="fragment">                        : <a class="code" href="class_g_e_n_e_r_i_c___m_a_t_r_i_x.html">GENERIC_MATRIX&lt;BLOB_CHOICE_LIST *&gt;</a>(<a class="code" href="class_g_e_n_e_r_i_c___m_a_t_r_i_x.html#acaa00626e03fae7b31f5f08f7f48005b">dimension</a>,
+                                                             <a class="code" href="matrix_8h.html#a5c21a86b19e78482e6c7384c47c2457d">NOT_CLASSIFIED</a>) {}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -156,11 +163,38 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="matrix_8cpp_source.html#l00036">36</a> of file <a class="el" href="matrix_8cpp_source.html">matrix.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                     {
+  <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Ratings Matrix (top choices)\n&quot;</span>);
+  <span class="keywordtype">int</span> row, col;
+  <span class="keywordflow">for</span> (col = 0; col &lt; this-&gt;<a class="code" href="class_g_e_n_e_r_i_c___m_a_t_r_i_x.html#acaa00626e03fae7b31f5f08f7f48005b">dimension</a>(); ++col) <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;\t%d&quot;</span>, col);
+  <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;\n&quot;</span>);
+  <span class="keywordflow">for</span> (row = 0; row &lt; this-&gt;<a class="code" href="class_g_e_n_e_r_i_c___m_a_t_r_i_x.html#acaa00626e03fae7b31f5f08f7f48005b">dimension</a>(); ++row) {
+    <span class="keywordflow">for</span> (col = 0; col &lt;= row; ++col) {
+      <span class="keywordflow">if</span> (col == 0) <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;%d\t&quot;</span>, row);
+      BLOB_CHOICE_LIST *rating = this-&gt;<span class="keyword">get</span>(col, row);
+      <span class="keywordflow">if</span> (rating != <a class="code" href="matrix_8h.html#a5c21a86b19e78482e6c7384c47c2457d">NOT_CLASSIFIED</a>) {
+        BLOB_CHOICE_IT b_it(rating);
+        <span class="keywordtype">int</span> counter = 0;
+        <span class="keywordflow">for</span> (b_it.mark_cycle_pt(); !b_it.cycled_list(); b_it.forward()) {
+          <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;%s &quot;</span>, unicharset.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a421c0b6ebcbbe7547490252fb688c961">id_to_unichar</a>(b_it.data()-&gt;unichar_id()));
+          ++counter;
+          <span class="keywordflow">if</span> (counter == 3) <span class="keywordflow">break</span>;
+        }
+        <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;\t&quot;</span>);
+      } <span class="keywordflow">else</span> {
+        <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot; \t&quot;</span>);
+      }
+    }
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;\n&quot;</span>);
+  }
+}
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/ccstruct/<a class="el" href="matrix_8h_source.html">matrix.h</a></li>
-<li>tesseract-ocr/ccstruct/<a class="el" href="matrix_8cpp.html">matrix.cpp</a></li>
+<li>tesseract-ocr/ccstruct/<a class="el" href="matrix_8cpp_source.html">matrix.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -182,7 +216,7 @@ Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:12 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:46 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

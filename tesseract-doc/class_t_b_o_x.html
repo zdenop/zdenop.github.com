@@ -171,7 +171,10 @@ Friends</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_t_b_o_x.html">TBOX</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_t_b_o_x.html#aaf7b9efe1a330c91ea7193af78dec553">operator+=</a> (<a class="el" href="class_t_b_o_x.html">TBOX</a> &amp;, const <a class="el" href="class_t_b_o_x.html">TBOX</a> &amp;)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_t_b_o_x.html">TBOX</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_t_b_o_x.html#a133f7448a4cbb7bc1cc0338b683fcb78">operator&amp;=</a> (<a class="el" href="class_t_b_o_x.html">TBOX</a> &amp;, const <a class="el" href="class_t_b_o_x.html">TBOX</a> &amp;)</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="rect_8h_source.html#l00029">29</a> of file <a class="el" href="rect_8h_source.html">rect.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="ae0ff3f08b18219201a1e4de08a359374"></a><!-- doxytag: member="TBOX::TBOX" ref="ae0ff3f08b18219201a1e4de08a359374" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -186,6 +189,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rect_8h_source.html#l00031">31</a> of file <a class="el" href="rect_8h_source.html">rect.h</a>.</p>
+<div class="fragment"><pre class="fragment">           :       <span class="comment">// empty constructor making a null box</span>
+    bot_left (<a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a>, <a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a>), top_right (-<a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a>, -<a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a>) {
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6731c485105a797efcfa2cec510e7904"></a><!-- doxytag: member="TBOX::TBOX" ref="a6731c485105a797efcfa2cec510e7904" args="(const ICOORD pt1, const ICOORD pt2)" -->
@@ -213,6 +221,30 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rect_8cpp_source.html#l00033">33</a> of file <a class="el" href="rect_8cpp_source.html">rect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">          {
+  <span class="keywordflow">if</span> (pt1.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () &lt;= pt2.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ()) {
+    <span class="keywordflow">if</span> (pt1.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () &lt;= pt2.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ()) {
+      bot_left = pt1;
+      top_right = pt2;
+    }
+    <span class="keywordflow">else</span> {
+      bot_left = <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> (pt1.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> (), pt2.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ());
+      top_right = <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> (pt2.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> (), pt1.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ());
+    }
+  }
+  <span class="keywordflow">else</span> {
+    <span class="keywordflow">if</span> (pt1.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () &lt;= pt2.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ()) {
+      bot_left = <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> (pt2.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> (), pt1.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ());
+      top_right = <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> (pt1.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> (), pt2.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ());
+    }
+    <span class="keywordflow">else</span> {
+      bot_left = pt2;
+      top_right = pt1;
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a89ac087fa337f9e57772a56055c17d3b"></a><!-- doxytag: member="TBOX::TBOX" ref="a89ac087fa337f9e57772a56055c17d3b" args="(inT16 left, inT16 bottom, inT16 right, inT16 top)" -->
@@ -252,6 +284,10 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rect_8cpp_source.html#l00065">65</a> of file <a class="el" href="rect_8cpp_source.html">rect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">    : bot_left(<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>, <a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>), top_right(<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>, <a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>) {
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a88a896251a9eda45ff35026ddb1996a0"></a><!-- doxytag: member="TBOX::TBOX" ref="a88a896251a9eda45ff35026ddb1996a0" args="(const FCOORD pt)" -->
@@ -269,6 +305,12 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rect_8h_source.html#l00310">310</a> of file <a class="el" href="rect_8h_source.html">rect.h</a>.</p>
+<div class="fragment"><pre class="fragment">                 {
+  bot_left = <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> ((<a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>) floor (pt.<a class="code" href="class_f_c_o_o_r_d.html#a9edadbfc357c730f62fa3c92677b0d58">x</a> ()), (<a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>) floor (pt.y ()));
+  top_right = <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> ((<a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>) ceil (pt.x ()), (<a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>) ceil (pt.y ()));
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -297,6 +339,14 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rect_8cpp_source.html#l00249">249</a> of file <a class="el" href="rect_8cpp_source.html">rect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                            {
+  <span class="keywordflow">return</span> (abs(<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>() - box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>()) &lt;= tolerance &amp;&amp;
+          abs(<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>() - box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>()) &lt;= tolerance &amp;&amp;
+          abs(<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>() - box.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>()) &lt;= tolerance &amp;&amp;
+          abs(<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>() - box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>()) &lt;= tolerance);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a0344effa1c2a22bddf8005fe579cf601"></a><!-- doxytag: member="TBOX::append_debug" ref="a0344effa1c2a22bddf8005fe579cf601" args="(STRING *str) const " -->
@@ -314,6 +364,14 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rect_8h_source.html#l00270">270</a> of file <a class="el" href="rect_8h_source.html">rect.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                         {
+      <span class="keywordtype">char</span> buffer[256];
+      sprintf(buffer, <span class="stringliteral">&quot;Bounding box=(%d,%d)-&gt;(%d,%d)\n&quot;</span>,
+              <a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>(), <a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>(), <a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>(), <a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>());
+      *str += buffer;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a46fca3df91dc271b30b69531e9d8178a"></a><!-- doxytag: member="TBOX::area" ref="a46fca3df91dc271b30b69531e9d8178a" args="() const " -->
@@ -330,6 +388,14 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rect_8h_source.html#l00111">111</a> of file <a class="el" href="rect_8h_source.html">rect.h</a>.</p>
+<div class="fragment"><pre class="fragment">                       {  <span class="comment">// what is the area?</span>
+      <span class="keywordflow">if</span> (!<a class="code" href="class_t_b_o_x.html#a7c6996aea1eb6be07b1d6634bf36cfd6">null_box</a> ())
+        <span class="keywordflow">return</span> <a class="code" href="class_t_b_o_x.html#af95494a2ccacc70cc2b83820b2948619">width</a> () * <a class="code" href="class_t_b_o_x.html#a8379d4bbc72bdbb1f069fc14790e632d">height</a> ();
+      <span class="keywordflow">else</span>
+        <span class="keywordflow">return</span> 0;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9f46d9e51b8b69c5cb6d031e9ac34978"></a><!-- doxytag: member="TBOX::botleft" ref="a9f46d9e51b8b69c5cb6d031e9ac34978" args="() const " -->
@@ -346,6 +412,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rect_8h_source.html#l00081">81</a> of file <a class="el" href="rect_8h_source.html">rect.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                  {  <span class="comment">// access function</span>
+      <span class="keywordflow">return</span> bot_left;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a24d69d48b18162bf1c8e9e62ec00ecfe"></a><!-- doxytag: member="TBOX::botright" ref="a24d69d48b18162bf1c8e9e62ec00ecfe" args="() const " -->
@@ -362,6 +433,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rect_8h_source.html#l00085">85</a> of file <a class="el" href="rect_8h_source.html">rect.h</a>.</p>
+<div class="fragment"><pre class="fragment">                            {  <span class="comment">// ~ access function</span>
+      <span class="keywordflow">return</span> <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> (top_right.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> (), bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ());
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4451d237f1cd18c4982d63fe36a11fc3"></a><!-- doxytag: member="TBOX::bottom" ref="a4451d237f1cd18c4982d63fe36a11fc3" args="() const " -->
@@ -378,6 +454,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rect_8h_source.html#l00060">60</a> of file <a class="el" href="rect_8h_source.html">rect.h</a>.</p>
+<div class="fragment"><pre class="fragment">                         {  <span class="comment">// coord of bottom</span>
+      <span class="keywordflow">return</span> bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ();
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab8ae7b66782fa1802f78ff034da16089"></a><!-- doxytag: member="TBOX::bounding_union" ref="ab8ae7b66782fa1802f78ff034da16089" args="(const TBOX &amp;box) const " -->
@@ -395,6 +476,33 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rect_8cpp_source.html#l00130">130</a> of file <a class="el" href="rect_8cpp_source.html">rect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                               {
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> bl;                     <span class="comment">//bottom left</span>
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> tr;                     <span class="comment">//top right</span>
+
+  <span class="keywordflow">if</span> (box.bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () &lt; bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ())
+    bl.<a class="code" href="class_i_c_o_o_r_d.html#a94c586039b3a003b35cf659b33b938f3" title="rewrite function">set_x</a> (box.bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ());
+  <span class="keywordflow">else</span>
+    bl.<a class="code" href="class_i_c_o_o_r_d.html#a94c586039b3a003b35cf659b33b938f3" title="rewrite function">set_x</a> (bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ());
+
+  <span class="keywordflow">if</span> (box.top_right.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () &gt; top_right.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ())
+    tr.<a class="code" href="class_i_c_o_o_r_d.html#a94c586039b3a003b35cf659b33b938f3" title="rewrite function">set_x</a> (box.top_right.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ());
+  <span class="keywordflow">else</span>
+    tr.<a class="code" href="class_i_c_o_o_r_d.html#a94c586039b3a003b35cf659b33b938f3" title="rewrite function">set_x</a> (top_right.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ());
+
+  <span class="keywordflow">if</span> (box.bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () &lt; bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ())
+    bl.<a class="code" href="class_i_c_o_o_r_d.html#aa9fb418d1c602c0533e426759da43d67" title="rewrite function">set_y</a> (box.bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ());
+  <span class="keywordflow">else</span>
+    bl.<a class="code" href="class_i_c_o_o_r_d.html#aa9fb418d1c602c0533e426759da43d67" title="rewrite function">set_y</a> (bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ());
+
+  <span class="keywordflow">if</span> (box.top_right.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () &gt; top_right.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ())
+    tr.<a class="code" href="class_i_c_o_o_r_d.html#aa9fb418d1c602c0533e426759da43d67" title="rewrite function">set_y</a> (box.top_right.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ());
+  <span class="keywordflow">else</span>
+    tr.<a class="code" href="class_i_c_o_o_r_d.html#aa9fb418d1c602c0533e426759da43d67" title="rewrite function">set_y</a> (top_right.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ());
+  <span class="keywordflow">return</span> <a class="code" href="class_t_b_o_x.html#ae0ff3f08b18219201a1e4de08a359374">TBOX</a> (bl, tr);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a5d4e2c5f91b791e94d4c94e513180632"></a><!-- doxytag: member="TBOX::contains" ref="a5d4e2c5f91b791e94d4c94e513180632" args="(const FCOORD pt) const " -->
@@ -412,6 +520,13 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rect_8h_source.html#l00323">323</a> of file <a class="el" href="rect_8h_source.html">rect.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                {
+  <span class="keywordflow">return</span> ((pt.<a class="code" href="class_f_c_o_o_r_d.html#a9edadbfc357c730f62fa3c92677b0d58">x</a> () &gt;= bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ()) &amp;&amp;
+    (pt.<a class="code" href="class_f_c_o_o_r_d.html#a9edadbfc357c730f62fa3c92677b0d58">x</a> () &lt;= top_right.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ()) &amp;&amp;
+    (pt.<a class="code" href="class_f_c_o_o_r_d.html#a397f7ce997b246df18e7bd5a20cc422e">y</a> () &gt;= bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ()) &amp;&amp; (pt.<a class="code" href="class_f_c_o_o_r_d.html#a397f7ce997b246df18e7bd5a20cc422e">y</a> () &lt;= top_right.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ()));
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a01e2f8fc64fd9582e2abe881c04ed529"></a><!-- doxytag: member="TBOX::contains" ref="a01e2f8fc64fd9582e2abe881c04ed529" args="(const TBOX &amp;box) const " -->
@@ -429,6 +544,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rect_8h_source.html#l00335">335</a> of file <a class="el" href="rect_8h_source.html">rect.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                {
+  <span class="keywordflow">return</span> (<a class="code" href="class_t_b_o_x.html#a5d4e2c5f91b791e94d4c94e513180632">contains</a> (box.bot_left) &amp;&amp; <a class="code" href="class_t_b_o_x.html#a5d4e2c5f91b791e94d4c94e513180632">contains</a> (box.top_right));
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="af19281ad7906c2fe18a81caf9dd56ab1"></a><!-- doxytag: member="TBOX::DeSerialize" ref="af19281ad7906c2fe18a81caf9dd56ab1" args="(bool swap, FILE *fp)" -->
@@ -456,6 +576,13 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rect_8cpp_source.html#l00183">183</a> of file <a class="el" href="rect_8cpp_source.html">rect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                          {
+  <span class="keywordflow">if</span> (!bot_left.<a class="code" href="class_i_c_o_o_r_d.html#ae73dd714e26ceef74c3d1b552693c5a4">DeSerialize</a>(swap, fp)) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">if</span> (!top_right.<a class="code" href="class_i_c_o_o_r_d.html#ae73dd714e26ceef74c3d1b552693c5a4">DeSerialize</a>(swap, fp)) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a8379d4bbc72bdbb1f069fc14790e632d"></a><!-- doxytag: member="TBOX::height" ref="a8379d4bbc72bdbb1f069fc14790e632d" args="() const " -->
@@ -472,6 +599,14 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rect_8h_source.html#l00097">97</a> of file <a class="el" href="rect_8h_source.html">rect.h</a>.</p>
+<div class="fragment"><pre class="fragment">                         {  <span class="comment">// how high is it?</span>
+      <span class="keywordflow">if</span> (!<a class="code" href="class_t_b_o_x.html#a7c6996aea1eb6be07b1d6634bf36cfd6">null_box</a> ())
+        <span class="keywordflow">return</span> top_right.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () - bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ();
+      <span class="keywordflow">else</span>
+        <span class="keywordflow">return</span> 0;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a33e45c7389737cdf1a908bca0af315c4"></a><!-- doxytag: member="TBOX::intersection" ref="a33e45c7389737cdf1a908bca0af315c4" args="(const TBOX &amp;box) const " -->
@@ -489,6 +624,42 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rect_8cpp_source.html#l00088">88</a> of file <a class="el" href="rect_8cpp_source.html">rect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                             {
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> <a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>;
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> <a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>;
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> <a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>;
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> <a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>;
+  <span class="keywordflow">if</span> (<a class="code" href="class_t_b_o_x.html#adcc7d2858ccb61cd715dbcff32bd5582">overlap</a> (box)) {
+    <span class="keywordflow">if</span> (box.bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () &gt; bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ())
+      left = box.bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ();
+    <span class="keywordflow">else</span>
+      left = bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ();
+
+    <span class="keywordflow">if</span> (box.top_right.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () &lt; top_right.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ())
+      right = box.top_right.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ();
+    <span class="keywordflow">else</span>
+      right = top_right.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ();
+
+    <span class="keywordflow">if</span> (box.bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () &gt; bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ())
+      bottom = box.bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ();
+    <span class="keywordflow">else</span>
+      bottom = bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ();
+
+    <span class="keywordflow">if</span> (box.top_right.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () &lt; top_right.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ())
+      top = box.top_right.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ();
+    <span class="keywordflow">else</span>
+      top = top_right.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ();
+  }
+  <span class="keywordflow">else</span> {
+    left = <a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a>;
+    bottom = <a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a>;
+    top = -<a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a>;
+    right = -<a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a>;
+  }
+  <span class="keywordflow">return</span> <a class="code" href="class_t_b_o_x.html#ae0ff3f08b18219201a1e4de08a359374">TBOX</a> (left, bottom, right, top);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a724fabf566586b663577dfa944ffbc61"></a><!-- doxytag: member="TBOX::left" ref="a724fabf566586b663577dfa944ffbc61" args="() const " -->
@@ -505,6 +676,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rect_8h_source.html#l00067">67</a> of file <a class="el" href="rect_8h_source.html">rect.h</a>.</p>
+<div class="fragment"><pre class="fragment">                       {  <span class="comment">// coord of left</span>
+      <span class="keywordflow">return</span> bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ();
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aeabe87a0ee3912ca63550ffee4fb4115"></a><!-- doxytag: member="TBOX::major_overlap" ref="aeabe87a0ee3912ca63550ffee4fb4115" args="(const TBOX &amp;box) const " -->
@@ -522,6 +698,21 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rect_8h_source.html#l00358">358</a> of file <a class="el" href="rect_8h_source.html">rect.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                       {
+  <span class="keywordtype">int</span> <a class="code" href="class_t_b_o_x.html#adcc7d2858ccb61cd715dbcff32bd5582">overlap</a> = <a class="code" href="ndminx_8h.html#a74e75242132eaabbc1c512488a135926">MIN</a>(box.top_right.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a>(), top_right.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a>());
+  overlap -= <a class="code" href="ndminx_8h.html#aacc3ee1a7f283f8ef65cea31f4436a95">MAX</a>(box.bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a>(), bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a>());
+  overlap += <a class="code" href="class_t_b_o_x.html#adcc7d2858ccb61cd715dbcff32bd5582">overlap</a>;
+  <span class="keywordflow">if</span> (overlap &lt; <a class="code" href="ndminx_8h.html#a74e75242132eaabbc1c512488a135926">MIN</a>(box.<a class="code" href="class_t_b_o_x.html#af95494a2ccacc70cc2b83820b2948619">width</a>(), <a class="code" href="class_t_b_o_x.html#af95494a2ccacc70cc2b83820b2948619">width</a>()))
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  overlap = <a class="code" href="ndminx_8h.html#a74e75242132eaabbc1c512488a135926">MIN</a>(box.top_right.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a>(), top_right.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a>());
+  overlap -= <a class="code" href="ndminx_8h.html#aacc3ee1a7f283f8ef65cea31f4436a95">MAX</a>(box.bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a>(), bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a>());
+  overlap += <a class="code" href="class_t_b_o_x.html#adcc7d2858ccb61cd715dbcff32bd5582">overlap</a>;
+  <span class="keywordflow">if</span> (overlap &lt; <a class="code" href="ndminx_8h.html#a74e75242132eaabbc1c512488a135926">MIN</a>(box.<a class="code" href="class_t_b_o_x.html#a8379d4bbc72bdbb1f069fc14790e632d">height</a>(), <a class="code" href="class_t_b_o_x.html#a8379d4bbc72bdbb1f069fc14790e632d">height</a>()))
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9f7e4e20bdfeee0d82db2f8d24aa72dc"></a><!-- doxytag: member="TBOX::major_x_overlap" ref="a9f7e4e20bdfeee0d82db2f8d24aa72dc" args="(const TBOX &amp;box) const " -->
@@ -539,6 +730,18 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rect_8h_source.html#l00402">402</a> of file <a class="el" href="rect_8h_source.html">rect.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                       {
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> <a class="code" href="class_t_b_o_x.html#adcc7d2858ccb61cd715dbcff32bd5582">overlap</a> = box.<a class="code" href="class_t_b_o_x.html#af95494a2ccacc70cc2b83820b2948619">width</a>();
+  <span class="keywordflow">if</span> (this-&gt;<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>() &gt; box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>()) {
+    overlap -= this-&gt;<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>() - box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>();
+  }
+  <span class="keywordflow">if</span> (this-&gt;<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>() &lt; box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>()) {
+    overlap -= box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>() - this-&gt;<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>();
+  }
+  <span class="keywordflow">return</span> (overlap &gt;= box.<a class="code" href="class_t_b_o_x.html#af95494a2ccacc70cc2b83820b2948619">width</a>() / 2 || overlap &gt;= this-&gt;<a class="code" href="class_t_b_o_x.html#af95494a2ccacc70cc2b83820b2948619">width</a>() / 2);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6b8b3bf99ea363303e11c26866335f23"></a><!-- doxytag: member="TBOX::major_y_overlap" ref="a6b8b3bf99ea363303e11c26866335f23" args="(const TBOX &amp;box) const " -->
@@ -556,6 +759,18 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rect_8h_source.html#l00429">429</a> of file <a class="el" href="rect_8h_source.html">rect.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                       {
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> <a class="code" href="class_t_b_o_x.html#adcc7d2858ccb61cd715dbcff32bd5582">overlap</a> = box.<a class="code" href="class_t_b_o_x.html#a8379d4bbc72bdbb1f069fc14790e632d">height</a>();
+  <span class="keywordflow">if</span> (this-&gt;<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>() &gt; box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>()) {
+    overlap -= this-&gt;<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>() - box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>();
+  }
+  <span class="keywordflow">if</span> (this-&gt;<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>() &lt; box.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>()) {
+    overlap -= box.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>() - this-&gt;<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>();
+  }
+  <span class="keywordflow">return</span> (overlap &gt;= box.<a class="code" href="class_t_b_o_x.html#a8379d4bbc72bdbb1f069fc14790e632d">height</a>() / 2 || overlap &gt;= this-&gt;<a class="code" href="class_t_b_o_x.html#a8379d4bbc72bdbb1f069fc14790e632d">height</a>() / 2);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a5fb1ce0d624392f72f82933e63f20e71"></a><!-- doxytag: member="TBOX::move" ref="a5fb1ce0d624392f72f82933e63f20e71" args="(const ICOORD vec)" -->
@@ -573,6 +788,12 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rect_8h_source.html#l00146">146</a> of file <a class="el" href="rect_8h_source.html">rect.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                {  <span class="comment">// by vector</span>
+      bot_left += vec;
+      top_right += vec;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3ebe0259286541655d44d5a62a60dd26"></a><!-- doxytag: member="TBOX::move" ref="a3ebe0259286541655d44d5a62a60dd26" args="(const FCOORD vec)" -->
@@ -590,6 +811,18 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rect_8h_source.html#l00152">152</a> of file <a class="el" href="rect_8h_source.html">rect.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                {  <span class="comment">// by float vector</span>
+      bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a94c586039b3a003b35cf659b33b938f3" title="rewrite function">set_x</a> ((<a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>) floor (bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () + vec.<a class="code" href="class_f_c_o_o_r_d.html#a9edadbfc357c730f62fa3c92677b0d58">x</a> ()));
+      <span class="comment">// round left</span>
+      bot_left.<a class="code" href="class_i_c_o_o_r_d.html#aa9fb418d1c602c0533e426759da43d67" title="rewrite function">set_y</a> ((<a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>) floor (bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () + vec.<a class="code" href="class_f_c_o_o_r_d.html#a397f7ce997b246df18e7bd5a20cc422e">y</a> ()));
+      <span class="comment">// round down</span>
+      top_right.<a class="code" href="class_i_c_o_o_r_d.html#a94c586039b3a003b35cf659b33b938f3" title="rewrite function">set_x</a> ((<a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>) ceil (top_right.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () + vec.<a class="code" href="class_f_c_o_o_r_d.html#a9edadbfc357c730f62fa3c92677b0d58">x</a> ()));
+      <span class="comment">// round right</span>
+      top_right.<a class="code" href="class_i_c_o_o_r_d.html#aa9fb418d1c602c0533e426759da43d67" title="rewrite function">set_y</a> ((<a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>) ceil (top_right.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () + vec.<a class="code" href="class_f_c_o_o_r_d.html#a397f7ce997b246df18e7bd5a20cc422e">y</a> ()));
+      <span class="comment">// round up</span>
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a0f635179085dbef57b8ee2cb93299fe6"></a><!-- doxytag: member="TBOX::move_bottom_edge" ref="a0f635179085dbef57b8ee2cb93299fe6" args="(const inT16 y)" -->
@@ -607,6 +840,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rect_8h_source.html#l00126">126</a> of file <a class="el" href="rect_8h_source.html">rect.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                         {  <span class="comment">// by +/- y</span>
+      bot_left += <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> (0, y);
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="adc78fbe7af6e79d3d99498d0d8be92b6"></a><!-- doxytag: member="TBOX::move_left_edge" ref="adc78fbe7af6e79d3d99498d0d8be92b6" args="(const inT16 x)" -->
@@ -624,6 +862,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rect_8h_source.html#l00131">131</a> of file <a class="el" href="rect_8h_source.html">rect.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                       {  <span class="comment">// by +/- x</span>
+      bot_left += <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> (x, 0);
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2db39cd4ebd04603db148498c5ba908e"></a><!-- doxytag: member="TBOX::move_right_edge" ref="a2db39cd4ebd04603db148498c5ba908e" args="(const inT16 x)" -->
@@ -641,6 +884,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rect_8h_source.html#l00136">136</a> of file <a class="el" href="rect_8h_source.html">rect.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                        {  <span class="comment">// by +/- x</span>
+      top_right += <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> (x, 0);
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac0b97c09eb87e1418bbe922843158f76"></a><!-- doxytag: member="TBOX::move_top_edge" ref="ac0b97c09eb87e1418bbe922843158f76" args="(const inT16 y)" -->
@@ -658,6 +906,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rect_8h_source.html#l00141">141</a> of file <a class="el" href="rect_8h_source.html">rect.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                      {  <span class="comment">// by +/- y</span>
+      top_right += <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> (0, y);
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7c6996aea1eb6be07b1d6634bf36cfd6"></a><!-- doxytag: member="TBOX::null_box" ref="a7c6996aea1eb6be07b1d6634bf36cfd6" args="() const " -->
@@ -674,6 +927,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rect_8h_source.html#l00045">45</a> of file <a class="el" href="rect_8h_source.html">rect.h</a>.</p>
+<div class="fragment"><pre class="fragment">                          {  <span class="comment">// Is box null</span>
+      <span class="keywordflow">return</span> ((<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a> () &gt;= <a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a> ()) || (<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a> () &lt;= <a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a> ()));
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a41937e184ee899f30f0a0d0707d755a1"></a><!-- doxytag: member="TBOX::operator==" ref="a41937e184ee899f30f0a0d0707d755a1" args="(const TBOX &amp;other) const " -->
@@ -691,6 +949,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rect_8h_source.html#l00049">49</a> of file <a class="el" href="rect_8h_source.html">rect.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                             {
+      <span class="keywordflow">return</span> bot_left == other.bot_left &amp;&amp; top_right == other.top_right;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="adcc7d2858ccb61cd715dbcff32bd5582"></a><!-- doxytag: member="TBOX::overlap" ref="adcc7d2858ccb61cd715dbcff32bd5582" args="(const TBOX &amp;box) const " -->
@@ -708,6 +971,14 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rect_8h_source.html#l00345">345</a> of file <a class="el" href="rect_8h_source.html">rect.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                 {
+  <span class="keywordflow">return</span> ((box.bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () &lt;= top_right.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ()) &amp;&amp;
+    (box.top_right.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () &gt;= bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ()) &amp;&amp;
+    (box.bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () &lt;= top_right.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ()) &amp;&amp;
+    (box.top_right.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () &gt;= bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ()));
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9e8d88530048135be86afb906ff9dd74"></a><!-- doxytag: member="TBOX::overlap_fraction" ref="a9e8d88530048135be86afb906ff9dd74" args="(const TBOX &amp;box) const " -->
@@ -725,6 +996,15 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rect_8h_source.html#l00378">378</a> of file <a class="el" href="rect_8h_source.html">rect.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                          {
+  <span class="keywordtype">double</span> fraction = 0.0;
+  <span class="keywordflow">if</span> (this-&gt;<a class="code" href="class_t_b_o_x.html#a46fca3df91dc271b30b69531e9d8178a">area</a>()) {
+    fraction = this-&gt;<a class="code" href="class_t_b_o_x.html#a33e45c7389737cdf1a908bca0af315c4">intersection</a>(box).<a class="code" href="class_t_b_o_x.html#a46fca3df91dc271b30b69531e9d8178a">area</a>() * 1.0 / this-&gt;<a class="code" href="class_t_b_o_x.html#a46fca3df91dc271b30b69531e9d8178a">area</a>();
+  }
+  <span class="keywordflow">return</span> fraction;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad78f4f7e9746def02b0d2e8e8a2b3ceb"></a><!-- doxytag: member="TBOX::pad" ref="ad78f4f7e9746def02b0d2e8e8a2b3ceb" args="(int xpad, int ypad)" -->
@@ -752,6 +1032,13 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rect_8h_source.html#l00120">120</a> of file <a class="el" href="rect_8h_source.html">rect.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                 {
+      <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> <a class="code" href="class_t_b_o_x.html#ad78f4f7e9746def02b0d2e8e8a2b3ceb">pad</a>(xpad, ypad);
+      bot_left -= <a class="code" href="class_t_b_o_x.html#ad78f4f7e9746def02b0d2e8e8a2b3ceb">pad</a>;
+      top_right += <a class="code" href="class_t_b_o_x.html#ad78f4f7e9746def02b0d2e8e8a2b3ceb">pad</a>;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="af0ef9850320825065508b4f7f1276c7a"></a><!-- doxytag: member="TBOX::plot" ref="af0ef9850320825065508b4f7f1276c7a" args="(ScrollView *fd) const " -->
@@ -769,6 +1056,12 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rect_8h_source.html#l00278">278</a> of file <a class="el" href="rect_8h_source.html">rect.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                    {  <span class="comment">// where to paint</span>
+      fd-&gt;<a class="code" href="class_scroll_view.html#ac2a8fdf5d37967ea4a298dc092b6ed0e">Rectangle</a>(bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> (), bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> (), top_right.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> (),
+        top_right.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ());
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa144a45f47fe4134152f9de83732d5aa"></a><!-- doxytag: member="TBOX::plot" ref="aa144a45f47fe4134152f9de83732d5aa" args="(ScrollView *fd, ScrollView::Color fill_colour, ScrollView::Color border_colour) const " -->
@@ -802,6 +1095,13 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rect_8cpp_source.html#l00164">164</a> of file <a class="el" href="rect_8cpp_source.html">rect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                      {
+  fd-&gt;<a class="code" href="class_scroll_view.html#ad5f03af259325c42eaaffa843cd1fdde">Brush</a>(fill_colour);
+  fd-&gt;<a class="code" href="class_scroll_view.html#a79855c525ec660b452382e9813d2edb5">Pen</a>(border_colour);
+  <a class="code" href="class_t_b_o_x.html#af0ef9850320825065508b4f7f1276c7a">plot</a>(fd);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2e753aa9943276301d68e9f9cad99620"></a><!-- doxytag: member="TBOX::print" ref="a2e753aa9943276301d68e9f9cad99620" args="() const " -->
@@ -818,6 +1118,12 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rect_8h_source.html#l00263">263</a> of file <a class="el" href="rect_8h_source.html">rect.h</a>.</p>
+<div class="fragment"><pre class="fragment">                       {  <span class="comment">// print</span>
+      <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Bounding box=(%d,%d)-&gt;(%d,%d)\n&quot;</span>,
+              <a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>(), <a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>(), <a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>(), <a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>());
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a8703081c1a1c26db3a4dddaca1028e34"></a><!-- doxytag: member="TBOX::right" ref="a8703081c1a1c26db3a4dddaca1028e34" args="() const " -->
@@ -834,6 +1140,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rect_8h_source.html#l00074">74</a> of file <a class="el" href="rect_8h_source.html">rect.h</a>.</p>
+<div class="fragment"><pre class="fragment">                        {  <span class="comment">// coord of right</span>
+      <span class="keywordflow">return</span> top_right.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ();
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a428e14544aeb44064bc8637d920211a0"></a><!-- doxytag: member="TBOX::rotate" ref="a428e14544aeb44064bc8637d920211a0" args="(const FCOORD &amp;vec)" -->
@@ -851,6 +1162,13 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rect_8h_source.html#l00182">182</a> of file <a class="el" href="rect_8h_source.html">rect.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                   {  <span class="comment">// by vector</span>
+      bot_left.<a class="code" href="class_i_c_o_o_r_d.html#aaedd825587ccb78583bbd6717793faea">rotate</a> (vec);
+      top_right.<a class="code" href="class_i_c_o_o_r_d.html#aaedd825587ccb78583bbd6717793faea">rotate</a> (vec);
+      *<span class="keyword">this</span> = <a class="code" href="class_t_b_o_x.html#ae0ff3f08b18219201a1e4de08a359374">TBOX</a> (bot_left, top_right);
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a56b4e1cc91e8abcb9f97622da7468e98"></a><!-- doxytag: member="TBOX::rotate_large" ref="a56b4e1cc91e8abcb9f97622da7468e98" args="(const FCOORD &amp;vec)" -->
@@ -868,6 +1186,17 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rect_8cpp_source.html#l00073">73</a> of file <a class="el" href="rect_8cpp_source.html">rect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                         {
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> top_left(bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a>(), top_right.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a>());
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> bottom_right(top_right.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a>(), bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a>());
+  top_left.<a class="code" href="class_i_c_o_o_r_d.html#aaedd825587ccb78583bbd6717793faea">rotate</a>(vec);
+  bottom_right.rotate(vec);
+  <a class="code" href="class_t_b_o_x.html#a428e14544aeb44064bc8637d920211a0">rotate</a>(vec);
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> box2(top_left, bottom_right);
+  *<span class="keyword">this</span> += box2;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a667878008a6e0c349231020dddddb0f6"></a><!-- doxytag: member="TBOX::scale" ref="a667878008a6e0c349231020dddddb0f6" args="(const float f)" -->
@@ -885,6 +1214,14 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rect_8h_source.html#l00164">164</a> of file <a class="el" href="rect_8h_source.html">rect.h</a>.</p>
+<div class="fragment"><pre class="fragment">                              {  <span class="comment">// by multiplier</span>
+      bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a94c586039b3a003b35cf659b33b938f3" title="rewrite function">set_x</a> ((<a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>) floor (bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () * <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>));  <span class="comment">// round left</span>
+      bot_left.<a class="code" href="class_i_c_o_o_r_d.html#aa9fb418d1c602c0533e426759da43d67" title="rewrite function">set_y</a> ((<a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>) floor (bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () * <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>));  <span class="comment">// round down</span>
+      top_right.<a class="code" href="class_i_c_o_o_r_d.html#a94c586039b3a003b35cf659b33b938f3" title="rewrite function">set_x</a> ((<a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>) ceil (top_right.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () * <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>));  <span class="comment">// round right</span>
+      top_right.<a class="code" href="class_i_c_o_o_r_d.html#aa9fb418d1c602c0533e426759da43d67" title="rewrite function">set_y</a> ((<a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>) ceil (top_right.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () * <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>));  <span class="comment">// round up</span>
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a0d026e41c283acb4c19255b78ad51ed0"></a><!-- doxytag: member="TBOX::scale" ref="a0d026e41c283acb4c19255b78ad51ed0" args="(const FCOORD vec)" -->
@@ -902,6 +1239,14 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rect_8h_source.html#l00171">171</a> of file <a class="el" href="rect_8h_source.html">rect.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                 {  <span class="comment">// by float vector</span>
+      bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a94c586039b3a003b35cf659b33b938f3" title="rewrite function">set_x</a> ((<a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>) floor (bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () * vec.<a class="code" href="class_f_c_o_o_r_d.html#a9edadbfc357c730f62fa3c92677b0d58">x</a> ()));
+      bot_left.<a class="code" href="class_i_c_o_o_r_d.html#aa9fb418d1c602c0533e426759da43d67" title="rewrite function">set_y</a> ((<a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>) floor (bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () * vec.<a class="code" href="class_f_c_o_o_r_d.html#a397f7ce997b246df18e7bd5a20cc422e">y</a> ()));
+      top_right.<a class="code" href="class_i_c_o_o_r_d.html#a94c586039b3a003b35cf659b33b938f3" title="rewrite function">set_x</a> ((<a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>) ceil (top_right.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () * vec.<a class="code" href="class_f_c_o_o_r_d.html#a9edadbfc357c730f62fa3c92677b0d58">x</a> ()));
+      top_right.<a class="code" href="class_i_c_o_o_r_d.html#aa9fb418d1c602c0533e426759da43d67" title="rewrite function">set_y</a> ((<a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>) ceil (top_right.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () * vec.<a class="code" href="class_f_c_o_o_r_d.html#a397f7ce997b246df18e7bd5a20cc422e">y</a> ()));
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a85bcf6863c6479e2c84a71b0a8874188"></a><!-- doxytag: member="TBOX::Serialize" ref="a85bcf6863c6479e2c84a71b0a8874188" args="(FILE *fp) const " -->
@@ -919,6 +1264,13 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rect_8cpp_source.html#l00176">176</a> of file <a class="el" href="rect_8cpp_source.html">rect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                   {
+  <span class="keywordflow">if</span> (!bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a3159371d913e1b05860ae0c274fda0f6">Serialize</a>(fp)) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">if</span> (!top_right.<a class="code" href="class_i_c_o_o_r_d.html#a3159371d913e1b05860ae0c274fda0f6">Serialize</a>(fp)) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6f803b24b046883cb0f3882dc3d92302"></a><!-- doxytag: member="TBOX::set_bottom" ref="a6f803b24b046883cb0f3882dc3d92302" args="(int y)" -->
@@ -936,6 +1288,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rect_8h_source.html#l00063">63</a> of file <a class="el" href="rect_8h_source.html">rect.h</a>.</p>
+<div class="fragment"><pre class="fragment">                           {
+      bot_left.<a class="code" href="class_i_c_o_o_r_d.html#aa9fb418d1c602c0533e426759da43d67" title="rewrite function">set_y</a>(y);
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae6151cd794841e100d8a346a0c4a46e6"></a><!-- doxytag: member="TBOX::set_left" ref="ae6151cd794841e100d8a346a0c4a46e6" args="(int x)" -->
@@ -953,6 +1310,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rect_8h_source.html#l00070">70</a> of file <a class="el" href="rect_8h_source.html">rect.h</a>.</p>
+<div class="fragment"><pre class="fragment">                         {
+      bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a94c586039b3a003b35cf659b33b938f3" title="rewrite function">set_x</a>(x);
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2246293d3667b28c52a52353a2d5caea"></a><!-- doxytag: member="TBOX::set_right" ref="a2246293d3667b28c52a52353a2d5caea" args="(int x)" -->
@@ -970,6 +1332,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rect_8h_source.html#l00077">77</a> of file <a class="el" href="rect_8h_source.html">rect.h</a>.</p>
+<div class="fragment"><pre class="fragment">                          {
+      top_right.<a class="code" href="class_i_c_o_o_r_d.html#a94c586039b3a003b35cf659b33b938f3" title="rewrite function">set_x</a>(x);
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad61db4030d2a99fb107bb9679a055bed"></a><!-- doxytag: member="TBOX::set_to_given_coords" ref="ad61db4030d2a99fb107bb9679a055bed" args="(int x_min, int y_min, int x_max, int y_max)" -->
@@ -1009,6 +1376,14 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rect_8h_source.html#l00256">256</a> of file <a class="el" href="rect_8h_source.html">rect.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                         {
+      bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a94c586039b3a003b35cf659b33b938f3" title="rewrite function">set_x</a>(x_min);
+      bot_left.<a class="code" href="class_i_c_o_o_r_d.html#aa9fb418d1c602c0533e426759da43d67" title="rewrite function">set_y</a>(y_min);
+      top_right.<a class="code" href="class_i_c_o_o_r_d.html#a94c586039b3a003b35cf659b33b938f3" title="rewrite function">set_x</a>(x_max);
+      top_right.<a class="code" href="class_i_c_o_o_r_d.html#aa9fb418d1c602c0533e426759da43d67" title="rewrite function">set_y</a>(y_max);
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7f40dfd290a907200bdc98c196f63f45"></a><!-- doxytag: member="TBOX::set_top" ref="a7f40dfd290a907200bdc98c196f63f45" args="(int y)" -->
@@ -1026,6 +1401,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rect_8h_source.html#l00056">56</a> of file <a class="el" href="rect_8h_source.html">rect.h</a>.</p>
+<div class="fragment"><pre class="fragment">                        {
+      top_right.<a class="code" href="class_i_c_o_o_r_d.html#aa9fb418d1c602c0533e426759da43d67" title="rewrite function">set_y</a>(y);
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="adf92e9fdac1bdf11c10d1c4d1178791a"></a><!-- doxytag: member="TBOX::top" ref="adf92e9fdac1bdf11c10d1c4d1178791a" args="() const " -->
@@ -1042,6 +1422,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rect_8h_source.html#l00053">53</a> of file <a class="el" href="rect_8h_source.html">rect.h</a>.</p>
+<div class="fragment"><pre class="fragment">                      {  <span class="comment">// coord of top</span>
+      <span class="keywordflow">return</span> top_right.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ();
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad6f19fe78e5fcc3a824310d3f75ad358"></a><!-- doxytag: member="TBOX::topleft" ref="ad6f19fe78e5fcc3a824310d3f75ad358" args="() const " -->
@@ -1058,6 +1443,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rect_8h_source.html#l00089">89</a> of file <a class="el" href="rect_8h_source.html">rect.h</a>.</p>
+<div class="fragment"><pre class="fragment">                           {  <span class="comment">// ~ access function</span>
+      <span class="keywordflow">return</span> <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> (bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> (), top_right.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ());
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a02511fc69b598b332ac1f4af6c943f8f"></a><!-- doxytag: member="TBOX::topright" ref="a02511fc69b598b332ac1f4af6c943f8f" args="() const " -->
@@ -1074,6 +1464,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rect_8h_source.html#l00093">93</a> of file <a class="el" href="rect_8h_source.html">rect.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                   {  <span class="comment">// access function</span>
+      <span class="keywordflow">return</span> top_right;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="af95494a2ccacc70cc2b83820b2948619"></a><!-- doxytag: member="TBOX::width" ref="af95494a2ccacc70cc2b83820b2948619" args="() const " -->
@@ -1090,6 +1485,14 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rect_8h_source.html#l00104">104</a> of file <a class="el" href="rect_8h_source.html">rect.h</a>.</p>
+<div class="fragment"><pre class="fragment">                        {  <span class="comment">// how high is it?</span>
+      <span class="keywordflow">if</span> (!<a class="code" href="class_t_b_o_x.html#a7c6996aea1eb6be07b1d6634bf36cfd6">null_box</a> ())
+        <span class="keywordflow">return</span> top_right.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () - bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ();
+      <span class="keywordflow">else</span>
+        <span class="keywordflow">return</span> 0;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae75357efb10b9c990eaa4a5cf954722c"></a><!-- doxytag: member="TBOX::x_almost_equal" ref="ae75357efb10b9c990eaa4a5cf954722c" args="(const TBOX &amp;box, int tolerance) const " -->
@@ -1117,6 +1520,12 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rect_8cpp_source.html#l00244">244</a> of file <a class="el" href="rect_8cpp_source.html">rect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                              {
+  <span class="keywordflow">return</span> (abs(<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>() - box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>()) &lt;= tolerance &amp;&amp;
+           abs(<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>() - box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>()) &lt;= tolerance);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6c296f134aaae6ee544c4d000d76f80e"></a><!-- doxytag: member="TBOX::x_gap" ref="a6c296f134aaae6ee544c4d000d76f80e" args="(const TBOX &amp;box) const " -->
@@ -1134,6 +1543,12 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rect_8h_source.html#l00210">210</a> of file <a class="el" href="rect_8h_source.html">rect.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                     {
+      <span class="keywordflow">return</span> <a class="code" href="ndminx_8h.html#aacc3ee1a7f283f8ef65cea31f4436a95">MAX</a>(bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a>(), box.bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a>()) -
+             <a class="code" href="ndminx_8h.html#a74e75242132eaabbc1c512488a135926">MIN</a>(top_right.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a>(), box.top_right.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a>());
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="acc3b9d3b59853635705c39278e560435"></a><!-- doxytag: member="TBOX::x_overlap" ref="acc3b9d3b59853635705c39278e560435" args="(const TBOX &amp;box) const " -->
@@ -1151,6 +1566,12 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rect_8h_source.html#l00391">391</a> of file <a class="el" href="rect_8h_source.html">rect.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                 {
+  <span class="keywordflow">return</span> ((box.bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a>() &lt;= top_right.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a>()) &amp;&amp;
+    (box.top_right.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a>() &gt;= bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a>()));
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9f1aa7e1a714e01ae826600df63eccb3"></a><!-- doxytag: member="TBOX::x_overlap_fraction" ref="a9f1aa7e1a714e01ae826600df63eccb3" args="(const TBOX &amp;box) const " -->
@@ -1168,6 +1589,22 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rect_8h_source.html#l00447">447</a> of file <a class="el" href="rect_8h_source.html">rect.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                              {
+  <span class="keywordtype">int</span> low = <a class="code" href="ndminx_8h.html#aacc3ee1a7f283f8ef65cea31f4436a95">MAX</a>(<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>(), other.left());
+  <span class="keywordtype">int</span> high = <a class="code" href="ndminx_8h.html#a74e75242132eaabbc1c512488a135926">MIN</a>(<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>(), other.right());
+  <span class="keywordtype">int</span> <a class="code" href="class_t_b_o_x.html#af95494a2ccacc70cc2b83820b2948619">width</a> = <a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>() - <a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>();
+  <span class="keywordflow">if</span> (width == 0) {
+    <span class="keywordtype">int</span> x = <a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>();
+    <span class="keywordflow">if</span> (other.left() &lt;= x &amp;&amp; x &lt;= other.right())
+      <span class="keywordflow">return</span> 1.0;
+    <span class="keywordflow">else</span>
+      <span class="keywordflow">return</span> 0.0;
+  } <span class="keywordflow">else</span> {
+    <span class="keywordflow">return</span> <a class="code" href="ndminx_8h.html#aacc3ee1a7f283f8ef65cea31f4436a95">MAX</a>(0, static_cast&lt;double&gt;(high - low) / width);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a98e0f9a8622eec475ee93b260c57c7ab"></a><!-- doxytag: member="TBOX::y_gap" ref="a98e0f9a8622eec475ee93b260c57c7ab" args="(const TBOX &amp;box) const " -->
@@ -1185,6 +1622,12 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rect_8h_source.html#l00218">218</a> of file <a class="el" href="rect_8h_source.html">rect.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                     {
+      <span class="keywordflow">return</span> <a class="code" href="ndminx_8h.html#aacc3ee1a7f283f8ef65cea31f4436a95">MAX</a>(bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a>(), box.bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a>()) -
+             <a class="code" href="ndminx_8h.html#a74e75242132eaabbc1c512488a135926">MIN</a>(top_right.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a>(), box.top_right.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a>());
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7ae8e4b8b3af5b23db3d6c959249064c"></a><!-- doxytag: member="TBOX::y_overlap" ref="a7ae8e4b8b3af5b23db3d6c959249064c" args="(const TBOX &amp;box) const " -->
@@ -1202,6 +1645,12 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rect_8h_source.html#l00418">418</a> of file <a class="el" href="rect_8h_source.html">rect.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                 {
+  <span class="keywordflow">return</span> ((box.bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a>() &lt;= top_right.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a>()) &amp;&amp;
+    (box.top_right.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a>() &gt;= bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a>()));
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a79379377536b6b6fed259f3b577977c0"></a><!-- doxytag: member="TBOX::y_overlap_fraction" ref="a79379377536b6b6fed259f3b577977c0" args="(const TBOX &amp;box) const " -->
@@ -1219,6 +1668,22 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rect_8h_source.html#l00469">469</a> of file <a class="el" href="rect_8h_source.html">rect.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                              {
+  <span class="keywordtype">int</span> low = <a class="code" href="ndminx_8h.html#aacc3ee1a7f283f8ef65cea31f4436a95">MAX</a>(<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>(), other.bottom());
+  <span class="keywordtype">int</span> high = <a class="code" href="ndminx_8h.html#a74e75242132eaabbc1c512488a135926">MIN</a>(<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>(), other.top());
+  <span class="keywordtype">int</span> <a class="code" href="class_t_b_o_x.html#a8379d4bbc72bdbb1f069fc14790e632d">height</a> = <a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>() - <a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>();
+  <span class="keywordflow">if</span> (height == 0) {
+    <span class="keywordtype">int</span> y = <a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>();
+    <span class="keywordflow">if</span> (other.bottom() &lt;= y &amp;&amp; y &lt;= other.top())
+      <span class="keywordflow">return</span> 1.0;
+    <span class="keywordflow">else</span>
+      <span class="keywordflow">return</span> 0.0;
+  } <span class="keywordflow">else</span> {
+    <span class="keywordflow">return</span> <a class="code" href="ndminx_8h.html#aacc3ee1a7f283f8ef65cea31f4436a95">MAX</a>(0, static_cast&lt;double&gt;(high - low) / height);
+  }
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Friends And Related Function Documentation</h2>
@@ -1247,6 +1712,30 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rect_8cpp_source.html#l00221">221</a> of file <a class="el" href="rect_8cpp_source.html">rect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                             {
+  <span class="keywordflow">if</span> (op1.<a class="code" href="class_t_b_o_x.html#adcc7d2858ccb61cd715dbcff32bd5582">overlap</a> (op2)) {
+    <span class="keywordflow">if</span> (op2.bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () &gt; op1.bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ())
+      op1.bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a94c586039b3a003b35cf659b33b938f3" title="rewrite function">set_x</a> (op2.bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ());
+
+    <span class="keywordflow">if</span> (op2.top_right.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () &lt; op1.top_right.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ())
+      op1.top_right.<a class="code" href="class_i_c_o_o_r_d.html#a94c586039b3a003b35cf659b33b938f3" title="rewrite function">set_x</a> (op2.top_right.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ());
+
+    <span class="keywordflow">if</span> (op2.bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () &gt; op1.bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ())
+      op1.bot_left.<a class="code" href="class_i_c_o_o_r_d.html#aa9fb418d1c602c0533e426759da43d67" title="rewrite function">set_y</a> (op2.bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ());
+
+    <span class="keywordflow">if</span> (op2.top_right.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () &lt; op1.top_right.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ())
+      op1.top_right.<a class="code" href="class_i_c_o_o_r_d.html#aa9fb418d1c602c0533e426759da43d67" title="rewrite function">set_y</a> (op2.top_right.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ());
+  }
+  <span class="keywordflow">else</span> {
+    op1.bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a94c586039b3a003b35cf659b33b938f3" title="rewrite function">set_x</a> (<a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a>);
+    op1.bot_left.<a class="code" href="class_i_c_o_o_r_d.html#aa9fb418d1c602c0533e426759da43d67" title="rewrite function">set_y</a> (<a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a>);
+    op1.top_right.<a class="code" href="class_i_c_o_o_r_d.html#a94c586039b3a003b35cf659b33b938f3" title="rewrite function">set_x</a> (-<a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a>);
+    op1.top_right.<a class="code" href="class_i_c_o_o_r_d.html#aa9fb418d1c602c0533e426759da43d67" title="rewrite function">set_y</a> (-<a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a>);
+  }
+  <span class="keywordflow">return</span> op1;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aaf7b9efe1a330c91ea7193af78dec553"></a><!-- doxytag: member="TBOX::operator+=" ref="aaf7b9efe1a330c91ea7193af78dec553" args="(TBOX &amp;, const TBOX &amp;)" -->
@@ -1274,11 +1763,28 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rect_8cpp_source.html#l00196">196</a> of file <a class="el" href="rect_8cpp_source.html">rect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                  {
+  <span class="keywordflow">if</span> (op2.bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () &lt; op1.bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ())
+    op1.bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a94c586039b3a003b35cf659b33b938f3" title="rewrite function">set_x</a> (op2.bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ());
+
+  <span class="keywordflow">if</span> (op2.top_right.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () &gt; op1.top_right.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ())
+    op1.top_right.<a class="code" href="class_i_c_o_o_r_d.html#a94c586039b3a003b35cf659b33b938f3" title="rewrite function">set_x</a> (op2.top_right.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ());
+
+  <span class="keywordflow">if</span> (op2.bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () &lt; op1.bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ())
+    op1.bot_left.<a class="code" href="class_i_c_o_o_r_d.html#aa9fb418d1c602c0533e426759da43d67" title="rewrite function">set_y</a> (op2.bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ());
+
+  <span class="keywordflow">if</span> (op2.top_right.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () &gt; op1.top_right.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ())
+    op1.top_right.<a class="code" href="class_i_c_o_o_r_d.html#aa9fb418d1c602c0533e426759da43d67" title="rewrite function">set_y</a> (op2.top_right.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ());
+
+  <span class="keywordflow">return</span> op1;
+}
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/ccstruct/<a class="el" href="rect_8h_source.html">rect.h</a></li>
-<li>tesseract-ocr/ccstruct/<a class="el" href="rect_8cpp.html">rect.cpp</a></li>
+<li>tesseract-ocr/ccstruct/<a class="el" href="rect_8cpp_source.html">rect.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -1300,7 +1806,7 @@ Friends</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:13 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:47 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

@@ -123,7 +123,10 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_cube_tess_classifier.html#aac2934f79fec6a54766972375e364d93">ClassifySample</a> (const <a class="el" href="classtesseract_1_1_training_sample.html">TrainingSample</a> &amp;<a class="el" href="structsample.html">sample</a>, Pix *page_pix, int debug, int keep_this, <a class="el" href="class_generic_vector.html">GenericVector</a>&lt; <a class="el" href="structtesseract_1_1_shape_rating.html">ShapeRating</a> &gt; *results)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual const <a class="el" href="classtesseract_1_1_shape_table.html">ShapeTable</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_cube_tess_classifier.html#aa13fedc67d477fa8383043f92cd91b26">GetShapeTable</a> () const </td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="cubeclassifier_8h_source.html#l00057">57</a> of file <a class="el" href="cubeclassifier_8h_source.html">cubeclassifier.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="acf075cad0e846d0b42fbd4ec18c2302b"></a><!-- doxytag: member="tesseract::CubeTessClassifier::CubeTessClassifier" ref="acf075cad0e846d0b42fbd4ec18c2302b" args="(Tesseract *tesseract)" -->
 <div class="memitem">
 <div class="memproto">
@@ -139,6 +142,12 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cubeclassifier_8cpp_source.html#l00079">79</a> of file <a class="el" href="cubeclassifier_8cpp_source.html">cubeclassifier.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">    : cube_cntxt_(tesseract-&gt;<a class="code" href="classtesseract_1_1_tesseract.html#a5ec41afb14f223dd2ab976363efa8b58">GetCubeRecoContext</a>()),
+      shape_table_(*tesseract-&gt;<a class="code" href="classtesseract_1_1_classify.html#a5d8e80f8bd4a5779921f543c6eef796c">shape_table</a>()),
+      pruner_(<span class="keyword">new</span> TessClassifier(<span class="keyword">true</span>, tesseract)) {
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="afb2c06bd98d5b60ff859b509391f26bd"></a><!-- doxytag: member="tesseract::CubeTessClassifier::~CubeTessClassifier" ref="afb2c06bd98d5b60ff859b509391f26bd" args="()" -->
@@ -155,6 +164,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cubeclassifier_8cpp_source.html#l00084">84</a> of file <a class="el" href="cubeclassifier_8cpp_source.html">cubeclassifier.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                        {
+  <span class="keyword">delete</span> pruner_;
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -203,6 +217,43 @@ Public Member Functions</h2></td></tr>
 
 <p>Implements <a class="el" href="classtesseract_1_1_shape_classifier.html#a96f89853d2ffe4bcf82c2ce818bf849f">tesseract::ShapeClassifier</a>.</p>
 
+<p>Definition at line <a class="el" href="cubeclassifier_8cpp_source.html#l00090">90</a> of file <a class="el" href="cubeclassifier_8cpp_source.html">cubeclassifier.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                            {
+  <span class="keywordtype">int</span> num_results = pruner_-&gt;ClassifySample(<a class="code" href="structsample.html">sample</a>, page_pix, debug, keep_this,
+                                            results);
+  <span class="keywordflow">if</span> (page_pix == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) <span class="keywordflow">return</span> num_results;
+
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(cube_cntxt_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <span class="keyword">const</span> <a class="code" href="class_t_b_o_x.html">TBOX</a>&amp; char_box = <a class="code" href="structsample.html">sample</a>.bounding_box();
+  CubeObject* cube_obj = <span class="keyword">new</span> <a class="code" href="classtesseract_1_1_cube_object.html">tesseract::CubeObject</a>(
+      cube_cntxt_, page_pix, char_box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>(),
+      pixGetHeight(page_pix) - char_box.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>(),
+      char_box.<a class="code" href="class_t_b_o_x.html#af95494a2ccacc70cc2b83820b2948619">width</a>(), char_box.<a class="code" href="class_t_b_o_x.html#a8379d4bbc72bdbb1f069fc14790e632d">height</a>());
+  CharAltList* alt_list = cube_obj-&gt;<a class="code" href="classtesseract_1_1_cube_object.html#a81f6bbfded6ee56256213ea3711ec5a5">RecognizeChar</a>();
+  CharSet* char_set = cube_cntxt_-&gt;CharacterSet();
+  <span class="keywordflow">if</span> (alt_list != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> r = 0; r &lt; num_results; ++r) {
+      <span class="keyword">const</span> Shape&amp; shape = shape_table_.GetShape((*results)[r].shape_id);
+      <span class="comment">// Get the best cube probability of all unichars in the shape.</span>
+      <span class="keywordtype">double</span> best_prob = 0.0;
+      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; alt_list-&gt;AltCount(); ++i) {
+        <span class="keywordtype">int</span> alt_id = alt_list-&gt;Alt(i);
+        <span class="keywordtype">int</span> unichar_id = char_set-&gt;UnicharID(char_set-&gt;ClassString(alt_id));
+        <span class="keywordflow">if</span> (shape.ContainsUnichar(unichar_id) &amp;&amp;
+            alt_list-&gt;AltProb(i) &gt; best_prob) {
+          best_prob = alt_list-&gt;AltProb(i);
+        }
+      }
+      (*results)[r].rating = best_prob;
+    }
+    <span class="keyword">delete</span> alt_list;
+    <span class="comment">// Re-sort by rating.</span>
+    results-&gt;<a class="code" href="class_generic_vector.html#a999bbd8ff336c81fe1198ea714c7936d">sort</a>(&amp;<a class="code" href="structtesseract_1_1_shape_rating.html#a2e3c1c3af03514c4dc2faef9b99c1eb1">ShapeRating::SortDescendingRating</a>);
+  }
+  <span class="keyword">delete</span> cube_obj;
+  <span class="keywordflow">return</span> results-&gt;<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa13fedc67d477fa8383043f92cd91b26"></a><!-- doxytag: member="tesseract::CubeTessClassifier::GetShapeTable" ref="aa13fedc67d477fa8383043f92cd91b26" args="() const " -->
@@ -221,11 +272,16 @@ Public Member Functions</h2></td></tr>
 
 <p>Implements <a class="el" href="classtesseract_1_1_shape_classifier.html#ab5e612b18003a7c0ceae685ea1fe8571">tesseract::ShapeClassifier</a>.</p>
 
+<p>Definition at line <a class="el" href="cubeclassifier_8cpp_source.html#l00129">129</a> of file <a class="el" href="cubeclassifier_8cpp_source.html">cubeclassifier.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                          {
+  <span class="keywordflow">return</span> &amp;shape_table_;
+}
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/ccmain/<a class="el" href="cubeclassifier_8h_source.html">cubeclassifier.h</a></li>
-<li>tesseract-ocr/ccmain/<a class="el" href="cubeclassifier_8cpp.html">cubeclassifier.cpp</a></li>
+<li>tesseract-ocr/ccmain/<a class="el" href="cubeclassifier_8cpp_source.html">cubeclassifier.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -248,7 +304,7 @@ Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:14 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:48 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

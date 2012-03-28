@@ -133,6 +133,8 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="olutil_8h_source.html#l00045">45</a> of file <a class="el" href="olutil_8h_source.html">olutil.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a4bc2f1c0c8896eb6273a1e213280a446"></a><!-- doxytag: member="olutil.h::same_outline_bounds" ref="a4bc2f1c0c8896eb6273a1e213280a446" args="(outline, other_outline)" -->
@@ -164,6 +166,8 @@ Functions</h2></td></tr>
         outline-&gt;botright.x == other_outline-&gt;botright.x &amp;&amp; \
         outline-&gt;botright.y == other_outline-&gt;botright.y)   \
 </pre></div>
+<p>Definition at line <a class="el" href="olutil_8h_source.html#l00054">54</a> of file <a class="el" href="olutil_8h_source.html">olutil.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a4df928397c7bcfee5373a86d6f2f46da"></a><!-- doxytag: member="olutil.h::weighted_edgept_dist" ref="a4df928397c7bcfee5373a86d6f2f46da" args="(p1, p2, chop_x_y_weight)" -->
@@ -201,6 +205,8 @@ Functions</h2></td></tr>
         ((p1)-&gt;pos.y - (p2)-&gt;pos.y) *               \
         ((p1)-&gt;pos.y - (p2)-&gt;pos.y))
 </pre></div>
+<p>Definition at line <a class="el" href="olutil_8h_source.html#l00067">67</a> of file <a class="el" href="olutil_8h_source.html">olutil.h</a>.</p>
+
 </div>
 </div>
 <hr/><h2>Function Documentation</h2>
@@ -229,6 +235,22 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="olutil_8cpp_source.html#l00046">46</a> of file <a class="el" href="olutil_8cpp_source.html">olutil.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                    { 
+  <a class="code" href="struct_t_p_o_i_n_t.html">TPOINT</a> origin1;
+  <a class="code" href="struct_t_p_o_i_n_t.html">TPOINT</a> origin2;
+  <a class="code" href="struct_t_e_s_s_l_i_n_e.html">TESSLINE</a> *temp;
+
+  <a class="code" href="blobs_8cpp.html#a0464f690c04a9aeb7710a6df1c0ba1fb">blob_origin</a>(blob1, &amp;origin1); 
+  <a class="code" href="blobs_8cpp.html#a0464f690c04a9aeb7710a6df1c0ba1fb">blob_origin</a>(blob2, &amp;origin2); 
+
+  <span class="keywordflow">if</span> (origin1.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> &gt; origin2.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a>) {
+    temp = blob2-&gt;<a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a>;
+    blob2-&gt;<a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a> = blob1-&gt;<a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a>;
+    blob1-&gt;<a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a> = temp;
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a1d3c90a38ea91d7baf73af2c77b03d7f"></a><!-- doxytag: member="olutil.h::eliminate_duplicate_outlines" ref="a1d3c90a38ea91d7baf73af2c77b03d7f" args="(TBLOB *blob)" -->
@@ -246,6 +268,31 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="olutil_8cpp_source.html#l00067">67</a> of file <a class="el" href="olutil_8cpp_source.html">olutil.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                               { 
+  <a class="code" href="struct_t_e_s_s_l_i_n_e.html">TESSLINE</a> *outline;
+  <a class="code" href="struct_t_e_s_s_l_i_n_e.html">TESSLINE</a> *other_outline;
+  <a class="code" href="struct_t_e_s_s_l_i_n_e.html">TESSLINE</a> *last_outline;
+
+  <span class="keywordflow">for</span> (outline = blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a>; outline; outline = outline-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0fb224d43ea53a791f0957fa92793bef">next</a>) {
+
+    <span class="keywordflow">for</span> (last_outline = outline, other_outline = outline-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0fb224d43ea53a791f0957fa92793bef">next</a>;
+      other_outline;
+    last_outline = other_outline, other_outline = other_outline-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0fb224d43ea53a791f0957fa92793bef">next</a>) {
+
+      <span class="keywordflow">if</span> (<a class="code" href="olutil_8h.html#a4bc2f1c0c8896eb6273a1e213280a446">same_outline_bounds</a> (outline, other_outline)) {
+        last_outline-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0fb224d43ea53a791f0957fa92793bef">next</a> = other_outline-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0fb224d43ea53a791f0957fa92793bef">next</a>;
+        <span class="comment">// This doesn&#39;t leak - the outlines share the EDGEPTs.</span>
+        other_outline-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0ab1e26b1dae548f0bd3c096c6183b18">loop</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+        <span class="keyword">delete</span> other_outline;
+        other_outline = last_outline;
+        <span class="comment">// If it is part of a cut, then it can&#39;t be a hole any more.</span>
+        outline-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a8af6c63b0dca8a993397d2f5f0bc5723">is_hole</a> = <span class="keyword">false</span>;
+      }
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad4f4e346c4650affddae46c8df8299ce"></a><!-- doxytag: member="olutil.h::setup_blob_outlines" ref="ad4f4e346c4650affddae46c8df8299ce" args="(TBLOB *blob)" -->
@@ -263,6 +310,15 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="olutil_8cpp_source.html#l00096">96</a> of file <a class="el" href="olutil_8cpp_source.html">olutil.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                      { 
+  <a class="code" href="struct_t_e_s_s_l_i_n_e.html">TESSLINE</a> *outline;
+
+  <span class="keywordflow">for</span> (outline = blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a>; outline; outline = outline-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0fb224d43ea53a791f0957fa92793bef">next</a>) {
+    outline-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#aacf6d56a8b92228f875e06d09c78eca5">ComputeBoundingBox</a>();
+  }
+}
+</pre></div>
 </div>
 </div>
 </div>
@@ -285,7 +341,7 @@ Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:10 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:43 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

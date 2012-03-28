@@ -143,7 +143,10 @@ Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_c_c_util.html#ad4b9e31122e8da543bb91e90ccbc2ec4">use_definite_ambigs_for_classifier</a> = 0</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_c_c_util.html#aec36b71d7fc8a6e11c4c09e7cb5fb608">use_ambigs_for_adaption</a> = 0</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="ccutil_8h_source.html#l00054">54</a> of file <a class="el" href="ccutil_8h_source.html">ccutil.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="af688e380af69364e79fddf43c3197e3c"></a><!-- doxytag: member="tesseract::CCUtil::CCUtil" ref="af688e380af69364e79fddf43c3197e3c" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -158,6 +161,23 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ccutil_8cpp_source.html#l00007">7</a> of file <a class="el" href="ccutil_8cpp_source.html">ccutil.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">               :
+  params_(),
+  <a class="code" href="params_8h.html#a425d80a737f7f70a19c15d58b7edda20">STRING_INIT_MEMBER</a>(<a class="code" href="classtesseract_1_1_c_c_util.html#a41804cad7ea87ee3c6977ef0cf50dd8b">m_data_sub_dir</a>,
+                     <span class="stringliteral">&quot;tessdata/&quot;</span>, <span class="stringliteral">&quot;Directory for data files&quot;</span>, &amp;params_),
+<span class="preprocessor">#ifdef _WIN32</span>
+<span class="preprocessor"></span>  <a class="code" href="params_8h.html#a425d80a737f7f70a19c15d58b7edda20">STRING_INIT_MEMBER</a>(tessedit_module_name, WINDLLNAME,
+                     <span class="stringliteral">&quot;Module colocated with tessdata dir&quot;</span>, &amp;params_),
+<span class="preprocessor">#endif</span>
+<span class="preprocessor"></span>  <a class="code" href="params_8h.html#a6e0f36bb8e855e051b5116a745e71257">INT_INIT_MEMBER</a>(<a class="code" href="classtesseract_1_1_c_c_util.html#aec0d14ffccba67375c300da2cd46434c">ambigs_debug_level</a>, 0, <span class="stringliteral">&quot;Debug level for unichar ambiguities&quot;</span>,
+                  &amp;params_),
+  <a class="code" href="params_8h.html#afe1760253f2b6e3b14c1bf275d8531d4">BOOL_MEMBER</a>(<a class="code" href="classtesseract_1_1_c_c_util.html#ad4b9e31122e8da543bb91e90ccbc2ec4">use_definite_ambigs_for_classifier</a>, 0, <span class="stringliteral">&quot;Use definite&quot;</span>
+              <span class="stringliteral">&quot; ambiguities when running character classifier&quot;</span>, &amp;params_),
+  <a class="code" href="params_8h.html#afe1760253f2b6e3b14c1bf275d8531d4">BOOL_MEMBER</a>(<a class="code" href="classtesseract_1_1_c_c_util.html#aec36b71d7fc8a6e11c4c09e7cb5fb608">use_ambigs_for_adaption</a>, 0, <span class="stringliteral">&quot;Use ambigs for deciding&quot;</span>
+              <span class="stringliteral">&quot; whether to adapt to a character&quot;</span>, &amp;params_) {
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="adeaf195d61d6a5eaab4bcbb27a6f1af5"></a><!-- doxytag: member="tesseract::CCUtil::~CCUtil" ref="adeaf195d61d6a5eaab4bcbb27a6f1af5" args="()" -->
@@ -174,6 +194,10 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ccutil_8cpp_source.html#l00023">23</a> of file <a class="el" href="ccutil_8cpp_source.html">ccutil.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                {
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -202,6 +226,44 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mainblk_8cpp_source.html#l00046">46</a> of file <a class="el" href="mainblk_8cpp_source.html">mainblk.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                 {
+  <a class="code" href="classtesseract_1_1_c_c_util.html#a83b53925c7f421533b5f382c9a36ab1d">imagebasename</a> = basename;      <span class="comment">/*name of image */</span>
+  <a class="code" href="class_s_t_r_i_n_g.html">STRING</a> dll_module_name;
+<span class="preprocessor">  #ifdef _WIN32</span>
+<span class="preprocessor"></span>  dll_module_name = tessedit_module_name;
+<span class="preprocessor">  #endif</span>
+<span class="preprocessor"></span>
+  <span class="comment">// TESSDATA_PREFIX Environment variable overrules everything.</span>
+  <span class="comment">// Compiled in -DTESSDATA_PREFIX is next.</span>
+  <span class="comment">// NULL goes to current directory.</span>
+  <span class="comment">// An actual value of argv0 is used if getpath is successful.</span>
+  <span class="keywordflow">if</span> (!getenv(<span class="stringliteral">&quot;TESSDATA_PREFIX&quot;</span>)) {
+<span class="preprocessor">#ifdef TESSDATA_PREFIX</span>
+<span class="preprocessor"></span><span class="preprocessor">#define _STR(a) #a</span>
+<span class="preprocessor"></span><span class="preprocessor">#define _XSTR(a) _STR(a)</span>
+<span class="preprocessor"></span>    <a class="code" href="classtesseract_1_1_c_c_util.html#a4932d2070d3b91264958078abc991b17">datadir</a> = _XSTR(TESSDATA_PREFIX);
+<span class="preprocessor">#undef _XSTR</span>
+<span class="preprocessor"></span><span class="preprocessor">#undef _STR</span>
+<span class="preprocessor"></span><span class="preprocessor">#else</span>
+<span class="preprocessor"></span>    <span class="keywordflow">if</span> (argv0 != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      <span class="keywordflow">if</span> (<a class="code" href="basedir_8cpp.html#ada98b16e0f7b688a297bd1d4468cd581">getpath</a>(argv0, dll_module_name, <a class="code" href="classtesseract_1_1_c_c_util.html#a4932d2070d3b91264958078abc991b17">datadir</a>) &lt; 0)
+<span class="preprocessor">#ifdef __UNIX__</span>
+<span class="preprocessor"></span>        <a class="code" href="fileerr_8h.html#a33ffba120713106d14f1e425559ac571">CANTOPENFILE</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a>(<span class="stringliteral">&quot;main&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <span class="stringliteral">&quot;%s to get path&quot;</span>, argv0);
+<span class="preprocessor">#else</span>
+<span class="preprocessor"></span>        <a class="code" href="mainblk_8cpp.html#aa0543e0dd21b2e52395d15ed50cb9865">NO_PATH</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a>(<span class="stringliteral">&quot;main&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a488607ea6c5f90b63a063b953af1e078">DBG</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+<span class="preprocessor">#endif</span>
+<span class="preprocessor"></span>    } <span class="keywordflow">else</span> {
+      <a class="code" href="classtesseract_1_1_c_c_util.html#a4932d2070d3b91264958078abc991b17">datadir</a> = <span class="stringliteral">&quot;./&quot;</span>;
+    }
+<span class="preprocessor">#endif</span>
+<span class="preprocessor"></span>  } <span class="keywordflow">else</span> {
+    <a class="code" href="classtesseract_1_1_c_c_util.html#a4932d2070d3b91264958078abc991b17">datadir</a> = getenv(<span class="stringliteral">&quot;TESSDATA_PREFIX&quot;</span>);
+  }
+
+  <a class="code" href="classtesseract_1_1_c_c_util.html#a4932d2070d3b91264958078abc991b17">datadir</a> += <a class="code" href="classtesseract_1_1_c_c_util.html#a41804cad7ea87ee3c6977ef0cf50dd8b">m_data_sub_dir</a>;     <span class="comment">/*data directory */</span>
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac993425386ae1f73762107299ee8a114"></a><!-- doxytag: member="tesseract::CCUtil::params" ref="ac993425386ae1f73762107299ee8a114" args="()" -->
@@ -218,6 +280,9 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ccutil_8h_source.html#l00065">65</a> of file <a class="el" href="ccutil_8h_source.html">ccutil.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> &amp;params_; }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
@@ -233,6 +298,8 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>"Debug level for unichar ambiguities" </p>
 
+<p>Definition at line <a class="el" href="ccutil_8h_source.html#l00089">89</a> of file <a class="el" href="ccutil_8h_source.html">ccutil.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a4932d2070d3b91264958078abc991b17"></a><!-- doxytag: member="tesseract::CCUtil::datadir" ref="a4932d2070d3b91264958078abc991b17" args="" -->
@@ -245,6 +312,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="ccutil_8h_source.html#l00067">67</a> of file <a class="el" href="ccutil_8h_source.html">ccutil.h</a>.</p>
 
 </div>
 </div>
@@ -259,6 +328,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ccutil_8h_source.html#l00075">75</a> of file <a class="el" href="ccutil_8h_source.html">ccutil.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a83b53925c7f421533b5f382c9a36ab1d"></a><!-- doxytag: member="tesseract::CCUtil::imagebasename" ref="a83b53925c7f421533b5f382c9a36ab1d" args="" -->
@@ -271,6 +342,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="ccutil_8h_source.html#l00068">68</a> of file <a class="el" href="ccutil_8h_source.html">ccutil.h</a>.</p>
 
 </div>
 </div>
@@ -285,6 +358,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ccutil_8h_source.html#l00074">74</a> of file <a class="el" href="ccutil_8h_source.html">ccutil.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ae453cbd7e4899ebfc5cc3831e5a8dd66"></a><!-- doxytag: member="tesseract::CCUtil::lang" ref="ae453cbd7e4899ebfc5cc3831e5a8dd66" args="" -->
@@ -298,6 +373,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ccutil_8h_source.html#l00069">69</a> of file <a class="el" href="ccutil_8h_source.html">ccutil.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a259fbb37f1e940892938c71496c4d6ba"></a><!-- doxytag: member="tesseract::CCUtil::language_data_path_prefix" ref="a259fbb37f1e940892938c71496c4d6ba" args="" -->
@@ -310,6 +387,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="ccutil_8h_source.html#l00070">70</a> of file <a class="el" href="ccutil_8h_source.html">ccutil.h</a>.</p>
 
 </div>
 </div>
@@ -325,6 +404,8 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>"Directory for data files" </p>
 
+<p>Definition at line <a class="el" href="ccutil_8h_source.html#l00084">84</a> of file <a class="el" href="ccutil_8h_source.html">ccutil.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a4a585cb38d5b19b5caedb7aded4a679a"></a><!-- doxytag: member="tesseract::CCUtil::tessdata_manager" ref="a4a585cb38d5b19b5caedb7aded4a679a" args="" -->
@@ -337,6 +418,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="ccutil_8h_source.html#l00071">71</a> of file <a class="el" href="ccutil_8h_source.html">ccutil.h</a>.</p>
 
 </div>
 </div>
@@ -351,6 +434,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ccutil_8h_source.html#l00073">73</a> of file <a class="el" href="ccutil_8h_source.html">ccutil.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a69c5179ac5f10a24f3f97e16ca09460f"></a><!-- doxytag: member="tesseract::CCUtil::unicharset" ref="a69c5179ac5f10a24f3f97e16ca09460f" args="" -->
@@ -363,6 +448,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="ccutil_8h_source.html#l00072">72</a> of file <a class="el" href="ccutil_8h_source.html">ccutil.h</a>.</p>
 
 </div>
 </div>
@@ -378,6 +465,8 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>"Use ambigs for deciding whether to adapt to a character" </p>
 
+<p>Definition at line <a class="el" href="ccutil_8h_source.html#l00093">93</a> of file <a class="el" href="ccutil_8h_source.html">ccutil.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ad4b9e31122e8da543bb91e90ccbc2ec4"></a><!-- doxytag: member="tesseract::CCUtil::use_definite_ambigs_for_classifier" ref="ad4b9e31122e8da543bb91e90ccbc2ec4" args="" -->
@@ -392,12 +481,14 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>"Use definite ambiguities when running character classifier" </p>
 
+<p>Definition at line <a class="el" href="ccutil_8h_source.html#l00091">91</a> of file <a class="el" href="ccutil_8h_source.html">ccutil.h</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/ccutil/<a class="el" href="ccutil_8h_source.html">ccutil.h</a></li>
-<li>tesseract-ocr/ccutil/<a class="el" href="ccutil_8cpp.html">ccutil.cpp</a></li>
-<li>tesseract-ocr/ccutil/<a class="el" href="mainblk_8cpp.html">mainblk.cpp</a></li>
+<li>tesseract-ocr/ccutil/<a class="el" href="ccutil_8cpp_source.html">ccutil.cpp</a></li>
+<li>tesseract-ocr/ccutil/<a class="el" href="mainblk_8cpp_source.html">mainblk.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -420,7 +511,7 @@ Public Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:14 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:49 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

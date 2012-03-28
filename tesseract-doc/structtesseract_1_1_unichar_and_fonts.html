@@ -123,7 +123,10 @@ Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_generic_vector.html">GenericVector</a>&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtesseract_1_1_unichar_and_fonts.html#a08b997ac93c73ec4a7f238ac4c1a138a">font_ids</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtesseract_1_1_unichar_and_fonts.html#a7f388b84fe3f22ecf7ba783f3056ca47">unichar_id</a></td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="shapetable_8h_source.html#l00036">36</a> of file <a class="el" href="shapetable_8h_source.html">shapetable.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="acb6e439f7efaaa2953b1239c67992b84"></a><!-- doxytag: member="tesseract::UnicharAndFonts::UnicharAndFonts" ref="acb6e439f7efaaa2953b1239c67992b84" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -138,6 +141,10 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="shapetable_8h_source.html#l00037">37</a> of file <a class="el" href="shapetable_8h_source.html">shapetable.h</a>.</p>
+<div class="fragment"><pre class="fragment">                    : <a class="code" href="structtesseract_1_1_unichar_and_fonts.html#a7f388b84fe3f22ecf7ba783f3056ca47">unichar_id</a>(0) {
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6a85fd614ea1a315bb5c03e0fbaac534"></a><!-- doxytag: member="tesseract::UnicharAndFonts::UnicharAndFonts" ref="a6a85fd614ea1a315bb5c03e0fbaac534" args="(int uni_id, int font_id)" -->
@@ -165,6 +172,11 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="shapetable_8h_source.html#l00039">39</a> of file <a class="el" href="shapetable_8h_source.html">shapetable.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                           : <a class="code" href="structtesseract_1_1_unichar_and_fonts.html#a7f388b84fe3f22ecf7ba783f3056ca47">unichar_id</a>(uni_id) {
+    <a class="code" href="structtesseract_1_1_unichar_and_fonts.html#a08b997ac93c73ec4a7f238ac4c1a138a">font_ids</a>.<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(font_id);
+  }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -193,6 +205,17 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="shapetable_8cpp_source.html#l00040">40</a> of file <a class="el" href="shapetable_8cpp_source.html">shapetable.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                     {
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> uni_id;
+  <span class="keywordflow">if</span> (fread(&amp;uni_id, <span class="keyword">sizeof</span>(uni_id), 1, fp) != 1) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">if</span> (swap)
+    <a class="code" href="helpers_8h.html#ae7eeeca49954d4b13d269729f2fecd5a">ReverseN</a>(&amp;uni_id, <span class="keyword">sizeof</span>(uni_id));
+  <a class="code" href="structtesseract_1_1_unichar_and_fonts.html#a7f388b84fe3f22ecf7ba783f3056ca47">unichar_id</a> = uni_id;
+  <span class="keywordflow">if</span> (!<a class="code" href="structtesseract_1_1_unichar_and_fonts.html#a08b997ac93c73ec4a7f238ac4c1a138a">font_ids</a>.<a class="code" href="class_generic_vector.html#aa4f5b1bc0d044fbd1fc77363b798c39c">DeSerialize</a>(swap, fp)) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a14734d8855f169d6d69d14880243a02d"></a><!-- doxytag: member="tesseract::UnicharAndFonts::Serialize" ref="a14734d8855f169d6d69d14880243a02d" args="(FILE *fp)" -->
@@ -210,6 +233,14 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="shapetable_8cpp_source.html#l00032">32</a> of file <a class="el" href="shapetable_8cpp_source.html">shapetable.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                        {
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> uni_id = <a class="code" href="structtesseract_1_1_unichar_and_fonts.html#a7f388b84fe3f22ecf7ba783f3056ca47">unichar_id</a>;
+  <span class="keywordflow">if</span> (fwrite(&amp;uni_id, <span class="keyword">sizeof</span>(uni_id), 1, fp) != 1) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">if</span> (!<a class="code" href="structtesseract_1_1_unichar_and_fonts.html#a08b997ac93c73ec4a7f238ac4c1a138a">font_ids</a>.<a class="code" href="class_generic_vector.html#a51aeec27092537323abc7174af1c16ef">Serialize</a>(fp)) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a416f42c44c1bde4d7fdbc9c7ab8bf660"></a><!-- doxytag: member="tesseract::UnicharAndFonts::SortByUnicharId" ref="a416f42c44c1bde4d7fdbc9c7ab8bf660" args="(const void *v1, const void *v2)" -->
@@ -237,6 +268,13 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="shapetable_8cpp_source.html#l00051">51</a> of file <a class="el" href="shapetable_8cpp_source.html">shapetable.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                   {
+  <span class="keyword">const</span> <a class="code" href="structtesseract_1_1_unichar_and_fonts.html#acb6e439f7efaaa2953b1239c67992b84">UnicharAndFonts</a>* p1 = <span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><a class="code" href="structtesseract_1_1_unichar_and_fonts.html#acb6e439f7efaaa2953b1239c67992b84">UnicharAndFonts</a>*<span class="keyword">&gt;</span>(v1);
+  <span class="keyword">const</span> <a class="code" href="structtesseract_1_1_unichar_and_fonts.html#acb6e439f7efaaa2953b1239c67992b84">UnicharAndFonts</a>* p2 = <span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><a class="code" href="structtesseract_1_1_unichar_and_fonts.html#acb6e439f7efaaa2953b1239c67992b84">UnicharAndFonts</a>*<span class="keyword">&gt;</span>(v2);
+  <span class="keywordflow">return</span> p1-&gt;unichar_id - p2-&gt;unichar_id;
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
@@ -251,6 +289,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="shapetable_8h_source.html#l00052">52</a> of file <a class="el" href="shapetable_8h_source.html">shapetable.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a7f388b84fe3f22ecf7ba783f3056ca47"></a><!-- doxytag: member="tesseract::UnicharAndFonts::unichar_id" ref="a7f388b84fe3f22ecf7ba783f3056ca47" args="" -->
@@ -264,11 +304,13 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="shapetable_8h_source.html#l00053">53</a> of file <a class="el" href="shapetable_8h_source.html">shapetable.h</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following files:<ul>
 <li>tesseract-ocr/classify/<a class="el" href="shapetable_8h_source.html">shapetable.h</a></li>
-<li>tesseract-ocr/classify/<a class="el" href="shapetable_8cpp.html">shapetable.cpp</a></li>
+<li>tesseract-ocr/classify/<a class="el" href="shapetable_8cpp_source.html">shapetable.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -291,7 +333,7 @@ Public Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:15 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:50 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

@@ -163,6 +163,8 @@ Protected Attributes</h2></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>Base class for all tesseract image thresholding classes. Specific classes can add new thresholding methods by overriding ThresholdToPix. Each instance deals with a single image, but the design is intended to be useful for multiple calls to SetRectangle and ThresholdTo* if desired. </p>
+
+<p>Definition at line <a class="el" href="thresholder_8h_source.html#l00034">34</a> of file <a class="el" href="thresholder_8h_source.html">thresholder.h</a>.</p>
 </div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="abe08089c5e2087eac5e8a35c1725e8a2"></a><!-- doxytag: member="tesseract::ImageThresholder::ImageThresholder" ref="abe08089c5e2087eac5e8a35c1725e8a2" args="()" -->
 <div class="memitem">
@@ -178,6 +180,15 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="thresholder_8cpp_source.html#l00031">31</a> of file <a class="el" href="thresholder_8cpp_source.html">thresholder.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">  : <a class="code" href="classtesseract_1_1_image_thresholder.html#a8ffaca2b9b8f5c01df4959d043564e44">pix_</a>(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>),
+    <a class="code" href="classtesseract_1_1_image_thresholder.html#a8aaf3664bd91cd3e5703f92d8d13566f" title="Exactly one of pix_ and image_data_ is not NULL.">image_data_</a>(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>),
+    <a class="code" href="classtesseract_1_1_image_thresholder.html#ad19482689e862049210ed12506e3e430">image_width_</a>(0), <a class="code" href="classtesseract_1_1_image_thresholder.html#af850057e6640359179bea0835254cc12">image_height_</a>(0),
+    <a class="code" href="classtesseract_1_1_image_thresholder.html#adf6d9b0922a0ecf3309ea2423bdcf369">image_bytespp_</a>(0), <a class="code" href="classtesseract_1_1_image_thresholder.html#a3d26f0b9a6f00eb771276769cfc08268">image_bytespl_</a>(0),
+    <a class="code" href="classtesseract_1_1_image_thresholder.html#abf0aec155d23b51c245c4163582cd82c">scale_</a>(1), <a class="code" href="classtesseract_1_1_image_thresholder.html#ac80aad234efc5a4102805a05d5825aa4">yres_</a>(300), <a class="code" href="classtesseract_1_1_image_thresholder.html#a7f6c21281f37d495ed2272e931e990ac">estimated_res_</a>(300) {
+  <a class="code" href="classtesseract_1_1_image_thresholder.html#ab230142a51f5ed6347f1a9221e52d264">SetRectangle</a>(0, 0, 0, 0);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab1ceb90c081f9a37b40904167483a7ef"></a><!-- doxytag: member="tesseract::ImageThresholder::~ImageThresholder" ref="ab1ceb90c081f9a37b40904167483a7ef" args="()" -->
@@ -194,6 +205,11 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="thresholder_8cpp_source.html#l00040">40</a> of file <a class="el" href="thresholder_8cpp_source.html">thresholder.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                    {
+  <a class="code" href="classtesseract_1_1_image_thresholder.html#afe5b51a09de405a0fc04b1d72c3c908d" title="Destroy the Pix if there is one, freeing memory.">Clear</a>();
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -213,6 +229,15 @@ Protected Attributes</h2></td></tr>
 
 <p>Destroy the Pix if there is one, freeing memory. </p>
 
+<p>Definition at line <a class="el" href="thresholder_8cpp_source.html#l00045">45</a> of file <a class="el" href="thresholder_8cpp_source.html">thresholder.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                             {
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_image_thresholder.html#a8ffaca2b9b8f5c01df4959d043564e44">pix_</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    pixDestroy(&amp;<a class="code" href="classtesseract_1_1_image_thresholder.html#a8ffaca2b9b8f5c01df4959d043564e44">pix_</a>);
+    <a class="code" href="classtesseract_1_1_image_thresholder.html#a8ffaca2b9b8f5c01df4959d043564e44">pix_</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <a class="code" href="classtesseract_1_1_image_thresholder.html#a8aaf3664bd91cd3e5703f92d8d13566f" title="Exactly one of pix_ and image_data_ is not NULL.">image_data_</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4e7f450e7c88d85a3e8dd8fa2baa3776"></a><!-- doxytag: member="tesseract::ImageThresholder::GetImageSizes" ref="a4e7f450e7c88d85a3e8dd8fa2baa3776" args="(int *left, int *top, int *width, int *height, int *imagewidth, int *imageheight)" -->
@@ -265,6 +290,16 @@ Protected Attributes</h2></td></tr>
 <div class="memdoc">
 <p>Get enough parameters to be able to rebuild bounding boxes in the original image (not just within the rectangle). Left and top are enough with top-down coordinates, but the height of the rectangle and the image are needed for bottom-up. </p>
 
+<p>Definition at line <a class="el" href="thresholder_8cpp_source.html#l00099">99</a> of file <a class="el" href="thresholder_8cpp_source.html">thresholder.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                        {
+  *left = <a class="code" href="classtesseract_1_1_image_thresholder.html#abf7d4771ff09f7a3e6e45f20ed3bd531">rect_left_</a>;
+  *top = <a class="code" href="classtesseract_1_1_image_thresholder.html#a46518f2527c1198bfc524b93aad56e72">rect_top_</a>;
+  *width = <a class="code" href="classtesseract_1_1_image_thresholder.html#a450cd3577eebea0e372b059b6d4cac7e">rect_width_</a>;
+  *height = <a class="code" href="classtesseract_1_1_image_thresholder.html#a8455c5c0f05f987a19b9cd1a250f6b1d">rect_height_</a>;
+  *imagewidth = <a class="code" href="classtesseract_1_1_image_thresholder.html#ad19482689e862049210ed12506e3e430">image_width_</a>;
+  *imageheight = <a class="code" href="classtesseract_1_1_image_thresholder.html#af850057e6640359179bea0835254cc12">image_height_</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a0b855cc35144b84f150bf39d5342d7f1"></a><!-- doxytag: member="tesseract::ImageThresholder::GetPixRect" ref="a0b855cc35144b84f150bf39d5342d7f1" args="()" -->
@@ -282,6 +317,26 @@ Protected Attributes</h2></td></tr>
 <div class="memdoc">
 <p>Get a clone/copy of the source image rectangle. The returned Pix must be pixDestroyed. This function will be used in the future by the page layout analysis, and the layout analysis that uses it will only be available with Leptonica, so there is no raw equivalent. </p>
 
+<p>Definition at line <a class="el" href="thresholder_8cpp_source.html#l00182">182</a> of file <a class="el" href="thresholder_8cpp_source.html">thresholder.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                  {
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_image_thresholder.html#a8ffaca2b9b8f5c01df4959d043564e44">pix_</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_image_thresholder.html#a475c44a55463d3b50293152023a1b9f4" title="Return true if we are processing the full image.">IsFullImage</a>()) {
+      <span class="comment">// Just clone the whole thing.</span>
+      <span class="keywordflow">return</span> pixClone(<a class="code" href="classtesseract_1_1_image_thresholder.html#a8ffaca2b9b8f5c01df4959d043564e44">pix_</a>);
+    } <span class="keywordflow">else</span> {
+      <span class="comment">// Crop to the given rectangle.</span>
+      Box* box = boxCreate(<a class="code" href="classtesseract_1_1_image_thresholder.html#abf7d4771ff09f7a3e6e45f20ed3bd531">rect_left_</a>, <a class="code" href="classtesseract_1_1_image_thresholder.html#a46518f2527c1198bfc524b93aad56e72">rect_top_</a>, <a class="code" href="classtesseract_1_1_image_thresholder.html#a450cd3577eebea0e372b059b6d4cac7e">rect_width_</a>, <a class="code" href="classtesseract_1_1_image_thresholder.html#a8455c5c0f05f987a19b9cd1a250f6b1d">rect_height_</a>);
+      Pix* cropped = pixClipRectangle(<a class="code" href="classtesseract_1_1_image_thresholder.html#a8ffaca2b9b8f5c01df4959d043564e44">pix_</a>, box, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+      boxDestroy(&amp;box);
+      <span class="keywordflow">return</span> cropped;
+    }
+  }
+  <span class="comment">// The input is raw, so we have to make a copy of it.</span>
+  Pix* raw_pix;
+  <a class="code" href="classtesseract_1_1_image_thresholder.html#af1f40fc739f878beed7941a83c82a967" title="Copy the raw image rectangle, taking all data from the class, to the Pix.">RawRectToPix</a>(&amp;raw_pix);
+  <span class="keywordflow">return</span> raw_pix;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a0a01ac88f9d1193ebb80c96a09a9b01f"></a><!-- doxytag: member="tesseract::ImageThresholder::GetPixRectGrey" ref="a0a01ac88f9d1193ebb80c96a09a9b01f" args="()" -->
@@ -299,6 +354,19 @@ Protected Attributes</h2></td></tr>
 <div class="memdoc">
 <p>Get a clone/copy of the source image rectangle, reduced to greyscale. The returned Pix must be pixDestroyed. This function will be used in the future by the page layout analysis, and the layout analysis that uses it will only be available with Leptonica, so there is no raw equivalent. </p>
 
+<p>Definition at line <a class="el" href="thresholder_8cpp_source.html#l00206">206</a> of file <a class="el" href="thresholder_8cpp_source.html">thresholder.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                      {
+  Pix* pix = <a class="code" href="classtesseract_1_1_image_thresholder.html#a0b855cc35144b84f150bf39d5342d7f1">GetPixRect</a>();  <span class="comment">// May have to be reduced to grey.</span>
+  <span class="keywordtype">int</span> depth = pixGetDepth(pix);
+  <span class="keywordflow">if</span> (depth != 8) {
+    Pix* result = depth &lt; 8 ? pixConvertTo8(pix, <span class="keyword">false</span>)
+                            : pixConvertRGBToLuminance(pix);
+    pixDestroy(&amp;pix);
+    <span class="keywordflow">return</span> result;
+  }
+  <span class="keywordflow">return</span> pix;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac132bc7502f0e9d2f71f34afd6d2eb83"></a><!-- doxytag: member="tesseract::ImageThresholder::GetScaledEstimatedResolution" ref="ac132bc7502f0e9d2f71f34afd6d2eb83" args="() const " -->
@@ -315,6 +383,11 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="thresholder_8h_source.html#l00106">106</a> of file <a class="el" href="thresholder_8h_source.html">thresholder.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                           {
+    <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_image_thresholder.html#abf0aec155d23b51c245c4163582cd82c">scale_</a> * <a class="code" href="classtesseract_1_1_image_thresholder.html#a7f6c21281f37d495ed2272e931e990ac">estimated_res_</a>;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2fb94a4d1697c06bff68e33269297c59"></a><!-- doxytag: member="tesseract::ImageThresholder::GetScaledYResolution" ref="a2fb94a4d1697c06bff68e33269297c59" args="() const " -->
@@ -331,6 +404,11 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="thresholder_8h_source.html#l00093">93</a> of file <a class="el" href="thresholder_8h_source.html">thresholder.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                   {
+    <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_image_thresholder.html#abf0aec155d23b51c245c4163582cd82c">scale_</a> * <a class="code" href="classtesseract_1_1_image_thresholder.html#ac80aad234efc5a4102805a05d5825aa4">yres_</a>;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7d8c733e8624ebc10e74ec2afd517398"></a><!-- doxytag: member="tesseract::ImageThresholder::GetScaleFactor" ref="a7d8c733e8624ebc10e74ec2afd517398" args="() const " -->
@@ -347,6 +425,11 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="thresholder_8h_source.html#l00079">79</a> of file <a class="el" href="thresholder_8h_source.html">thresholder.h</a>.</p>
+<div class="fragment"><pre class="fragment">                             {
+    <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_image_thresholder.html#abf0aec155d23b51c245c4163582cd82c">scale_</a>;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="abb962b7a1fc65945d08112f7496acce2"></a><!-- doxytag: member="tesseract::ImageThresholder::GetSourceYResolution" ref="abb962b7a1fc65945d08112f7496acce2" args="() const " -->
@@ -363,6 +446,11 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="thresholder_8h_source.html#l00090">90</a> of file <a class="el" href="thresholder_8h_source.html">thresholder.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                   {
+    <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_image_thresholder.html#ac80aad234efc5a4102805a05d5825aa4">yres_</a>;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab77c363f4f31edf539e83d28896959c5"></a><!-- doxytag: member="tesseract::ImageThresholder::Init" ref="ab77c363f4f31edf539e83d28896959c5" args="()" -->
@@ -381,6 +469,11 @@ Protected Attributes</h2></td></tr>
 
 <p>Common initialization shared between SetImage methods. </p>
 
+<p>Definition at line <a class="el" href="thresholder_8cpp_source.html#l00173">173</a> of file <a class="el" href="thresholder_8cpp_source.html">thresholder.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                            {
+  <a class="code" href="classtesseract_1_1_image_thresholder.html#ab230142a51f5ed6347f1a9221e52d264">SetRectangle</a>(0, 0, <a class="code" href="classtesseract_1_1_image_thresholder.html#ad19482689e862049210ed12506e3e430">image_width_</a>, <a class="code" href="classtesseract_1_1_image_thresholder.html#af850057e6640359179bea0835254cc12">image_height_</a>);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3399e9237569c4b2a5fd5268db593363"></a><!-- doxytag: member="tesseract::ImageThresholder::IsBinary" ref="a3399e9237569c4b2a5fd5268db593363" args="() const " -->
@@ -399,6 +492,11 @@ Protected Attributes</h2></td></tr>
 
 <p>Returns true if the source image is binary. </p>
 
+<p>Definition at line <a class="el" href="thresholder_8h_source.html#l00075">75</a> of file <a class="el" href="thresholder_8h_source.html">thresholder.h</a>.</p>
+<div class="fragment"><pre class="fragment">                        {
+    <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_image_thresholder.html#adf6d9b0922a0ecf3309ea2423bdcf369">image_bytespp_</a> == 0;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a57d21a0b70abfd3d5957386d116b6bde"></a><!-- doxytag: member="tesseract::ImageThresholder::IsColor" ref="a57d21a0b70abfd3d5957386d116b6bde" args="() const " -->
@@ -417,6 +515,11 @@ Protected Attributes</h2></td></tr>
 
 <p>Return true if the source image is color. </p>
 
+<p>Definition at line <a class="el" href="thresholder_8h_source.html#l00070">70</a> of file <a class="el" href="thresholder_8h_source.html">thresholder.h</a>.</p>
+<div class="fragment"><pre class="fragment">                       {
+    <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_image_thresholder.html#adf6d9b0922a0ecf3309ea2423bdcf369">image_bytespp_</a> &gt;= 3;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4a643445e9ab0e22fabe45308c6d2548"></a><!-- doxytag: member="tesseract::ImageThresholder::IsEmpty" ref="a4a643445e9ab0e22fabe45308c6d2548" args="() const " -->
@@ -435,6 +538,13 @@ Protected Attributes</h2></td></tr>
 
 <p>Return true if no image has been set. </p>
 
+<p>Definition at line <a class="el" href="thresholder_8cpp_source.html#l00054">54</a> of file <a class="el" href="thresholder_8cpp_source.html">thresholder.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                     {
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_image_thresholder.html#a8ffaca2b9b8f5c01df4959d043564e44">pix_</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_image_thresholder.html#a8aaf3664bd91cd3e5703f92d8d13566f" title="Exactly one of pix_ and image_data_ is not NULL.">image_data_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a475c44a55463d3b50293152023a1b9f4"></a><!-- doxytag: member="tesseract::ImageThresholder::IsFullImage" ref="a475c44a55463d3b50293152023a1b9f4" args="() const " -->
@@ -453,6 +563,12 @@ Protected Attributes</h2></td></tr>
 
 <p>Return true if we are processing the full image. </p>
 
+<p>Definition at line <a class="el" href="thresholder_8h_source.html#l00147">147</a> of file <a class="el" href="thresholder_8h_source.html">thresholder.h</a>.</p>
+<div class="fragment"><pre class="fragment">                           {
+    <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_image_thresholder.html#abf7d4771ff09f7a3e6e45f20ed3bd531">rect_left_</a> == 0 &amp;&amp; <a class="code" href="classtesseract_1_1_image_thresholder.html#a46518f2527c1198bfc524b93aad56e72">rect_top_</a> == 0 &amp;&amp;
+           <a class="code" href="classtesseract_1_1_image_thresholder.html#a450cd3577eebea0e372b059b6d4cac7e">rect_width_</a> == <a class="code" href="classtesseract_1_1_image_thresholder.html#ad19482689e862049210ed12506e3e430">image_width_</a> &amp;&amp; <a class="code" href="classtesseract_1_1_image_thresholder.html#a8455c5c0f05f987a19b9cd1a250f6b1d">rect_height_</a> == <a class="code" href="classtesseract_1_1_image_thresholder.html#af850057e6640359179bea0835254cc12">image_height_</a>;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9bbeac96aad481ce652816d8780b6e00"></a><!-- doxytag: member="tesseract::ImageThresholder::OtsuThresholdRectToPix" ref="a9bbeac96aad481ce652816d8780b6e00" args="(const unsigned char *imagedata, int bytes_per_pixel, int bytes_per_line, Pix **pix) const " -->
@@ -493,6 +609,21 @@ Protected Attributes</h2></td></tr>
 <div class="memdoc">
 <p>Otsu threshold the rectangle, taking everything except the image buffer pointer from the class, to the output Pix. </p>
 
+<p>Definition at line <a class="el" href="thresholder_8cpp_source.html#l00220">220</a> of file <a class="el" href="thresholder_8cpp_source.html">thresholder.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                               {
+  <span class="keywordtype">int</span>* thresholds;
+  <span class="keywordtype">int</span>* hi_values;
+  <a class="code" href="namespacetesseract.html#ace7c5fa55465a6bd91d0d374d3f3da5c">OtsuThreshold</a>(imagedata, bytes_per_pixel, bytes_per_line,
+                <a class="code" href="classtesseract_1_1_image_thresholder.html#abf7d4771ff09f7a3e6e45f20ed3bd531">rect_left_</a>, <a class="code" href="classtesseract_1_1_image_thresholder.html#a46518f2527c1198bfc524b93aad56e72">rect_top_</a>, <a class="code" href="classtesseract_1_1_image_thresholder.html#a450cd3577eebea0e372b059b6d4cac7e">rect_width_</a>, <a class="code" href="classtesseract_1_1_image_thresholder.html#a8455c5c0f05f987a19b9cd1a250f6b1d">rect_height_</a>,
+                &amp;thresholds, &amp;hi_values);
+
+  <span class="comment">// Threshold the image to the given IMAGE.</span>
+  <a class="code" href="classtesseract_1_1_image_thresholder.html#a2db93f0f736f8a555358f9e0c7a4356f">ThresholdRectToPix</a>(imagedata, bytes_per_pixel, bytes_per_line,
+                     thresholds, hi_values, pix);
+  <span class="keyword">delete</span> [] thresholds;
+  <span class="keyword">delete</span> [] hi_values;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="af1f40fc739f878beed7941a83c82a967"></a><!-- doxytag: member="tesseract::ImageThresholder::RawRectToPix" ref="af1f40fc739f878beed7941a83c82a967" args="(Pix **pix) const " -->
@@ -512,6 +643,48 @@ Protected Attributes</h2></td></tr>
 
 <p>Copy the raw image rectangle, taking all data from the class, to the Pix. </p>
 
+<p>Definition at line <a class="el" href="thresholder_8cpp_source.html#l00272">272</a> of file <a class="el" href="thresholder_8cpp_source.html">thresholder.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                   {
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_image_thresholder.html#adf6d9b0922a0ecf3309ea2423bdcf369">image_bytespp_</a> &lt; 4) {
+    <span class="comment">// Go via a tesseract image structure (doesn&#39;t copy the data)</span>
+    <span class="comment">// and use ToPix.</span>
+    <a class="code" href="class_i_m_a_g_e.html">IMAGE</a> image;
+    <span class="keywordtype">int</span> bits_per_pixel = <a class="code" href="classtesseract_1_1_image_thresholder.html#adf6d9b0922a0ecf3309ea2423bdcf369">image_bytespp_</a> * 8;
+    <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_image_thresholder.html#adf6d9b0922a0ecf3309ea2423bdcf369">image_bytespp_</a> == 0)
+      bits_per_pixel = 1;
+    image.<a class="code" href="class_i_m_a_g_e.html#a406454ec5c9e065f6404b909d4ba19a7">capture</a>(const_cast&lt;uinT8*&gt;(<a class="code" href="classtesseract_1_1_image_thresholder.html#a8aaf3664bd91cd3e5703f92d8d13566f" title="Exactly one of pix_ and image_data_ is not NULL.">image_data_</a>),
+                  <a class="code" href="classtesseract_1_1_image_thresholder.html#ad19482689e862049210ed12506e3e430">image_width_</a>, <a class="code" href="classtesseract_1_1_image_thresholder.html#a46518f2527c1198bfc524b93aad56e72">rect_top_</a> + <a class="code" href="classtesseract_1_1_image_thresholder.html#a8455c5c0f05f987a19b9cd1a250f6b1d">rect_height_</a>, bits_per_pixel);
+    <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_image_thresholder.html#a475c44a55463d3b50293152023a1b9f4" title="Return true if we are processing the full image.">IsFullImage</a>()) {
+      *pix = image.<a class="code" href="class_i_m_a_g_e.html#a93a54ced5f2ee393fd3f634e31bbd145">ToPix</a>();
+    } <span class="keywordflow">else</span> {
+      <a class="code" href="class_i_m_a_g_e.html">IMAGE</a> rect;
+      rect.<a class="code" href="class_i_m_a_g_e.html#aa827c8e72da25720295706017eda3d81">create</a>(<a class="code" href="classtesseract_1_1_image_thresholder.html#a450cd3577eebea0e372b059b6d4cac7e">rect_width_</a>, <a class="code" href="classtesseract_1_1_image_thresholder.html#a8455c5c0f05f987a19b9cd1a250f6b1d">rect_height_</a>, bits_per_pixel);
+      <span class="comment">// The capture chopped the image off at top+height, so copy</span>
+      <span class="comment">// the rectangle with y = 0 to get a rectangle of height</span>
+      <span class="comment">// starting at the bottom, since copy_sub_image uses bottom-up coords.</span>
+      <a class="code" href="imgs_8cpp.html#adf532c19ebf5ba5ec70086035b874dbc">copy_sub_image</a>(&amp;image, <a class="code" href="classtesseract_1_1_image_thresholder.html#abf7d4771ff09f7a3e6e45f20ed3bd531">rect_left_</a>, 0, <a class="code" href="classtesseract_1_1_image_thresholder.html#a450cd3577eebea0e372b059b6d4cac7e">rect_width_</a>, <a class="code" href="classtesseract_1_1_image_thresholder.html#a8455c5c0f05f987a19b9cd1a250f6b1d">rect_height_</a>,
+                     &amp;rect, 0, 0, <span class="keyword">true</span>);
+      *pix = rect.<a class="code" href="class_i_m_a_g_e.html#a93a54ced5f2ee393fd3f634e31bbd145">ToPix</a>();
+    }
+  } <span class="keywordflow">else</span> {
+    *pix = pixCreate(<a class="code" href="classtesseract_1_1_image_thresholder.html#a450cd3577eebea0e372b059b6d4cac7e">rect_width_</a>, <a class="code" href="classtesseract_1_1_image_thresholder.html#a8455c5c0f05f987a19b9cd1a250f6b1d">rect_height_</a>, 32);
+    <a class="code" href="host_8h.html#afc8530b39ebe0b6df1e19159d2508d15">uinT32</a>* data = pixGetData(*pix);
+    <span class="keywordtype">int</span> wpl = pixGetWpl(*pix);
+    <span class="keyword">const</span> <a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a>* imagedata = <a class="code" href="classtesseract_1_1_image_thresholder.html#a8aaf3664bd91cd3e5703f92d8d13566f" title="Exactly one of pix_ and image_data_ is not NULL.">image_data_</a> + <a class="code" href="classtesseract_1_1_image_thresholder.html#a46518f2527c1198bfc524b93aad56e72">rect_top_</a> * <a class="code" href="classtesseract_1_1_image_thresholder.html#a3d26f0b9a6f00eb771276769cfc08268">image_bytespl_</a> +
+                             <a class="code" href="classtesseract_1_1_image_thresholder.html#abf7d4771ff09f7a3e6e45f20ed3bd531">rect_left_</a> * <a class="code" href="classtesseract_1_1_image_thresholder.html#adf6d9b0922a0ecf3309ea2423bdcf369">image_bytespp_</a>;
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> y = 0; y &lt; <a class="code" href="classtesseract_1_1_image_thresholder.html#a8455c5c0f05f987a19b9cd1a250f6b1d">rect_height_</a>; ++y) {
+      <span class="keyword">const</span> <a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a>* linedata = imagedata;
+      <a class="code" href="host_8h.html#afc8530b39ebe0b6df1e19159d2508d15">uinT32</a>* line = data + y * wpl;
+      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> x = 0; x &lt; <a class="code" href="classtesseract_1_1_image_thresholder.html#a450cd3577eebea0e372b059b6d4cac7e">rect_width_</a>; ++x) {
+        line[x] = (linedata[0] &lt;&lt; 24) | (linedata[1] &lt;&lt; 16) |
+                  (linedata[2] &lt;&lt; 8) | linedata[3];
+        linedata += 4;
+      }
+      imagedata += <a class="code" href="classtesseract_1_1_image_thresholder.html#a3d26f0b9a6f00eb771276769cfc08268">image_bytespl_</a>;
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a395de01694f9b1034d7349b736a4dac0"></a><!-- doxytag: member="tesseract::ImageThresholder::SetEstimatedResolution" ref="a395de01694f9b1034d7349b736a4dac0" args="(int ppi)" -->
@@ -529,6 +702,11 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="thresholder_8h_source.html#l00101">101</a> of file <a class="el" href="thresholder_8h_source.html">thresholder.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                       {
+    <a class="code" href="classtesseract_1_1_image_thresholder.html#a7f6c21281f37d495ed2272e931e990ac">estimated_res_</a> = ppi;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6273ef2894757191288f857702fdd044"></a><!-- doxytag: member="tesseract::ImageThresholder::SetImage" ref="a6273ef2894757191288f857702fdd044" args="(const unsigned char *imagedata, int width, int height, int bytes_per_pixel, int bytes_per_line)" -->
@@ -575,6 +753,21 @@ Protected Attributes</h2></td></tr>
 <div class="memdoc">
 <p>SetImage makes a copy of only the metadata, not the underlying image buffer. It promises to treat the source as read-only in either case, but in return assumes that the Pix or image buffer remain valid throughout the life of the <a class="el" href="classtesseract_1_1_image_thresholder.html">ImageThresholder</a>. Greyscale of 8 and color of 24 or 32 bits per pixel may be given. Palette color images will not work properly and must be converted to 24 bit. Binary images of 1 bit per pixel may also be given but they must be byte packed with the MSB of the first byte being the first pixel, and a one pixel is WHITE. For binary images set bytes_per_pixel=0. </p>
 
+<p>Definition at line <a class="el" href="thresholder_8cpp_source.html#l00070">70</a> of file <a class="el" href="thresholder_8cpp_source.html">thresholder.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                         {
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_image_thresholder.html#a8ffaca2b9b8f5c01df4959d043564e44">pix_</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    pixDestroy(&amp;<a class="code" href="classtesseract_1_1_image_thresholder.html#a8ffaca2b9b8f5c01df4959d043564e44">pix_</a>);
+  <a class="code" href="classtesseract_1_1_image_thresholder.html#a8ffaca2b9b8f5c01df4959d043564e44">pix_</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <a class="code" href="classtesseract_1_1_image_thresholder.html#a8aaf3664bd91cd3e5703f92d8d13566f" title="Exactly one of pix_ and image_data_ is not NULL.">image_data_</a> = imagedata;
+  <a class="code" href="classtesseract_1_1_image_thresholder.html#ad19482689e862049210ed12506e3e430">image_width_</a> = width;
+  <a class="code" href="classtesseract_1_1_image_thresholder.html#af850057e6640359179bea0835254cc12">image_height_</a> = height;
+  <a class="code" href="classtesseract_1_1_image_thresholder.html#adf6d9b0922a0ecf3309ea2423bdcf369">image_bytespp_</a> = bytes_per_pixel;
+  <a class="code" href="classtesseract_1_1_image_thresholder.html#a3d26f0b9a6f00eb771276769cfc08268">image_bytespl_</a> = bytes_per_line;
+  <a class="code" href="classtesseract_1_1_image_thresholder.html#abf0aec155d23b51c245c4163582cd82c">scale_</a> = 1;
+  <a class="code" href="classtesseract_1_1_image_thresholder.html#a7f6c21281f37d495ed2272e931e990ac">estimated_res_</a> = <a class="code" href="classtesseract_1_1_image_thresholder.html#ac80aad234efc5a4102805a05d5825aa4">yres_</a> = 300;
+  <a class="code" href="classtesseract_1_1_image_thresholder.html#ab77c363f4f31edf539e83d28896959c5" title="Common initialization shared between SetImage methods.">Init</a>();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a8497b408fd199c7e3233d1734ee388ea"></a><!-- doxytag: member="tesseract::ImageThresholder::SetImage" ref="a8497b408fd199c7e3233d1734ee388ea" args="(const Pix *pix)" -->
@@ -593,6 +786,31 @@ Protected Attributes</h2></td></tr>
 <div class="memdoc">
 <p>Pix vs raw, which to use? Implementations should provide the ability to source and target Pix where possible. A future version of <a class="el" href="classtesseract_1_1_tesseract.html">Tesseract</a> may choose to use Pix as its internal representation and discard <a class="el" href="class_i_m_a_g_e.html">IMAGE</a> altogether. Because of that, an implementation that sources and targets Pix may end up with less copies than an implementation that does not. NOTE: Opposite to SetImage for raw images, SetImage for Pix clones its input, so the source pix may be pixDestroyed immediately after. </p>
 
+<p>Definition at line <a class="el" href="thresholder_8cpp_source.html#l00112">112</a> of file <a class="el" href="thresholder_8cpp_source.html">thresholder.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                              {
+  <a class="code" href="classtesseract_1_1_image_thresholder.html#a8aaf3664bd91cd3e5703f92d8d13566f" title="Exactly one of pix_ and image_data_ is not NULL.">image_data_</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_image_thresholder.html#a8ffaca2b9b8f5c01df4959d043564e44">pix_</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    pixDestroy(&amp;<a class="code" href="classtesseract_1_1_image_thresholder.html#a8ffaca2b9b8f5c01df4959d043564e44">pix_</a>);
+  Pix* src = <span class="keyword">const_cast&lt;</span>Pix*<span class="keyword">&gt;</span>(pix);
+  <span class="keywordtype">int</span> depth;
+  pixGetDimensions(src, &amp;<a class="code" href="classtesseract_1_1_image_thresholder.html#ad19482689e862049210ed12506e3e430">image_width_</a>, &amp;<a class="code" href="classtesseract_1_1_image_thresholder.html#af850057e6640359179bea0835254cc12">image_height_</a>, &amp;depth);
+  <span class="comment">// Convert the image as necessary so it is one of binary, plain RGB, or</span>
+  <span class="comment">// 8 bit with no colormap.</span>
+  <span class="keywordflow">if</span> (depth &gt; 1 &amp;&amp; depth &lt; 8) {
+    <a class="code" href="classtesseract_1_1_image_thresholder.html#a8ffaca2b9b8f5c01df4959d043564e44">pix_</a> = pixConvertTo8(src, <span class="keyword">false</span>);
+  } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (pixGetColormap(src)) {
+    <a class="code" href="classtesseract_1_1_image_thresholder.html#a8ffaca2b9b8f5c01df4959d043564e44">pix_</a> = pixRemoveColormap(src, REMOVE_CMAP_BASED_ON_SRC);
+  } <span class="keywordflow">else</span> {
+    <a class="code" href="classtesseract_1_1_image_thresholder.html#a8ffaca2b9b8f5c01df4959d043564e44">pix_</a> = pixClone(src);
+  }
+  depth = pixGetDepth(<a class="code" href="classtesseract_1_1_image_thresholder.html#a8ffaca2b9b8f5c01df4959d043564e44">pix_</a>);
+  <a class="code" href="classtesseract_1_1_image_thresholder.html#adf6d9b0922a0ecf3309ea2423bdcf369">image_bytespp_</a> = depth / 8;
+  <a class="code" href="classtesseract_1_1_image_thresholder.html#a3d26f0b9a6f00eb771276769cfc08268">image_bytespl_</a> = pixGetWpl(<a class="code" href="classtesseract_1_1_image_thresholder.html#a8ffaca2b9b8f5c01df4959d043564e44">pix_</a>) * <span class="keyword">sizeof</span>(l_uint32);
+  <a class="code" href="classtesseract_1_1_image_thresholder.html#abf0aec155d23b51c245c4163582cd82c">scale_</a> = 1;
+  <a class="code" href="classtesseract_1_1_image_thresholder.html#a7f6c21281f37d495ed2272e931e990ac">estimated_res_</a> = <a class="code" href="classtesseract_1_1_image_thresholder.html#ac80aad234efc5a4102805a05d5825aa4">yres_</a> = pixGetYRes(src);
+  <a class="code" href="classtesseract_1_1_image_thresholder.html#ab77c363f4f31edf539e83d28896959c5" title="Common initialization shared between SetImage methods.">Init</a>();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab230142a51f5ed6347f1a9221e52d264"></a><!-- doxytag: member="tesseract::ImageThresholder::SetRectangle" ref="ab230142a51f5ed6347f1a9221e52d264" args="(int left, int top, int width, int height)" -->
@@ -633,6 +851,14 @@ Protected Attributes</h2></td></tr>
 <div class="memdoc">
 <p>Store the coordinates of the rectangle to process for later use. Doesn't actually do any thresholding. </p>
 
+<p>Definition at line <a class="el" href="thresholder_8cpp_source.html#l00088">88</a> of file <a class="el" href="thresholder_8cpp_source.html">thresholder.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                            {
+  <a class="code" href="classtesseract_1_1_image_thresholder.html#abf7d4771ff09f7a3e6e45f20ed3bd531">rect_left_</a> = left;
+  <a class="code" href="classtesseract_1_1_image_thresholder.html#a46518f2527c1198bfc524b93aad56e72">rect_top_</a> = top;
+  <a class="code" href="classtesseract_1_1_image_thresholder.html#a450cd3577eebea0e372b059b6d4cac7e">rect_width_</a> = width;
+  <a class="code" href="classtesseract_1_1_image_thresholder.html#a8455c5c0f05f987a19b9cd1a250f6b1d">rect_height_</a> = height;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="af96fa2b6f4d1271640d5c8842f4fa9d6"></a><!-- doxytag: member="tesseract::ImageThresholder::SetSourceYResolution" ref="af96fa2b6f4d1271640d5c8842f4fa9d6" args="(int ppi)" -->
@@ -650,6 +876,12 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="thresholder_8h_source.html#l00086">86</a> of file <a class="el" href="thresholder_8h_source.html">thresholder.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                     {
+    <a class="code" href="classtesseract_1_1_image_thresholder.html#ac80aad234efc5a4102805a05d5825aa4">yres_</a> = ppi;
+    <a class="code" href="classtesseract_1_1_image_thresholder.html#a7f6c21281f37d495ed2272e931e990ac">estimated_res_</a> = ppi;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2db93f0f736f8a555358f9e0c7a4356f"></a><!-- doxytag: member="tesseract::ImageThresholder::ThresholdRectToPix" ref="a2db93f0f736f8a555358f9e0c7a4356f" args="(const unsigned char *imagedata, int bytes_per_pixel, int bytes_per_line, const int *thresholds, const int *hi_values, Pix **pix) const " -->
@@ -702,6 +934,34 @@ Protected Attributes</h2></td></tr>
 <div class="memdoc">
 <p>Threshold the rectangle, taking everything except the image buffer pointer from the class, using thresholds/hi_values to the output <a class="el" href="class_i_m_a_g_e.html">IMAGE</a>. </p>
 
+<p>Definition at line <a class="el" href="thresholder_8cpp_source.html#l00239">239</a> of file <a class="el" href="thresholder_8cpp_source.html">thresholder.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                           {
+  *pix = pixCreate(<a class="code" href="classtesseract_1_1_image_thresholder.html#a450cd3577eebea0e372b059b6d4cac7e">rect_width_</a>, <a class="code" href="classtesseract_1_1_image_thresholder.html#a8455c5c0f05f987a19b9cd1a250f6b1d">rect_height_</a>, 1);
+  <a class="code" href="host_8h.html#afc8530b39ebe0b6df1e19159d2508d15">uinT32</a>* pixdata = pixGetData(*pix);
+  <span class="keywordtype">int</span> wpl = pixGetWpl(*pix);
+  <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>* srcdata = imagedata + <a class="code" href="classtesseract_1_1_image_thresholder.html#a46518f2527c1198bfc524b93aad56e72">rect_top_</a>* bytes_per_line +
+                                 <a class="code" href="classtesseract_1_1_image_thresholder.html#abf7d4771ff09f7a3e6e45f20ed3bd531">rect_left_</a> * bytes_per_pixel;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> y = 0; y &lt; <a class="code" href="classtesseract_1_1_image_thresholder.html#a8455c5c0f05f987a19b9cd1a250f6b1d">rect_height_</a>; ++y) {
+    <span class="keyword">const</span> <a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a>* linedata = srcdata;
+    <a class="code" href="host_8h.html#afc8530b39ebe0b6df1e19159d2508d15">uinT32</a>* pixline = pixdata + y * wpl;
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> x = 0; x &lt; <a class="code" href="classtesseract_1_1_image_thresholder.html#a450cd3577eebea0e372b059b6d4cac7e">rect_width_</a>; ++x, linedata += bytes_per_pixel) {
+      <span class="keywordtype">bool</span> white_result = <span class="keyword">true</span>;
+      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> ch = 0; ch &lt; bytes_per_pixel; ++ch) {
+        <span class="keywordflow">if</span> (hi_values[ch] &gt;= 0 &amp;&amp;
+            (linedata[ch] &gt; thresholds[ch]) == (hi_values[ch] == 0)) {
+          white_result = <span class="keyword">false</span>;
+          <span class="keywordflow">break</span>;
+        }
+      }
+      <span class="keywordflow">if</span> (white_result)
+        CLEAR_DATA_BIT(pixline, x);
+      <span class="keywordflow">else</span>
+        SET_DATA_BIT(pixline, x);
+    }
+    srcdata += bytes_per_line;
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a8240c360cff397784e7e9f635d9ed7a3"></a><!-- doxytag: member="tesseract::ImageThresholder::ThresholdToPix" ref="a8240c360cff397784e7e9f635d9ed7a3" args="(Pix **pix)" -->
@@ -720,6 +980,40 @@ Protected Attributes</h2></td></tr>
 <div class="memdoc">
 <p>Threshold the source image as efficiently as possible to the output Pix. Creates a Pix and sets pix to point to the resulting pointer. Caller must use pixDestroy to free the created Pix. </p>
 
+<p>Definition at line <a class="el" href="thresholder_8cpp_source.html#l00139">139</a> of file <a class="el" href="thresholder_8cpp_source.html">thresholder.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                               {
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_image_thresholder.html#a8ffaca2b9b8f5c01df4959d043564e44">pix_</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_image_thresholder.html#adf6d9b0922a0ecf3309ea2423bdcf369">image_bytespp_</a> == 0) {
+      <span class="comment">// We have a binary image, so it just has to be cloned.</span>
+      *pix = <a class="code" href="classtesseract_1_1_image_thresholder.html#a0b855cc35144b84f150bf39d5342d7f1">GetPixRect</a>();
+    } <span class="keywordflow">else</span> {
+      <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_image_thresholder.html#adf6d9b0922a0ecf3309ea2423bdcf369">image_bytespp_</a> == 4) {
+        <span class="comment">// Color data can just be passed direct.</span>
+        <span class="keyword">const</span> <a class="code" href="host_8h.html#afc8530b39ebe0b6df1e19159d2508d15">uinT32</a>* data = pixGetData(<a class="code" href="classtesseract_1_1_image_thresholder.html#a8ffaca2b9b8f5c01df4959d043564e44">pix_</a>);
+        <a class="code" href="classtesseract_1_1_image_thresholder.html#a9bbeac96aad481ce652816d8780b6e00">OtsuThresholdRectToPix</a>(reinterpret_cast&lt;const uinT8*&gt;(data),
+                               <a class="code" href="classtesseract_1_1_image_thresholder.html#adf6d9b0922a0ecf3309ea2423bdcf369">image_bytespp_</a>, <a class="code" href="classtesseract_1_1_image_thresholder.html#a3d26f0b9a6f00eb771276769cfc08268">image_bytespl_</a>, pix);
+      } <span class="keywordflow">else</span> {
+        <span class="comment">// Convert 8-bit to IMAGE and then pass its</span>
+        <span class="comment">// buffer to the raw interface to complete the conversion.</span>
+        <a class="code" href="class_i_m_a_g_e.html">IMAGE</a> temp_image;
+        temp_image.<a class="code" href="class_i_m_a_g_e.html#aac99e9fed5c4bc572e2415971e34591e">FromPix</a>(<a class="code" href="classtesseract_1_1_image_thresholder.html#a8ffaca2b9b8f5c01df4959d043564e44">pix_</a>);
+        <a class="code" href="classtesseract_1_1_image_thresholder.html#a9bbeac96aad481ce652816d8780b6e00">OtsuThresholdRectToPix</a>(temp_image.<a class="code" href="class_i_m_a_g_e.html#a57b00c9b6bd4c915175f546404ddfb66">get_buffer</a>(),
+                               <a class="code" href="classtesseract_1_1_image_thresholder.html#adf6d9b0922a0ecf3309ea2423bdcf369">image_bytespp_</a>,
+                               <a class="code" href="img_8h.html#a0ee65bc5580141bc6e2f538915b8af70">COMPUTE_IMAGE_XDIM</a>(temp_image.<a class="code" href="class_i_m_a_g_e.html#aee6f16416203f7d678fc61ae22dedc6e">get_xsize</a>(),
+                                                  temp_image.<a class="code" href="class_i_m_a_g_e.html#adc989f275743a36c9a9bce4b83c48c72">get_bpp</a>()),
+                               pix);
+      }
+    }
+    <span class="keywordflow">return</span>;
+  }
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_image_thresholder.html#adf6d9b0922a0ecf3309ea2423bdcf369">image_bytespp_</a> &gt; 0) {
+    <span class="comment">// Threshold grey or color.</span>
+    <a class="code" href="classtesseract_1_1_image_thresholder.html#a9bbeac96aad481ce652816d8780b6e00">OtsuThresholdRectToPix</a>(<a class="code" href="classtesseract_1_1_image_thresholder.html#a8aaf3664bd91cd3e5703f92d8d13566f" title="Exactly one of pix_ and image_data_ is not NULL.">image_data_</a>, <a class="code" href="classtesseract_1_1_image_thresholder.html#adf6d9b0922a0ecf3309ea2423bdcf369">image_bytespp_</a>, <a class="code" href="classtesseract_1_1_image_thresholder.html#a3d26f0b9a6f00eb771276769cfc08268">image_bytespl_</a>, pix);
+  } <span class="keywordflow">else</span> {
+    <a class="code" href="classtesseract_1_1_image_thresholder.html#af1f40fc739f878beed7941a83c82a967" title="Copy the raw image rectangle, taking all data from the class, to the Pix.">RawRectToPix</a>(pix);
+  }
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
@@ -734,6 +1028,8 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="thresholder_8h_source.html#l00182">182</a> of file <a class="el" href="thresholder_8h_source.html">thresholder.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a3d26f0b9a6f00eb771276769cfc08268"></a><!-- doxytag: member="tesseract::ImageThresholder::image_bytespl_" ref="a3d26f0b9a6f00eb771276769cfc08268" args="" -->
@@ -747,6 +1043,8 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="thresholder_8h_source.html#l00178">178</a> of file <a class="el" href="thresholder_8h_source.html">thresholder.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="adf6d9b0922a0ecf3309ea2423bdcf369"></a><!-- doxytag: member="tesseract::ImageThresholder::image_bytespp_" ref="adf6d9b0922a0ecf3309ea2423bdcf369" args="" -->
@@ -759,6 +1057,8 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="thresholder_8h_source.html#l00177">177</a> of file <a class="el" href="thresholder_8h_source.html">thresholder.h</a>.</p>
 
 </div>
 </div>
@@ -775,6 +1075,8 @@ Protected Attributes</h2></td></tr>
 
 <p>Exactly one of pix_ and image_data_ is not NULL. </p>
 
+<p>Definition at line <a class="el" href="thresholder_8h_source.html#l00173">173</a> of file <a class="el" href="thresholder_8h_source.html">thresholder.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="af850057e6640359179bea0835254cc12"></a><!-- doxytag: member="tesseract::ImageThresholder::image_height_" ref="af850057e6640359179bea0835254cc12" args="" -->
@@ -788,6 +1090,8 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="thresholder_8h_source.html#l00176">176</a> of file <a class="el" href="thresholder_8h_source.html">thresholder.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ad19482689e862049210ed12506e3e430"></a><!-- doxytag: member="tesseract::ImageThresholder::image_width_" ref="ad19482689e862049210ed12506e3e430" args="" -->
@@ -800,6 +1104,8 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="thresholder_8h_source.html#l00175">175</a> of file <a class="el" href="thresholder_8h_source.html">thresholder.h</a>.</p>
 
 </div>
 </div>
@@ -815,6 +1121,8 @@ Protected Attributes</h2></td></tr>
 <div class="memdoc">
 <p>Clone or other copy of the source Pix. The pix will always be PixDestroy()ed on destruction of the class. </p>
 
+<p>Definition at line <a class="el" href="thresholder_8h_source.html#l00171">171</a> of file <a class="el" href="thresholder_8h_source.html">thresholder.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a8455c5c0f05f987a19b9cd1a250f6b1d"></a><!-- doxytag: member="tesseract::ImageThresholder::rect_height_" ref="a8455c5c0f05f987a19b9cd1a250f6b1d" args="" -->
@@ -827,6 +1135,8 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="thresholder_8h_source.html#l00186">186</a> of file <a class="el" href="thresholder_8h_source.html">thresholder.h</a>.</p>
 
 </div>
 </div>
@@ -841,6 +1151,8 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="thresholder_8h_source.html#l00183">183</a> of file <a class="el" href="thresholder_8h_source.html">thresholder.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a46518f2527c1198bfc524b93aad56e72"></a><!-- doxytag: member="tesseract::ImageThresholder::rect_top_" ref="a46518f2527c1198bfc524b93aad56e72" args="" -->
@@ -853,6 +1165,8 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="thresholder_8h_source.html#l00184">184</a> of file <a class="el" href="thresholder_8h_source.html">thresholder.h</a>.</p>
 
 </div>
 </div>
@@ -867,6 +1181,8 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="thresholder_8h_source.html#l00185">185</a> of file <a class="el" href="thresholder_8h_source.html">thresholder.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="abf0aec155d23b51c245c4163582cd82c"></a><!-- doxytag: member="tesseract::ImageThresholder::scale_" ref="abf0aec155d23b51c245c4163582cd82c" args="" -->
@@ -879,6 +1195,8 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="thresholder_8h_source.html#l00180">180</a> of file <a class="el" href="thresholder_8h_source.html">thresholder.h</a>.</p>
 
 </div>
 </div>
@@ -893,11 +1211,13 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="thresholder_8h_source.html#l00181">181</a> of file <a class="el" href="thresholder_8h_source.html">thresholder.h</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/ccmain/<a class="el" href="thresholder_8h_source.html">thresholder.h</a></li>
-<li>tesseract-ocr/ccmain/<a class="el" href="thresholder_8cpp.html">thresholder.cpp</a></li>
+<li>tesseract-ocr/ccmain/<a class="el" href="thresholder_8cpp_source.html">thresholder.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -920,7 +1240,7 @@ Protected Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:14 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:49 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

@@ -126,10 +126,13 @@ Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sort_helper.html#a9e9db15e0bee9d0ab2e3242b80da3bc9">SortPairsByCount</a> (const void *v1, const void *v2)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_sort_helper.html#a591276ff047bdfced90d62f4b0ea69c2">SortPairsByValue</a> (const void *v1, const void *v2)</td></tr>
 </table>
-<h3>template&lt;typename T&gt;<br/>
- class SortHelper&lt; T &gt;</h3>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock"><h3>template&lt;typename T&gt;<br/>
+class SortHelper&lt; T &gt;</h3>
 
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+
+<p>Definition at line <a class="el" href="sorthelper_8h_source.html#l00036">36</a> of file <a class="el" href="sorthelper_8h_source.html">sorthelper.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a75727b521fe47303bafd1931ac7df857"></a><!-- doxytag: member="SortHelper::SortHelper" ref="a75727b521fe47303bafd1931ac7df857" args="(int sizehint)" -->
 <div class="memitem">
 <div class="memproto">
@@ -147,6 +150,9 @@ template&lt;typename T &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="sorthelper_8h_source.html#l00059">59</a> of file <a class="el" href="sorthelper_8h_source.html">sorthelper.h</a>.</p>
+<div class="fragment"><pre class="fragment">: counts_(sizehint) {}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -177,6 +183,19 @@ template&lt;typename T &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="sorthelper_8h_source.html#l00063">63</a> of file <a class="el" href="sorthelper_8h_source.html">sorthelper.h</a>.</p>
+<div class="fragment"><pre class="fragment">                               {
+    <span class="comment">// Linear search for value.</span>
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; counts_.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>(); ++i) {
+      <span class="keywordflow">if</span> (counts_[i].value == value) {
+        counts_[i].count += <a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a>;
+        <span class="keywordflow">return</span>;
+      }
+    }
+    SortPair&lt;T&gt; new_pair = {value, <a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a>};
+    counts_.<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(SortPair&lt;T&gt;(new_pair));
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae3b338e17717ea13a51e453b529a858b"></a><!-- doxytag: member="SortHelper::MaxCount" ref="ae3b338e17717ea13a51e453b529a858b" args="(T *max_value) const " -->
@@ -196,6 +215,19 @@ template&lt;typename T &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="sorthelper_8h_source.html#l00078">78</a> of file <a class="el" href="sorthelper_8h_source.html">sorthelper.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                   {
+    <span class="keywordtype">int</span> best_count = -<a class="code" href="host_8h.html#aac62d87844689a18b6f5339a89ed6e7f">MAX_INT32</a>;
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; counts_.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>(); ++i) {
+      <span class="keywordflow">if</span> (counts_[i].<a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a> &gt; best_count) {
+        best_count = counts_[i].count;
+        <span class="keywordflow">if</span> (max_value != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+          *max_value = counts_[i].value;
+      }
+    }
+    <span class="keywordflow">return</span> best_count;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a05890a598111521d5e37e0888665b3eb"></a><!-- doxytag: member="SortHelper::SortByCount" ref="a05890a598111521d5e37e0888665b3eb" args="()" -->
@@ -214,6 +246,12 @@ template&lt;typename T &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="sorthelper_8h_source.html#l00091">91</a> of file <a class="el" href="sorthelper_8h_source.html">sorthelper.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                   {
+    counts_.<a class="code" href="class_generic_vector.html#a999bbd8ff336c81fe1198ea714c7936d">sort</a>(&amp;<a class="code" href="class_sort_helper.html#a9e9db15e0bee9d0ab2e3242b80da3bc9">SortPairsByCount</a>);
+    <span class="keywordflow">return</span> counts_;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab292cf216cbf832150365c9e261aff65"></a><!-- doxytag: member="SortHelper::SortByValue" ref="ab292cf216cbf832150365c9e261aff65" args="()" -->
@@ -232,6 +270,12 @@ template&lt;typename T &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="sorthelper_8h_source.html#l00096">96</a> of file <a class="el" href="sorthelper_8h_source.html">sorthelper.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                   {
+    counts_.<a class="code" href="class_generic_vector.html#a999bbd8ff336c81fe1198ea714c7936d">sort</a>(&amp;<a class="code" href="class_sort_helper.html#a591276ff047bdfced90d62f4b0ea69c2">SortPairsByValue</a>);
+    <span class="keywordflow">return</span> counts_;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9e9db15e0bee9d0ab2e3242b80da3bc9"></a><!-- doxytag: member="SortHelper::SortPairsByCount" ref="a9e9db15e0bee9d0ab2e3242b80da3bc9" args="(const void *v1, const void *v2)" -->
@@ -261,6 +305,13 @@ template&lt;typename T &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="sorthelper_8h_source.html#l00044">44</a> of file <a class="el" href="sorthelper_8h_source.html">sorthelper.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                              {
+    <span class="keyword">const</span> SortPair&lt;T&gt;* p1 = <span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span>SortPair&lt;T&gt;*<span class="keyword">&gt;</span>(v1);
+    <span class="keyword">const</span> SortPair&lt;T&gt;* p2 = <span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span>SortPair&lt;T&gt;*<span class="keyword">&gt;</span>(v2);
+    <span class="keywordflow">return</span> p2-&gt;count - p1-&gt;count;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a591276ff047bdfced90d62f4b0ea69c2"></a><!-- doxytag: member="SortHelper::SortPairsByValue" ref="a591276ff047bdfced90d62f4b0ea69c2" args="(const void *v1, const void *v2)" -->
@@ -290,6 +341,15 @@ template&lt;typename T &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="sorthelper_8h_source.html#l00050">50</a> of file <a class="el" href="sorthelper_8h_source.html">sorthelper.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                              {
+    <span class="keyword">const</span> SortPair&lt;T&gt;* p1 = <span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span>SortPair&lt;T&gt;*<span class="keyword">&gt;</span>(v1);
+    <span class="keyword">const</span> SortPair&lt;T&gt;* p2 = <span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span>SortPair&lt;T&gt;*<span class="keyword">&gt;</span>(v2);
+    <span class="keywordflow">if</span> (p2-&gt;value - p1-&gt;value &lt; 0) <span class="keywordflow">return</span> -1;
+    <span class="keywordflow">if</span> (p2-&gt;value - p1-&gt;value &gt; 0) <span class="keywordflow">return</span> 1;
+    <span class="keywordflow">return</span> 0;
+  }
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
@@ -315,7 +375,7 @@ template&lt;typename T &gt; </div>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:13 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:46 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

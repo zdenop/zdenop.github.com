@@ -123,7 +123,10 @@ Public Member Functions</h2></td></tr>
 </div></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_o_r_t_e_d___f_l_o_a_t_s.html#a3cc23edceb0f05c83beb38d87d04f313">operator[]</a> (<a class="el" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> index)</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="sortflts_8h_source.html#l00046">46</a> of file <a class="el" href="sortflts_8h_source.html">sortflts.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a52d5a06d8a65848360c545608f78e6a9"></a><!-- doxytag: member="SORTED_FLOATS::SORTED_FLOATS" ref="a52d5a06d8a65848360c545608f78e6a9" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -139,6 +142,11 @@ Public Member Functions</h2></td></tr>
 <div class="memdoc">
 <p>empty constructor </p>
 
+<p>Definition at line <a class="el" href="sortflts_8h_source.html#l00050">50</a> of file <a class="el" href="sortflts_8h_source.html">sortflts.h</a>.</p>
+<div class="fragment"><pre class="fragment">                    {
+      it.set_to_list (&amp;list);
+    }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -175,6 +183,23 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="sortflts_8cpp_source.html#l00030">30</a> of file <a class="el" href="sortflts_8cpp_source.html">sortflts.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                   {
+  <a class="code" href="class_s_o_r_t_e_d___f_l_o_a_t.html">SORTED_FLOAT</a> *new_float = <span class="keyword">new</span> <a class="code" href="class_s_o_r_t_e_d___f_l_o_a_t.html">SORTED_FLOAT</a> (value, key);
+
+  <span class="keywordflow">if</span> (list.empty ())
+    it.add_after_stay_put (new_float);
+  <span class="keywordflow">else</span> {
+    it.move_to_first ();
+    <span class="keywordflow">while</span> (!it.at_last () &amp;&amp; it.data ()-&gt;entry &lt; value)
+      it.forward ();
+    <span class="keywordflow">if</span> (it.data ()-&gt;entry &lt; value)
+      it.add_after_stay_put (new_float);
+    <span class="keywordflow">else</span>
+      it.add_before_stay_put (new_float);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3cc23edceb0f05c83beb38d87d04f313"></a><!-- doxytag: member="SORTED_FLOATS::operator[]" ref="a3cc23edceb0f05c83beb38d87d04f313" args="(inT32 index)" -->
@@ -199,6 +224,12 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="sortflts_8cpp_source.html#l00075">75</a> of file <a class="el" href="sortflts_8cpp_source.html">sortflts.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">  {
+  it.move_to_first ();
+  <span class="keywordflow">return</span> it.data_relative (index)-&gt;entry;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a15d8a45629b1cbce9ea476760d4a4e5a"></a><!-- doxytag: member="SORTED_FLOATS::remove" ref="a15d8a45629b1cbce9ea476760d4a4e5a" args="(inT32 key)" -->
@@ -223,11 +254,23 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="sortflts_8cpp_source.html#l00055">55</a> of file <a class="el" href="sortflts_8cpp_source.html">sortflts.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                      {
+  <span class="keywordflow">if</span> (!list.empty ()) {
+    <span class="keywordflow">for</span> (it.mark_cycle_pt (); !it.cycled_list (); it.forward ()) {
+      <span class="keywordflow">if</span> (it.data ()-&gt;address == key) {
+        <span class="keyword">delete</span> it.extract ();
+        <span class="keywordflow">return</span>;
+      }
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/textord/<a class="el" href="sortflts_8h_source.html">sortflts.h</a></li>
-<li>tesseract-ocr/textord/<a class="el" href="sortflts_8cpp.html">sortflts.cpp</a></li>
+<li>tesseract-ocr/textord/<a class="el" href="sortflts_8cpp_source.html">sortflts.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -249,7 +292,7 @@ Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:13 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:46 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

@@ -167,6 +167,46 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="wordseg_8cpp_source.html#l00611">611</a> of file <a class="el" href="wordseg_8cpp_source.html">wordseg.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                      {
+  C_OUTLINE_IT cout_it;
+  C_BLOB_LIST cblobs;
+  C_BLOB_IT cblob_it = &amp;cblobs;
+  <a class="code" href="class_w_e_r_d.html">WERD</a> *word;                    <span class="comment">// new word</span>
+  <a class="code" href="class_b_l_o_b_n_b_o_x.html">BLOBNBOX</a> *bblob;               <span class="comment">// current blob</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> blobindex;               <span class="comment">// in row</span>
+
+  <span class="keywordflow">for</span> (blobindex = 0; blobindex &lt; blobcount; blobindex++) {
+    bblob = box_it-&gt;extract();
+    <span class="keywordflow">if</span> (bblob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#af37f373c72851534101f4caf296a3cf7">joined_to_prev</a>()) {
+      <span class="keywordflow">if</span> (bblob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a483f44541a4dd818f02225c92f030e07">cblob</a>() != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+        cout_it.set_to_list(cblob_it.data()-&gt;out_list());
+        cout_it.move_to_last();
+        cout_it.add_list_after(bblob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a483f44541a4dd818f02225c92f030e07">cblob</a>()-&gt;<a class="code" href="class_c___b_l_o_b.html#ae510f3d0e7398fbb46608082429eac89">out_list</a>());
+        <span class="keyword">delete</span> bblob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a483f44541a4dd818f02225c92f030e07">cblob</a>();
+      }
+    }
+    <span class="keywordflow">else</span> {
+      <span class="keywordflow">if</span> (bblob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a483f44541a4dd818f02225c92f030e07">cblob</a>() != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+        cblob_it.add_after_then_move(bblob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a483f44541a4dd818f02225c92f030e07">cblob</a>());
+    }
+    <span class="keyword">delete</span> bblob;
+    box_it-&gt;forward();          <span class="comment">// next one</span>
+  }
+
+  <span class="keywordflow">if</span> (blanks &lt; 1)
+    blanks = 1;
+
+  word = <span class="keyword">new</span> <a class="code" href="class_w_e_r_d.html">WERD</a>(&amp;cblobs, blanks, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+
+  <span class="keywordflow">if</span> (bol)
+    word-&gt;<a class="code" href="class_w_e_r_d.html#aa42c9f53794ab51c95503cd277e89c60">set_flag</a>(<a class="code" href="werd_8h.html#ad6968adbf8f2cc44adf333ec96efb0beaff21d7c8c8992120fff35942408a00d2">W_BOL</a>, <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>);
+  <span class="keywordflow">if</span> (box_it-&gt;at_first())
+    word-&gt;<a class="code" href="class_w_e_r_d.html#aa42c9f53794ab51c95503cd277e89c60">set_flag</a>(<a class="code" href="werd_8h.html#ad6968adbf8f2cc44adf333ec96efb0bea62efb985a62d85e014ee5ab039dd50ce">W_EOL</a>, <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>);  <span class="comment">// at end of line</span>
+
+  <span class="keywordflow">return</span> word;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a0725cc4e2bbf76c5d4af92746f921835"></a><!-- doxytag: member="wordseg.h::make_real_words" ref="a0725cc4e2bbf76c5d4af92746f921835" args="(tesseract::Textord *textord, TO_BLOCK *block, FCOORD rotation)" -->
@@ -200,6 +240,51 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="wordseg_8cpp_source.html#l00516">516</a> of file <a class="el" href="wordseg_8cpp_source.html">wordseg.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                      {
+  <a class="code" href="class_t_o___r_o_w.html">TO_ROW</a> *row;                   <span class="comment">//current row</span>
+  TO_ROW_IT row_it = block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#a4846ebdcc832b4b0a762d87c0d83a056">get_rows</a> ();
+  <a class="code" href="class_r_o_w.html">ROW</a> *real_row = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;          <span class="comment">//output row</span>
+  ROW_IT real_row_it = block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#a16e698664028b0d6d2193db64560c16b">block</a>-&gt;<a class="code" href="class_b_l_o_c_k.html#ae9826e422b0bf17a7592dee8db3fe058" title="get rows">row_list</a> ();
+
+  <span class="keywordflow">if</span> (row_it.empty ())
+    <span class="keywordflow">return</span>;                      <span class="comment">//empty block</span>
+  <span class="keywordflow">for</span> (row_it.mark_cycle_pt (); !row_it.cycled_list (); row_it.forward ()) {
+    row = row_it.data ();
+    <span class="keywordflow">if</span> (row-&gt;<a class="code" href="class_t_o___r_o_w.html#a39cee94572e70d35179c27cdf21a3022">blob_list</a> ()-&gt;empty () &amp;&amp; !row-&gt;<a class="code" href="class_t_o___r_o_w.html#a93c01f889dc8031cfd19c45069d49aed">rep_words</a>.empty ()) {
+      real_row = <a class="code" href="wordseg_8cpp.html#a1fa4cd3ec1f0048e56999e8a27d90fd8">make_rep_words</a> (row, block);
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (!row-&gt;<a class="code" href="class_t_o___r_o_w.html#a39cee94572e70d35179c27cdf21a3022">blob_list</a>()-&gt;empty()) {
+      <span class="comment">// In a fixed pitch document, some lines may be detected as fixed pitch</span>
+      <span class="comment">// while others don&#39;t, and will go through different path.</span>
+      <span class="comment">// For non-space delimited language like CJK, fixed pitch chop always</span>
+      <span class="comment">// leave the entire line as one word.  We can force consistent chopping</span>
+      <span class="comment">// with force_make_prop_words flag.</span>
+      <a class="code" href="class_p_o_l_y___b_l_o_c_k.html">POLY_BLOCK</a>* pb = block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#a16e698664028b0d6d2193db64560c16b">block</a>-&gt;<a class="code" href="class_p_d_b_l_k.html#a6670779c69aca2d574e4a0590d9b3939">poly_block</a>();
+      <span class="keywordflow">if</span> (<a class="code" href="wordseg_8cpp.html#ae0085e63bd8cba60336a1cc925a1604f">textord_chopper_test</a>) {
+        real_row = textord-&gt;<a class="code" href="classtesseract_1_1_textord.html#aca1e7ae6c3a435f0bf2b8260a2ca13e9">make_blob_words</a> (row, rotation);
+      } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="wordseg_8cpp.html#a66c61c442d8953408139d21042ee78e6">textord_force_make_prop_words</a> ||
+                 (pb != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp; !pb-&gt;<a class="code" href="class_p_o_l_y___b_l_o_c_k.html#abd32dee532afe634cdbacffc0b53e660">IsText</a>()) ||
+                 row-&gt;<a class="code" href="class_t_o___r_o_w.html#a86c03914f286e37cbbc30e341cf6c253">pitch_decision</a> == <a class="code" href="blobbox_8h.html#a4c698e96e1ebeb67e13f584c524fd154a9d6e380146149c1a17e58394bd40e438">PITCH_DEF_PROP</a> ||
+                 row-&gt;<a class="code" href="class_t_o___r_o_w.html#a86c03914f286e37cbbc30e341cf6c253">pitch_decision</a> == <a class="code" href="blobbox_8h.html#a4c698e96e1ebeb67e13f584c524fd154aa44925f7147c8bb8948712ba9fbe55d3">PITCH_CORR_PROP</a>) {
+        real_row = textord-&gt;<a class="code" href="classtesseract_1_1_textord.html#a511e66f00128f6e4240f44c047730d72">make_prop_words</a> (row, rotation);
+      } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (row-&gt;<a class="code" href="class_t_o___r_o_w.html#a86c03914f286e37cbbc30e341cf6c253">pitch_decision</a> == <a class="code" href="blobbox_8h.html#a4c698e96e1ebeb67e13f584c524fd154a0cba173121a328d3cb40be58bb3fd372">PITCH_DEF_FIXED</a> ||
+                 row-&gt;<a class="code" href="class_t_o___r_o_w.html#a86c03914f286e37cbbc30e341cf6c253">pitch_decision</a> == <a class="code" href="blobbox_8h.html#a4c698e96e1ebeb67e13f584c524fd154a66d4c50c3dfbe049f0600dbff10ec362">PITCH_CORR_FIXED</a>) {
+        real_row = <a class="code" href="fpchop_8cpp.html#a847ce086f4000dcaea3f209f5ca70429">fixed_pitch_words</a> (row, rotation);
+      } <span class="keywordflow">else</span> {
+        <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(<a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>);
+      }
+    }
+    <span class="keywordflow">if</span> (real_row != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+                                 <span class="comment">//put row in block</span>
+      real_row_it.add_after_then_move (real_row);
+    }
+  }
+  block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#a16e698664028b0d6d2193db64560c16b">block</a>-&gt;<a class="code" href="class_b_l_o_c_k.html#a1dec509cf931f6fcf3e33ef67edcd918">set_stats</a> (block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#ad071c3c26e269d6dc2a76d9841dcb7e3">fixed_pitch</a> == 0, (<a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>) block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#abdfeba3292b69b3c61fc048491554aa4">kern_size</a>,
+    (<a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>) block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#ab2dbae642d172fae61f5adba3a4dc480">space_size</a>,
+    (<a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>) block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#ad071c3c26e269d6dc2a76d9841dcb7e3">fixed_pitch</a>);
+  block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#a16e698664028b0d6d2193db64560c16b">block</a>-&gt;<a class="code" href="class_b_l_o_c_k.html#aa666ec6e487f45df87bd188ed376d858" title="check proportional">check_pitch</a> ();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a1fa4cd3ec1f0048e56999e8a27d90fd8"></a><!-- doxytag: member="wordseg.h::make_rep_words" ref="a1fa4cd3ec1f0048e56999e8a27d90fd8" args="(TO_ROW *row, TO_BLOCK *block)" -->
@@ -227,6 +312,35 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="wordseg_8cpp_source.html#l00572">572</a> of file <a class="el" href="wordseg_8cpp_source.html">wordseg.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                     {
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> xstarts[2];              <span class="comment">//ends of row</span>
+  <a class="code" href="class_r_o_w.html">ROW</a> *real_row;                 <span class="comment">//output row</span>
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> word_box;                  <span class="comment">//bounding box</span>
+  <span class="keywordtype">double</span> coeffs[3];              <span class="comment">//spline</span>
+                                 <span class="comment">//iterator</span>
+  WERD_IT word_it = &amp;row-&gt;<a class="code" href="class_t_o___r_o_w.html#a93c01f889dc8031cfd19c45069d49aed">rep_words</a>;
+
+  <span class="keywordflow">if</span> (word_it.empty ())
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  word_box = word_it.data ()-&gt;bounding_box ();
+  <span class="keywordflow">for</span> (word_it.mark_cycle_pt (); !word_it.cycled_list (); word_it.forward ())
+    word_box += word_it.data ()-&gt;bounding_box ();
+  xstarts[0] = word_box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a> ();
+  xstarts[1] = word_box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a> ();
+  coeffs[0] = 0;
+  coeffs[1] = row-&gt;<a class="code" href="class_t_o___r_o_w.html#a51cc690153d9cabdc8217e2ac336d414">line_m</a> ();
+  coeffs[2] = row-&gt;<a class="code" href="class_t_o___r_o_w.html#a22dc07e392af85d9ce625efdd13c6627">line_c</a> ();
+  row-&gt;<a class="code" href="class_t_o___r_o_w.html#a819d94a95b9aab802acbcba097c67b2b">xheight</a> = block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#a4d0f99a557a4950af5123a31a157749f">xheight</a>;
+  real_row = <span class="keyword">new</span> <a class="code" href="class_r_o_w.html">ROW</a>(row,
+    (<a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>) block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#abdfeba3292b69b3c61fc048491554aa4">kern_size</a>, (<a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>) block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#ab2dbae642d172fae61f5adba3a4dc480">space_size</a>);
+  word_it.set_to_list (real_row-&gt;<a class="code" href="class_r_o_w.html#ac9d07f978420b3564bf5508ad294fb70">word_list</a> ());
+                                 <span class="comment">//put words in row</span>
+  word_it.add_list_after (&amp;row-&gt;<a class="code" href="class_t_o___r_o_w.html#a93c01f889dc8031cfd19c45069d49aed">rep_words</a>);
+  real_row-&gt;<a class="code" href="class_r_o_w.html#ad0341ee4465010249bfc0ae4882e43ec">recalc_bounding_box</a> ();
+  <span class="keywordflow">return</span> real_row;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a962516b377eedea75f32f8ba004bfb49"></a><!-- doxytag: member="wordseg.h::make_single_word" ref="a962516b377eedea75f32f8ba004bfb49" args="(bool one_blob, TO_ROW_LIST *rows, ROW_LIST *real_rows)" -->
@@ -260,6 +374,46 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="wordseg_8cpp_source.html#l00061">61</a> of file <a class="el" href="wordseg_8cpp_source.html">wordseg.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                             {
+  TO_ROW_IT to_row_it(rows);
+  ROW_IT row_it(real_rows);
+  <span class="keywordflow">for</span> (to_row_it.mark_cycle_pt(); !to_row_it.cycled_list();
+       to_row_it.forward()) {
+    <a class="code" href="class_t_o___r_o_w.html">TO_ROW</a>* row = to_row_it.data();
+    <span class="comment">// The blobs have to come out of the BLOBNBOX into the C_BLOB_LIST ready</span>
+    <span class="comment">// to create the word.</span>
+    C_BLOB_LIST cblobs;
+    C_BLOB_IT cblob_it(&amp;cblobs);
+    BLOBNBOX_IT box_it(row-&gt;<a class="code" href="class_t_o___r_o_w.html#a39cee94572e70d35179c27cdf21a3022">blob_list</a>());
+    <span class="keywordflow">for</span> (;!box_it.empty(); box_it.forward()) {
+      <a class="code" href="class_b_l_o_b_n_b_o_x.html">BLOBNBOX</a>* bblob= box_it.extract();
+      <span class="keywordflow">if</span> (bblob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#af37f373c72851534101f4caf296a3cf7">joined_to_prev</a>() || (one_blob &amp;&amp; !cblob_it.empty())) {
+        <span class="keywordflow">if</span> (bblob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a483f44541a4dd818f02225c92f030e07">cblob</a>() != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+          C_OUTLINE_IT cout_it(cblob_it.data()-&gt;out_list());
+          cout_it.move_to_last();
+          cout_it.add_list_after(bblob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a483f44541a4dd818f02225c92f030e07">cblob</a>()-&gt;<a class="code" href="class_c___b_l_o_b.html#ae510f3d0e7398fbb46608082429eac89">out_list</a>());
+          <span class="keyword">delete</span> bblob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a483f44541a4dd818f02225c92f030e07">cblob</a>();
+        }
+      } <span class="keywordflow">else</span> {
+        <span class="keywordflow">if</span> (bblob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a483f44541a4dd818f02225c92f030e07">cblob</a>() != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+          cblob_it.add_after_then_move(bblob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a483f44541a4dd818f02225c92f030e07">cblob</a>());
+      }
+      <span class="keyword">delete</span> bblob;
+    }
+    <span class="comment">// Convert the TO_ROW to a ROW.</span>
+    <a class="code" href="class_r_o_w.html">ROW</a>* real_row = <span class="keyword">new</span> <a class="code" href="class_r_o_w.html">ROW</a>(row, static_cast&lt;inT16&gt;(row-&gt;<a class="code" href="class_t_o___r_o_w.html#a9fca8cf6eb34357e616e056a483e98d5">kern_size</a>),
+                            static_cast&lt;inT16&gt;(row-&gt;<a class="code" href="class_t_o___r_o_w.html#af15ca7af4b650c4089de86ecf8b6f6b2">space_size</a>));
+    WERD_IT word_it(real_row-&gt;<a class="code" href="class_r_o_w.html#ac9d07f978420b3564bf5508ad294fb70">word_list</a>());
+    <a class="code" href="class_w_e_r_d.html">WERD</a>* word = <span class="keyword">new</span> <a class="code" href="class_w_e_r_d.html">WERD</a>(&amp;cblobs, 0, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+    word-&gt;set_flag(<a class="code" href="werd_8h.html#ad6968adbf8f2cc44adf333ec96efb0beaff21d7c8c8992120fff35942408a00d2">W_BOL</a>, <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>);
+    word-&gt;set_flag(<a class="code" href="werd_8h.html#ad6968adbf8f2cc44adf333ec96efb0bea62efb985a62d85e014ee5ab039dd50ce">W_EOL</a>, <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>);
+    word-&gt;set_flag(<a class="code" href="werd_8h.html#ad6968adbf8f2cc44adf333ec96efb0beac5f734536428e7e43dffe5c87d72d14e">W_DONT_CHOP</a>, one_blob);
+    word_it.add_after_then_move(word);
+    row_it.add_after_then_move(real_row);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2a74f87b59b8f2a4e33ddac0933ab2e5"></a><!-- doxytag: member="wordseg.h::make_words" ref="a2a74f87b59b8f2a4e33ddac0933ab2e5" args="(tesseract::Textord *textord, ICOORD page_tr, float gradient, BLOCK_LIST *blocks, TO_BLOCK_LIST *port_blocks)" -->
@@ -307,6 +461,25 @@ Variables</h2></td></tr>
 <p>make_words</p>
 <p>Arrange the blobs into words. </p>
 
+<p>Definition at line <a class="el" href="wordseg_8cpp_source.html#l00105">105</a> of file <a class="el" href="wordseg_8cpp_source.html">wordseg.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                            {  <span class="comment">// output list</span>
+  TO_BLOCK_IT block_it;          <span class="comment">// iterator</span>
+  <a class="code" href="class_t_o___b_l_o_c_k.html">TO_BLOCK</a> *block;               <span class="comment">// current block</span>
+
+  <span class="keywordflow">if</span> (textord-&gt;<a class="code" href="classtesseract_1_1_textord.html#a778130fceaedd598d138b25d8272e63c">use_cjk_fp_model</a>()) {
+    <a class="code" href="cjkpitch_8cpp.html#a569376d5bd104938452ead2e78c21158">compute_fixed_pitch_cjk</a>(page_tr, port_blocks);
+  } <span class="keywordflow">else</span> {
+    <a class="code" href="topitch_8cpp.html#a56a3f38c5cf425f328b71195fd639b6d">compute_fixed_pitch</a>(page_tr, port_blocks, gradient, <a class="code" href="class_f_c_o_o_r_d.html">FCOORD</a>(0.0<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>, -1.0<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>),
+                        !(<a class="code" href="host_8h.html#a7712a7e28433d0ade59219a129549b6f">BOOL8</a>) <a class="code" href="makerow_8cpp.html#a58237d13dfff6d1379f501ba5e14bc9b">textord_test_landscape</a>);
+  }
+  textord-&gt;<a class="code" href="classtesseract_1_1_textord.html#a68f2d3489fecd72bd8817a888752edb3">to_spacing</a>(page_tr, port_blocks);
+  block_it.set_to_list(port_blocks);
+  <span class="keywordflow">for</span> (block_it.mark_cycle_pt(); !block_it.cycled_list(); block_it.forward()) {
+    block = block_it.data();
+    <a class="code" href="wordseg_8cpp.html#a0725cc4e2bbf76c5d4af92746f921835">make_real_words</a>(textord, block, <a class="code" href="class_f_c_o_o_r_d.html">FCOORD</a>(1.0<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>, 0.0<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>));
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a1dfec53fa9e022cee79b1027c3b15269"></a><!-- doxytag: member="wordseg.h::row_words" ref="a1dfec53fa9e022cee79b1027c3b15269" args="(TO_BLOCK *block, TO_ROW *row, inT32 maxwidth, FCOORD rotation, BOOL8 testing_on)" -->
@@ -352,6 +525,167 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="wordseg_8cpp_source.html#l00187">187</a> of file <a class="el" href="wordseg_8cpp_source.html">wordseg.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                 {
+  <a class="code" href="host_8h.html#a7712a7e28433d0ade59219a129549b6f">BOOL8</a> testing_row;             <span class="comment">//contains testpt</span>
+  <a class="code" href="host_8h.html#a7712a7e28433d0ade59219a129549b6f">BOOL8</a> prev_valid;              <span class="comment">//if decent size</span>
+  <a class="code" href="host_8h.html#a7712a7e28433d0ade59219a129549b6f">BOOL8</a> this_valid;              <span class="comment">//current blob big enough</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> prev_x;                  <span class="comment">//end of prev blob</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> min_gap;                 <span class="comment">//min interesting gap</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> cluster_count;           <span class="comment">//no of clusters</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> gap_index;               <span class="comment">//which cluster</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> smooth_factor;           <span class="comment">//for smoothing stats</span>
+  <a class="code" href="class_b_l_o_b_n_b_o_x.html">BLOBNBOX</a> *blob;                <span class="comment">//current blob</span>
+  <span class="keywordtype">float</span> lower, upper;            <span class="comment">//clustering parameters</span>
+  <span class="keywordtype">float</span> gaps[3];                 <span class="comment">//gap clusers</span>
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> testpt;
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> blob_box;                  <span class="comment">//bounding box</span>
+                                 <span class="comment">//iterator</span>
+  BLOBNBOX_IT blob_it = row-&gt;<a class="code" href="class_t_o___r_o_w.html#a39cee94572e70d35179c27cdf21a3022">blob_list</a> ();
+  <a class="code" href="class_s_t_a_t_s.html">STATS</a> gap_stats (0, maxwidth);
+  <a class="code" href="class_s_t_a_t_s.html">STATS</a> cluster_stats[4];        <span class="comment">//clusters</span>
+
+  testpt = <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> (<a class="code" href="makerow_8cpp.html#a23b8c104a388b836300c6aaf9592c66f">textord_test_x</a>, <a class="code" href="makerow_8cpp.html#ac7548cdecc88963c89ab9d235a6c6531">textord_test_y</a>);
+  smooth_factor =
+    (<a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a>) (block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#a4d0f99a557a4950af5123a31a157749f">xheight</a> * <a class="code" href="tovars_8cpp.html#a7e40469b07e7e12c8976e6a731a90d41">textord_wordstats_smooth_factor</a> + 1.5);
+  <span class="comment">//      if (testing_on)</span>
+  <span class="comment">//              tprintf(&quot;Row smooth factor=%d\n&quot;,smooth_factor);</span>
+  prev_valid = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+  prev_x = -<a class="code" href="host_8h.html#aac62d87844689a18b6f5339a89ed6e7f">MAX_INT32</a>;
+  testing_row = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+  <span class="keywordflow">for</span> (blob_it.mark_cycle_pt (); !blob_it.cycled_list (); blob_it.forward ()) {
+    blob = blob_it.data ();
+    blob_box = blob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a7b97b8bc16b1473a28f9c44011522f4e">bounding_box</a> ();
+    <span class="keywordflow">if</span> (blob_box.<a class="code" href="class_t_b_o_x.html#a5d4e2c5f91b791e94d4c94e513180632">contains</a> (testpt))
+      testing_row = <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+    gap_stats.add (blob_box.<a class="code" href="class_t_b_o_x.html#af95494a2ccacc70cc2b83820b2948619">width</a> (), 1);
+  }
+  min_gap = (<a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a>) floor (gap_stats.ile (<a class="code" href="tovars_8cpp.html#a1c3b1705a44a919077c51881c202d2ee">textord_words_width_ile</a>));
+  gap_stats.clear ();
+  <span class="keywordflow">for</span> (blob_it.mark_cycle_pt (); !blob_it.cycled_list (); blob_it.forward ()) {
+    blob = blob_it.data ();
+    <span class="keywordflow">if</span> (!blob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#af37f373c72851534101f4caf296a3cf7">joined_to_prev</a> ()) {
+      blob_box = blob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a7b97b8bc16b1473a28f9c44011522f4e">bounding_box</a> ();
+      <span class="comment">//                      this_valid=blob_box.width()&gt;=min_gap;</span>
+      this_valid = <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+      <span class="keywordflow">if</span> (this_valid &amp;&amp; prev_valid
+      &amp;&amp; blob_box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a> () - prev_x &lt; maxwidth) {
+        gap_stats.add (blob_box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a> () - prev_x, 1);
+      }
+      prev_x = blob_box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a> ();
+      prev_valid = this_valid;
+    }
+  }
+  <span class="keywordflow">if</span> (gap_stats.get_total () == 0) {
+    row-&gt;<a class="code" href="class_t_o___r_o_w.html#a367426f5c71d28b9f0dccc95c52d8319">min_space</a> = 0;          <span class="comment">//no evidence</span>
+    row-&gt;<a class="code" href="class_t_o___r_o_w.html#a8c51b5da241ad493dfbb297b613dcda0">max_nonspace</a> = 0;
+    <span class="keywordflow">return</span> 0;
+  }
+  gap_stats.smooth (smooth_factor);
+  lower = row-&gt;<a class="code" href="class_t_o___r_o_w.html#a819d94a95b9aab802acbcba097c67b2b">xheight</a> * <a class="code" href="tovars_8cpp.html#accd99615394354c4cb01367593e4bf8f">textord_words_initial_lower</a>;
+  upper = row-&gt;<a class="code" href="class_t_o___r_o_w.html#a819d94a95b9aab802acbcba097c67b2b">xheight</a> * <a class="code" href="tovars_8cpp.html#a71ff213ec346759a1c12d676b5f05d3e">textord_words_initial_upper</a>;
+  cluster_count = gap_stats.cluster (lower, upper,
+    <a class="code" href="tovars_8cpp.html#aa6329444468ff3233c3968161c9aca68">textord_spacesize_ratioprop</a>, 3,
+    cluster_stats);
+  <span class="keywordflow">while</span> (cluster_count &lt; 2 &amp;&amp; ceil (lower) &lt; floor (upper)) {
+                                 <span class="comment">//shrink gap</span>
+    upper = (upper * 3 + lower) / 4;
+    lower = (lower * 3 + upper) / 4;
+    cluster_count = gap_stats.cluster (lower, upper,
+      <a class="code" href="tovars_8cpp.html#aa6329444468ff3233c3968161c9aca68">textord_spacesize_ratioprop</a>, 3,
+      cluster_stats);
+  }
+  <span class="keywordflow">if</span> (cluster_count &lt; 2) {
+    row-&gt;<a class="code" href="class_t_o___r_o_w.html#a367426f5c71d28b9f0dccc95c52d8319">min_space</a> = 0;          <span class="comment">//no evidence</span>
+    row-&gt;<a class="code" href="class_t_o___r_o_w.html#a8c51b5da241ad493dfbb297b613dcda0">max_nonspace</a> = 0;
+    <span class="keywordflow">return</span> 0;
+  }
+  <span class="keywordflow">for</span> (gap_index = 0; gap_index &lt; cluster_count; gap_index++)
+    gaps[gap_index] = cluster_stats[gap_index + 1].ile (0.5);
+  <span class="comment">//get medians</span>
+  <span class="keywordflow">if</span> (cluster_count &gt; 2) {
+    <span class="keywordflow">if</span> (testing_on &amp;&amp; <a class="code" href="tovars_8cpp.html#abeae1dcacd5ff0c6f404eb1ee299e389">textord_show_initial_words</a>) {
+      <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a> (<span class="stringliteral">&quot;Row at %g has 3 sizes of gap:%g,%g,%g\n&quot;</span>,
+        row-&gt;<a class="code" href="class_t_o___r_o_w.html#ae78743484af3c62d5cff686a0b99c52a">intercept</a> (),
+        cluster_stats[1].<a class="code" href="class_s_t_a_t_s.html#a3fc40518660ac7a89adef4919361270c">ile</a> (0.5),
+        cluster_stats[2].<a class="code" href="class_s_t_a_t_s.html#a3fc40518660ac7a89adef4919361270c">ile</a> (0.5), cluster_stats[3].<a class="code" href="class_s_t_a_t_s.html#a3fc40518660ac7a89adef4919361270c">ile</a> (0.5));
+    }
+    lower = gaps[0];
+    <span class="keywordflow">if</span> (gaps[1] &gt; lower) {
+      upper = gaps[1];           <span class="comment">//prefer most frequent</span>
+      <span class="keywordflow">if</span> (upper &lt; block-&gt;xheight * <a class="code" href="tovars_8cpp.html#a68e57630cf098eb73fa9f787af3ae919">textord_words_min_minspace</a>
+      &amp;&amp; gaps[2] &gt; gaps[1]) {
+        upper = gaps[2];
+      }
+    }
+    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (gaps[2] &gt; lower
+      &amp;&amp; gaps[2] &gt;= block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#a4d0f99a557a4950af5123a31a157749f">xheight</a> * <a class="code" href="tovars_8cpp.html#a68e57630cf098eb73fa9f787af3ae919">textord_words_min_minspace</a>)
+      upper = gaps[2];
+    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (lower &gt;= block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#a4d0f99a557a4950af5123a31a157749f">xheight</a> * <a class="code" href="tovars_8cpp.html#a68e57630cf098eb73fa9f787af3ae919">textord_words_min_minspace</a>) {
+      upper = lower;             <span class="comment">//not nice</span>
+      lower = gaps[1];
+      <span class="keywordflow">if</span> (testing_on &amp;&amp; <a class="code" href="tovars_8cpp.html#abeae1dcacd5ff0c6f404eb1ee299e389">textord_show_initial_words</a>) {
+        <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a> (<span class="stringliteral">&quot;Had to switch most common from lower to upper!!\n&quot;</span>);
+        gap_stats.print();
+      }
+    }
+    <span class="keywordflow">else</span> {
+      row-&gt;<a class="code" href="class_t_o___r_o_w.html#a367426f5c71d28b9f0dccc95c52d8319">min_space</a> = 0;        <span class="comment">//no evidence</span>
+      row-&gt;<a class="code" href="class_t_o___r_o_w.html#a8c51b5da241ad493dfbb297b613dcda0">max_nonspace</a> = 0;
+      <span class="keywordflow">return</span> 0;
+    }
+  }
+  <span class="keywordflow">else</span> {
+    <span class="keywordflow">if</span> (gaps[1] &lt; gaps[0]) {
+      <span class="keywordflow">if</span> (testing_on &amp;&amp; <a class="code" href="tovars_8cpp.html#abeae1dcacd5ff0c6f404eb1ee299e389">textord_show_initial_words</a>) {
+        <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a> (<span class="stringliteral">&quot;Had to switch most common from lower to upper!!\n&quot;</span>);
+        gap_stats.print();
+      }
+      lower = gaps[1];
+      upper = gaps[0];
+    }
+    <span class="keywordflow">else</span> {
+      upper = gaps[1];
+      lower = gaps[0];
+    }
+  }
+  <span class="keywordflow">if</span> (upper &lt; block-&gt;xheight * <a class="code" href="tovars_8cpp.html#a68e57630cf098eb73fa9f787af3ae919">textord_words_min_minspace</a>) {
+    row-&gt;<a class="code" href="class_t_o___r_o_w.html#a367426f5c71d28b9f0dccc95c52d8319">min_space</a> = 0;          <span class="comment">//no evidence</span>
+    row-&gt;<a class="code" href="class_t_o___r_o_w.html#a8c51b5da241ad493dfbb297b613dcda0">max_nonspace</a> = 0;
+    <span class="keywordflow">return</span> 0;
+  }
+  <span class="keywordflow">if</span> (upper * 3 &lt; block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#a7f1bc695845395a79f8f9ae0fcf04f0f">min_space</a> * 2 + block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#aeee5dfdcb4be66993fd6fc9f51678b1a">max_nonspace</a>
+  || lower * 3 &gt; block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#a7f1bc695845395a79f8f9ae0fcf04f0f">min_space</a> * 2 + block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#aeee5dfdcb4be66993fd6fc9f51678b1a">max_nonspace</a>) {
+    <span class="keywordflow">if</span> (testing_on &amp;&amp; <a class="code" href="tovars_8cpp.html#abeae1dcacd5ff0c6f404eb1ee299e389">textord_show_initial_words</a>) {
+      <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a> (<span class="stringliteral">&quot;Disagreement between block and row at %g!!\n&quot;</span>,
+        row-&gt;<a class="code" href="class_t_o___r_o_w.html#ae78743484af3c62d5cff686a0b99c52a">intercept</a> ());
+      <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a> (<span class="stringliteral">&quot;Lower=%g, upper=%g, Stats:\n&quot;</span>, lower, upper);
+      gap_stats.print();
+    }
+  }
+  row-&gt;<a class="code" href="class_t_o___r_o_w.html#a367426f5c71d28b9f0dccc95c52d8319">min_space</a> =
+    (<a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a>) ceil (upper - (upper - lower) * <a class="code" href="tovars_8cpp.html#ab6b672e2b3cc0040b54d0449763c70d7">textord_words_definite_spread</a>);
+  row-&gt;<a class="code" href="class_t_o___r_o_w.html#a8c51b5da241ad493dfbb297b613dcda0">max_nonspace</a> =
+    (<a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a>) floor (lower + (upper - lower) * <a class="code" href="tovars_8cpp.html#ab6b672e2b3cc0040b54d0449763c70d7">textord_words_definite_spread</a>);
+  row-&gt;<a class="code" href="class_t_o___r_o_w.html#a3892ca7926a063f551c4fed5d0e9ef8f">space_threshold</a> = (row-&gt;<a class="code" href="class_t_o___r_o_w.html#a8c51b5da241ad493dfbb297b613dcda0">max_nonspace</a> + row-&gt;<a class="code" href="class_t_o___r_o_w.html#a367426f5c71d28b9f0dccc95c52d8319">min_space</a>) / 2;
+  row-&gt;<a class="code" href="class_t_o___r_o_w.html#af15ca7af4b650c4089de86ecf8b6f6b2">space_size</a> = upper;
+  row-&gt;<a class="code" href="class_t_o___r_o_w.html#a9fca8cf6eb34357e616e056a483e98d5">kern_size</a> = lower;
+  <span class="keywordflow">if</span> (testing_on &amp;&amp; <a class="code" href="tovars_8cpp.html#abeae1dcacd5ff0c6f404eb1ee299e389">textord_show_initial_words</a>) {
+    <span class="keywordflow">if</span> (testing_row) {
+      <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a> (<span class="stringliteral">&quot;GAP STATS\n&quot;</span>);
+      gap_stats.print();
+      <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a> (<span class="stringliteral">&quot;SPACE stats\n&quot;</span>);
+      cluster_stats[2].<a class="code" href="class_s_t_a_t_s.html#a34973e36fc9688a67c2aa69c149504de">print_summary</a>();
+      <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a> (<span class="stringliteral">&quot;NONSPACE stats\n&quot;</span>);
+      cluster_stats[1].<a class="code" href="class_s_t_a_t_s.html#a34973e36fc9688a67c2aa69c149504de">print_summary</a>();
+    }
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a> (<span class="stringliteral">&quot;Row at %g has minspace=%d(%g), max_non=%d(%g)\n&quot;</span>,
+      row-&gt;<a class="code" href="class_t_o___r_o_w.html#ae78743484af3c62d5cff686a0b99c52a">intercept</a> (), row-&gt;<a class="code" href="class_t_o___r_o_w.html#a367426f5c71d28b9f0dccc95c52d8319">min_space</a>, upper,
+      row-&gt;<a class="code" href="class_t_o___r_o_w.html#a8c51b5da241ad493dfbb297b613dcda0">max_nonspace</a>, lower);
+  }
+  <span class="keywordflow">return</span> cluster_stats[2].<a class="code" href="class_s_t_a_t_s.html#a83ad18e6ba02e9f63f4f7d84fcf76aa4">get_total</a> ();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae60fcdd7a4a9ff3a7fa0a6b775578479"></a><!-- doxytag: member="wordseg.h::row_words2" ref="ae60fcdd7a4a9ff3a7fa0a6b775578479" args="(TO_BLOCK *block, TO_ROW *row, inT32 maxwidth, FCOORD rotation, BOOL8 testing_on)" -->
@@ -397,6 +731,150 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="wordseg_8cpp_source.html#l00360">360</a> of file <a class="el" href="wordseg_8cpp_source.html">wordseg.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                  {
+  <a class="code" href="host_8h.html#a7712a7e28433d0ade59219a129549b6f">BOOL8</a> testing_row;             <span class="comment">//contains testpt</span>
+  <a class="code" href="host_8h.html#a7712a7e28433d0ade59219a129549b6f">BOOL8</a> prev_valid;              <span class="comment">//if decent size</span>
+  <a class="code" href="host_8h.html#a7712a7e28433d0ade59219a129549b6f">BOOL8</a> this_valid;              <span class="comment">//current blob big enough</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> prev_x;                  <span class="comment">//end of prev blob</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> min_width;               <span class="comment">//min interesting width</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> valid_count;             <span class="comment">//good gaps</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> total_count;             <span class="comment">//total gaps</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> cluster_count;           <span class="comment">//no of clusters</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> prev_count;              <span class="comment">//previous cluster_count</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> gap_index;               <span class="comment">//which cluster</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> smooth_factor;           <span class="comment">//for smoothing stats</span>
+  <a class="code" href="class_b_l_o_b_n_b_o_x.html">BLOBNBOX</a> *blob;                <span class="comment">//current blob</span>
+  <span class="keywordtype">float</span> lower, upper;            <span class="comment">//clustering parameters</span>
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> testpt;
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> blob_box;                  <span class="comment">//bounding box</span>
+                                 <span class="comment">//iterator</span>
+  BLOBNBOX_IT blob_it = row-&gt;<a class="code" href="class_t_o___r_o_w.html#a39cee94572e70d35179c27cdf21a3022">blob_list</a> ();
+  <a class="code" href="class_s_t_a_t_s.html">STATS</a> gap_stats (0, maxwidth);
+                                 <span class="comment">//gap sizes</span>
+  <span class="keywordtype">float</span> gaps[<a class="code" href="wordseg_8cpp.html#aa7d31b20094e2e66f0049b58e67012c0">BLOCK_STATS_CLUSTERS</a>];
+  <a class="code" href="class_s_t_a_t_s.html">STATS</a> cluster_stats[<a class="code" href="wordseg_8cpp.html#aa7d31b20094e2e66f0049b58e67012c0">BLOCK_STATS_CLUSTERS</a> + 1];
+  <span class="comment">//clusters</span>
+
+  testpt = <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> (<a class="code" href="makerow_8cpp.html#a23b8c104a388b836300c6aaf9592c66f">textord_test_x</a>, <a class="code" href="makerow_8cpp.html#ac7548cdecc88963c89ab9d235a6c6531">textord_test_y</a>);
+  smooth_factor =
+    (<a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a>) (block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#a4d0f99a557a4950af5123a31a157749f">xheight</a> * <a class="code" href="tovars_8cpp.html#a7e40469b07e7e12c8976e6a731a90d41">textord_wordstats_smooth_factor</a> + 1.5);
+  <span class="comment">//      if (testing_on)</span>
+  <span class="comment">//              tprintf(&quot;Row smooth factor=%d\n&quot;,smooth_factor);</span>
+  prev_valid = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+  prev_x = -<a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a>;
+  testing_row = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+                                 <span class="comment">//min blob size</span>
+  min_width = (<a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a>) block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#ac44a3329ef87feb53f417773b8ec753d">pr_space</a>;
+  total_count = 0;
+  for (blob_it.mark_cycle_pt (); !blob_it.cycled_list (); blob_it.forward ()) {
+    blob = blob_it.data ();
+    <span class="keywordflow">if</span> (!blob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#af37f373c72851534101f4caf296a3cf7">joined_to_prev</a> ()) {
+      blob_box = blob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a7b97b8bc16b1473a28f9c44011522f4e">bounding_box</a> ();
+      this_valid = blob_box.<a class="code" href="class_t_b_o_x.html#af95494a2ccacc70cc2b83820b2948619">width</a> () &gt;= min_width;
+      this_valid = <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+      <span class="keywordflow">if</span> (this_valid &amp;&amp; prev_valid
+      &amp;&amp; blob_box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a> () - prev_x &lt; maxwidth) {
+        gap_stats.add (blob_box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a> () - prev_x, 1);
+      }
+      total_count++;             <span class="comment">//count possibles</span>
+      prev_x = blob_box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a> ();
+      prev_valid = this_valid;
+    }
+  }
+  valid_count = gap_stats.get_total ();
+  <span class="keywordflow">if</span> (valid_count &lt; total_count * <a class="code" href="tovars_8cpp.html#a2389bf23fd1fec81349b14210c17e71a">textord_words_minlarge</a>) {
+    gap_stats.clear ();
+    prev_x = -<a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a>;
+    <span class="keywordflow">for</span> (blob_it.mark_cycle_pt (); !blob_it.cycled_list ();
+    blob_it.forward ()) {
+      blob = blob_it.data ();
+      <span class="keywordflow">if</span> (!blob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#af37f373c72851534101f4caf296a3cf7">joined_to_prev</a> ()) {
+        blob_box = blob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a7b97b8bc16b1473a28f9c44011522f4e">bounding_box</a> ();
+        <span class="keywordflow">if</span> (blob_box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a> () - prev_x &lt; maxwidth) {
+          gap_stats.add (blob_box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a> () - prev_x, 1);
+        }
+        prev_x = blob_box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a> ();
+      }
+    }
+  }
+  <span class="keywordflow">if</span> (gap_stats.get_total () == 0) {
+    row-&gt;<a class="code" href="class_t_o___r_o_w.html#a367426f5c71d28b9f0dccc95c52d8319">min_space</a> = 0;          <span class="comment">//no evidence</span>
+    row-&gt;<a class="code" href="class_t_o___r_o_w.html#a8c51b5da241ad493dfbb297b613dcda0">max_nonspace</a> = 0;
+    <span class="keywordflow">return</span> 0;
+  }
+
+  cluster_count = 0;
+  lower = block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#a4d0f99a557a4950af5123a31a157749f">xheight</a> * <a class="code" href="tovars_8cpp.html#a8b9b0b4c380d6e29d48c4f4dc8abcdc0">words_initial_lower</a>;
+  upper = block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#a4d0f99a557a4950af5123a31a157749f">xheight</a> * <a class="code" href="tovars_8cpp.html#a204d77900179d702fe0cebc0158fbc51">words_initial_upper</a>;
+  gap_stats.smooth (smooth_factor);
+  <span class="keywordflow">do</span> {
+    prev_count = cluster_count;
+    cluster_count = gap_stats.cluster (lower, upper,
+      <a class="code" href="tovars_8cpp.html#aa6329444468ff3233c3968161c9aca68">textord_spacesize_ratioprop</a>,
+      <a class="code" href="wordseg_8cpp.html#aa7d31b20094e2e66f0049b58e67012c0">BLOCK_STATS_CLUSTERS</a>, cluster_stats);
+  }
+  <span class="keywordflow">while</span> (cluster_count &gt; prev_count &amp;&amp; cluster_count &lt; <a class="code" href="wordseg_8cpp.html#aa7d31b20094e2e66f0049b58e67012c0">BLOCK_STATS_CLUSTERS</a>);
+  <span class="keywordflow">if</span> (cluster_count &lt; 1) {
+    row-&gt;<a class="code" href="class_t_o___r_o_w.html#a367426f5c71d28b9f0dccc95c52d8319">min_space</a> = 0;
+    row-&gt;<a class="code" href="class_t_o___r_o_w.html#a8c51b5da241ad493dfbb297b613dcda0">max_nonspace</a> = 0;
+    <span class="keywordflow">return</span> 0;
+  }
+  <span class="keywordflow">for</span> (gap_index = 0; gap_index &lt; cluster_count; gap_index++)
+    gaps[gap_index] = cluster_stats[gap_index + 1].ile (0.5);
+  <span class="comment">//get medians</span>
+  <span class="keywordflow">if</span> (testing_on) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a> (<span class="stringliteral">&quot;cluster_count=%d:&quot;</span>, cluster_count);
+    <span class="keywordflow">for</span> (gap_index = 0; gap_index &lt; cluster_count; gap_index++)
+      <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a> (<span class="stringliteral">&quot; %g(%d)&quot;</span>, gaps[gap_index],
+        cluster_stats[gap_index + 1].get_total ());
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a> (<span class="stringliteral">&quot;\n&quot;</span>);
+  }
+
+  <span class="comment">//Try to find proportional non-space and space for row.</span>
+  <span class="keywordflow">for</span> (gap_index = 0; gap_index &lt; cluster_count
+    &amp;&amp; gaps[gap_index] &gt; block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#aeee5dfdcb4be66993fd6fc9f51678b1a">max_nonspace</a>; gap_index++);
+  <span class="keywordflow">if</span> (gap_index &lt; cluster_count)
+    lower = gaps[gap_index];     <span class="comment">//most frequent below</span>
+  <span class="keywordflow">else</span> {
+    <span class="keywordflow">if</span> (testing_on)
+      <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a> (<span class="stringliteral">&quot;No cluster below block threshold!, using default=%g\n&quot;</span>,
+        block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#a21f28449a45963c01186652c0e3b09c8">pr_nonsp</a>);
+    lower = block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#a21f28449a45963c01186652c0e3b09c8">pr_nonsp</a>;
+  }
+  <span class="keywordflow">for</span> (gap_index = 0; gap_index &lt; cluster_count
+    &amp;&amp; gaps[gap_index] &lt;= block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#aeee5dfdcb4be66993fd6fc9f51678b1a">max_nonspace</a>; gap_index++);
+  <span class="keywordflow">if</span> (gap_index &lt; cluster_count)
+    upper = gaps[gap_index];     <span class="comment">//most frequent above</span>
+  <span class="keywordflow">else</span> {
+    <span class="keywordflow">if</span> (testing_on)
+      <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a> (<span class="stringliteral">&quot;No cluster above block threshold!, using default=%g\n&quot;</span>,
+        block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#ac44a3329ef87feb53f417773b8ec753d">pr_space</a>);
+    upper = block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#ac44a3329ef87feb53f417773b8ec753d">pr_space</a>;
+  }
+  row-&gt;<a class="code" href="class_t_o___r_o_w.html#a367426f5c71d28b9f0dccc95c52d8319">min_space</a> =
+    (<a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a>) ceil (upper - (upper - lower) * <a class="code" href="tovars_8cpp.html#ab6b672e2b3cc0040b54d0449763c70d7">textord_words_definite_spread</a>);
+  row-&gt;<a class="code" href="class_t_o___r_o_w.html#a8c51b5da241ad493dfbb297b613dcda0">max_nonspace</a> =
+    (<a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a>) floor (lower + (upper - lower) * <a class="code" href="tovars_8cpp.html#ab6b672e2b3cc0040b54d0449763c70d7">textord_words_definite_spread</a>);
+  row-&gt;<a class="code" href="class_t_o___r_o_w.html#a3892ca7926a063f551c4fed5d0e9ef8f">space_threshold</a> = (row-&gt;<a class="code" href="class_t_o___r_o_w.html#a8c51b5da241ad493dfbb297b613dcda0">max_nonspace</a> + row-&gt;<a class="code" href="class_t_o___r_o_w.html#a367426f5c71d28b9f0dccc95c52d8319">min_space</a>) / 2;
+  row-&gt;<a class="code" href="class_t_o___r_o_w.html#af15ca7af4b650c4089de86ecf8b6f6b2">space_size</a> = upper;
+  row-&gt;<a class="code" href="class_t_o___r_o_w.html#a9fca8cf6eb34357e616e056a483e98d5">kern_size</a> = lower;
+  <span class="keywordflow">if</span> (testing_on) {
+    <span class="keywordflow">if</span> (testing_row) {
+      <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a> (<span class="stringliteral">&quot;GAP STATS\n&quot;</span>);
+      gap_stats.print();
+      <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a> (<span class="stringliteral">&quot;SPACE stats\n&quot;</span>);
+      cluster_stats[2].<a class="code" href="class_s_t_a_t_s.html#a34973e36fc9688a67c2aa69c149504de">print_summary</a>();
+      <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a> (<span class="stringliteral">&quot;NONSPACE stats\n&quot;</span>);
+      cluster_stats[1].<a class="code" href="class_s_t_a_t_s.html#a34973e36fc9688a67c2aa69c149504de">print_summary</a>();
+    }
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a> (<span class="stringliteral">&quot;Row at %g has minspace=%d(%g), max_non=%d(%g)\n&quot;</span>,
+      row-&gt;<a class="code" href="class_t_o___r_o_w.html#ae78743484af3c62d5cff686a0b99c52a">intercept</a> (), row-&gt;<a class="code" href="class_t_o___r_o_w.html#a367426f5c71d28b9f0dccc95c52d8319">min_space</a>, upper,
+      row-&gt;<a class="code" href="class_t_o___r_o_w.html#a8c51b5da241ad493dfbb297b613dcda0">max_nonspace</a>, lower);
+  }
+  <span class="keywordflow">return</span> 1;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aad1430bf95731f791fb102dda9819ff0"></a><!-- doxytag: member="wordseg.h::set_row_spaces" ref="aad1430bf95731f791fb102dda9819ff0" args="(TO_BLOCK *block, FCOORD rotation, BOOL8 testing_on)" -->
@@ -430,6 +908,48 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="wordseg_8cpp_source.html#l00135">135</a> of file <a class="el" href="wordseg_8cpp_source.html">wordseg.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                     {
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> maxwidth;                <span class="comment">//of widest space</span>
+  <a class="code" href="class_t_o___r_o_w.html">TO_ROW</a> *row;                   <span class="comment">//current row</span>
+  TO_ROW_IT row_it = block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#a4846ebdcc832b4b0a762d87c0d83a056">get_rows</a> ();
+
+  <span class="keywordflow">if</span> (row_it.empty ())
+    <span class="keywordflow">return</span>;                      <span class="comment">//empty block</span>
+  maxwidth = (<a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a>) ceil (block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#a4d0f99a557a4950af5123a31a157749f">xheight</a> * <a class="code" href="tovars_8cpp.html#a15040beab01018a41f0e079fe63dac26">textord_words_maxspace</a>);
+  <span class="keywordflow">for</span> (row_it.mark_cycle_pt (); !row_it.cycled_list (); row_it.forward ()) {
+    row = row_it.data ();
+    <span class="keywordflow">if</span> (row-&gt;<a class="code" href="class_t_o___r_o_w.html#a08041181b248c640984261653189212a">fixed_pitch</a> == 0) {
+      <span class="comment">//                      if (!textord_test_mode</span>
+      <span class="comment">//                      &amp;&amp; row_words(block,row,maxwidth,rotation,testing_on)==0</span>
+      <span class="comment">//                      || textord_test_mode</span>
+      <span class="comment">//                      &amp;&amp; row_words2(block,row,maxwidth,rotation,testing_on)==0)</span>
+      <span class="comment">//                      {</span>
+      row-&gt;<a class="code" href="class_t_o___r_o_w.html#a367426f5c71d28b9f0dccc95c52d8319">min_space</a> =
+        (<a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a>) ceil (row-&gt;<a class="code" href="class_t_o___r_o_w.html#a129c37c4cc8d85b7f49a8fcdbcf5f928">pr_space</a> -
+        (row-&gt;<a class="code" href="class_t_o___r_o_w.html#a129c37c4cc8d85b7f49a8fcdbcf5f928">pr_space</a> -
+        row-&gt;<a class="code" href="class_t_o___r_o_w.html#a323c76c41077d4ada275cc5e2e979a52">pr_nonsp</a>) * <a class="code" href="tovars_8cpp.html#ab6b672e2b3cc0040b54d0449763c70d7">textord_words_definite_spread</a>);
+      row-&gt;<a class="code" href="class_t_o___r_o_w.html#a8c51b5da241ad493dfbb297b613dcda0">max_nonspace</a> =
+        (<a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a>) floor (row-&gt;<a class="code" href="class_t_o___r_o_w.html#a323c76c41077d4ada275cc5e2e979a52">pr_nonsp</a> +
+        (row-&gt;<a class="code" href="class_t_o___r_o_w.html#a129c37c4cc8d85b7f49a8fcdbcf5f928">pr_space</a> -
+        row-&gt;<a class="code" href="class_t_o___r_o_w.html#a323c76c41077d4ada275cc5e2e979a52">pr_nonsp</a>) * <a class="code" href="tovars_8cpp.html#ab6b672e2b3cc0040b54d0449763c70d7">textord_words_definite_spread</a>);
+      <span class="keywordflow">if</span> (testing_on &amp;&amp; <a class="code" href="tovars_8cpp.html#abeae1dcacd5ff0c6f404eb1ee299e389">textord_show_initial_words</a>) {
+        <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a> (<span class="stringliteral">&quot;Assigning defaults %d non, %d space to row at %g\n&quot;</span>,
+          row-&gt;<a class="code" href="class_t_o___r_o_w.html#a8c51b5da241ad493dfbb297b613dcda0">max_nonspace</a>, row-&gt;<a class="code" href="class_t_o___r_o_w.html#a367426f5c71d28b9f0dccc95c52d8319">min_space</a>, row-&gt;<a class="code" href="class_t_o___r_o_w.html#ae78743484af3c62d5cff686a0b99c52a">intercept</a> ());
+      }
+      row-&gt;<a class="code" href="class_t_o___r_o_w.html#a3892ca7926a063f551c4fed5d0e9ef8f">space_threshold</a> = (row-&gt;<a class="code" href="class_t_o___r_o_w.html#a8c51b5da241ad493dfbb297b613dcda0">max_nonspace</a> + row-&gt;<a class="code" href="class_t_o___r_o_w.html#a367426f5c71d28b9f0dccc95c52d8319">min_space</a>) / 2;
+      row-&gt;<a class="code" href="class_t_o___r_o_w.html#af15ca7af4b650c4089de86ecf8b6f6b2">space_size</a> = row-&gt;<a class="code" href="class_t_o___r_o_w.html#a129c37c4cc8d85b7f49a8fcdbcf5f928">pr_space</a>;
+      row-&gt;<a class="code" href="class_t_o___r_o_w.html#a9fca8cf6eb34357e616e056a483e98d5">kern_size</a> = row-&gt;<a class="code" href="class_t_o___r_o_w.html#a323c76c41077d4ada275cc5e2e979a52">pr_nonsp</a>;
+      <span class="comment">//                      }</span>
+    }
+<span class="preprocessor">#ifndef GRAPHICS_DISABLED</span>
+<span class="preprocessor"></span>    <span class="keywordflow">if</span> (<a class="code" href="tovars_8cpp.html#abeae1dcacd5ff0c6f404eb1ee299e389">textord_show_initial_words</a> &amp;&amp; testing_on) {
+      <a class="code" href="drawtord_8cpp.html#acd118b7bee855305fd4c0f934ea2ac11">plot_word_decisions</a> (<a class="code" href="drawtord_8cpp.html#a65aeba67da16b0fd87082f9966362f0e">to_win</a>, (<a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>) row-&gt;<a class="code" href="class_t_o___r_o_w.html#a08041181b248c640984261653189212a">fixed_pitch</a>, row);
+    }
+<span class="preprocessor">#endif</span>
+<span class="preprocessor"></span>  }
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Variable Documentation</h2>
@@ -445,6 +965,8 @@ Variables</h2></td></tr>
 <div class="memdoc">
 <p>"Chopper is being tested." </p>
 
+<p>Definition at line <a class="el" href="wordseg_8cpp_source.html#l00048">48</a> of file <a class="el" href="wordseg_8cpp_source.html">wordseg.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a8254c5a8dbe4e95c9dcb1b0afab8575e"></a><!-- doxytag: member="wordseg.h::textord_force_make_prop_words" ref="a8254c5a8dbe4e95c9dcb1b0afab8575e" args="" -->
@@ -459,6 +981,8 @@ Variables</h2></td></tr>
 <div class="memdoc">
 <p>"Force proportional word segmentation on all rows" </p>
 
+<p>Definition at line <a class="el" href="wordseg_8cpp_source.html#l00046">46</a> of file <a class="el" href="wordseg_8cpp_source.html">wordseg.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a4c5406de0eeebed6b467633d6d3feb63"></a><!-- doxytag: member="wordseg.h::textord_fp_chopping" ref="a4c5406de0eeebed6b467633d6d3feb63" args="" -->
@@ -472,6 +996,8 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"Do fixed pitch chopping" </p>
+
+<p>Definition at line <a class="el" href="wordseg_8cpp_source.html#l00044">44</a> of file <a class="el" href="wordseg_8cpp_source.html">wordseg.cpp</a>.</p>
 
 </div>
 </div>
@@ -495,7 +1021,7 @@ Variables</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:10 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:43 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

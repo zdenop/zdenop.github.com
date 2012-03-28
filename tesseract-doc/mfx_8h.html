@@ -142,6 +142,57 @@ Variables</h2></td></tr>
 <p>---------------------------------------------------------------------------- Public Function Prototypes ----------------------------------------------------------------------------</p>
 <p>---------------------------------------------------------------------------- Public Code ---------------------------------------------------------------------------- </p>
 
+<p>Definition at line <a class="el" href="mfx_8cpp_source.html#l00062">62</a> of file <a class="el" href="mfx_8cpp_source.html">mfx.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                   {
+<span class="comment">/*</span>
+<span class="comment"> **      Parameters:</span>
+<span class="comment"> **              Blob            blob to extract micro-features from</span>
+<span class="comment"> **              denorm          control parameter to feature extractor</span>
+<span class="comment"> **      Operation:</span>
+<span class="comment"> **              This routine extracts micro-features from the specified</span>
+<span class="comment"> **              blob and returns a list of the micro-features.  All</span>
+<span class="comment"> **              micro-features are normalized according to the specified</span>
+<span class="comment"> **              line statistics.</span>
+<span class="comment"> **      Return: List of micro-features extracted from the blob.</span>
+<span class="comment"> **      Exceptions: none</span>
+<span class="comment"> **      History: 7/21/89, DSJ, Created.</span>
+<span class="comment"> */</span>
+  <a class="code" href="structlist__rec.html">MICROFEATURES</a> MicroFeatures = <a class="code" href="oldlist_8h.html#ae212530ca629c67513698e988c705a5a">NIL_LIST</a>;
+  <a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a> XScale, YScale;
+  <a class="code" href="structlist__rec.html">LIST</a> Outlines;
+  <a class="code" href="structlist__rec.html">LIST</a> RemainingOutlines;
+  <a class="code" href="structlist__rec.html">MFOUTLINE</a> Outline;
+  <a class="code" href="baseapi_8h.html#a544a6c7d78d215e9a4da202daecfeb52">INT_FEATURE_ARRAY</a> blfeatures;
+  <a class="code" href="baseapi_8h.html#a544a6c7d78d215e9a4da202daecfeb52">INT_FEATURE_ARRAY</a> cnfeatures;
+  <a class="code" href="struct_i_n_t___f_x___r_e_s_u_l_t___s_t_r_u_c_t.html">INT_FX_RESULT_STRUCT</a> results;
+
+  <span class="keywordflow">if</span> (Blob != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    Outlines = <a class="code" href="mfoutline_8cpp.html#a4acb6328d74e385e88c02c45e1306b97">ConvertBlob</a> (Blob);
+    <span class="keywordflow">if</span> (!<a class="code" href="intfx_8cpp.html#a508a06732c67c00efc9db362bd8b970e">ExtractIntFeat</a>(Blob, denorm, blfeatures, cnfeatures, &amp;results))
+      <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    XScale = 0.2f / results.<a class="code" href="struct_i_n_t___f_x___r_e_s_u_l_t___s_t_r_u_c_t.html#a5bc44d7c44209bf894b7c806839cb62d">Ry</a>;
+    YScale = 0.2f / results.<a class="code" href="struct_i_n_t___f_x___r_e_s_u_l_t___s_t_r_u_c_t.html#a761357b2a8e539be5dd5be9ab6427535">Rx</a>;
+
+    RemainingOutlines = Outlines;
+    <a class="code" href="oldlist_8h.html#a2cf19ba78be6b54f66823d58f34f2a53">iterate</a>(RemainingOutlines) {
+      Outline = (<a class="code" href="mfoutline_8h.html#a7ccab0cdf14413921e017ad0af14e1de">MFOUTLINE</a>) <a class="code" href="oldlist_8h.html#a69547be764424f18b0be535400747978">first_node</a> (RemainingOutlines);
+      <a class="code" href="mfoutline_8cpp.html#a5918c653f568c2a6e5aa43569c01f346">CharNormalizeOutline</a> (Outline,
+        results.<a class="code" href="struct_i_n_t___f_x___r_e_s_u_l_t___s_t_r_u_c_t.html#a4248f47c8d5d20a3849164df3fdcf9bc">Xmean</a>, results.<a class="code" href="struct_i_n_t___f_x___r_e_s_u_l_t___s_t_r_u_c_t.html#a7acb1b39e74035eb698d8ab2ca8f689e">Ymean</a>,
+        XScale, YScale);
+    }
+
+    RemainingOutlines = Outlines;
+    <a class="code" href="oldlist_8h.html#a2cf19ba78be6b54f66823d58f34f2a53">iterate</a>(RemainingOutlines) {
+      Outline = (<a class="code" href="mfoutline_8h.html#a7ccab0cdf14413921e017ad0af14e1de">MFOUTLINE</a>) <a class="code" href="oldlist_8h.html#a69547be764424f18b0be535400747978">first_node</a> (RemainingOutlines);
+      <a class="code" href="mfoutline_8cpp.html#ac2b870343576dd24d1c4871f5988d556">FindDirectionChanges</a>(Outline, <a class="code" href="mfx_8cpp.html#afc77a0a04110e77db4b31bb16800a207">classify_min_slope</a>, <a class="code" href="mfx_8cpp.html#a7a76f272add43800ab97ff8aeb0184a9">classify_max_slope</a>);
+      <a class="code" href="mfoutline_8cpp.html#afa2531f8656ba496465bc23ff1a2f99c">MarkDirectionChanges</a>(Outline);
+      MicroFeatures = <a class="code" href="mfx_8cpp.html#ae9693813f30b3c834f46191be843b750">ConvertToMicroFeatures</a> (Outline, MicroFeatures);
+    }
+    <a class="code" href="mfoutline_8cpp.html#a553352ad44661adad2a80a24ac78aeaf">FreeOutlines</a>(Outlines);
+  }
+  <span class="keywordflow">return</span> ((<a class="code" href="ocrfeatures_8h.html#a4e78d165adc7a1b8c5bf790563265d97">CHAR_FEATURES</a>) MicroFeatures);
+}                                <span class="comment">/* BlobMicroFeatures */</span>
+</pre></div>
 </div>
 </div>
 <hr/><h2>Variable Documentation</h2>
@@ -157,6 +208,8 @@ Variables</h2></td></tr>
 <div class="memdoc">
 <p>"Slope above which lines are called vertical" </p>
 
+<p>Definition at line <a class="el" href="mfx_8cpp_source.html#l00039">39</a> of file <a class="el" href="mfx_8cpp_source.html">mfx.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="afc77a0a04110e77db4b31bb16800a207"></a><!-- doxytag: member="mfx.h::classify_min_slope" ref="afc77a0a04110e77db4b31bb16800a207" args="" -->
@@ -170,6 +223,8 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>---------------------------------------------------------------------------- Include Files and Type Defines ---------------------------------------------------------------------------- ---------------------------------------------------------------------------- Variables ---------------------------------------------------------------------------- "Slope below which lines are called horizontal" </p>
+
+<p>Definition at line <a class="el" href="mfx_8cpp_source.html#l00037">37</a> of file <a class="el" href="mfx_8cpp_source.html">mfx.cpp</a>.</p>
 
 </div>
 </div>
@@ -193,7 +248,7 @@ Variables</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:09 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:41 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

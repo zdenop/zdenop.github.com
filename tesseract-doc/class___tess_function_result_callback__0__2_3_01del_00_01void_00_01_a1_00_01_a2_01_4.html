@@ -126,10 +126,13 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class___tess_function_result_callback__0__2_3_01del_00_01void_00_01_a1_00_01_a2_01_4.html#aa7ac5a5a67f6c8e96b58dbbd3442413c">_TessFunctionResultCallback_0_2</a> (<a class="el" href="class___tess_function_result_callback__0__2_3_01del_00_01void_00_01_a1_00_01_a2_01_4.html#adf6a846e09f3d254550c6a41f235aaf7">FunctionSignature</a> function)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class___tess_function_result_callback__0__2_3_01del_00_01void_00_01_a1_00_01_a2_01_4.html#ab3d27a2fb9628e19f8735ad448b3f35b">Run</a> (A1 a1, A2 a2)</td></tr>
 </table>
-<h3>template&lt;bool del, class A1, class A2&gt;<br/>
- class _TessFunctionResultCallback_0_2&lt; del, void, A1, A2 &gt;</h3>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock"><h3>template&lt;bool del, class A1, class A2&gt;<br/>
+class _TessFunctionResultCallback_0_2&lt; del, void, A1, A2 &gt;</h3>
 
-<hr/><h2>Member Typedef Documentation</h2>
+
+<p>Definition at line <a class="el" href="tesscallback_8h_source.html#l00724">724</a> of file <a class="el" href="tesscallback_8h_source.html">tesscallback.h</a>.</p>
+</div><hr/><h2>Member Typedef Documentation</h2>
 <a class="anchor" id="ae5ec0b7ad2a8171a5670a5d7c34efd2e"></a><!-- doxytag: member="_TessFunctionResultCallback_0_2&lt; del, void, A1, A2 &gt;::base" ref="ae5ec0b7ad2a8171a5670a5d7c34efd2e" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -142,6 +145,8 @@ template&lt;bool del, class A1 , class A2 &gt; </div>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="tesscallback_8h_source.html#l00727">727</a> of file <a class="el" href="tesscallback_8h_source.html">tesscallback.h</a>.</p>
 
 </div>
 </div>
@@ -157,6 +162,8 @@ template&lt;bool del, class A1 , class A2 &gt; </div>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="tesscallback_8h_source.html#l00728">728</a> of file <a class="el" href="tesscallback_8h_source.html">tesscallback.h</a>.</p>
 
 </div>
 </div>
@@ -178,6 +185,10 @@ template&lt;bool del, class A1 , class A2 &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tesscallback_8h_source.html#l00734">734</a> of file <a class="el" href="tesscallback_8h_source.html">tesscallback.h</a>.</p>
+<div class="fragment"><pre class="fragment">    : function_(<span class="keyword">function</span>) {
+  }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -210,6 +221,18 @@ template&lt;bool del, class A1 , class A2 &gt; </div>
 
 <p>Implements <a class="el" href="class_tess_callback2.html#aa8094191291522c63e4fa1d6ba928d9b">TessCallback2&lt; A1, A2 &gt;</a>.</p>
 
+<p>Definition at line <a class="el" href="tesscallback_8h_source.html#l00739">739</a> of file <a class="el" href="tesscallback_8h_source.html">tesscallback.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                {
+    <span class="keywordflow">if</span> (!del) {
+      (*function_)(a1,a2);
+    } <span class="keywordflow">else</span> {
+      (*function_)(a1,a2);
+      <span class="comment">//  zero out the pointer to ensure segfault if used again</span>
+      function_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+      <span class="keyword">delete</span> <span class="keyword">this</span>;
+    }
+  }
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
@@ -235,7 +258,7 @@ template&lt;bool del, class A1 , class A2 &gt; </div>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:11 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:44 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

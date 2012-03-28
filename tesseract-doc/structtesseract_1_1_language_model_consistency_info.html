@@ -131,7 +131,10 @@ Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtesseract_1_1_language_model_consistency_info.html#aa78515a0fb8f968a6914574efa0701c1">num_inconsistent_spaces</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtesseract_1_1_language_model_consistency_info.html#a0b52e50bde57f205e0cb7ba5ba8dd4f3">inconsistent_font</a></td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="language__model_8h_source.html#l00040">40</a> of file <a class="el" href="language__model_8h_source.html">language_model.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a7096161587387e267f2774113f1a2544"></a><!-- doxytag: member="tesseract::LanguageModelConsistencyInfo::LanguageModelConsistencyInfo" ref="a7096161587387e267f2774113f1a2544" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -146,6 +149,13 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="language__model_8h_source.html#l00041">41</a> of file <a class="el" href="language__model_8h_source.html">language_model.h</a>.</p>
+<div class="fragment"><pre class="fragment">    : <a class="code" href="structtesseract_1_1_language_model_consistency_info.html#abc739e3254715e0a4b6ad705d08f6af7">punc_ref</a>(NO_EDGE), <a class="code" href="structtesseract_1_1_language_model_consistency_info.html#ad240e9386a4be45e4d446e4390b1ac0e">num_punc</a>(0), <a class="code" href="structtesseract_1_1_language_model_consistency_info.html#aca60069b9d8f62b7623e6849d8322a48">invalid_punc</a>(<span class="keyword">false</span>),
+      <a class="code" href="structtesseract_1_1_language_model_consistency_info.html#a4171b5ee3943476262df28aa4b4b7a72">num_non_first_upper</a>(0), <a class="code" href="structtesseract_1_1_language_model_consistency_info.html#abba587f34c1479c9fbe721b8e1c03c4d">num_lower</a>(0),
+      <a class="code" href="structtesseract_1_1_language_model_consistency_info.html#a8de1d60d83971e52357682726e3b0ca4">script_id</a>(0), <a class="code" href="structtesseract_1_1_language_model_consistency_info.html#a540e9468b97ac8d07795cbbd72f8bb6d">inconsistent_script</a>(<span class="keyword">false</span>),
+      <a class="code" href="structtesseract_1_1_language_model_consistency_info.html#a44a85d310744cef17ea1a720c76a3d98">num_alphas</a>(0), <a class="code" href="structtesseract_1_1_language_model_consistency_info.html#a868c663bc14831a712ea81f4b894b9f2">num_digits</a>(0), <a class="code" href="structtesseract_1_1_language_model_consistency_info.html#a26a8014aaed259c94e3aa6e8f38a4362">num_other</a>(0),
+      <a class="code" href="structtesseract_1_1_language_model_consistency_info.html#aa78515a0fb8f968a6914574efa0701c1">num_inconsistent_spaces</a>(0), <a class="code" href="structtesseract_1_1_language_model_consistency_info.html#a0b52e50bde57f205e0cb7ba5ba8dd4f3">inconsistent_font</a>(<span class="keyword">false</span>) {}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -163,6 +173,12 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="language__model_8h_source.html#l00057">57</a> of file <a class="el" href="language__model_8h_source.html">language_model.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                 {
+    <span class="keywordflow">return</span> (<a class="code" href="structtesseract_1_1_language_model_consistency_info.html#aa2de6ec1817d1279da48a92b5ef65021">NumInconsistentPunc</a>() == 0 &amp;&amp; <a class="code" href="structtesseract_1_1_language_model_consistency_info.html#a5ced173a5c0efd967aa599f25d13c61b">NumInconsistentCase</a>() == 0 &amp;&amp;
+            <a class="code" href="structtesseract_1_1_language_model_consistency_info.html#a1a989b62750d64216a709e8e4ac1c1dd">NumInconsistentChartype</a>() == 0 &amp;&amp; !<a class="code" href="structtesseract_1_1_language_model_consistency_info.html#a540e9468b97ac8d07795cbbd72f8bb6d">inconsistent_script</a>);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a5ced173a5c0efd967aa599f25d13c61b"></a><!-- doxytag: member="tesseract::LanguageModelConsistencyInfo::NumInconsistentCase" ref="a5ced173a5c0efd967aa599f25d13c61b" args="() const " -->
@@ -179,6 +195,11 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="language__model_8h_source.html#l00050">50</a> of file <a class="el" href="language__model_8h_source.html">language_model.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                         {
+    <span class="keywordflow">return</span> (<a class="code" href="structtesseract_1_1_language_model_consistency_info.html#a4171b5ee3943476262df28aa4b4b7a72">num_non_first_upper</a> &gt; <a class="code" href="structtesseract_1_1_language_model_consistency_info.html#abba587f34c1479c9fbe721b8e1c03c4d">num_lower</a>) ? <a class="code" href="structtesseract_1_1_language_model_consistency_info.html#abba587f34c1479c9fbe721b8e1c03c4d">num_lower</a> : <a class="code" href="structtesseract_1_1_language_model_consistency_info.html#a4171b5ee3943476262df28aa4b4b7a72">num_non_first_upper</a>;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a1a989b62750d64216a709e8e4ac1c1dd"></a><!-- doxytag: member="tesseract::LanguageModelConsistencyInfo::NumInconsistentChartype" ref="a1a989b62750d64216a709e8e4ac1c1dd" args="() const " -->
@@ -195,6 +216,12 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="language__model_8h_source.html#l00053">53</a> of file <a class="el" href="language__model_8h_source.html">language_model.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                             {
+    <span class="keywordflow">return</span> (<a class="code" href="structtesseract_1_1_language_model_consistency_info.html#aa2de6ec1817d1279da48a92b5ef65021">NumInconsistentPunc</a>() + <a class="code" href="structtesseract_1_1_language_model_consistency_info.html#a26a8014aaed259c94e3aa6e8f38a4362">num_other</a> +
+            ((<a class="code" href="structtesseract_1_1_language_model_consistency_info.html#a44a85d310744cef17ea1a720c76a3d98">num_alphas</a> &gt; <a class="code" href="structtesseract_1_1_language_model_consistency_info.html#a868c663bc14831a712ea81f4b894b9f2">num_digits</a>) ? <a class="code" href="structtesseract_1_1_language_model_consistency_info.html#a868c663bc14831a712ea81f4b894b9f2">num_digits</a> : <a class="code" href="structtesseract_1_1_language_model_consistency_info.html#a44a85d310744cef17ea1a720c76a3d98">num_alphas</a>));
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa2de6ec1817d1279da48a92b5ef65021"></a><!-- doxytag: member="tesseract::LanguageModelConsistencyInfo::NumInconsistentPunc" ref="aa2de6ec1817d1279da48a92b5ef65021" args="() const " -->
@@ -211,6 +238,11 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="language__model_8h_source.html#l00047">47</a> of file <a class="el" href="language__model_8h_source.html">language_model.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                         {
+    <span class="keywordflow">return</span> <a class="code" href="structtesseract_1_1_language_model_consistency_info.html#aca60069b9d8f62b7623e6849d8322a48">invalid_punc</a> ? <a class="code" href="structtesseract_1_1_language_model_consistency_info.html#ad240e9386a4be45e4d446e4390b1ac0e">num_punc</a> : 0;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa12829f3fb2bfba9bad378be6bd4f331"></a><!-- doxytag: member="tesseract::LanguageModelConsistencyInfo::NumInconsistentSpaces" ref="aa12829f3fb2bfba9bad378be6bd4f331" args="() const " -->
@@ -227,6 +259,11 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="language__model_8h_source.html#l00061">61</a> of file <a class="el" href="language__model_8h_source.html">language_model.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                            {
+    <span class="keywordflow">return</span> <a class="code" href="structtesseract_1_1_language_model_consistency_info.html#aa78515a0fb8f968a6914574efa0701c1">num_inconsistent_spaces</a>;
+  }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
@@ -241,6 +278,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="language__model_8h_source.html#l00076">76</a> of file <a class="el" href="language__model_8h_source.html">language_model.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a540e9468b97ac8d07795cbbd72f8bb6d"></a><!-- doxytag: member="tesseract::LanguageModelConsistencyInfo::inconsistent_script" ref="a540e9468b97ac8d07795cbbd72f8bb6d" args="" -->
@@ -253,6 +292,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="language__model_8h_source.html#l00071">71</a> of file <a class="el" href="language__model_8h_source.html">language_model.h</a>.</p>
 
 </div>
 </div>
@@ -267,6 +308,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="language__model_8h_source.html#l00067">67</a> of file <a class="el" href="language__model_8h_source.html">language_model.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a44a85d310744cef17ea1a720c76a3d98"></a><!-- doxytag: member="tesseract::LanguageModelConsistencyInfo::num_alphas" ref="a44a85d310744cef17ea1a720c76a3d98" args="" -->
@@ -279,6 +322,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="language__model_8h_source.html#l00072">72</a> of file <a class="el" href="language__model_8h_source.html">language_model.h</a>.</p>
 
 </div>
 </div>
@@ -293,6 +338,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="language__model_8h_source.html#l00073">73</a> of file <a class="el" href="language__model_8h_source.html">language_model.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="aa78515a0fb8f968a6914574efa0701c1"></a><!-- doxytag: member="tesseract::LanguageModelConsistencyInfo::num_inconsistent_spaces" ref="aa78515a0fb8f968a6914574efa0701c1" args="" -->
@@ -305,6 +352,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="language__model_8h_source.html#l00075">75</a> of file <a class="el" href="language__model_8h_source.html">language_model.h</a>.</p>
 
 </div>
 </div>
@@ -319,6 +368,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="language__model_8h_source.html#l00069">69</a> of file <a class="el" href="language__model_8h_source.html">language_model.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a4171b5ee3943476262df28aa4b4b7a72"></a><!-- doxytag: member="tesseract::LanguageModelConsistencyInfo::num_non_first_upper" ref="a4171b5ee3943476262df28aa4b4b7a72" args="" -->
@@ -331,6 +382,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="language__model_8h_source.html#l00068">68</a> of file <a class="el" href="language__model_8h_source.html">language_model.h</a>.</p>
 
 </div>
 </div>
@@ -345,6 +398,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="language__model_8h_source.html#l00074">74</a> of file <a class="el" href="language__model_8h_source.html">language_model.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ad240e9386a4be45e4d446e4390b1ac0e"></a><!-- doxytag: member="tesseract::LanguageModelConsistencyInfo::num_punc" ref="ad240e9386a4be45e4d446e4390b1ac0e" args="" -->
@@ -357,6 +412,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="language__model_8h_source.html#l00066">66</a> of file <a class="el" href="language__model_8h_source.html">language_model.h</a>.</p>
 
 </div>
 </div>
@@ -371,6 +428,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="language__model_8h_source.html#l00065">65</a> of file <a class="el" href="language__model_8h_source.html">language_model.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a8de1d60d83971e52357682726e3b0ca4"></a><!-- doxytag: member="tesseract::LanguageModelConsistencyInfo::script_id" ref="a8de1d60d83971e52357682726e3b0ca4" args="" -->
@@ -383,6 +442,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="language__model_8h_source.html#l00070">70</a> of file <a class="el" href="language__model_8h_source.html">language_model.h</a>.</p>
 
 </div>
 </div>
@@ -410,7 +471,7 @@ Public Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:17 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:54 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

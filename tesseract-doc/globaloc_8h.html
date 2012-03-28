@@ -130,6 +130,11 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="globaloc_8cpp_source.html#l00073">73</a> of file <a class="el" href="globaloc_8cpp_source.html">globaloc.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                {
+  <a class="code" href="errcode_8h.html#a5bc45d1c7b7602898f2c7edc72cbcd37">signal_exit</a> (-1);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae281080023125653d85cd946e95f626c"></a><!-- doxytag: member="globaloc.h::set_global_loc_code" ref="ae281080023125653d85cd946e95f626c" args="(int loc_code)" -->
@@ -147,6 +152,12 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="globaloc_8cpp_source.html#l00100">100</a> of file <a class="el" href="globaloc_8cpp_source.html">globaloc.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                       {
+  <span class="comment">// global_loc_code = loc_code;</span>
+
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a87d586caeb936d763514af2bbba8cab6"></a><!-- doxytag: member="globaloc.h::set_global_subloc_code" ref="a87d586caeb936d763514af2bbba8cab6" args="(int loc_code)" -->
@@ -164,6 +175,12 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="globaloc_8cpp_source.html#l00106">106</a> of file <a class="el" href="globaloc_8cpp_source.html">globaloc.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                          {
+  <span class="comment">// global_subloc_code = loc_code;</span>
+
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a683cb64eb69da4200257e0468b4347a0"></a><!-- doxytag: member="globaloc.h::set_global_subsubloc_code" ref="a683cb64eb69da4200257e0468b4347a0" args="(int loc_code)" -->
@@ -181,6 +198,12 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="globaloc_8cpp_source.html#l00112">112</a> of file <a class="el" href="globaloc_8cpp_source.html">globaloc.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                             {
+  <span class="comment">// global_subsubloc_code = loc_code;</span>
+
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a5bc45d1c7b7602898f2c7edc72cbcd37"></a><!-- doxytag: member="globaloc.h::signal_exit" ref="a5bc45d1c7b7602898f2c7edc72cbcd37" args="(int signal_code)" -->
@@ -198,6 +221,28 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="globaloc_8cpp_source.html#l00033">33</a> of file <a class="el" href="globaloc_8cpp_source.html">globaloc.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                  {
+  <span class="comment">/*int exit_status;</span>
+<span class="comment"></span>
+<span class="comment">  if ((global_loc_code == LOC_PASS2) || (global_loc_code == LOC_FUZZY_SPACE))</span>
+<span class="comment">    global_loc_code += global_subloc_code + global_subsubloc_code;</span>
+<span class="comment"></span>
+<span class="comment">  if (signal_code &lt; 0) {</span>
+<span class="comment">    exit_status = global_loc_code * 8 + global_abort_code * 2 + 1;</span>
+<span class="comment">    tprintf (&quot;Signal_exit %d ABORT. LocCode: %d  AbortCode: %d\n&quot;,</span>
+<span class="comment">      exit_status, global_loc_code, global_abort_code);</span>
+<span class="comment">  }</span>
+<span class="comment">  else {</span>
+<span class="comment">    exit_status = global_loc_code * 8 + signal_code * 2;</span>
+<span class="comment">    tprintf (&quot;Signal_exit %d SIGNAL ABORT. LocCode: %d  SignalCode: %d\n&quot;,</span>
+<span class="comment">      exit_status, global_loc_code, signal_code);</span>
+<span class="comment">  }</span>
+<span class="comment"></span>
+<span class="comment">  exit(exit_status);*/</span>
+  exit(signal_code);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad43e2936463aaf5c699e23a72182a121"></a><!-- doxytag: member="globaloc.h::signal_termination_handler" ref="ad43e2936463aaf5c699e23a72182a121" args="(int sig)" -->
@@ -215,6 +260,25 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="globaloc_8cpp_source.html#l00078">78</a> of file <a class="el" href="globaloc_8cpp_source.html">globaloc.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                         {
+  <span class="keyword">const</span> <a class="code" href="class_e_r_r_c_o_d_e.html">ERRCODE</a> SIGNAL_HANDLER_ERR = <span class="stringliteral">&quot;Signal_termination_handler called&quot;</span>;
+  SIGNAL_HANDLER_ERR.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a>(<span class="stringliteral">&quot;signal_termination_handler&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <span class="stringliteral">&quot;Code %d&quot;</span>, sig);
+  <span class="keywordflow">switch</span> (sig) {
+    <span class="keywordflow">case</span> SIGABRT:
+      <a class="code" href="errcode_8h.html#a5bc45d1c7b7602898f2c7edc72cbcd37">signal_exit</a> (-1);          <span class="comment">//use abort code</span>
+      <span class="comment">//         case SIGBUS:</span>
+    <span class="keywordflow">case</span> SIGSEGV:
+      <a class="code" href="errcode_8h.html#a5bc45d1c7b7602898f2c7edc72cbcd37">signal_exit</a> (0);
+    <span class="keywordflow">case</span> SIGFPE:
+      <a class="code" href="errcode_8h.html#a5bc45d1c7b7602898f2c7edc72cbcd37">signal_exit</a> (1);           <span class="comment">//floating point</span>
+    <span class="keywordflow">case</span> SIGTERM:
+      <a class="code" href="errcode_8h.html#a5bc45d1c7b7602898f2c7edc72cbcd37">signal_exit</a> (2);           <span class="comment">//timeout by cmdtimer</span>
+    <span class="keywordflow">default</span>:
+      <a class="code" href="errcode_8h.html#a5bc45d1c7b7602898f2c7edc72cbcd37">signal_exit</a> (3);           <span class="comment">//Anything else</span>
+  }
+}
+</pre></div>
 </div>
 </div>
 </div>
@@ -237,7 +301,7 @@ Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:09 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:40 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

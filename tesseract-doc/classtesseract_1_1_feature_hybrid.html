@@ -129,7 +129,10 @@ Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtesseract_1_1_feature_bmp.html">FeatureBmp</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_feature_hybrid.html#abea94f27e387ed622d461ff5d8a065e0">feature_bmp_</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtesseract_1_1_feature_chebyshev.html">FeatureChebyshev</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_feature_hybrid.html#acf01f4dd67f0df24cc31cf2e59cb4f4e">feature_chebyshev_</a></td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="feature__hybrid_8h_source.html#l00033">33</a> of file <a class="el" href="feature__hybrid_8h_source.html">feature_hybrid.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="ab6402ea2f20b77f52255f9cc6dc162b3"></a><!-- doxytag: member="tesseract::FeatureHybrid::FeatureHybrid" ref="ab6402ea2f20b77f52255f9cc6dc162b3" args="(TuningParams *params)" -->
 <div class="memitem">
 <div class="memproto">
@@ -145,6 +148,12 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="feature__hybrid_8cpp_source.html#l00034">34</a> of file <a class="el" href="feature__hybrid_8cpp_source.html">feature_hybrid.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">    :<a class="code" href="classtesseract_1_1_feature_base.html#af731352f6bbd74d24e86cecfb27ebd34">FeatureBase</a>(params) {
+  <a class="code" href="classtesseract_1_1_feature_hybrid.html#abea94f27e387ed622d461ff5d8a065e0">feature_bmp_</a> = <span class="keyword">new</span> FeatureBmp(params);
+  <a class="code" href="classtesseract_1_1_feature_hybrid.html#acf01f4dd67f0df24cc31cf2e59cb4f4e">feature_chebyshev_</a> = <span class="keyword">new</span> FeatureChebyshev(params);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a171274e2aa1e8fcdceaee82646c6a955"></a><!-- doxytag: member="tesseract::FeatureHybrid::~FeatureHybrid" ref="a171274e2aa1e8fcdceaee82646c6a955" args="()" -->
@@ -161,6 +170,12 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="feature__hybrid_8cpp_source.html#l00040">40</a> of file <a class="el" href="feature__hybrid_8cpp_source.html">feature_hybrid.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                              {
+  <span class="keyword">delete</span> <a class="code" href="classtesseract_1_1_feature_hybrid.html#abea94f27e387ed622d461ff5d8a065e0">feature_bmp_</a>;
+  <span class="keyword">delete</span> <a class="code" href="classtesseract_1_1_feature_hybrid.html#acf01f4dd67f0df24cc31cf2e59cb4f4e">feature_chebyshev_</a>;
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -181,6 +196,11 @@ Protected Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="classtesseract_1_1_feature_base.html#adaf3ad330751f301a10e8b45502146d2">tesseract::FeatureBase</a>.</p>
 
+<p>Definition at line <a class="el" href="feature__hybrid_8cpp_source.html#l00047">47</a> of file <a class="el" href="feature__hybrid_8cpp_source.html">feature_hybrid.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                 {
+  <span class="keywordflow">return</span> char_samp;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae1c8179574a7585ab0df180fe5debf7b"></a><!-- doxytag: member="tesseract::FeatureHybrid::ComputeFeatures" ref="ae1c8179574a7585ab0df180fe5debf7b" args="(CharSamp *samp, float *features)" -->
@@ -210,6 +230,18 @@ Protected Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="classtesseract_1_1_feature_base.html#a48d4dc8529d3a878e4eef08c76101c0d">tesseract::FeatureBase</a>.</p>
 
+<p>Definition at line <a class="el" href="feature__hybrid_8cpp_source.html#l00053">53</a> of file <a class="el" href="feature__hybrid_8cpp_source.html">feature_hybrid.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                        {
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_feature_hybrid.html#abea94f27e387ed622d461ff5d8a065e0">feature_bmp_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> || <a class="code" href="classtesseract_1_1_feature_hybrid.html#acf01f4dd67f0df24cc31cf2e59cb4f4e">feature_chebyshev_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+  <span class="keywordflow">if</span> (!<a class="code" href="classtesseract_1_1_feature_hybrid.html#abea94f27e387ed622d461ff5d8a065e0">feature_bmp_</a>-&gt;ComputeFeatures(char_samp, features)) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+  <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_feature_hybrid.html#acf01f4dd67f0df24cc31cf2e59cb4f4e">feature_chebyshev_</a>-&gt;ComputeFeatures(char_samp,
+    features + <a class="code" href="classtesseract_1_1_feature_hybrid.html#abea94f27e387ed622d461ff5d8a065e0">feature_bmp_</a>-&gt;FeatureCnt());
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7c0656b527b706025fc23f80369203ad"></a><!-- doxytag: member="tesseract::FeatureHybrid::FeatureCnt" ref="a7c0656b527b706025fc23f80369203ad" args="()" -->
@@ -228,6 +260,14 @@ Protected Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="classtesseract_1_1_feature_base.html#a2ae28b0e5bc8361cac1cea91e96501e7">tesseract::FeatureBase</a>.</p>
 
+<p>Definition at line <a class="el" href="feature__hybrid_8h_source.html#l00043">43</a> of file <a class="el" href="feature__hybrid_8h_source.html">feature_hybrid.h</a>.</p>
+<div class="fragment"><pre class="fragment">                           {
+    <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_feature_hybrid.html#abea94f27e387ed622d461ff5d8a065e0">feature_bmp_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> || <a class="code" href="classtesseract_1_1_feature_hybrid.html#acf01f4dd67f0df24cc31cf2e59cb4f4e">feature_chebyshev_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      <span class="keywordflow">return</span> 0;
+    }
+    <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_feature_hybrid.html#abea94f27e387ed622d461ff5d8a065e0">feature_bmp_</a>-&gt;FeatureCnt() + <a class="code" href="classtesseract_1_1_feature_hybrid.html#acf01f4dd67f0df24cc31cf2e59cb4f4e">feature_chebyshev_</a>-&gt;FeatureCnt();
+  }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
@@ -242,6 +282,8 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="feature__hybrid_8h_source.html#l00051">51</a> of file <a class="el" href="feature__hybrid_8h_source.html">feature_hybrid.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="acf01f4dd67f0df24cc31cf2e59cb4f4e"></a><!-- doxytag: member="tesseract::FeatureHybrid::feature_chebyshev_" ref="acf01f4dd67f0df24cc31cf2e59cb4f4e" args="" -->
@@ -255,11 +297,13 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="feature__hybrid_8h_source.html#l00052">52</a> of file <a class="el" href="feature__hybrid_8h_source.html">feature_hybrid.h</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/cube/<a class="el" href="feature__hybrid_8h_source.html">feature_hybrid.h</a></li>
-<li>tesseract-ocr/cube/<a class="el" href="feature__hybrid_8cpp.html">feature_hybrid.cpp</a></li>
+<li>tesseract-ocr/cube/<a class="el" href="feature__hybrid_8cpp_source.html">feature_hybrid.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -282,7 +326,7 @@ Protected Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:15 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:51 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

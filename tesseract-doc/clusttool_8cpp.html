@@ -109,7 +109,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <code>#include &quot;<a class="el" href="scanutils_8h_source.html">scanutils.h</a>&quot;</code><br/>
 <code>#include &lt;stdio.h&gt;</code><br/>
 <code>#include &lt;math.h&gt;</code><br/>
-</div><table class="memberdecls">
+</div>
+<p><a href="clusttool_8cpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr><td colspan="2"><h2><a name="define-members"></a>
 Defines</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clusttool_8cpp.html#ae17edeefd22ae590b356bd24f8f61d11">TOKENSIZE</a>&#160;&#160;&#160;80</td></tr>
@@ -139,6 +141,8 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="clusttool_8cpp_source.html#l00030">30</a> of file <a class="el" href="clusttool_8cpp_source.html">clusttool.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ae17edeefd22ae590b356bd24f8f61d11"></a><!-- doxytag: member="clusttool.cpp::TOKENSIZE" ref="ae17edeefd22ae590b356bd24f8f61d11" args="" -->
@@ -151,6 +155,8 @@ Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="clusttool_8cpp_source.html#l00029">29</a> of file <a class="el" href="clusttool_8cpp_source.html">clusttool.cpp</a>.</p>
 
 </div>
 </div>
@@ -187,6 +193,26 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>ReadNFloats ************************************************************* Parameters: File open text file to read floats from N number of floats to read Buffer pointer to buffer to place floats into Globals: None Operation: This routine reads N floats from the specified text file and places them into Buffer. If Buffer is NULL, a buffer is created and passed back to the caller. If EOF is encountered before any floats can be read, NULL is returned. Return: Pointer to buffer holding floats or NULL if EOF Exceptions: ILLEGALFLOAT History: 6/6/89, DSJ, Created. </p>
 
+<p>Definition at line <a class="el" href="clusttool_8cpp_source.html#l00286">286</a> of file <a class="el" href="clusttool_8cpp_source.html">clusttool.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                      {
+  <span class="keywordtype">int</span> i;
+  <span class="keywordtype">int</span> NumFloatsRead;
+
+  <span class="keywordflow">if</span> (Buffer == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    Buffer = (<a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a> *) <a class="code" href="emalloc_8cpp.html#a55f2088f1a7b3333bb5c7275ab726bba">Emalloc</a> (N * <span class="keyword">sizeof</span> (<a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a>));
+
+  <span class="keywordflow">for</span> (i = 0; i &lt; N; i++) {
+    NumFloatsRead = fscanf (File, <span class="stringliteral">&quot;%f&quot;</span>, &amp;(Buffer[i]));
+    <span class="keywordflow">if</span> (NumFloatsRead != 1) {
+      <span class="keywordflow">if</span> ((NumFloatsRead == EOF) &amp;&amp; (i == 0))
+        <span class="keywordflow">return</span> (<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+      <span class="keywordflow">else</span>
+        <a class="code" href="danerror_8cpp.html#a480942fa88232bda23e9809e5afa9f25">DoError</a> (<a class="code" href="clusttool_8h.html#a0a3d9acba9eecd1e86cf3ec41183c05b">ILLEGALFLOAT</a>, <span class="stringliteral">&quot;Illegal float specification&quot;</span>);
+    }
+  }
+  <span class="keywordflow">return</span> (Buffer);
+}                                <span class="comment">// ReadNFloats</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae37f86e537cc934a27b5cb8c3dfd3173"></a><!-- doxytag: member="clusttool.cpp::ReadParamDesc" ref="ae37f86e537cc934a27b5cb8c3dfd3173" args="(FILE *File, uinT16 N)" -->
@@ -215,6 +241,39 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>ReadParamDesc ************************************************************* Parameters: File open text file to read N parameter descriptions from N number of parameter descriptions to read Globals: None Operation: This routine reads textual descriptions of sets of parameters which describe the characteristics of feature dimensions. Return: Pointer to an array of parameter descriptors. Exceptions: ILLEGALCIRCULARSPEC ILLEGALESSENTIALSPEC ILLEGALMINMAXSPEC History: 6/6/89, DSJ, Created. </p>
 
+<p>Definition at line <a class="el" href="clusttool_8cpp_source.html#l00068">68</a> of file <a class="el" href="clusttool_8cpp_source.html">clusttool.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                {
+  <span class="keywordtype">int</span> i;
+  <a class="code" href="struct_p_a_r_a_m___d_e_s_c.html">PARAM_DESC</a> *ParamDesc;
+  <span class="keywordtype">char</span> Token[<a class="code" href="clusttool_8cpp.html#ae17edeefd22ae590b356bd24f8f61d11">TOKENSIZE</a>];
+
+  ParamDesc = (<a class="code" href="struct_p_a_r_a_m___d_e_s_c.html">PARAM_DESC</a> *) <a class="code" href="emalloc_8cpp.html#a55f2088f1a7b3333bb5c7275ab726bba">Emalloc</a> (N * <span class="keyword">sizeof</span> (<a class="code" href="struct_p_a_r_a_m___d_e_s_c.html">PARAM_DESC</a>));
+  <span class="keywordflow">for</span> (i = 0; i &lt; N; i++) {
+    <span class="keywordflow">if</span> (fscanf (File, <span class="stringliteral">&quot;%s&quot;</span>, Token) != 1)
+      <a class="code" href="danerror_8cpp.html#a480942fa88232bda23e9809e5afa9f25">DoError</a> (<a class="code" href="clusttool_8h.html#a3c4a4b251aa42c2c882ae83c65dfb980">ILLEGALCIRCULARSPEC</a>,
+        <span class="stringliteral">&quot;Illegal circular/linear specification&quot;</span>);
+    <span class="keywordflow">if</span> (Token[0] == <span class="charliteral">&#39;c&#39;</span>)
+      ParamDesc[i].<a class="code" href="struct_p_a_r_a_m___d_e_s_c.html#a55807f1e0be0daba2a33380ea29b2f1d">Circular</a> = <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+    <span class="keywordflow">else</span>
+      ParamDesc[i].<a class="code" href="struct_p_a_r_a_m___d_e_s_c.html#a55807f1e0be0daba2a33380ea29b2f1d">Circular</a> = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+
+    <span class="keywordflow">if</span> (fscanf (File, <span class="stringliteral">&quot;%s&quot;</span>, Token) != 1)
+      <a class="code" href="danerror_8cpp.html#a480942fa88232bda23e9809e5afa9f25">DoError</a> (<a class="code" href="clusttool_8h.html#a9807f33462886db66ed9570245a27fee">ILLEGALESSENTIALSPEC</a>,
+        <span class="stringliteral">&quot;Illegal essential/non-essential spec&quot;</span>);
+    <span class="keywordflow">if</span> (Token[0] == <span class="charliteral">&#39;e&#39;</span>)
+      ParamDesc[i].<a class="code" href="struct_p_a_r_a_m___d_e_s_c.html#a6b9843466a3ddf33bfab18f85ca06501">NonEssential</a> = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+    <span class="keywordflow">else</span>
+      ParamDesc[i].<a class="code" href="struct_p_a_r_a_m___d_e_s_c.html#a6b9843466a3ddf33bfab18f85ca06501">NonEssential</a> = <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+    <span class="keywordflow">if</span> (fscanf (File, <span class="stringliteral">&quot;%f%f&quot;</span>, &amp;(ParamDesc[i].Min), &amp;(ParamDesc[i].Max)) !=
+      2)
+      <a class="code" href="danerror_8cpp.html#a480942fa88232bda23e9809e5afa9f25">DoError</a> (<a class="code" href="clusttool_8h.html#a4bde310182c9d51b6b017c981958db65">ILLEGALMINMAXSPEC</a>, <span class="stringliteral">&quot;Illegal min or max specification&quot;</span>);
+    ParamDesc[i].<a class="code" href="struct_p_a_r_a_m___d_e_s_c.html#a031dddcdc1744e777435f8ceea197448">Range</a> = ParamDesc[i].<a class="code" href="struct_p_a_r_a_m___d_e_s_c.html#a73e76f946bbd324e60914a991d3343d1">Max</a> - ParamDesc[i].<a class="code" href="struct_p_a_r_a_m___d_e_s_c.html#a6445e8e433a99239e56c3218437f2695">Min</a>;
+    ParamDesc[i].<a class="code" href="struct_p_a_r_a_m___d_e_s_c.html#a1df92d879d7ec8ea6662e956d27154b5">HalfRange</a> = ParamDesc[i].<a class="code" href="struct_p_a_r_a_m___d_e_s_c.html#a031dddcdc1744e777435f8ceea197448">Range</a> / 2;
+    ParamDesc[i].<a class="code" href="struct_p_a_r_a_m___d_e_s_c.html#a7c7bec15766be3633c649a0a9409b512">MidRange</a> = (ParamDesc[i].<a class="code" href="struct_p_a_r_a_m___d_e_s_c.html#a73e76f946bbd324e60914a991d3343d1">Max</a> + ParamDesc[i].<a class="code" href="struct_p_a_r_a_m___d_e_s_c.html#a6445e8e433a99239e56c3218437f2695">Min</a>) / 2;
+  }
+  <span class="keywordflow">return</span> (ParamDesc);
+}                                <span class="comment">// ReadParamDesc</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a8e0a4d7e3f0a938673a40b82a5199b2b"></a><!-- doxytag: member="clusttool.cpp::ReadProtoStyle" ref="a8e0a4d7e3f0a938673a40b82a5199b2b" args="(FILE *File)" -->
@@ -232,6 +291,33 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="clusttool_8cpp_source.html#l00244">244</a> of file <a class="el" href="clusttool_8cpp_source.html">clusttool.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                      {
+  <span class="keywordtype">char</span> Token[<a class="code" href="clusttool_8cpp.html#ae17edeefd22ae590b356bd24f8f61d11">TOKENSIZE</a>];
+  <a class="code" href="cluster_8h.html#a2bf647f23b4a059a559e4d991437c9ea">PROTOSTYLE</a> Style;
+
+  <span class="keywordflow">if</span> (fscanf (File, <span class="stringliteral">&quot;%s&quot;</span>, Token) != 1)
+    <a class="code" href="danerror_8cpp.html#a480942fa88232bda23e9809e5afa9f25">DoError</a> (<a class="code" href="clusttool_8h.html#ad5af9ed421659ab0896a2abca0883d1a">ILLEGALSTYLESPEC</a>, <span class="stringliteral">&quot;Illegal prototype style specification&quot;</span>);
+  <span class="keywordflow">switch</span> (Token[0]) {
+    <span class="keywordflow">case</span> <span class="charliteral">&#39;s&#39;</span>:
+      Style = <a class="code" href="cluster_8h.html#a2bf647f23b4a059a559e4d991437c9eaa93d6901f160899d15f69322530595f4f">spherical</a>;
+      <span class="keywordflow">break</span>;
+    <span class="keywordflow">case</span> <span class="charliteral">&#39;e&#39;</span>:
+      Style = <a class="code" href="cluster_8h.html#a2bf647f23b4a059a559e4d991437c9eaa39d32ff639641ca169c9729c58614459">elliptical</a>;
+      <span class="keywordflow">break</span>;
+    <span class="keywordflow">case</span> <span class="charliteral">&#39;m&#39;</span>:
+      Style = <a class="code" href="cluster_8h.html#a2bf647f23b4a059a559e4d991437c9eaab164032fff82a847826b4887d9e7be58">mixed</a>;
+      <span class="keywordflow">break</span>;
+    <span class="keywordflow">case</span> <span class="charliteral">&#39;a&#39;</span>:
+      Style = <a class="code" href="cluster_8h.html#a2bf647f23b4a059a559e4d991437c9eaa9761086e420b925e438327ad385b304d">automatic</a>;
+      <span class="keywordflow">break</span>;
+    <span class="keywordflow">default</span>:
+      Style = <a class="code" href="cluster_8h.html#a2bf647f23b4a059a559e4d991437c9eaa39d32ff639641ca169c9729c58614459">elliptical</a>;
+      <a class="code" href="danerror_8cpp.html#a480942fa88232bda23e9809e5afa9f25">DoError</a> (<a class="code" href="clusttool_8h.html#ad5af9ed421659ab0896a2abca0883d1a">ILLEGALSTYLESPEC</a>, <span class="stringliteral">&quot;Illegal prototype style specification&quot;</span>);
+  }
+  <span class="keywordflow">return</span> (Style);
+}                                <span class="comment">// ReadProtoStyle</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae695f7912de20580483721573348f10d"></a><!-- doxytag: member="clusttool.cpp::ReadPrototype" ref="ae695f7912de20580483721573348f10d" args="(FILE *File, uinT16 N)" -->
@@ -260,6 +346,126 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>ReadPrototype ************************************************************* Parameters: File open text file to read prototype from N number of dimensions used in prototype Globals: None Operation: This routine reads a textual description of a prototype from the specified file. Return: List of prototypes Exceptions: ILLEGALSIGNIFICANCESPEC ILLEGALSAMPLECOUNT ILLEGALMEANSPEC ILLEGALVARIANCESPEC ILLEGALDISTRIBUTION History: 6/6/89, DSJ, Created. </p>
 
+<p>Definition at line <a class="el" href="clusttool_8cpp_source.html#l00115">115</a> of file <a class="el" href="clusttool_8cpp_source.html">clusttool.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                               {
+  <span class="keywordtype">char</span> Token[<a class="code" href="clusttool_8cpp.html#ae17edeefd22ae590b356bd24f8f61d11">TOKENSIZE</a>];
+  <span class="keywordtype">int</span> Status;
+  <a class="code" href="struct_p_r_o_t_o_t_y_p_e.html">PROTOTYPE</a> *Proto;
+  <span class="keywordtype">int</span> SampleCount;
+  <span class="keywordtype">int</span> i;
+
+  <span class="keywordflow">if</span> ((Status = fscanf (File, <span class="stringliteral">&quot;%s&quot;</span>, Token)) == 1) {
+    Proto = (<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html">PROTOTYPE</a> *) <a class="code" href="emalloc_8cpp.html#a55f2088f1a7b3333bb5c7275ab726bba">Emalloc</a> (<span class="keyword">sizeof</span> (<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html">PROTOTYPE</a>));
+    Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#aff59384612de343b799b92a5d80282b7">Cluster</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    <span class="keywordflow">if</span> (Token[0] == <span class="charliteral">&#39;s&#39;</span>)
+      Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a5d94887aaa0acd7e4a0c04c420af5670">Significant</a> = <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+    <span class="keywordflow">else</span>
+      Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a5d94887aaa0acd7e4a0c04c420af5670">Significant</a> = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+
+    Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#aad81f08b6e171698866b445c0b3d4b35">Style</a> = <a class="code" href="clusttool_8cpp.html#a8e0a4d7e3f0a938673a40b82a5199b2b">ReadProtoStyle</a> (File);
+
+    <span class="keywordflow">if</span> ((fscanf (File, <span class="stringliteral">&quot;%d&quot;</span>, &amp;SampleCount) != 1) || (SampleCount &lt; 0))
+      <a class="code" href="danerror_8cpp.html#a480942fa88232bda23e9809e5afa9f25">DoError</a> (<a class="code" href="clusttool_8h.html#ac956d1ac7852ec521cc3faa1aef5be0c">ILLEGALSAMPLECOUNT</a>, <span class="stringliteral">&quot;Illegal sample count&quot;</span>);
+    Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a2ba6bfd64f308a26cdd0a75c52e002f5">NumSamples</a> = SampleCount;
+
+    Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#af9c4f61cdbf39f6494b4691799bd4fa6">Mean</a> = <a class="code" href="clusttool_8cpp.html#ac8403bb0db7b53dcd96435b6ff2ececb">ReadNFloats</a> (File, N, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+    <span class="keywordflow">if</span> (Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#af9c4f61cdbf39f6494b4691799bd4fa6">Mean</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+      <a class="code" href="danerror_8cpp.html#a480942fa88232bda23e9809e5afa9f25">DoError</a> (<a class="code" href="clusttool_8h.html#a47a6e5abffe00553f5984cc4079f32d7">ILLEGALMEANSPEC</a>, <span class="stringliteral">&quot;Illegal prototype mean&quot;</span>);
+
+    <span class="keywordflow">switch</span> (Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#aad81f08b6e171698866b445c0b3d4b35">Style</a>) {
+      <span class="keywordflow">case</span> <a class="code" href="cluster_8h.html#a2bf647f23b4a059a559e4d991437c9eaa93d6901f160899d15f69322530595f4f">spherical</a>:
+        <span class="keywordflow">if</span> (<a class="code" href="clusttool_8cpp.html#ac8403bb0db7b53dcd96435b6ff2ececb">ReadNFloats</a> (File, 1, &amp;(Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a35cf2e2dd8cc8b0e9476ad49f36abd24">Variance</a>.<a class="code" href="union_f_l_o_a_t_u_n_i_o_n.html#ad883f0258d034e4fd77ce450c3e058d2">Spherical</a>)) == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+          <a class="code" href="danerror_8cpp.html#a480942fa88232bda23e9809e5afa9f25">DoError</a> (<a class="code" href="clusttool_8h.html#af4a945e424295913c8a3539f1a2b166d">ILLEGALVARIANCESPEC</a>, <span class="stringliteral">&quot;Illegal prototype variance&quot;</span>);
+        Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a0b016afed9c049598aa41feb3770fc15">Magnitude</a>.<a class="code" href="union_f_l_o_a_t_u_n_i_o_n.html#ad883f0258d034e4fd77ce450c3e058d2">Spherical</a> =
+          1.0 / sqrt ((<span class="keywordtype">double</span>) (2.0 * <a class="code" href="const_8h.html#a598a3330b3c21701223ee0ca14316eca">PI</a> * Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a35cf2e2dd8cc8b0e9476ad49f36abd24">Variance</a>.<a class="code" href="union_f_l_o_a_t_u_n_i_o_n.html#ad883f0258d034e4fd77ce450c3e058d2">Spherical</a>));
+        Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a40a4a7e28d83ad5ad3c64e54734104be">TotalMagnitude</a> =
+          pow (Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a0b016afed9c049598aa41feb3770fc15">Magnitude</a>.<a class="code" href="union_f_l_o_a_t_u_n_i_o_n.html#ad883f0258d034e4fd77ce450c3e058d2">Spherical</a>, (<span class="keywordtype">float</span>) N);
+        Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#aefd3ba15fc4dd0029aa9cda07092382b">LogMagnitude</a> = log ((<span class="keywordtype">double</span>) Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a40a4a7e28d83ad5ad3c64e54734104be">TotalMagnitude</a>);
+        Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#af202ff952380614068536ea0b504285e">Weight</a>.<a class="code" href="union_f_l_o_a_t_u_n_i_o_n.html#ad883f0258d034e4fd77ce450c3e058d2">Spherical</a> = 1.0 / Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a35cf2e2dd8cc8b0e9476ad49f36abd24">Variance</a>.<a class="code" href="union_f_l_o_a_t_u_n_i_o_n.html#ad883f0258d034e4fd77ce450c3e058d2">Spherical</a>;
+        Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#ae53408c33cdd473a9ed1f028e8172b0b">Distrib</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+        <span class="keywordflow">break</span>;
+      <span class="keywordflow">case</span> <a class="code" href="cluster_8h.html#a2bf647f23b4a059a559e4d991437c9eaa39d32ff639641ca169c9729c58614459">elliptical</a>:
+        Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a35cf2e2dd8cc8b0e9476ad49f36abd24">Variance</a>.<a class="code" href="union_f_l_o_a_t_u_n_i_o_n.html#a4b36c5b636aac27041dd340386f3801f">Elliptical</a> = <a class="code" href="clusttool_8cpp.html#ac8403bb0db7b53dcd96435b6ff2ececb">ReadNFloats</a> (File, N, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+        <span class="keywordflow">if</span> (Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a35cf2e2dd8cc8b0e9476ad49f36abd24">Variance</a>.<a class="code" href="union_f_l_o_a_t_u_n_i_o_n.html#a4b36c5b636aac27041dd340386f3801f">Elliptical</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+          <a class="code" href="danerror_8cpp.html#a480942fa88232bda23e9809e5afa9f25">DoError</a> (<a class="code" href="clusttool_8h.html#af4a945e424295913c8a3539f1a2b166d">ILLEGALVARIANCESPEC</a>, <span class="stringliteral">&quot;Illegal prototype variance&quot;</span>);
+        Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a0b016afed9c049598aa41feb3770fc15">Magnitude</a>.<a class="code" href="union_f_l_o_a_t_u_n_i_o_n.html#a4b36c5b636aac27041dd340386f3801f">Elliptical</a> =
+          (<a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a> *) <a class="code" href="emalloc_8cpp.html#a55f2088f1a7b3333bb5c7275ab726bba">Emalloc</a> (N * <span class="keyword">sizeof</span> (<a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a>));
+        Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#af202ff952380614068536ea0b504285e">Weight</a>.<a class="code" href="union_f_l_o_a_t_u_n_i_o_n.html#a4b36c5b636aac27041dd340386f3801f">Elliptical</a> =
+          (<a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a> *) <a class="code" href="emalloc_8cpp.html#a55f2088f1a7b3333bb5c7275ab726bba">Emalloc</a> (N * <span class="keyword">sizeof</span> (<a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a>));
+        Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a40a4a7e28d83ad5ad3c64e54734104be">TotalMagnitude</a> = 1.0;
+        <span class="keywordflow">for</span> (i = 0; i &lt; N; i++) {
+          Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a0b016afed9c049598aa41feb3770fc15">Magnitude</a>.<a class="code" href="union_f_l_o_a_t_u_n_i_o_n.html#a4b36c5b636aac27041dd340386f3801f">Elliptical</a>[i] =
+            1.0 /
+            sqrt ((<span class="keywordtype">double</span>) (2.0 * <a class="code" href="const_8h.html#a598a3330b3c21701223ee0ca14316eca">PI</a> * Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a35cf2e2dd8cc8b0e9476ad49f36abd24">Variance</a>.<a class="code" href="union_f_l_o_a_t_u_n_i_o_n.html#a4b36c5b636aac27041dd340386f3801f">Elliptical</a>[i]));
+          Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#af202ff952380614068536ea0b504285e">Weight</a>.<a class="code" href="union_f_l_o_a_t_u_n_i_o_n.html#a4b36c5b636aac27041dd340386f3801f">Elliptical</a>[i] =
+            1.0 / Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a35cf2e2dd8cc8b0e9476ad49f36abd24">Variance</a>.<a class="code" href="union_f_l_o_a_t_u_n_i_o_n.html#a4b36c5b636aac27041dd340386f3801f">Elliptical</a>[i];
+          Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a40a4a7e28d83ad5ad3c64e54734104be">TotalMagnitude</a> *= Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a0b016afed9c049598aa41feb3770fc15">Magnitude</a>.<a class="code" href="union_f_l_o_a_t_u_n_i_o_n.html#a4b36c5b636aac27041dd340386f3801f">Elliptical</a>[i];
+        }
+        Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#aefd3ba15fc4dd0029aa9cda07092382b">LogMagnitude</a> = log ((<span class="keywordtype">double</span>) Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a40a4a7e28d83ad5ad3c64e54734104be">TotalMagnitude</a>);
+        Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#ae53408c33cdd473a9ed1f028e8172b0b">Distrib</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+        <span class="keywordflow">break</span>;
+      <span class="keywordflow">case</span> <a class="code" href="cluster_8h.html#a2bf647f23b4a059a559e4d991437c9eaab164032fff82a847826b4887d9e7be58">mixed</a>:
+        Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#ae53408c33cdd473a9ed1f028e8172b0b">Distrib</a> =
+          (<a class="code" href="cluster_8h.html#ade80fdcd8f2dde57393f56d0cdfaeed0">DISTRIBUTION</a> *) <a class="code" href="emalloc_8cpp.html#a55f2088f1a7b3333bb5c7275ab726bba">Emalloc</a> (N * <span class="keyword">sizeof</span> (<a class="code" href="cluster_8h.html#ade80fdcd8f2dde57393f56d0cdfaeed0">DISTRIBUTION</a>));
+        <span class="keywordflow">for</span> (i = 0; i &lt; N; i++) {
+          <span class="keywordflow">if</span> (fscanf (File, <span class="stringliteral">&quot;%s&quot;</span>, Token) != 1)
+            <a class="code" href="danerror_8cpp.html#a480942fa88232bda23e9809e5afa9f25">DoError</a> (<a class="code" href="clusttool_8h.html#a391d78630134eb691596568d73fe04ad">ILLEGALDISTRIBUTION</a>,
+              <span class="stringliteral">&quot;Illegal prototype distribution&quot;</span>);
+          <span class="keywordflow">switch</span> (Token[0]) {
+            <span class="keywordflow">case</span> <span class="charliteral">&#39;n&#39;</span>:
+              Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#ae53408c33cdd473a9ed1f028e8172b0b">Distrib</a>[i] = <a class="code" href="cluster_8h.html#ade80fdcd8f2dde57393f56d0cdfaeed0aebc81705969b8c5ae986b0b2ec08d1d5">normal</a>;
+              <span class="keywordflow">break</span>;
+            <span class="keywordflow">case</span> <span class="charliteral">&#39;u&#39;</span>:
+              Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#ae53408c33cdd473a9ed1f028e8172b0b">Distrib</a>[i] = <a class="code" href="cluster_8h.html#ade80fdcd8f2dde57393f56d0cdfaeed0a56013d9ac59a24fb94d9acb932a04b2f">uniform</a>;
+              <span class="keywordflow">break</span>;
+            <span class="keywordflow">case</span> <span class="charliteral">&#39;r&#39;</span>:
+              Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#ae53408c33cdd473a9ed1f028e8172b0b">Distrib</a>[i] = <a class="code" href="cluster_8h.html#ade80fdcd8f2dde57393f56d0cdfaeed0a21504929e31ddde091641bb817e32320">D_random</a>;
+              <span class="keywordflow">break</span>;
+            <span class="keywordflow">default</span>:
+              <a class="code" href="danerror_8cpp.html#a480942fa88232bda23e9809e5afa9f25">DoError</a> (<a class="code" href="clusttool_8h.html#a391d78630134eb691596568d73fe04ad">ILLEGALDISTRIBUTION</a>,
+                <span class="stringliteral">&quot;Illegal prototype distribution&quot;</span>);
+          }
+        }
+        Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a35cf2e2dd8cc8b0e9476ad49f36abd24">Variance</a>.<a class="code" href="union_f_l_o_a_t_u_n_i_o_n.html#a4b36c5b636aac27041dd340386f3801f">Elliptical</a> = <a class="code" href="clusttool_8cpp.html#ac8403bb0db7b53dcd96435b6ff2ececb">ReadNFloats</a> (File, N, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+        <span class="keywordflow">if</span> (Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a35cf2e2dd8cc8b0e9476ad49f36abd24">Variance</a>.<a class="code" href="union_f_l_o_a_t_u_n_i_o_n.html#a4b36c5b636aac27041dd340386f3801f">Elliptical</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+          <a class="code" href="danerror_8cpp.html#a480942fa88232bda23e9809e5afa9f25">DoError</a> (<a class="code" href="clusttool_8h.html#af4a945e424295913c8a3539f1a2b166d">ILLEGALVARIANCESPEC</a>, <span class="stringliteral">&quot;Illegal prototype variance&quot;</span>);
+        Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a0b016afed9c049598aa41feb3770fc15">Magnitude</a>.<a class="code" href="union_f_l_o_a_t_u_n_i_o_n.html#a4b36c5b636aac27041dd340386f3801f">Elliptical</a> =
+          (<a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a> *) <a class="code" href="emalloc_8cpp.html#a55f2088f1a7b3333bb5c7275ab726bba">Emalloc</a> (N * <span class="keyword">sizeof</span> (<a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a>));
+        Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#af202ff952380614068536ea0b504285e">Weight</a>.<a class="code" href="union_f_l_o_a_t_u_n_i_o_n.html#a4b36c5b636aac27041dd340386f3801f">Elliptical</a> =
+          (<a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a> *) <a class="code" href="emalloc_8cpp.html#a55f2088f1a7b3333bb5c7275ab726bba">Emalloc</a> (N * <span class="keyword">sizeof</span> (<a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a>));
+        Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a40a4a7e28d83ad5ad3c64e54734104be">TotalMagnitude</a> = 1.0;
+        <span class="keywordflow">for</span> (i = 0; i &lt; N; i++) {
+          <span class="keywordflow">switch</span> (Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#ae53408c33cdd473a9ed1f028e8172b0b">Distrib</a>[i]) {
+            <span class="keywordflow">case</span> <a class="code" href="cluster_8h.html#ade80fdcd8f2dde57393f56d0cdfaeed0aebc81705969b8c5ae986b0b2ec08d1d5">normal</a>:
+              Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a0b016afed9c049598aa41feb3770fc15">Magnitude</a>.<a class="code" href="union_f_l_o_a_t_u_n_i_o_n.html#a4b36c5b636aac27041dd340386f3801f">Elliptical</a>[i] = 1.0 /
+                sqrt ((<span class="keywordtype">double</span>)
+                (2.0 * <a class="code" href="const_8h.html#a598a3330b3c21701223ee0ca14316eca">PI</a> * Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a35cf2e2dd8cc8b0e9476ad49f36abd24">Variance</a>.<a class="code" href="union_f_l_o_a_t_u_n_i_o_n.html#a4b36c5b636aac27041dd340386f3801f">Elliptical</a>[i]));
+              Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#af202ff952380614068536ea0b504285e">Weight</a>.<a class="code" href="union_f_l_o_a_t_u_n_i_o_n.html#a4b36c5b636aac27041dd340386f3801f">Elliptical</a>[i] =
+                1.0 / Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a35cf2e2dd8cc8b0e9476ad49f36abd24">Variance</a>.<a class="code" href="union_f_l_o_a_t_u_n_i_o_n.html#a4b36c5b636aac27041dd340386f3801f">Elliptical</a>[i];
+              <span class="keywordflow">break</span>;
+            <span class="keywordflow">case</span> <a class="code" href="cluster_8h.html#ade80fdcd8f2dde57393f56d0cdfaeed0a56013d9ac59a24fb94d9acb932a04b2f">uniform</a>:
+            <span class="keywordflow">case</span> <a class="code" href="cluster_8h.html#ade80fdcd8f2dde57393f56d0cdfaeed0a21504929e31ddde091641bb817e32320">D_random</a>:
+              Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a0b016afed9c049598aa41feb3770fc15">Magnitude</a>.<a class="code" href="union_f_l_o_a_t_u_n_i_o_n.html#a4b36c5b636aac27041dd340386f3801f">Elliptical</a>[i] = 1.0 /
+                (2.0 * Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a35cf2e2dd8cc8b0e9476ad49f36abd24">Variance</a>.<a class="code" href="union_f_l_o_a_t_u_n_i_o_n.html#a4b36c5b636aac27041dd340386f3801f">Elliptical</a>[i]);
+              <span class="keywordflow">break</span>;
+            <span class="keywordflow">case</span> <a class="code" href="cluster_8h.html#ade80fdcd8f2dde57393f56d0cdfaeed0a1223ae56d204b110bd185b7dbdda258e">DISTRIBUTION_COUNT</a>:
+              <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(!<span class="stringliteral">&quot;Distribution count not allowed!&quot;</span>);
+          }
+          Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a40a4a7e28d83ad5ad3c64e54734104be">TotalMagnitude</a> *= Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a0b016afed9c049598aa41feb3770fc15">Magnitude</a>.<a class="code" href="union_f_l_o_a_t_u_n_i_o_n.html#a4b36c5b636aac27041dd340386f3801f">Elliptical</a>[i];
+        }
+        Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#aefd3ba15fc4dd0029aa9cda07092382b">LogMagnitude</a> = log ((<span class="keywordtype">double</span>) Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a40a4a7e28d83ad5ad3c64e54734104be">TotalMagnitude</a>);
+        <span class="keywordflow">break</span>;
+    }
+    <span class="keywordflow">return</span> (Proto);
+  }
+  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (Status == EOF)
+    <span class="keywordflow">return</span> (<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <span class="keywordflow">else</span> {
+    <a class="code" href="danerror_8cpp.html#a480942fa88232bda23e9809e5afa9f25">DoError</a> (<a class="code" href="clusttool_8h.html#a4b3703ca46e25a96d58a2196b80aa7bc">ILLEGALSIGNIFICANCESPEC</a>, <span class="stringliteral">&quot;Illegal significance specification&quot;</span>);
+    <span class="keywordflow">return</span> (<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  }
+}                                <span class="comment">// ReadPrototype</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa72cb3d213dfc2a7e49bc0e4df860388"></a><!-- doxytag: member="clusttool.cpp::ReadSampleSize" ref="aa72cb3d213dfc2a7e49bc0e4df860388" args="(FILE *File)" -->
@@ -278,6 +484,16 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>ReadSampleSize *********************************************************** Parameters: File open text file to read sample size from Globals: None Operation: This routine reads a single integer from the specified file and checks to ensure that it is between 0 and MAXSAMPLESIZE. Return: Sample size Exceptions: ILLEGALSAMPLESIZE illegal format or range History: 6/6/89, DSJ, Created. </p>
 
+<p>Definition at line <a class="el" href="clusttool_8cpp_source.html#l00046">46</a> of file <a class="el" href="clusttool_8cpp_source.html">clusttool.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                  {
+  <span class="keywordtype">int</span> SampleSize;
+
+  <span class="keywordflow">if</span> ((fscanf (File, <span class="stringliteral">&quot;%d&quot;</span>, &amp;SampleSize) != 1) ||
+    (SampleSize &lt; 0) || (SampleSize &gt; <a class="code" href="clusttool_8cpp.html#a6265459411ad3caa42ad4d1d54616034">MAXSAMPLESIZE</a>))
+    <a class="code" href="danerror_8cpp.html#a480942fa88232bda23e9809e5afa9f25">DoError</a> (<a class="code" href="clusttool_8h.html#af974dbd1cdd902e8d6885578ee9fe515">ILLEGALSAMPLESIZE</a>, <span class="stringliteral">&quot;Illegal sample size&quot;</span>);
+  <span class="keywordflow">return</span> (SampleSize);
+}                                <span class="comment">// ReadSampleSize</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6278f5ccf09694335d536197004cac67"></a><!-- doxytag: member="clusttool.cpp::WriteNFloats" ref="a6278f5ccf09694335d536197004cac67" args="(FILE *File, uinT16 N, FLOAT32 Array[])" -->
@@ -312,6 +528,13 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>WriteNFloats *********************************************************** Parameters: File open text file to write N floats to N number of floats to write Array array of floats to write Globals: None Operation: This routine writes a text representation of N floats from an array to a file. All of the floats are placed on one line. Return: None Exceptions: None History: 6/6/89, DSJ, Created. </p>
 
+<p>Definition at line <a class="el" href="clusttool_8cpp_source.html#l00399">399</a> of file <a class="el" href="clusttool_8cpp_source.html">clusttool.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                          {
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; N; i++)
+    fprintf(File, <span class="stringliteral">&quot; %9.6f&quot;</span>, Array[i]);
+  fprintf(File, <span class="stringliteral">&quot;\n&quot;</span>);
+}                                <span class="comment">// WriteNFloats</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a889ad8a8f7e5c6652ba059206b5a0aa8"></a><!-- doxytag: member="clusttool.cpp::WriteParamDesc" ref="a889ad8a8f7e5c6652ba059206b5a0aa8" args="(FILE *File, uinT16 N, PARAM_DESC ParamDesc[])" -->
@@ -346,6 +569,25 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>WriteParamDesc ************************************************************ Parameters: File open text file to write param descriptors to N number of param descriptors to write ParamDesc array of param descriptors to write Globals: None Operation: This routine writes an array of dimension descriptors to the specified text file. Return: None Exceptions: None History: 6/6/89, DSJ, Created. </p>
 
+<p>Definition at line <a class="el" href="clusttool_8cpp_source.html#l00318">318</a> of file <a class="el" href="clusttool_8cpp_source.html">clusttool.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                               {
+  <span class="keywordtype">int</span> i;
+
+  <span class="keywordflow">for</span> (i = 0; i &lt; N; i++) {
+    <span class="keywordflow">if</span> (ParamDesc[i].Circular)
+      fprintf (File, <span class="stringliteral">&quot;circular &quot;</span>);
+    <span class="keywordflow">else</span>
+      fprintf (File, <span class="stringliteral">&quot;linear   &quot;</span>);
+
+    <span class="keywordflow">if</span> (ParamDesc[i].NonEssential)
+      fprintf (File, <span class="stringliteral">&quot;non-essential &quot;</span>);
+    <span class="keywordflow">else</span>
+      fprintf (File, <span class="stringliteral">&quot;essential     &quot;</span>);
+
+    fprintf (File, <span class="stringliteral">&quot;%10.6f %10.6f\n&quot;</span>, ParamDesc[i].Min, ParamDesc[i].Max);
+  }
+}                                <span class="comment">// WriteParamDesc</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab5a847b7c77a8c9f3fb3c70caa82c5df"></a><!-- doxytag: member="clusttool.cpp::WriteProtoList" ref="ab5a847b7c77a8c9f3fb3c70caa82c5df" args="(FILE *File, uinT16 N, PARAM_DESC ParamDesc[], LIST ProtoList, BOOL8 WriteSigProtos, BOOL8 WriteInsigProtos)" -->
@@ -397,6 +639,24 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="clusttool_8cpp_source.html#l00435">435</a> of file <a class="el" href="clusttool_8cpp_source.html">clusttool.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">{
+  <a class="code" href="struct_p_r_o_t_o_t_y_p_e.html">PROTOTYPE</a>     *Proto;
+
+  <span class="comment">/* write file header */</span>
+  fprintf(File,<span class="stringliteral">&quot;%0d\n&quot;</span>,N);
+  <a class="code" href="clusttool_8cpp.html#a889ad8a8f7e5c6652ba059206b5a0aa8">WriteParamDesc</a>(File,N,ParamDesc);
+
+  <span class="comment">/* write prototypes */</span>
+  <a class="code" href="oldlist_8h.html#a2cf19ba78be6b54f66823d58f34f2a53">iterate</a>(ProtoList)
+    {
+      Proto = (<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html">PROTOTYPE</a> *) <a class="code" href="oldlist_8h.html#a69547be764424f18b0be535400747978">first_node</a> ( ProtoList );
+      <span class="keywordflow">if</span> (( Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a5d94887aaa0acd7e4a0c04c420af5670">Significant</a> &amp;&amp; WriteSigProtos )      ||
+          ( ! Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a5d94887aaa0acd7e4a0c04c420af5670">Significant</a> &amp;&amp; WriteInsigProtos ) )
+        <a class="code" href="clusttool_8cpp.html#a6f0ccfd7c117c2006796af1d3b19f110">WritePrototype</a>( File, N, Proto );
+    }
+}       <span class="comment">/* WriteProtoList */</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aad4580f7f59adb203f83ca78259b90e9"></a><!-- doxytag: member="clusttool.cpp::WriteProtoStyle" ref="aad4580f7f59adb203f83ca78259b90e9" args="(FILE *File, PROTOSTYLE ProtoStyle)" -->
@@ -425,6 +685,24 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>WriteProtoSyle ********************************************************** Parameters: File open text file to write prototype style to ProtoStyle prototype style to write Globals: None Operation: This routine writes to the specified text file a word which represents the ProtoStyle. It does not append a carriage return to the end. Return: None Exceptions: None History: 6/8/89, DSJ, Created. </p>
 
+<p>Definition at line <a class="el" href="clusttool_8cpp_source.html#l00417">417</a> of file <a class="el" href="clusttool_8cpp_source.html">clusttool.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                        {
+  <span class="keywordflow">switch</span> (ProtoStyle) {
+    <span class="keywordflow">case</span> <a class="code" href="cluster_8h.html#a2bf647f23b4a059a559e4d991437c9eaa93d6901f160899d15f69322530595f4f">spherical</a>:
+      fprintf (File, <span class="stringliteral">&quot;spherical&quot;</span>);
+      <span class="keywordflow">break</span>;
+    <span class="keywordflow">case</span> <a class="code" href="cluster_8h.html#a2bf647f23b4a059a559e4d991437c9eaa39d32ff639641ca169c9729c58614459">elliptical</a>:
+      fprintf (File, <span class="stringliteral">&quot;elliptical&quot;</span>);
+      <span class="keywordflow">break</span>;
+    <span class="keywordflow">case</span> <a class="code" href="cluster_8h.html#a2bf647f23b4a059a559e4d991437c9eaab164032fff82a847826b4887d9e7be58">mixed</a>:
+      fprintf (File, <span class="stringliteral">&quot;mixed&quot;</span>);
+      <span class="keywordflow">break</span>;
+    <span class="keywordflow">case</span> <a class="code" href="cluster_8h.html#a2bf647f23b4a059a559e4d991437c9eaa9761086e420b925e438327ad385b304d">automatic</a>:
+      fprintf (File, <span class="stringliteral">&quot;automatic&quot;</span>);
+      <span class="keywordflow">break</span>;
+  }
+}                                <span class="comment">// WriteProtoStyle</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6f0ccfd7c117c2006796af1d3b19f110"></a><!-- doxytag: member="clusttool.cpp::WritePrototype" ref="a6f0ccfd7c117c2006796af1d3b19f110" args="(FILE *File, uinT16 N, PROTOTYPE *Proto)" -->
@@ -459,6 +737,46 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>WritePrototype ************************************************************ Parameters: File open text file to write prototype to N number of dimensions in feature space Proto prototype to write out Globals: None Operation: This routine writes a textual description of a prototype to the specified text file. Return: None Exceptions: None History: 6/12/89, DSJ, Created. </p>
 
+<p>Definition at line <a class="el" href="clusttool_8cpp_source.html#l00348">348</a> of file <a class="el" href="clusttool_8cpp_source.html">clusttool.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                            {
+  <span class="keywordtype">int</span> i;
+
+  <span class="keywordflow">if</span> (Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a5d94887aaa0acd7e4a0c04c420af5670">Significant</a>)
+    fprintf (File, <span class="stringliteral">&quot;significant   &quot;</span>);
+  <span class="keywordflow">else</span>
+    fprintf (File, <span class="stringliteral">&quot;insignificant &quot;</span>);
+  <a class="code" href="clusttool_8cpp.html#aad4580f7f59adb203f83ca78259b90e9">WriteProtoStyle</a> (File, (<a class="code" href="cluster_8h.html#a2bf647f23b4a059a559e4d991437c9ea">PROTOSTYLE</a>) Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#aad81f08b6e171698866b445c0b3d4b35">Style</a>);
+  fprintf (File, <span class="stringliteral">&quot;%6d\n\t&quot;</span>, Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a2ba6bfd64f308a26cdd0a75c52e002f5">NumSamples</a>);
+  <a class="code" href="clusttool_8cpp.html#a6278f5ccf09694335d536197004cac67">WriteNFloats</a> (File, N, Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#af9c4f61cdbf39f6494b4691799bd4fa6">Mean</a>);
+  fprintf (File, <span class="stringliteral">&quot;\t&quot;</span>);
+
+  <span class="keywordflow">switch</span> (Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#aad81f08b6e171698866b445c0b3d4b35">Style</a>) {
+    <span class="keywordflow">case</span> <a class="code" href="cluster_8h.html#a2bf647f23b4a059a559e4d991437c9eaa93d6901f160899d15f69322530595f4f">spherical</a>:
+      <a class="code" href="clusttool_8cpp.html#a6278f5ccf09694335d536197004cac67">WriteNFloats</a> (File, 1, &amp;(Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a35cf2e2dd8cc8b0e9476ad49f36abd24">Variance</a>.<a class="code" href="union_f_l_o_a_t_u_n_i_o_n.html#ad883f0258d034e4fd77ce450c3e058d2">Spherical</a>));
+      <span class="keywordflow">break</span>;
+    <span class="keywordflow">case</span> <a class="code" href="cluster_8h.html#a2bf647f23b4a059a559e4d991437c9eaa39d32ff639641ca169c9729c58614459">elliptical</a>:
+      <a class="code" href="clusttool_8cpp.html#a6278f5ccf09694335d536197004cac67">WriteNFloats</a> (File, N, Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a35cf2e2dd8cc8b0e9476ad49f36abd24">Variance</a>.<a class="code" href="union_f_l_o_a_t_u_n_i_o_n.html#a4b36c5b636aac27041dd340386f3801f">Elliptical</a>);
+      <span class="keywordflow">break</span>;
+    <span class="keywordflow">case</span> <a class="code" href="cluster_8h.html#a2bf647f23b4a059a559e4d991437c9eaab164032fff82a847826b4887d9e7be58">mixed</a>:
+      <span class="keywordflow">for</span> (i = 0; i &lt; N; i++)
+      <span class="keywordflow">switch</span> (Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#ae53408c33cdd473a9ed1f028e8172b0b">Distrib</a>[i]) {
+        <span class="keywordflow">case</span> <a class="code" href="cluster_8h.html#ade80fdcd8f2dde57393f56d0cdfaeed0aebc81705969b8c5ae986b0b2ec08d1d5">normal</a>:
+          fprintf (File, <span class="stringliteral">&quot; %9s&quot;</span>, <span class="stringliteral">&quot;normal&quot;</span>);
+          <span class="keywordflow">break</span>;
+        <span class="keywordflow">case</span> <a class="code" href="cluster_8h.html#ade80fdcd8f2dde57393f56d0cdfaeed0a56013d9ac59a24fb94d9acb932a04b2f">uniform</a>:
+          fprintf (File, <span class="stringliteral">&quot; %9s&quot;</span>, <span class="stringliteral">&quot;uniform&quot;</span>);
+          <span class="keywordflow">break</span>;
+        <span class="keywordflow">case</span> <a class="code" href="cluster_8h.html#ade80fdcd8f2dde57393f56d0cdfaeed0a21504929e31ddde091641bb817e32320">D_random</a>:
+          fprintf (File, <span class="stringliteral">&quot; %9s&quot;</span>, <span class="stringliteral">&quot;random&quot;</span>);
+          <span class="keywordflow">break</span>;
+        <span class="keywordflow">case</span> <a class="code" href="cluster_8h.html#ade80fdcd8f2dde57393f56d0cdfaeed0a1223ae56d204b110bd185b7dbdda258e">DISTRIBUTION_COUNT</a>:
+          <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(!<span class="stringliteral">&quot;Distribution count not allowed!&quot;</span>);
+      }
+      fprintf (File, <span class="stringliteral">&quot;\n\t&quot;</span>);
+      <a class="code" href="clusttool_8cpp.html#a6278f5ccf09694335d536197004cac67">WriteNFloats</a> (File, N, Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a35cf2e2dd8cc8b0e9476ad49f36abd24">Variance</a>.<a class="code" href="union_f_l_o_a_t_u_n_i_o_n.html#a4b36c5b636aac27041dd340386f3801f">Elliptical</a>);
+  }
+}                                <span class="comment">// WritePrototype</span>
+</pre></div>
 </div>
 </div>
 </div>
@@ -481,7 +799,7 @@ Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:09 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:41 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

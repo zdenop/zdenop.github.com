@@ -164,6 +164,21 @@ Variables</h2></td></tr>
 <p><a class="el" href="pgedit_8cpp.html#af5f857a7baffa68fe8ef9ad20876bfd5">bln_word_window_handle()</a></p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>a WINDOW for the word window, creating it if necessary </dd></dl>
 
+<p>Definition at line <a class="el" href="pgedit_8cpp_source.html#l00171">171</a> of file <a class="el" href="pgedit_8cpp_source.html">pgedit.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                     {  <span class="comment">// return handle</span>
+                                 <span class="comment">// not opened yet</span>
+  <span class="keywordflow">if</span> (<a class="code" href="pgedit_8cpp.html#a1d3f8657bd74c7882b7597ffb3b6d31e">bln_word_window</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="pgedit_8cpp.html#ab24fd8ff5eebe93922dcf1c8bee12fb1">pgeditor_msg</a>(<span class="stringliteral">&quot;Creating BLN word window...&quot;</span>);
+    <a class="code" href="pgedit_8cpp.html#a1d3f8657bd74c7882b7597ffb3b6d31e">bln_word_window</a> = <span class="keyword">new</span> <a class="code" href="class_scroll_view.html">ScrollView</a>(<a class="code" href="pgedit_8cpp.html#a3b1a171f66cb26c91ba0e172a3e37b96">editor_word_name</a>.string(),
+      <a class="code" href="pgedit_8cpp.html#a1396e815e23f520c66e354c20ace2287">editor_word_xpos</a>, <a class="code" href="pgedit_8cpp.html#a74cbd2ca9b6c91e611bf40ff929e0ec2">editor_word_ypos</a>, <a class="code" href="pgedit_8cpp.html#a2773a9981baf7829a313622b2a798474">editor_word_width</a>,
+      <a class="code" href="pgedit_8cpp.html#ad05bed2c7da47d78ccc688bc8c9232b0">editor_word_height</a>, 4000, 4000, <span class="keyword">true</span>);
+    <a class="code" href="class_bln_event_handler.html">BlnEventHandler</a>* a = <span class="keyword">new</span> <a class="code" href="class_bln_event_handler.html">BlnEventHandler</a>();
+    <a class="code" href="pgedit_8cpp.html#a1d3f8657bd74c7882b7597ffb3b6d31e">bln_word_window</a>-&gt;<a class="code" href="class_scroll_view.html#a598dcb006fb07910229fcfcf1ee05543" title="Add an Event Listener to this ScrollView Window.">AddEventHandler</a>(a);
+    <a class="code" href="pgedit_8cpp.html#ab24fd8ff5eebe93922dcf1c8bee12fb1">pgeditor_msg</a>(<span class="stringliteral">&quot;Creating BLN word window...Done&quot;</span>);
+  }
+  <span class="keywordflow">return</span> <a class="code" href="pgedit_8cpp.html#a1d3f8657bd74c7882b7597ffb3b6d31e">bln_word_window</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a16e4eff547eb0fd6f889c7b6a7290d9b"></a><!-- doxytag: member="pgedit.h::build_image_window" ref="a16e4eff547eb0fd6f889c7b6a7290d9b" args="(int width, int height)" -->
@@ -193,6 +208,18 @@ Variables</h2></td></tr>
 <p><a class="el" href="pgedit_8cpp.html#a16e4eff547eb0fd6f889c7b6a7290d9b">build_image_window()</a></p>
 <p>Destroy the existing image window if there is one. Work out how big the new window needs to be. Create it and re-display. </p>
 
+<p>Definition at line <a class="el" href="pgedit_8cpp_source.html#l00192">192</a> of file <a class="el" href="pgedit_8cpp_source.html">pgedit.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                               {
+  <span class="keywordflow">if</span> (<a class="code" href="pgedit_8cpp.html#a730c30366e543cdef27b905ec2895aca">image_win</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) { <span class="keyword">delete</span> <a class="code" href="pgedit_8cpp.html#a730c30366e543cdef27b905ec2895aca">image_win</a>; }
+  <a class="code" href="pgedit_8cpp.html#a730c30366e543cdef27b905ec2895aca">image_win</a> = <span class="keyword">new</span> <a class="code" href="class_scroll_view.html">ScrollView</a>(<a class="code" href="pgedit_8cpp.html#adad8d0d269314a0e2bc4e8b3039d2839">editor_image_win_name</a>.string(),
+                             <a class="code" href="pgedit_8cpp.html#acb7af6bbdd35600c1bdd1b8ad6eca463">editor_image_xpos</a>, <a class="code" href="pgedit_8cpp.html#aec61cd4df7d401121499b4ca26e7ddd7">editor_image_ypos</a>,
+                             width + 1,
+                             height + <a class="code" href="pgedit_8cpp.html#aade98e9c4d3a0a74c64b3e01745eaa78">editor_image_menuheight</a> + 1,
+                             width,
+                             height,
+                             <span class="keyword">true</span>);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae56f57afbf258f8931887df06863591d"></a><!-- doxytag: member="pgedit.h::display_bln_lines" ref="ae56f57afbf258f8931887df06863591d" args="(ScrollView window, ScrollView::Color colour, float scale_factor, float y_offset, float minx, float maxx)" -->
@@ -263,6 +290,11 @@ Variables</h2></td></tr>
 <p><a class="el" href="pgedit_8cpp.html#ab24fd8ff5eebe93922dcf1c8bee12fb1">pgeditor_msg()</a></p>
 <p>Display a message - in the command window if there is one, or to stdout </p>
 
+<p>Definition at line <a class="el" href="pgedit_8cpp_source.html#l00372">372</a> of file <a class="el" href="pgedit_8cpp_source.html">pgedit.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                   {
+    <a class="code" href="pgedit_8cpp.html#a730c30366e543cdef27b905ec2895aca">image_win</a>-&gt;<a class="code" href="class_scroll_view.html#aeeb2a822cfbad2f87696eacc79774027">AddMessage</a>(msg);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a32e21cde92c5d9918323615c2ae64920"></a><!-- doxytag: member="pgedit.h::pgeditor_show_point" ref="a32e21cde92c5d9918323615c2ae64920" args="(SVEvent *event)" -->
@@ -282,6 +314,11 @@ Variables</h2></td></tr>
 <p><a class="el" href="pgedit_8cpp.html#a32e21cde92c5d9918323615c2ae64920">pgeditor_show_point()</a></p>
 <p>Display the coordinates of a point in the command window </p>
 
+<p>Definition at line <a class="el" href="pgedit_8cpp_source.html#l00383">383</a> of file <a class="el" href="pgedit_8cpp_source.html">pgedit.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                         {
+  <a class="code" href="pgedit_8cpp.html#a730c30366e543cdef27b905ec2895aca">image_win</a>-&gt;<a class="code" href="class_scroll_view.html#aeeb2a822cfbad2f87696eacc79774027">AddMessage</a>(<span class="stringliteral">&quot;Pointing at(%d, %d)&quot;</span>, event-&gt;<a class="code" href="struct_s_v_event.html#a45ffe2bc44987a5461278e78de76f6f7">x</a>, event-&gt;<a class="code" href="struct_s_v_event.html#aabace8b3b902fe15aef808ad9c203bb7">y</a>);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad51dfba59b3aac4dd370cb69fc70c853"></a><!-- doxytag: member="pgedit.h::show_point" ref="ad51dfba59b3aac4dd370cb69fc70c853" args="(PAGE_RES *page_res, float x, float y)" -->
@@ -317,6 +354,45 @@ Variables</h2></td></tr>
 <p><a class="el" href="pgedit_8cpp.html#ad51dfba59b3aac4dd370cb69fc70c853">show_point()</a></p>
 <p>Show coords of point, blob bounding box, word bounding box and offset from row baseline </p>
 
+<p>Definition at line <a class="el" href="pgedit_8cpp_source.html#l00650">650</a> of file <a class="el" href="pgedit_8cpp_source.html">pgedit.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                      {
+  <a class="code" href="class_f_c_o_o_r_d.html">FCOORD</a> pt(x, y);
+  <a class="code" href="class_p_a_g_e___r_e_s___i_t.html">PAGE_RES_IT</a> pr_it(page_res);
+
+  <span class="keywordtype">char</span> msg[160];
+  <span class="keywordtype">char</span> *msg_ptr = msg;
+
+  msg_ptr += sprintf(msg_ptr, <span class="stringliteral">&quot;Pt:(%0.3f, %0.3f) &quot;</span>, x, y);
+
+  <span class="keywordflow">for</span> (<a class="code" href="class_w_e_r_d___r_e_s.html">WERD_RES</a>* word = pr_it.<a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a>(); word != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>; word = pr_it.forward()) {
+    <span class="keywordflow">if</span> (pr_it.row() != pr_it.prev_row() &amp;&amp;
+        pr_it.row()-&gt;row-&gt;bounding_box().contains(pt)) {
+      msg_ptr += sprintf(msg_ptr, <span class="stringliteral">&quot;BL(x)=%0.3f &quot;</span>,
+                         pr_it.row()-&gt;row-&gt;base_line(x));
+    }
+    <span class="keywordflow">if</span> (word-&gt;word-&gt;bounding_box().contains(pt)) {
+      <a class="code" href="class_t_b_o_x.html">TBOX</a> box = word-&gt;word-&gt;bounding_box();
+      msg_ptr += sprintf(msg_ptr, <span class="stringliteral">&quot;Wd(%d, %d)/(%d, %d) &quot;</span>,
+                         box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>(), box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>(),
+                         box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>(), box.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>());
+      C_BLOB_IT cblob_it(word-&gt;word-&gt;cblob_list());
+      <span class="keywordflow">for</span> (cblob_it.mark_cycle_pt();
+           !cblob_it.cycled_list();
+           cblob_it.forward()) {
+        <a class="code" href="class_c___b_l_o_b.html">C_BLOB</a>* cblob = cblob_it.data();
+        box = cblob-&gt;<a class="code" href="class_c___b_l_o_b.html#a77e52e29e2c622a3a63bb7edb110f6ab">bounding_box</a>();
+        <span class="keywordflow">if</span> (box.<a class="code" href="class_t_b_o_x.html#a5d4e2c5f91b791e94d4c94e513180632">contains</a>(pt)) {
+          msg_ptr += sprintf(msg_ptr,
+                             <span class="stringliteral">&quot;CBlb(%d, %d)/(%d, %d) &quot;</span>,
+                             box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>(), box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>(),
+                             box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>(), box.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>());
+        }
+      }
+    }
+  }
+  <a class="code" href="pgedit_8cpp.html#a730c30366e543cdef27b905ec2895aca">image_win</a>-&gt;<a class="code" href="class_scroll_view.html#aeeb2a822cfbad2f87696eacc79774027">AddMessage</a>(msg);
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Variable Documentation</h2>
@@ -345,6 +421,8 @@ Variables</h2></td></tr>
 <div class="memdoc">
 <p>"Editor debug window height" </p>
 
+<p>Definition at line <a class="el" href="pgedit_8cpp_source.html#l00145">145</a> of file <a class="el" href="pgedit_8cpp_source.html">pgedit.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="aa63748d150abbfaa353ec08deedac738"></a><!-- doxytag: member="pgedit.h::editor_dbwin_name" ref="aa63748d150abbfaa353ec08deedac738" args="" -->
@@ -358,6 +436,8 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"Editor debug window name" </p>
+
+<p>Definition at line <a class="el" href="pgedit_8cpp_source.html#l00142">142</a> of file <a class="el" href="pgedit_8cpp_source.html">pgedit.cpp</a>.</p>
 
 </div>
 </div>
@@ -373,6 +453,8 @@ Variables</h2></td></tr>
 <div class="memdoc">
 <p>"Editor debug window width" </p>
 
+<p>Definition at line <a class="el" href="pgedit_8cpp_source.html#l00146">146</a> of file <a class="el" href="pgedit_8cpp_source.html">pgedit.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="aec9d97fa8363b502c1143615eeeb3951"></a><!-- doxytag: member="pgedit.h::editor_dbwin_xpos" ref="aec9d97fa8363b502c1143615eeeb3951" args="" -->
@@ -386,6 +468,8 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"Editor debug window X Pos" </p>
+
+<p>Definition at line <a class="el" href="pgedit_8cpp_source.html#l00143">143</a> of file <a class="el" href="pgedit_8cpp_source.html">pgedit.cpp</a>.</p>
 
 </div>
 </div>
@@ -401,6 +485,8 @@ Variables</h2></td></tr>
 <div class="memdoc">
 <p>"Editor debug window Y Pos" </p>
 
+<p>Definition at line <a class="el" href="pgedit_8cpp_source.html#l00144">144</a> of file <a class="el" href="pgedit_8cpp_source.html">pgedit.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a5a389a38d880e6f93080f323639b5339"></a><!-- doxytag: member="pgedit.h::editor_image_blob_bb_color" ref="a5a389a38d880e6f93080f323639b5339" args="" -->
@@ -414,6 +500,8 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"Blob bounding box colour" </p>
+
+<p>Definition at line <a class="el" href="pgedit_8cpp_source.html#l00137">137</a> of file <a class="el" href="pgedit_8cpp_source.html">pgedit.cpp</a>.</p>
 
 </div>
 </div>
@@ -443,6 +531,8 @@ Variables</h2></td></tr>
 <div class="memdoc">
 <p>"Correct text colour" </p>
 
+<p>Definition at line <a class="el" href="pgedit_8cpp_source.html#l00139">139</a> of file <a class="el" href="pgedit_8cpp_source.html">pgedit.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="aee604901c8f1d114ab97d87d0cf020d9"></a><!-- doxytag: member="pgedit.h::editor_image_width" ref="aee604901c8f1d114ab97d87d0cf020d9" args="" -->
@@ -471,6 +561,8 @@ Variables</h2></td></tr>
 <div class="memdoc">
 <p>"Editor image window name" </p>
 
+<p>Definition at line <a class="el" href="pgedit_8cpp_source.html#l00130">130</a> of file <a class="el" href="pgedit_8cpp_source.html">pgedit.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ad448b00aaf6308a42ceab7c59495c6de"></a><!-- doxytag: member="pgedit.h::editor_image_word_bb_color" ref="ad448b00aaf6308a42ceab7c59495c6de" args="" -->
@@ -484,6 +576,8 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"Word bounding box colour" </p>
+
+<p>Definition at line <a class="el" href="pgedit_8cpp_source.html#l00135">135</a> of file <a class="el" href="pgedit_8cpp_source.html">pgedit.cpp</a>.</p>
 
 </div>
 </div>
@@ -499,6 +593,8 @@ Variables</h2></td></tr>
 <div class="memdoc">
 <p>"Editor image X Pos" </p>
 
+<p>Definition at line <a class="el" href="pgedit_8cpp_source.html#l00131">131</a> of file <a class="el" href="pgedit_8cpp_source.html">pgedit.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="aec61cd4df7d401121499b4ca26e7ddd7"></a><!-- doxytag: member="pgedit.h::editor_image_ypos" ref="aec61cd4df7d401121499b4ca26e7ddd7" args="" -->
@@ -512,6 +608,8 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"Editor image Y Pos" </p>
+
+<p>Definition at line <a class="el" href="pgedit_8cpp_source.html#l00132">132</a> of file <a class="el" href="pgedit_8cpp_source.html">pgedit.cpp</a>.</p>
 
 </div>
 </div>
@@ -541,6 +639,8 @@ Variables</h2></td></tr>
 <div class="memdoc">
 <p>"Word window height" </p>
 
+<p>Definition at line <a class="el" href="pgedit_8cpp_source.html#l00151">151</a> of file <a class="el" href="pgedit_8cpp_source.html">pgedit.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a3b1a171f66cb26c91ba0e172a3e37b96"></a><!-- doxytag: member="pgedit.h::editor_word_name" ref="a3b1a171f66cb26c91ba0e172a3e37b96" args="" -->
@@ -556,6 +656,8 @@ Variables</h2></td></tr>
 <p>"BL normalised word window"</p>
 <p>"BL normalized word window" </p>
 
+<p>Definition at line <a class="el" href="pgedit_8cpp_source.html#l00148">148</a> of file <a class="el" href="pgedit_8cpp_source.html">pgedit.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a2773a9981baf7829a313622b2a798474"></a><!-- doxytag: member="pgedit.h::editor_word_width" ref="a2773a9981baf7829a313622b2a798474" args="" -->
@@ -569,6 +671,8 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"Word window width" </p>
+
+<p>Definition at line <a class="el" href="pgedit_8cpp_source.html#l00152">152</a> of file <a class="el" href="pgedit_8cpp_source.html">pgedit.cpp</a>.</p>
 
 </div>
 </div>
@@ -584,6 +688,8 @@ Variables</h2></td></tr>
 <div class="memdoc">
 <p>"Word window X Pos" </p>
 
+<p>Definition at line <a class="el" href="pgedit_8cpp_source.html#l00149">149</a> of file <a class="el" href="pgedit_8cpp_source.html">pgedit.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a74cbd2ca9b6c91e611bf40ff929e0ec2"></a><!-- doxytag: member="pgedit.h::editor_word_ypos" ref="a74cbd2ca9b6c91e611bf40ff929e0ec2" args="" -->
@@ -597,6 +703,8 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"Word window Y Pos" </p>
+
+<p>Definition at line <a class="el" href="pgedit_8cpp_source.html#l00150">150</a> of file <a class="el" href="pgedit_8cpp_source.html">pgedit.cpp</a>.</p>
 
 </div>
 </div>
@@ -620,7 +728,7 @@ Variables</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:08 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:40 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

@@ -108,7 +108,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <code>#include &quot;<a class="el" href="polyaprx_8h_source.html">polyaprx.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="params_8h_source.html">params.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="tprintf_8h_source.html">tprintf.h</a>&quot;</code><br/>
-</div><table class="memberdecls">
+</div>
+<p><a href="polyaprx_8cpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr><td colspan="2"><h2><a name="define-members"></a>
 Defines</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="polyaprx_8cpp.html#af363537e00fa145a0f83685b7699843f">FASTEDGELENGTH</a>&#160;&#160;&#160;256</td></tr>
@@ -145,6 +147,8 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="polyaprx_8cpp_source.html#l00046">46</a> of file <a class="el" href="polyaprx_8cpp_source.html">polyaprx.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a6c8de73bb604d91743c7f6f356eb171e"></a><!-- doxytag: member="polyaprx.cpp::DIR" ref="a6c8de73bb604d91743c7f6f356eb171e" args="" -->
@@ -157,6 +161,8 @@ Variables</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="polyaprx_8cpp_source.html#l00041">41</a> of file <a class="el" href="polyaprx_8cpp_source.html">polyaprx.cpp</a>.</p>
 
 </div>
 </div>
@@ -171,6 +177,8 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="polyaprx_8cpp_source.html#l00030">30</a> of file <a class="el" href="polyaprx_8cpp_source.html">polyaprx.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="af363537e00fa145a0f83685b7699843f"></a><!-- doxytag: member="polyaprx.cpp::FASTEDGELENGTH" ref="af363537e00fa145a0f83685b7699843f" args="" -->
@@ -183,6 +191,8 @@ Variables</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="polyaprx_8cpp_source.html#l00025">25</a> of file <a class="el" href="polyaprx_8cpp_source.html">polyaprx.cpp</a>.</p>
 
 </div>
 </div>
@@ -197,6 +207,8 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="polyaprx_8cpp_source.html#l00037">37</a> of file <a class="el" href="polyaprx_8cpp_source.html">polyaprx.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ab32cccc51ac6f93001591f058666730b"></a><!-- doxytag: member="polyaprx.cpp::fixed_dist" ref="ab32cccc51ac6f93001591f058666730b" args="" -->
@@ -209,6 +221,8 @@ Variables</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="polyaprx_8cpp_source.html#l00045">45</a> of file <a class="el" href="polyaprx_8cpp_source.html">polyaprx.cpp</a>.</p>
 
 </div>
 </div>
@@ -223,6 +237,8 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="polyaprx_8cpp_source.html#l00043">43</a> of file <a class="el" href="polyaprx_8cpp_source.html">polyaprx.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a0a5d3a40dd240416eac380c183d95419"></a><!-- doxytag: member="polyaprx.cpp::RUNLENGTH" ref="a0a5d3a40dd240416eac380c183d95419" args="" -->
@@ -235,6 +251,8 @@ Variables</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="polyaprx_8cpp_source.html#l00039">39</a> of file <a class="el" href="polyaprx_8cpp_source.html">polyaprx.cpp</a>.</p>
 
 </div>
 </div>
@@ -254,6 +272,50 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="polyaprx_8cpp_source.html#l00059">59</a> of file <a class="el" href="polyaprx_8cpp_source.html">polyaprx.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                   {
+  <a class="code" href="struct_e_d_g_e_p_t.html">EDGEPT</a> *edgept;                <span class="comment">// converted steps</span>
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> loop_box;                  <span class="comment">// bounding box</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> area;                    <span class="comment">// loop area</span>
+  <a class="code" href="struct_e_d_g_e_p_t.html">EDGEPT</a> stack_edgepts[<a class="code" href="polyaprx_8cpp.html#af363537e00fa145a0f83685b7699843f">FASTEDGELENGTH</a>];  <span class="comment">// converted path</span>
+  <a class="code" href="struct_e_d_g_e_p_t.html">EDGEPT</a>* edgepts = stack_edgepts;
+
+  <span class="comment">// Use heap memory if the stack buffer is not big enough.</span>
+  <span class="keywordflow">if</span> (c_outline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#afb87d87d3d48e964937b068f55f3ca3a">pathlength</a>() &gt; <a class="code" href="polyaprx_8cpp.html#af363537e00fa145a0f83685b7699843f">FASTEDGELENGTH</a>)
+    edgepts = <span class="keyword">new</span> <a class="code" href="struct_e_d_g_e_p_t.html">EDGEPT</a>[c_outline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#afb87d87d3d48e964937b068f55f3ca3a">pathlength</a>()];
+
+  loop_box = c_outline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#a6481db8e9c00281f20f45df48d499679">bounding_box</a>();
+  area = loop_box.<a class="code" href="class_t_b_o_x.html#a8379d4bbc72bdbb1f069fc14790e632d">height</a>();
+  <span class="keywordflow">if</span> (!<a class="code" href="polyaprx_8cpp.html#ac0b10a62dff4fda6c92ebb536e387d21">poly_wide_objects_better</a> &amp;&amp; loop_box.<a class="code" href="class_t_b_o_x.html#af95494a2ccacc70cc2b83820b2948619">width</a>() &gt; area)
+    area = loop_box.<a class="code" href="class_t_b_o_x.html#af95494a2ccacc70cc2b83820b2948619">width</a>();
+  area *= area;
+  edgept = <a class="code" href="polyaprx_8cpp.html#aa63082dea164750c7abb7944becd6f5e">edgesteps_to_edgepts</a>(c_outline, edgepts);
+  <a class="code" href="polyaprx_8cpp.html#a90ebde0147c2a36a0b1a216645a4eed8">fix2</a>(edgepts, area);
+  edgept = <a class="code" href="polyaprx_8cpp.html#ab1a151f8dbd379f2ecf2d59f9ce2bc23">poly2</a> (edgepts, area);  <span class="comment">// 2nd approximation.</span>
+  <a class="code" href="struct_e_d_g_e_p_t.html">EDGEPT</a>* startpt = edgept;
+  <a class="code" href="struct_e_d_g_e_p_t.html">EDGEPT</a>* result = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <a class="code" href="struct_e_d_g_e_p_t.html">EDGEPT</a>* prev_result = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordflow">do</span> {
+    <a class="code" href="struct_e_d_g_e_p_t.html">EDGEPT</a>* new_pt = <span class="keyword">new</span> <a class="code" href="struct_e_d_g_e_p_t.html">EDGEPT</a>;
+    new_pt-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a> = edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>;
+    new_pt-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a8326da8daf597bcdc5a05064a37cbbb1">prev</a> = prev_result;
+    <span class="keywordflow">if</span> (prev_result == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      result = new_pt;
+    } <span class="keywordflow">else</span> {
+      prev_result-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a> = new_pt;
+      new_pt-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a8326da8daf597bcdc5a05064a37cbbb1">prev</a> = prev_result;
+    }
+    prev_result = new_pt;
+    edgept = edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>;
+  }
+  <span class="keywordflow">while</span> (edgept != startpt);
+  prev_result-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a> = result;
+  result-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a8326da8daf597bcdc5a05064a37cbbb1">prev</a> = prev_result;
+  <span class="keywordflow">if</span> (edgepts != stack_edgepts)
+    <span class="keyword">delete</span> [] edgepts;
+  <span class="keywordflow">return</span> <a class="code" href="struct_t_e_s_s_l_i_n_e.html#a4f658520b5d24846dfc329205ddca906">TESSLINE::BuildFromOutlineList</a>(result);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa0f03bd75099af8feca58259b9f3f48d"></a><!-- doxytag: member="polyaprx.cpp::cutline" ref="aa0f03bd75099af8feca58259b9f3f48d" args="(EDGEPT *first, EDGEPT *last, int area)" -->
@@ -287,6 +349,92 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="polyaprx_8cpp_source.html#l00484">484</a> of file <a class="el" href="polyaprx_8cpp_source.html">polyaprx.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">              {
+  <span class="keyword">register</span> <a class="code" href="struct_e_d_g_e_p_t.html">EDGEPT</a> *edge;         <span class="comment">/*current edge */</span>
+  <a class="code" href="struct_t_p_o_i_n_t.html">TPOINT</a> vecsum;                 <span class="comment">/*vector sum */</span>
+  <span class="keywordtype">int</span> vlen;                      <span class="comment">/*approx length of vecsum */</span>
+  <a class="code" href="struct_t_p_o_i_n_t.html">TPOINT</a> vec;                    <span class="comment">/*accumulated vector */</span>
+  <a class="code" href="struct_e_d_g_e_p_t.html">EDGEPT</a> *maxpoint;              <span class="comment">/*worst point */</span>
+  <span class="keywordtype">int</span> maxperp;                   <span class="comment">/*max deviation */</span>
+  <span class="keyword">register</span> <span class="keywordtype">int</span> perp;             <span class="comment">/*perp distance */</span>
+  <span class="keywordtype">int</span> ptcount;                   <span class="comment">/*no of points */</span>
+  <span class="keywordtype">int</span> squaresum;                 <span class="comment">/*sum of perps */</span>
+
+  edge = first;                  <span class="comment">/*start of line */</span>
+  <span class="keywordflow">if</span> (edge-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a> == last)
+    <span class="keywordflow">return</span>;                      <span class="comment">/*simple line */</span>
+
+                                 <span class="comment">/*vector sum */</span>
+  vecsum.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> = last-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> - edge-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a>;
+  vecsum.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a> = last-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a> - edge-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a>;
+  <span class="keywordflow">if</span> (vecsum.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> == 0 &amp;&amp; vecsum.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a> == 0) {
+                                 <span class="comment">/*special case */</span>
+    vecsum.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> = -edge-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a8326da8daf597bcdc5a05064a37cbbb1">prev</a>-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a6da204ff253a65e00daae7753b82c9f7">vec</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a>;
+    vecsum.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a> = -edge-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a8326da8daf597bcdc5a05064a37cbbb1">prev</a>-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a6da204ff253a65e00daae7753b82c9f7">vec</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a>;
+  }
+                                 <span class="comment">/*absolute value */</span>
+  vlen = vecsum.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> &gt; 0 ? vecsum.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> : -vecsum.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a>;
+  <span class="keywordflow">if</span> (vecsum.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a> &gt; vlen)
+    vlen = vecsum.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a>;             <span class="comment">/*maximum */</span>
+  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (-vecsum.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a> &gt; vlen)
+    vlen = -vecsum.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a>;            <span class="comment">/*absolute value */</span>
+
+  vec.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> = edge-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a6da204ff253a65e00daae7753b82c9f7">vec</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a>;           <span class="comment">/*accumulated vector */</span>
+  vec.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a> = edge-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a6da204ff253a65e00daae7753b82c9f7">vec</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a>;
+  maxperp = 0;                   <span class="comment">/*none yet */</span>
+  squaresum = ptcount = 0;
+  edge = edge-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>;             <span class="comment">/*move to actual point */</span>
+  maxpoint = edge;               <span class="comment">/*in case there isn&#39;t one */</span>
+  <span class="keywordflow">do</span> {
+    perp = <a class="code" href="vecfuncs_8h.html#aec4dedcf89534ed10f6107bf9c6418f3">CROSS</a> (vec, vecsum);  <span class="comment">/*get perp distance */</span>
+    <span class="keywordflow">if</span> (perp != 0) {
+      perp *= perp;              <span class="comment">/*squared deviation */</span>
+    }
+    squaresum += perp;           <span class="comment">/*sum squares */</span>
+    ptcount++;                   <span class="comment">/*count points */</span>
+    <span class="keywordflow">if</span> (<a class="code" href="polyaprx_8cpp.html#af4b004883139214414d5ed6f109bbd17">poly_debug</a>)
+      <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a> (<span class="stringliteral">&quot;Cutline:Final perp=%d\n&quot;</span>, perp);
+    <span class="keywordflow">if</span> (perp &gt; maxperp) {
+      maxperp = perp;
+      maxpoint = edge;           <span class="comment">/*find greatest deviation */</span>
+    }
+    vec.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> += edge-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a6da204ff253a65e00daae7753b82c9f7">vec</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a>;        <span class="comment">/*accumulate vectors */</span>
+    vec.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a> += edge-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a6da204ff253a65e00daae7753b82c9f7">vec</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a>;
+    edge = edge-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>;
+  }
+  <span class="keywordflow">while</span> (edge != last);          <span class="comment">/*test all line */</span>
+
+  perp = <a class="code" href="vecfuncs_8h.html#ad0e13d94164219be2d5bbd4d65e71d1e">LENGTH</a> (vecsum);
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a> (perp != 0);
+
+  <span class="keywordflow">if</span> (maxperp &lt; 256 * <a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a>) {
+    maxperp &lt;&lt;= 8;
+    maxperp /= perp;             <span class="comment">/*true max perp */</span>
+  }
+  <span class="keywordflow">else</span> {
+    maxperp /= perp;
+    maxperp &lt;&lt;= 8;               <span class="comment">/*avoid overflow */</span>
+  }
+  <span class="keywordflow">if</span> (squaresum &lt; 256 * <a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a>)
+                                 <span class="comment">/*mean squared perp */</span>
+    perp = (squaresum &lt;&lt; 8) / (perp * ptcount);
+  <span class="keywordflow">else</span>
+                                 <span class="comment">/*avoid overflow */</span>
+    perp = (squaresum / perp &lt;&lt; 8) / ptcount;
+
+  <span class="keywordflow">if</span> (<a class="code" href="polyaprx_8cpp.html#af4b004883139214414d5ed6f109bbd17">poly_debug</a>)
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a> (<span class="stringliteral">&quot;Cutline:A=%d, max=%.2f(%.2f%%), msd=%.2f(%.2f%%)\n&quot;</span>,
+      area, maxperp / 256.0, maxperp * 200.0 / area,
+      perp / 256.0, perp * 300.0 / area);
+  <span class="keywordflow">if</span> (maxperp * <a class="code" href="polyaprx_8cpp.html#af48d60ada722514c300ec13eb809b23c">par1</a> &gt;= 10 * area || perp * <a class="code" href="polyaprx_8cpp.html#aa2560a18739e37081028f530cdd91caf">par2</a> &gt;= 10 * area || vlen &gt;= 126) {
+    maxpoint-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a6ccad09b4a2a06ae178418fdccf5940d">FLAGS</a>] |= <a class="code" href="polyaprx_8cpp.html#a20207ffc8e6f0bdcefb5c42a5b5c3fb8">FIXED</a>;
+                                 <span class="comment">/*partitions */</span>
+    <a class="code" href="polyaprx_8cpp.html#aa0f03bd75099af8feca58259b9f3f48d">cutline</a>(first, maxpoint, area);
+    <a class="code" href="polyaprx_8cpp.html#aa0f03bd75099af8feca58259b9f3f48d">cutline</a>(maxpoint, last, area);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa63082dea164750c7abb7944becd6f5e"></a><!-- doxytag: member="polyaprx.cpp::edgesteps_to_edgepts" ref="aa63082dea164750c7abb7944becd6f5e" args="(C_OUTLINE *c_outline, EDGEPT edgepts[])" -->
@@ -314,6 +462,88 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="polyaprx_8cpp_source.html#l00110">110</a> of file <a class="el" href="polyaprx_8cpp_source.html">polyaprx.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">  {
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> length;                  <span class="comment">//steps in path</span>
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> pos;                    <span class="comment">//current coords</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> stepindex;               <span class="comment">//current step</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> stepinc;                 <span class="comment">//increment</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> epindex;                 <span class="comment">//current EDGEPT</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> <a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a>;                   <span class="comment">//repeated steps</span>
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> vec;                    <span class="comment">//for this 8 step</span>
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> prev_vec;
+  <a class="code" href="host_8h.html#a2ba4d271e85baf0d333318985cb3bced">inT8</a> epdir;                    <span class="comment">//of this step</span>
+  <a class="code" href="class_d_i_r128.html">DIR128</a> prevdir;                <span class="comment">//prvious dir</span>
+  <a class="code" href="class_d_i_r128.html">DIR128</a> dir;                    <span class="comment">//of this step</span>
+
+  pos = c_outline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#a0f9fef7d74691bbcf45faa2272600500">start_pos</a> (); <span class="comment">//start of loop</span>
+  length = c_outline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#afb87d87d3d48e964937b068f55f3ca3a">pathlength</a> ();
+  stepindex = 0;
+  epindex = 0;
+  prevdir = -1;
+  count = 0;
+  <span class="keywordflow">do</span> {
+    dir = c_outline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#aadf769d4ac2a73d15f8d544fb152d1d9">step_dir</a> (stepindex);
+    vec = c_outline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#af6831ec849fb5ab1f2b49517fbbd5f85">step</a> (stepindex);
+    <span class="keywordflow">if</span> (stepindex &lt; length - 1
+    &amp;&amp; c_outline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#aadf769d4ac2a73d15f8d544fb152d1d9">step_dir</a> (stepindex + 1) - dir == -32) {
+      dir += 128 - 16;
+      vec += c_outline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#af6831ec849fb5ab1f2b49517fbbd5f85">step</a> (stepindex + 1);
+      stepinc = 2;
+    }
+    <span class="keywordflow">else</span>
+      stepinc = 1;
+    <span class="keywordflow">if</span> (count == 0) {
+      prevdir = dir;
+      prev_vec = vec;
+    }
+    <span class="keywordflow">if</span> (prevdir.<a class="code" href="class_d_i_r128.html#a20420b3fa5c0968a2ebb0763c7e43c2f">get_dir</a> () != dir.<a class="code" href="class_d_i_r128.html#a20420b3fa5c0968a2ebb0763c7e43c2f">get_dir</a> ()) {
+      edgepts[epindex].<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> = pos.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ();
+      edgepts[epindex].<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a> = pos.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ();
+      prev_vec *= <a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a>;
+      edgepts[epindex].<a class="code" href="struct_e_d_g_e_p_t.html#a6da204ff253a65e00daae7753b82c9f7">vec</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> = prev_vec.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ();
+      edgepts[epindex].<a class="code" href="struct_e_d_g_e_p_t.html#a6da204ff253a65e00daae7753b82c9f7">vec</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a> = prev_vec.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ();
+      pos += prev_vec;
+      edgepts[epindex].<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a0a5d3a40dd240416eac380c183d95419">RUNLENGTH</a>] = <a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a>;
+      edgepts[epindex].<a class="code" href="struct_e_d_g_e_p_t.html#a8326da8daf597bcdc5a05064a37cbbb1">prev</a> = &amp;edgepts[epindex - 1];
+      edgepts[epindex].<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a6ccad09b4a2a06ae178418fdccf5940d">FLAGS</a>] = 0;
+      edgepts[epindex].<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a> = &amp;edgepts[epindex + 1];
+      prevdir += 64;
+      epdir = (<a class="code" href="class_d_i_r128.html">DIR128</a>) 0 - prevdir;
+      epdir &gt;&gt;= 4;
+      epdir &amp;= 7;
+      edgepts[epindex].<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a6c8de73bb604d91743c7f6f356eb171e">DIR</a>] = epdir;
+      epindex++;
+      prevdir = dir;
+      prev_vec = vec;
+      count = 1;
+    }
+    <span class="keywordflow">else</span>
+      count++;
+    stepindex += stepinc;
+  }
+  <span class="keywordflow">while</span> (stepindex &lt; length);
+  edgepts[epindex].<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> = pos.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ();
+  edgepts[epindex].<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a> = pos.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ();
+  prev_vec *= <a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a>;
+  edgepts[epindex].<a class="code" href="struct_e_d_g_e_p_t.html#a6da204ff253a65e00daae7753b82c9f7">vec</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> = prev_vec.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ();
+  edgepts[epindex].<a class="code" href="struct_e_d_g_e_p_t.html#a6da204ff253a65e00daae7753b82c9f7">vec</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a> = prev_vec.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ();
+  pos += prev_vec;
+  edgepts[epindex].<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a0a5d3a40dd240416eac380c183d95419">RUNLENGTH</a>] = <a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a>;
+  edgepts[epindex].<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a6ccad09b4a2a06ae178418fdccf5940d">FLAGS</a>] = 0;
+  edgepts[epindex].<a class="code" href="struct_e_d_g_e_p_t.html#a8326da8daf597bcdc5a05064a37cbbb1">prev</a> = &amp;edgepts[epindex - 1];
+  edgepts[epindex].<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a> = &amp;edgepts[0];
+  prevdir += 64;
+  epdir = (<a class="code" href="class_d_i_r128.html">DIR128</a>) 0 - prevdir;
+  epdir &gt;&gt;= 4;
+  epdir &amp;= 7;
+  edgepts[epindex].<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a6c8de73bb604d91743c7f6f356eb171e">DIR</a>] = epdir;
+  edgepts[0].<a class="code" href="struct_e_d_g_e_p_t.html#a8326da8daf597bcdc5a05064a37cbbb1">prev</a> = &amp;edgepts[epindex];
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a> (pos.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () == c_outline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#a0f9fef7d74691bbcf45faa2272600500">start_pos</a> ().<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ()
+    &amp;&amp; pos.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () == c_outline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#a0f9fef7d74691bbcf45faa2272600500">start_pos</a> ().<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ());
+  <span class="keywordflow">return</span> &amp;edgepts[0];
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a90ebde0147c2a36a0b1a216645a4eed8"></a><!-- doxytag: member="polyaprx.cpp::fix2" ref="a90ebde0147c2a36a0b1a216645a4eed8" args="(EDGEPT *start, int area)" -->
@@ -341,6 +571,182 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="polyaprx_8cpp_source.html#l00201">201</a> of file <a class="el" href="polyaprx_8cpp_source.html">polyaprx.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                    {
+  <span class="keyword">register</span> <a class="code" href="struct_e_d_g_e_p_t.html">EDGEPT</a> *edgept;       <span class="comment">/*current point */</span>
+  <span class="keyword">register</span> <a class="code" href="struct_e_d_g_e_p_t.html">EDGEPT</a> *edgept1;
+  <span class="keyword">register</span> <a class="code" href="struct_e_d_g_e_p_t.html">EDGEPT</a> *loopstart;    <span class="comment">/*modified start of loop */</span>
+  <span class="keyword">register</span> <a class="code" href="struct_e_d_g_e_p_t.html">EDGEPT</a> *linestart;    <span class="comment">/*start of line segment */</span>
+  <span class="keyword">register</span> <span class="keywordtype">int</span> dir1, dir2;       <span class="comment">/*directions of line */</span>
+  <span class="keyword">register</span> <span class="keywordtype">int</span> sum1, sum2;       <span class="comment">/*lengths in dir1,dir2 */</span>
+  <span class="keywordtype">int</span> stopped;                   <span class="comment">/*completed flag */</span>
+  <span class="keywordtype">int</span> fixed_count;               <span class="comment">//no of fixed points</span>
+  <span class="keywordtype">int</span> d01, d12, d23, gapmin;
+  <a class="code" href="struct_t_p_o_i_n_t.html">TPOINT</a> d01vec, d12vec, d23vec;
+  <span class="keyword">register</span> <a class="code" href="struct_e_d_g_e_p_t.html">EDGEPT</a> *edgefix, *startfix;
+  <span class="keyword">register</span> <a class="code" href="struct_e_d_g_e_p_t.html">EDGEPT</a> *edgefix0, *edgefix1, *edgefix2, *edgefix3;
+
+  edgept = start;                <span class="comment">/*start of loop */</span>
+  <span class="keywordflow">while</span> (((edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a6c8de73bb604d91743c7f6f356eb171e">DIR</a>] - edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a8326da8daf597bcdc5a05064a37cbbb1">prev</a>-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a6c8de73bb604d91743c7f6f356eb171e">DIR</a>] + 1) &amp; 7) &lt; 3
+    &amp;&amp; (dir1 =
+    (edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a8326da8daf597bcdc5a05064a37cbbb1">prev</a>-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a6c8de73bb604d91743c7f6f356eb171e">DIR</a>] - edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a6c8de73bb604d91743c7f6f356eb171e">DIR</a>]) &amp; 7) != 2
+    &amp;&amp; dir1 != 6)
+    edgept = edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>;       <span class="comment">/*find suitable start */</span>
+  loopstart = edgept;            <span class="comment">/*remember start */</span>
+
+  stopped = 0;                   <span class="comment">/*not finished yet */</span>
+  edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a6ccad09b4a2a06ae178418fdccf5940d">FLAGS</a>] |= <a class="code" href="polyaprx_8cpp.html#a20207ffc8e6f0bdcefb5c42a5b5c3fb8">FIXED</a>; <span class="comment">/*fix it */</span>
+  <span class="keywordflow">do</span> {
+    linestart = edgept;          <span class="comment">/*possible start of line */</span>
+    dir1 = edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a6c8de73bb604d91743c7f6f356eb171e">DIR</a>];   <span class="comment">/*first direction */</span>
+                                 <span class="comment">/*length of dir1 */</span>
+    sum1 = edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a0a5d3a40dd240416eac380c183d95419">RUNLENGTH</a>];
+    edgept = edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>;
+    dir2 = edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a6c8de73bb604d91743c7f6f356eb171e">DIR</a>];   <span class="comment">/*2nd direction */</span>
+                                 <span class="comment">/*length in dir2 */</span>
+    sum2 = edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a0a5d3a40dd240416eac380c183d95419">RUNLENGTH</a>];
+    <span class="keywordflow">if</span> (((dir1 - dir2 + 1) &amp; 7) &lt; 3) {
+      <span class="keywordflow">while</span> (edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a8326da8daf597bcdc5a05064a37cbbb1">prev</a>-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a6c8de73bb604d91743c7f6f356eb171e">DIR</a>] == edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a6c8de73bb604d91743c7f6f356eb171e">DIR</a>]) {
+        edgept = edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>;   <span class="comment">/*look at next */</span>
+        <span class="keywordflow">if</span> (edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a6c8de73bb604d91743c7f6f356eb171e">DIR</a>] == dir1)
+                                 <span class="comment">/*sum lengths */</span>
+          sum1 += edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a0a5d3a40dd240416eac380c183d95419">RUNLENGTH</a>];
+        <span class="keywordflow">else</span>
+          sum2 += edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a0a5d3a40dd240416eac380c183d95419">RUNLENGTH</a>];
+      }
+
+      <span class="keywordflow">if</span> (edgept == loopstart)
+        stopped = 1;             <span class="comment">/*finished */</span>
+      <span class="keywordflow">if</span> (sum2 + sum1 &gt; 2
+        &amp;&amp; linestart-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a8326da8daf597bcdc5a05064a37cbbb1">prev</a>-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a6c8de73bb604d91743c7f6f356eb171e">DIR</a>] == dir2
+        &amp;&amp; (linestart-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a8326da8daf597bcdc5a05064a37cbbb1">prev</a>-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a0a5d3a40dd240416eac380c183d95419">RUNLENGTH</a>] &gt;
+      linestart-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a0a5d3a40dd240416eac380c183d95419">RUNLENGTH</a>] || sum2 &gt; sum1)) {
+                                 <span class="comment">/*start is back one */</span>
+        linestart = linestart-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a8326da8daf597bcdc5a05064a37cbbb1">prev</a>;
+        linestart-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a6ccad09b4a2a06ae178418fdccf5940d">FLAGS</a>] |= <a class="code" href="polyaprx_8cpp.html#a20207ffc8e6f0bdcefb5c42a5b5c3fb8">FIXED</a>;
+      }
+
+      <span class="keywordflow">if</span> (((edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a6c8de73bb604d91743c7f6f356eb171e">DIR</a>] - edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a6c8de73bb604d91743c7f6f356eb171e">DIR</a>] + 1) &amp; 7) &gt;= 3
+        || (edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a6c8de73bb604d91743c7f6f356eb171e">DIR</a>] == dir1 &amp;&amp; sum1 &gt;= sum2)
+        || ((edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a8326da8daf597bcdc5a05064a37cbbb1">prev</a>-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a0a5d3a40dd240416eac380c183d95419">RUNLENGTH</a>] &lt; edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a0a5d3a40dd240416eac380c183d95419">RUNLENGTH</a>]
+        || (edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a6c8de73bb604d91743c7f6f356eb171e">DIR</a>] == dir2 &amp;&amp; sum2 &gt;= sum1))
+          &amp;&amp; linestart-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a> != edgept))
+        edgept = edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>;
+    }
+                                 <span class="comment">/*sharp bend */</span>
+    edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a6ccad09b4a2a06ae178418fdccf5940d">FLAGS</a>] |= <a class="code" href="polyaprx_8cpp.html#a20207ffc8e6f0bdcefb5c42a5b5c3fb8">FIXED</a>;
+  }
+                                 <span class="comment">/*do whole loop */</span>
+  <span class="keywordflow">while</span> (edgept != loopstart &amp;&amp; !stopped);
+
+  edgept = start;
+  <span class="keywordflow">do</span> {
+    <span class="keywordflow">if</span> (((edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a0a5d3a40dd240416eac380c183d95419">RUNLENGTH</a>] &gt;= 8) &amp;&amp;
+      (edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a6c8de73bb604d91743c7f6f356eb171e">DIR</a>] != 2) &amp;&amp; (edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a6c8de73bb604d91743c7f6f356eb171e">DIR</a>] != 6)) ||
+      ((edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a0a5d3a40dd240416eac380c183d95419">RUNLENGTH</a>] &gt;= 8) &amp;&amp;
+    ((edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a6c8de73bb604d91743c7f6f356eb171e">DIR</a>] == 2) || (edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a6c8de73bb604d91743c7f6f356eb171e">DIR</a>] == 6)))) {
+      edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a6ccad09b4a2a06ae178418fdccf5940d">FLAGS</a>] |= <a class="code" href="polyaprx_8cpp.html#a20207ffc8e6f0bdcefb5c42a5b5c3fb8">FIXED</a>;
+      edgept1 = edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>;
+      edgept1-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a6ccad09b4a2a06ae178418fdccf5940d">FLAGS</a>] |= <a class="code" href="polyaprx_8cpp.html#a20207ffc8e6f0bdcefb5c42a5b5c3fb8">FIXED</a>;
+    }
+    edgept = edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>;
+  }
+  <span class="keywordflow">while</span> (edgept != start);
+
+  edgept = start;
+  <span class="keywordflow">do</span> {
+                                 <span class="comment">/*single fixed step */</span>
+    <span class="keywordflow">if</span> (edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a6ccad09b4a2a06ae178418fdccf5940d">FLAGS</a>] &amp; <a class="code" href="polyaprx_8cpp.html#a20207ffc8e6f0bdcefb5c42a5b5c3fb8">FIXED</a> &amp;&amp; edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a0a5d3a40dd240416eac380c183d95419">RUNLENGTH</a>] == 1
+                                 <span class="comment">/*and neighours free */</span>
+      &amp;&amp; edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a6ccad09b4a2a06ae178418fdccf5940d">FLAGS</a>] &amp; <a class="code" href="polyaprx_8cpp.html#a20207ffc8e6f0bdcefb5c42a5b5c3fb8">FIXED</a> &amp;&amp; (edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a8326da8daf597bcdc5a05064a37cbbb1">prev</a>-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a6ccad09b4a2a06ae178418fdccf5940d">FLAGS</a>] &amp; <a class="code" href="polyaprx_8cpp.html#a20207ffc8e6f0bdcefb5c42a5b5c3fb8">FIXED</a>) == 0
+                                 <span class="comment">/*same pair of dirs */</span>
+      &amp;&amp; (edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a6ccad09b4a2a06ae178418fdccf5940d">FLAGS</a>] &amp; FIXED) == 0 &amp;&amp; edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a8326da8daf597bcdc5a05064a37cbbb1">prev</a>-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a6c8de73bb604d91743c7f6f356eb171e">DIR</a>] == edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a6c8de73bb604d91743c7f6f356eb171e">DIR</a>] &amp;&amp; edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a8326da8daf597bcdc5a05064a37cbbb1">prev</a>-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a8326da8daf597bcdc5a05064a37cbbb1">prev</a>-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a6c8de73bb604d91743c7f6f356eb171e">DIR</a>] == edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a6c8de73bb604d91743c7f6f356eb171e">DIR</a>]
+    &amp;&amp; ((edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a8326da8daf597bcdc5a05064a37cbbb1">prev</a>-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a6c8de73bb604d91743c7f6f356eb171e">DIR</a>] - edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a6c8de73bb604d91743c7f6f356eb171e">DIR</a>] + 1) &amp; 7) &lt; 3) {
+                                 <span class="comment">/*unfix it */</span>
+      edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a6ccad09b4a2a06ae178418fdccf5940d">FLAGS</a>] &amp;= ~FIXED;
+      edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a6ccad09b4a2a06ae178418fdccf5940d">FLAGS</a>] &amp;= ~FIXED;
+    }
+    edgept = edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>;       <span class="comment">/*do all points */</span>
+  }
+  <span class="keywordflow">while</span> (edgept != start);       <span class="comment">/*until finished */</span>
+
+  stopped = 0;
+  <span class="keywordflow">if</span> (area &lt; 450)
+    area = 450;
+
+  gapmin = area * <a class="code" href="polyaprx_8cpp.html#ab32cccc51ac6f93001591f058666730b">fixed_dist</a> * <a class="code" href="polyaprx_8cpp.html#ab32cccc51ac6f93001591f058666730b">fixed_dist</a> / 44000;
+
+  edgept = start;
+  fixed_count = 0;
+  <span class="keywordflow">do</span> {
+    <span class="keywordflow">if</span> (edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a6ccad09b4a2a06ae178418fdccf5940d">FLAGS</a>] &amp; <a class="code" href="polyaprx_8cpp.html#a20207ffc8e6f0bdcefb5c42a5b5c3fb8">FIXED</a>)
+      fixed_count++;
+    edgept = edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>;
+  }
+  <span class="keywordflow">while</span> (edgept != start);
+  <span class="keywordflow">while</span> ((edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a6ccad09b4a2a06ae178418fdccf5940d">FLAGS</a>] &amp; <a class="code" href="polyaprx_8cpp.html#a20207ffc8e6f0bdcefb5c42a5b5c3fb8">FIXED</a>) == 0)
+    edgept = edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>;
+  edgefix0 = edgept;
+
+  edgept = edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>;
+  <span class="keywordflow">while</span> ((edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a6ccad09b4a2a06ae178418fdccf5940d">FLAGS</a>] &amp; FIXED) == 0)
+    edgept = edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>;
+  edgefix1 = edgept;
+
+  edgept = edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>;
+  <span class="keywordflow">while</span> ((edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a6ccad09b4a2a06ae178418fdccf5940d">FLAGS</a>] &amp; FIXED) == 0)
+    edgept = edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>;
+  edgefix2 = edgept;
+
+  edgept = edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>;
+  <span class="keywordflow">while</span> ((edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a6ccad09b4a2a06ae178418fdccf5940d">FLAGS</a>] &amp; FIXED) == 0)
+    edgept = edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>;
+  edgefix3 = edgept;
+
+  startfix = edgefix2;
+
+  <span class="keywordflow">do</span> {
+    <span class="keywordflow">if</span> (fixed_count &lt;= 3)
+      <span class="keywordflow">break</span>;                     <span class="comment">//already too few</span>
+    <a class="code" href="vecfuncs_8h.html#adc5b1f2b1c3f7afb5b0b035449f5e2ec">point_diff</a> (d12vec, edgefix1-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>, edgefix2-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>);
+    d12 = <a class="code" href="vecfuncs_8h.html#ad0e13d94164219be2d5bbd4d65e71d1e">LENGTH</a> (d12vec);
+    <span class="comment">// TODO(rays) investigate this change:</span>
+    <span class="comment">// Only unfix a point if it is part of a low-curvature section</span>
+    <span class="comment">// of outline and the total angle change of the outlines is</span>
+    <span class="comment">// less than 90 degrees, ie the scalar product is positive.</span>
+    <span class="comment">// if (d12 &lt;= gapmin &amp;&amp; SCALAR(edgefix0-&gt;vec, edgefix2-&gt;vec) &gt; 0) {</span>
+    <span class="keywordflow">if</span> (d12 &lt;= gapmin) {
+      <a class="code" href="vecfuncs_8h.html#adc5b1f2b1c3f7afb5b0b035449f5e2ec">point_diff</a> (d01vec, edgefix0-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>, edgefix1-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>);
+      d01 = <a class="code" href="vecfuncs_8h.html#ad0e13d94164219be2d5bbd4d65e71d1e">LENGTH</a> (d01vec);
+      <a class="code" href="vecfuncs_8h.html#adc5b1f2b1c3f7afb5b0b035449f5e2ec">point_diff</a> (d23vec, edgefix2-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>, edgefix3-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>);
+      d23 = <a class="code" href="vecfuncs_8h.html#ad0e13d94164219be2d5bbd4d65e71d1e">LENGTH</a> (d23vec);
+      <span class="keywordflow">if</span> (d01 &gt; d23) {
+        edgefix2-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a6ccad09b4a2a06ae178418fdccf5940d">FLAGS</a>] &amp;= ~FIXED;
+        fixed_count--;
+      }
+      <span class="keywordflow">else</span> {
+        edgefix1-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a6ccad09b4a2a06ae178418fdccf5940d">FLAGS</a>] &amp;= ~FIXED;
+        fixed_count--;
+        edgefix1 = edgefix2;
+      }
+    }
+    <span class="keywordflow">else</span> {
+      edgefix0 = edgefix1;
+      edgefix1 = edgefix2;
+    }
+    edgefix2 = edgefix3;
+    edgept = edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>;
+    <span class="keywordflow">while</span> ((edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a6ccad09b4a2a06ae178418fdccf5940d">FLAGS</a>] &amp; FIXED) == 0) {
+      <span class="keywordflow">if</span> (edgept == startfix)
+        stopped = 1;
+      edgept = edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>;
+    }
+    edgefix3 = edgept;
+    edgefix = edgefix2;
+  }
+  <span class="keywordflow">while</span> ((edgefix != startfix) &amp;&amp; (!stopped));
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab1a151f8dbd379f2ecf2d59f9ce2bc23"></a><!-- doxytag: member="polyaprx.cpp::poly2" ref="ab1a151f8dbd379f2ecf2d59f9ce2bc23" args="(EDGEPT *startpt, int area)" -->
@@ -368,6 +774,96 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="polyaprx_8cpp_source.html#l00386">386</a> of file <a class="el" href="polyaprx_8cpp_source.html">polyaprx.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">               {
+  <span class="keyword">register</span> <a class="code" href="struct_e_d_g_e_p_t.html">EDGEPT</a> *edgept;       <span class="comment">/*current outline point */</span>
+  <a class="code" href="struct_e_d_g_e_p_t.html">EDGEPT</a> *loopstart;             <span class="comment">/*starting point */</span>
+  <span class="keyword">register</span> <a class="code" href="struct_e_d_g_e_p_t.html">EDGEPT</a> *linestart;    <span class="comment">/*start of line */</span>
+  <span class="keyword">register</span> <span class="keywordtype">int</span> edgesum;          <span class="comment">/*correction count */</span>
+
+  <span class="keywordflow">if</span> (area &lt; 1200)
+    area = 1200;                 <span class="comment">/*minimum value */</span>
+
+  loopstart = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;              <span class="comment">/*not found it yet */</span>
+  edgept = startpt;              <span class="comment">/*start of loop */</span>
+
+  <span class="keywordflow">do</span> {
+                                 <span class="comment">/*current point fixed */</span>
+    <span class="keywordflow">if</span> (edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a6ccad09b4a2a06ae178418fdccf5940d">FLAGS</a>] &amp; <a class="code" href="polyaprx_8cpp.html#a20207ffc8e6f0bdcefb5c42a5b5c3fb8">FIXED</a>
+                                 <span class="comment">/*and next not */</span>
+    &amp;&amp; (edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a6ccad09b4a2a06ae178418fdccf5940d">FLAGS</a>] &amp; <a class="code" href="polyaprx_8cpp.html#a20207ffc8e6f0bdcefb5c42a5b5c3fb8">FIXED</a>) == 0) {
+      loopstart = edgept;        <span class="comment">/*start of repoly */</span>
+      <span class="keywordflow">break</span>;
+    }
+    edgept = edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>;       <span class="comment">/*next point */</span>
+  }
+  <span class="keywordflow">while</span> (edgept != startpt);     <span class="comment">/*until found or finished */</span>
+
+  <span class="keywordflow">if</span> (loopstart == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp; (startpt-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a6ccad09b4a2a06ae178418fdccf5940d">FLAGS</a>] &amp; <a class="code" href="polyaprx_8cpp.html#a20207ffc8e6f0bdcefb5c42a5b5c3fb8">FIXED</a>) == 0) {
+                                 <span class="comment">/*fixed start of loop */</span>
+    startpt-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a6ccad09b4a2a06ae178418fdccf5940d">FLAGS</a>] |= <a class="code" href="polyaprx_8cpp.html#a20207ffc8e6f0bdcefb5c42a5b5c3fb8">FIXED</a>;
+    loopstart = startpt;         <span class="comment">/*or start of loop */</span>
+  }
+  <span class="keywordflow">if</span> (loopstart) {
+    <span class="keywordflow">do</span> {
+      edgept = loopstart;        <span class="comment">/*first to do */</span>
+      <span class="keywordflow">do</span> {
+        linestart = edgept;
+        edgesum = 0;             <span class="comment">/*sum of lengths */</span>
+        <span class="keywordflow">do</span> {
+                                 <span class="comment">/*sum lengths */</span>
+          edgesum += edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a0a5d3a40dd240416eac380c183d95419">RUNLENGTH</a>];
+          edgept = edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>; <span class="comment">/*move on */</span>
+        }
+        <span class="keywordflow">while</span> ((edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a6ccad09b4a2a06ae178418fdccf5940d">FLAGS</a>] &amp; FIXED) == 0
+          &amp;&amp; edgept != loopstart &amp;&amp; edgesum &lt; 126);
+        <span class="keywordflow">if</span> (<a class="code" href="polyaprx_8cpp.html#af4b004883139214414d5ed6f109bbd17">poly_debug</a>)
+          <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>
+            (<span class="stringliteral">&quot;Poly2:starting at (%d,%d)+%d=(%d,%d),%d to (%d,%d)\n&quot;</span>,
+            linestart-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a>, linestart-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a>, linestart-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a6c8de73bb604d91743c7f6f356eb171e">DIR</a>],
+            linestart-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a6da204ff253a65e00daae7753b82c9f7">vec</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a>, linestart-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a6da204ff253a65e00daae7753b82c9f7">vec</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a>, edgesum, edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a>,
+            edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a>);
+                                 <span class="comment">/*reapproximate */</span>
+        <a class="code" href="polyaprx_8cpp.html#aa0f03bd75099af8feca58259b9f3f48d">cutline</a>(linestart, edgept, area);
+
+        <span class="keywordflow">while</span> ((edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a6ccad09b4a2a06ae178418fdccf5940d">FLAGS</a>] &amp; FIXED)
+          &amp;&amp; edgept != loopstart)
+          edgept = edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>; <span class="comment">/*look for next non-fixed */</span>
+      }
+                                 <span class="comment">/*do all the loop */</span>
+      <span class="keywordflow">while</span> (edgept != loopstart);
+      edgesum = 0;
+      <span class="keywordflow">do</span> {
+        <span class="keywordflow">if</span> (edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a6ccad09b4a2a06ae178418fdccf5940d">FLAGS</a>] &amp; FIXED)
+          edgesum++;
+        edgept = edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>;
+      }
+                                 <span class="comment">//count fixed pts</span>
+      <span class="keywordflow">while</span> (edgept != loopstart);
+      <span class="keywordflow">if</span> (edgesum &lt; 3)
+        area /= 2;               <span class="comment">//must have 3 pts</span>
+    }
+    <span class="keywordflow">while</span> (edgesum &lt; 3);
+    <span class="keywordflow">do</span> {
+      linestart = edgept;
+      <span class="keywordflow">do</span> {
+        edgept = edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>;
+      }
+      <span class="keywordflow">while</span> ((edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[<a class="code" href="polyaprx_8cpp.html#a6ccad09b4a2a06ae178418fdccf5940d">FLAGS</a>] &amp; FIXED) == 0);
+      linestart-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a> = edgept;
+      edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a8326da8daf597bcdc5a05064a37cbbb1">prev</a> = linestart;
+      linestart-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a6da204ff253a65e00daae7753b82c9f7">vec</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> = edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> - linestart-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a>;
+      linestart-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a6da204ff253a65e00daae7753b82c9f7">vec</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a> = edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a> - linestart-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a>;
+    }
+    <span class="keywordflow">while</span> (edgept != loopstart);
+  }
+  <span class="keywordflow">else</span>
+    edgept = startpt;            <span class="comment">/*start of loop */</span>
+
+  loopstart = edgept;            <span class="comment">/*new start */</span>
+  <span class="keywordflow">return</span> loopstart;              <span class="comment">/*correct exit */</span>
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Variable Documentation</h2>
@@ -382,6 +878,8 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="polyaprx_8cpp_source.html#l00048">48</a> of file <a class="el" href="polyaprx_8cpp_source.html">polyaprx.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="aa2560a18739e37081028f530cdd91caf"></a><!-- doxytag: member="polyaprx.cpp::par2" ref="aa2560a18739e37081028f530cdd91caf" args="" -->
@@ -394,6 +892,8 @@ Variables</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="polyaprx_8cpp_source.html#l00049">49</a> of file <a class="el" href="polyaprx_8cpp_source.html">polyaprx.cpp</a>.</p>
 
 </div>
 </div>
@@ -409,6 +909,8 @@ Variables</h2></td></tr>
 <div class="memdoc">
 <p>"Debug old poly" </p>
 
+<p>Definition at line <a class="el" href="polyaprx_8cpp_source.html#l00032">32</a> of file <a class="el" href="polyaprx_8cpp_source.html">polyaprx.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ac0b10a62dff4fda6c92ebb536e387d21"></a><!-- doxytag: member="polyaprx.cpp::poly_wide_objects_better" ref="ac0b10a62dff4fda6c92ebb536e387d21" args="" -->
@@ -422,6 +924,8 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"More accurate approx on wide things" </p>
+
+<p>Definition at line <a class="el" href="polyaprx_8cpp_source.html#l00034">34</a> of file <a class="el" href="polyaprx_8cpp_source.html">polyaprx.cpp</a>.</p>
 
 </div>
 </div>
@@ -445,7 +949,7 @@ Variables</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:09 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:40 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

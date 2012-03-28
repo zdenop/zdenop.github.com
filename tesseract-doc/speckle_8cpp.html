@@ -106,7 +106,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <code>#include &quot;<a class="el" href="blobs_8h_source.html">blobs.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="ratngs_8h_source.html">ratngs.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="params_8h_source.html">params.h</a>&quot;</code><br/>
-</div><table class="memberdecls">
+</div>
+<p><a href="speckle_8cpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="speckle_8cpp.html#a39cee874b396f85d17da4ee6cedf4944">AddLargeSpeckleTo</a> (BLOB_CHOICE_LIST *Choices)</td></tr>
@@ -149,6 +151,32 @@ Variables</h2></td></tr>
 <dl class="return"><dt><b>Returns:</b></dt><dd>New Choices list with null choice added to end.</dd></dl>
 <p>Exceptions: none History: Mon Mar 11 11:08:11 1991, DSJ, Created. </p>
 
+<p>Definition at line <a class="el" href="speckle_8cpp_source.html#l00062">62</a> of file <a class="el" href="speckle_8cpp_source.html">speckle.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                  {
+  assert(Choices != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <a class="code" href="class_b_l_o_b___c_h_o_i_c_e.html">BLOB_CHOICE</a> *blob_choice;
+  BLOB_CHOICE_IT temp_it;
+  temp_it.set_to_list(Choices);
+
+  <span class="comment">// If there are no other choices, use the small speckle penalty plus</span>
+  <span class="comment">// the large speckle penalty.</span>
+  <span class="keywordflow">if</span> (Choices-&gt;length() == 0) {
+    blob_choice =
+      <span class="keyword">new</span> <a class="code" href="class_b_l_o_b___c_h_o_i_c_e.html">BLOB_CHOICE</a>(0, <a class="code" href="speckle_8cpp.html#aea6dd81270d551b7e13df37f5037245f">speckle_small_certainty</a> + <a class="code" href="speckle_8cpp.html#a3e8d8261020552394bde636cd0cc9a02">speckle_large_penalty</a>,
+                      <a class="code" href="speckle_8cpp.html#aea6dd81270d551b7e13df37f5037245f">speckle_small_certainty</a>, -1, -1, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, 0, 0, <span class="keyword">false</span>);
+    temp_it.add_to_end(blob_choice);
+    <span class="keywordflow">return</span>;
+  }
+
+  <span class="comment">// If there are other choices,  add a null choice that is slightly worse</span>
+  <span class="comment">// than the worst choice so far.</span>
+  temp_it.move_to_last();
+  blob_choice = temp_it.data();  <span class="comment">// pick the worst choice</span>
+  temp_it.add_to_end(
+      <span class="keyword">new</span> <a class="code" href="class_b_l_o_b___c_h_o_i_c_e.html">BLOB_CHOICE</a>(0, blob_choice-&gt;<a class="code" href="class_b_l_o_b___c_h_o_i_c_e.html#a7fbd2d505bf5b55beee424096fb1e9bc">rating</a>() + <a class="code" href="speckle_8cpp.html#a3e8d8261020552394bde636cd0cc9a02">speckle_large_penalty</a>,
+                      blob_choice-&gt;<a class="code" href="class_b_l_o_b___c_h_o_i_c_e.html#af53d45b718c562ea7209b583c77ac14e">certainty</a>(), -1, -1, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, 0, 0, <span class="keyword">false</span>));
+}                                <span class="comment">/* AddLargeSpeckleTo */</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a23f46ca3d2ee91db4490641e9268a172"></a><!-- doxytag: member="speckle.cpp::LargeSpeckle" ref="a23f46ca3d2ee91db4490641e9268a172" args="(TBLOB *blob)" -->
@@ -179,6 +207,13 @@ Variables</h2></td></tr>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>TRUE if Blob is speckle, FALSE otherwise. </dd></dl>
 
+<p>Definition at line <a class="el" href="speckle_8cpp_source.html#l00103">103</a> of file <a class="el" href="speckle_8cpp_source.html">speckle.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                {
+  <span class="keywordtype">double</span> speckle_size = <a class="code" href="baseline_8h.html#abe1dbc548d1afb0cf12686a897142bd3">BASELINE_SCALE</a> * <a class="code" href="speckle_8cpp.html#aeea7a8ad3b8de0e09af5e9d1e85dc94e">speckle_large_max_size</a>;
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> bbox = blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a8f1f8f110170fe12cf8147d504cd0ea2">bounding_box</a>();
+  <span class="keywordflow">return</span> (bbox.<a class="code" href="class_t_b_o_x.html#af95494a2ccacc70cc2b83820b2948619">width</a>() &lt; speckle_size &amp;&amp; bbox.<a class="code" href="class_t_b_o_x.html#a8379d4bbc72bdbb1f069fc14790e632d">height</a>() &lt; speckle_size);
+}                                <span class="comment">/* LargeSpeckle */</span>
+</pre></div>
 </div>
 </div>
 <hr/><h2>Variable Documentation</h2>
@@ -194,6 +229,8 @@ Variables</h2></td></tr>
 <div class="memdoc">
 <p>define control knobs for adjusting definition of speckle "Max large speckle size" </p>
 
+<p>Definition at line <a class="el" href="speckle_8cpp_source.html#l00031">31</a> of file <a class="el" href="speckle_8cpp_source.html">speckle.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a3e8d8261020552394bde636cd0cc9a02"></a><!-- doxytag: member="speckle.cpp::speckle_large_penalty" ref="a3e8d8261020552394bde636cd0cc9a02" args="" -->
@@ -207,6 +244,8 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"Large speckle penalty" </p>
+
+<p>Definition at line <a class="el" href="speckle_8cpp_source.html#l00035">35</a> of file <a class="el" href="speckle_8cpp_source.html">speckle.cpp</a>.</p>
 
 </div>
 </div>
@@ -222,6 +261,8 @@ Variables</h2></td></tr>
 <div class="memdoc">
 <p>"Small speckle certainty" </p>
 
+<p>Definition at line <a class="el" href="speckle_8cpp_source.html#l00037">37</a> of file <a class="el" href="speckle_8cpp_source.html">speckle.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="adfac34420649c6e3edec5efcda689d90"></a><!-- doxytag: member="speckle.cpp::speckle_small_penalty" ref="adfac34420649c6e3edec5efcda689d90" args="" -->
@@ -235,6 +276,8 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"Small speckle penalty" </p>
+
+<p>Definition at line <a class="el" href="speckle_8cpp_source.html#l00033">33</a> of file <a class="el" href="speckle_8cpp_source.html">speckle.cpp</a>.</p>
 
 </div>
 </div>
@@ -258,7 +301,7 @@ Variables</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:09 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:41 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

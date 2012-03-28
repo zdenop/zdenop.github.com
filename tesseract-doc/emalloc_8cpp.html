@@ -104,7 +104,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="textblock"><code>#include &quot;<a class="el" href="emalloc_8h_source.html">emalloc.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="danerror_8h_source.html">danerror.h</a>&quot;</code><br/>
 <code>#include &lt;stdlib.h&gt;</code><br/>
-</div><table class="memberdecls">
+</div>
+<p><a href="emalloc_8cpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="emalloc_8cpp.html#a55f2088f1a7b3333bb5c7275ab726bba">Emalloc</a> (size_t Size)</td></tr>
@@ -127,6 +129,15 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="emalloc_8cpp_source.html#l00085">85</a> of file <a class="el" href="emalloc_8cpp_source.html">emalloc.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                      { 
+  <span class="keywordflow">if</span> (ptr == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <a class="code" href="danerror_8cpp.html#a480942fa88232bda23e9809e5afa9f25">DoError</a> (<a class="code" href="emalloc_8h.html#af4b3c6a2833ca7c3f531746c2937e3a8">ILLEGALMALLOCREQUEST</a>, <span class="stringliteral">&quot;Attempted to free NULL ptr&quot;</span>);
+
+  free(ptr); 
+
+}                                <span class="comment">/* Efree */</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a55f2088f1a7b3333bb5c7275ab726bba"></a><!-- doxytag: member="emalloc.cpp::Emalloc" ref="a55f2088f1a7b3333bb5c7275ab726bba" args="(size_t Size)" -->
@@ -145,6 +156,40 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>---------------------------------------------------------------------------- Include Files and Type Defines ---------------------------------------------------------------------------- ---------------------------------------------------------------------------- Public Code ---------------------------------------------------------------------------- </p>
 
+<p>Definition at line <a class="el" href="emalloc_8cpp_source.html#l00035">35</a> of file <a class="el" href="emalloc_8cpp_source.html">emalloc.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                           { 
+<span class="comment">/*</span>
+<span class="comment"> **                                                     Parameters:</span>
+<span class="comment"> **                                                     Size</span>
+<span class="comment">              number of bytes of memory to be allocated</span>
+<span class="comment">**                                                      Globals: none</span>
+<span class="comment">**                                                      Operation:</span>
+<span class="comment">**                                                      This routine attempts to allocate the specified number of</span>
+<span class="comment">**                                                      bytes.  If the memory can be allocated, a pointer to the</span>
+<span class="comment">**                                                      memory is returned.  If the memory cannot be allocated, or</span>
+<span class="comment">**                                                      if the allocation request is negative or zero,</span>
+<span class="comment">**                                                      an error is trapped.</span>
+<span class="comment">**                                                      Return: Pointer to allocated memory.</span>
+<span class="comment">**                                                      Exceptions: NOTENOUGHMEMORY</span>
+<span class="comment">              unable to allocate Size bytes</span>
+<span class="comment">**                                                      ILLEGALMALLOCREQUEST</span>
+<span class="comment">              negative or zero request size</span>
+<span class="comment">**                                                      History: 4/3/89, DSJ, Created.</span>
+<span class="comment">*/</span>
+  <span class="keywordtype">void</span> *Buffer;
+
+  <span class="keywordflow">if</span> (Size &lt;= 0)
+    <a class="code" href="danerror_8cpp.html#a480942fa88232bda23e9809e5afa9f25">DoError</a> (<a class="code" href="emalloc_8h.html#af4b3c6a2833ca7c3f531746c2937e3a8">ILLEGALMALLOCREQUEST</a>, <span class="stringliteral">&quot;Illegal malloc request size&quot;</span>);
+  Buffer = (<span class="keywordtype">void</span> *) malloc (Size);
+  <span class="keywordflow">if</span> (Buffer == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="danerror_8cpp.html#a480942fa88232bda23e9809e5afa9f25">DoError</a> (<a class="code" href="emalloc_8h.html#a33c9be2e27c6832c275df3c2745e039b">NOTENOUGHMEMORY</a>, <span class="stringliteral">&quot;Not enough memory&quot;</span>);
+    <span class="keywordflow">return</span> (<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  }
+  <span class="keywordflow">else</span>
+    <span class="keywordflow">return</span> (Buffer);
+
+}                                <span class="comment">/* Emalloc */</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a92c09eaf43dcfc23a738fca16eb677b9"></a><!-- doxytag: member="emalloc.cpp::Erealloc" ref="a92c09eaf43dcfc23a738fca16eb677b9" args="(void *ptr, size_t size)" -->
@@ -172,6 +217,20 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="emalloc_8cpp_source.html#l00070">70</a> of file <a class="el" href="emalloc_8cpp_source.html">emalloc.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                       { 
+  <span class="keywordtype">void</span> *Buffer;
+
+  <span class="keywordflow">if</span> (size &lt; 0 || (size == 0 &amp;&amp; ptr == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>))
+    <a class="code" href="danerror_8cpp.html#a480942fa88232bda23e9809e5afa9f25">DoError</a> (<a class="code" href="emalloc_8h.html#af4b3c6a2833ca7c3f531746c2937e3a8">ILLEGALMALLOCREQUEST</a>, <span class="stringliteral">&quot;Illegal realloc request size&quot;</span>);
+
+  Buffer = (<span class="keywordtype">void</span> *) realloc (ptr, size);
+  <span class="keywordflow">if</span> (Buffer == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp; size != 0)
+    <a class="code" href="danerror_8cpp.html#a480942fa88232bda23e9809e5afa9f25">DoError</a> (<a class="code" href="emalloc_8h.html#a33c9be2e27c6832c275df3c2745e039b">NOTENOUGHMEMORY</a>, <span class="stringliteral">&quot;Not enough memory&quot;</span>);
+  <span class="keywordflow">return</span> (Buffer);
+
+}                                <span class="comment">/* Erealloc */</span>
+</pre></div>
 </div>
 </div>
 </div>
@@ -194,7 +253,7 @@ Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:09 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:42 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

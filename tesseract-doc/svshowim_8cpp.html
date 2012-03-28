@@ -104,7 +104,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="textblock"><code>#include &quot;allheaders.h&quot;</code><br/>
 <code>#include &quot;<a class="el" href="svshowim_8h_source.html">svshowim.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="scrollview_8h_source.html">scrollview.h</a>&quot;</code><br/>
-</div><table class="memberdecls">
+</div>
+<p><a href="svshowim_8cpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="svshowim_8cpp.html#acd0d4f7430cdfc6ec63577526195a25c">sv_show_sub_image</a> (<a class="el" href="class_i_m_a_g_e.html">IMAGE</a> *source, <a class="el" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> xstart, <a class="el" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> ystart, <a class="el" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> xext, <a class="el" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> yext, <a class="el" href="class_scroll_view.html">ScrollView</a> *window, <a class="el" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> xpos, <a class="el" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> ypos)</td></tr>
@@ -171,6 +173,22 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="svshowim_8cpp_source.html#l00019">19</a> of file <a class="el" href="svshowim_8cpp_source.html">svshowim.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                       {         <span class="comment">// Y position.</span>
+  Pix* pix;
+  <span class="keywordflow">if</span> (xstart != 0 || ystart != 0 ||
+      xext != source-&gt;<a class="code" href="class_i_m_a_g_e.html#aee6f16416203f7d678fc61ae22dedc6e">get_xsize</a>() || yext != source-&gt;<a class="code" href="class_i_m_a_g_e.html#a3f8caf7062bd65eea2fc068fb3ec7c10">get_ysize</a>()) {
+    <a class="code" href="class_i_m_a_g_e.html">IMAGE</a> sub_im;
+    sub_im.<a class="code" href="class_i_m_a_g_e.html#aa827c8e72da25720295706017eda3d81">create</a>(xext, yext, source-&gt;<a class="code" href="class_i_m_a_g_e.html#adc989f275743a36c9a9bce4b83c48c72">get_bpp</a>());
+    <a class="code" href="imgs_8cpp.html#adf532c19ebf5ba5ec70086035b874dbc">copy_sub_image</a>(source, xstart, ystart, xext, yext, &amp;sub_im, 0, 0, <span class="keyword">false</span>);
+    pix = sub_im.<a class="code" href="class_i_m_a_g_e.html#a93a54ced5f2ee393fd3f634e31bbd145">ToPix</a>();
+  } <span class="keywordflow">else</span> {
+    pix = source-&gt;<a class="code" href="class_i_m_a_g_e.html#a93a54ced5f2ee393fd3f634e31bbd145">ToPix</a>();
+  }
+  window-&gt;<a class="code" href="class_scroll_view.html#a45881e629322d82c9fc0c5f926a76f16">Image</a>(pix, xpos, window-&gt;<a class="code" href="class_scroll_view.html#a919331a29ba9fdaeacf1e06ab7917616">TranslateYCoordinate</a>(yext) + ypos);
+  pixDestroy(&amp;pix);
+}
+</pre></div>
 </div>
 </div>
 </div>
@@ -193,7 +211,7 @@ Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:10 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:42 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

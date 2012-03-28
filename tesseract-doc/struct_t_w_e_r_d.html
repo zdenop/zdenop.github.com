@@ -133,7 +133,10 @@ Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_t_w_e_r_d.html#a408678da3281eb77874487aceb44b95c">latin_script</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_t_w_e_r_d.html">TWERD</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_t_w_e_r_d.html#a51a5ef09a89f299744364951491f18de">next</a></td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="blobs_8h_source.html#l00229">229</a> of file <a class="el" href="blobs_8h_source.html">blobs.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a02cbf05084fd4a6fca24049cdaaf7dfa"></a><!-- doxytag: member="TWERD::TWERD" ref="a02cbf05084fd4a6fca24049cdaaf7dfa" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -148,6 +151,9 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8h_source.html#l00230">230</a> of file <a class="el" href="blobs_8h_source.html">blobs.h</a>.</p>
+<div class="fragment"><pre class="fragment">: <a class="code" href="struct_t_w_e_r_d.html#aeec31d57df04c8dac1cf3e6990d358a7">blobs</a>(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>), <a class="code" href="struct_t_w_e_r_d.html#a408678da3281eb77874487aceb44b95c">latin_script</a>(<span class="keyword">false</span>), <a class="code" href="struct_t_w_e_r_d.html#a51a5ef09a89f299744364951491f18de">next</a>(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a351f4f2239ca7ae00d838cd04d75301e"></a><!-- doxytag: member="TWERD::TWERD" ref="a351f4f2239ca7ae00d838cd04d75301e" args="(const TWERD &amp;src)" -->
@@ -165,6 +171,11 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8h_source.html#l00231">231</a> of file <a class="el" href="blobs_8h_source.html">blobs.h</a>.</p>
+<div class="fragment"><pre class="fragment">                          : <a class="code" href="struct_t_w_e_r_d.html#aeec31d57df04c8dac1cf3e6990d358a7">blobs</a>(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>), <a class="code" href="struct_t_w_e_r_d.html#a51a5ef09a89f299744364951491f18de">next</a>(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="struct_t_w_e_r_d.html#a6fe65fc8837f845479901adb50e8017a">CopyFrom</a>(src);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3a0895ebccf65fb391481b92aa6a33f3"></a><!-- doxytag: member="TWERD::~TWERD" ref="a3a0895ebccf65fb391481b92aa6a33f3" args="()" -->
@@ -181,6 +192,11 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8h_source.html#l00234">234</a> of file <a class="el" href="blobs_8h_source.html">blobs.h</a>.</p>
+<div class="fragment"><pre class="fragment">           {
+    <a class="code" href="struct_t_w_e_r_d.html#aaae5d4bddf965fc6f051ed99a9bd3607">Clear</a>();
+  }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -198,6 +214,16 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8cpp_source.html#l00476">476</a> of file <a class="el" href="blobs_8cpp_source.html">blobs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                               {
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> result;
+  <span class="keywordflow">for</span> (<a class="code" href="struct_t_b_l_o_b.html">TBLOB</a>* blob = <a class="code" href="struct_t_w_e_r_d.html#aeec31d57df04c8dac1cf3e6990d358a7">blobs</a>; blob != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>; blob = blob-&gt;next) {
+    <a class="code" href="class_t_b_o_x.html">TBOX</a> box = blob-&gt;bounding_box();
+    result += box;
+  }
+  <span class="keywordflow">return</span> result;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aaae5d4bddf965fc6f051ed99a9bd3607"></a><!-- doxytag: member="TWERD::Clear" ref="aaae5d4bddf965fc6f051ed99a9bd3607" args="()" -->
@@ -214,6 +240,14 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8cpp_source.html#l00462">462</a> of file <a class="el" href="blobs_8cpp_source.html">blobs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                  {
+  <span class="keywordflow">for</span> (<a class="code" href="struct_t_b_l_o_b.html">TBLOB</a>* next_blob = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>; <a class="code" href="struct_t_w_e_r_d.html#aeec31d57df04c8dac1cf3e6990d358a7">blobs</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>; <a class="code" href="struct_t_w_e_r_d.html#aeec31d57df04c8dac1cf3e6990d358a7">blobs</a> = next_blob) {
+    next_blob = <a class="code" href="struct_t_w_e_r_d.html#aeec31d57df04c8dac1cf3e6990d358a7">blobs</a>-&gt;<a class="code" href="struct_t_b_l_o_b.html#a88a541f55c8bfd63a9f0c419189499bb">next</a>;
+    <span class="keyword">delete</span> <a class="code" href="struct_t_w_e_r_d.html#aeec31d57df04c8dac1cf3e6990d358a7">blobs</a>;
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab8aa2a1f2a0455c2fc353ea2748cff97"></a><!-- doxytag: member="TWERD::ComputeBoundingBoxes" ref="ab8aa2a1f2a0455c2fc353ea2748cff97" args="()" -->
@@ -230,6 +264,13 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8cpp_source.html#l00470">470</a> of file <a class="el" href="blobs_8cpp_source.html">blobs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                 {
+  <span class="keywordflow">for</span> (<a class="code" href="struct_t_b_l_o_b.html">TBLOB</a>* blob = <a class="code" href="struct_t_w_e_r_d.html#aeec31d57df04c8dac1cf3e6990d358a7">blobs</a>; blob != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>; blob = blob-&gt;next) {
+    blob-&gt;ComputeBoundingBoxes();
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6fe65fc8837f845479901adb50e8017a"></a><!-- doxytag: member="TWERD::CopyFrom" ref="a6fe65fc8837f845479901adb50e8017a" args="(const TWERD &amp;src)" -->
@@ -247,6 +288,21 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8cpp_source.html#l00447">447</a> of file <a class="el" href="blobs_8cpp_source.html">blobs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                     {
+  <a class="code" href="struct_t_w_e_r_d.html#aaae5d4bddf965fc6f051ed99a9bd3607">Clear</a>();
+  <a class="code" href="struct_t_w_e_r_d.html#a408678da3281eb77874487aceb44b95c">latin_script</a> = src.<a class="code" href="struct_t_w_e_r_d.html#a408678da3281eb77874487aceb44b95c">latin_script</a>;
+  <a class="code" href="struct_t_b_l_o_b.html">TBLOB</a>* prev_blob = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordflow">for</span> (<a class="code" href="struct_t_b_l_o_b.html">TBLOB</a>* srcblob = src.<a class="code" href="struct_t_w_e_r_d.html#aeec31d57df04c8dac1cf3e6990d358a7">blobs</a>; srcblob != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>; srcblob = srcblob-&gt;next) {
+    <a class="code" href="struct_t_b_l_o_b.html">TBLOB</a>* new_blob = <span class="keyword">new</span> <a class="code" href="struct_t_b_l_o_b.html">TBLOB</a>(*srcblob);
+    <span class="keywordflow">if</span> (<a class="code" href="struct_t_w_e_r_d.html#aeec31d57df04c8dac1cf3e6990d358a7">blobs</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+      <a class="code" href="struct_t_w_e_r_d.html#aeec31d57df04c8dac1cf3e6990d358a7">blobs</a> = new_blob;
+    <span class="keywordflow">else</span>
+      prev_blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a88a541f55c8bfd63a9f0c419189499bb">next</a> = new_blob;
+    prev_blob = new_blob;
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a02c386bc29fa18eafabdcef92fe7fed7"></a><!-- doxytag: member="TWERD::MergeBlobs" ref="a02c386bc29fa18eafabdcef92fe7fed7" args="(int start, int end)" -->
@@ -274,6 +330,34 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8cpp_source.html#l00487">487</a> of file <a class="el" href="blobs_8cpp_source.html">blobs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                         {
+  <a class="code" href="struct_t_b_l_o_b.html">TBLOB</a>* blob = <a class="code" href="struct_t_w_e_r_d.html#aeec31d57df04c8dac1cf3e6990d358a7">blobs</a>;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; start &amp;&amp; blob != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>; ++i)
+    blob = blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a88a541f55c8bfd63a9f0c419189499bb">next</a>;
+  if (blob == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> || blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a88a541f55c8bfd63a9f0c419189499bb">next</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <span class="keywordflow">return</span>;
+  <a class="code" href="struct_t_b_l_o_b.html">TBLOB</a>* next_blob = blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a88a541f55c8bfd63a9f0c419189499bb">next</a>;
+  <a class="code" href="struct_t_e_s_s_l_i_n_e.html">TESSLINE</a>* outline = blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a>;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = start + 1; i &lt; end &amp;&amp; next_blob != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>; ++i) {
+    <span class="comment">// Take the outlines from the next blob.</span>
+    <span class="keywordflow">if</span> (outline == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a> = next_blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a>;
+      outline = blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a>;
+    } <span class="keywordflow">else</span> {
+      <span class="keywordflow">while</span> (outline-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0fb224d43ea53a791f0957fa92793bef">next</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+        outline = outline-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0fb224d43ea53a791f0957fa92793bef">next</a>;
+      outline-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0fb224d43ea53a791f0957fa92793bef">next</a> = next_blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a>;
+      next_blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    }
+    <span class="comment">// Delete the next blob and move on.</span>
+    <a class="code" href="struct_t_b_l_o_b.html">TBLOB</a>* dead_blob = next_blob;
+    next_blob = next_blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a88a541f55c8bfd63a9f0c419189499bb">next</a>;
+    blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a88a541f55c8bfd63a9f0c419189499bb">next</a> = next_blob;
+    <span class="keyword">delete</span> dead_blob;
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a830ae54d262e8348e098b5bab2aa4985"></a><!-- doxytag: member="TWERD::Normalize" ref="a830ae54d262e8348e098b5bab2aa4985" args="(const DENORM &amp;denorm)" -->
@@ -291,6 +375,13 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8cpp_source.html#l00440">440</a> of file <a class="el" href="blobs_8cpp_source.html">blobs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                          {
+  <span class="keywordflow">for</span> (<a class="code" href="struct_t_b_l_o_b.html">TBLOB</a>* blob = <a class="code" href="struct_t_w_e_r_d.html#aeec31d57df04c8dac1cf3e6990d358a7">blobs</a>; blob != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>; blob = blob-&gt;next) {
+    blob-&gt;Normalize(denorm);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="adfdef9868e61650e076775011382ec70"></a><!-- doxytag: member="TWERD::NumBlobs" ref="adfdef9868e61650e076775011382ec70" args="() const " -->
@@ -307,6 +398,11 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8h_source.html#l00259">259</a> of file <a class="el" href="blobs_8h_source.html">blobs.h</a>.</p>
+<div class="fragment"><pre class="fragment">                       {
+    <span class="keywordflow">return</span> <a class="code" href="blobs_8cpp.html#aa8048f4c65af2775452ad5d4dfbca053">count_blobs</a>(<a class="code" href="struct_t_w_e_r_d.html#aeec31d57df04c8dac1cf3e6990d358a7">blobs</a>);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9d0819a702aa38fcb89b54385de55448"></a><!-- doxytag: member="TWERD::operator=" ref="a9d0819a702aa38fcb89b54385de55448" args="(const TWERD &amp;src)" -->
@@ -324,6 +420,12 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8h_source.html#l00237">237</a> of file <a class="el" href="blobs_8h_source.html">blobs.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                     {
+    <a class="code" href="struct_t_w_e_r_d.html#a6fe65fc8837f845479901adb50e8017a">CopyFrom</a>(src);
+    <span class="keywordflow">return</span> *<span class="keyword">this</span>;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="afe89f2f31b48fa578028f2527b55e144"></a><!-- doxytag: member="TWERD::plot" ref="afe89f2f31b48fa578028f2527b55e144" args="(ScrollView *window)" -->
@@ -341,6 +443,15 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8cpp_source.html#l00514">514</a> of file <a class="el" href="blobs_8cpp_source.html">blobs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                   {
+  <a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8">ScrollView::Color</a> color = <a class="code" href="class_w_e_r_d.html#a05865f2b7c0365adaf4c76dd06dd0626">WERD::NextColor</a>(<a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8a38a1ed82a4151b9fa1d57620f5bc886c">ScrollView::BLACK</a>);
+  <span class="keywordflow">for</span> (<a class="code" href="struct_t_b_l_o_b.html">TBLOB</a>* blob = <a class="code" href="struct_t_w_e_r_d.html#aeec31d57df04c8dac1cf3e6990d358a7">blobs</a>; blob != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>; blob = blob-&gt;next) {
+    blob-&gt;plot(window, color, <a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8a3147083bcb68eb690858099c736e6857">ScrollView::BROWN</a>);
+    color = <a class="code" href="class_w_e_r_d.html#a05865f2b7c0365adaf4c76dd06dd0626">WERD::NextColor</a>(color);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="abbfaec0bb3aeb77965350aede324cb79"></a><!-- doxytag: member="TWERD::PolygonalCopy" ref="abbfaec0bb3aeb77965350aede324cb79" args="(WERD *src)" -->
@@ -358,6 +469,25 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8cpp_source.html#l00398">398</a> of file <a class="el" href="blobs_8cpp_source.html">blobs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                     {
+  <a class="code" href="struct_t_w_e_r_d.html">TWERD</a>* tessword = <span class="keyword">new</span> <a class="code" href="struct_t_w_e_r_d.html#a02cbf05084fd4a6fca24049cdaaf7dfa">TWERD</a>;
+  tessword-&gt;<a class="code" href="struct_t_w_e_r_d.html#a408678da3281eb77874487aceb44b95c">latin_script</a> = src-&gt;<a class="code" href="class_w_e_r_d.html#a81edde8597a3d9fd8a664d703d332c41">flag</a>(<a class="code" href="werd_8h.html#ad6968adbf8f2cc44adf333ec96efb0bea8c3664a200b620de34a3cb691cb1e71c">W_SCRIPT_IS_LATIN</a>);
+  C_BLOB_IT b_it(src-&gt;<a class="code" href="class_w_e_r_d.html#a174baefaa99afbfdbf444e4199f3b529">cblob_list</a>());
+  <a class="code" href="struct_t_b_l_o_b.html">TBLOB</a> *tail = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordflow">for</span> (b_it.mark_cycle_pt(); !b_it.cycled_list(); b_it.forward()) {
+    <a class="code" href="class_c___b_l_o_b.html">C_BLOB</a>* blob = b_it.data();
+    <a class="code" href="struct_t_b_l_o_b.html">TBLOB</a>* tblob = <a class="code" href="struct_t_w_e_r_d.html#abbfaec0bb3aeb77965350aede324cb79">TBLOB::PolygonalCopy</a>(blob);
+    <span class="keywordflow">if</span> (tail == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      tessword-&gt;<a class="code" href="struct_t_w_e_r_d.html#aeec31d57df04c8dac1cf3e6990d358a7">blobs</a> = tblob;
+    } <span class="keywordflow">else</span> {
+      tail-&gt;<a class="code" href="struct_t_b_l_o_b.html#a88a541f55c8bfd63a9f0c419189499bb">next</a> = tblob;
+    }
+    tail = tblob;
+  }
+  <span class="keywordflow">return</span> tessword;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="afbd0a7b21dd6c9fcbc265fb4b5117265"></a><!-- doxytag: member="TWERD::SetupBLNormalize" ref="afbd0a7b21dd6c9fcbc265fb4b5117265" args="(const BLOCK *block, const ROW *row, float x_height, bool numeric_mode, DENORM *denorm) const " -->
@@ -403,6 +533,27 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8cpp_source.html#l00417">417</a> of file <a class="el" href="blobs_8cpp_source.html">blobs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                   {
+  <span class="keywordtype">int</span> num_segments = 0;
+  <a class="code" href="class_d_e_n_o_r_m___s_e_g.html">DENORM_SEG</a>* segs = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordflow">if</span> (numeric_mode) {
+    segs = <span class="keyword">new</span> <a class="code" href="class_d_e_n_o_r_m___s_e_g.html">DENORM_SEG</a>[<a class="code" href="struct_t_w_e_r_d.html#adfdef9868e61650e076775011382ec70">NumBlobs</a>()];
+    <span class="keywordflow">for</span> (<a class="code" href="struct_t_b_l_o_b.html">TBLOB</a>* blob = <a class="code" href="struct_t_w_e_r_d.html#aeec31d57df04c8dac1cf3e6990d358a7">blobs</a>; blob != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>; blob = blob-&gt;next) {
+      <a class="code" href="class_t_b_o_x.html">TBOX</a> blob_box = blob-&gt;bounding_box();
+      <span class="keywordtype">float</span> factor = <a class="code" href="normalis_8h.html#af974e6755e636c8bc7cbe57e3bcbdd73">kBlnXHeight</a> / x_height;
+      factor = <a class="code" href="helpers_8h.html#af8739168d5b3235996eeb25dac3c4044">ClipToRange</a>(<a class="code" href="normalis_8h.html#af974e6755e636c8bc7cbe57e3bcbdd73">kBlnXHeight</a> * 4.0<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> / (3 * blob_box.<a class="code" href="class_t_b_o_x.html#a8379d4bbc72bdbb1f069fc14790e632d">height</a>()),
+                           factor, factor * 1.5<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>);
+      segs[num_segments].<a class="code" href="class_d_e_n_o_r_m___s_e_g.html#a7e1cdd1b16c058a1228700f013c2efda">xstart</a> = blob_box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>();
+      segs[num_segments].<a class="code" href="class_d_e_n_o_r_m___s_e_g.html#adc44d075bcf313a8c5cdf2ec690fdf96">ycoord</a> = blob_box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>();
+      segs[num_segments++].<a class="code" href="class_d_e_n_o_r_m___s_e_g.html#a0c2c79c4f8220b6872b20eb58b0c5c18">scale_factor</a> = factor;
+    }
+  }
+  denorm-&gt;<a class="code" href="class_d_e_n_o_r_m.html#a27f4285da29912f3c42b44ebe46c7185">SetupBLNormalize</a>(block, row, x_height, <a class="code" href="struct_t_w_e_r_d.html#a8278c9db39975f181ad074bf343ea402">bounding_box</a>(),
+                           num_segments, segs);
+  <span class="keyword">delete</span> [] segs;
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
@@ -417,6 +568,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8h_source.html#l00270">270</a> of file <a class="el" href="blobs_8h_source.html">blobs.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a408678da3281eb77874487aceb44b95c"></a><!-- doxytag: member="TWERD::latin_script" ref="a408678da3281eb77874487aceb44b95c" args="" -->
@@ -429,6 +582,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="blobs_8h_source.html#l00271">271</a> of file <a class="el" href="blobs_8h_source.html">blobs.h</a>.</p>
 
 </div>
 </div>
@@ -443,11 +598,13 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8h_source.html#l00272">272</a> of file <a class="el" href="blobs_8h_source.html">blobs.h</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following files:<ul>
 <li>tesseract-ocr/ccstruct/<a class="el" href="blobs_8h_source.html">blobs.h</a></li>
-<li>tesseract-ocr/ccstruct/<a class="el" href="blobs_8cpp.html">blobs.cpp</a></li>
+<li>tesseract-ocr/ccstruct/<a class="el" href="blobs_8cpp_source.html">blobs.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -469,7 +626,7 @@ Public Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:14 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:48 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

@@ -127,7 +127,10 @@ Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_s_v_event.html#a6e0de466c57df117c731bfb4db68fc79">parameter</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_s_v_event.html#a899b70794c509a3c06e9c5c9fc251780">counter</a></td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="scrollview_8h_source.html#l00066">66</a> of file <a class="el" href="scrollview_8h_source.html">scrollview.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a4384c9b5a07499ff6770d6f5585a6970"></a><!-- doxytag: member="SVEvent::~SVEvent" ref="a4384c9b5a07499ff6770d6f5585a6970" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -142,6 +145,9 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="scrollview_8h_source.html#l00067">67</a> of file <a class="el" href="scrollview_8h_source.html">scrollview.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keyword">delete</span> [] <a class="code" href="struct_s_v_event.html#a6e0de466c57df117c731bfb4db68fc79">parameter</a>; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a994da78408d630a919c761787851e4b3"></a><!-- doxytag: member="SVEvent::SVEvent" ref="a994da78408d630a919c761787851e4b3" args="()" -->
@@ -158,6 +164,12 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="scrollview_8h_source.html#l00079">79</a> of file <a class="el" href="scrollview_8h_source.html">scrollview.h</a>.</p>
+<div class="fragment"><pre class="fragment">            {
+    <a class="code" href="struct_s_v_event.html#af1db7555f5bfd1585ccb0fb9f134c4df">window</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    <a class="code" href="struct_s_v_event.html#a6e0de466c57df117c731bfb4db68fc79">parameter</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac71be609fd051622c7bb4bd12400fe18"></a><!-- doxytag: member="SVEvent::SVEvent" ref="ac71be609fd051622c7bb4bd12400fe18" args="(const SVEvent &amp;)" -->
@@ -192,6 +204,23 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="scrollview_8cpp_source.html#l00069">69</a> of file <a class="el" href="scrollview_8cpp_source.html">scrollview.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                       {
+  <a class="code" href="struct_s_v_event.html">SVEvent</a>* any = <span class="keyword">new</span> <a class="code" href="struct_s_v_event.html#a994da78408d630a919c761787851e4b3">SVEvent</a>;
+  any-&gt;<a class="code" href="struct_s_v_event.html#ad0db5c2aa893a41b6c6f65b9d3f62318">command_id</a> = <a class="code" href="struct_s_v_event.html#ad0db5c2aa893a41b6c6f65b9d3f62318">command_id</a>;
+  any-&gt;<a class="code" href="struct_s_v_event.html#a899b70794c509a3c06e9c5c9fc251780">counter</a> = <a class="code" href="struct_s_v_event.html#a899b70794c509a3c06e9c5c9fc251780">counter</a>;
+  any-&gt;<a class="code" href="struct_s_v_event.html#a6e0de466c57df117c731bfb4db68fc79">parameter</a> = <span class="keyword">new</span> <span class="keywordtype">char</span>[strlen(<a class="code" href="struct_s_v_event.html#a6e0de466c57df117c731bfb4db68fc79">parameter</a>) + 1];
+  strncpy(any-&gt;<a class="code" href="struct_s_v_event.html#a6e0de466c57df117c731bfb4db68fc79">parameter</a>, <a class="code" href="struct_s_v_event.html#a6e0de466c57df117c731bfb4db68fc79">parameter</a>, strlen(<a class="code" href="struct_s_v_event.html#a6e0de466c57df117c731bfb4db68fc79">parameter</a>));
+  any-&gt;<a class="code" href="struct_s_v_event.html#a6e0de466c57df117c731bfb4db68fc79">parameter</a>[strlen(<a class="code" href="struct_s_v_event.html#a6e0de466c57df117c731bfb4db68fc79">parameter</a>)] = <span class="charliteral">&#39;\0&#39;</span>;
+  any-&gt;<a class="code" href="struct_s_v_event.html#a5bf8585bd1901b9103eb2783f8afe508">type</a> = <a class="code" href="struct_s_v_event.html#a5bf8585bd1901b9103eb2783f8afe508">type</a>;
+  any-&gt;<a class="code" href="struct_s_v_event.html#a45ffe2bc44987a5461278e78de76f6f7">x</a> = <a class="code" href="struct_s_v_event.html#a45ffe2bc44987a5461278e78de76f6f7">x</a>;
+  any-&gt;<a class="code" href="struct_s_v_event.html#aabace8b3b902fe15aef808ad9c203bb7">y</a> = <a class="code" href="struct_s_v_event.html#aabace8b3b902fe15aef808ad9c203bb7">y</a>;
+  any-&gt;<a class="code" href="struct_s_v_event.html#a5fd198e994158c7bd67cb5e099beb3bc">x_size</a> = <a class="code" href="struct_s_v_event.html#a5fd198e994158c7bd67cb5e099beb3bc">x_size</a>;
+  any-&gt;<a class="code" href="struct_s_v_event.html#ad0a03e02e396750e6f77e01fe22d5ae0">y_size</a> = <a class="code" href="struct_s_v_event.html#ad0a03e02e396750e6f77e01fe22d5ae0">y_size</a>;
+  any-&gt;<a class="code" href="struct_s_v_event.html#af1db7555f5bfd1585ccb0fb9f134c4df">window</a> = <a class="code" href="struct_s_v_event.html#af1db7555f5bfd1585ccb0fb9f134c4df">window</a>;
+  <span class="keywordflow">return</span> any;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a926c59c9abc4bbc21948ac69cb4578da"></a><!-- doxytag: member="SVEvent::operator=" ref="a926c59c9abc4bbc21948ac69cb4578da" args="(const SVEvent &amp;)" -->
@@ -223,6 +252,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="scrollview_8h_source.html#l00075">75</a> of file <a class="el" href="scrollview_8h_source.html">scrollview.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a899b70794c509a3c06e9c5c9fc251780"></a><!-- doxytag: member="SVEvent::counter" ref="a899b70794c509a3c06e9c5c9fc251780" args="" -->
@@ -235,6 +266,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="scrollview_8h_source.html#l00077">77</a> of file <a class="el" href="scrollview_8h_source.html">scrollview.h</a>.</p>
 
 </div>
 </div>
@@ -249,6 +282,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="scrollview_8h_source.html#l00076">76</a> of file <a class="el" href="scrollview_8h_source.html">scrollview.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a5bf8585bd1901b9103eb2783f8afe508"></a><!-- doxytag: member="SVEvent::type" ref="a5bf8585bd1901b9103eb2783f8afe508" args="" -->
@@ -261,6 +296,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="scrollview_8h_source.html#l00069">69</a> of file <a class="el" href="scrollview_8h_source.html">scrollview.h</a>.</p>
 
 </div>
 </div>
@@ -275,6 +312,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="scrollview_8h_source.html#l00070">70</a> of file <a class="el" href="scrollview_8h_source.html">scrollview.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a45ffe2bc44987a5461278e78de76f6f7"></a><!-- doxytag: member="SVEvent::x" ref="a45ffe2bc44987a5461278e78de76f6f7" args="" -->
@@ -287,6 +326,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="scrollview_8h_source.html#l00071">71</a> of file <a class="el" href="scrollview_8h_source.html">scrollview.h</a>.</p>
 
 </div>
 </div>
@@ -301,6 +342,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="scrollview_8h_source.html#l00073">73</a> of file <a class="el" href="scrollview_8h_source.html">scrollview.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="aabace8b3b902fe15aef808ad9c203bb7"></a><!-- doxytag: member="SVEvent::y" ref="aabace8b3b902fe15aef808ad9c203bb7" args="" -->
@@ -313,6 +356,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="scrollview_8h_source.html#l00072">72</a> of file <a class="el" href="scrollview_8h_source.html">scrollview.h</a>.</p>
 
 </div>
 </div>
@@ -327,11 +372,13 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="scrollview_8h_source.html#l00074">74</a> of file <a class="el" href="scrollview_8h_source.html">scrollview.h</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following files:<ul>
 <li>tesseract-ocr/viewer/<a class="el" href="scrollview_8h_source.html">scrollview.h</a></li>
-<li>tesseract-ocr/viewer/<a class="el" href="scrollview_8cpp.html">scrollview.cpp</a></li>
+<li>tesseract-ocr/viewer/<a class="el" href="scrollview_8cpp_source.html">scrollview.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -353,7 +400,7 @@ Public Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:13 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:47 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

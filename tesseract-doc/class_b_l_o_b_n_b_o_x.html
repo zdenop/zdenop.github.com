@@ -213,7 +213,10 @@ Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_b_l_o_b_n_b_o_x.html#a64e7f32e8eb4319767dfb632db3867bf">PlotNoiseBlobs</a> (BLOBNBOX_LIST *list, <a class="el" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8">ScrollView::Color</a> body_colour, <a class="el" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8">ScrollView::Color</a> child_colour, <a class="el" href="class_scroll_view.html">ScrollView</a> *win)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8">ScrollView::Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_b_l_o_b_n_b_o_x.html#a7351d74f423975d676f47e4dc05e267f">TextlineColor</a> (<a class="el" href="blobbox_8h.html#aebfaf711760a99b60c297d1d619df575">BlobRegionType</a> region_type, <a class="el" href="blobbox_8h.html#aa72f1499398e9694bf46752e1cc895e1">BlobTextFlowType</a> flow_type)</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00128">128</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a5bc9450ba27c245929b70bec357089f5"></a><!-- doxytag: member="BLOBNBOX::BLOBNBOX" ref="a5bc9450ba27c245929b70bec357089f5" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -228,6 +231,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00131">131</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">               {
+      <a class="code" href="class_b_l_o_b_n_b_o_x.html#acc9406df0e800aaf5721a6a1127629f4">ConstructionInit</a>();
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a11689c19e089b0982f645448802230bd"></a><!-- doxytag: member="BLOBNBOX::BLOBNBOX" ref="a11689c19e089b0982f645448802230bd" args="(C_BLOB *srcblob)" -->
@@ -245,6 +253,14 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00134">134</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                       {
+      box = srcblob-&gt;<a class="code" href="class_c___b_l_o_b.html#a77e52e29e2c622a3a63bb7edb110f6ab">bounding_box</a>();
+      <a class="code" href="class_b_l_o_b_n_b_o_x.html#acc9406df0e800aaf5721a6a1127629f4">ConstructionInit</a>();
+      cblob_ptr = srcblob;
+      area = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(srcblob-&gt;<a class="code" href="class_c___b_l_o_b.html#af8d6cc72e454c97c5e14d7ccd12925e3">area</a>());
+    }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -262,6 +278,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00326">326</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                    {
+      <span class="keywordflow">return</span> area_stroke_width_;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a924df3654c8d3436b30c5a5652e62a89"></a><!-- doxytag: member="BLOBNBOX::base_char_blob" ref="a924df3654c8d3436b30c5a5652e62a89" args="() const " -->
@@ -278,6 +299,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00376">376</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                     {
+      <span class="keywordflow">return</span> base_char_blob_;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6fd24eab699bad3b00917fea0a82792b"></a><!-- doxytag: member="BLOBNBOX::base_char_bottom" ref="a6fd24eab699bad3b00917fea0a82792b" args="() const " -->
@@ -294,6 +320,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00363">363</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                 {
+      <span class="keywordflow">return</span> base_char_bottom_;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="af83ee964739e33a2611a1ba4b21f7a4c"></a><!-- doxytag: member="BLOBNBOX::base_char_top" ref="af83ee964739e33a2611a1ba4b21f7a4c" args="() const " -->
@@ -310,6 +341,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00360">360</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                              {
+      <span class="keywordflow">return</span> base_char_top_;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7b97b8bc16b1473a28f9c44011522f4e"></a><!-- doxytag: member="BLOBNBOX::bounding_box" ref="a7b97b8bc16b1473a28f9c44011522f4e" args="() const " -->
@@ -326,6 +362,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00208">208</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                     {
+      <span class="keywordflow">return</span> box;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a5922e4cbb809ee92c2fbffe2f64be1a7"></a><!-- doxytag: member="BLOBNBOX::BoundsWithinLimits" ref="a5922e4cbb809ee92c2fbffe2f64be1a7" args="(int left, int right)" -->
@@ -353,6 +394,29 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8cpp_source.html#l00318">318</a> of file <a class="el" href="blobbox_8cpp_source.html">blobbox.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                     {
+  <a class="code" href="class_f_c_o_o_r_d.html">FCOORD</a> no_rotation(1.0<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>, 0.0<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>);
+  <span class="keywordtype">float</span> <a class="code" href="structarray__record.html#ac669bc877615327b853410a841f48f4b">top</a> = box.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>();
+  <span class="keywordtype">float</span> bottom = box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>();
+  <span class="keywordflow">if</span> (cblob_ptr != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="blobbox_8cpp.html#a2ce6678ef43e0765b7af8c5611c4ebd9">find_cblob_limits</a>(cblob_ptr, static_cast&lt;float&gt;(left),
+                      static_cast&lt;float&gt;(right), no_rotation,
+                      bottom, top);
+  }
+
+  <span class="keywordflow">if</span> (top &lt; bottom) {
+    top = box.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>();
+    bottom = box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>();
+  }
+  <a class="code" href="class_f_c_o_o_r_d.html">FCOORD</a> bot_left(left, bottom);
+  <a class="code" href="class_f_c_o_o_r_d.html">FCOORD</a> top_right(right, top);
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> shrunken_box(bot_left);
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> shrunken_box2(top_right);
+  shrunken_box += shrunken_box2;
+  <span class="keywordflow">return</span> shrunken_box;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a88b94d1e2384a734dba0b553e86307b1"></a><!-- doxytag: member="BLOBNBOX::BoxColor" ref="a88b94d1e2384a734dba0b553e86307b1" args="() const " -->
@@ -369,6 +433,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8cpp_source.html#l00425">425</a> of file <a class="el" href="blobbox_8cpp_source.html">blobbox.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                         {
+  <span class="keywordflow">return</span> <a class="code" href="class_b_l_o_b_n_b_o_x.html#a7351d74f423975d676f47e4dc05e267f">TextlineColor</a>(region_type_, flow_);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a483f44541a4dd818f02225c92f030e07"></a><!-- doxytag: member="BLOBNBOX::cblob" ref="a483f44541a4dd818f02225c92f030e07" args="() const " -->
@@ -385,6 +454,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00245">245</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                          {
+      <span class="keywordflow">return</span> cblob_ptr;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a118eeb16f7c775dc58129a5869425f4b"></a><!-- doxytag: member="BLOBNBOX::chop" ref="a118eeb16f7c775dc58129a5869425f4b" args="(BLOBNBOX_IT *start_it, BLOBNBOX_IT *blob_it, FCOORD rotation, float xheight)" -->
@@ -424,6 +498,61 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8cpp_source.html#l00106">106</a> of file <a class="el" href="blobbox_8cpp_source.html">blobbox.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                     {
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> blobcount;               <span class="comment">//no of blobs</span>
+  <a class="code" href="class_b_l_o_b_n_b_o_x.html">BLOBNBOX</a> *newblob;             <span class="comment">//fake blob</span>
+  <a class="code" href="class_b_l_o_b_n_b_o_x.html">BLOBNBOX</a> *blob;                <span class="comment">//current blob</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> blobindex;               <span class="comment">//number of chop</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> leftx;                   <span class="comment">//left edge of blob</span>
+  <span class="keywordtype">float</span> blobwidth;               <span class="comment">//width of each</span>
+  <span class="keywordtype">float</span> rightx;                  <span class="comment">//right edge to scan</span>
+  <span class="keywordtype">float</span> ymin, ymax;              <span class="comment">//limits of new blob</span>
+  <span class="keywordtype">float</span> test_ymin, test_ymax;    <span class="comment">//limits of part blob</span>
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> bl, tr;                 <span class="comment">//corners of box</span>
+  BLOBNBOX_IT blob_it;           <span class="comment">//blob iterator</span>
+
+                                 <span class="comment">//get no of chops</span>
+  blobcount = (<a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>) floor (box.<a class="code" href="class_t_b_o_x.html#af95494a2ccacc70cc2b83820b2948619">width</a> () / xheight);
+  <span class="keywordflow">if</span> (blobcount &gt; 1 &amp;&amp; cblob_ptr != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+                                 <span class="comment">//width of each</span>
+    blobwidth = (float) (box.<a class="code" href="class_t_b_o_x.html#af95494a2ccacc70cc2b83820b2948619">width</a> () + 1) / blobcount;
+    <span class="keywordflow">for</span> (blobindex = blobcount - 1, rightx = box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a> ();
+    blobindex &gt;= 0; blobindex--, rightx -= blobwidth) {
+      ymin = (float) <a class="code" href="host_8h.html#aac62d87844689a18b6f5339a89ed6e7f">MAX_INT32</a>;
+      ymax = (float) -<a class="code" href="host_8h.html#aac62d87844689a18b6f5339a89ed6e7f">MAX_INT32</a>;
+      blob_it = *start_it;
+      <span class="keywordflow">do</span> {
+        blob = blob_it.data ();
+        <a class="code" href="blobbox_8cpp.html#a57197f6f9deea830c41b3af8c9b8abb5">find_cblob_vlimits</a>(blob-&gt;cblob_ptr, rightx - blobwidth,
+                           rightx,
+            <span class="comment">/*rotation, */</span> test_ymin, test_ymax);
+        blob_it.forward ();
+        <a class="code" href="helpers_8h.html#a6eb00eb9bc5ed195953f334971c462ae">UpdateRange</a>(test_ymin, test_ymax, &amp;ymin, &amp;ymax);
+      }
+      <span class="keywordflow">while</span> (blob != end_it-&gt;data ());
+      <span class="keywordflow">if</span> (ymin &lt; ymax) {
+        leftx = (<a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>) floor (rightx - blobwidth);
+        <span class="keywordflow">if</span> (leftx &lt; box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a> ())
+          leftx = box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a> ();   <span class="comment">//clip to real box</span>
+        bl = <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> (leftx, (<a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>) floor (ymin));
+        tr = <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> ((<a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>) ceil (rightx), (<a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>) ceil (ymax));
+        <span class="keywordflow">if</span> (blobindex == 0)
+          box = <a class="code" href="class_t_b_o_x.html">TBOX</a> (bl, tr);    <span class="comment">//change box</span>
+        <span class="keywordflow">else</span> {
+          newblob = <span class="keyword">new</span> <a class="code" href="class_b_l_o_b_n_b_o_x.html#a5bc9450ba27c245929b70bec357089f5">BLOBNBOX</a>;
+                                 <span class="comment">//box is all it has</span>
+          newblob-&gt;box = <a class="code" href="class_t_b_o_x.html">TBOX</a> (bl, tr);
+                                 <span class="comment">//stay on current</span>
+          newblob-&gt;base_char_top_ = tr.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a>();
+          newblob-&gt;base_char_bottom_ = bl.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a>();
+          end_it-&gt;add_after_stay_put (newblob);
+        }
+      }
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae27906ce7e33b0714e87ecda31dcc825"></a><!-- doxytag: member="BLOBNBOX::CleanNeighbours" ref="ae27906ce7e33b0714e87ecda31dcc825" args="()" -->
@@ -440,6 +569,17 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8cpp_source.html#l00200">200</a> of file <a class="el" href="blobbox_8cpp_source.html">blobbox.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                               {
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> dir = 0; dir &lt; <a class="code" href="blobbox_8h.html#a4974474b3b161b68355d9a16eeaa3883a0f3b81ac0cbf413ac18c6de98cd69921">BND_COUNT</a>; ++dir) {
+    <a class="code" href="class_b_l_o_b_n_b_o_x.html">BLOBNBOX</a>* <a class="code" href="class_b_l_o_b_n_b_o_x.html#a20cea54041981db2aa2e94cb4db7b4cf">neighbour</a> = neighbours_[dir];
+    <span class="keywordflow">if</span> (neighbour != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp; neighbour-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a446180da938c7511ec23d59b9fd4e8f1">DeletableNoise</a>()) {
+      neighbours_[dir] = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+      good_stroke_neighbours_[dir] = <span class="keyword">false</span>;
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a18b3026a08be5da3d4397b2622c8da5f"></a><!-- doxytag: member="BLOBNBOX::CleanNeighbours" ref="a18b3026a08be5da3d4397b2622c8da5f" args="(BLOBNBOX_LIST *blobs)" -->
@@ -457,6 +597,14 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8cpp_source.html#l00341">341</a> of file <a class="el" href="blobbox_8cpp_source.html">blobbox.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                   {
+  BLOBNBOX_IT blob_it(blobs);
+  <span class="keywordflow">for</span> (blob_it.mark_cycle_pt(); !blob_it.cycled_list(); blob_it.forward()) {
+    blob_it.data()-&gt;CleanNeighbours();
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="acdf3cc39226f3378516956b0e33fa533"></a><!-- doxytag: member="BLOBNBOX::ClearNeighbours" ref="acdf3cc39226f3378516956b0e33fa533" args="()" -->
@@ -473,6 +621,14 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00479">479</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                         {
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> n = 0; n &lt; <a class="code" href="blobbox_8h.html#a4974474b3b161b68355d9a16eeaa3883a0f3b81ac0cbf413ac18c6de98cd69921">BND_COUNT</a>; ++n) {
+      neighbours_[n] = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+      good_stroke_neighbours_[n] = <span class="keyword">false</span>;
+    }
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a32d07b97c559e7f7f7c58323491aedec"></a><!-- doxytag: member="BLOBNBOX::compute_bounding_box" ref="a32d07b97c559e7f7f7c58323491aedec" args="()" -->
@@ -489,6 +645,13 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00218">218</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                {
+      box = cblob_ptr-&gt;<a class="code" href="class_c___b_l_o_b.html#a77e52e29e2c622a3a63bb7edb110f6ab">bounding_box</a>();
+      base_char_top_ = box.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>();
+      base_char_bottom_ = box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>();
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a05bf035f2a4e78b71d80c719110be401"></a><!-- doxytag: member="BLOBNBOX::ConfirmNoTabViolation" ref="a05bf035f2a4e78b71d80c719110be401" args="(const BLOBNBOX &amp;other) const " -->
@@ -506,6 +669,19 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8cpp_source.html#l00277">277</a> of file <a class="el" href="blobbox_8cpp_source.html">blobbox.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                {
+  <span class="keywordflow">if</span> (box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>() &lt; other.box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>() &amp;&amp; box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>() &lt; other.left_rule_)
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">if</span> (other.box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>() &lt; box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>() &amp;&amp; other.box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>() &lt; left_rule_)
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">if</span> (box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>() &gt; other.box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>() &amp;&amp; box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>() &gt; other.right_rule_)
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">if</span> (other.box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>() &gt; box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>() &amp;&amp; other.box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>() &gt; right_rule_)
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="acc9406df0e800aaf5721a6a1127629f4"></a><!-- doxytag: member="BLOBNBOX::ConstructionInit" ref="acc9406df0e800aaf5721a6a1127629f4" args="()" -->
@@ -522,6 +698,16 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00442">442</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                          {
+    cblob_ptr = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    area = 0;
+    area_stroke_width_ = 0.0f;
+    horz_stroke_width_ = 0.0f;
+    vert_stroke_width_ = 0.0f;
+    <a class="code" href="class_b_l_o_b_n_b_o_x.html#a582c976fe68be6127b2ce4e54e5e7181">ReInit</a>();
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a151439eae2683e30695bbf567df04982"></a><!-- doxytag: member="BLOBNBOX::DefiniteIndividualFlow" ref="a151439eae2683e30695bbf567df04982" args="()" -->
@@ -538,6 +724,45 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8cpp_source.html#l00238">238</a> of file <a class="el" href="blobbox_8cpp_source.html">blobbox.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                      {
+  <span class="keywordtype">int</span> box_perimeter = 2 * (box.<a class="code" href="class_t_b_o_x.html#a8379d4bbc72bdbb1f069fc14790e632d">height</a>() + box.<a class="code" href="class_t_b_o_x.html#af95494a2ccacc70cc2b83820b2948619">width</a>());
+  <span class="keywordflow">if</span> (box.<a class="code" href="class_t_b_o_x.html#af95494a2ccacc70cc2b83820b2948619">width</a>() &gt; box.<a class="code" href="class_t_b_o_x.html#a8379d4bbc72bdbb1f069fc14790e632d">height</a>() * <a class="code" href="blobbox_8cpp.html#a43aa9cc9ddb58444cde748b228acf281">kDefiniteAspectRatio</a>) {
+    <span class="comment">// Attempt to distinguish a wide joined word from a dash.</span>
+    <span class="comment">// If it is a dash, then its perimeter is approximately</span>
+    <span class="comment">// 2 * (box width + stroke width), but more if the outline is noisy,</span>
+    <span class="comment">// so perimeter - 2*(box width + stroke width) should be close to zero.</span>
+    <span class="comment">// A complex shape such as a joined word should have a much larger value.</span>
+    <span class="keywordtype">int</span> perimeter = <a class="code" href="class_b_l_o_b_n_b_o_x.html#a483f44541a4dd818f02225c92f030e07">cblob</a>()-&gt;<a class="code" href="class_c___b_l_o_b.html#a7bb48c42dd0ab06ebc1d1bd4936e6252">perimeter</a>();
+    <span class="keywordflow">if</span> (<a class="code" href="class_b_l_o_b_n_b_o_x.html#a0e0f6b25af6e86fd229bfdc53825dcb9">vert_stroke_width</a>() &gt; 0)
+      perimeter -= 2 * <a class="code" href="class_b_l_o_b_n_b_o_x.html#a0e0f6b25af6e86fd229bfdc53825dcb9">vert_stroke_width</a>();
+    <span class="keywordflow">else</span>
+      perimeter -= 4 * <a class="code" href="class_b_l_o_b_n_b_o_x.html#a483f44541a4dd818f02225c92f030e07">cblob</a>()-&gt;<a class="code" href="class_c___b_l_o_b.html#af8d6cc72e454c97c5e14d7ccd12925e3">area</a>() / perimeter;
+    perimeter -= 2 * box.<a class="code" href="class_t_b_o_x.html#af95494a2ccacc70cc2b83820b2948619">width</a>();
+    <span class="comment">// Use a multiple of the box perimeter as a threshold.</span>
+    <span class="keywordflow">if</span> (perimeter &gt; <a class="code" href="blobbox_8cpp.html#aeb2725c521f482e88ed755f1323c192b">kComplexShapePerimeterRatio</a> * box_perimeter) {
+      <a class="code" href="class_b_l_o_b_n_b_o_x.html#a500153b288f379ebabbeaa18a7005d04">set_vert_possible</a>(<span class="keyword">false</span>);
+      <a class="code" href="class_b_l_o_b_n_b_o_x.html#a49a43bb4c47b434aa36ad79ea53a0485">set_horz_possible</a>(<span class="keyword">true</span>);
+      <span class="keywordflow">return</span> <span class="keyword">true</span>;
+    }
+  }
+  <span class="keywordflow">if</span> (box.<a class="code" href="class_t_b_o_x.html#a8379d4bbc72bdbb1f069fc14790e632d">height</a>() &gt; box.<a class="code" href="class_t_b_o_x.html#af95494a2ccacc70cc2b83820b2948619">width</a>() * <a class="code" href="blobbox_8cpp.html#a43aa9cc9ddb58444cde748b228acf281">kDefiniteAspectRatio</a>) {
+    <span class="comment">// As above, but for a putative vertical word vs a I/1/l.</span>
+    <span class="keywordtype">int</span> perimeter = <a class="code" href="class_b_l_o_b_n_b_o_x.html#a483f44541a4dd818f02225c92f030e07">cblob</a>()-&gt;<a class="code" href="class_c___b_l_o_b.html#a7bb48c42dd0ab06ebc1d1bd4936e6252">perimeter</a>();
+    <span class="keywordflow">if</span> (<a class="code" href="class_b_l_o_b_n_b_o_x.html#a8e76ce198ed496c365844807cbbf9338">horz_stroke_width</a>() &gt; 0)
+      perimeter -= 2 * <a class="code" href="class_b_l_o_b_n_b_o_x.html#a8e76ce198ed496c365844807cbbf9338">horz_stroke_width</a>();
+    <span class="keywordflow">else</span>
+      perimeter -= 4 * <a class="code" href="class_b_l_o_b_n_b_o_x.html#a483f44541a4dd818f02225c92f030e07">cblob</a>()-&gt;<a class="code" href="class_c___b_l_o_b.html#af8d6cc72e454c97c5e14d7ccd12925e3">area</a>() / perimeter;
+    perimeter -= 2 * box.<a class="code" href="class_t_b_o_x.html#a8379d4bbc72bdbb1f069fc14790e632d">height</a>();
+    <span class="keywordflow">if</span> (perimeter &gt; <a class="code" href="blobbox_8cpp.html#aeb2725c521f482e88ed755f1323c192b">kComplexShapePerimeterRatio</a> * box_perimeter) {
+      <a class="code" href="class_b_l_o_b_n_b_o_x.html#a500153b288f379ebabbeaa18a7005d04">set_vert_possible</a>(<span class="keyword">true</span>);
+      <a class="code" href="class_b_l_o_b_n_b_o_x.html#a49a43bb4c47b434aa36ad79ea53a0485">set_horz_possible</a>(<span class="keyword">false</span>);
+      <span class="keywordflow">return</span> <span class="keyword">true</span>;
+    }
+  }
+  <span class="keywordflow">return</span> <span class="keyword">false</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a446180da938c7511ec23d59b9fd4e8f1"></a><!-- doxytag: member="BLOBNBOX::DeletableNoise" ref="a446180da938c7511ec23d59b9fd4e8f1" args="() const " -->
@@ -554,6 +779,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00185">185</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                {
+      <span class="keywordflow">return</span> <a class="code" href="class_b_l_o_b_n_b_o_x.html#a3fc9ba48fe9dd66461305697568f867a">owner</a>() == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp; <a class="code" href="class_b_l_o_b_n_b_o_x.html#a9e7100e6d08c78cca5f9c0453e11565d">region_type</a>() == <a class="code" href="blobbox_8h.html#aebfaf711760a99b60c297d1d619df575ae09c6f7e99c3a3885c3469d52d0292d2">BRT_NOISE</a>;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a08e197e85c158f4bb9cbe388b980598e"></a><!-- doxytag: member="BLOBNBOX::DeleteNoiseBlobs" ref="a08e197e85c158f4bb9cbe388b980598e" args="(BLOBNBOX_LIST *blobs)" -->
@@ -571,6 +801,18 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8cpp_source.html#l00349">349</a> of file <a class="el" href="blobbox_8cpp_source.html">blobbox.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                    {
+  BLOBNBOX_IT blob_it(blobs);
+  <span class="keywordflow">for</span> (blob_it.mark_cycle_pt(); !blob_it.cycled_list(); blob_it.forward()) {
+    <a class="code" href="class_b_l_o_b_n_b_o_x.html">BLOBNBOX</a>* blob = blob_it.data();
+    <span class="keywordflow">if</span> (blob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a446180da938c7511ec23d59b9fd4e8f1">DeletableNoise</a>()) {
+      <span class="keyword">delete</span> blob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a483f44541a4dd818f02225c92f030e07">cblob</a>();
+      <span class="keyword">delete</span> blob_it.extract();
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae89d284497727130cbb4e072c26c8990"></a><!-- doxytag: member="BLOBNBOX::enclosed_area" ref="ae89d284497727130cbb4e072c26c8990" args="() const " -->
@@ -587,6 +829,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00230">230</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                {
+      <span class="keywordflow">return</span> area;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="afafe7113396a8cc27b882d622db46f05"></a><!-- doxytag: member="BLOBNBOX::flow" ref="afafe7113396a8cc27b882d622db46f05" args="() const " -->
@@ -603,6 +850,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00272">272</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                  {
+      <span class="keywordflow">return</span> flow_;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac975a83c42bf7f9e07e06eedea3d67a7"></a><!-- doxytag: member="BLOBNBOX::good_stroke_neighbour" ref="ac975a83c42bf7f9e07e06eedea3d67a7" args="(BlobNeighbourDir n) const " -->
@@ -620,6 +872,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00350">350</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                         {
+      <span class="keywordflow">return</span> good_stroke_neighbours_[n];
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a17600c15bdfd57f24bb7ec5b2765a48f"></a><!-- doxytag: member="BLOBNBOX::GoodTextBlob" ref="a17600c15bdfd57f24bb7ec5b2765a48f" args="() const " -->
@@ -636,6 +893,17 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8cpp_source.html#l00212">212</a> of file <a class="el" href="blobbox_8cpp_source.html">blobbox.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                 {
+  <span class="keywordtype">int</span> score = 0;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> dir = 0; dir &lt; <a class="code" href="blobbox_8h.html#a4974474b3b161b68355d9a16eeaa3883a0f3b81ac0cbf413ac18c6de98cd69921">BND_COUNT</a>; ++dir) {
+    <a class="code" href="blobbox_8h.html#a4974474b3b161b68355d9a16eeaa3883">BlobNeighbourDir</a> bnd = <span class="keyword">static_cast&lt;</span><a class="code" href="blobbox_8h.html#a4974474b3b161b68355d9a16eeaa3883">BlobNeighbourDir</a><span class="keyword">&gt;</span>(dir);
+    <span class="keywordflow">if</span> (<a class="code" href="class_b_l_o_b_n_b_o_x.html#ac975a83c42bf7f9e07e06eedea3d67a7">good_stroke_neighbour</a>(bnd))
+      ++score;
+  }
+  <span class="keywordflow">return</span> score;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9009e27a6c6f2025035170850dcf62c2"></a><!-- doxytag: member="BLOBNBOX::horz_possible" ref="a9009e27a6c6f2025035170850dcf62c2" args="() const " -->
@@ -652,6 +920,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00284">284</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                               {
+      <span class="keywordflow">return</span> horz_possible_;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a8e76ce198ed496c365844807cbbf9338"></a><!-- doxytag: member="BLOBNBOX::horz_stroke_width" ref="a8e76ce198ed496c365844807cbbf9338" args="() const " -->
@@ -668,6 +941,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00314">314</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                    {
+      <span class="keywordflow">return</span> horz_stroke_width_;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3dc859a710d5a7473489c2f3e1e36326"></a><!-- doxytag: member="BLOBNBOX::IsDiacritic" ref="a3dc859a710d5a7473489c2f3e1e36326" args="() const " -->
@@ -684,6 +962,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00357">357</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                             {
+      <span class="keywordflow">return</span> base_char_top_ != box.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>() || base_char_bottom_ != box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>();
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a12fed2b0c8e14c0145019f8f214e4262"></a><!-- doxytag: member="BLOBNBOX::IsImageType" ref="a12fed2b0c8e14c0145019f8f214e4262" args="(BlobRegionType type)" -->
@@ -701,6 +984,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00395">395</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                 {
+      <span class="keywordflow">return</span> type == <a class="code" href="blobbox_8h.html#aebfaf711760a99b60c297d1d619df575a15e526e8dd226bd4d7678da6dcddb49b">BRT_RECTIMAGE</a> || type == <a class="code" href="blobbox_8h.html#aebfaf711760a99b60c297d1d619df575a3b72528ad70da88719f0479bc8c5a190">BRT_POLYIMAGE</a>;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a86decfe35457329f062098901d56015f"></a><!-- doxytag: member="BLOBNBOX::IsLineType" ref="a86decfe35457329f062098901d56015f" args="(BlobRegionType type)" -->
@@ -718,6 +1006,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00399">399</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                {
+      <span class="keywordflow">return</span> type == <a class="code" href="blobbox_8h.html#aebfaf711760a99b60c297d1d619df575a56cc149e97b34634dd39babda79ea17d">BRT_HLINE</a> || type == <a class="code" href="blobbox_8h.html#aebfaf711760a99b60c297d1d619df575a5d6cbdd0674e727feda3085026646f6a">BRT_VLINE</a>;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a07444bc838d7efe7c41f8b00913447ac"></a><!-- doxytag: member="BLOBNBOX::IsTextType" ref="a07444bc838d7efe7c41f8b00913447ac" args="(BlobRegionType type)" -->
@@ -735,6 +1028,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00391">391</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                {
+      <span class="keywordflow">return</span> type == <a class="code" href="blobbox_8h.html#aebfaf711760a99b60c297d1d619df575a4f0b1431532d0e838187df32f2e822d7">BRT_TEXT</a> || type == <a class="code" href="blobbox_8h.html#aebfaf711760a99b60c297d1d619df575aea2da025a50db20db8213f96495dd4a6">BRT_VERT_TEXT</a>;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="af37f373c72851534101f4caf296a3cf7"></a><!-- doxytag: member="BLOBNBOX::joined_to_prev" ref="af37f373c72851534101f4caf296a3cf7" args="() const " -->
@@ -751,6 +1049,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00233">233</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                {
+      <span class="keywordflow">return</span> joined != 0;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2ac782044b1e472f8ee6bfc9c0072bc9"></a><!-- doxytag: member="BLOBNBOX::leader_on_left" ref="a2ac782044b1e472f8ee6bfc9c0072bc9" args="() const " -->
@@ -767,6 +1070,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00335">335</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                {
+      <span class="keywordflow">return</span> leader_on_left_;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2d3bd49977c92a46d2cedfe410484732"></a><!-- doxytag: member="BLOBNBOX::leader_on_right" ref="a2d3bd49977c92a46d2cedfe410484732" args="() const " -->
@@ -783,6 +1091,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00341">341</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                 {
+      <span class="keywordflow">return</span> leader_on_right_;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a08111bdb9d526eab5432a1bc48834106"></a><!-- doxytag: member="BLOBNBOX::left_crossing_rule" ref="a08111bdb9d526eab5432a1bc48834106" args="() const " -->
@@ -799,6 +1112,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00302">302</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                   {
+      <span class="keywordflow">return</span> left_crossing_rule_;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac149d9356065f3836019b2da3e311740"></a><!-- doxytag: member="BLOBNBOX::left_rule" ref="ac149d9356065f3836019b2da3e311740" args="() const " -->
@@ -815,6 +1133,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00290">290</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                          {
+      <span class="keywordflow">return</span> left_rule_;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a8b16d77deb75ed8aa2ff9d6be9462ec1"></a><!-- doxytag: member="BLOBNBOX::left_tab_type" ref="a8b16d77deb75ed8aa2ff9d6be9462ec1" args="() const " -->
@@ -831,6 +1154,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00248">248</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                  {
+      <span class="keywordflow">return</span> left_tab_type_;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a5289a77ebcdf99bab97b8027e8559c00"></a><!-- doxytag: member="BLOBNBOX::line_crossings" ref="a5289a77ebcdf99bab97b8027e8559c00" args="() const " -->
@@ -847,6 +1175,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00366">366</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                               {
+      <span class="keywordflow">return</span> line_crossings_;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2f6e04e9e729b577e2b9577983a03016"></a><!-- doxytag: member="BLOBNBOX::MatchingStrokeWidth" ref="a2f6e04e9e729b577e2b9577983a03016" args="(const BLOBNBOX &amp;other, double fractional_tolerance, double constant_tolerance) const " -->
@@ -880,6 +1213,31 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8cpp_source.html#l00290">290</a> of file <a class="el" href="blobbox_8cpp_source.html">blobbox.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                    {
+  <span class="comment">// The perimeter-based width is used as a backup in case there is</span>
+  <span class="comment">// no information in the blob.</span>
+  <span class="keywordtype">double</span> p_width = <a class="code" href="class_b_l_o_b_n_b_o_x.html#a5b86dba65d0679a91c74aeae12630918">area_stroke_width</a>();
+  <span class="keywordtype">double</span> n_p_width = other.<a class="code" href="class_b_l_o_b_n_b_o_x.html#a5b86dba65d0679a91c74aeae12630918">area_stroke_width</a>();
+  <span class="keywordtype">float</span> h_tolerance = horz_stroke_width_ * fractional_tolerance
+                     + constant_tolerance;
+  <span class="keywordtype">float</span> v_tolerance = vert_stroke_width_ * fractional_tolerance
+                     + constant_tolerance;
+  <span class="keywordtype">double</span> p_tolerance = p_width * fractional_tolerance
+                     + constant_tolerance;
+  <span class="keywordtype">bool</span> h_zero = horz_stroke_width_ == 0.0f || other.horz_stroke_width_ == 0.0f;
+  <span class="keywordtype">bool</span> v_zero = vert_stroke_width_ == 0.0f || other.vert_stroke_width_ == 0.0f;
+  <span class="keywordtype">bool</span> h_ok = !h_zero &amp;&amp; <a class="code" href="host_8h.html#a80998b3d098c50b53b1f275adeafe267">NearlyEqual</a>(horz_stroke_width_,
+                                     other.horz_stroke_width_, h_tolerance);
+  <span class="keywordtype">bool</span> v_ok = !v_zero &amp;&amp; <a class="code" href="host_8h.html#a80998b3d098c50b53b1f275adeafe267">NearlyEqual</a>(vert_stroke_width_,
+                                     other.vert_stroke_width_, v_tolerance);
+  <span class="keywordtype">bool</span> p_ok = h_zero &amp;&amp; v_zero &amp;&amp; <a class="code" href="host_8h.html#a80998b3d098c50b53b1f275adeafe267">NearlyEqual</a>(p_width, n_p_width, p_tolerance);
+  <span class="comment">// For a match, at least one of the horizontal and vertical widths</span>
+  <span class="comment">// must match, and the other one must either match or be zero.</span>
+  <span class="comment">// Only if both are zero will we look at the perimeter metric.</span>
+  <span class="keywordflow">return</span> p_ok || ((v_ok || h_ok) &amp;&amp; (h_ok || h_zero) &amp;&amp; (v_ok || v_zero));
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae4415dbdf1257052f22ee726f98db893"></a><!-- doxytag: member="BLOBNBOX::merge" ref="ae4415dbdf1257052f22ee726f98db893" args="(BLOBNBOX *nextblob)" -->
@@ -897,6 +1255,13 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8cpp_source.html#l00078">78</a> of file <a class="el" href="blobbox_8cpp_source.html">blobbox.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                      {
+  box += nextblob-&gt;box;          <span class="comment">//merge boxes</span>
+  <a class="code" href="class_b_l_o_b_n_b_o_x.html#af354be28840859b8a4b593aa6db467f2">set_diacritic_box</a>(box);
+  nextblob-&gt;joined = <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a5f17b374b3a0e8b547d1a41e43054ee2"></a><!-- doxytag: member="BLOBNBOX::MinMaxGapsClipped" ref="a5f17b374b3a0e8b547d1a41e43054ee2" args="(int *h_min, int *h_max, int *v_min, int *v_max) const " -->
@@ -936,6 +1301,19 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8cpp_source.html#l00186">186</a> of file <a class="el" href="blobbox_8cpp_source.html">blobbox.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                               {
+  <span class="keywordtype">int</span> max_dimension = <a class="code" href="ndminx_8h.html#aacc3ee1a7f283f8ef65cea31f4436a95">MAX</a>(box.<a class="code" href="class_t_b_o_x.html#af95494a2ccacc70cc2b83820b2948619">width</a>(), box.<a class="code" href="class_t_b_o_x.html#a8379d4bbc72bdbb1f069fc14790e632d">height</a>());
+  <span class="keywordtype">int</span> gaps[<a class="code" href="blobbox_8h.html#a4974474b3b161b68355d9a16eeaa3883a0f3b81ac0cbf413ac18c6de98cd69921">BND_COUNT</a>];
+  <a class="code" href="class_b_l_o_b_n_b_o_x.html#ab4222cadac89dc2c9675d35cf2170042">NeighbourGaps</a>(gaps);
+  *h_min = <a class="code" href="ndminx_8h.html#a74e75242132eaabbc1c512488a135926">MIN</a>(gaps[<a class="code" href="blobbox_8h.html#a4974474b3b161b68355d9a16eeaa3883a34eeb3a076f3bbcb32d47b74ee3cee86">BND_LEFT</a>], gaps[<a class="code" href="blobbox_8h.html#a4974474b3b161b68355d9a16eeaa3883ac0391ea6a5bf43f7735142e9ae87a62f">BND_RIGHT</a>]);
+  *h_max = <a class="code" href="ndminx_8h.html#aacc3ee1a7f283f8ef65cea31f4436a95">MAX</a>(gaps[<a class="code" href="blobbox_8h.html#a4974474b3b161b68355d9a16eeaa3883a34eeb3a076f3bbcb32d47b74ee3cee86">BND_LEFT</a>], gaps[<a class="code" href="blobbox_8h.html#a4974474b3b161b68355d9a16eeaa3883ac0391ea6a5bf43f7735142e9ae87a62f">BND_RIGHT</a>]);
+  <span class="keywordflow">if</span> (*h_max &gt; max_dimension &amp;&amp; *h_min &lt; max_dimension) *h_max = *h_min;
+  *v_min = <a class="code" href="ndminx_8h.html#a74e75242132eaabbc1c512488a135926">MIN</a>(gaps[<a class="code" href="blobbox_8h.html#a4974474b3b161b68355d9a16eeaa3883a29aa5ffa693a9ac7e91c8c59e037509c">BND_ABOVE</a>], gaps[<a class="code" href="blobbox_8h.html#a4974474b3b161b68355d9a16eeaa3883a898fc0442f50593b8ce360d3253d254d">BND_BELOW</a>]);
+  *v_max = <a class="code" href="ndminx_8h.html#aacc3ee1a7f283f8ef65cea31f4436a95">MAX</a>(gaps[<a class="code" href="blobbox_8h.html#a4974474b3b161b68355d9a16eeaa3883a29aa5ffa693a9ac7e91c8c59e037509c">BND_ABOVE</a>], gaps[<a class="code" href="blobbox_8h.html#a4974474b3b161b68355d9a16eeaa3883a898fc0442f50593b8ce360d3253d254d">BND_BELOW</a>]);
+  <span class="keywordflow">if</span> (*v_max &gt; max_dimension &amp;&amp; *v_min &lt; max_dimension) *v_max = *v_min;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a20cea54041981db2aa2e94cb4db7b4cf"></a><!-- doxytag: member="BLOBNBOX::neighbour" ref="a20cea54041981db2aa2e94cb4db7b4cf" args="(BlobNeighbourDir n) const " -->
@@ -953,6 +1331,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00347">347</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                  {
+      <span class="keywordflow">return</span> neighbours_[n];
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab4222cadac89dc2c9675d35cf2170042"></a><!-- doxytag: member="BLOBNBOX::NeighbourGaps" ref="ab4222cadac89dc2c9675d35cf2170042" args="(int gaps[BND_COUNT]) const " -->
@@ -970,6 +1353,22 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8cpp_source.html#l00167">167</a> of file <a class="el" href="blobbox_8cpp_source.html">blobbox.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                      {
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> dir = 0; dir &lt; <a class="code" href="blobbox_8h.html#a4974474b3b161b68355d9a16eeaa3883a0f3b81ac0cbf413ac18c6de98cd69921">BND_COUNT</a>; ++dir) {
+    gaps[dir] = <a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a>;
+    <a class="code" href="class_b_l_o_b_n_b_o_x.html">BLOBNBOX</a>* <a class="code" href="class_b_l_o_b_n_b_o_x.html#a20cea54041981db2aa2e94cb4db7b4cf">neighbour</a> = neighbours_[dir];
+    <span class="keywordflow">if</span> (neighbour != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      <a class="code" href="class_t_b_o_x.html">TBOX</a> n_box = neighbour-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a7b97b8bc16b1473a28f9c44011522f4e">bounding_box</a>();
+      <span class="keywordflow">if</span> (dir == <a class="code" href="blobbox_8h.html#a4974474b3b161b68355d9a16eeaa3883a34eeb3a076f3bbcb32d47b74ee3cee86">BND_LEFT</a> || dir == <a class="code" href="blobbox_8h.html#a4974474b3b161b68355d9a16eeaa3883ac0391ea6a5bf43f7735142e9ae87a62f">BND_RIGHT</a>) {
+        gaps[dir] = box.<a class="code" href="class_t_b_o_x.html#a6c296f134aaae6ee544c4d000d76f80e">x_gap</a>(n_box);
+      } <span class="keywordflow">else</span> {
+        gaps[dir] = box.<a class="code" href="class_t_b_o_x.html#a98e0f9a8622eec475ee93b260c57c7ab">y_gap</a>(n_box);
+      }
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a33a55d6d0da2ae6f24a5b6e95b9d10cf"></a><!-- doxytag: member="BLOBNBOX::NoisyNeighbours" ref="a33a55d6d0da2ae6f24a5b6e95b9d10cf" args="() const " -->
@@ -986,6 +1385,18 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8cpp_source.html#l00223">223</a> of file <a class="el" href="blobbox_8cpp_source.html">blobbox.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                    {
+  <span class="keywordtype">int</span> <a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a> = 0;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> dir = 0; dir &lt; <a class="code" href="blobbox_8h.html#a4974474b3b161b68355d9a16eeaa3883a0f3b81ac0cbf413ac18c6de98cd69921">BND_COUNT</a>; ++dir) {
+    <a class="code" href="blobbox_8h.html#a4974474b3b161b68355d9a16eeaa3883">BlobNeighbourDir</a> bnd = <span class="keyword">static_cast&lt;</span><a class="code" href="blobbox_8h.html#a4974474b3b161b68355d9a16eeaa3883">BlobNeighbourDir</a><span class="keyword">&gt;</span>(dir);
+    <a class="code" href="class_b_l_o_b_n_b_o_x.html">BLOBNBOX</a>* blob = <a class="code" href="class_b_l_o_b_n_b_o_x.html#a20cea54041981db2aa2e94cb4db7b4cf">neighbour</a>(bnd);
+    <span class="keywordflow">if</span> (blob != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp; blob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a9e7100e6d08c78cca5f9c0453e11565d">region_type</a>() == <a class="code" href="blobbox_8h.html#aebfaf711760a99b60c297d1d619df575ae09c6f7e99c3a3885c3469d52d0292d2">BRT_NOISE</a>)
+      ++count;
+  }
+  <span class="keywordflow">return</span> <a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3fc9ba48fe9dd66461305697568f867a"></a><!-- doxytag: member="BLOBNBOX::owner" ref="a3fc9ba48fe9dd66461305697568f867a" args="() const " -->
@@ -1002,6 +1413,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00329">329</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                         {
+      <span class="keywordflow">return</span> owner_;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a298c71714cb9c1dfa613bddb8e48f75d"></a><!-- doxytag: member="BLOBNBOX::plot" ref="a298c71714cb9c1dfa613bddb8e48f75d" args="(ScrollView *window, ScrollView::Color blob_colour, ScrollView::Color child_colour)" -->
@@ -1035,6 +1451,12 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00432">432</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                            {  <span class="comment">// for holes</span>
+      <span class="keywordflow">if</span> (cblob_ptr != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+        cblob_ptr-&gt;<a class="code" href="class_c___b_l_o_b.html#a229bd1845ea91366349c7dee1d52360a">plot</a>(window, blob_colour, child_colour);
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4390090c077b282cb4bc814633cb8e27"></a><!-- doxytag: member="BLOBNBOX::PlotBlobs" ref="a4390090c077b282cb4bc814633cb8e27" args="(BLOBNBOX_LIST *list, ScrollView::Color body_colour, ScrollView::Color child_colour, ScrollView *win)" -->
@@ -1074,6 +1496,14 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8cpp_source.html#l00363">363</a> of file <a class="el" href="blobbox_8cpp_source.html">blobbox.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                          {
+  BLOBNBOX_IT it(list);
+  <span class="keywordflow">for</span> (it.mark_cycle_pt(); !it.cycled_list(); it.forward()) {
+    it.data()-&gt;plot(win, body_colour, child_colour);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a64e7f32e8eb4319767dfb632db3867bf"></a><!-- doxytag: member="BLOBNBOX::PlotNoiseBlobs" ref="a64e7f32e8eb4319767dfb632db3867bf" args="(BLOBNBOX_LIST *list, ScrollView::Color body_colour, ScrollView::Color child_colour, ScrollView *win)" -->
@@ -1113,6 +1543,16 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8cpp_source.html#l00376">376</a> of file <a class="el" href="blobbox_8cpp_source.html">blobbox.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                               {
+  BLOBNBOX_IT it(list);
+  <span class="keywordflow">for</span> (it.mark_cycle_pt(); !it.cycled_list(); it.forward()) {
+    <a class="code" href="class_b_l_o_b_n_b_o_x.html">BLOBNBOX</a>* blob = it.data();
+    <span class="keywordflow">if</span> (blob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a446180da938c7511ec23d59b9fd4e8f1">DeletableNoise</a>())
+      blob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a298c71714cb9c1dfa613bddb8e48f75d">plot</a>(win, body_colour, child_colour);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa750241e977f7dd90452cfbe317fa468"></a><!-- doxytag: member="BLOBNBOX::RealBlob" ref="aa750241e977f7dd90452cfbe317fa468" args="(C_OUTLINE *outline)" -->
@@ -1130,6 +1570,12 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00140">140</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                  {
+      <a class="code" href="class_c___b_l_o_b.html">C_BLOB</a>* blob = <span class="keyword">new</span> <a class="code" href="class_c___b_l_o_b.html">C_BLOB</a>(outline);
+      <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code" href="class_b_l_o_b_n_b_o_x.html#a5bc9450ba27c245929b70bec357089f5">BLOBNBOX</a>(blob);
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a35e6f3923186941c2cd0c12b76be914d"></a><!-- doxytag: member="BLOBNBOX::really_merge" ref="a35e6f3923186941c2cd0c12b76be914d" args="(BLOBNBOX *other)" -->
@@ -1147,6 +1593,15 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8cpp_source.html#l00089">89</a> of file <a class="el" href="blobbox_8cpp_source.html">blobbox.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                           {
+  <span class="keywordflow">if</span> (cblob_ptr != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp; other-&gt;cblob_ptr != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    C_OUTLINE_IT ol_it(cblob_ptr-&gt;<a class="code" href="class_c___b_l_o_b.html#ae510f3d0e7398fbb46608082429eac89">out_list</a>());
+    ol_it.add_list_after(other-&gt;cblob_ptr-&gt;<a class="code" href="class_c___b_l_o_b.html#ae510f3d0e7398fbb46608082429eac89">out_list</a>());
+  }
+  <a class="code" href="class_b_l_o_b_n_b_o_x.html#a32d07b97c559e7f7f7c58323491aedec">compute_bounding_box</a>();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aac6ebb94348a824de9da94509e88d6a8"></a><!-- doxytag: member="BLOBNBOX::red_box_set" ref="aac6ebb94348a824de9da94509e88d6a8" args="() const " -->
@@ -1163,6 +1618,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00236">236</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                             {
+      <span class="keywordflow">return</span> reduced != 0;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2a58ed6acac5958581d271f8f25e884e"></a><!-- doxytag: member="BLOBNBOX::reduced_box" ref="a2a58ed6acac5958581d271f8f25e884e" args="() const " -->
@@ -1179,6 +1639,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00223">223</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                    {
+      <span class="keywordflow">return</span> red_box;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac869963632fa38cc8eb38327fe498aee"></a><!-- doxytag: member="BLOBNBOX::reflect_box_in_y_axis" ref="ac869963632fa38cc8eb38327fe498aee" args="()" -->
@@ -1195,6 +1660,13 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8cpp_source.html#l00048">48</a> of file <a class="el" href="blobbox_8cpp_source.html">blobbox.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                     {
+  <span class="keywordtype">int</span> left = -box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>();
+  box.<a class="code" href="class_t_b_o_x.html#a2246293d3667b28c52a52353a2d5caea">set_right</a>(-box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>());
+  box.<a class="code" href="class_t_b_o_x.html#ae6151cd794841e100d8a346a0c4a46e6">set_left</a>(left);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9e7100e6d08c78cca5f9c0453e11565d"></a><!-- doxytag: member="BLOBNBOX::region_type" ref="a9e7100e6d08c78cca5f9c0453e11565d" args="() const " -->
@@ -1211,6 +1683,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00260">260</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                       {
+      <span class="keywordflow">return</span> region_type_;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a582c976fe68be6127b2ce4e54e5e7181"></a><!-- doxytag: member="BLOBNBOX::ReInit" ref="a582c976fe68be6127b2ce4e54e5e7181" args="()" -->
@@ -1227,6 +1704,34 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00452">452</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                {
+    joined = <span class="keyword">false</span>;
+    reduced = <span class="keyword">false</span>;
+    repeated_set_ = 0;
+    left_tab_type_ = <a class="code" href="blobbox_8h.html#a6d0b33e703e1291d0b60d4fe5a5e12ccaddba1c39549497adfc655e5e9a817dec">TT_NONE</a>;
+    right_tab_type_ = <a class="code" href="blobbox_8h.html#a6d0b33e703e1291d0b60d4fe5a5e12ccaddba1c39549497adfc655e5e9a817dec">TT_NONE</a>;
+    region_type_ = <a class="code" href="blobbox_8h.html#aebfaf711760a99b60c297d1d619df575a8a98863f18016aa4ccfd2d07dbb092a4">BRT_UNKNOWN</a>;
+    flow_ = <a class="code" href="blobbox_8h.html#aa72f1499398e9694bf46752e1cc895e1a745b15b1c990fa88c0712c50c5cd2202">BTFT_NONE</a>;
+    spt_type_ = <a class="code" href="blobbox_8h.html#a75b089d27e1df813fed544e0c131df8ca6fac1a2510eab4553549833d5d1afdc0">BSTT_SKIP</a>;
+    left_rule_ = 0;
+    right_rule_ = 0;
+    left_crossing_rule_ = 0;
+    right_crossing_rule_ = 0;
+    <span class="keywordflow">if</span> (area_stroke_width_ == 0.0<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> &amp;&amp; area &gt; 0 &amp;&amp; <a class="code" href="class_b_l_o_b_n_b_o_x.html#a483f44541a4dd818f02225c92f030e07">cblob</a>() != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+      area_stroke_width_ = 2.0f * area / <a class="code" href="class_b_l_o_b_n_b_o_x.html#a483f44541a4dd818f02225c92f030e07">cblob</a>()-&gt;<a class="code" href="class_c___b_l_o_b.html#a7bb48c42dd0ab06ebc1d1bd4936e6252">perimeter</a>();
+    owner_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    base_char_top_ = box.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>();
+    base_char_bottom_ = box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>();
+    line_crossings_ = 0;
+    base_char_blob_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    horz_possible_ = <span class="keyword">false</span>;
+    vert_possible_ = <span class="keyword">false</span>;
+    leader_on_left_ = <span class="keyword">false</span>;
+    leader_on_right_ = <span class="keyword">false</span>;
+    <a class="code" href="class_b_l_o_b_n_b_o_x.html#acdf3cc39226f3378516956b0e33fa533">ClearNeighbours</a>();
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6c315527653e756b1f82f5522929da08"></a><!-- doxytag: member="BLOBNBOX::repeated_set" ref="a6c315527653e756b1f82f5522929da08" args="() const " -->
@@ -1243,6 +1748,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00239">239</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                             {
+      <span class="keywordflow">return</span> repeated_set_;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2f061c25817d44575426977155555fb7"></a><!-- doxytag: member="BLOBNBOX::right_crossing_rule" ref="a2f061c25817d44575426977155555fb7" args="() const " -->
@@ -1259,6 +1769,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00308">308</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                    {
+      <span class="keywordflow">return</span> right_crossing_rule_;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9b323abfc9e7e03a3edccab8f725315b"></a><!-- doxytag: member="BLOBNBOX::right_rule" ref="a9b323abfc9e7e03a3edccab8f725315b" args="() const " -->
@@ -1275,6 +1790,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00296">296</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                           {
+      <span class="keywordflow">return</span> right_rule_;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a13607f52743a9ef3ec1f9d452aca0df5"></a><!-- doxytag: member="BLOBNBOX::right_tab_type" ref="a13607f52743a9ef3ec1f9d452aca0df5" args="() const " -->
@@ -1291,6 +1811,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00254">254</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                   {
+      <span class="keywordflow">return</span> right_tab_type_;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a8f79871ca8d190fc7ceaebbdf7fad379"></a><!-- doxytag: member="BLOBNBOX::rotate" ref="a8f79871ca8d190fc7ceaebbdf7fad379" args="(FCOORD rotation)" -->
@@ -1308,6 +1833,13 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8cpp_source.html#l00041">41</a> of file <a class="el" href="blobbox_8cpp_source.html">blobbox.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                     {
+  cblob_ptr-&gt;<a class="code" href="class_c___b_l_o_b.html#ab539eb777a99ccc8cb5181ce843abe4b">rotate</a>(rotation);
+  <a class="code" href="class_b_l_o_b_n_b_o_x.html#a3f37300a9cdd252ca74df4a725787587">rotate_box</a>(rotation);
+  <a class="code" href="class_b_l_o_b_n_b_o_x.html#a32d07b97c559e7f7f7c58323491aedec">compute_bounding_box</a>();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3f37300a9cdd252ca74df4a725787587"></a><!-- doxytag: member="BLOBNBOX::rotate_box" ref="a3f37300a9cdd252ca74df4a725787587" args="(FCOORD rotation)" -->
@@ -1325,6 +1857,23 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8cpp_source.html#l00057">57</a> of file <a class="el" href="blobbox_8cpp_source.html">blobbox.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                         {
+  <span class="keywordflow">if</span> (<a class="code" href="class_b_l_o_b_n_b_o_x.html#a3dc859a710d5a7473489c2f3e1e36326">IsDiacritic</a>()) {
+    <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(rotation.<a class="code" href="class_f_c_o_o_r_d.html#a9edadbfc357c730f62fa3c92677b0d58">x</a>() &gt;= kCosSmallAngle)
+    <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> top_pt((box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>() + box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>()) / 2, base_char_top_);
+    <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> bottom_pt(top_pt.x(), base_char_bottom_);
+    top_pt.<a class="code" href="class_i_c_o_o_r_d.html#aaedd825587ccb78583bbd6717793faea">rotate</a>(rotation);
+    base_char_top_ = top_pt.y();
+    bottom_pt.rotate(rotation);
+    base_char_bottom_ = bottom_pt.y();
+    box.<a class="code" href="class_t_b_o_x.html#a428e14544aeb44064bc8637d920211a0">rotate</a>(rotation);
+  } <span class="keywordflow">else</span> {
+    box.<a class="code" href="class_t_b_o_x.html#a428e14544aeb44064bc8637d920211a0">rotate</a>(rotation);
+    <a class="code" href="class_b_l_o_b_n_b_o_x.html#af354be28840859b8a4b593aa6db467f2">set_diacritic_box</a>(box);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6f9b52a46f0c77c395c0a03a99270ac8"></a><!-- doxytag: member="BLOBNBOX::set_base_char_blob" ref="a6f9b52a46f0c77c395c0a03a99270ac8" args="(BLOBNBOX *blob)" -->
@@ -1342,6 +1891,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00379">379</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                            {
+      base_char_blob_ = blob;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a8f076c06c79a5d3637d2f2f3b03a1a85"></a><!-- doxytag: member="BLOBNBOX::set_bounding_box" ref="a8f076c06c79a5d3637d2f2f3b03a1a85" args="(const TBOX &amp;new_box)" -->
@@ -1359,6 +1913,13 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00213">213</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                               {
+      box = new_box;
+      base_char_top_ = box.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>();
+      base_char_bottom_ = box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>();
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="af354be28840859b8a4b593aa6db467f2"></a><!-- doxytag: member="BLOBNBOX::set_diacritic_box" ref="af354be28840859b8a4b593aa6db467f2" args="(const TBOX &amp;diacritic_box)" -->
@@ -1376,6 +1937,12 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00372">372</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                      {
+      base_char_top_ = diacritic_box.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>();
+      base_char_bottom_ = diacritic_box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>();
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a75340334988feba52ce36ba596750a35"></a><!-- doxytag: member="BLOBNBOX::set_flow" ref="a75340334988feba52ce36ba596750a35" args="(BlobTextFlowType value)" -->
@@ -1393,6 +1960,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00275">275</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                          {
+      flow_ = value;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a49a43bb4c47b434aa36ad79ea53a0485"></a><!-- doxytag: member="BLOBNBOX::set_horz_possible" ref="a49a43bb4c47b434aa36ad79ea53a0485" args="(bool value)" -->
@@ -1410,6 +1982,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00287">287</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                       {
+      horz_possible_ = value;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab8e3703ad9c72b61dedafb61c4b32358"></a><!-- doxytag: member="BLOBNBOX::set_horz_stroke_width" ref="ab8e3703ad9c72b61dedafb61c4b32358" args="(float width)" -->
@@ -1427,6 +2004,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00317">317</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                            {
+      horz_stroke_width_ = width;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6e6bb579df4620ecf4a1bdc46bc21d60"></a><!-- doxytag: member="BLOBNBOX::set_leader_on_left" ref="a6e6bb579df4620ecf4a1bdc46bc21d60" args="(bool flag)" -->
@@ -1444,6 +2026,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00338">338</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                       {
+      leader_on_left_ = flag;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a0bc3500cc908c86d40c828358063797a"></a><!-- doxytag: member="BLOBNBOX::set_leader_on_right" ref="a0bc3500cc908c86d40c828358063797a" args="(bool flag)" -->
@@ -1461,6 +2048,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00344">344</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                        {
+      leader_on_right_ = flag;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="af1c12b91267640dc5634f8992f96cb1a"></a><!-- doxytag: member="BLOBNBOX::set_left_crossing_rule" ref="af1c12b91267640dc5634f8992f96cb1a" args="(int new_left)" -->
@@ -1478,6 +2070,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00305">305</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                              {
+      left_crossing_rule_ = new_left;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a37c2f715b4cb67ae8ec6a507dd029787"></a><!-- doxytag: member="BLOBNBOX::set_left_rule" ref="a37c2f715b4cb67ae8ec6a507dd029787" args="(int new_left)" -->
@@ -1495,6 +2092,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00293">293</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                     {
+      left_rule_ = new_left;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a098a0c7864a31569db4c32e32f54504c"></a><!-- doxytag: member="BLOBNBOX::set_left_tab_type" ref="a098a0c7864a31569db4c32e32f54504c" args="(TabType new_type)" -->
@@ -1512,6 +2114,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00251">251</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                             {
+      left_tab_type_ = new_type;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a567e99fc9c08dfebbe144eb520c1322f"></a><!-- doxytag: member="BLOBNBOX::set_line_crossings" ref="a567e99fc9c08dfebbe144eb520c1322f" args="(int value)" -->
@@ -1529,6 +2136,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00369">369</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                       {
+      line_crossings_ = value;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a80beaf33ba73b0145cdc6a53ce774465"></a><!-- doxytag: member="BLOBNBOX::set_neighbour" ref="a80beaf33ba73b0145cdc6a53ce774465" args="(BlobNeighbourDir n, BLOBNBOX *neighbour, bool good)" -->
@@ -1562,6 +2174,12 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00353">353</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                           {
+      neighbours_[n] = <a class="code" href="class_b_l_o_b_n_b_o_x.html#a20cea54041981db2aa2e94cb4db7b4cf">neighbour</a>;
+      good_stroke_neighbours_[n] = good;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad573c3bea7351dd2cbdaaffa2ff11c58"></a><!-- doxytag: member="BLOBNBOX::set_owner" ref="ad573c3bea7351dd2cbdaaffa2ff11c58" args="(tesseract::ColPartition *new_owner)" -->
@@ -1579,6 +2197,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00332">332</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                     {
+      owner_ = new_owner;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4a160da41a3fa28a30d478a99fd80cce"></a><!-- doxytag: member="BLOBNBOX::set_reduced_box" ref="a4a160da41a3fa28a30d478a99fd80cce" args="(TBOX new_box)" -->
@@ -1596,6 +2219,12 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00226">226</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                       {
+      red_box = new_box;
+      reduced = <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9b58644d9ad4f0d01193f47f55dd884f"></a><!-- doxytag: member="BLOBNBOX::set_region_type" ref="a9b58644d9ad4f0d01193f47f55dd884f" args="(BlobRegionType new_type)" -->
@@ -1613,6 +2242,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00263">263</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                  {
+      region_type_ = new_type;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4c2b662bd87162e3a0de4fe96845a449"></a><!-- doxytag: member="BLOBNBOX::set_repeated_set" ref="a4c2b662bd87162e3a0de4fe96845a449" args="(int set_id)" -->
@@ -1630,6 +2264,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00242">242</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                      {
+      repeated_set_ = set_id;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a234b1b56e0790a98a0c549a36580ca60"></a><!-- doxytag: member="BLOBNBOX::set_right_crossing_rule" ref="a234b1b56e0790a98a0c549a36580ca60" args="(int new_right)" -->
@@ -1647,6 +2286,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00311">311</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                {
+      right_crossing_rule_ = new_right;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae90db382b3842419f291ae29dd7cd778"></a><!-- doxytag: member="BLOBNBOX::set_right_rule" ref="ae90db382b3842419f291ae29dd7cd778" args="(int new_right)" -->
@@ -1664,6 +2308,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00299">299</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                       {
+      right_rule_ = new_right;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2a26da567144a5131817df4a23e9ec31"></a><!-- doxytag: member="BLOBNBOX::set_right_tab_type" ref="a2a26da567144a5131817df4a23e9ec31" args="(TabType new_type)" -->
@@ -1681,6 +2330,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00257">257</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                              {
+      right_tab_type_ = new_type;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a1650427df7e6b935dd737ad9eb70c36b"></a><!-- doxytag: member="BLOBNBOX::set_special_text_type" ref="a1650427df7e6b935dd737ad9eb70c36b" args="(BlobSpecialTextType new_type)" -->
@@ -1698,6 +2352,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00269">269</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                             {
+      spt_type_ = new_type;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a500153b288f379ebabbeaa18a7005d04"></a><!-- doxytag: member="BLOBNBOX::set_vert_possible" ref="a500153b288f379ebabbeaa18a7005d04" args="(bool value)" -->
@@ -1715,6 +2374,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00281">281</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                       {
+      vert_possible_ = value;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aeb808226b8dd08e875eb3cf38a61a6d5"></a><!-- doxytag: member="BLOBNBOX::set_vert_stroke_width" ref="aeb808226b8dd08e875eb3cf38a61a6d5" args="(float width)" -->
@@ -1732,6 +2396,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00323">323</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                            {
+      vert_stroke_width_ = width;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa33e4d1cf720df979dc50d2b39abb4e9"></a><!-- doxytag: member="BLOBNBOX::special_text_type" ref="aa33e4d1cf720df979dc50d2b39abb4e9" args="() const " -->
@@ -1748,6 +2417,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00266">266</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                  {
+      <span class="keywordflow">return</span> spt_type_;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7351d74f423975d676f47e4dc05e267f"></a><!-- doxytag: member="BLOBNBOX::TextlineColor" ref="a7351d74f423975d676f47e4dc05e267f" args="(BlobRegionType region_type, BlobTextFlowType flow_type)" -->
@@ -1775,6 +2449,42 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8cpp_source.html#l00388">388</a> of file <a class="el" href="blobbox_8cpp_source.html">blobbox.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                      {
+  <span class="keywordflow">switch</span> (<a class="code" href="class_b_l_o_b_n_b_o_x.html#a9e7100e6d08c78cca5f9c0453e11565d">region_type</a>) {
+    <span class="keywordflow">case</span> <a class="code" href="blobbox_8h.html#aebfaf711760a99b60c297d1d619df575a56cc149e97b34634dd39babda79ea17d">BRT_HLINE</a>:
+      <span class="keywordflow">return</span> <a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8a3147083bcb68eb690858099c736e6857">ScrollView::BROWN</a>;
+    <span class="keywordflow">case</span> <a class="code" href="blobbox_8h.html#aebfaf711760a99b60c297d1d619df575a5d6cbdd0674e727feda3085026646f6a">BRT_VLINE</a>:
+      <span class="keywordflow">return</span> <a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8acf8b3fe79bd99f51b05b218a8b0c5ee5">ScrollView::DARK_GREEN</a>;
+    <span class="keywordflow">case</span> <a class="code" href="blobbox_8h.html#aebfaf711760a99b60c297d1d619df575a15e526e8dd226bd4d7678da6dcddb49b">BRT_RECTIMAGE</a>:
+      <span class="keywordflow">return</span> <a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8a0959f7470b08ae1a38aa7e38fba29402">ScrollView::RED</a>;
+    <span class="keywordflow">case</span> <a class="code" href="blobbox_8h.html#aebfaf711760a99b60c297d1d619df575a3b72528ad70da88719f0479bc8c5a190">BRT_POLYIMAGE</a>:
+      <span class="keywordflow">return</span> <a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8a0691e22f5da865103a497f9503269a61">ScrollView::ORANGE</a>;
+    <span class="keywordflow">case</span> <a class="code" href="blobbox_8h.html#aebfaf711760a99b60c297d1d619df575a8a98863f18016aa4ccfd2d07dbb092a4">BRT_UNKNOWN</a>:
+      <span class="keywordflow">return</span> flow_type == <a class="code" href="blobbox_8h.html#aa72f1499398e9694bf46752e1cc895e1af99f0c54b98b6c7a0dd5d5f0b5dc635d">BTFT_NONTEXT</a> ? <a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8a6703ffaadb6c67affacbd0e7da63ef37">ScrollView::CYAN</a> : <a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8a0eab2b208fc9a5e2774f92cf3e768982">ScrollView::WHITE</a>;
+    <span class="keywordflow">case</span> <a class="code" href="blobbox_8h.html#aebfaf711760a99b60c297d1d619df575aea2da025a50db20db8213f96495dd4a6">BRT_VERT_TEXT</a>:
+      <span class="keywordflow">if</span> (flow_type == <a class="code" href="blobbox_8h.html#aa72f1499398e9694bf46752e1cc895e1ac6822a7999424340562c785a3fd95daa">BTFT_STRONG_CHAIN</a> || flow_type == <a class="code" href="blobbox_8h.html#aa72f1499398e9694bf46752e1cc895e1a1936f281ab87277e7ef0ba576920dc10">BTFT_TEXT_ON_IMAGE</a>)
+        <span class="keywordflow">return</span> <a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8a9d8c87be486dead41d198d6b97a22174">ScrollView::GREEN</a>;
+      <span class="keywordflow">if</span> (flow_type == <a class="code" href="blobbox_8h.html#aa72f1499398e9694bf46752e1cc895e1a8fa903eb3c633ef681659563769a8007">BTFT_CHAIN</a>)
+        <span class="keywordflow">return</span> <a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8a3312de9754e4e61d9a699f23528a059a">ScrollView::LIME_GREEN</a>;
+      <span class="keywordflow">return</span> <a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8a61dec9bc0aaf1d527a731b2a6ce055c8">ScrollView::YELLOW</a>;
+    <span class="keywordflow">case</span> <a class="code" href="blobbox_8h.html#aebfaf711760a99b60c297d1d619df575a4f0b1431532d0e838187df32f2e822d7">BRT_TEXT</a>:
+      <span class="keywordflow">if</span> (flow_type == <a class="code" href="blobbox_8h.html#aa72f1499398e9694bf46752e1cc895e1ac6822a7999424340562c785a3fd95daa">BTFT_STRONG_CHAIN</a>)
+        <span class="keywordflow">return</span> <a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8a66e5117e4930fdd9a43bdb674d57a719">ScrollView::BLUE</a>;
+      <span class="keywordflow">if</span> (flow_type == <a class="code" href="blobbox_8h.html#aa72f1499398e9694bf46752e1cc895e1a1936f281ab87277e7ef0ba576920dc10">BTFT_TEXT_ON_IMAGE</a>)
+        <span class="keywordflow">return</span> <a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8a93aaf384b4a674f176e3dd1655c1ad95">ScrollView::LIGHT_BLUE</a>;
+      <span class="keywordflow">if</span> (flow_type == <a class="code" href="blobbox_8h.html#aa72f1499398e9694bf46752e1cc895e1a8fa903eb3c633ef681659563769a8007">BTFT_CHAIN</a>)
+        <span class="keywordflow">return</span> <a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8ab459c1b60d132f4cb53178cb078fb7e7">ScrollView::MEDIUM_BLUE</a>;
+      <span class="keywordflow">if</span> (flow_type == <a class="code" href="blobbox_8h.html#aa72f1499398e9694bf46752e1cc895e1a64e3e70c4fac4d4e3facdb4638307d7f">BTFT_LEADER</a>)
+        <span class="keywordflow">return</span> <a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8a197ffcc7c5e23c5b81a219949486ac38">ScrollView::WHEAT</a>;
+      <span class="keywordflow">if</span> (flow_type == <a class="code" href="blobbox_8h.html#aa72f1499398e9694bf46752e1cc895e1af99f0c54b98b6c7a0dd5d5f0b5dc635d">BTFT_NONTEXT</a>)
+        <span class="keywordflow">return</span> <a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8aee71d1b0400315f55f86c9723631a10e">ScrollView::PINK</a>;
+      <span class="keywordflow">return</span> <a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8aebeaaeee353c6f04b4498b1fef94bbb3">ScrollView::MAGENTA</a>;
+    <span class="keywordflow">default</span>:
+      <span class="keywordflow">return</span> <a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8a7bba33cbbab6aaa71dce1aad46ecc3a5">ScrollView::GREY</a>;
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad8c450bb29bba6199db25a1f9ccdc244"></a><!-- doxytag: member="BLOBNBOX::translate_box" ref="ad8c450bb29bba6199db25a1f9ccdc244" args="(ICOORD v)" -->
@@ -1792,6 +2502,18 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00156">156</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                 {
+      <span class="keywordflow">if</span> (<a class="code" href="class_b_l_o_b_n_b_o_x.html#a3dc859a710d5a7473489c2f3e1e36326">IsDiacritic</a>()) {
+        box.<a class="code" href="class_t_b_o_x.html#a5fb1ce0d624392f72f82933e63f20e71">move</a>(v);
+        base_char_top_ += v.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a>();
+        base_char_bottom_ += v.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a>();
+      } <span class="keywordflow">else</span> {
+        box.<a class="code" href="class_t_b_o_x.html#a5fb1ce0d624392f72f82933e63f20e71">move</a>(v);
+        <a class="code" href="class_b_l_o_b_n_b_o_x.html#af354be28840859b8a4b593aa6db467f2">set_diacritic_box</a>(box);
+      }
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4faf8ec29ebb0f3c2fbdd158fd33cdc9"></a><!-- doxytag: member="BLOBNBOX::UniquelyHorizontal" ref="a4faf8ec29ebb0f3c2fbdd158fd33cdc9" args="() const " -->
@@ -1808,6 +2530,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00386">386</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                    {
+      <span class="keywordflow">return</span> horz_possible_ &amp;&amp; !vert_possible_;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa4e11bd4e9e5903b52bcd363db008f2e"></a><!-- doxytag: member="BLOBNBOX::UniquelyVertical" ref="aa4e11bd4e9e5903b52bcd363db008f2e" args="() const " -->
@@ -1824,6 +2551,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00383">383</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                  {
+      <span class="keywordflow">return</span> vert_possible_ &amp;&amp; !horz_possible_;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aed57b07f933309970d23490dfc5a5e52"></a><!-- doxytag: member="BLOBNBOX::UnMergeableType" ref="aed57b07f933309970d23490dfc5a5e52" args="(BlobRegionType type)" -->
@@ -1841,6 +2573,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00403">403</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                     {
+      <span class="keywordflow">return</span> <a class="code" href="class_b_l_o_b_n_b_o_x.html#a86decfe35457329f062098901d56015f">IsLineType</a>(type) || <a class="code" href="class_b_l_o_b_n_b_o_x.html#a12fed2b0c8e14c0145019f8f214e4262">IsImageType</a>(type);
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4ab21b274ede7a7080d5b2bca8f2c268"></a><!-- doxytag: member="BLOBNBOX::vert_possible" ref="a4ab21b274ede7a7080d5b2bca8f2c268" args="() const " -->
@@ -1857,6 +2594,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00278">278</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                               {
+      <span class="keywordflow">return</span> vert_possible_;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a0e0f6b25af6e86fd229bfdc53825dcb9"></a><!-- doxytag: member="BLOBNBOX::vert_stroke_width" ref="a0e0f6b25af6e86fd229bfdc53825dcb9" args="() const " -->
@@ -1873,11 +2615,16 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00320">320</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                    {
+      <span class="keywordflow">return</span> vert_stroke_width_;
+    }
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/ccstruct/<a class="el" href="blobbox_8h_source.html">blobbox.h</a></li>
-<li>tesseract-ocr/ccstruct/<a class="el" href="blobbox_8cpp.html">blobbox.cpp</a></li>
+<li>tesseract-ocr/ccstruct/<a class="el" href="blobbox_8cpp_source.html">blobbox.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -1899,7 +2646,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:11 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:45 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

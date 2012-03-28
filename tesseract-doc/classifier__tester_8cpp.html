@@ -111,7 +111,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <code>#include &quot;<a class="el" href="params_8h_source.html">params.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="strngs_8h_source.html">strngs.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="tessclassifier_8h_source.html">tessclassifier.h</a>&quot;</code><br/>
-</div><table class="memberdecls">
+</div>
+<p><a href="classifier__tester_8cpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr><td colspan="2"><h2><a name="enum-members"></a>
 Enumerations</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classifier__tester_8cpp.html#a87c21c76ec4382d7198af1742eef44f6">ClassifierName</a> { <br/>
@@ -159,6 +161,15 @@ Variables</h2></td></tr>
 </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="classifier__tester_8cpp_source.html#l00034">34</a> of file <a class="el" href="classifier__tester_8cpp_source.html">classifier_tester.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                    {
+  <a class="code" href="classifier__tester_8cpp.html#a87c21c76ec4382d7198af1742eef44f6a31b46596c5b8ddd5c28b43d3164b6430">CN_PRUNER</a>,
+  <a class="code" href="classifier__tester_8cpp.html#a87c21c76ec4382d7198af1742eef44f6a1e554cbfcb457dd689fed35534aabb5b">CN_FULL</a>,
+  <a class="code" href="classifier__tester_8cpp.html#a87c21c76ec4382d7198af1742eef44f6a25cd551a280d65b955fd9971c19945c8">CN_CUBE</a>,
+  <a class="code" href="classifier__tester_8cpp.html#a87c21c76ec4382d7198af1742eef44f6acf36cec1055b939edb2a883252be2011">CN_CUBETESS</a>,
+  <a class="code" href="classifier__tester_8cpp.html#a87c21c76ec4382d7198af1742eef44f6a7ff10b528f0218e5f5a6e09119423563">CN_COUNT</a>
+};
+</pre></div>
 </div>
 </div>
 <hr/><h2>Function Documentation</h2>
@@ -188,6 +199,77 @@ Variables</h2></td></tr>
 <div class="memdoc">
 <p>---------------------------------------------------------------------------- Public Function Prototypes ---------------------------------------------------------------------------- </p>
 
+<p>Definition at line <a class="el" href="classifier__tester_8cpp_source.html#l00065">65</a> of file <a class="el" href="classifier__tester_8cpp_source.html">classifier_tester.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                {
+  <a class="code" href="commontraining_8cpp.html#a5177d61ebf73a60571198cb6eaa753ac">ParseArguments</a>(&amp;argc, &amp;argv);
+  <span class="comment">// Decode the classifier string.</span>
+  <a class="code" href="classifier__tester_8cpp.html#a87c21c76ec4382d7198af1742eef44f6">ClassifierName</a> classifier = <a class="code" href="classifier__tester_8cpp.html#a87c21c76ec4382d7198af1742eef44f6a7ff10b528f0218e5f5a6e09119423563">CN_COUNT</a>;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> c = 0; c &lt; <a class="code" href="classifier__tester_8cpp.html#a87c21c76ec4382d7198af1742eef44f6a7ff10b528f0218e5f5a6e09119423563">CN_COUNT</a>; ++c) {
+    <span class="keywordflow">if</span> (strcmp(FLAGS_classifier.c_str(), <a class="code" href="classifier__tester_8cpp.html#a0737f2a8dd8fbaf9c6608f85e2b79778">names</a>[c]) == 0) {
+      classifier = <span class="keyword">static_cast&lt;</span><a class="code" href="classifier__tester_8cpp.html#a87c21c76ec4382d7198af1742eef44f6">ClassifierName</a><span class="keyword">&gt;</span>(c);
+      <span class="keywordflow">break</span>;
+    }
+  }
+  <span class="keywordflow">if</span> (classifier == CN_COUNT) {
+    fprintf(stderr, <span class="stringliteral">&quot;Invalid classifier name:%s\n&quot;</span>, FLAGS_classifier.c_str());
+    <span class="keywordflow">return</span> 1;
+  }
+
+  <a class="code" href="class_s_t_r_i_n_g.html">STRING</a> file_prefix;
+  <a class="code" href="classtesseract_1_1_master_trainer.html">tesseract::MasterTrainer</a>* trainer = <a class="code" href="namespacetesseract.html#a2af3b74c1139cfc070d17e947f212b58">tesseract::LoadTrainingData</a>(
+      argc, argv, <span class="keyword">true</span>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, &amp;file_prefix);
+  <span class="comment">// We want to test junk as well if it is available.</span>
+  trainer-&gt;<a class="code" href="classtesseract_1_1_master_trainer.html#a2741ed8b6ac54d16c5a81debdb4459aa">IncludeJunk</a>();
+  <span class="comment">// We want to test with replicated samples too.</span>
+  trainer-&gt;<a class="code" href="classtesseract_1_1_master_trainer.html#a251f235cdf45e1f66d08d4bc27dc71d7">ReplicateAndRandomizeSamplesIfRequired</a>();
+
+  <span class="comment">// We need to initialize tesseract to test.</span>
+  <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html">tesseract::TessBaseAPI</a> api;
+  <a class="code" href="namespacetesseract.html#a04550a0ed1279562027bf2fc92c421ae">tesseract::OcrEngineMode</a> engine_mode = <a class="code" href="namespacetesseract.html#a04550a0ed1279562027bf2fc92c421aeaea8028f61e76a0f4def7cbe7905206cf">tesseract::OEM_TESSERACT_ONLY</a>;
+  <span class="keywordflow">if</span> (classifier == <a class="code" href="classifier__tester_8cpp.html#a87c21c76ec4382d7198af1742eef44f6a25cd551a280d65b955fd9971c19945c8">CN_CUBE</a> || classifier == <a class="code" href="classifier__tester_8cpp.html#a87c21c76ec4382d7198af1742eef44f6acf36cec1055b939edb2a883252be2011">CN_CUBETESS</a>)
+    engine_mode = <a class="code" href="namespacetesseract.html#a04550a0ed1279562027bf2fc92c421aea6d35341d8b4c2a74cd7ca933899ffdb8">tesseract::OEM_TESSERACT_CUBE_COMBINED</a>;
+  <span class="keywordflow">if</span> (api.<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a96899e8e5358d96752ab1cfc3bc09f3e">Init</a>(FLAGS_tessdata_dir.c_str(), FLAGS_lang.c_str(),
+               engine_mode) &lt; 0) {
+    fprintf(stderr, <span class="stringliteral">&quot;Tesseract initialization failed!\n&quot;</span>);
+    <span class="keywordflow">return</span> 1;
+  }
+  <a class="code" href="classtesseract_1_1_shape_classifier.html">tesseract::ShapeClassifier</a>* shape_classifier = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <a class="code" href="classtesseract_1_1_tesseract.html">tesseract::Tesseract</a>* tesseract =
+      <span class="keyword">const_cast&lt;</span><a class="code" href="classtesseract_1_1_tesseract.html">tesseract::Tesseract</a>*<span class="keyword">&gt;</span>(api.<a class="code" href="group___advanced_a_p_i.html#ga7b46dfdb521a2a575ab914ece8a40e6c">tesseract</a>());
+  <a class="code" href="classtesseract_1_1_classify.html">tesseract::Classify</a>* classify =
+      <span class="keyword">reinterpret_cast&lt;</span><a class="code" href="classtesseract_1_1_classify.html">tesseract::Classify</a>*<span class="keyword">&gt;</span>(tesseract);
+  <span class="comment">// Copy the shape_table from the classifier and add the space character if</span>
+  <span class="comment">// not already present to count junk.</span>
+  <a class="code" href="classtesseract_1_1_shape_table.html">tesseract::ShapeTable</a> shape_table;
+  shape_table.<a class="code" href="classtesseract_1_1_shape_table.html#a9f5e464a789541736e9b422640dcdedb">set_unicharset</a>(classify-&gt;<a class="code" href="classtesseract_1_1_classify.html#a5d8e80f8bd4a5779921f543c6eef796c">shape_table</a>()-&gt;unicharset());
+  shape_table.<a class="code" href="classtesseract_1_1_shape_table.html#ae8a8a15df8f549f59e729eab865d6e66">AppendMasterShapes</a>(*classify-&gt;<a class="code" href="classtesseract_1_1_classify.html#a5d8e80f8bd4a5779921f543c6eef796c">shape_table</a>());
+  <span class="keywordflow">if</span> (shape_table.<a class="code" href="classtesseract_1_1_shape_table.html#a6bd8104b89a7c7ffeb8c4bc8996fff6c">FindShape</a>(0, -1) &lt; 0)
+    shape_table.<a class="code" href="classtesseract_1_1_shape_table.html#a4560e30f0df9126da3462e4858e6a2db">AddShape</a>(0, 0);
+  <span class="keywordflow">if</span> (classifier == <a class="code" href="classifier__tester_8cpp.html#a87c21c76ec4382d7198af1742eef44f6a31b46596c5b8ddd5c28b43d3164b6430">CN_PRUNER</a>) {
+    shape_classifier = <span class="keyword">new</span> <a class="code" href="classtesseract_1_1_tess_classifier.html">tesseract::TessClassifier</a>(<span class="keyword">true</span>, classify);
+  } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (classifier == <a class="code" href="classifier__tester_8cpp.html#a87c21c76ec4382d7198af1742eef44f6a1e554cbfcb457dd689fed35534aabb5b">CN_FULL</a>) {
+    shape_classifier = <span class="keyword">new</span> <a class="code" href="classtesseract_1_1_tess_classifier.html">tesseract::TessClassifier</a>(<span class="keyword">false</span>, classify);
+  } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (classifier == <a class="code" href="classifier__tester_8cpp.html#a87c21c76ec4382d7198af1742eef44f6a25cd551a280d65b955fd9971c19945c8">CN_CUBE</a>) {
+    shape_classifier = <span class="keyword">new</span> <a class="code" href="classtesseract_1_1_cube_classifier.html">tesseract::CubeClassifier</a>(tesseract);
+  } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (classifier == <a class="code" href="classifier__tester_8cpp.html#a87c21c76ec4382d7198af1742eef44f6acf36cec1055b939edb2a883252be2011">CN_CUBETESS</a>) {
+    shape_classifier = <span class="keyword">new</span> <a class="code" href="classtesseract_1_1_cube_tess_classifier.html">tesseract::CubeTessClassifier</a>(tesseract);
+  } <span class="keywordflow">else</span> {
+    fprintf(stderr, <span class="stringliteral">&quot;%s tester not yet implemented\n&quot;</span>,
+            FLAGS_classifier.c_str());
+    <span class="keywordflow">return</span> 1;
+  }
+  <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Testing classifier %s:\n&quot;</span>, FLAGS_classifier.c_str());
+  trainer-&gt;<a class="code" href="classtesseract_1_1_master_trainer.html#a4bc9b1f1ebe74fab4189e37ec487867b">TestClassifierOnSamples</a>(3, <span class="keyword">false</span>, shape_classifier, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <span class="keywordflow">if</span> (classifier != <a class="code" href="classifier__tester_8cpp.html#a87c21c76ec4382d7198af1742eef44f6a25cd551a280d65b955fd9971c19945c8">CN_CUBE</a> &amp;&amp; classifier != <a class="code" href="classifier__tester_8cpp.html#a87c21c76ec4382d7198af1742eef44f6acf36cec1055b939edb2a883252be2011">CN_CUBETESS</a>) {
+    <span class="comment">// Test with replicated samples as well.</span>
+    trainer-&gt;<a class="code" href="classtesseract_1_1_master_trainer.html#a4bc9b1f1ebe74fab4189e37ec487867b">TestClassifierOnSamples</a>(3, <span class="keyword">true</span>, shape_classifier, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  }
+  <span class="keyword">delete</span> shape_classifier;
+  <span class="keyword">delete</span> trainer;
+
+  <span class="keywordflow">return</span> 0;
+} <span class="comment">/* main */</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a74b5c288a9dd1ea5d05da7cfdd2dd98c"></a><!-- doxytag: member="classifier_tester.cpp::STRING_PARAM_FLAG" ref="a74b5c288a9dd1ea5d05da7cfdd2dd98c" args="(classifier,&quot;&quot;,&quot;Classifier to test&quot;)" -->
@@ -301,6 +383,8 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="classifier__tester_8cpp_source.html#l00042">42</a> of file <a class="el" href="classifier__tester_8cpp_source.html">classifier_tester.cpp</a>.</p>
+
 </div>
 </div>
 </div>
@@ -323,7 +407,7 @@ Variables</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:10 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:43 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

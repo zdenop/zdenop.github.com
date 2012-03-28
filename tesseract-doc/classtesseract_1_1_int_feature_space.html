@@ -133,7 +133,10 @@ Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_int_feature_space.html#aef89300f826da015e667c654f4f13520">y_buckets_</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_int_feature_space.html#a6b90a50da76270237fe1e34b5563c0ac">theta_buckets_</a></td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="intfeaturespace_8h_source.html#l00038">38</a> of file <a class="el" href="intfeaturespace_8h_source.html">intfeaturespace.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a5d1f45ad46159b9d5caee0f051731664"></a><!-- doxytag: member="tesseract::IntFeatureSpace::IntFeatureSpace" ref="a5d1f45ad46159b9d5caee0f051731664" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -148,6 +151,10 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intfeaturespace_8cpp_source.html#l00025">25</a> of file <a class="el" href="intfeaturespace_8cpp_source.html">intfeaturespace.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">  : <a class="code" href="classtesseract_1_1_int_feature_space.html#a9914b3f353a1cbd32162f8977943e2a5">x_buckets_</a>(0), <a class="code" href="classtesseract_1_1_int_feature_space.html#aef89300f826da015e667c654f4f13520">y_buckets_</a>(0), <a class="code" href="classtesseract_1_1_int_feature_space.html#a6b90a50da76270237fe1e34b5563c0ac">theta_buckets_</a>(0) {
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -176,6 +183,17 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intfeaturespace_8cpp_source.html#l00050">50</a> of file <a class="el" href="intfeaturespace_8cpp_source.html">intfeaturespace.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                     {
+  <span class="keywordflow">if</span> (fread(&amp;<a class="code" href="classtesseract_1_1_int_feature_space.html#a9914b3f353a1cbd32162f8977943e2a5">x_buckets_</a>, <span class="keyword">sizeof</span>(<a class="code" href="classtesseract_1_1_int_feature_space.html#a9914b3f353a1cbd32162f8977943e2a5">x_buckets_</a>), 1, fp) != 1)
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">if</span> (fread(&amp;<a class="code" href="classtesseract_1_1_int_feature_space.html#aef89300f826da015e667c654f4f13520">y_buckets_</a>, <span class="keyword">sizeof</span>(<a class="code" href="classtesseract_1_1_int_feature_space.html#aef89300f826da015e667c654f4f13520">y_buckets_</a>), 1, fp) != 1)
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">if</span> (fread(&amp;<a class="code" href="classtesseract_1_1_int_feature_space.html#a6b90a50da76270237fe1e34b5563c0ac">theta_buckets_</a>, <span class="keyword">sizeof</span>(<a class="code" href="classtesseract_1_1_int_feature_space.html#a6b90a50da76270237fe1e34b5563c0ac">theta_buckets_</a>), 1, fp) != 1)
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ace7ac6191c34b569cc501a7afbb9a223"></a><!-- doxytag: member="tesseract::IntFeatureSpace::Index" ref="ace7ac6191c34b569cc501a7afbb9a223" args="(const INT_FEATURE_STRUCT &amp;f) const " -->
@@ -193,6 +211,12 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intfeaturespace_8h_source.html#l00065">65</a> of file <a class="el" href="intfeaturespace_8h_source.html">intfeaturespace.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                               {
+    <span class="keywordflow">return</span> (<a class="code" href="classtesseract_1_1_int_feature_space.html#a44e0e6266a8659c487bd28c9ed599f8a">XBucket</a>(f.<a class="code" href="struct_i_n_t___f_e_a_t_u_r_e___s_t_r_u_c_t.html#a6b250df12a9b06b5ed0c1a7c403f0275">X</a>) * <a class="code" href="classtesseract_1_1_int_feature_space.html#aef89300f826da015e667c654f4f13520">y_buckets_</a> + <a class="code" href="classtesseract_1_1_int_feature_space.html#a77134a64af79eaedce1380e55b07cb9a">YBucket</a>(f.<a class="code" href="struct_i_n_t___f_e_a_t_u_r_e___s_t_r_u_c_t.html#a09931683890fb52d22ec6c75048a2bce">Y</a>)) * <a class="code" href="classtesseract_1_1_int_feature_space.html#a6b90a50da76270237fe1e34b5563c0ac">theta_buckets_</a> +
+        <a class="code" href="classtesseract_1_1_int_feature_space.html#a4c9c1c117c7d1a54aca71ff9251cee8b">ThetaBucket</a>(f.<a class="code" href="struct_i_n_t___f_e_a_t_u_r_e___s_t_r_u_c_t.html#af4a2ea6a7d9a82cba06f6ca9a126461b">Theta</a>);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="abeeaf9aa04a1a933bbfa50b2a13ac5c4"></a><!-- doxytag: member="tesseract::IntFeatureSpace::IndexAndSortFeatures" ref="abeeaf9aa04a1a933bbfa50b2a13ac5c4" args="(const INT_FEATURE_STRUCT *features, int num_features, GenericVector&lt; int &gt; *sorted_features) const " -->
@@ -226,6 +250,14 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intfeaturespace_8cpp_source.html#l00080">80</a> of file <a class="el" href="intfeaturespace_8cpp_source.html">intfeaturespace.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                               {
+  sorted_features-&gt;<a class="code" href="class_generic_vector.html#af1793745c45178626c9afe48c7a1e140">truncate</a>(0);
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> = 0; <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> &lt; num_features; ++<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>)
+    sorted_features-&gt;<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(<a class="code" href="classtesseract_1_1_int_feature_space.html#ace7ac6191c34b569cc501a7afbb9a223">Index</a>(features[<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>]));
+  sorted_features-&gt;<a class="code" href="class_generic_vector.html#a999bbd8ff336c81fe1198ea714c7936d">sort</a>();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a20a89a0064717fe46691d96e9ab549a2"></a><!-- doxytag: member="tesseract::IntFeatureSpace::IndexFeatures" ref="a20a89a0064717fe46691d96e9ab549a2" args="(const INT_FEATURE_STRUCT *features, int num_features, GenericVector&lt; int &gt; *mapped_features) const " -->
@@ -259,6 +291,13 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intfeaturespace_8cpp_source.html#l00070">70</a> of file <a class="el" href="intfeaturespace_8cpp_source.html">intfeaturespace.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                               {
+  mapped_features-&gt;<a class="code" href="class_generic_vector.html#af1793745c45178626c9afe48c7a1e140">truncate</a>(0);
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> = 0; <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> &lt; num_features; ++<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>)
+    mapped_features-&gt;<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(<a class="code" href="classtesseract_1_1_int_feature_space.html#ace7ac6191c34b569cc501a7afbb9a223">Index</a>(features[<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>]));
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a94b0e8e0953196dfad06f647f6e29e30"></a><!-- doxytag: member="tesseract::IntFeatureSpace::Init" ref="a94b0e8e0953196dfad06f647f6e29e30" args="(uinT8 xbuckets, uinT8 ybuckets, uinT8 thetabuckets)" -->
@@ -292,6 +331,13 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intfeaturespace_8cpp_source.html#l00029">29</a> of file <a class="el" href="intfeaturespace_8cpp_source.html">intfeaturespace.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                             {
+  <a class="code" href="classtesseract_1_1_int_feature_space.html#a9914b3f353a1cbd32162f8977943e2a5">x_buckets_</a> = xbuckets;
+  <a class="code" href="classtesseract_1_1_int_feature_space.html#aef89300f826da015e667c654f4f13520">y_buckets_</a> = ybuckets;
+  <a class="code" href="classtesseract_1_1_int_feature_space.html#a6b90a50da76270237fe1e34b5563c0ac">theta_buckets_</a> = thetabuckets;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa41f629526949bd460fea926f99b45c0"></a><!-- doxytag: member="tesseract::IntFeatureSpace::PositionFromBuckets" ref="aa41f629526949bd460fea926f99b45c0" args="(int x, int y, int theta) const " -->
@@ -325,6 +371,21 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intfeaturespace_8cpp_source.html#l00127">127</a> of file <a class="el" href="intfeaturespace_8cpp_source.html">intfeaturespace.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                         {
+  <a class="code" href="struct_i_n_t___f_e_a_t_u_r_e___s_t_r_u_c_t.html">INT_FEATURE_STRUCT</a> pos = {
+      <span class="keyword">static_cast&lt;</span><a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a><span class="keyword">&gt;</span>(<a class="code" href="helpers_8h.html#af8739168d5b3235996eeb25dac3c4044">ClipToRange</a>(
+          (x * <a class="code" href="intfeaturespace_8h.html#a1ae640c2b25581cd33a392a5b614b1cd">kIntFeatureExtent</a> + <a class="code" href="intfeaturespace_8h.html#a1ae640c2b25581cd33a392a5b614b1cd">kIntFeatureExtent</a> / 2) / <a class="code" href="classtesseract_1_1_int_feature_space.html#a9914b3f353a1cbd32162f8977943e2a5">x_buckets_</a>,
+          0, <a class="code" href="host_8h.html#a05682ca8de174141447ff05a2289a27c">MAX_UINT8</a>)),
+      static_cast&lt;uinT8&gt;(<a class="code" href="helpers_8h.html#af8739168d5b3235996eeb25dac3c4044">ClipToRange</a>(
+          (y * <a class="code" href="intfeaturespace_8h.html#a1ae640c2b25581cd33a392a5b614b1cd">kIntFeatureExtent</a> + <a class="code" href="intfeaturespace_8h.html#a1ae640c2b25581cd33a392a5b614b1cd">kIntFeatureExtent</a> / 2) / <a class="code" href="classtesseract_1_1_int_feature_space.html#aef89300f826da015e667c654f4f13520">y_buckets_</a>,
+          0, <a class="code" href="host_8h.html#a05682ca8de174141447ff05a2289a27c">MAX_UINT8</a>)),
+      static_cast&lt;uinT8&gt;(<a class="code" href="helpers_8h.html#af8739168d5b3235996eeb25dac3c4044">ClipToRange</a>(
+          <a class="code" href="helpers_8h.html#a29e9efc11d2c7cdfa4c30881e82999dc">DivRounded</a>(theta * <a class="code" href="intfeaturespace_8h.html#a1ae640c2b25581cd33a392a5b614b1cd">kIntFeatureExtent</a>, <a class="code" href="classtesseract_1_1_int_feature_space.html#a6b90a50da76270237fe1e34b5563c0ac">theta_buckets_</a>),
+          0, <a class="code" href="host_8h.html#a05682ca8de174141447ff05a2289a27c">MAX_UINT8</a>))};
+  <span class="keywordflow">return</span> pos;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="afe76aa77c41fa6362ed3630afed656f8"></a><!-- doxytag: member="tesseract::IntFeatureSpace::PositionFromIndex" ref="afe76aa77c41fa6362ed3630afed656f8" args="(int index) const " -->
@@ -342,6 +403,13 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intfeaturespace_8cpp_source.html#l00062">62</a> of file <a class="el" href="intfeaturespace_8cpp_source.html">intfeaturespace.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                     {
+  <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_int_feature_space.html#aa41f629526949bd460fea926f99b45c0">PositionFromBuckets</a>(index / (<a class="code" href="classtesseract_1_1_int_feature_space.html#aef89300f826da015e667c654f4f13520">y_buckets_</a> * <a class="code" href="classtesseract_1_1_int_feature_space.html#a6b90a50da76270237fe1e34b5563c0ac">theta_buckets_</a>),
+                             index / theta_buckets_ % <a class="code" href="classtesseract_1_1_int_feature_space.html#aef89300f826da015e667c654f4f13520">y_buckets_</a>,
+                             index % theta_buckets_);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aca2d32af328df79ce5a21f83062b7276"></a><!-- doxytag: member="tesseract::IntFeatureSpace::Serialize" ref="aca2d32af328df79ce5a21f83062b7276" args="(FILE *fp) const " -->
@@ -359,6 +427,17 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intfeaturespace_8cpp_source.html#l00037">37</a> of file <a class="el" href="intfeaturespace_8cpp_source.html">intfeaturespace.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                              {
+  <span class="keywordflow">if</span> (fwrite(&amp;<a class="code" href="classtesseract_1_1_int_feature_space.html#a9914b3f353a1cbd32162f8977943e2a5">x_buckets_</a>, <span class="keyword">sizeof</span>(<a class="code" href="classtesseract_1_1_int_feature_space.html#a9914b3f353a1cbd32162f8977943e2a5">x_buckets_</a>), 1, fp) != 1)
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">if</span> (fwrite(&amp;<a class="code" href="classtesseract_1_1_int_feature_space.html#aef89300f826da015e667c654f4f13520">y_buckets_</a>, <span class="keyword">sizeof</span>(<a class="code" href="classtesseract_1_1_int_feature_space.html#aef89300f826da015e667c654f4f13520">y_buckets_</a>), 1, fp) != 1)
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">if</span> (fwrite(&amp;<a class="code" href="classtesseract_1_1_int_feature_space.html#a6b90a50da76270237fe1e34b5563c0ac">theta_buckets_</a>, <span class="keyword">sizeof</span>(<a class="code" href="classtesseract_1_1_int_feature_space.html#a6b90a50da76270237fe1e34b5563c0ac">theta_buckets_</a>), 1, fp) != 1)
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a90a3d06fba59fba2178efdab7dd49539"></a><!-- doxytag: member="tesseract::IntFeatureSpace::Size" ref="a90a3d06fba59fba2178efdab7dd49539" args="() const " -->
@@ -375,6 +454,11 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intfeaturespace_8h_source.html#l00056">56</a> of file <a class="el" href="intfeaturespace_8h_source.html">intfeaturespace.h</a>.</p>
+<div class="fragment"><pre class="fragment">                   {
+    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(<a class="code" href="classtesseract_1_1_int_feature_space.html#a9914b3f353a1cbd32162f8977943e2a5">x_buckets_</a>) * <a class="code" href="classtesseract_1_1_int_feature_space.html#aef89300f826da015e667c654f4f13520">y_buckets_</a> * <a class="code" href="classtesseract_1_1_int_feature_space.html#a6b90a50da76270237fe1e34b5563c0ac">theta_buckets_</a>;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4c9c1c117c7d1a54aca71ff9251cee8b"></a><!-- doxytag: member="tesseract::IntFeatureSpace::ThetaBucket" ref="a4c9c1c117c7d1a54aca71ff9251cee8b" args="(int theta) const " -->
@@ -392,6 +476,12 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intfeaturespace_8h_source.html#l00094">94</a> of file <a class="el" href="intfeaturespace_8h_source.html">intfeaturespace.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                   {
+    <span class="keywordtype">int</span> bucket = <a class="code" href="helpers_8h.html#a29e9efc11d2c7cdfa4c30881e82999dc">DivRounded</a>(theta * <a class="code" href="classtesseract_1_1_int_feature_space.html#a6b90a50da76270237fe1e34b5563c0ac">theta_buckets_</a>, <a class="code" href="intfeaturespace_8h.html#a1ae640c2b25581cd33a392a5b614b1cd">kIntFeatureExtent</a>);
+    <span class="keywordflow">return</span> <a class="code" href="helpers_8h.html#a560c3ba94fe224dd67b10bd4cb5a6886">Modulo</a>(bucket, <a class="code" href="classtesseract_1_1_int_feature_space.html#a6b90a50da76270237fe1e34b5563c0ac">theta_buckets_</a>);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a44e0e6266a8659c487bd28c9ed599f8a"></a><!-- doxytag: member="tesseract::IntFeatureSpace::XBucket" ref="a44e0e6266a8659c487bd28c9ed599f8a" args="(int x) const " -->
@@ -409,6 +499,12 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intfeaturespace_8h_source.html#l00084">84</a> of file <a class="el" href="intfeaturespace_8h_source.html">intfeaturespace.h</a>.</p>
+<div class="fragment"><pre class="fragment">                           {
+    <span class="keywordtype">int</span> bucket = x * <a class="code" href="classtesseract_1_1_int_feature_space.html#a9914b3f353a1cbd32162f8977943e2a5">x_buckets_</a> / <a class="code" href="intfeaturespace_8h.html#a1ae640c2b25581cd33a392a5b614b1cd">kIntFeatureExtent</a>;
+    <span class="keywordflow">return</span> <a class="code" href="helpers_8h.html#af8739168d5b3235996eeb25dac3c4044">ClipToRange</a>(bucket, 0, static_cast&lt;int&gt;(<a class="code" href="classtesseract_1_1_int_feature_space.html#a9914b3f353a1cbd32162f8977943e2a5">x_buckets_</a>) - 1);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa10fb53c496f11c4042fef4ac3bebe85"></a><!-- doxytag: member="tesseract::IntFeatureSpace::XYToFeatureIndex" ref="aa10fb53c496f11c4042fef4ac3bebe85" args="(int x, int y) const " -->
@@ -436,6 +532,42 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intfeaturespace_8cpp_source.html#l00091">91</a> of file <a class="el" href="intfeaturespace_8cpp_source.html">intfeaturespace.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                        {
+  <span class="comment">// Round the x,y position to a feature. Search for a valid theta.</span>
+  <a class="code" href="struct_i_n_t___f_e_a_t_u_r_e___s_t_r_u_c_t.html">INT_FEATURE_STRUCT</a> feature = {<span class="keyword">static_cast&lt;</span><a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a><span class="keyword">&gt;</span>(x), static_cast&lt;uinT8&gt;(y),
+                                0, 0};
+  <span class="keywordtype">int</span> index = -1;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> theta = 0; theta &lt;= <a class="code" href="host_8h.html#a05682ca8de174141447ff05a2289a27c">MAX_UINT8</a> &amp;&amp; index &lt; 0; ++theta) {
+    feature.<a class="code" href="struct_i_n_t___f_e_a_t_u_r_e___s_t_r_u_c_t.html#af4a2ea6a7d9a82cba06f6ca9a126461b">Theta</a> = theta;
+    index = <a class="code" href="classtesseract_1_1_int_feature_space.html#ace7ac6191c34b569cc501a7afbb9a223">Index</a>(feature);
+  }
+  <span class="keywordflow">if</span> (index &lt; 0) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;(%d,%d) does not exist in feature space!\n&quot;</span>, x, y);
+    <span class="keywordflow">return</span> -1;
+  }
+  feature = <a class="code" href="classtesseract_1_1_int_feature_space.html#afe76aa77c41fa6362ed3630afed656f8">PositionFromIndex</a>(index);
+  <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Click at (%d, %d) -&gt;(%d, %d), -&gt;(%d, %d)\n&quot;</span>,
+          x, y, feature.<a class="code" href="struct_i_n_t___f_e_a_t_u_r_e___s_t_r_u_c_t.html#a6b250df12a9b06b5ed0c1a7c403f0275">X</a>, feature.<a class="code" href="struct_i_n_t___f_e_a_t_u_r_e___s_t_r_u_c_t.html#a09931683890fb52d22ec6c75048a2bce">Y</a>, x - feature.<a class="code" href="struct_i_n_t___f_e_a_t_u_r_e___s_t_r_u_c_t.html#a6b250df12a9b06b5ed0c1a7c403f0275">X</a>, y - feature.<a class="code" href="struct_i_n_t___f_e_a_t_u_r_e___s_t_r_u_c_t.html#a09931683890fb52d22ec6c75048a2bce">Y</a>);
+  <span class="comment">// Get the relative position of x,y from the rounded feature.</span>
+  x -= feature.<a class="code" href="struct_i_n_t___f_e_a_t_u_r_e___s_t_r_u_c_t.html#a6b250df12a9b06b5ed0c1a7c403f0275">X</a>;
+  y -= feature.<a class="code" href="struct_i_n_t___f_e_a_t_u_r_e___s_t_r_u_c_t.html#a09931683890fb52d22ec6c75048a2bce">Y</a>;
+  <span class="keywordflow">if</span> (x != 0 || y != 0) {
+    <span class="keywordtype">double</span> angle = atan2(static_cast&lt;double&gt;(y), static_cast&lt;double&gt;(x)) + <a class="code" href="const_8h.html#a598a3330b3c21701223ee0ca14316eca">PI</a>;
+    angle *= <a class="code" href="intfeaturespace_8h.html#a1ae640c2b25581cd33a392a5b614b1cd">kIntFeatureExtent</a> / (2.0 * <a class="code" href="const_8h.html#a598a3330b3c21701223ee0ca14316eca">PI</a>);
+    feature.<a class="code" href="struct_i_n_t___f_e_a_t_u_r_e___s_t_r_u_c_t.html#af4a2ea6a7d9a82cba06f6ca9a126461b">Theta</a> = <span class="keyword">static_cast&lt;</span><a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a><span class="keyword">&gt;</span>(angle + 0.5);
+    index = <a class="code" href="classtesseract_1_1_int_feature_space.html#ace7ac6191c34b569cc501a7afbb9a223">Index</a>(feature);
+    <span class="keywordflow">if</span> (index &lt; 0) {
+      <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Feature failed to map to a valid index:&quot;</span>);
+      feature.<a class="code" href="struct_i_n_t___f_e_a_t_u_r_e___s_t_r_u_c_t.html#a8e441f7715985972c22a29e4f4ab139e">print</a>();
+      <span class="keywordflow">return</span> -1;
+    }
+    feature = <a class="code" href="classtesseract_1_1_int_feature_space.html#afe76aa77c41fa6362ed3630afed656f8">PositionFromIndex</a>(index);
+  }
+  feature.<a class="code" href="struct_i_n_t___f_e_a_t_u_r_e___s_t_r_u_c_t.html#a8e441f7715985972c22a29e4f4ab139e">print</a>();
+  <span class="keywordflow">return</span> index;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a77134a64af79eaedce1380e55b07cb9a"></a><!-- doxytag: member="tesseract::IntFeatureSpace::YBucket" ref="a77134a64af79eaedce1380e55b07cb9a" args="(int y) const " -->
@@ -453,6 +585,12 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intfeaturespace_8h_source.html#l00088">88</a> of file <a class="el" href="intfeaturespace_8h_source.html">intfeaturespace.h</a>.</p>
+<div class="fragment"><pre class="fragment">                           {
+    <span class="keywordtype">int</span> bucket = y * <a class="code" href="classtesseract_1_1_int_feature_space.html#aef89300f826da015e667c654f4f13520">y_buckets_</a> / <a class="code" href="intfeaturespace_8h.html#a1ae640c2b25581cd33a392a5b614b1cd">kIntFeatureExtent</a>;
+    <span class="keywordflow">return</span> <a class="code" href="helpers_8h.html#af8739168d5b3235996eeb25dac3c4044">ClipToRange</a>(bucket, 0, static_cast&lt;int&gt;(<a class="code" href="classtesseract_1_1_int_feature_space.html#aef89300f826da015e667c654f4f13520">y_buckets_</a>) - 1);
+  }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
@@ -467,6 +605,8 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intfeaturespace_8h_source.html#l00104">104</a> of file <a class="el" href="intfeaturespace_8h_source.html">intfeaturespace.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a9914b3f353a1cbd32162f8977943e2a5"></a><!-- doxytag: member="tesseract::IntFeatureSpace::x_buckets_" ref="a9914b3f353a1cbd32162f8977943e2a5" args="" -->
@@ -479,6 +619,8 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="intfeaturespace_8h_source.html#l00102">102</a> of file <a class="el" href="intfeaturespace_8h_source.html">intfeaturespace.h</a>.</p>
 
 </div>
 </div>
@@ -493,11 +635,13 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intfeaturespace_8h_source.html#l00103">103</a> of file <a class="el" href="intfeaturespace_8h_source.html">intfeaturespace.h</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/classify/<a class="el" href="intfeaturespace_8h_source.html">intfeaturespace.h</a></li>
-<li>tesseract-ocr/classify/<a class="el" href="intfeaturespace_8cpp.html">intfeaturespace.cpp</a></li>
+<li>tesseract-ocr/classify/<a class="el" href="intfeaturespace_8cpp_source.html">intfeaturespace.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -520,7 +664,7 @@ Protected Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:15 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:50 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

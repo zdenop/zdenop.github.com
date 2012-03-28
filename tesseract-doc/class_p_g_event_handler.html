@@ -121,7 +121,10 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_p_g_event_handler.html#a9d9d15673f7d24bf751d3d67ea63ddd8">PGEventHandler</a> (<a class="el" href="classtesseract_1_1_tesseract.html">tesseract::Tesseract</a> *tess)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_p_g_event_handler.html#a12be356045e7f4b06670afd16df62862">Notify</a> (const <a class="el" href="struct_s_v_event.html">SVEvent</a> *sve)</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="pgedit_8h_source.html#l00037">37</a> of file <a class="el" href="pgedit_8h_source.html">pgedit.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a9d9d15673f7d24bf751d3d67ea63ddd8"></a><!-- doxytag: member="PGEventHandler::PGEventHandler" ref="a9d9d15673f7d24bf751d3d67ea63ddd8" args="(tesseract::Tesseract *tess)" -->
 <div class="memitem">
 <div class="memproto">
@@ -137,6 +140,10 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pgedit_8h_source.html#l00039">39</a> of file <a class="el" href="pgedit_8h_source.html">pgedit.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                            : tess_(tess) {
+   }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -159,11 +166,28 @@ Public Member Functions</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="class_s_v_event_handler.html#a7f4f886aeca11e15ceab97833f070887">SVEventHandler</a>.</p>
 
+<p>Definition at line <a class="el" href="pgedit_8cpp_source.html#l00234">234</a> of file <a class="el" href="pgedit_8cpp_source.html">pgedit.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                {
+  <span class="keywordtype">char</span> myval = <span class="charliteral">&#39;0&#39;</span>;
+  <span class="keywordflow">if</span> (event-&gt;<a class="code" href="struct_s_v_event.html#a5bf8585bd1901b9103eb2783f8afe508">type</a> == <a class="code" href="scrollview_8h.html#a3688a0cf2f95d10a57e095222ccfe9a0a3752863b11af097f289eb55405df8fa5">SVET_POPUP</a>) {
+    <a class="code" href="pgedit_8cpp.html#a1c3a3486da4ecba85e27f19b85e77aec">pe</a>-&gt;<a class="code" href="class_params_editor.html#abdb6c0426283a5270066c358c638489c">Notify</a>(event);
+  } <span class="comment">// These are handled by ParamsEditor</span>
+  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (event-&gt;<a class="code" href="struct_s_v_event.html#a5bf8585bd1901b9103eb2783f8afe508">type</a> == <a class="code" href="scrollview_8h.html#a3688a0cf2f95d10a57e095222ccfe9a0a317899e24e3c2342d1dd2c6cdadde5d7">SVET_EXIT</a>) { <a class="code" href="pgedit_8cpp.html#adcfaa97ce4970c7cbfdd833c705e75d8">stillRunning</a> = <span class="keyword">false</span>; }
+  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (event-&gt;<a class="code" href="struct_s_v_event.html#a5bf8585bd1901b9103eb2783f8afe508">type</a> == <a class="code" href="scrollview_8h.html#a3688a0cf2f95d10a57e095222ccfe9a0aaf25c15351aa38a45513fe391dc73a11">SVET_MENU</a>) {
+     <span class="keywordflow">if</span> (strcmp(event-&gt;<a class="code" href="struct_s_v_event.html#a6e0de466c57df117c731bfb4db68fc79">parameter</a>, <span class="stringliteral">&quot;true&quot;</span>) == 0) { myval = <span class="charliteral">&#39;T&#39;</span>; }
+     <span class="keywordflow">else</span> <span class="keywordflow">if</span> (strcmp(event-&gt;<a class="code" href="struct_s_v_event.html#a6e0de466c57df117c731bfb4db68fc79">parameter</a>, <span class="stringliteral">&quot;false&quot;</span>) == 0) { myval = <span class="charliteral">&#39;F&#39;</span>; }
+     tess_-&gt;<a class="code" href="classtesseract_1_1_tesseract.html#acb654f2fcfd0034a04247c15fbd0c8db">process_cmd_win_event</a>(event-&gt;<a class="code" href="struct_s_v_event.html#ad0db5c2aa893a41b6c6f65b9d3f62318">command_id</a>, &amp;myval);
+  }
+  <span class="keywordflow">else</span> {
+    tess_-&gt;<a class="code" href="classtesseract_1_1_tesseract.html#a0d018bb13a3e3c7e76992ba372664dd7">process_image_event</a>(*event);
+  }
+}
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/ccmain/<a class="el" href="pgedit_8h_source.html">pgedit.h</a></li>
-<li>tesseract-ocr/ccmain/<a class="el" href="pgedit_8cpp.html">pgedit.cpp</a></li>
+<li>tesseract-ocr/ccmain/<a class="el" href="pgedit_8cpp_source.html">pgedit.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -185,7 +209,7 @@ Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:13 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:46 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

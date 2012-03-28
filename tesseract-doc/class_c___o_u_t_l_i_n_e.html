@@ -155,7 +155,10 @@ Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_c___o_u_t_l_i_n_e.html">C_OUTLINE</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c___o_u_t_l_i_n_e.html#aae5feeba94ae0da9e9ce1068d5e53a56">deep_copy</a> (const <a class="el" href="class_c___o_u_t_l_i_n_e.html">C_OUTLINE</a> *src)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_i_c_o_o_r_d.html">ICOORD</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c___o_u_t_l_i_n_e.html#a91c7142e3c30cb40e5c84cb1a94b662e">chain_step</a> (int chaindir)</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="coutln_8h_source.html#l00044">44</a> of file <a class="el" href="coutln_8h_source.html">coutln.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="abf2cc6e2c887e631f63f3b3726c863de"></a><!-- doxytag: member="C_OUTLINE::C_OUTLINE" ref="abf2cc6e2c887e631f63f3b3726c863de" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -170,6 +173,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="coutln_8h_source.html#l00047">47</a> of file <a class="el" href="coutln_8h_source.html">coutln.h</a>.</p>
+<div class="fragment"><pre class="fragment">                {  <span class="comment">//empty constructor</span>
+      steps = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a11d9691a2c6e125dfd79e10abf81288f"></a><!-- doxytag: member="C_OUTLINE::C_OUTLINE" ref="a11d9691a2c6e125dfd79e10abf81288f" args="(CRACKEDGE *startpt, ICOORD bot_left, ICOORD top_right, inT16 length)" -->
@@ -209,6 +217,28 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="coutln_8cpp_source.html#l00044">44</a> of file <a class="el" href="coutln_8cpp_source.html">coutln.cpp</a>.</p>
+<div class="fragment"><pre class="fragment"> :box (bot_left, top_right), start (startpt-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#ae7bcdb1f6f28f612a0ff4ace03b38165">pos</a>) {
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> stepindex;               <span class="comment">//index to step</span>
+  <a class="code" href="class_c_r_a_c_k_e_d_g_e.html">CRACKEDGE</a> *edgept;             <span class="comment">//current point</span>
+
+  stepcount = length;            <span class="comment">//no of steps</span>
+  <span class="keywordflow">if</span> (length == 0) {
+    steps = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    <span class="keywordflow">return</span>;
+  }
+                                 <span class="comment">//get memory</span>
+  steps = (<a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a> *) <a class="code" href="memry_8cpp.html#a4c14b091498fb7866a1dd0af51a591fe">alloc_mem</a> (step_mem());
+  memset(steps, 0, step_mem());
+  edgept = startpt;
+
+  <span class="keywordflow">for</span> (stepindex = 0; stepindex &lt; length; stepindex++) {
+                                 <span class="comment">//set compact step</span>
+    <a class="code" href="class_c___o_u_t_l_i_n_e.html#a7a19e572d11e3880a37a2f08e248dee5">set_step</a> (stepindex, edgept-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a9d7eda07653a7c0831d92630a1668dc3">stepdir</a>);
+    edgept = edgept-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a65662bdae2f4b5a3b670791fa6d6d44a">next</a>;
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad63642d9b727692347634add38427e8d"></a><!-- doxytag: member="C_OUTLINE::C_OUTLINE" ref="ad63642d9b727692347634add38427e8d" args="(ICOORD startpt, DIR128 *new_steps, inT16 length)" -->
@@ -242,6 +272,56 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="coutln_8cpp_source.html#l00076">76</a> of file <a class="el" href="coutln_8cpp_source.html">coutln.cpp</a>.</p>
+<div class="fragment"><pre class="fragment"> :start (startpt) {
+  <a class="code" href="host_8h.html#a2ba4d271e85baf0d333318985cb3bced">inT8</a> dirdiff;                  <span class="comment">//direction difference</span>
+  <a class="code" href="class_d_i_r128.html">DIR128</a> prevdir;                <span class="comment">//previous direction</span>
+  <a class="code" href="class_d_i_r128.html">DIR128</a> dir;                    <span class="comment">//current direction</span>
+  <a class="code" href="class_d_i_r128.html">DIR128</a> lastdir;                <span class="comment">//dir of last step</span>
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> new_box;                   <span class="comment">//easy bounding</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> stepindex;               <span class="comment">//index to step</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> srcindex;                <span class="comment">//source steps</span>
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> pos;                    <span class="comment">//current position</span>
+
+  pos = startpt;
+  stepcount = length;            <span class="comment">//no of steps</span>
+                                 <span class="comment">//get memory</span>
+  steps = (<a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a> *) <a class="code" href="memry_8cpp.html#a4c14b091498fb7866a1dd0af51a591fe">alloc_mem</a> (step_mem());
+  memset(steps, 0, step_mem());
+
+  lastdir = new_steps[length - 1];
+  prevdir = lastdir;
+  <span class="keywordflow">for</span> (stepindex = 0, srcindex = 0; srcindex &lt; length;
+  stepindex++, srcindex++) {
+    new_box = <a class="code" href="class_t_b_o_x.html">TBOX</a> (pos, pos);
+    box += new_box;
+                                 <span class="comment">//copy steps</span>
+    dir = new_steps[srcindex];
+    <a class="code" href="class_c___o_u_t_l_i_n_e.html#a7a19e572d11e3880a37a2f08e248dee5">set_step</a>(stepindex, dir);
+    dirdiff = dir - prevdir;
+    pos += <a class="code" href="class_c___o_u_t_l_i_n_e.html#af6831ec849fb5ab1f2b49517fbbd5f85">step</a> (stepindex);
+    <span class="keywordflow">if</span> ((dirdiff == 64 || dirdiff == -64) &amp;&amp; stepindex &gt; 0) {
+      stepindex -= 2;            <span class="comment">//cancel there-and-back</span>
+      prevdir = stepindex &gt;= 0 ? <a class="code" href="class_c___o_u_t_l_i_n_e.html#aadf769d4ac2a73d15f8d544fb152d1d9">step_dir</a> (stepindex) : lastdir;
+    }
+    <span class="keywordflow">else</span>
+      prevdir = dir;
+  }
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a> (pos.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () == startpt.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () &amp;&amp; pos.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () == startpt.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ());
+  <span class="keywordflow">do</span> {
+    dirdiff = <a class="code" href="class_c___o_u_t_l_i_n_e.html#aadf769d4ac2a73d15f8d544fb152d1d9">step_dir</a> (stepindex - 1) - <a class="code" href="class_c___o_u_t_l_i_n_e.html#aadf769d4ac2a73d15f8d544fb152d1d9">step_dir</a> (0);
+    <span class="keywordflow">if</span> (dirdiff == 64 || dirdiff == -64) {
+      start += <a class="code" href="class_c___o_u_t_l_i_n_e.html#af6831ec849fb5ab1f2b49517fbbd5f85">step</a> (0);
+      stepindex -= 2;            <span class="comment">//cancel there-and-back</span>
+      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; stepindex; ++i)
+        <a class="code" href="class_c___o_u_t_l_i_n_e.html#a7a19e572d11e3880a37a2f08e248dee5">set_step</a>(i, <a class="code" href="class_c___o_u_t_l_i_n_e.html#aadf769d4ac2a73d15f8d544fb152d1d9">step_dir</a>(i + 1));
+    }
+  }
+  <span class="keywordflow">while</span> (stepindex &gt; 1 &amp;&amp; (dirdiff == 64 || dirdiff == -64));
+  stepcount = stepindex;
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a> (stepcount &gt;= 4);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a32a469c95068e703e98ddf992c1756ae"></a><!-- doxytag: member="C_OUTLINE::C_OUTLINE" ref="a32a469c95068e703e98ddf992c1756ae" args="(C_OUTLINE *srcline, FCOORD rotation)" -->
@@ -269,6 +349,104 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="coutln_8cpp_source.html#l00136">136</a> of file <a class="el" href="coutln_8cpp_source.html">coutln.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                      {
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> new_box;                   <span class="comment">//easy bounding</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> stepindex;               <span class="comment">//index to step</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> dirdiff;                 <span class="comment">//direction change</span>
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> pos;                    <span class="comment">//current position</span>
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> prevpos;                <span class="comment">//previous dest point</span>
+
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> destpos;                <span class="comment">//destination point</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> destindex;               <span class="comment">//index to step</span>
+  <a class="code" href="class_d_i_r128.html">DIR128</a> dir;                    <span class="comment">//coded direction</span>
+  <a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a> new_step;
+
+  stepcount = srcline-&gt;stepcount * 2;
+  <span class="keywordflow">if</span> (stepcount == 0) {
+    steps = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    box = srcline-&gt;box;
+    box.<a class="code" href="class_t_b_o_x.html#a428e14544aeb44064bc8637d920211a0">rotate</a>(rotation);
+    <span class="keywordflow">return</span>;
+  }
+                                 <span class="comment">//get memory</span>
+  steps = (<a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a> *) <a class="code" href="memry_8cpp.html#a4c14b091498fb7866a1dd0af51a591fe">alloc_mem</a> (step_mem());
+  memset(steps, 0, step_mem());
+
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> iteration = 0; iteration &lt; 2; ++iteration) {
+    <a class="code" href="class_d_i_r128.html">DIR128</a> round1 = iteration == 0 ? 32 : 0;
+    <a class="code" href="class_d_i_r128.html">DIR128</a> round2 = iteration != 0 ? 32 : 0;
+    pos = srcline-&gt;start;
+    prevpos = pos;
+    prevpos.<a class="code" href="class_i_c_o_o_r_d.html#aaedd825587ccb78583bbd6717793faea">rotate</a> (rotation);
+    start = prevpos;
+    box = <a class="code" href="class_t_b_o_x.html">TBOX</a> (start, start);
+    destindex = 0;
+    <span class="keywordflow">for</span> (stepindex = 0; stepindex &lt; srcline-&gt;stepcount; stepindex++) {
+      pos += srcline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#af6831ec849fb5ab1f2b49517fbbd5f85">step</a> (stepindex);
+      destpos = pos;
+      destpos.<a class="code" href="class_i_c_o_o_r_d.html#aaedd825587ccb78583bbd6717793faea">rotate</a> (rotation);
+      <span class="comment">//  printf(&quot;%i %i %i %i &quot;, destpos.x(), destpos.y(), pos.x(), pos.y());</span>
+      <span class="keywordflow">while</span> (destpos.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () != prevpos.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () || destpos.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () != prevpos.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ()) {
+        dir = <a class="code" href="class_d_i_r128.html">DIR128</a> (<a class="code" href="class_f_c_o_o_r_d.html">FCOORD</a> (destpos - prevpos));
+        dir += 64;                 <span class="comment">//turn to step style</span>
+        new_step = dir.<a class="code" href="class_d_i_r128.html#a20420b3fa5c0968a2ebb0763c7e43c2f">get_dir</a> ();
+        <span class="comment">//  printf(&quot; %i\n&quot;, new_step);</span>
+        <span class="keywordflow">if</span> (new_step &amp; 31) {
+          <a class="code" href="class_c___o_u_t_l_i_n_e.html#a7a19e572d11e3880a37a2f08e248dee5">set_step</a>(destindex++, dir + round1);
+          prevpos += <a class="code" href="class_c___o_u_t_l_i_n_e.html#af6831ec849fb5ab1f2b49517fbbd5f85">step</a>(destindex - 1);
+          <span class="keywordflow">if</span> (destindex &lt; 2
+            || ((dirdiff =
+            <a class="code" href="class_c___o_u_t_l_i_n_e.html#aadf769d4ac2a73d15f8d544fb152d1d9">step_dir</a> (destindex - 1) - <a class="code" href="class_c___o_u_t_l_i_n_e.html#aadf769d4ac2a73d15f8d544fb152d1d9">step_dir</a> (destindex - 2)) !=
+            -64 &amp;&amp; dirdiff != 64)) {
+            <a class="code" href="class_c___o_u_t_l_i_n_e.html#a7a19e572d11e3880a37a2f08e248dee5">set_step</a>(destindex++, dir + round2);
+            prevpos += <a class="code" href="class_c___o_u_t_l_i_n_e.html#af6831ec849fb5ab1f2b49517fbbd5f85">step</a>(destindex - 1);
+          } <span class="keywordflow">else</span> {
+            prevpos -= <a class="code" href="class_c___o_u_t_l_i_n_e.html#af6831ec849fb5ab1f2b49517fbbd5f85">step</a>(destindex - 1);
+            destindex--;
+            prevpos -= <a class="code" href="class_c___o_u_t_l_i_n_e.html#af6831ec849fb5ab1f2b49517fbbd5f85">step</a>(destindex - 1);
+            <a class="code" href="class_c___o_u_t_l_i_n_e.html#a7a19e572d11e3880a37a2f08e248dee5">set_step</a>(destindex - 1, dir + round2);
+            prevpos += <a class="code" href="class_c___o_u_t_l_i_n_e.html#af6831ec849fb5ab1f2b49517fbbd5f85">step</a>(destindex - 1);
+          }
+        }
+        <span class="keywordflow">else</span> {
+          <a class="code" href="class_c___o_u_t_l_i_n_e.html#a7a19e572d11e3880a37a2f08e248dee5">set_step</a>(destindex++, dir);
+          prevpos += <a class="code" href="class_c___o_u_t_l_i_n_e.html#af6831ec849fb5ab1f2b49517fbbd5f85">step</a>(destindex - 1);
+        }
+        <span class="keywordflow">while</span> (destindex &gt;= 2 &amp;&amp;
+               ((dirdiff =
+                 <a class="code" href="class_c___o_u_t_l_i_n_e.html#aadf769d4ac2a73d15f8d544fb152d1d9">step_dir</a> (destindex - 1) - <a class="code" href="class_c___o_u_t_l_i_n_e.html#aadf769d4ac2a73d15f8d544fb152d1d9">step_dir</a> (destindex - 2)) == -64 ||
+                dirdiff == 64)) {
+          prevpos -= <a class="code" href="class_c___o_u_t_l_i_n_e.html#af6831ec849fb5ab1f2b49517fbbd5f85">step</a>(destindex - 1);
+          prevpos -= <a class="code" href="class_c___o_u_t_l_i_n_e.html#af6831ec849fb5ab1f2b49517fbbd5f85">step</a>(destindex - 2);
+          destindex -= 2;        <span class="comment">// Forget u turn</span>
+        }
+        <span class="comment">//ASSERT_HOST(prevpos.x() == destpos.x() &amp;&amp; prevpos.y() == destpos.y());</span>
+        new_box = <a class="code" href="class_t_b_o_x.html">TBOX</a> (destpos, destpos);
+        box += new_box;
+      }
+    }
+    <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a> (destpos.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () == start.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () &amp;&amp; destpos.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () == start.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ());
+    dirdiff = <a class="code" href="class_c___o_u_t_l_i_n_e.html#aadf769d4ac2a73d15f8d544fb152d1d9">step_dir</a> (destindex - 1) - <a class="code" href="class_c___o_u_t_l_i_n_e.html#aadf769d4ac2a73d15f8d544fb152d1d9">step_dir</a> (0);
+    <span class="keywordflow">while</span> ((dirdiff == 64 || dirdiff == -64) &amp;&amp; destindex &gt; 1) {
+      start += <a class="code" href="class_c___o_u_t_l_i_n_e.html#af6831ec849fb5ab1f2b49517fbbd5f85">step</a> (0);
+      destindex -= 2;
+      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; destindex; ++i)
+        <a class="code" href="class_c___o_u_t_l_i_n_e.html#a7a19e572d11e3880a37a2f08e248dee5">set_step</a>(i, <a class="code" href="class_c___o_u_t_l_i_n_e.html#aadf769d4ac2a73d15f8d544fb152d1d9">step_dir</a>(i + 1));
+      dirdiff = <a class="code" href="class_c___o_u_t_l_i_n_e.html#aadf769d4ac2a73d15f8d544fb152d1d9">step_dir</a> (destindex - 1) - <a class="code" href="class_c___o_u_t_l_i_n_e.html#aadf769d4ac2a73d15f8d544fb152d1d9">step_dir</a> (0);
+    }
+    <span class="keywordflow">if</span> (destindex &gt;= 4)
+      <span class="keywordflow">break</span>;
+  }
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(destindex &lt;= stepcount);
+  stepcount = destindex;
+  destpos = start;
+  <span class="keywordflow">for</span> (stepindex = 0; stepindex &lt; stepcount; stepindex++) {
+    destpos += <a class="code" href="class_c___o_u_t_l_i_n_e.html#af6831ec849fb5ab1f2b49517fbbd5f85">step</a> (stepindex);
+  }
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a> (destpos.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () == start.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () &amp;&amp; destpos.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () == start.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ());
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a8676545f2b66d2434fe37445bdcd2933"></a><!-- doxytag: member="C_OUTLINE::~C_OUTLINE" ref="a8676545f2b66d2434fe37445bdcd2933" args="()" -->
@@ -285,6 +463,13 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="coutln_8h_source.html#l00064">64</a> of file <a class="el" href="coutln_8h_source.html">coutln.h</a>.</p>
+<div class="fragment"><pre class="fragment">                  {              <span class="comment">//destructor</span>
+      <span class="keywordflow">if</span> (steps != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+        <a class="code" href="memry_8cpp.html#a9ef1862b8e026e23eef238af032858e4">free_mem</a>(steps);
+      steps = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -302,6 +487,33 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="coutln_8cpp_source.html#l00253">253</a> of file <a class="el" href="coutln_8cpp_source.html">coutln.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                      {  <span class="comment">//winding number</span>
+  <span class="keywordtype">int</span> stepindex;                 <span class="comment">//current step</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> total_steps;             <span class="comment">//steps to do</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> total;                   <span class="comment">//total area</span>
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> pos;                    <span class="comment">//position of point</span>
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> next_step;              <span class="comment">//step to next pix</span>
+  C_OUTLINE_IT it = <a class="code" href="class_c___o_u_t_l_i_n_e.html#a87880b33bc69fa17ab37a93706ae8d84">child</a> ();
+
+  pos = <a class="code" href="class_c___o_u_t_l_i_n_e.html#a0f9fef7d74691bbcf45faa2272600500">start_pos</a> ();
+  total_steps = <a class="code" href="class_c___o_u_t_l_i_n_e.html#afb87d87d3d48e964937b068f55f3ca3a">pathlength</a> ();
+  total = 0;
+  <span class="keywordflow">for</span> (stepindex = 0; stepindex &lt; total_steps; stepindex++) {
+                                 <span class="comment">//all intersected</span>
+    next_step = <a class="code" href="class_c___o_u_t_l_i_n_e.html#af6831ec849fb5ab1f2b49517fbbd5f85">step</a> (stepindex);
+    <span class="keywordflow">if</span> (next_step.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () &lt; 0)
+      total += pos.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ();
+    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (next_step.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () &gt; 0)
+      total -= pos.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ();
+    pos += next_step;
+  }
+  <span class="keywordflow">for</span> (it.mark_cycle_pt (); !it.cycled_list (); it.forward ())
+    total += it.data ()-&gt;area ();<span class="comment">//add areas of children</span>
+
+  <span class="keywordflow">return</span> total;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6481db8e9c00281f20f45df48d499679"></a><!-- doxytag: member="C_OUTLINE::bounding_box" ref="a6481db8e9c00281f20f45df48d499679" args="() const " -->
@@ -318,6 +530,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="coutln_8h_source.html#l00085">85</a> of file <a class="el" href="coutln_8h_source.html">coutln.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                     {
+      <span class="keywordflow">return</span> box;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a91c7142e3c30cb40e5c84cb1a94b662e"></a><!-- doxytag: member="C_OUTLINE::chain_step" ref="a91c7142e3c30cb40e5c84cb1a94b662e" args="(int chaindir)" -->
@@ -335,6 +552,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="coutln_8cpp_source.html#l00723">723</a> of file <a class="el" href="coutln_8cpp_source.html">coutln.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                         {
+  <span class="keywordflow">return</span> step_coords[chaindir % 4];
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a87880b33bc69fa17ab37a93706ae8d84"></a><!-- doxytag: member="C_OUTLINE::child" ref="a87880b33bc69fa17ab37a93706ae8d84" args="()" -->
@@ -351,6 +573,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="coutln_8h_source.html#l00080">80</a> of file <a class="el" href="coutln_8h_source.html">coutln.h</a>.</p>
+<div class="fragment"><pre class="fragment">                            {  <span class="comment">//get child list</span>
+      <span class="keywordflow">return</span> &amp;children;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9f148e64396ba81a4b37635ac31bc19e"></a><!-- doxytag: member="C_OUTLINE::count_transitions" ref="a9f148e64396ba81a4b37635ac31bc19e" args="(inT32 threshold)" -->
@@ -368,6 +595,126 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="coutln_8cpp_source.html#l00335">335</a> of file <a class="el" href="coutln_8cpp_source.html">coutln.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                    {
+  <a class="code" href="host_8h.html#a7712a7e28433d0ade59219a129549b6f">BOOL8</a> first_was_max_x;         <span class="comment">//what was first</span>
+  <a class="code" href="host_8h.html#a7712a7e28433d0ade59219a129549b6f">BOOL8</a> first_was_max_y;
+  <a class="code" href="host_8h.html#a7712a7e28433d0ade59219a129549b6f">BOOL8</a> looking_for_max_x;       <span class="comment">//what is next</span>
+  <a class="code" href="host_8h.html#a7712a7e28433d0ade59219a129549b6f">BOOL8</a> looking_for_min_x;
+  <a class="code" href="host_8h.html#a7712a7e28433d0ade59219a129549b6f">BOOL8</a> looking_for_max_y;       <span class="comment">//what is next</span>
+  <a class="code" href="host_8h.html#a7712a7e28433d0ade59219a129549b6f">BOOL8</a> looking_for_min_y;
+  <span class="keywordtype">int</span> stepindex;                 <span class="comment">//current step</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> total_steps;             <span class="comment">//steps to do</span>
+                                 <span class="comment">//current limits</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> max_x, min_x, max_y, min_y;
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> initial_x, initial_y;    <span class="comment">//initial limits</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> total;                   <span class="comment">//total changes</span>
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> pos;                    <span class="comment">//position of point</span>
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> next_step;              <span class="comment">//step to next pix</span>
+
+  pos = <a class="code" href="class_c___o_u_t_l_i_n_e.html#a0f9fef7d74691bbcf45faa2272600500">start_pos</a> ();
+  total_steps = <a class="code" href="class_c___o_u_t_l_i_n_e.html#afb87d87d3d48e964937b068f55f3ca3a">pathlength</a> ();
+  total = 0;
+  max_x = min_x = pos.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ();
+  max_y = min_y = pos.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ();
+  looking_for_max_x = <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+  looking_for_min_x = <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+  looking_for_max_y = <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+  looking_for_min_y = <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+  first_was_max_x = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+  first_was_max_y = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+  initial_x = pos.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ();
+  initial_y = pos.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ();          <span class="comment">//stop uninit warning</span>
+  <span class="keywordflow">for</span> (stepindex = 0; stepindex &lt; total_steps; stepindex++) {
+                                 <span class="comment">//all intersected</span>
+    next_step = <a class="code" href="class_c___o_u_t_l_i_n_e.html#af6831ec849fb5ab1f2b49517fbbd5f85">step</a> (stepindex);
+    pos += next_step;
+    <span class="keywordflow">if</span> (next_step.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () &lt; 0) {
+      <span class="keywordflow">if</span> (looking_for_max_x &amp;&amp; pos.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () &lt; min_x)
+        min_x = pos.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ();
+      <span class="keywordflow">if</span> (looking_for_min_x &amp;&amp; max_x - pos.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () &gt; threshold) {
+        <span class="keywordflow">if</span> (looking_for_max_x) {
+          initial_x = max_x;
+          first_was_max_x = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+        }
+        total++;
+        looking_for_max_x = <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+        looking_for_min_x = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+        min_x = pos.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ();        <span class="comment">//reset min</span>
+      }
+    }
+    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (next_step.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () &gt; 0) {
+      <span class="keywordflow">if</span> (looking_for_min_x &amp;&amp; pos.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () &gt; max_x)
+        max_x = pos.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ();
+      <span class="keywordflow">if</span> (looking_for_max_x &amp;&amp; pos.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () - min_x &gt; threshold) {
+        <span class="keywordflow">if</span> (looking_for_min_x) {
+          initial_x = min_x;     <span class="comment">//remember first min</span>
+          first_was_max_x = <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+        }
+        total++;
+        looking_for_max_x = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+        looking_for_min_x = <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+        max_x = pos.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ();
+      }
+    }
+    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (next_step.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () &lt; 0) {
+      <span class="keywordflow">if</span> (looking_for_max_y &amp;&amp; pos.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () &lt; min_y)
+        min_y = pos.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ();
+      <span class="keywordflow">if</span> (looking_for_min_y &amp;&amp; max_y - pos.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () &gt; threshold) {
+        <span class="keywordflow">if</span> (looking_for_max_y) {
+          initial_y = max_y;     <span class="comment">//remember first max</span>
+          first_was_max_y = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+        }
+        total++;
+        looking_for_max_y = <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+        looking_for_min_y = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+        min_y = pos.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ();        <span class="comment">//reset min</span>
+      }
+    }
+    <span class="keywordflow">else</span> {
+      <span class="keywordflow">if</span> (looking_for_min_y &amp;&amp; pos.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () &gt; max_y)
+        max_y = pos.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ();
+      <span class="keywordflow">if</span> (looking_for_max_y &amp;&amp; pos.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () - min_y &gt; threshold) {
+        <span class="keywordflow">if</span> (looking_for_min_y) {
+          initial_y = min_y;     <span class="comment">//remember first min</span>
+          first_was_max_y = <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+        }
+        total++;
+        looking_for_max_y = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+        looking_for_min_y = <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+        max_y = pos.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ();
+      }
+    }
+
+  }
+  <span class="keywordflow">if</span> (first_was_max_x &amp;&amp; looking_for_min_x) {
+    <span class="keywordflow">if</span> (max_x - initial_x &gt; threshold)
+      total++;
+    <span class="keywordflow">else</span>
+      total--;
+  }
+  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (!first_was_max_x &amp;&amp; looking_for_max_x) {
+    <span class="keywordflow">if</span> (initial_x - min_x &gt; threshold)
+      total++;
+    <span class="keywordflow">else</span>
+      total--;
+  }
+  <span class="keywordflow">if</span> (first_was_max_y &amp;&amp; looking_for_min_y) {
+    <span class="keywordflow">if</span> (max_y - initial_y &gt; threshold)
+      total++;
+    <span class="keywordflow">else</span>
+      total--;
+  }
+  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (!first_was_max_y &amp;&amp; looking_for_max_y) {
+    <span class="keywordflow">if</span> (initial_y - min_y &gt; threshold)
+      total++;
+    <span class="keywordflow">else</span>
+      total--;
+  }
+
+  <span class="keywordflow">return</span> total;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aae5feeba94ae0da9e9ce1068d5e53a56"></a><!-- doxytag: member="C_OUTLINE::deep_copy" ref="aae5feeba94ae0da9e9ce1068d5e53a56" args="(const C_OUTLINE *src)" -->
@@ -385,6 +732,13 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="coutln_8h_source.html#l00167">167</a> of file <a class="el" href="coutln_8h_source.html">coutln.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                      {
+      <a class="code" href="class_c___o_u_t_l_i_n_e.html">C_OUTLINE</a>* outline = <span class="keyword">new</span> <a class="code" href="class_c___o_u_t_l_i_n_e.html#abf2cc6e2c887e631f63f3b3726c863de">C_OUTLINE</a>;
+      *outline = *src;
+      <span class="keywordflow">return</span> outline;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad89c52ef05cdb0819226ab63aad43e62"></a><!-- doxytag: member="C_OUTLINE::FakeOutline" ref="ad89c52ef05cdb0819226ab63aad43e62" args="(const TBOX &amp;box, C_OUTLINE_LIST *outlines)" -->
@@ -412,6 +766,17 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="coutln_8cpp_source.html#l00237">237</a> of file <a class="el" href="coutln_8cpp_source.html">coutln.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                     {
+  C_OUTLINE_IT ol_it(outlines);
+  <span class="comment">// Make a C_OUTLINE from the bounds. This is a bit of a hack,</span>
+  <span class="comment">// as there is no outline, just a bounding box, but it works nicely.</span>
+  <a class="code" href="class_c_r_a_c_k_e_d_g_e.html">CRACKEDGE</a> start;
+  start.<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#ae7bcdb1f6f28f612a0ff4ace03b38165">pos</a> = box.<a class="code" href="class_t_b_o_x.html#ad6f19fe78e5fcc3a824310d3f75ad358">topleft</a>();
+  <a class="code" href="class_c___o_u_t_l_i_n_e.html">C_OUTLINE</a>* outline = <span class="keyword">new</span> <a class="code" href="class_c___o_u_t_l_i_n_e.html#abf2cc6e2c887e631f63f3b3726c863de">C_OUTLINE</a>(&amp;start, box.<a class="code" href="class_t_b_o_x.html#ad6f19fe78e5fcc3a824310d3f75ad358">topleft</a>(), box.<a class="code" href="class_t_b_o_x.html#a24d69d48b18162bf1c8e9e62ec00ecfe">botright</a>(), 0);
+  ol_it.add_to_end(outline);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2baf0e6c55d9776ec014ba9c7e26c83f"></a><!-- doxytag: member="C_OUTLINE::flag" ref="a2baf0e6c55d9776ec014ba9c7e26c83f" args="(C_OUTLINE_FLAGS mask) const " -->
@@ -429,6 +794,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="coutln_8h_source.html#l00070">70</a> of file <a class="el" href="coutln_8h_source.html">coutln.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                           {  <span class="comment">//flag to test</span>
+      <span class="keywordflow">return</span> flags.<a class="code" href="class_b_i_t_s16.html#ac27859e65a8bc01c7881cbb6888e73ac">bit</a> (mask);
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a96fc32c265811ddb0f65f83ffc810fa9"></a><!-- doxytag: member="C_OUTLINE::move" ref="a96fc32c265811ddb0f65f83ffc810fa9" args="(const ICOORD vec)" -->
@@ -446,6 +816,17 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="coutln_8cpp_source.html#l00592">592</a> of file <a class="el" href="coutln_8cpp_source.html">coutln.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                      {
+  C_OUTLINE_IT it(&amp;children);  <span class="comment">// iterator</span>
+
+  box.<a class="code" href="class_t_b_o_x.html#a5fb1ce0d624392f72f82933e63f20e71">move</a> (vec);
+  start += vec;
+
+  <span class="keywordflow">for</span> (it.mark_cycle_pt (); !it.cycled_list (); it.forward ())
+    it.data ()-&gt;move (vec);      <span class="comment">// move child outlines</span>
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a495c4b346d4ba41b979cb4a4f4cbdf0e"></a><!-- doxytag: member="C_OUTLINE::operator&lt;" ref="a495c4b346d4ba41b979cb4a4f4cbdf0e" args="(const C_OUTLINE &amp;other) const " -->
@@ -463,6 +844,33 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="coutln_8cpp_source.html#l00464">464</a> of file <a class="el" href="coutln_8cpp_source.html">coutln.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">{
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> <a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a> = 0;               <span class="comment">//winding count</span>
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> pos;                    <span class="comment">//position of point</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> stepindex;               <span class="comment">//index to cstep</span>
+
+  <span class="keywordflow">if</span> (!box.<a class="code" href="class_t_b_o_x.html#adcc7d2858ccb61cd715dbcff32bd5582">overlap</a> (other.box))
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;                <span class="comment">//can&#39;t be contained</span>
+  <span class="keywordflow">if</span> (stepcount == 0)
+    <span class="keywordflow">return</span> other.box.<a class="code" href="class_t_b_o_x.html#a5d4e2c5f91b791e94d4c94e513180632">contains</a>(this-&gt;box);
+
+  pos = start;
+  <span class="keywordflow">for</span> (stepindex = 0; stepindex &lt; stepcount
+    &amp;&amp; (count = other.<a class="code" href="class_c___o_u_t_l_i_n_e.html#a68600b305c5495fa4f6ecad316b44a7f">winding_number</a> (pos)) == <a class="code" href="coutln_8h.html#a19d14ec91d9d1960d7c43d6b7df9afca">INTERSECTING</a>; stepindex++)
+    pos += <a class="code" href="class_c___o_u_t_l_i_n_e.html#af6831ec849fb5ab1f2b49517fbbd5f85">step</a> (stepindex);     <span class="comment">//try all points</span>
+  <span class="keywordflow">if</span> (count == <a class="code" href="coutln_8h.html#a19d14ec91d9d1960d7c43d6b7df9afca">INTERSECTING</a>) {
+                                 <span class="comment">//all intersected</span>
+    pos = other.start;
+    <span class="keywordflow">for</span> (stepindex = 0; stepindex &lt; other.stepcount
+      &amp;&amp; (count = <a class="code" href="class_c___o_u_t_l_i_n_e.html#a68600b305c5495fa4f6ecad316b44a7f">winding_number</a> (pos)) == <a class="code" href="coutln_8h.html#a19d14ec91d9d1960d7c43d6b7df9afca">INTERSECTING</a>; stepindex++)
+                                 <span class="comment">//try other way round</span>
+      pos += other.<a class="code" href="class_c___o_u_t_l_i_n_e.html#af6831ec849fb5ab1f2b49517fbbd5f85">step</a> (stepindex);
+    <span class="keywordflow">return</span> count == <a class="code" href="coutln_8h.html#a19d14ec91d9d1960d7c43d6b7df9afca">INTERSECTING</a> || count == 0;
+  }
+  <span class="keywordflow">return</span> count != 0;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="af5d67c4ac07afff8a696c948c8f0801d"></a><!-- doxytag: member="C_OUTLINE::operator=" ref="af5d67c4ac07afff8a696c948c8f0801d" args="(const C_OUTLINE &amp;source)" -->
@@ -480,6 +888,21 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="coutln_8cpp_source.html#l00707">707</a> of file <a class="el" href="coutln_8cpp_source.html">coutln.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">  {
+  box = source.box;
+  start = source.start;
+  <span class="keywordflow">if</span> (steps != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <a class="code" href="memry_8cpp.html#a9ef1862b8e026e23eef238af032858e4">free_mem</a>(steps);
+  stepcount = source.stepcount;
+  steps = (<a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a> *) <a class="code" href="memry_8cpp.html#a4c14b091498fb7866a1dd0af51a591fe">alloc_mem</a> (step_mem());
+  memmove (steps, source.steps, step_mem());
+  <span class="keywordflow">if</span> (!children.empty ())
+    children.clear ();
+  children.deep_copy(&amp;source.children, &amp;<a class="code" href="class_c___o_u_t_l_i_n_e.html#aae5feeba94ae0da9e9ce1068d5e53a56">deep_copy</a>);
+  <span class="keywordflow">return</span> *<span class="keyword">this</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a1bbba97895b105d8ab33a62438c42b1d"></a><!-- doxytag: member="C_OUTLINE::operator&gt;" ref="a1bbba97895b105d8ab33a62438c42b1d" args="(C_OUTLINE &amp;other) const " -->
@@ -497,6 +920,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="coutln_8h_source.html#l00132">132</a> of file <a class="el" href="coutln_8h_source.html">coutln.h</a>.</p>
+<div class="fragment"><pre class="fragment">    {
+      <span class="keywordflow">return</span> other &lt; *<span class="keyword">this</span>;      <span class="comment">//use the &lt; to do it</span>
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a49a6f31dc4b56739c5ecc2c039040172"></a><!-- doxytag: member="C_OUTLINE::outer_area" ref="a49a6f31dc4b56739c5ecc2c039040172" args="()" -->
@@ -513,6 +941,32 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="coutln_8cpp_source.html#l00303">303</a> of file <a class="el" href="coutln_8cpp_source.html">coutln.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                            {  <span class="comment">//winding number</span>
+  <span class="keywordtype">int</span> stepindex;                 <span class="comment">//current step</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> total_steps;             <span class="comment">//steps to do</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> total;                   <span class="comment">//total area</span>
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> pos;                    <span class="comment">//position of point</span>
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> next_step;              <span class="comment">//step to next pix</span>
+
+  pos = <a class="code" href="class_c___o_u_t_l_i_n_e.html#a0f9fef7d74691bbcf45faa2272600500">start_pos</a> ();
+  total_steps = <a class="code" href="class_c___o_u_t_l_i_n_e.html#afb87d87d3d48e964937b068f55f3ca3a">pathlength</a> ();
+  <span class="keywordflow">if</span> (total_steps == 0)
+    <span class="keywordflow">return</span> box.<a class="code" href="class_t_b_o_x.html#a46fca3df91dc271b30b69531e9d8178a">area</a>();
+  total = 0;
+  <span class="keywordflow">for</span> (stepindex = 0; stepindex &lt; total_steps; stepindex++) {
+                                 <span class="comment">//all intersected</span>
+    next_step = <a class="code" href="class_c___o_u_t_l_i_n_e.html#af6831ec849fb5ab1f2b49517fbbd5f85">step</a> (stepindex);
+    <span class="keywordflow">if</span> (next_step.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () &lt; 0)
+      total += pos.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ();
+    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (next_step.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () &gt; 0)
+      total -= pos.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ();
+    pos += next_step;
+  }
+
+  <span class="keywordflow">return</span> total;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="afb87d87d3d48e964937b068f55f3ca3a"></a><!-- doxytag: member="C_OUTLINE::pathlength" ref="afb87d87d3d48e964937b068f55f3ca3a" args="() const " -->
@@ -529,6 +983,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="coutln_8h_source.html#l00111">111</a> of file <a class="el" href="coutln_8h_source.html">coutln.h</a>.</p>
+<div class="fragment"><pre class="fragment">                             {  <span class="comment">//get path length</span>
+      <span class="keywordflow">return</span> stepcount;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9439ad4995dcff33de225f6ab40d2abb"></a><!-- doxytag: member="C_OUTLINE::perimeter" ref="a9439ad4995dcff33de225f6ab40d2abb" args="()" -->
@@ -545,6 +1004,18 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="coutln_8cpp_source.html#l00285">285</a> of file <a class="el" href="coutln_8cpp_source.html">coutln.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                           {
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> total_steps;             <span class="comment">// Return value.</span>
+  C_OUTLINE_IT it = <a class="code" href="class_c___o_u_t_l_i_n_e.html#a87880b33bc69fa17ab37a93706ae8d84">child</a>();
+
+  total_steps = <a class="code" href="class_c___o_u_t_l_i_n_e.html#afb87d87d3d48e964937b068f55f3ca3a">pathlength</a>();
+  <span class="keywordflow">for</span> (it.mark_cycle_pt(); !it.cycled_list(); it.forward())
+    total_steps += it.data()-&gt;pathlength();  <span class="comment">// Add perimeters of children.</span>
+
+  <span class="keywordflow">return</span> total_steps;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a068007e64b085922e043d25c93c5412d"></a><!-- doxytag: member="C_OUTLINE::plot" ref="a068007e64b085922e043d25c93c5412d" args="(ScrollView *window, ScrollView::Color colour) const " -->
@@ -572,6 +1043,35 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="coutln_8cpp_source.html#l00667">667</a> of file <a class="el" href="coutln_8cpp_source.html">coutln.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                            {
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> stepindex;               <span class="comment">// index to cstep</span>
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> pos;                    <span class="comment">// current position</span>
+  <a class="code" href="class_d_i_r128.html">DIR128</a> stepdir;                <span class="comment">// direction of step</span>
+
+  pos = start;                   <span class="comment">// current position</span>
+  window-&gt;<a class="code" href="class_scroll_view.html#a79855c525ec660b452382e9813d2edb5">Pen</a>(colour);
+  <span class="keywordflow">if</span> (stepcount == 0) {
+    window-&gt;<a class="code" href="class_scroll_view.html#ac2a8fdf5d37967ea4a298dc092b6ed0e">Rectangle</a>(box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>(), box.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>(), box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>(), box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>());
+    <span class="keywordflow">return</span>;
+  }
+  window-&gt;<a class="code" href="class_scroll_view.html#a730b182e350dfe37b0986d7f0591fee5">SetCursor</a>(pos.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a>(), pos.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a>());
+
+  stepindex = 0;
+  <span class="keywordflow">while</span> (stepindex &lt; stepcount) {
+    pos += <a class="code" href="class_c___o_u_t_l_i_n_e.html#af6831ec849fb5ab1f2b49517fbbd5f85">step</a>(stepindex);    <span class="comment">// step to next</span>
+    stepdir = <a class="code" href="class_c___o_u_t_l_i_n_e.html#aadf769d4ac2a73d15f8d544fb152d1d9">step_dir</a>(stepindex);
+    stepindex++;               <span class="comment">// count steps</span>
+    <span class="comment">// merge straight lines</span>
+    <span class="keywordflow">while</span> (stepindex &lt; stepcount &amp;&amp;
+           stepdir.<a class="code" href="class_d_i_r128.html#a20420b3fa5c0968a2ebb0763c7e43c2f">get_dir</a>() == <a class="code" href="class_c___o_u_t_l_i_n_e.html#aadf769d4ac2a73d15f8d544fb152d1d9">step_dir</a>(stepindex).<a class="code" href="class_d_i_r128.html#a20420b3fa5c0968a2ebb0763c7e43c2f">get_dir</a>()) {
+      pos += <a class="code" href="class_c___o_u_t_l_i_n_e.html#af6831ec849fb5ab1f2b49517fbbd5f85">step</a>(stepindex);
+      stepindex++;
+    }
+    window-&gt;<a class="code" href="class_scroll_view.html#a101de80a4722fe821969f61f6e7303a6">DrawTo</a>(pos.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a>(), pos.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a>());
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab984e00e52844e0415467db903548624"></a><!-- doxytag: member="C_OUTLINE::RemoveSmallRecursive" ref="ab984e00e52844e0415467db903548624" args="(int min_size, C_OUTLINE_IT *it)" -->
@@ -599,6 +1099,22 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="coutln_8cpp_source.html#l00609">609</a> of file <a class="el" href="coutln_8cpp_source.html">coutln.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                   {
+  <span class="keywordflow">if</span> (box.<a class="code" href="class_t_b_o_x.html#af95494a2ccacc70cc2b83820b2948619">width</a>() &lt; min_size || box.<a class="code" href="class_t_b_o_x.html#a8379d4bbc72bdbb1f069fc14790e632d">height</a>() &lt; min_size) {
+    <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(<span class="keyword">this</span> == it-&gt;data());
+    <span class="keyword">delete</span> it-&gt;extract();  <span class="comment">// Too small so get rid of it and any children.</span>
+  } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (!children.empty()) {
+    <span class="comment">// Search the children of this, deleting any that are too small.</span>
+    C_OUTLINE_IT child_it(&amp;children);
+    <span class="keywordflow">for</span> (child_it.mark_cycle_pt(); !child_it.cycled_list();
+         child_it.forward()) {
+      <a class="code" href="class_c___o_u_t_l_i_n_e.html">C_OUTLINE</a>* <a class="code" href="class_c___o_u_t_l_i_n_e.html#a87880b33bc69fa17ab37a93706ae8d84">child</a> = child_it.data();
+      child-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#ab984e00e52844e0415467db903548624">RemoveSmallRecursive</a>(min_size, &amp;child_it);
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae1fb04a33a8e4dbfa7921008cb4da772"></a><!-- doxytag: member="C_OUTLINE::render" ref="ae1fb04a33a8e4dbfa7921008cb4da772" args="(int left, int top, Pix *pix) const " -->
@@ -632,6 +1148,22 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="coutln_8cpp_source.html#l00626">626</a> of file <a class="el" href="coutln_8cpp_source.html">coutln.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                        {
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> pos = start;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> stepindex = 0; stepindex &lt; stepcount; ++stepindex) {
+    <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> next_step = <a class="code" href="class_c___o_u_t_l_i_n_e.html#af6831ec849fb5ab1f2b49517fbbd5f85">step</a>(stepindex);
+    <span class="keywordflow">if</span> (next_step.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a>() &lt; 0) {
+      pixRasterop(pix, 0, <a class="code" href="structarray__record.html#ac669bc877615327b853410a841f48f4b">top</a> - pos.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a>(), pos.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a>() - left, 1,
+                  PIX_NOT(PIX_DST), <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, 0, 0);
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (next_step.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a>() &gt; 0) {
+      pixRasterop(pix, 0, <a class="code" href="structarray__record.html#ac669bc877615327b853410a841f48f4b">top</a> - pos.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a>() - 1, pos.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a>() - left, 1,
+                  PIX_NOT(PIX_DST), <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, 0, 0);
+    }
+    pos += next_step;
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a09b1dc057b17242ad690731932eb91b4"></a><!-- doxytag: member="C_OUTLINE::render_outline" ref="a09b1dc057b17242ad690731932eb91b4" args="(int left, int top, Pix *pix) const " -->
@@ -665,6 +1197,24 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="coutln_8cpp_source.html#l00643">643</a> of file <a class="el" href="coutln_8cpp_source.html">coutln.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                {
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> pos = start;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> stepindex = 0; stepindex &lt; stepcount; ++stepindex) {
+    <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> next_step = <a class="code" href="class_c___o_u_t_l_i_n_e.html#af6831ec849fb5ab1f2b49517fbbd5f85">step</a>(stepindex);
+    <span class="keywordflow">if</span> (next_step.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a>() &lt; 0) {
+      pixSetPixel(pix, pos.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a>() - left, <a class="code" href="structarray__record.html#ac669bc877615327b853410a841f48f4b">top</a> - pos.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a>(), 1);
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (next_step.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a>() &gt; 0) {
+      pixSetPixel(pix, pos.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a>() - left - 1, <a class="code" href="structarray__record.html#ac669bc877615327b853410a841f48f4b">top</a> - pos.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a>() - 1, 1);
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (next_step.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a>() &lt; 0) {
+      pixSetPixel(pix, pos.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a>() - left - 1, <a class="code" href="structarray__record.html#ac669bc877615327b853410a841f48f4b">top</a> - pos.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a>(), 1);
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (next_step.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a>() &gt; 0) {
+      pixSetPixel(pix, pos.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a>() - left, <a class="code" href="structarray__record.html#ac669bc877615327b853410a841f48f4b">top</a> - pos.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a>() - 1, 1);
+    }
+    pos += next_step;
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2c8f0cb8cfd9c1039ef992685958f997"></a><!-- doxytag: member="C_OUTLINE::reverse" ref="a2c8f0cb8cfd9c1039ef992685958f997" args="()" -->
@@ -681,6 +1231,23 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="coutln_8cpp_source.html#l00569">569</a> of file <a class="el" href="coutln_8cpp_source.html">coutln.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                        {  <span class="comment">//reverse drection</span>
+  <a class="code" href="class_d_i_r128.html">DIR128</a> halfturn = <a class="code" href="mod128_8h.html#a9bc1fe94bf8c1b9aaef3dade106b6304">MODULUS</a> / 2; <span class="comment">//amount to shift</span>
+  <a class="code" href="class_d_i_r128.html">DIR128</a> stepdir;                <span class="comment">//direction of step</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> stepindex;               <span class="comment">//index to cstep</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> farindex;                <span class="comment">//index to other side</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> halfsteps;               <span class="comment">//half of stepcount</span>
+
+  halfsteps = (stepcount + 1) / 2;
+  <span class="keywordflow">for</span> (stepindex = 0; stepindex &lt; halfsteps; stepindex++) {
+    farindex = stepcount - stepindex - 1;
+    stepdir = <a class="code" href="class_c___o_u_t_l_i_n_e.html#aadf769d4ac2a73d15f8d544fb152d1d9">step_dir</a> (stepindex);
+    <a class="code" href="class_c___o_u_t_l_i_n_e.html#a7a19e572d11e3880a37a2f08e248dee5">set_step</a> (stepindex, <a class="code" href="class_c___o_u_t_l_i_n_e.html#aadf769d4ac2a73d15f8d544fb152d1d9">step_dir</a> (farindex) + halfturn);
+    <a class="code" href="class_c___o_u_t_l_i_n_e.html#a7a19e572d11e3880a37a2f08e248dee5">set_step</a> (farindex, stepdir + halfturn);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa8fde2528d2db2c24376be3b891f773c"></a><!-- doxytag: member="C_OUTLINE::set_flag" ref="aa8fde2528d2db2c24376be3b891f773c" args="(C_OUTLINE_FLAGS mask, BOOL8 value)" -->
@@ -708,6 +1275,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="coutln_8h_source.html#l00074">74</a> of file <a class="el" href="coutln_8h_source.html">coutln.h</a>.</p>
+<div class="fragment"><pre class="fragment">                               {         <span class="comment">//value to set</span>
+      flags.<a class="code" href="class_b_i_t_s16.html#a4ddf1ce50aaa629cfc6f36af545e23ea">set_bit</a> (mask, value);
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7a19e572d11e3880a37a2f08e248dee5"></a><!-- doxytag: member="C_OUTLINE::set_step" ref="a7a19e572d11e3880a37a2f08e248dee5" args="(inT16 stepindex, inT8 stepdir)" -->
@@ -735,6 +1307,15 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="coutln_8h_source.html#l00088">88</a> of file <a class="el" href="coutln_8h_source.html">coutln.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                {     <span class="comment">//chain code</span>
+      <span class="keywordtype">int</span> shift = stepindex%4 * 2;
+      <a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a> mask = 3 &lt;&lt; shift;
+      steps[stepindex/4] = ((stepdir &lt;&lt; shift) &amp; mask) |
+                           (steps[stepindex/4] &amp; ~mask);
+      <span class="comment">//squeeze 4 into byte</span>
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3b0a5f6ba449e20bbb5c53eef2fa61df"></a><!-- doxytag: member="C_OUTLINE::set_step" ref="a3b0a5f6ba449e20bbb5c53eef2fa61df" args="(inT16 stepindex, DIR128 stepdir)" -->
@@ -762,6 +1343,15 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="coutln_8h_source.html#l00097">97</a> of file <a class="el" href="coutln_8h_source.html">coutln.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                  {   <span class="comment">//direction</span>
+                                 <span class="comment">//clean it</span>
+      <a class="code" href="host_8h.html#a2ba4d271e85baf0d333318985cb3bced">inT8</a> chaindir = stepdir.<a class="code" href="class_d_i_r128.html#a20420b3fa5c0968a2ebb0763c7e43c2f">get_dir</a>() &gt;&gt; (<a class="code" href="mod128_8h.html#a657b731308eeb83f8a113f73968e1d4a">DIRBITS</a> - 2);
+                                 <span class="comment">//difference</span>
+      <a class="code" href="class_c___o_u_t_l_i_n_e.html#a7a19e572d11e3880a37a2f08e248dee5">set_step</a>(stepindex, chaindir);
+      <span class="comment">//squeeze 4 into byte</span>
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a0f9fef7d74691bbcf45faa2272600500"></a><!-- doxytag: member="C_OUTLINE::start_pos" ref="a0f9fef7d74691bbcf45faa2272600500" args="() const " -->
@@ -778,6 +1368,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="coutln_8h_source.html#l00108">108</a> of file <a class="el" href="coutln_8h_source.html">coutln.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                    {
+      <span class="keywordflow">return</span> start;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="af6831ec849fb5ab1f2b49517fbbd5f85"></a><!-- doxytag: member="C_OUTLINE::step" ref="af6831ec849fb5ab1f2b49517fbbd5f85" args="(inT16 index) const " -->
@@ -795,6 +1390,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="coutln_8h_source.html#l00120">120</a> of file <a class="el" href="coutln_8h_source.html">coutln.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                   { <span class="comment">//index of step</span>
+      <span class="keywordflow">return</span> step_coords[(steps[index/4] &gt;&gt; (index%4 * 2)) &amp; <a class="code" href="coutln_8h.html#a1eb00979f787f2ee951889ea9ab8c772">STEP_MASK</a>];
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aadf769d4ac2a73d15f8d544fb152d1d9"></a><!-- doxytag: member="C_OUTLINE::step_dir" ref="aadf769d4ac2a73d15f8d544fb152d1d9" args="(inT16 index) const " -->
@@ -812,6 +1412,12 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="coutln_8h_source.html#l00115">115</a> of file <a class="el" href="coutln_8h_source.html">coutln.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                       {
+      <span class="keywordflow">return</span> <a class="code" href="class_d_i_r128.html">DIR128</a>((<a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>)(((steps[index/4] &gt;&gt; (index%4 * 2)) &amp; <a class="code" href="coutln_8h.html#a1eb00979f787f2ee951889ea9ab8c772">STEP_MASK</a>) &lt;&lt;
+                      (<a class="code" href="mod128_8h.html#a657b731308eeb83f8a113f73968e1d4a">DIRBITS</a> - 2)));
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a525f228da74b410f410b20bcd6c32bd8"></a><!-- doxytag: member="C_OUTLINE::turn_direction" ref="a525f228da74b410f410b20bcd6c32bd8" args="() const " -->
@@ -828,6 +1434,29 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="coutln_8cpp_source.html#l00540">540</a> of file <a class="el" href="coutln_8cpp_source.html">coutln.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                      {  <span class="comment">//winding number</span>
+  <a class="code" href="class_d_i_r128.html">DIR128</a> prevdir;                <span class="comment">//previous direction</span>
+  <a class="code" href="class_d_i_r128.html">DIR128</a> dir;                    <span class="comment">//current direction</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> stepindex;               <span class="comment">//index to cstep</span>
+  <a class="code" href="host_8h.html#a2ba4d271e85baf0d333318985cb3bced">inT8</a> dirdiff;                  <span class="comment">//direction difference</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> <a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a>;                   <span class="comment">//winding count</span>
+
+  <span class="keywordflow">if</span> (stepcount == 0)
+    <span class="keywordflow">return</span> 128;
+  count = 0;
+  prevdir = <a class="code" href="class_c___o_u_t_l_i_n_e.html#aadf769d4ac2a73d15f8d544fb152d1d9">step_dir</a> (stepcount - 1);
+  <span class="keywordflow">for</span> (stepindex = 0; stepindex &lt; stepcount; stepindex++) {
+    dir = <a class="code" href="class_c___o_u_t_l_i_n_e.html#aadf769d4ac2a73d15f8d544fb152d1d9">step_dir</a> (stepindex);
+    dirdiff = dir - prevdir;
+    <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a> (dirdiff == 0 || dirdiff == 32 || dirdiff == -32);
+    count += dirdiff;
+    prevdir = dir;
+  }
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a> (count == 128 || count == -128);
+  <span class="keywordflow">return</span> <a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a>;                  <span class="comment">//winding number</span>
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a68600b305c5495fa4f6ecad316b44a7f"></a><!-- doxytag: member="C_OUTLINE::winding_number" ref="a68600b305c5495fa4f6ecad316b44a7f" args="(ICOORD testpt) const " -->
@@ -845,11 +1474,43 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="coutln_8cpp_source.html#l00500">500</a> of file <a class="el" href="coutln_8cpp_source.html">coutln.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                       {
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> stepindex;               <span class="comment">//index to cstep</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> <a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a>;                   <span class="comment">//winding count</span>
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> vec;                    <span class="comment">//to current point</span>
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> stepvec;                <span class="comment">//step vector</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> cross;                   <span class="comment">//cross product</span>
+
+  vec = start - point;           <span class="comment">//vector to it</span>
+  count = 0;
+  <span class="keywordflow">for</span> (stepindex = 0; stepindex &lt; stepcount; stepindex++) {
+    stepvec = <a class="code" href="class_c___o_u_t_l_i_n_e.html#af6831ec849fb5ab1f2b49517fbbd5f85">step</a> (stepindex);  <span class="comment">//get the step</span>
+                                 <span class="comment">//crossing the line</span>
+    <span class="keywordflow">if</span> (vec.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () &lt;= 0 &amp;&amp; vec.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () + stepvec.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () &gt; 0) {
+      cross = vec * stepvec;     <span class="comment">//cross product</span>
+      <span class="keywordflow">if</span> (cross &gt; 0)
+        count++;                 <span class="comment">//crossing right half</span>
+      <span class="keywordflow">else</span> <span class="keywordflow">if</span> (cross == 0)
+        <span class="keywordflow">return</span> <a class="code" href="coutln_8h.html#a19d14ec91d9d1960d7c43d6b7df9afca">INTERSECTING</a>;     <span class="comment">//going through point</span>
+    }
+    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (vec.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () &gt; 0 &amp;&amp; vec.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () + stepvec.y () &lt;= 0) {
+      cross = vec * stepvec;
+      <span class="keywordflow">if</span> (cross &lt; 0)
+        count--;                 <span class="comment">//crossing back</span>
+      <span class="keywordflow">else</span> <span class="keywordflow">if</span> (cross == 0)
+        <span class="keywordflow">return</span> <a class="code" href="coutln_8h.html#a19d14ec91d9d1960d7c43d6b7df9afca">INTERSECTING</a>;     <span class="comment">//illegal</span>
+    }
+    vec += stepvec;              <span class="comment">//sum vectors</span>
+  }
+  <span class="keywordflow">return</span> <a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a>;                  <span class="comment">//winding number</span>
+}
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/ccstruct/<a class="el" href="coutln_8h_source.html">coutln.h</a></li>
-<li>tesseract-ocr/ccstruct/<a class="el" href="coutln_8cpp.html">coutln.cpp</a></li>
+<li>tesseract-ocr/ccstruct/<a class="el" href="coutln_8cpp_source.html">coutln.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -871,7 +1532,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:12 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:45 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

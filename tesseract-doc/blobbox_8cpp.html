@@ -106,7 +106,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="textblock"><code>#include &quot;<a class="el" href="mfcpch_8h_source.html">mfcpch.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="blobbox_8h_source.html">blobbox.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="helpers_8h_source.html">helpers.h</a>&quot;</code><br/>
-</div><table class="memberdecls">
+</div>
+<p><a href="blobbox_8cpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr><td colspan="2"><h2><a name="define-members"></a>
 Defines</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="blobbox_8cpp.html#a01dbc51856714fc0f1871d2eb3c03a5e">PROJECTION_MARGIN</a>&#160;&#160;&#160;10</td></tr>
@@ -142,6 +144,8 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8cpp_source.html#l00025">25</a> of file <a class="el" href="blobbox_8cpp_source.html">blobbox.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a01dbc51856714fc0f1871d2eb3c03a5e"></a><!-- doxytag: member="blobbox.cpp::PROJECTION_MARGIN" ref="a01dbc51856714fc0f1871d2eb3c03a5e" args="" -->
@@ -154,6 +158,8 @@ Variables</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="blobbox_8cpp_source.html#l00024">24</a> of file <a class="el" href="blobbox_8cpp_source.html">blobbox.cpp</a>.</p>
 
 </div>
 </div>
@@ -173,6 +179,25 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8cpp_source.html#l00573">573</a> of file <a class="el" href="blobbox_8cpp_source.html">blobbox.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">              {
+  <a class="code" href="class_b_l_o_b_n_b_o_x.html">BLOBNBOX</a> *blob;                <span class="comment">//current blob</span>
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> result;                    <span class="comment">//total box</span>
+
+  blob = it-&gt;data ();
+  result = blob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a7b97b8bc16b1473a28f9c44011522f4e">bounding_box</a> ();
+  <span class="keywordflow">do</span> {
+    it-&gt;forward ();
+    blob = it-&gt;data ();
+    <span class="keywordflow">if</span> (blob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a483f44541a4dd818f02225c92f030e07">cblob</a>() == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+                                 <span class="comment">//was pre-chopped</span>
+      result += blob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a7b97b8bc16b1473a28f9c44011522f4e">bounding_box</a> ();
+  }
+                                 <span class="comment">//until next real blob</span>
+  <span class="keywordflow">while</span> ((blob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a483f44541a4dd818f02225c92f030e07">cblob</a>() == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) || blob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#af37f373c72851534101f4caf296a3cf7">joined_to_prev</a>());
+  <span class="keywordflow">return</span> result;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3728c3433d1e8f6a2178bb796aa21fad"></a><!-- doxytag: member="blobbox.cpp::box_next_pre_chopped" ref="a3728c3433d1e8f6a2178bb796aa21fad" args="(BLOBNBOX_IT *it)" -->
@@ -190,6 +215,22 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8cpp_source.html#l00602">602</a> of file <a class="el" href="blobbox_8cpp_source.html">blobbox.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                          {
+  <a class="code" href="class_b_l_o_b_n_b_o_x.html">BLOBNBOX</a> *blob;                <span class="comment">//current blob</span>
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> result;                    <span class="comment">//total box</span>
+
+  blob = it-&gt;data ();
+  result = blob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a7b97b8bc16b1473a28f9c44011522f4e">bounding_box</a> ();
+  <span class="keywordflow">do</span> {
+    it-&gt;forward ();
+    blob = it-&gt;data ();
+  }
+                                 <span class="comment">//until next real blob</span>
+  <span class="keywordflow">while</span> (blob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#af37f373c72851534101f4caf296a3cf7">joined_to_prev</a> ());
+  <span class="keywordflow">return</span> result;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4145a126880b1bd685f07c9499903b71"></a><!-- doxytag: member="blobbox.cpp::crotate_cblob" ref="a4145a126880b1bd685f07c9499903b71" args="(C_BLOB *blob, FCOORD rotation)" -->
@@ -217,6 +258,20 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8cpp_source.html#l00548">548</a> of file <a class="el" href="blobbox_8cpp_source.html">blobbox.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                       {
+  C_OUTLINE_LIST out_list;       <span class="comment">//output outlines</span>
+                                 <span class="comment">//input outlines</span>
+  C_OUTLINE_IT in_it = blob-&gt;<a class="code" href="class_c___b_l_o_b.html#ae510f3d0e7398fbb46608082429eac89">out_list</a> ();
+                                 <span class="comment">//output outlines</span>
+  C_OUTLINE_IT out_it = &amp;out_list;
+
+  <span class="keywordflow">for</span> (in_it.mark_cycle_pt (); !in_it.cycled_list (); in_it.forward ()) {
+    out_it.add_after_then_move (<span class="keyword">new</span> <a class="code" href="class_c___o_u_t_l_i_n_e.html">C_OUTLINE</a> (in_it.data (), rotation));
+  }
+  <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code" href="class_c___b_l_o_b.html">C_BLOB</a> (&amp;out_list);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a511dd4919dd445d4e63329732f024630"></a><!-- doxytag: member="blobbox.cpp::ELISTIZE" ref="a511dd4919dd445d4e63329732f024630" args="(BLOBNBOX) ELIST2IZE(TO_ROW) ELISTIZE(TO_BLOCK) const double kCosSmallAngle=0.866" -->
@@ -279,6 +334,31 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8cpp_source.html#l00513">513</a> of file <a class="el" href="blobbox_8cpp_source.html">blobbox.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                     {
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> stepindex;               <span class="comment">//current point</span>
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> pos;                    <span class="comment">//current coords</span>
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> vec;                    <span class="comment">//rotated step</span>
+  <a class="code" href="class_c___o_u_t_l_i_n_e.html">C_OUTLINE</a> *outline;            <span class="comment">//current outline</span>
+                                 <span class="comment">//outlines</span>
+  C_OUTLINE_IT out_it = blob-&gt;<a class="code" href="class_c___b_l_o_b.html#ae510f3d0e7398fbb46608082429eac89">out_list</a> ();
+
+  xmin = (float) <a class="code" href="host_8h.html#aac62d87844689a18b6f5339a89ed6e7f">MAX_INT32</a>;
+  xmax = (float) -<a class="code" href="host_8h.html#aac62d87844689a18b6f5339a89ed6e7f">MAX_INT32</a>;
+  <span class="keywordflow">for</span> (out_it.mark_cycle_pt (); !out_it.cycled_list (); out_it.forward ()) {
+    outline = out_it.data ();
+    pos = outline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#a0f9fef7d74691bbcf45faa2272600500">start_pos</a> (); <span class="comment">//get coords</span>
+    <span class="keywordflow">for</span> (stepindex = 0; stepindex &lt; outline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#afb87d87d3d48e964937b068f55f3ca3a">pathlength</a> (); stepindex++) {
+                                 <span class="comment">//inside</span>
+      <span class="keywordflow">if</span> (pos.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () &gt;= bottomy &amp;&amp; pos.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () &lt;= topy) {
+        <a class="code" href="helpers_8h.html#a6eb00eb9bc5ed195953f334971c462ae">UpdateRange</a>(pos.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a>(), &amp;xmin, &amp;xmax);
+      }
+      vec = outline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#af6831ec849fb5ab1f2b49517fbbd5f85">step</a> (stepindex);
+      pos += vec;                <span class="comment">//move to next</span>
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2ce6678ef43e0765b7af8c5611c4ebd9"></a><!-- doxytag: member="blobbox.cpp::find_cblob_limits" ref="a2ce6678ef43e0765b7af8c5611c4ebd9" args="(C_BLOB *blob, float leftx, float rightx, FCOORD rotation, float &amp;ymin, float &amp;ymax)" -->
@@ -330,6 +410,33 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8cpp_source.html#l00436">436</a> of file <a class="el" href="blobbox_8cpp_source.html">blobbox.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                    {
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> stepindex;               <span class="comment">//current point</span>
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> pos;                    <span class="comment">//current coords</span>
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> vec;                    <span class="comment">//rotated step</span>
+  <a class="code" href="class_c___o_u_t_l_i_n_e.html">C_OUTLINE</a> *outline;            <span class="comment">//current outline</span>
+                                 <span class="comment">//outlines</span>
+  C_OUTLINE_IT out_it = blob-&gt;<a class="code" href="class_c___b_l_o_b.html#ae510f3d0e7398fbb46608082429eac89">out_list</a> ();
+
+  ymin = (float) <a class="code" href="host_8h.html#aac62d87844689a18b6f5339a89ed6e7f">MAX_INT32</a>;
+  ymax = (float) -<a class="code" href="host_8h.html#aac62d87844689a18b6f5339a89ed6e7f">MAX_INT32</a>;
+  <span class="keywordflow">for</span> (out_it.mark_cycle_pt (); !out_it.cycled_list (); out_it.forward ()) {
+    outline = out_it.data ();
+    pos = outline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#a0f9fef7d74691bbcf45faa2272600500">start_pos</a> (); <span class="comment">//get coords</span>
+    pos.<a class="code" href="class_i_c_o_o_r_d.html#aaedd825587ccb78583bbd6717793faea">rotate</a> (rotation);
+    <span class="keywordflow">for</span> (stepindex = 0; stepindex &lt; outline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#afb87d87d3d48e964937b068f55f3ca3a">pathlength</a> (); stepindex++) {
+                                 <span class="comment">//inside</span>
+      <span class="keywordflow">if</span> (pos.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () &gt;= leftx &amp;&amp; pos.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () &lt;= rightx) {
+        <a class="code" href="helpers_8h.html#a6eb00eb9bc5ed195953f334971c462ae">UpdateRange</a>(pos.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a>(), &amp;ymin, &amp;ymax);
+      }
+      vec = outline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#af6831ec849fb5ab1f2b49517fbbd5f85">step</a> (stepindex);
+      vec.<a class="code" href="class_i_c_o_o_r_d.html#aaedd825587ccb78583bbd6717793faea">rotate</a> (rotation);
+      pos += vec;                <span class="comment">//move to next</span>
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a57197f6f9deea830c41b3af8c9b8abb5"></a><!-- doxytag: member="blobbox.cpp::find_cblob_vlimits" ref="a57197f6f9deea830c41b3af8c9b8abb5" args="(C_BLOB *blob, float leftx, float rightx, float &amp;ymin, float &amp;ymax)" -->
@@ -375,6 +482,31 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8cpp_source.html#l00476">476</a> of file <a class="el" href="blobbox_8cpp_source.html">blobbox.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                     {
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> stepindex;               <span class="comment">//current point</span>
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> pos;                    <span class="comment">//current coords</span>
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> vec;                    <span class="comment">//rotated step</span>
+  <a class="code" href="class_c___o_u_t_l_i_n_e.html">C_OUTLINE</a> *outline;            <span class="comment">//current outline</span>
+                                 <span class="comment">//outlines</span>
+  C_OUTLINE_IT out_it = blob-&gt;<a class="code" href="class_c___b_l_o_b.html#ae510f3d0e7398fbb46608082429eac89">out_list</a> ();
+
+  ymin = (float) <a class="code" href="host_8h.html#aac62d87844689a18b6f5339a89ed6e7f">MAX_INT32</a>;
+  ymax = (float) -<a class="code" href="host_8h.html#aac62d87844689a18b6f5339a89ed6e7f">MAX_INT32</a>;
+  <span class="keywordflow">for</span> (out_it.mark_cycle_pt (); !out_it.cycled_list (); out_it.forward ()) {
+    outline = out_it.data ();
+    pos = outline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#a0f9fef7d74691bbcf45faa2272600500">start_pos</a> (); <span class="comment">//get coords</span>
+    <span class="keywordflow">for</span> (stepindex = 0; stepindex &lt; outline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#afb87d87d3d48e964937b068f55f3ca3a">pathlength</a> (); stepindex++) {
+                                 <span class="comment">//inside</span>
+      <span class="keywordflow">if</span> (pos.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () &gt;= leftx &amp;&amp; pos.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () &lt;= rightx) {
+        <a class="code" href="helpers_8h.html#a6eb00eb9bc5ed195953f334971c462ae">UpdateRange</a>(pos.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a>(), &amp;ymin, &amp;ymax);
+      }
+      vec = outline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#af6831ec849fb5ab1f2b49517fbbd5f85">step</a> (stepindex);
+      pos += vec;                <span class="comment">//move to next</span>
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a331e6744e04cb0a2fb23c1465c82196c"></a><!-- doxytag: member="blobbox.cpp::plot_blob_list" ref="a331e6744e04cb0a2fb23c1465c82196c" args="(ScrollView *win, BLOBNBOX_LIST *list, ScrollView::Color body_colour, ScrollView::Color child_colour)" -->
@@ -414,6 +546,14 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8cpp_source.html#l01002">1002</a> of file <a class="el" href="blobbox_8cpp_source.html">blobbox.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                  {  <span class="comment">// colour of child</span>
+  BLOBNBOX_IT it = list;
+  <span class="keywordflow">for</span> (it.mark_cycle_pt(); !it.cycled_list(); it.forward()) {
+    it.data()-&gt;plot(win, body_colour, child_colour);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a127cbd896383554910521dc8e03fd9ef"></a><!-- doxytag: member="blobbox.cpp::vertical_cblob_projection" ref="a127cbd896383554910521dc8e03fd9ef" args="(C_BLOB *blob, STATS *stats)" -->
@@ -441,6 +581,16 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8cpp_source.html#l00796">796</a> of file <a class="el" href="blobbox_8cpp_source.html">blobbox.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                {
+                                 <span class="comment">//outlines of blob</span>
+  C_OUTLINE_IT out_it = blob-&gt;<a class="code" href="class_c___b_l_o_b.html#ae510f3d0e7398fbb46608082429eac89">out_list</a> ();
+
+  <span class="keywordflow">for</span> (out_it.mark_cycle_pt (); !out_it.cycled_list (); out_it.forward ()) {
+    <a class="code" href="blobbox_8cpp.html#a48333b2ce7f8f0d732fc47a82e57911c">vertical_coutline_projection</a> (out_it.data (), stats);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a48333b2ce7f8f0d732fc47a82e57911c"></a><!-- doxytag: member="blobbox.cpp::vertical_coutline_projection" ref="a48333b2ce7f8f0d732fc47a82e57911c" args="(C_OUTLINE *outline, STATS *stats)" -->
@@ -468,6 +618,31 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8cpp_source.html#l00816">816</a> of file <a class="el" href="blobbox_8cpp_source.html">blobbox.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                   {
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> pos;                    <span class="comment">//current point</span>
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> step;                   <span class="comment">//edge step</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> length;                  <span class="comment">//of outline</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> stepindex;               <span class="comment">//current step</span>
+  C_OUTLINE_IT out_it = outline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#a87880b33bc69fa17ab37a93706ae8d84">child</a> ();
+
+  pos = outline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#a0f9fef7d74691bbcf45faa2272600500">start_pos</a> ();
+  length = outline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#afb87d87d3d48e964937b068f55f3ca3a">pathlength</a> ();
+  <span class="keywordflow">for</span> (stepindex = 0; stepindex &lt; length; stepindex++) {
+    step = outline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#af6831ec849fb5ab1f2b49517fbbd5f85">step</a> (stepindex);
+    <span class="keywordflow">if</span> (step.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () &gt; 0) {
+     stats-&gt;<a class="code" href="class_s_t_a_t_s.html#ab8cacba14df28eed1bffc4cea0b2f87f">add</a> (pos.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> (), -pos.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ());
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (step.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () &lt; 0) {
+      stats-&gt;<a class="code" href="class_s_t_a_t_s.html#ab8cacba14df28eed1bffc4cea0b2f87f">add</a> (pos.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () - 1, pos.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ());
+    }
+    pos += step;
+  }
+
+  <span class="keywordflow">for</span> (out_it.mark_cycle_pt (); !out_it.cycled_list (); out_it.forward ()) {
+    <a class="code" href="blobbox_8cpp.html#a48333b2ce7f8f0d732fc47a82e57911c">vertical_coutline_projection</a> (out_it.data (), stats);
+  }
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Variable Documentation</h2>
@@ -482,6 +657,8 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8cpp_source.html#l00034">34</a> of file <a class="el" href="blobbox_8cpp_source.html">blobbox.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a43aa9cc9ddb58444cde748b228acf281"></a><!-- doxytag: member="blobbox.cpp::kDefiniteAspectRatio" ref="a43aa9cc9ddb58444cde748b228acf281" args="" -->
@@ -494,6 +671,8 @@ Variables</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="blobbox_8cpp_source.html#l00032">32</a> of file <a class="el" href="blobbox_8cpp_source.html">blobbox.cpp</a>.</p>
 
 </div>
 </div>
@@ -508,6 +687,8 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8cpp_source.html#l00038">38</a> of file <a class="el" href="blobbox_8cpp_source.html">blobbox.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ac288f4cd6831a635cc0c279f9f9aaf7b"></a><!-- doxytag: member="blobbox.cpp::kMinMediumSizeRatio" ref="ac288f4cd6831a635cc0c279f9f9aaf7b" args="" -->
@@ -520,6 +701,8 @@ Variables</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="blobbox_8cpp_source.html#l00036">36</a> of file <a class="el" href="blobbox_8cpp_source.html">blobbox.cpp</a>.</p>
 
 </div>
 </div>
@@ -543,7 +726,7 @@ Variables</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:08 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:40 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

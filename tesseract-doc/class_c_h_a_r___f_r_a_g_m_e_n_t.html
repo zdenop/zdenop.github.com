@@ -136,7 +136,10 @@ Static Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_h_a_r___f_r_a_g_m_e_n_t.html#a1fe86011ab9488980aca8e8e26958b2a">kMaxLen</a> = 3 + UNICHAR_LEN + 2</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_h_a_r___f_r_a_g_m_e_n_t.html#a44acef42afbd5e03039786e3a3950dcf">kMaxChunks</a> = 5</td></tr>
 </table>
-<hr/><h2>Member Function Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="unicharset_8h_source.html#l00037">37</a> of file <a class="el" href="unicharset_8h_source.html">unicharset.h</a>.</p>
+</div><hr/><h2>Member Function Documentation</h2>
 <a class="anchor" id="a5416dda467e92c5e88a454466c60b980"></a><!-- doxytag: member="CHAR_FRAGMENT::equals" ref="a5416dda467e92c5e88a454466c60b980" args="(const char *other_unichar, int other_pos, int other_total) const " -->
 <div class="memitem">
 <div class="memproto">
@@ -168,6 +171,12 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="unicharset_8h_source.html#l00074">74</a> of file <a class="el" href="unicharset_8h_source.html">unicharset.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                           {
+    <span class="keywordflow">return</span> (strcmp(this-&gt;unichar, other_unichar) == 0 &amp;&amp;
+            this-&gt;pos == other_pos &amp;&amp; this-&gt;total == other_total);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a922cc9843afdb356a29cb308c9956d9c"></a><!-- doxytag: member="CHAR_FRAGMENT::equals" ref="a922cc9843afdb356a29cb308c9956d9c" args="(const CHAR_FRAGMENT *other) const " -->
@@ -185,6 +194,13 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="unicharset_8h_source.html#l00079">79</a> of file <a class="el" href="unicharset_8h_source.html">unicharset.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                       {
+    <span class="keywordflow">return</span> this-&gt;<a class="code" href="class_c_h_a_r___f_r_a_g_m_e_n_t.html#a5416dda467e92c5e88a454466c60b980">equals</a>(other-&gt;<a class="code" href="class_c_h_a_r___f_r_a_g_m_e_n_t.html#aabfbe5c558b411ecb3c9a34d0615c2de">get_unichar</a>(),
+                        other-&gt;<a class="code" href="class_c_h_a_r___f_r_a_g_m_e_n_t.html#a543f738bd883d0417da44a211c6a822b">get_pos</a>(),
+                        other-&gt;<a class="code" href="class_c_h_a_r___f_r_a_g_m_e_n_t.html#aac1d5e077505363c264144a9348b3f0e">get_total</a>());
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a543f738bd883d0417da44a211c6a822b"></a><!-- doxytag: member="CHAR_FRAGMENT::get_pos" ref="a543f738bd883d0417da44a211c6a822b" args="() const " -->
@@ -201,6 +217,9 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="unicharset_8h_source.html#l00060">60</a> of file <a class="el" href="unicharset_8h_source.html">unicharset.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> this-&gt;pos; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aac1d5e077505363c264144a9348b3f0e"></a><!-- doxytag: member="CHAR_FRAGMENT::get_total" ref="aac1d5e077505363c264144a9348b3f0e" args="() const " -->
@@ -217,6 +236,9 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="unicharset_8h_source.html#l00061">61</a> of file <a class="el" href="unicharset_8h_source.html">unicharset.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> this-&gt;total; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aabfbe5c558b411ecb3c9a34d0615c2de"></a><!-- doxytag: member="CHAR_FRAGMENT::get_unichar" ref="aabfbe5c558b411ecb3c9a34d0615c2de" args="() const " -->
@@ -233,6 +255,9 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="unicharset_8h_source.html#l00059">59</a> of file <a class="el" href="unicharset_8h_source.html">unicharset.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> this-&gt;unichar; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a42707cfcbf1e9a38ec0333d3202f8d80"></a><!-- doxytag: member="CHAR_FRAGMENT::is_beginning" ref="a42707cfcbf1e9a38ec0333d3202f8d80" args="() const " -->
@@ -249,6 +274,9 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="unicharset_8h_source.html#l00094">94</a> of file <a class="el" href="unicharset_8h_source.html">unicharset.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> this-&gt;pos == 0; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a1a11643ca234b3a4f1fa52b07fb03350"></a><!-- doxytag: member="CHAR_FRAGMENT::is_continuation_of" ref="a1a11643ca234b3a4f1fa52b07fb03350" args="(const CHAR_FRAGMENT *fragment) const " -->
@@ -266,6 +294,13 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="unicharset_8h_source.html#l00087">87</a> of file <a class="el" href="unicharset_8h_source.html">unicharset.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                      {
+    <span class="keywordflow">return</span> (strcmp(this-&gt;unichar, fragment-&gt;<a class="code" href="class_c_h_a_r___f_r_a_g_m_e_n_t.html#aabfbe5c558b411ecb3c9a34d0615c2de">get_unichar</a>()) == 0 &amp;&amp;
+            this-&gt;total == fragment-&gt;<a class="code" href="class_c_h_a_r___f_r_a_g_m_e_n_t.html#aac1d5e077505363c264144a9348b3f0e">get_total</a>() &amp;&amp;
+            this-&gt;pos == fragment-&gt;<a class="code" href="class_c_h_a_r___f_r_a_g_m_e_n_t.html#a543f738bd883d0417da44a211c6a822b">get_pos</a>() + 1);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="af222b3b2c71de6199f75e3a7a64aa660"></a><!-- doxytag: member="CHAR_FRAGMENT::is_ending" ref="af222b3b2c71de6199f75e3a7a64aa660" args="() const " -->
@@ -282,6 +317,9 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="unicharset_8h_source.html#l00097">97</a> of file <a class="el" href="unicharset_8h_source.html">unicharset.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> this-&gt;pos == this-&gt;total-1; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3a54d954fd5a60836119fa362fe99289"></a><!-- doxytag: member="CHAR_FRAGMENT::is_natural" ref="a3a54d954fd5a60836119fa362fe99289" args="() const " -->
@@ -298,6 +336,9 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="unicharset_8h_source.html#l00102">102</a> of file <a class="el" href="unicharset_8h_source.html">unicharset.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> natural; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac56b3d4af146800dd576dd60a11ea563"></a><!-- doxytag: member="CHAR_FRAGMENT::parse_from_string" ref="ac56b3d4af146800dd576dd60a11ea563" args="(const char *str)" -->
@@ -315,6 +356,49 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="unicharset_8cpp_source.html#l00902">902</a> of file <a class="el" href="unicharset_8cpp_source.html">unicharset.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                  {
+  <span class="keyword">const</span> <span class="keywordtype">char</span> *ptr = string;
+  <span class="keywordtype">int</span> len = strlen(<span class="keywordtype">string</span>);
+  <span class="keywordflow">if</span> (len &lt; <a class="code" href="class_c_h_a_r___f_r_a_g_m_e_n_t.html#a7f25080aacecf7533fa11ec5d7bf2b15">kMinLen</a> || *ptr != kSeparator) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;  <span class="comment">// this string can not represent a fragment</span>
+  }
+  ptr++;  <span class="comment">// move to the next character</span>
+  <span class="keywordtype">int</span> step = 0;
+  <span class="keywordflow">while</span> ((ptr + step) &lt; (<span class="keywordtype">string</span> + len) &amp;&amp; *(ptr + step) != kSeparator) {
+    step += <a class="code" href="class_u_n_i_c_h_a_r.html#a8182a4663f6c1df9f097700f1009ab22">UNICHAR::utf8_step</a>(ptr + step);
+  }
+  <span class="keywordflow">if</span> (step == 0 || step &gt; <a class="code" href="unichar_8h.html#a902bc40c9d89802bc063afe30ce9e708">UNICHAR_LEN</a>) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;  <span class="comment">// no character for unichar or the character is too long</span>
+  }
+  <span class="keywordtype">char</span> unichar[<a class="code" href="unichar_8h.html#a902bc40c9d89802bc063afe30ce9e708">UNICHAR_LEN</a> + 1];
+  strncpy(unichar, ptr, step);
+  unichar[step] = <span class="charliteral">&#39;\0&#39;</span>;  <span class="comment">// null terminate unichar</span>
+  ptr += step;  <span class="comment">// move to the next fragment separator</span>
+  <span class="keywordtype">int</span> pos = 0;
+  <span class="keywordtype">int</span> total = 0;
+  <span class="keywordtype">bool</span> natural = <span class="keyword">false</span>;
+  <span class="keywordtype">char</span> *end_ptr = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 2; i++) {
+    <span class="keywordflow">if</span> (ptr &gt; <span class="keywordtype">string</span> + len || *ptr != kSeparator) {
+      <span class="keywordflow">if</span> (i == 1 &amp;&amp; *ptr == kNaturalFlag)
+        natural = <span class="keyword">true</span>;
+      <span class="keywordflow">else</span>
+        <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;  <span class="comment">// Failed to parse fragment representation.</span>
+    }
+    ptr++;  <span class="comment">// move to the next character</span>
+    i == 0 ? pos = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(strtol(ptr, &amp;end_ptr, 10))
+      : total = static_cast&lt;int&gt;(strtol(ptr, &amp;end_ptr, 10));
+    ptr = end_ptr;
+  }
+  <span class="keywordflow">if</span> (ptr != <span class="keywordtype">string</span> + len) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;  <span class="comment">// malformed fragment representation</span>
+  }
+  <a class="code" href="class_c_h_a_r___f_r_a_g_m_e_n_t.html">CHAR_FRAGMENT</a> *fragment = <span class="keyword">new</span> <a class="code" href="class_c_h_a_r___f_r_a_g_m_e_n_t.html">CHAR_FRAGMENT</a>();
+  fragment-&gt;<a class="code" href="class_c_h_a_r___f_r_a_g_m_e_n_t.html#acb20b5f377469c19f37d197ffb9559f8">set_all</a>(unichar, pos, total, natural);
+  <span class="keywordflow">return</span> fragment;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="acb20b5f377469c19f37d197ffb9559f8"></a><!-- doxytag: member="CHAR_FRAGMENT::set_all" ref="acb20b5f377469c19f37d197ffb9559f8" args="(const char *unichar, int pos, int total, bool natural)" -->
@@ -354,6 +438,14 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="unicharset_8h_source.html#l00047">47</a> of file <a class="el" href="unicharset_8h_source.html">unicharset.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                             {
+    <a class="code" href="class_c_h_a_r___f_r_a_g_m_e_n_t.html#a0fc6185e9f688d8f991fe5c196497ce1">set_unichar</a>(unichar);
+    <a class="code" href="class_c_h_a_r___f_r_a_g_m_e_n_t.html#a833694ba8fc5e137a2e003034523eae1">set_pos</a>(pos);
+    <a class="code" href="class_c_h_a_r___f_r_a_g_m_e_n_t.html#ae9ada0ccb703fe3c49de6678be319d96">set_total</a>(total);
+    <a class="code" href="class_c_h_a_r___f_r_a_g_m_e_n_t.html#a4e25adab433a34a9d6992b1c10ffd6d8">set_natural</a>(natural);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4e25adab433a34a9d6992b1c10ffd6d8"></a><!-- doxytag: member="CHAR_FRAGMENT::set_natural" ref="a4e25adab433a34a9d6992b1c10ffd6d8" args="(bool value)" -->
@@ -371,6 +463,9 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="unicharset_8h_source.html#l00103">103</a> of file <a class="el" href="unicharset_8h_source.html">unicharset.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ natural = value; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a833694ba8fc5e137a2e003034523eae1"></a><!-- doxytag: member="CHAR_FRAGMENT::set_pos" ref="a833694ba8fc5e137a2e003034523eae1" args="(int p)" -->
@@ -388,6 +483,9 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="unicharset_8h_source.html#l00057">57</a> of file <a class="el" href="unicharset_8h_source.html">unicharset.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ this-&gt;pos = p; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae9ada0ccb703fe3c49de6678be319d96"></a><!-- doxytag: member="CHAR_FRAGMENT::set_total" ref="ae9ada0ccb703fe3c49de6678be319d96" args="(int t)" -->
@@ -405,6 +503,9 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="unicharset_8h_source.html#l00058">58</a> of file <a class="el" href="unicharset_8h_source.html">unicharset.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ this-&gt;total = t; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a0fc6185e9f688d8f991fe5c196497ce1"></a><!-- doxytag: member="CHAR_FRAGMENT::set_unichar" ref="a0fc6185e9f688d8f991fe5c196497ce1" args="(const char *uch)" -->
@@ -422,6 +523,12 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="unicharset_8h_source.html#l00053">53</a> of file <a class="el" href="unicharset_8h_source.html">unicharset.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                           {
+    strncpy(this-&gt;unichar, uch, <a class="code" href="unichar_8h.html#a902bc40c9d89802bc063afe30ce9e708">UNICHAR_LEN</a>);
+    this-&gt;unichar[<a class="code" href="unichar_8h.html#a902bc40c9d89802bc063afe30ce9e708">UNICHAR_LEN</a>] = <span class="charliteral">&#39;\0&#39;</span>;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab845f2c4b4a4bac23392806c445f1fe4"></a><!-- doxytag: member="CHAR_FRAGMENT::to_string" ref="ab845f2c4b4a4bac23392806c445f1fe4" args="(const char *unichar, int pos, int total, bool natural)" -->
@@ -461,6 +568,19 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="unicharset_8cpp_source.html#l00889">889</a> of file <a class="el" href="unicharset_8cpp_source.html">unicharset.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                              {
+  <span class="keywordflow">if</span> (total == 1) <span class="keywordflow">return</span> <a class="code" href="class_s_t_r_i_n_g.html">STRING</a>(unichar);
+  <a class="code" href="class_s_t_r_i_n_g.html">STRING</a> result = <span class="stringliteral">&quot;&quot;</span>;
+  result += kSeparator;
+  result += unichar;
+  <span class="keywordtype">char</span> buffer[<a class="code" href="class_c_h_a_r___f_r_a_g_m_e_n_t.html#a1fe86011ab9488980aca8e8e26958b2a">kMaxLen</a>];
+  snprintf(buffer, <a class="code" href="class_c_h_a_r___f_r_a_g_m_e_n_t.html#a1fe86011ab9488980aca8e8e26958b2a">kMaxLen</a>, <span class="stringliteral">&quot;%c%d%c%d&quot;</span>, kSeparator, pos,
+           natural ? kNaturalFlag : kSeparator, total);
+  result += buffer;
+  <span class="keywordflow">return</span> result;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab7a7a173907f187f44677d2ad2679e09"></a><!-- doxytag: member="CHAR_FRAGMENT::to_string" ref="ab7a7a173907f187f44677d2ad2679e09" args="() const " -->
@@ -477,6 +597,11 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="unicharset_8h_source.html#l00068">68</a> of file <a class="el" href="unicharset_8h_source.html">unicharset.h</a>.</p>
+<div class="fragment"><pre class="fragment">                           {
+    <span class="keywordflow">return</span> <a class="code" href="class_c_h_a_r___f_r_a_g_m_e_n_t.html#ab7a7a173907f187f44677d2ad2679e09">to_string</a>(unichar, pos, total, natural);
+  }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
@@ -491,6 +616,8 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="unicharset_8h_source.html#l00044">44</a> of file <a class="el" href="unicharset_8h_source.html">unicharset.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a1fe86011ab9488980aca8e8e26958b2a"></a><!-- doxytag: member="CHAR_FRAGMENT::kMaxLen" ref="a1fe86011ab9488980aca8e8e26958b2a" args="" -->
@@ -503,6 +630,8 @@ Static Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="unicharset_8h_source.html#l00042">42</a> of file <a class="el" href="unicharset_8h_source.html">unicharset.h</a>.</p>
 
 </div>
 </div>
@@ -517,11 +646,13 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="unicharset_8h_source.html#l00040">40</a> of file <a class="el" href="unicharset_8h_source.html">unicharset.h</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/ccutil/<a class="el" href="unicharset_8h_source.html">unicharset.h</a></li>
-<li>tesseract-ocr/ccutil/<a class="el" href="unicharset_8cpp.html">unicharset.cpp</a></li>
+<li>tesseract-ocr/ccutil/<a class="el" href="unicharset_8cpp_source.html">unicharset.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -543,7 +674,7 @@ Static Public Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:12 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:45 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

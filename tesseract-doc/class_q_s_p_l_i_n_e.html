@@ -128,7 +128,10 @@ Friends</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_q_s_p_l_i_n_e.html#abbfbb7d09880e7770be0fa99282a70c6">make_holed_baseline</a> (<a class="el" href="class_t_b_o_x.html">TBOX</a> *, int, <a class="el" href="class_q_s_p_l_i_n_e.html">QSPLINE</a> *, <a class="el" href="class_q_s_p_l_i_n_e.html">QSPLINE</a> *, float)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_q_s_p_l_i_n_e.html#afc6deb99d649bb50497f4666630ecb7f">tweak_row_baseline</a> (<a class="el" href="class_r_o_w.html">ROW</a> *, double, double)</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="quspline_8h_source.html#l00030">30</a> of file <a class="el" href="quspline_8h_source.html">quspline.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a550dbc1b50898c27be5237d72812d1c7"></a><!-- doxytag: member="QSPLINE::QSPLINE" ref="a550dbc1b50898c27be5237d72812d1c7" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -143,6 +146,13 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="quspline_8h_source.html#l00042">42</a> of file <a class="el" href="quspline_8h_source.html">quspline.h</a>.</p>
+<div class="fragment"><pre class="fragment">              {  <span class="comment">//empty constructor</span>
+      segments = 0;
+      xcoords = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;            <span class="comment">//everything empty</span>
+      quadratics = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a388e310940b30950a7a5f32a9e4a41c2"></a><!-- doxytag: member="QSPLINE::QSPLINE" ref="a388e310940b30950a7a5f32a9e4a41c2" args="(const QSPLINE &amp;src)" -->
@@ -160,6 +170,14 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="quspline_8cpp_source.html#l00136">136</a> of file <a class="el" href="quspline_8cpp_source.html">quspline.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                     {
+  segments = 0;
+  xcoords = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  quadratics = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  *<span class="keyword">this</span> = src;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac9ee7256ceae55a1fdbba01fb6103f54"></a><!-- doxytag: member="QSPLINE::QSPLINE" ref="ac9ee7256ceae55a1fdbba01fb6103f54" args="(inT32 count, inT32 *xstarts, double *coeffs)" -->
@@ -193,6 +211,25 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="quspline_8cpp_source.html#l00038">38</a> of file <a class="el" href="quspline_8cpp_source.html">quspline.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                  {
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> index;                   <span class="comment">//segment index</span>
+
+                                 <span class="comment">//get memory</span>
+  xcoords = (<a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> *) <a class="code" href="memry_8cpp.html#a4c14b091498fb7866a1dd0af51a591fe">alloc_mem</a> ((<a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a> + 1) * <span class="keyword">sizeof</span> (<a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a>));
+  quadratics = (<a class="code" href="class_q_u_a_d___c_o_e_f_f_s.html">QUAD_COEFFS</a> *) <a class="code" href="memry_8cpp.html#a4c14b091498fb7866a1dd0af51a591fe">alloc_mem</a> (<a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a> * <span class="keyword">sizeof</span> (<a class="code" href="class_q_u_a_d___c_o_e_f_f_s.html">QUAD_COEFFS</a>));
+  segments = <a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a>;
+  <span class="keywordflow">for</span> (index = 0; index &lt; segments; index++) {
+                                 <span class="comment">//copy them</span>
+    xcoords[index] = xstarts[index];
+    quadratics[index] = <a class="code" href="class_q_u_a_d___c_o_e_f_f_s.html">QUAD_COEFFS</a> (coeffs[index * 3],
+      coeffs[index * 3 + 1],
+      coeffs[index * 3 + 2]);
+  }
+                                 <span class="comment">//right edge</span>
+  xcoords[index] = xstarts[index];
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7619e90d02d5127754c93073378a738a"></a><!-- doxytag: member="QSPLINE::~QSPLINE" ref="a7619e90d02d5127754c93073378a738a" args="()" -->
@@ -209,6 +246,18 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="quspline_8cpp_source.html#l00151">151</a> of file <a class="el" href="quspline_8cpp_source.html">quspline.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">  {
+  <span class="keywordflow">if</span> (xcoords != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="memry_8cpp.html#a9ef1862b8e026e23eef238af032858e4">free_mem</a>(xcoords);
+    xcoords = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="keywordflow">if</span> (quadratics != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="memry_8cpp.html#a9ef1862b8e026e23eef238af032858e4">free_mem</a>(quadratics);
+    quadratics = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="af79e3ad5c225e40126555bd88566d2bc"></a><!-- doxytag: member="QSPLINE::QSPLINE" ref="af79e3ad5c225e40126555bd88566d2bc" args="(int xstarts[], int segcount, int xcoords[], int ycoords[], int blobcount, int degree)" -->
@@ -260,6 +309,63 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="quspline_8cpp_source.html#l00067">67</a> of file <a class="el" href="quspline_8cpp_source.html">quspline.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">  {
+  <span class="keyword">register</span> <span class="keywordtype">int</span> pointindex;       <span class="comment">/*no along text line */</span>
+  <span class="keyword">register</span> <span class="keywordtype">int</span> segment;          <span class="comment">/*segment no */</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> *ptcounts;               <span class="comment">//no in each segment</span>
+  <a class="code" href="class_q_l_s_q.html">QLSQ</a> qlsq;                     <span class="comment">/*accumulator */</span>
+
+  segments = segcount;
+  xcoords = (<a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> *) <a class="code" href="memry_8cpp.html#a4c14b091498fb7866a1dd0af51a591fe">alloc_mem</a> ((segcount + 1) * <span class="keyword">sizeof</span> (<a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a>));
+  ptcounts = (<a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> *) <a class="code" href="memry_8cpp.html#a4c14b091498fb7866a1dd0af51a591fe">alloc_mem</a> ((segcount + 1) * <span class="keyword">sizeof</span> (<a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a>));
+  quadratics = (<a class="code" href="class_q_u_a_d___c_o_e_f_f_s.html">QUAD_COEFFS</a> *) <a class="code" href="memry_8cpp.html#a4c14b091498fb7866a1dd0af51a591fe">alloc_mem</a> (segcount * <span class="keyword">sizeof</span> (<a class="code" href="class_q_u_a_d___c_o_e_f_f_s.html">QUAD_COEFFS</a>));
+  memmove (xcoords, xstarts, (segcount + 1) * <span class="keyword">sizeof</span> (<a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a>));
+  ptcounts[0] = 0;               <span class="comment">/*none in any yet */</span>
+  <span class="keywordflow">for</span> (segment = 0, pointindex = 0; pointindex &lt; pointcount; pointindex++) {
+    <span class="keywordflow">while</span> (segment &lt; segcount &amp;&amp; xpts[pointindex] &gt;= xstarts[segment]) {
+      segment++;                 <span class="comment">/*try next segment */</span>
+                                 <span class="comment">/*cumulative counts */</span>
+      ptcounts[segment] = ptcounts[segment - 1];
+    }
+    ptcounts[segment]++;         <span class="comment">/*no in previous partition */</span>
+  }
+  <span class="keywordflow">while</span> (segment &lt; segcount) {
+    segment++;
+                                 <span class="comment">/*zero the rest */</span>
+    ptcounts[segment] = ptcounts[segment - 1];
+  }
+
+  <span class="keywordflow">for</span> (segment = 0; segment &lt; segcount; segment++) {
+    qlsq.<a class="code" href="class_q_l_s_q.html#a9f6ee88370df57093e248a2918ab20b2">clear</a> ();
+                                 <span class="comment">/*first blob */</span>
+    pointindex = ptcounts[segment];
+    <span class="keywordflow">if</span> (pointindex &gt; 0
+      &amp;&amp; xpts[pointindex] != xpts[pointindex - 1]
+      &amp;&amp; xpts[pointindex] != xstarts[segment])
+      qlsq.<a class="code" href="class_q_l_s_q.html#adbbaa8f4d49392cc26b46fabc476cc88">add</a> (xstarts[segment],
+        ypts[pointindex - 1]
+        + (ypts[pointindex] - ypts[pointindex - 1])
+        * (xstarts[segment] - xpts[pointindex - 1])
+        / (xpts[pointindex] - xpts[pointindex - 1]));
+    <span class="keywordflow">for</span> (; pointindex &lt; ptcounts[segment + 1]; pointindex++) {
+      qlsq.<a class="code" href="class_q_l_s_q.html#adbbaa8f4d49392cc26b46fabc476cc88">add</a> (xpts[pointindex], ypts[pointindex]);
+    }
+    <span class="keywordflow">if</span> (pointindex &gt; 0 &amp;&amp; pointindex &lt; pointcount
+      &amp;&amp; xpts[pointindex] != xstarts[segment + 1])
+      qlsq.<a class="code" href="class_q_l_s_q.html#adbbaa8f4d49392cc26b46fabc476cc88">add</a> (xstarts[segment + 1],
+        ypts[pointindex - 1]
+        + (ypts[pointindex] - ypts[pointindex - 1])
+        * (xstarts[segment + 1] - xpts[pointindex - 1])
+        / (xpts[pointindex] - xpts[pointindex - 1]));
+    qlsq.<a class="code" href="class_q_l_s_q.html#a847b2fa0f918e971a56e8db0ce8ed18f">fit</a> (degree);
+    quadratics[segment].<a class="code" href="class_q_u_a_d___c_o_e_f_f_s.html#aa9ab5e8947242fa1de50d9863165e032">a</a> = qlsq.<a class="code" href="class_q_l_s_q.html#a748cebc68a35dcb80970e2cfc1cace2d">get_a</a> ();
+    quadratics[segment].<a class="code" href="class_q_u_a_d___c_o_e_f_f_s.html#a58eae9f9c9aa7b738c5493b8da560747">b</a> = qlsq.<a class="code" href="class_q_l_s_q.html#ab8de83e0968609f28aa83854431e2593">get_b</a> ();
+    quadratics[segment].<a class="code" href="class_q_u_a_d___c_o_e_f_f_s.html#a7f5483bdd3103b7f4a732c8fbc0faa91">c</a> = qlsq.<a class="code" href="class_q_l_s_q.html#aeeedb9b168cef907167e4530dd4bf68a">get_c</a> ();
+  }
+  <a class="code" href="memry_8cpp.html#a9ef1862b8e026e23eef238af032858e4">free_mem</a>(ptcounts);
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -294,6 +400,52 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="quspline_8cpp_source.html#l00306">306</a> of file <a class="el" href="quspline_8cpp_source.html">quspline.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                           {
+  <span class="keyword">register</span> <span class="keywordtype">int</span> segment;          <span class="comment">/*current segment of spline */</span>
+  <span class="keywordtype">int</span> dest_segment;              <span class="comment">//dest index</span>
+  <span class="keywordtype">int</span> *xstarts;                  <span class="comment">//new boundaries</span>
+  <a class="code" href="class_q_u_a_d___c_o_e_f_f_s.html">QUAD_COEFFS</a> *quads;            <span class="comment">//new ones</span>
+  <span class="keywordtype">int</span> increment;                 <span class="comment">//in size</span>
+
+  increment = xmin &lt; xcoords[0] ? 1 : 0;
+  <span class="keywordflow">if</span> (xmax &gt; xcoords[segments])
+    increment++;
+  <span class="keywordflow">if</span> (increment == 0)
+    <span class="keywordflow">return</span>;
+  xstarts = (<span class="keywordtype">int</span> *) <a class="code" href="memry_8cpp.html#a4c14b091498fb7866a1dd0af51a591fe">alloc_mem</a> ((segments + 1 + increment) * <span class="keyword">sizeof</span> (int));
+  quads =
+    (<a class="code" href="class_q_u_a_d___c_o_e_f_f_s.html">QUAD_COEFFS</a> *) <a class="code" href="memry_8cpp.html#a4c14b091498fb7866a1dd0af51a591fe">alloc_mem</a> ((segments + increment) * <span class="keyword">sizeof</span> (<a class="code" href="class_q_u_a_d___c_o_e_f_f_s.html">QUAD_COEFFS</a>));
+  <span class="keywordflow">if</span> (xmin &lt; xcoords[0]) {
+    xstarts[0] = xmin;
+    quads[0].<a class="code" href="class_q_u_a_d___c_o_e_f_f_s.html#aa9ab5e8947242fa1de50d9863165e032">a</a> = 0;
+    quads[0].<a class="code" href="class_q_u_a_d___c_o_e_f_f_s.html#a58eae9f9c9aa7b738c5493b8da560747">b</a> = gradient;
+    quads[0].<a class="code" href="class_q_u_a_d___c_o_e_f_f_s.html#a7f5483bdd3103b7f4a732c8fbc0faa91">c</a> = <a class="code" href="class_q_s_p_l_i_n_e.html#ab9f77ca80057e3844e880a1bf003beca">y</a> (xcoords[0]) - quads[0].<a class="code" href="class_q_u_a_d___c_o_e_f_f_s.html#a58eae9f9c9aa7b738c5493b8da560747">b</a> * xcoords[0];
+    dest_segment = 1;
+  }
+  <span class="keywordflow">else</span>
+    dest_segment = 0;
+  <span class="keywordflow">for</span> (segment = 0; segment &lt; segments; segment++) {
+    xstarts[dest_segment] = xcoords[segment];
+    quads[dest_segment] = quadratics[segment];
+    dest_segment++;
+  }
+  xstarts[dest_segment] = xcoords[segment];
+  <span class="keywordflow">if</span> (xmax &gt; xcoords[segments]) {
+    quads[dest_segment].<a class="code" href="class_q_u_a_d___c_o_e_f_f_s.html#aa9ab5e8947242fa1de50d9863165e032">a</a> = 0;
+    quads[dest_segment].<a class="code" href="class_q_u_a_d___c_o_e_f_f_s.html#a58eae9f9c9aa7b738c5493b8da560747">b</a> = gradient;
+    quads[dest_segment].<a class="code" href="class_q_u_a_d___c_o_e_f_f_s.html#a7f5483bdd3103b7f4a732c8fbc0faa91">c</a> = <a class="code" href="class_q_s_p_l_i_n_e.html#ab9f77ca80057e3844e880a1bf003beca">y</a> (xcoords[segments])
+      - quads[dest_segment].<a class="code" href="class_q_u_a_d___c_o_e_f_f_s.html#a58eae9f9c9aa7b738c5493b8da560747">b</a> * xcoords[segments];
+    dest_segment++;
+    xstarts[dest_segment] = xmax + 1;
+  }
+  segments = dest_segment;
+  <a class="code" href="memry_8cpp.html#a9ef1862b8e026e23eef238af032858e4">free_mem</a>(xcoords);
+  <a class="code" href="memry_8cpp.html#a9ef1862b8e026e23eef238af032858e4">free_mem</a>(quadratics);
+  xcoords = (<a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> *) xstarts;
+  quadratics = quads;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3d1808becf8a69d00747b444d9c76cf6"></a><!-- doxytag: member="QSPLINE::move" ref="a3d1808becf8a69d00747b444d9c76cf6" args="(ICOORD vec)" -->
@@ -311,6 +463,18 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="quspline_8cpp_source.html#l00259">259</a> of file <a class="el" href="quspline_8cpp_source.html">quspline.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                    {
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> segment;                 <span class="comment">//index of segment</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> x_shift = vec.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ();
+
+  <span class="keywordflow">for</span> (segment = 0; segment &lt; segments; segment++) {
+    xcoords[segment] += x_shift;
+    quadratics[segment].<a class="code" href="class_q_u_a_d___c_o_e_f_f_s.html#a76a67699d3fe976ba0e6ea72f5c395a5">move</a> (vec);
+  }
+  xcoords[segment] += x_shift;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a947d537ad3fd5ef782bc81055b291dcf"></a><!-- doxytag: member="QSPLINE::operator=" ref="a947d537ad3fd5ef782bc81055b291dcf" args="(const QSPLINE &amp;source)" -->
@@ -328,6 +492,21 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="quspline_8cpp_source.html#l00170">170</a> of file <a class="el" href="quspline_8cpp_source.html">quspline.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                        {
+  <span class="keywordflow">if</span> (xcoords != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <a class="code" href="memry_8cpp.html#a9ef1862b8e026e23eef238af032858e4">free_mem</a>(xcoords);
+  <span class="keywordflow">if</span> (quadratics != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <a class="code" href="memry_8cpp.html#a9ef1862b8e026e23eef238af032858e4">free_mem</a>(quadratics);
+
+  segments = source.segments;
+  xcoords = (<a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> *) <a class="code" href="memry_8cpp.html#a4c14b091498fb7866a1dd0af51a591fe">alloc_mem</a> ((segments + 1) * <span class="keyword">sizeof</span> (<a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a>));
+  quadratics = (<a class="code" href="class_q_u_a_d___c_o_e_f_f_s.html">QUAD_COEFFS</a> *) <a class="code" href="memry_8cpp.html#a4c14b091498fb7866a1dd0af51a591fe">alloc_mem</a> (segments * <span class="keyword">sizeof</span> (<a class="code" href="class_q_u_a_d___c_o_e_f_f_s.html">QUAD_COEFFS</a>));
+  memmove (xcoords, source.xcoords, (segments + 1) * sizeof (<a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a>));
+  memmove (quadratics, source.quadratics, segments * sizeof (<a class="code" href="class_q_u_a_d___c_o_e_f_f_s.html">QUAD_COEFFS</a>));
+  <span class="keywordflow">return</span> *<span class="keyword">this</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="af5a1e056b6b5c0348b640b5eaa987184"></a><!-- doxytag: member="QSPLINE::overlap" ref="af5a1e056b6b5c0348b640b5eaa987184" args="(QSPLINE *spline2, double fraction)" -->
@@ -355,6 +534,22 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="quspline_8cpp_source.html#l00280">280</a> of file <a class="el" href="quspline_8cpp_source.html">quspline.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                        {
+  <span class="keywordtype">int</span> leftlimit;                 <span class="comment">/*common left limit */</span>
+  <span class="keywordtype">int</span> rightlimit;                <span class="comment">/*common right limit */</span>
+
+  leftlimit = xcoords[1];
+  rightlimit = xcoords[segments - 1];
+                                 <span class="comment">/*or too non-overlap */</span>
+  <span class="keywordflow">if</span> (spline2-&gt;segments &lt; 3 || spline2-&gt;xcoords[1] &gt; leftlimit + fraction * (rightlimit - leftlimit)
+    || spline2-&gt;xcoords[spline2-&gt;segments - 1] &lt; rightlimit
+    - fraction * (rightlimit - leftlimit))
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+  <span class="keywordflow">else</span>
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae2fb284b33116e4d3a0f9e1eaa125dff"></a><!-- doxytag: member="QSPLINE::plot" ref="ae2fb284b33116e4d3a0f9e1eaa125dff" args="(ScrollView *window, ScrollView::Color colour) const " -->
@@ -382,6 +577,29 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="quspline_8cpp_source.html#l00363">363</a> of file <a class="el" href="quspline_8cpp_source.html">quspline.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                          {
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> segment;                 <span class="comment">//index of segment</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> <a class="code" href="class_q_s_p_l_i_n_e.html#aaebd602e34d8b7f4e7b73884f1701a75">step</a>;                    <span class="comment">//index of poly piece</span>
+  <span class="keywordtype">double</span> increment;              <span class="comment">//x increment</span>
+  <span class="keywordtype">double</span> x;                      <span class="comment">//x coord</span>
+
+  window-&gt;<a class="code" href="class_scroll_view.html#a79855c525ec660b452382e9813d2edb5">Pen</a>(colour);
+  <span class="keywordflow">for</span> (segment = 0; segment &lt; segments; segment++) {
+    increment =
+      (double) (xcoords[segment + 1] -
+      xcoords[segment]) / <a class="code" href="quspline_8cpp.html#a5c2f35a8400249d498f29982dfc63bf7">QSPLINE_PRECISION</a>;
+    x = xcoords[segment];
+    <span class="keywordflow">for</span> (step = 0; step &lt;= <a class="code" href="quspline_8cpp.html#a5c2f35a8400249d498f29982dfc63bf7">QSPLINE_PRECISION</a>; step++) {
+      <span class="keywordflow">if</span> (segment == 0 &amp;&amp; step == 0)
+        window-&gt;<a class="code" href="class_scroll_view.html#a730b182e350dfe37b0986d7f0591fee5">SetCursor</a>(x, quadratics[segment].<a class="code" href="class_q_s_p_l_i_n_e.html#ab9f77ca80057e3844e880a1bf003beca">y</a> (x));
+      <span class="keywordflow">else</span>
+        window-&gt;<a class="code" href="class_scroll_view.html#a101de80a4722fe821969f61f6e7303a6">DrawTo</a>(x, quadratics[segment].<a class="code" href="class_q_s_p_l_i_n_e.html#ab9f77ca80057e3844e880a1bf003beca">y</a> (x));
+      x += increment;
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aaebd602e34d8b7f4e7b73884f1701a75"></a><!-- doxytag: member="QSPLINE::step" ref="aaebd602e34d8b7f4e7b73884f1701a75" args="(double x1, double x2)" -->
@@ -409,6 +627,23 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="quspline_8cpp_source.html#l00192">192</a> of file <a class="el" href="quspline_8cpp_source.html">quspline.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                {
+  <span class="keywordtype">int</span> index1, index2;            <span class="comment">//indices of coords</span>
+  <span class="keywordtype">double</span> total;                  <span class="comment">/*total steps */</span>
+
+  index1 = spline_index (x1);
+  index2 = spline_index (x2);
+  total = 0;
+  <span class="keywordflow">while</span> (index1 &lt; index2) {
+    total +=
+      (double) quadratics[index1 + 1].<a class="code" href="class_q_s_p_l_i_n_e.html#ab9f77ca80057e3844e880a1bf003beca">y</a> ((<span class="keywordtype">float</span>) xcoords[index1 + 1]);
+    total -= (double) quadratics[index1].<a class="code" href="class_q_s_p_l_i_n_e.html#ab9f77ca80057e3844e880a1bf003beca">y</a> ((<span class="keywordtype">float</span>) xcoords[index1 + 1]);
+    index1++;                    <span class="comment">/*next segment */</span>
+  }
+  <span class="keywordflow">return</span> total;                  <span class="comment">/*total steps */</span>
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab9f77ca80057e3844e880a1bf003beca"></a><!-- doxytag: member="QSPLINE::y" ref="ab9f77ca80057e3844e880a1bf003beca" args="(double x) const " -->
@@ -426,6 +661,14 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="quspline_8cpp_source.html#l00217">217</a> of file <a class="el" href="quspline_8cpp_source.html">quspline.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                         {
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> index;                   <span class="comment">//segment index</span>
+
+  index = spline_index (x);
+  <span class="keywordflow">return</span> quadratics[index].<a class="code" href="class_q_u_a_d___c_o_e_f_f_s.html#af7c4d23ebf42e6b74528204d1497d191">y</a> (x);<span class="comment">//in correct segment</span>
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Friends And Related Function Documentation</h2>
@@ -562,11 +805,117 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tordmain_8cpp_source.html#l00680">680</a> of file <a class="el" href="tordmain_8cpp_source.html">tordmain.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                  {
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> blob_box;                 <span class="comment">//bounding box</span>
+  <a class="code" href="class_c___b_l_o_b.html">C_BLOB</a> *blob;                  <span class="comment">//current blob</span>
+  <a class="code" href="class_w_e_r_d.html">WERD</a> *word;                    <span class="comment">//current word</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> blob_count;              <span class="comment">//no of blobs</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> src_index;               <span class="comment">//source segment</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> dest_index;              <span class="comment">//destination segment</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> *xstarts;                <span class="comment">//spline segments</span>
+  <span class="keywordtype">double</span> *coeffs;                <span class="comment">//spline coeffs</span>
+  <span class="keywordtype">float</span> ydiff;                   <span class="comment">//baseline error</span>
+  <span class="keywordtype">float</span> x_centre;                <span class="comment">//centre of blob</span>
+                                 <span class="comment">//words of row</span>
+  WERD_IT word_it = row-&gt;<a class="code" href="class_r_o_w.html#ac9d07f978420b3564bf5508ad294fb70">word_list</a> ();
+  C_BLOB_IT blob_it;             <span class="comment">//blob iterator</span>
+
+  blob_count = 0;
+  <span class="keywordflow">for</span> (word_it.mark_cycle_pt (); !word_it.cycled_list (); word_it.forward ()) {
+    word = word_it.data ();      <span class="comment">//current word</span>
+                                 <span class="comment">//get total blobs</span>
+    blob_count += word-&gt;<a class="code" href="class_w_e_r_d.html#a174baefaa99afbfdbf444e4199f3b529">cblob_list</a> ()-&gt;length ();
+  }
+  <span class="keywordflow">if</span> (blob_count == 0)
+    <span class="keywordflow">return</span>;
+  xstarts =
+    (<a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> *) <a class="code" href="memry_8cpp.html#a4c14b091498fb7866a1dd0af51a591fe">alloc_mem</a> ((blob_count + row-&gt;baseline.segments + 1) *
+    <span class="keyword">sizeof</span> (<a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a>));
+  coeffs =
+    (<span class="keywordtype">double</span> *) <a class="code" href="memry_8cpp.html#a4c14b091498fb7866a1dd0af51a591fe">alloc_mem</a> ((blob_count + row-&gt;baseline.segments) * 3 *
+    <span class="keyword">sizeof</span> (double));
+
+  src_index = 0;
+  dest_index = 0;
+  xstarts[0] = row-&gt;baseline.xcoords[0];
+  <span class="keywordflow">for</span> (word_it.mark_cycle_pt (); !word_it.cycled_list (); word_it.forward ()) {
+    word = word_it.data ();      <span class="comment">//current word</span>
+                                 <span class="comment">//blobs in word</span>
+    blob_it.set_to_list (word-&gt;<a class="code" href="class_w_e_r_d.html#a174baefaa99afbfdbf444e4199f3b529">cblob_list</a> ());
+    <span class="keywordflow">for</span> (blob_it.mark_cycle_pt (); !blob_it.cycled_list ();
+    blob_it.forward ()) {
+      blob = blob_it.data ();
+      blob_box = blob-&gt;<a class="code" href="class_c___b_l_o_b.html#a77e52e29e2c622a3a63bb7edb110f6ab">bounding_box</a> ();
+      x_centre = (blob_box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a> () + blob_box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a> ()) / 2.0;
+      ydiff = blob_box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a> () - row-&gt;<a class="code" href="class_r_o_w.html#a097b3543fa3ca5768eb50033d4c4db9c">base_line</a> (x_centre);
+      <span class="keywordflow">if</span> (ydiff &lt; 0)
+        ydiff = -ydiff / row-&gt;<a class="code" href="class_r_o_w.html#a2954f94ec4eefe1e3729912e5b8ea779">x_height</a> ();
+      <span class="keywordflow">else</span>
+        ydiff = ydiff / row-&gt;<a class="code" href="class_r_o_w.html#a2954f94ec4eefe1e3729912e5b8ea779">x_height</a> ();
+      <span class="keywordflow">if</span> (ydiff &lt; blshift_maxshift
+        &amp;&amp; blob_box.<a class="code" href="class_t_b_o_x.html#a8379d4bbc72bdbb1f069fc14790e632d">height</a> () / row-&gt;<a class="code" href="class_r_o_w.html#a2954f94ec4eefe1e3729912e5b8ea779">x_height</a> () &gt; blshift_xfraction) {
+        <span class="keywordflow">if</span> (xstarts[dest_index] &gt;= x_centre)
+          xstarts[dest_index] = blob_box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a> ();
+        coeffs[dest_index * 3] = 0;
+        coeffs[dest_index * 3 + 1] = 0;
+        coeffs[dest_index * 3 + 2] = blob_box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a> ();
+        <span class="comment">//shift it</span>
+        dest_index++;
+        xstarts[dest_index] = blob_box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a> () + 1;
+      }
+      <span class="keywordflow">else</span> {
+        <span class="keywordflow">if</span> (xstarts[dest_index] &lt;= x_centre) {
+          <span class="keywordflow">while</span> (row-&gt;baseline.xcoords[src_index + 1] &lt;= x_centre
+          &amp;&amp; src_index &lt; row-&gt;<a class="code" href="mfoutline_8h.html#a2a4b69f9a2827dc98bc4cbc233118865a83297de004f4e58b9be2108c6cd08a23">baseline</a>.segments - 1) {
+            <span class="keywordflow">if</span> (row-&gt;baseline.xcoords[src_index + 1] &gt;
+            xstarts[dest_index]) {
+              coeffs[dest_index * 3] =
+                row-&gt;baseline.quadratics[src_index].<a class="code" href="class_q_u_a_d___c_o_e_f_f_s.html#aa9ab5e8947242fa1de50d9863165e032">a</a>;
+              coeffs[dest_index * 3 + 1] =
+                row-&gt;baseline.quadratics[src_index].<a class="code" href="class_q_u_a_d___c_o_e_f_f_s.html#a58eae9f9c9aa7b738c5493b8da560747">b</a>;
+              coeffs[dest_index * 3 + 2] =
+                row-&gt;baseline.quadratics[src_index].<a class="code" href="class_q_u_a_d___c_o_e_f_f_s.html#a7f5483bdd3103b7f4a732c8fbc0faa91">c</a>;
+              dest_index++;
+              xstarts[dest_index] =
+                row-&gt;baseline.xcoords[src_index + 1];
+            }
+            src_index++;
+          }
+          coeffs[dest_index * 3] =
+            row-&gt;baseline.quadratics[src_index].<a class="code" href="class_q_u_a_d___c_o_e_f_f_s.html#aa9ab5e8947242fa1de50d9863165e032">a</a>;
+          coeffs[dest_index * 3 + 1] =
+            row-&gt;baseline.quadratics[src_index].<a class="code" href="class_q_u_a_d___c_o_e_f_f_s.html#a58eae9f9c9aa7b738c5493b8da560747">b</a>;
+          coeffs[dest_index * 3 + 2] =
+            row-&gt;baseline.quadratics[src_index].<a class="code" href="class_q_u_a_d___c_o_e_f_f_s.html#a7f5483bdd3103b7f4a732c8fbc0faa91">c</a>;
+          dest_index++;
+          xstarts[dest_index] = row-&gt;baseline.xcoords[src_index + 1];
+        }
+      }
+    }
+  }
+  <span class="keywordflow">while</span> (src_index &lt; row-&gt;<a class="code" href="mfoutline_8h.html#a2a4b69f9a2827dc98bc4cbc233118865a83297de004f4e58b9be2108c6cd08a23">baseline</a>.segments
+    &amp;&amp; row-&gt;baseline.xcoords[src_index + 1] &lt;= xstarts[dest_index])
+    src_index++;
+  <span class="keywordflow">while</span> (src_index &lt; row-&gt;<a class="code" href="mfoutline_8h.html#a2a4b69f9a2827dc98bc4cbc233118865a83297de004f4e58b9be2108c6cd08a23">baseline</a>.segments) {
+    coeffs[dest_index * 3] = row-&gt;baseline.quadratics[src_index].<a class="code" href="class_q_u_a_d___c_o_e_f_f_s.html#aa9ab5e8947242fa1de50d9863165e032">a</a>;
+    coeffs[dest_index * 3 + 1] = row-&gt;baseline.quadratics[src_index].<a class="code" href="class_q_u_a_d___c_o_e_f_f_s.html#a58eae9f9c9aa7b738c5493b8da560747">b</a>;
+    coeffs[dest_index * 3 + 2] = row-&gt;baseline.quadratics[src_index].<a class="code" href="class_q_u_a_d___c_o_e_f_f_s.html#a7f5483bdd3103b7f4a732c8fbc0faa91">c</a>;
+    dest_index++;
+    src_index++;
+    xstarts[dest_index] = row-&gt;baseline.xcoords[src_index];
+  }
+                                 <span class="comment">//turn to spline</span>
+  row-&gt;baseline = <a class="code" href="class_q_s_p_l_i_n_e.html#a550dbc1b50898c27be5237d72812d1c7">QSPLINE</a> (dest_index, xstarts, coeffs);
+  <a class="code" href="memry_8cpp.html#a9ef1862b8e026e23eef238af032858e4">free_mem</a>(xstarts);
+  <a class="code" href="memry_8cpp.html#a9ef1862b8e026e23eef238af032858e4">free_mem</a>(coeffs);
+}
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/ccstruct/<a class="el" href="quspline_8h_source.html">quspline.h</a></li>
-<li>tesseract-ocr/ccstruct/<a class="el" href="quspline_8cpp.html">quspline.cpp</a></li>
+<li>tesseract-ocr/ccstruct/<a class="el" href="quspline_8cpp_source.html">quspline.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -588,7 +937,7 @@ Friends</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:13 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:46 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

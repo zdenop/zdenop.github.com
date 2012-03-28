@@ -121,6 +121,8 @@ Package Functions</h2></td></tr>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_popup_menu.html">SVPopupMenu</a> class provides the functionality to add a popup menu to <a class="el" href="classcom_1_1google_1_1scrollview_1_1_scroll_view.html">ScrollView</a>. Each popup menu item gets associated with a (client-defined) command-id, which <a class="el" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_popup_menu.html">SVPopupMenu</a> will return upon clicking it.</p>
 <dl class="author"><dt><b>Author:</b></dt><dd><a href="mailto:wanke@google.com">wanke@google.com</a> </dd></dl>
+
+<p>Definition at line <a class="el" href="_s_v_popup_menu_8java_source.html#l00034">34</a> of file <a class="el" href="_s_v_popup_menu_8java_source.html">SVPopupMenu.java</a>.</p>
 </div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="af9e7e39c9717be88258b3e0df3ce3fa2"></a><!-- doxytag: member="com::google::scrollview::ui::SVPopupMenu::SVPopupMenu" ref="af9e7e39c9717be88258b3e0df3ce3fa2" args="(SVWindow sv)" -->
 <div class="memitem">
@@ -144,6 +146,13 @@ Package Functions</h2></td></tr>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="_s_v_popup_menu_8java_source.html#l00047">47</a> of file <a class="el" href="_s_v_popup_menu_8java_source.html">SVPopupMenu.java</a>.</p>
+<div class="fragment"><pre class="fragment">                           {
+    root = <span class="keyword">new</span> JPopupMenu();
+    svWindow = sv;
+    items = <span class="keyword">new</span> HashMap&lt;String, SVAbstractMenuItem&gt;();
+  }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -163,6 +172,15 @@ Package Functions</h2></td></tr>
 <div class="memdoc">
 <p>A click on one of the items in our menubar has occured. Forward it to the item itself to let it decide what happens. </p>
 
+<p>Definition at line <a class="el" href="_s_v_popup_menu_8java_source.html#l00127">127</a> of file <a class="el" href="_s_v_popup_menu_8java_source.html">SVPopupMenu.java</a>.</p>
+<div class="fragment"><pre class="fragment">                                             {
+
+    <span class="comment">// Get the corresponding menuitem</span>
+    SVAbstractMenuItem svm = items.get(e.getActionCommand());
+
+   svm.performAction(svWindow, <a class="code" href="scrollview_8h.html#a3688a0cf2f95d10a57e095222ccfe9a0">SVEventType</a>.SVET_POPUP);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aab6cd8f94f4fef10391dd62950a0e1c7"></a><!-- doxytag: member="com::google::scrollview::ui::SVPopupMenu::add" ref="aab6cd8f94f4fef10391dd62950a0e1c7" args="(String parent, String name, int id)" -->
@@ -205,6 +223,39 @@ Package Functions</h2></td></tr>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="_s_v_popup_menu_8java_source.html#l00064">64</a> of file <a class="el" href="_s_v_popup_menu_8java_source.html">SVPopupMenu.java</a>.</p>
+<div class="fragment"><pre class="fragment">                                                      {
+    <span class="comment">// A duplicate entry - we just throw it away, since its already in.</span>
+    <span class="keywordflow">if</span> (items.get(name) != null) { <span class="keywordflow">return</span>; }
+    <span class="comment">// A new submenu at the top-level</span>
+    <span class="keywordflow">if</span> (parent.equals(<span class="stringliteral">&quot;&quot;</span>)) {
+      JMenu jli = <span class="keyword">new</span> JMenu(name);
+      SVAbstractMenuItem mli = <span class="keyword">new</span> SVSubMenuItem(name, jli);
+      items.put(name, mli);
+      root.add(jli);
+    }
+    <span class="comment">// A new sub-submenu</span>
+    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<span class="keywordtype">id</span> == -1) {
+      SVAbstractMenuItem jmi = items.get(parent);
+      JMenu jli = <span class="keyword">new</span> JMenu(name);
+      SVAbstractMenuItem mli = <span class="keyword">new</span> SVSubMenuItem(name, jli);
+      items.put(name, mli);
+      jmi.add(jli);
+    }
+    <span class="comment">// A new child entry. Add to appropriate parent.</span>
+    <span class="keywordflow">else</span> {
+      SVAbstractMenuItem jmi = items.get(parent);
+      <span class="keywordflow">if</span> (jmi == null) {
+        System.out.println(<span class="stringliteral">&quot;ERROR: Unknown parent &quot;</span> + parent);
+        System.exit(1);
+      }
+      SVAbstractMenuItem mli = <span class="keyword">new</span> SVEmptyMenuItem(<span class="keywordtype">id</span>, name);
+      mli.mi.addActionListener(<span class="keyword">this</span>);
+      items.put(name, mli);
+      jmi.add(mli);
+    }
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac7f02fd5355b5e7afecc1c2b2a2df7a6"></a><!-- doxytag: member="com::google::scrollview::ui::SVPopupMenu::add" ref="ac7f02fd5355b5e7afecc1c2b2a2df7a6" args="(String parent, String name, int id, String value, String desc)" -->
@@ -259,6 +310,19 @@ Package Functions</h2></td></tr>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="_s_v_popup_menu_8java_source.html#l00109">109</a> of file <a class="el" href="_s_v_popup_menu_8java_source.html">SVPopupMenu.java</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                                 {
+    SVAbstractMenuItem jmi = items.get(parent);
+    SVMenuItem mli = <span class="keyword">new</span> SVMenuItem(<span class="keywordtype">id</span>, name, value, desc);
+    mli.mi.addActionListener(<span class="keyword">this</span>);
+    items.put(name, mli);
+    <span class="keywordflow">if</span> (jmi == null) { <span class="comment">// add to root</span>
+      root.add(mli.mi);
+    } <span class="keywordflow">else</span> { <span class="comment">// add to parent</span>
+      jmi.add(mli);
+    }
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="adc9edb26ea3b0c492f9d6cad0895eccc"></a><!-- doxytag: member="com::google::scrollview::ui::SVPopupMenu::show" ref="adc9edb26ea3b0c492f9d6cad0895eccc" args="(Component Invoker, int x, int y)" -->
@@ -293,10 +357,15 @@ Package Functions</h2></td></tr>
 <div class="memdoc">
 <p>Gets called by the <a class="el" href="class_s_v_event_handler.html">SVEventHandler</a> of the window to actually show the content of the popup menu. </p>
 
+<p>Definition at line <a class="el" href="_s_v_popup_menu_8java_source.html#l00139">139</a> of file <a class="el" href="_s_v_popup_menu_8java_source.html">SVPopupMenu.java</a>.</p>
+<div class="fragment"><pre class="fragment">                                                    {
+    root.show(Invoker, x, y);
+  }
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>tesseract-ocr/java/com/google/scrollview/ui/<a class="el" href="_s_v_popup_menu_8java.html">SVPopupMenu.java</a></li>
+<li>tesseract-ocr/java/com/google/scrollview/ui/<a class="el" href="_s_v_popup_menu_8java_source.html">SVPopupMenu.java</a></li>
 </ul>
 </div>
 </div>
@@ -322,7 +391,7 @@ Package Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:14 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:48 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

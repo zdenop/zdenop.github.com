@@ -137,6 +137,8 @@ Public Member Functions</h2></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>Concrete class that can operate on a compacted (squished) <a class="el" href="classtesseract_1_1_dawg.html">Dawg</a> (read, search and write to file). This class is read-only in the sense that new words can not be added to an instance of <a class="el" href="classtesseract_1_1_squished_dawg.html">SquishedDawg</a>. The underlying representation of the nodes and edges in <a class="el" href="classtesseract_1_1_squished_dawg.html">SquishedDawg</a> is stored as a contiguous EDGE_ARRAY (read from file or given as an argument to the constructor). </p>
+
+<p>Definition at line <a class="el" href="dawg_8h_source.html#l00352">352</a> of file <a class="el" href="dawg_8h_source.html">dawg.h</a>.</p>
 </div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="acc5922a679ddb742a41581f4bef3e8f1"></a><!-- doxytag: member="tesseract::SquishedDawg::SquishedDawg" ref="acc5922a679ddb742a41581f4bef3e8f1" args="(FILE *file, DawgType type, const STRING &amp;lang, PermuterType perm, int debug_level)" -->
 <div class="memitem">
@@ -181,6 +183,12 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="dawg_8h_source.html#l00354">354</a> of file <a class="el" href="dawg_8h_source.html">dawg.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                   {
+    read_squished_dawg(file, <a class="code" href="classtesseract_1_1_dawg.html#a746cceae242993f4945f454e9752d4a5">type</a>, lang, perm, debug_level);
+    num_forward_edges_in_node0 = num_forward_edges(0);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="addfd050f731473fc423b6a864bda0b5d"></a><!-- doxytag: member="tesseract::SquishedDawg::SquishedDawg" ref="addfd050f731473fc423b6a864bda0b5d" args="(const char *filename, DawgType type, const STRING &amp;lang, PermuterType perm, int debug_level)" -->
@@ -226,6 +234,18 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="dawg_8h_source.html#l00359">359</a> of file <a class="el" href="dawg_8h_source.html">dawg.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                       {
+    FILE *file = fopen(filename, <span class="stringliteral">&quot;rb&quot;</span>);
+    <span class="keywordflow">if</span> (file == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Failed to open dawg file %s\n&quot;</span>, filename);
+      exit(1);
+    }
+    read_squished_dawg(file, <a class="code" href="classtesseract_1_1_dawg.html#a746cceae242993f4945f454e9752d4a5">type</a>, lang, perm, debug_level);
+    num_forward_edges_in_node0 = num_forward_edges(0);
+    fclose(file);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad7466d6af8db28db33569a447c6f039c"></a><!-- doxytag: member="tesseract::SquishedDawg::SquishedDawg" ref="ad7466d6af8db28db33569a447c6f039c" args="(EDGE_ARRAY edges, int num_edges, DawgType type, const STRING &amp;lang, PermuterType perm, int unicharset_size, int debug_level)" -->
@@ -283,6 +303,14 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="dawg_8h_source.html#l00370">370</a> of file <a class="el" href="dawg_8h_source.html">dawg.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                     :
+    edges_(edges), num_edges_(num_edges) {
+    <a class="code" href="classtesseract_1_1_dawg.html#a6b415183039524d69b370b4e93acdf56">init</a>(<a class="code" href="classtesseract_1_1_dawg.html#a746cceae242993f4945f454e9752d4a5">type</a>, lang, perm, unicharset_size, debug_level);
+    num_forward_edges_in_node0 = num_forward_edges(0);
+    <span class="keywordflow">if</span> (debug_level &gt; 3) print_all(<span class="stringliteral">&quot;SquishedDawg:&quot;</span>);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6fda4e74006c7510c36f323cd29b724d"></a><!-- doxytag: member="tesseract::SquishedDawg::~SquishedDawg" ref="a6fda4e74006c7510c36f323cd29b724d" args="()" -->
@@ -299,6 +327,9 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="dawg_8cpp_source.html#l00181">181</a> of file <a class="el" href="dawg_8cpp_source.html">dawg.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">{ <a class="code" href="freelist_8cpp.html#ab462a857e5edf360ae4881bcc92a0bcf">memfree</a>(edges_); }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -337,6 +368,37 @@ Public Member Functions</h2></td></tr>
 
 <p>Implements <a class="el" href="classtesseract_1_1_dawg.html#ad75874486a2a4d1f104df83ecb9fa321">tesseract::Dawg</a>.</p>
 
+<p>Definition at line <a class="el" href="dawg_8cpp_source.html#l00183">183</a> of file <a class="el" href="dawg_8cpp_source.html">dawg.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                         {
+  <a class="code" href="dawg_8h.html#a178eb445f9820b58d062f0c988a6f54f">EDGE_REF</a> edge = node;
+  <span class="keywordflow">if</span> (node == 0) {  <span class="comment">// binary search</span>
+    <a class="code" href="dawg_8h.html#a178eb445f9820b58d062f0c988a6f54f">EDGE_REF</a> start = 0;
+    <a class="code" href="dawg_8h.html#a178eb445f9820b58d062f0c988a6f54f">EDGE_REF</a> end = num_forward_edges_in_node0 - 1;
+    <span class="keywordtype">int</span> compare;
+    <span class="keywordflow">while</span> (start &lt;= end) {
+      edge = (start + end) &gt;&gt; 1;  <span class="comment">// (start + end) / 2</span>
+      compare = <a class="code" href="classtesseract_1_1_dawg.html#a51413c471a98611d2d46a8685ff1eb40">given_greater_than_edge_rec</a>(NO_EDGE, word_end,
+                                            unichar_id, edges_[edge]);
+      <span class="keywordflow">if</span> (compare == 0) {  <span class="comment">// given == vec[k]</span>
+        <span class="keywordflow">return</span> edge;
+      } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (compare == 1) {  <span class="comment">// given &gt; vec[k]</span>
+        start = edge + 1;
+      } <span class="keywordflow">else</span> {  <span class="comment">// given &lt; vec[k]</span>
+        end = edge - 1;
+      }
+    }
+  } <span class="keywordflow">else</span> {  <span class="comment">// linear search</span>
+    <span class="keywordflow">if</span> (edge != NO_EDGE &amp;&amp; edge_occupied(edge)) {
+      <span class="keywordflow">do</span> {
+        <span class="keywordflow">if</span> ((<a class="code" href="classtesseract_1_1_dawg.html#a89f558c998d293d7e2feabeb03eca5ef" title="Returns UNICHAR_ID recorded in this edge.">unichar_id_from_edge_rec</a>(edges_[edge]) == unichar_id) &amp;&amp;
+            (!word_end || <a class="code" href="classtesseract_1_1_dawg.html#a7b0b2851a321a4dee49609995f1cc018" title="Returns true if this edge marks the end of a word.">end_of_word_from_edge_rec</a>(edges_[edge])))
+          <span class="keywordflow">return</span> (edge);
+      } <span class="keywordflow">while</span> (!last_edge(edge++));
+    }
+  }
+  <span class="keywordflow">return</span> (NO_EDGE);  <span class="comment">// not found</span>
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a548e8dae185f57541f43a35a07fb84fc"></a><!-- doxytag: member="tesseract::SquishedDawg::edge_letter" ref="a548e8dae185f57541f43a35a07fb84fc" args="(EDGE_REF edge_ref) const " -->
@@ -358,6 +420,11 @@ Public Member Functions</h2></td></tr>
 
 <p>Implements <a class="el" href="classtesseract_1_1_dawg.html#aeb12fee19d228b6225a495c9c115a77e">tesseract::Dawg</a>.</p>
 
+<p>Definition at line <a class="el" href="dawg_8h_source.html#l00410">410</a> of file <a class="el" href="dawg_8h_source.html">dawg.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                  {
+    <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_dawg.html#a89f558c998d293d7e2feabeb03eca5ef" title="Returns UNICHAR_ID recorded in this edge.">unichar_id_from_edge_rec</a>((edges_[edge_ref]));
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a0b1e601dd82d9d09d90f8d22d5094042"></a><!-- doxytag: member="tesseract::SquishedDawg::end_of_word" ref="a0b1e601dd82d9d09d90f8d22d5094042" args="(EDGE_REF edge_ref) const " -->
@@ -378,6 +445,11 @@ Public Member Functions</h2></td></tr>
 
 <p>Implements <a class="el" href="classtesseract_1_1_dawg.html#a4b81cd795923fc21e8a0f9ea9a1f8626">tesseract::Dawg</a>.</p>
 
+<p>Definition at line <a class="el" href="dawg_8h_source.html#l00405">405</a> of file <a class="el" href="dawg_8h_source.html">dawg.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                            {
+    <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_dawg.html#a7b0b2851a321a4dee49609995f1cc018" title="Returns true if this edge marks the end of a word.">end_of_word_from_edge_rec</a>((edges_[edge_ref]));
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7770bbc4e5423ee2c5492144488db6d1"></a><!-- doxytag: member="tesseract::SquishedDawg::next_node" ref="a7770bbc4e5423ee2c5492144488db6d1" args="(EDGE_REF edge) const " -->
@@ -398,6 +470,11 @@ Public Member Functions</h2></td></tr>
 
 <p>Implements <a class="el" href="classtesseract_1_1_dawg.html#ae68706a55d86637dec1da9615effb659">tesseract::Dawg</a>.</p>
 
+<p>Definition at line <a class="el" href="dawg_8h_source.html#l00399">399</a> of file <a class="el" href="dawg_8h_source.html">dawg.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                          {
+    <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_dawg.html#a8fda693bddf7420100b13312831dfe53" title="Returns the next node visited by following this edge.">next_node_from_edge_rec</a>((edges_[edge]));
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac31f8bc5673fbda1ec05208f9b8caacc"></a><!-- doxytag: member="tesseract::SquishedDawg::NumEdges" ref="ac31f8bc5673fbda1ec05208f9b8caacc" args="()" -->
@@ -414,6 +491,9 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="dawg_8h_source.html#l00380">380</a> of file <a class="el" href="dawg_8h_source.html">dawg.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> num_edges_; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae592b65dc4b4861d440ff460ad8b5afc"></a><!-- doxytag: member="tesseract::SquishedDawg::print_node" ref="ae592b65dc4b4861d440ff460ad8b5afc" args="(NODE_REF node, int max_num_edges) const " -->
@@ -444,6 +524,65 @@ Public Member Functions</h2></td></tr>
 
 <p>Implements <a class="el" href="classtesseract_1_1_dawg.html#aa9e379edd04453122e805d9266f8f21c">tesseract::Dawg</a>.</p>
 
+<p>Definition at line <a class="el" href="dawg_8cpp_source.html#l00228">228</a> of file <a class="el" href="dawg_8cpp_source.html">dawg.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                    {
+  <span class="keywordflow">if</span> (node == NO_EDGE) <span class="keywordflow">return</span>;  <span class="comment">// nothing to print</span>
+
+  <a class="code" href="dawg_8h.html#a178eb445f9820b58d062f0c988a6f54f">EDGE_REF</a>   edge = node;
+  <span class="keyword">const</span> <span class="keywordtype">char</span>       *forward_string  = <span class="stringliteral">&quot;FORWARD&quot;</span>;
+  <span class="keyword">const</span> <span class="keywordtype">char</span>       *backward_string = <span class="stringliteral">&quot;       &quot;</span>;
+
+  <span class="keyword">const</span> <span class="keywordtype">char</span>       *last_string     = <span class="stringliteral">&quot;LAST&quot;</span>;
+  <span class="keyword">const</span> <span class="keywordtype">char</span>       *not_last_string = <span class="stringliteral">&quot;    &quot;</span>;
+
+  <span class="keyword">const</span> <span class="keywordtype">char</span>       *eow_string      = <span class="stringliteral">&quot;EOW&quot;</span>;
+  <span class="keyword">const</span> <span class="keywordtype">char</span>       *not_eow_string  = <span class="stringliteral">&quot;   &quot;</span>;
+
+  <span class="keyword">const</span> <span class="keywordtype">char</span>       *<a class="code" href="vecfuncs_8cpp.html#a57d4a186a22b01e2110793bc22a5d8f0">direction</a>;
+  <span class="keyword">const</span> <span class="keywordtype">char</span>       *is_last;
+  <span class="keyword">const</span> <span class="keywordtype">char</span>       *eow;
+
+  <a class="code" href="unichar_8h.html#a8578b19fa1ff5ca75080db1a18ecc32e">UNICHAR_ID</a> unichar_id;
+
+  <span class="keywordflow">if</span> (edge_occupied(edge)) {
+    <span class="keywordflow">do</span> {
+      direction =
+        forward_edge(edge) ? forward_string : backward_string;
+      is_last = last_edge(edge) ? last_string : not_last_string;
+      eow = <a class="code" href="classtesseract_1_1_squished_dawg.html#a0b1e601dd82d9d09d90f8d22d5094042">end_of_word</a>(edge) ? eow_string : not_eow_string;
+
+      unichar_id = <a class="code" href="classtesseract_1_1_squished_dawg.html#a548e8dae185f57541f43a35a07fb84fc" title="Returns UNICHAR_ID stored in the edge indicated by the given EDGE_REF.">edge_letter</a>(edge);
+      <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<a class="code" href="dawg_8h.html#a85a5bf216156dfa399c5edd26f3694db">REFFORMAT</a> <span class="stringliteral">&quot; : next = &quot;</span> <a class="code" href="dawg_8h.html#a85a5bf216156dfa399c5edd26f3694db">REFFORMAT</a> <span class="stringliteral">&quot;, unichar_id = %d, %s %s %s\n&quot;</span>,
+              edge, <a class="code" href="classtesseract_1_1_squished_dawg.html#a7770bbc4e5423ee2c5492144488db6d1">next_node</a>(edge), unichar_id,
+              direction, is_last, eow);
+
+      <span class="keywordflow">if</span> (edge - node &gt; max_num_edges) <span class="keywordflow">return</span>;
+    } <span class="keywordflow">while</span> (!last_edge(edge++));
+
+    <span class="keywordflow">if</span> (edge &lt; num_edges_ &amp;&amp;
+        edge_occupied(edge) &amp;&amp; backward_edge(edge)) {
+      <span class="keywordflow">do</span> {
+        direction =
+          forward_edge(edge) ? forward_string : backward_string;
+        is_last = last_edge(edge) ? last_string : not_last_string;
+        eow = <a class="code" href="classtesseract_1_1_squished_dawg.html#a0b1e601dd82d9d09d90f8d22d5094042">end_of_word</a>(edge) ? eow_string : not_eow_string;
+
+        unichar_id = <a class="code" href="classtesseract_1_1_squished_dawg.html#a548e8dae185f57541f43a35a07fb84fc" title="Returns UNICHAR_ID stored in the edge indicated by the given EDGE_REF.">edge_letter</a>(edge);
+        <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(REFFORMAT <span class="stringliteral">&quot; : next = &quot;</span> REFFORMAT
+                <span class="stringliteral">&quot;, unichar_id = %d, %s %s %s\n&quot;</span>,
+                edge, <a class="code" href="classtesseract_1_1_squished_dawg.html#a7770bbc4e5423ee2c5492144488db6d1">next_node</a>(edge), unichar_id,
+                direction, is_last, eow);
+
+        <span class="keywordflow">if</span> (edge - node &gt; <a class="code" href="dawg_8h.html#a2d04619cb05b140c086f2ec13778d235">MAX_NODE_EDGES_DISPLAY</a>) <span class="keywordflow">return</span>;
+      } <span class="keywordflow">while</span> (!last_edge(edge++));
+    }
+  }
+  <span class="keywordflow">else</span> {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(REFFORMAT <span class="stringliteral">&quot; : no edges in this node\n&quot;</span>, node);
+  }
+  <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;\n&quot;</span>);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a0f68be41bc7cbcf6c148d97eeb3f569c"></a><!-- doxytag: member="tesseract::SquishedDawg::unichar_ids_of" ref="a0f68be41bc7cbcf6c148d97eeb3f569c" args="(NODE_REF node, NodeChildVector *vec) const " -->
@@ -474,6 +613,16 @@ Public Member Functions</h2></td></tr>
 
 <p>Implements <a class="el" href="classtesseract_1_1_dawg.html#ac4b22fb6918a0f9e9b98eb4721cbba33">tesseract::Dawg</a>.</p>
 
+<p>Definition at line <a class="el" href="dawg_8h_source.html#l00388">388</a> of file <a class="el" href="dawg_8h_source.html">dawg.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                 {
+    <a class="code" href="dawg_8h.html#a178eb445f9820b58d062f0c988a6f54f">EDGE_REF</a> edge = node;
+    <span class="keywordflow">if</span> (!edge_occupied(edge) || edge == NO_EDGE) <span class="keywordflow">return</span>;
+    assert(forward_edge(edge));  <span class="comment">// we don&#39;t expect any backward edges to</span>
+    <span class="keywordflow">do</span> {                         <span class="comment">// be present when this funciton is called</span>
+      vec-&gt;push_back(NodeChild(<a class="code" href="classtesseract_1_1_dawg.html#a89f558c998d293d7e2feabeb03eca5ef" title="Returns UNICHAR_ID recorded in this edge.">unichar_id_from_edge_rec</a>(edges_[edge]), edge));
+    } <span class="keywordflow">while</span> (!last_edge(edge++));
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a5b6d0a893b2a8e64c901d514a3da924e"></a><!-- doxytag: member="tesseract::SquishedDawg::write_squished_dawg" ref="a5b6d0a893b2a8e64c901d514a3da924e" args="(FILE *file)" -->
@@ -493,6 +642,57 @@ Public Member Functions</h2></td></tr>
 
 <p>Writes the squished/reduced <a class="el" href="classtesseract_1_1_dawg.html">Dawg</a> to a file. </p>
 
+<p>Definition at line <a class="el" href="dawg_8cpp_source.html#l00369">369</a> of file <a class="el" href="dawg_8cpp_source.html">dawg.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                 {
+  <a class="code" href="dawg_8h.html#a178eb445f9820b58d062f0c988a6f54f">EDGE_REF</a>    edge;
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a>       num_edges;
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a>       node_count = 0;
+  <a class="code" href="dawg_8h.html#a62f0e84ff219b74912d723e231fefd00">NODE_MAP</a>    node_map;
+  <a class="code" href="dawg_8h.html#a178eb445f9820b58d062f0c988a6f54f">EDGE_REF</a>    old_index;
+  <a class="code" href="dawg_8h.html#a04b50b4c4f290148d1bee82f401a31fa">EDGE_RECORD</a> temp_record;
+
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_dawg.html#adc74b0871a5aafecd0daaf87b6cf4141">debug_level_</a>) <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;write_squished_dawg\n&quot;</span>);
+
+  node_map = build_node_map(&amp;node_count);
+
+  <span class="comment">// Write the magic number to help detecting a change in endianness.</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> magic = <a class="code" href="classtesseract_1_1_dawg.html#a6f2b9b30147a54ee156dcb2aa49b110d" title="Magic number to determine endianness when reading the Dawg from file.">kDawgMagicNumber</a>;
+  fwrite(&amp;magic, <span class="keyword">sizeof</span>(<a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>), 1, file);
+  fwrite(&amp;<a class="code" href="classtesseract_1_1_dawg.html#a96b429ef5449ad3cab057eb27d199c66">unicharset_size_</a>, <span class="keyword">sizeof</span>(<a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a>), 1, file);
+
+  <span class="comment">// Count the number of edges in this Dawg.</span>
+  num_edges = 0;
+  <span class="keywordflow">for</span> (edge=0; edge &lt; num_edges_; edge++)
+    <span class="keywordflow">if</span> (forward_edge(edge))
+      num_edges++;
+
+  fwrite(&amp;num_edges, <span class="keyword">sizeof</span>(<a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a>), 1, file);  <span class="comment">// write edge count to file</span>
+
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_dawg.html#adc74b0871a5aafecd0daaf87b6cf4141">debug_level_</a>) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;%d nodes in DAWG\n&quot;</span>, node_count);
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;%d edges in DAWG\n&quot;</span>, num_edges);
+  }
+
+  <span class="keywordflow">for</span> (edge = 0; edge &lt; num_edges_; edge++) {
+    <span class="keywordflow">if</span> (forward_edge(edge)) {  <span class="comment">// write forward edges</span>
+      <span class="keywordflow">do</span> {
+        old_index = <a class="code" href="classtesseract_1_1_dawg.html#a8fda693bddf7420100b13312831dfe53" title="Returns the next node visited by following this edge.">next_node_from_edge_rec</a>(edges_[edge]);
+        set_next_node(edge, node_map[old_index]);
+        temp_record = edges_[edge];
+        fwrite(&amp;(temp_record), <span class="keyword">sizeof</span>(<a class="code" href="dawg_8h.html#a04b50b4c4f290148d1bee82f401a31fa">EDGE_RECORD</a>), 1, file);
+        set_next_node(edge, old_index);
+      } <span class="keywordflow">while</span> (!last_edge(edge++));
+
+      <span class="keywordflow">if</span> (edge &gt;= num_edges_) <span class="keywordflow">break</span>;
+      <span class="keywordflow">if</span> (backward_edge(edge))  <span class="comment">// skip back links</span>
+        <span class="keywordflow">while</span> (!last_edge(edge++));
+
+      edge--;
+    }
+  }
+  free(node_map);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a090fe2daf7bedae8d2a2403eb2cdfe38"></a><!-- doxytag: member="tesseract::SquishedDawg::write_squished_dawg" ref="a090fe2daf7bedae8d2a2403eb2cdfe38" args="(const char *filename)" -->
@@ -511,11 +711,22 @@ Public Member Functions</h2></td></tr>
 <div class="memdoc">
 <p>Opens the file with the given filename and writes the squished/reduced <a class="el" href="classtesseract_1_1_dawg.html">Dawg</a> to the file. </p>
 
+<p>Definition at line <a class="el" href="dawg_8h_source.html#l00423">423</a> of file <a class="el" href="dawg_8h_source.html">dawg.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                 {
+    FILE *file = fopen(filename, <span class="stringliteral">&quot;wb&quot;</span>);
+    <span class="keywordflow">if</span> (file == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Error opening %s\n&quot;</span>, filename);
+      exit(1);
+    }
+    this-&gt;<a class="code" href="classtesseract_1_1_squished_dawg.html#a5b6d0a893b2a8e64c901d514a3da924e" title="Writes the squished/reduced Dawg to a file.">write_squished_dawg</a>(file);
+    fclose(file);
+  }
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/dict/<a class="el" href="dawg_8h_source.html">dawg.h</a></li>
-<li>tesseract-ocr/dict/<a class="el" href="dawg_8cpp.html">dawg.cpp</a></li>
+<li>tesseract-ocr/dict/<a class="el" href="dawg_8cpp_source.html">dawg.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -538,7 +749,7 @@ Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:16 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:51 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

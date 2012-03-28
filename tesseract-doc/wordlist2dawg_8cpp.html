@@ -111,7 +111,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <code>#include &quot;<a class="el" href="serialis_8h_source.html">serialis.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="trie_8h_source.html">trie.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="unicharset_8h_source.html">unicharset.h</a>&quot;</code><br/>
-</div><table class="memberdecls">
+</div>
+<p><a href="wordlist2dawg_8cpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="wordlist2dawg_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a> (int argc, char **argv)</td></tr>
@@ -143,6 +145,151 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>---------------------------------------------------------------------------- Public Function Prototypes ---------------------------------------------------------------------------- </p>
 
+<p>Definition at line <a class="el" href="wordlist2dawg_8cpp_source.html#l00037">37</a> of file <a class="el" href="wordlist2dawg_8cpp_source.html">wordlist2dawg.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                {
+  <span class="keywordtype">int</span> min_word_length;
+  <span class="keywordtype">int</span> max_word_length;
+  <span class="keywordflow">if</span> (!(argc == 4 || (argc == 5 &amp;&amp; strcmp(argv[1], <span class="stringliteral">&quot;-t&quot;</span>) == 0) ||
+      (argc == 6 &amp;&amp; strcmp(argv[1], <span class="stringliteral">&quot;-r&quot;</span>) == 0) ||
+      (argc == 7 &amp;&amp; strcmp(argv[1], <span class="stringliteral">&quot;-l&quot;</span>) == 0 &amp;&amp;
+         sscanf(argv[2], <span class="stringliteral">&quot;%d&quot;</span>, &amp;min_word_length) == 1 &amp;&amp;
+         sscanf(argv[3], <span class="stringliteral">&quot;%d&quot;</span>, &amp;max_word_length) == 1))) {
+    printf(<span class="stringliteral">&quot;Usage: %s [-t | -r [reverse policy] |&quot;</span>
+           <span class="stringliteral">&quot; -l min_len max_len] word_list_file&quot;</span>
+           <span class="stringliteral">&quot; dawg_file unicharset_file\n&quot;</span>, argv[0]);
+    <span class="keywordflow">return</span> 1;
+  }
+  <a class="code" href="classtesseract_1_1_classify.html">tesseract::Classify</a> *classify = <span class="keyword">new</span> <a class="code" href="classtesseract_1_1_classify.html">tesseract::Classify</a>();
+  <span class="keywordtype">int</span> argv_index = 0;
+  <span class="keywordflow">if</span> (argc == 5) ++argv_index;
+  <a class="code" href="classtesseract_1_1_trie.html#a920adf78e22cbdb661e0c2aef58a8c80">tesseract::Trie::RTLReversePolicy</a> reverse_policy =
+      <a class="code" href="classtesseract_1_1_trie.html#a920adf78e22cbdb661e0c2aef58a8c80ae8a8310ee84c647dc1f9a4f289a0dc8b">tesseract::Trie::RRP_DO_NO_REVERSE</a>;
+  <span class="keywordflow">if</span> (argc == 6) {
+    ++argv_index;
+    <span class="keywordtype">int</span> tmp_int;
+    sscanf(argv[++argv_index], <span class="stringliteral">&quot;%d&quot;</span>, &amp;tmp_int);
+    reverse_policy = <span class="keyword">static_cast&lt;</span><a class="code" href="classtesseract_1_1_trie.html#a920adf78e22cbdb661e0c2aef58a8c80">tesseract::Trie::RTLReversePolicy</a><span class="keyword">&gt;</span>(tmp_int);
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Set reverse_policy to %s\n&quot;</span>,
+            <a class="code" href="classtesseract_1_1_trie.html#abd47ba165316b0d3218a61af590ddc25">tesseract::Trie::get_reverse_policy_name</a>(reverse_policy));
+  }
+  <span class="keywordflow">if</span> (argc == 7) argv_index += 3;
+  <span class="keyword">const</span> <span class="keywordtype">char</span>* wordlist_filename = argv[++argv_index];
+  <span class="keyword">const</span> <span class="keywordtype">char</span>* dawg_filename = argv[++argv_index];
+  <span class="keyword">const</span> <span class="keywordtype">char</span>* unicharset_file = argv[++argv_index];
+  <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Loading unicharset from &#39;%s&#39;\n&quot;</span>, unicharset_file);
+  <span class="keywordflow">if</span> (!classify-&gt;<a class="code" href="classtesseract_1_1_classify.html#a83e4207353a1bb07adfaa6a82a74c9ce">getDict</a>().getUnicharset().load_from_file(unicharset_file)) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Failed to load unicharset from &#39;%s&#39;\n&quot;</span>, unicharset_file);
+    <span class="keyword">delete</span> classify;
+    <span class="keywordflow">return</span> 1;
+  }
+  <span class="keyword">const</span> <a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html">UNICHARSET</a> &amp;unicharset = classify-&gt;<a class="code" href="classtesseract_1_1_classify.html#a83e4207353a1bb07adfaa6a82a74c9ce">getDict</a>().getUnicharset();
+  <span class="keywordflow">if</span> (argc == 4 || argc == 6) {
+    <a class="code" href="classtesseract_1_1_trie.html">tesseract::Trie</a> trie(
+        <span class="comment">// the first 3 arguments are not used in this case</span>
+        <a class="code" href="namespacetesseract.html#a07c41f251f1782c60df4e626c35d2151a9c67e397ff6d57a705cd4cd4524a2b34">tesseract::DAWG_TYPE_WORD</a>, <span class="stringliteral">&quot;&quot;</span>, SYSTEM_DAWG_PERM,
+        kMaxNumEdges, unicharset.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#aa3e8073ebaf3e0022654c45f27135032">size</a>(),
+        classify-&gt;<a class="code" href="classtesseract_1_1_classify.html#a83e4207353a1bb07adfaa6a82a74c9ce">getDict</a>().dawg_debug_level);
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Reading word list from &#39;%s&#39;\n&quot;</span>, wordlist_filename);
+    <span class="keywordflow">if</span> (!trie.read_word_list(wordlist_filename, unicharset, reverse_policy)) {
+      <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Failed to read word list from &#39;%s&#39;\n&quot;</span>, wordlist_filename);
+      exit(1);
+    }
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Reducing Trie to SquishedDawg\n&quot;</span>);
+    <a class="code" href="classtesseract_1_1_squished_dawg.html">tesseract::SquishedDawg</a> *dawg = trie.trie_to_dawg();
+    <span class="keywordflow">if</span> (dawg != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp; dawg-&gt;<a class="code" href="classtesseract_1_1_squished_dawg.html#ac31f8bc5673fbda1ec05208f9b8caacc">NumEdges</a>() &gt; 0) {
+      <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Writing squished DAWG to &#39;%s&#39;\n&quot;</span>, dawg_filename);
+      dawg-&gt;<a class="code" href="classtesseract_1_1_squished_dawg.html#a5b6d0a893b2a8e64c901d514a3da924e" title="Writes the squished/reduced Dawg to a file.">write_squished_dawg</a>(dawg_filename);
+    } <span class="keywordflow">else</span> {
+      <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Dawg is empty, skip producing the output file\n&quot;</span>);
+    }
+    <span class="keyword">delete</span> dawg;
+  } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (argc == 5) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Loading dawg DAWG from &#39;%s&#39;\n&quot;</span>, dawg_filename);
+    <a class="code" href="classtesseract_1_1_squished_dawg.html">tesseract::SquishedDawg</a> words(
+        dawg_filename,
+        <span class="comment">// these 3 arguments are not used in this case</span>
+        <a class="code" href="namespacetesseract.html#a07c41f251f1782c60df4e626c35d2151a9c67e397ff6d57a705cd4cd4524a2b34">tesseract::DAWG_TYPE_WORD</a>, <span class="stringliteral">&quot;&quot;</span>, SYSTEM_DAWG_PERM,
+        classify-&gt;<a class="code" href="classtesseract_1_1_classify.html#a83e4207353a1bb07adfaa6a82a74c9ce">getDict</a>().dawg_debug_level);
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Checking word list from &#39;%s&#39;\n&quot;</span>, wordlist_filename);
+    words.check_for_words(wordlist_filename, unicharset, <span class="keyword">true</span>);
+  } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (argc == 7) {
+    <span class="comment">// Place words of different lengths in separate Dawgs.</span>
+    <span class="keywordtype">char</span> str[<a class="code" href="cutil_8h.html#accaf8215779c8836f3f25f722e77550e">CHARS_PER_LINE</a>];
+    FILE *word_file = fopen(wordlist_filename, <span class="stringliteral">&quot;rb&quot;</span>);
+    <span class="keywordflow">if</span> (word_file == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Failed to open wordlist file %s\n&quot;</span>, wordlist_filename);
+      exit(1);
+    }
+    FILE *dawg_file = fopen(dawg_filename, <span class="stringliteral">&quot;wb&quot;</span>);
+    <span class="keywordflow">if</span> (dawg_file == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Failed to open dawg output file %s\n&quot;</span>, dawg_filename);
+      exit(1);
+    }
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Reading word list from &#39;%s&#39;\n&quot;</span>, wordlist_filename);
+    <a class="code" href="class_generic_vector.html">GenericVector&lt;tesseract::Trie *&gt;</a> trie_vec;
+    <span class="keywordtype">int</span> i;
+    <span class="keywordflow">for</span> (i = min_word_length; i &lt;= max_word_length; ++i) {
+      trie_vec.<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(<span class="keyword">new</span> <a class="code" href="classtesseract_1_1_trie.html">tesseract::Trie</a>(
+          <span class="comment">// the first 3 arguments are not used in this case</span>
+          <a class="code" href="namespacetesseract.html#a07c41f251f1782c60df4e626c35d2151a9c67e397ff6d57a705cd4cd4524a2b34">tesseract::DAWG_TYPE_WORD</a>, <span class="stringliteral">&quot;&quot;</span>, SYSTEM_DAWG_PERM,
+          kMaxNumEdges, unicharset.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#aa3e8073ebaf3e0022654c45f27135032">size</a>(),
+          classify-&gt;<a class="code" href="classtesseract_1_1_classify.html#a83e4207353a1bb07adfaa6a82a74c9ce">getDict</a>().dawg_debug_level));
+    }
+    <span class="keywordflow">while</span> (fgets(str, <a class="code" href="cutil_8h.html#accaf8215779c8836f3f25f722e77550e">CHARS_PER_LINE</a>, word_file) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      <a class="code" href="helpers_8h.html#a31bec0ef73dd383e256fa462e9fa7e1f">chomp_string</a>(str);  <span class="comment">// remove newline</span>
+      <span class="keywordtype">int</span> badpos;
+      <span class="keywordflow">if</span> (!unicharset.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a139844c724c4bae5e66ef4b9e8716740">encodable_string</a>(str, &amp;badpos)) {
+        <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;String &#39;%s&#39; not compatible with unicharset. &quot;</span>
+                <span class="stringliteral">&quot;Bad chars here: &#39;%s&#39;\n&quot;</span>, str, str + badpos);
+        <span class="keywordflow">continue</span>;
+      }
+      <a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html">WERD_CHOICE</a> word(str, unicharset);
+      <span class="keywordflow">if</span> ((reverse_policy == <a class="code" href="classtesseract_1_1_trie.html#a920adf78e22cbdb661e0c2aef58a8c80aebb1e29c59c60c902106a61853e183e3">tesseract::Trie::RRP_REVERSE_IF_HAS_RTL</a> &amp;&amp;
+          word.has_rtl_unichar_id()) ||
+          reverse_policy == <a class="code" href="classtesseract_1_1_trie.html#a920adf78e22cbdb661e0c2aef58a8c80af7ddb14bc4c549b47f4b1b32f3c284f2">tesseract::Trie::RRP_FORCE_REVERSE</a>) {
+        word.reverse_and_mirror_unichar_ids();
+      }
+      <span class="keywordflow">if</span> (word.length() &gt;= min_word_length &amp;&amp;
+          word.length() &lt;= max_word_length &amp;&amp;
+          !word.contains_unichar_id(INVALID_UNICHAR_ID)) {
+        <a class="code" href="classtesseract_1_1_trie.html">tesseract::Trie</a> *curr_trie = trie_vec[word.length()-min_word_length];
+        <span class="keywordflow">if</span> (!curr_trie-&gt;<a class="code" href="classtesseract_1_1_dawg.html#a37e1a2a607ac12c92826247303ebb6d0" title="Returns true if the given word is in the Dawg.">word_in_dawg</a>(word)) {
+          <span class="keywordflow">if</span> (!curr_trie-&gt;<a class="code" href="classtesseract_1_1_trie.html#abafc5803b471a28d781ffc74d7a2f652">add_word_to_dawg</a>(word)) {
+            <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Failed to add the following word to dawg:\n&quot;</span>);
+            word.print();
+            exit(1);
+          }
+          <span class="keywordflow">if</span> (classify-&gt;<a class="code" href="classtesseract_1_1_classify.html#a83e4207353a1bb07adfaa6a82a74c9ce">getDict</a>().dawg_debug_level &gt; 1) {
+            <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Added word %s of length %d\n&quot;</span>, str, word.length());
+          }
+          <span class="keywordflow">if</span> (!curr_trie-&gt;<a class="code" href="classtesseract_1_1_dawg.html#a37e1a2a607ac12c92826247303ebb6d0" title="Returns true if the given word is in the Dawg.">word_in_dawg</a>(word)) {
+            <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Error: word &#39;%s&#39; not in DAWG after adding it\n&quot;</span>, str);
+            exit(1);
+          }
+        }
+      }
+    }
+    fclose(word_file);
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Writing fixed length dawgs to &#39;%s&#39;\n&quot;</span>, dawg_filename);
+    <a class="code" href="class_generic_vector.html">GenericVector&lt;tesseract::SquishedDawg *&gt;</a> dawg_vec;
+    <span class="keywordflow">for</span> (i = 0; i &lt;= max_word_length; ++i) {
+      dawg_vec.<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(i &lt; min_word_length ? <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> :
+                         trie_vec[i-min_word_length]-&gt;trie_to_dawg());
+    }
+    <a class="code" href="classtesseract_1_1_dict.html#a21f1ab419db2b1bb8f375bd9b5935ade">tesseract::Dict::WriteFixedLengthDawgs</a>(
+        dawg_vec, max_word_length - min_word_length + 1,
+        classify-&gt;<a class="code" href="classtesseract_1_1_classify.html#a83e4207353a1bb07adfaa6a82a74c9ce">getDict</a>().dawg_debug_level, dawg_file);
+    fclose(dawg_file);
+    dawg_vec.<a class="code" href="class_generic_vector.html#a98f62dccd75224a60437c2761bd215cd">delete_data_pointers</a>();
+    trie_vec.<a class="code" href="class_generic_vector.html#a98f62dccd75224a60437c2761bd215cd">delete_data_pointers</a>();
+  } <span class="keywordflow">else</span> {  <span class="comment">// should never get here</span>
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Invalid command-line options\n&quot;</span>);
+    exit(1);
+  }
+  <span class="keyword">delete</span> classify;
+  <span class="keywordflow">return</span> 0;
+}
+</pre></div>
 </div>
 </div>
 </div>
@@ -165,7 +312,7 @@ Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:10 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:43 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

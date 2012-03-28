@@ -128,7 +128,10 @@ Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtesseract_1_1_aligned_blob_params.html#a156cc5a176a7753c680415f035aa55fd">min_length</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_i_c_o_o_r_d.html">ICOORD</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtesseract_1_1_aligned_blob_params.html#acdc3b3bc6a750096da1641b343517ace">vertical</a></td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="alignedblob_8h_source.html#l00044">44</a> of file <a class="el" href="alignedblob_8h_source.html">alignedblob.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="aac285afe5a09388331a6dc25f4fef615"></a><!-- doxytag: member="tesseract::AlignedBlobParams::AlignedBlobParams" ref="aac285afe5a09388331a6dc25f4fef615" args="(int vertical_x, int vertical_y, int height, int v_gap_multiple, int min_gutter_width, int resolution, TabAlignment alignment0)" -->
 <div class="memitem">
 <div class="memproto">
@@ -184,6 +187,41 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="alignedblob_8cpp_source.html#l00094">94</a> of file <a class="el" href="alignedblob_8cpp_source.html">alignedblob.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">  : <a class="code" href="structtesseract_1_1_aligned_blob_params.html#af5be29a0f0602a9cee85ea55cc72ce82">right_tab</a>(align0 == <a class="code" href="namespacetesseract.html#a9661ffc0ba1d1cfbca95090649c79822a3eb640025f235401fd86bf1bf01e4a49">TA_RIGHT_RAGGED</a> || align0 == <a class="code" href="namespacetesseract.html#a9661ffc0ba1d1cfbca95090649c79822a0dfc605a485921b4a7c1616e32019513">TA_RIGHT_ALIGNED</a>),
+    <a class="code" href="structtesseract_1_1_aligned_blob_params.html#ac80a942a45ca308b6db82c52672f2441">ragged</a>(align0 == <a class="code" href="namespacetesseract.html#a9661ffc0ba1d1cfbca95090649c79822a63f1e8bdcb518d39f915c4a6f51126c9">TA_LEFT_RAGGED</a> || align0 == <a class="code" href="namespacetesseract.html#a9661ffc0ba1d1cfbca95090649c79822a3eb640025f235401fd86bf1bf01e4a49">TA_RIGHT_RAGGED</a>),
+    <a class="code" href="structtesseract_1_1_aligned_blob_params.html#a77bb80612aed62986d8dab3508a2a6b4">alignment</a>(align0),
+    <a class="code" href="structtesseract_1_1_aligned_blob_params.html#a86260944382d57f10f5f6a3718318b6d">confirmed_type</a>(<a class="code" href="blobbox_8h.html#a6d0b33e703e1291d0b60d4fe5a5e12cca9f2414540c7d6e051206f486a70f5d2e">TT_CONFIRMED</a>),
+    <a class="code" href="structtesseract_1_1_aligned_blob_params.html#a156cc5a176a7753c680415f035aa55fd">min_length</a>(0) {
+  <span class="comment">// Set the tolerances according to the type of line sought.</span>
+  <span class="comment">// For tab search, these are based on the image resolution for most, or</span>
+  <span class="comment">// the height of the starting blob for the maximum vertical gap.</span>
+  <a class="code" href="structtesseract_1_1_aligned_blob_params.html#a70e2ffc29607853e0453d98bc146034c">max_v_gap</a> = height * v_gap_multiple;
+  <span class="keywordflow">if</span> (<a class="code" href="structtesseract_1_1_aligned_blob_params.html#ac80a942a45ca308b6db82c52672f2441">ragged</a>) {
+    <span class="comment">// In the case of a ragged edge, we are much more generous with the</span>
+    <span class="comment">// inside alignment fraction, but also require a much bigger gutter.</span>
+    <a class="code" href="structtesseract_1_1_aligned_blob_params.html#afe400c5d4ef1bfe294a4baf45812ef01">gutter_fraction</a> = <a class="code" href="namespacetesseract.html#a92a18c9684aaa0acd9939e7e91d1cd60">kRaggedGapFraction</a>;
+    <span class="keywordflow">if</span> (<a class="code" href="structtesseract_1_1_aligned_blob_params.html#a77bb80612aed62986d8dab3508a2a6b4">alignment</a> == <a class="code" href="namespacetesseract.html#a9661ffc0ba1d1cfbca95090649c79822a3eb640025f235401fd86bf1bf01e4a49">TA_RIGHT_RAGGED</a>) {
+      <a class="code" href="structtesseract_1_1_aligned_blob_params.html#a2eab7048a1f698433d9d0dc5fccd8fed">l_align_tolerance</a> = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(resolution * <a class="code" href="namespacetesseract.html#abdaa318336c9bb9609f2fdba391a9451">kRaggedFraction</a> + 0.5);
+      <a class="code" href="structtesseract_1_1_aligned_blob_params.html#ab8ae6a57a362fea6e62386a2d086202f">r_align_tolerance</a> = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(resolution * <a class="code" href="namespacetesseract.html#a9ef44019867a8035dc34a7795097b157">kAlignedFraction</a> + 0.5);
+    } <span class="keywordflow">else</span> {
+      <a class="code" href="structtesseract_1_1_aligned_blob_params.html#a2eab7048a1f698433d9d0dc5fccd8fed">l_align_tolerance</a> = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(resolution * <a class="code" href="namespacetesseract.html#a9ef44019867a8035dc34a7795097b157">kAlignedFraction</a> + 0.5);
+      <a class="code" href="structtesseract_1_1_aligned_blob_params.html#ab8ae6a57a362fea6e62386a2d086202f">r_align_tolerance</a> = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(resolution * <a class="code" href="namespacetesseract.html#abdaa318336c9bb9609f2fdba391a9451">kRaggedFraction</a> + 0.5);
+    }
+    <a class="code" href="structtesseract_1_1_aligned_blob_params.html#ad95c5a1a4612b1182d2460a9b02f77dc">min_points</a> = <a class="code" href="namespacetesseract.html#ad619a483f2439f99777811f537a9cb24">kMinRaggedTabs</a>;
+  } <span class="keywordflow">else</span> {
+    <a class="code" href="structtesseract_1_1_aligned_blob_params.html#afe400c5d4ef1bfe294a4baf45812ef01">gutter_fraction</a> = <a class="code" href="namespacetesseract.html#a5b475b6dfc1167009e77c89f2ca25dfb">kAlignedGapFraction</a>;
+    <a class="code" href="structtesseract_1_1_aligned_blob_params.html#a2eab7048a1f698433d9d0dc5fccd8fed">l_align_tolerance</a> = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(resolution * <a class="code" href="namespacetesseract.html#a9ef44019867a8035dc34a7795097b157">kAlignedFraction</a> + 0.5);
+    <a class="code" href="structtesseract_1_1_aligned_blob_params.html#ab8ae6a57a362fea6e62386a2d086202f">r_align_tolerance</a> = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(resolution * <a class="code" href="namespacetesseract.html#a9ef44019867a8035dc34a7795097b157">kAlignedFraction</a> + 0.5);
+    <a class="code" href="structtesseract_1_1_aligned_blob_params.html#ad95c5a1a4612b1182d2460a9b02f77dc">min_points</a> = <a class="code" href="namespacetesseract.html#a3036fb27e166287eddab8b7988c96383">kMinAlignedTabs</a>;
+  }
+  <a class="code" href="structtesseract_1_1_aligned_blob_params.html#a4bbdae9960d3343725a77f92cf61f639">min_gutter</a> = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(height * <a class="code" href="structtesseract_1_1_aligned_blob_params.html#afe400c5d4ef1bfe294a4baf45812ef01">gutter_fraction</a> + 0.5);
+  <span class="keywordflow">if</span> (<a class="code" href="structtesseract_1_1_aligned_blob_params.html#a4bbdae9960d3343725a77f92cf61f639">min_gutter</a> &lt; min_gutter_width)
+    <a class="code" href="structtesseract_1_1_aligned_blob_params.html#a4bbdae9960d3343725a77f92cf61f639">min_gutter</a> = min_gutter_width;
+  <span class="comment">// Fit the vertical vector into an ICOORD, which is 16 bit.</span>
+  <a class="code" href="structtesseract_1_1_aligned_blob_params.html#a83e44cae379b6731699515fb80f5be33">set_vertical</a>(vertical_x, vertical_y);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a575b3a2cf7713d3168753cd78354966f"></a><!-- doxytag: member="tesseract::AlignedBlobParams::AlignedBlobParams" ref="a575b3a2cf7713d3168753cd78354966f" args="(int vertical_x, int vertical_y, int width)" -->
@@ -217,6 +255,24 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="alignedblob_8cpp_source.html#l00135">135</a> of file <a class="el" href="alignedblob_8cpp_source.html">alignedblob.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">  : <a class="code" href="structtesseract_1_1_aligned_blob_params.html#afe400c5d4ef1bfe294a4baf45812ef01">gutter_fraction</a>(0.0),
+    <a class="code" href="structtesseract_1_1_aligned_blob_params.html#af5be29a0f0602a9cee85ea55cc72ce82">right_tab</a>(<span class="keyword">false</span>),
+    <a class="code" href="structtesseract_1_1_aligned_blob_params.html#ac80a942a45ca308b6db82c52672f2441">ragged</a>(<span class="keyword">false</span>),
+    <a class="code" href="structtesseract_1_1_aligned_blob_params.html#a77bb80612aed62986d8dab3508a2a6b4">alignment</a>(<a class="code" href="namespacetesseract.html#a9661ffc0ba1d1cfbca95090649c79822a5e3a11fa3b4f26e3e73cc7832bb72381">TA_SEPARATOR</a>),
+    <a class="code" href="structtesseract_1_1_aligned_blob_params.html#a86260944382d57f10f5f6a3718318b6d">confirmed_type</a>(<a class="code" href="blobbox_8h.html#a6d0b33e703e1291d0b60d4fe5a5e12cca17113fa407dccfcd4e19cca53e715af8">TT_VLINE</a>),
+    <a class="code" href="structtesseract_1_1_aligned_blob_params.html#a70e2ffc29607853e0453d98bc146034c">max_v_gap</a>(<a class="code" href="namespacetesseract.html#a3de2795111588ee41cd247b177131f37">kVLineSearchSize</a>),
+    <a class="code" href="structtesseract_1_1_aligned_blob_params.html#a4bbdae9960d3343725a77f92cf61f639">min_gutter</a>(<a class="code" href="namespacetesseract.html#a4e46e9a76747314d18c6db272345a9c9">kVLineGutter</a>),
+    <a class="code" href="structtesseract_1_1_aligned_blob_params.html#ad95c5a1a4612b1182d2460a9b02f77dc">min_points</a>(1),
+    <a class="code" href="structtesseract_1_1_aligned_blob_params.html#a156cc5a176a7753c680415f035aa55fd">min_length</a>(<a class="code" href="namespacetesseract.html#a20a31756a93d4d56040b537fd40f1da9">kVLineMinLength</a>) {
+  <span class="comment">// Compute threshold for left and right alignment.</span>
+  <a class="code" href="structtesseract_1_1_aligned_blob_params.html#a2eab7048a1f698433d9d0dc5fccd8fed">l_align_tolerance</a> = <a class="code" href="ndminx_8h.html#aacc3ee1a7f283f8ef65cea31f4436a95">MAX</a>(<a class="code" href="namespacetesseract.html#a9e1752bce5ba73cc7345cc8b688e149d">kVLineAlignment</a>, width);
+  <a class="code" href="structtesseract_1_1_aligned_blob_params.html#ab8ae6a57a362fea6e62386a2d086202f">r_align_tolerance</a> = <a class="code" href="ndminx_8h.html#aacc3ee1a7f283f8ef65cea31f4436a95">MAX</a>(<a class="code" href="namespacetesseract.html#a9e1752bce5ba73cc7345cc8b688e149d">kVLineAlignment</a>, width);
+
+  <span class="comment">// Fit the vertical vector into an ICOORD, which is 16 bit.</span>
+  <a class="code" href="structtesseract_1_1_aligned_blob_params.html#a83e44cae379b6731699515fb80f5be33">set_vertical</a>(vertical_x, vertical_y);
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -245,6 +301,15 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="alignedblob_8cpp_source.html#l00155">155</a> of file <a class="el" href="alignedblob_8cpp_source.html">alignedblob.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                   {
+  <span class="keywordtype">int</span> factor = 1;
+  <span class="keywordflow">if</span> (vertical_y &gt; <a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a>)
+    factor = vertical_y / <a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a> + 1;
+  <a class="code" href="structtesseract_1_1_aligned_blob_params.html#acdc3b3bc6a750096da1641b343517ace">vertical</a>.<a class="code" href="class_i_c_o_o_r_d.html#a94c586039b3a003b35cf659b33b938f3" title="rewrite function">set_x</a>(vertical_x / factor);
+  <a class="code" href="structtesseract_1_1_aligned_blob_params.html#acdc3b3bc6a750096da1641b343517ace">vertical</a>.<a class="code" href="class_i_c_o_o_r_d.html#aa9fb418d1c602c0533e426759da43d67" title="rewrite function">set_y</a>(vertical_y / factor);
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
@@ -259,6 +324,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="alignedblob_8h_source.html#l00066">66</a> of file <a class="el" href="alignedblob_8h_source.html">alignedblob.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a86260944382d57f10f5f6a3718318b6d"></a><!-- doxytag: member="tesseract::AlignedBlobParams::confirmed_type" ref="a86260944382d57f10f5f6a3718318b6d" args="" -->
@@ -271,6 +338,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="alignedblob_8h_source.html#l00067">67</a> of file <a class="el" href="alignedblob_8h_source.html">alignedblob.h</a>.</p>
 
 </div>
 </div>
@@ -285,6 +354,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="alignedblob_8h_source.html#l00063">63</a> of file <a class="el" href="alignedblob_8h_source.html">alignedblob.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a2eab7048a1f698433d9d0dc5fccd8fed"></a><!-- doxytag: member="tesseract::AlignedBlobParams::l_align_tolerance" ref="a2eab7048a1f698433d9d0dc5fccd8fed" args="" -->
@@ -297,6 +368,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="alignedblob_8h_source.html#l00071">71</a> of file <a class="el" href="alignedblob_8h_source.html">alignedblob.h</a>.</p>
 
 </div>
 </div>
@@ -311,6 +384,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="alignedblob_8h_source.html#l00068">68</a> of file <a class="el" href="alignedblob_8h_source.html">alignedblob.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a4bbdae9960d3343725a77f92cf61f639"></a><!-- doxytag: member="tesseract::AlignedBlobParams::min_gutter" ref="a4bbdae9960d3343725a77f92cf61f639" args="" -->
@@ -323,6 +398,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="alignedblob_8h_source.html#l00069">69</a> of file <a class="el" href="alignedblob_8h_source.html">alignedblob.h</a>.</p>
 
 </div>
 </div>
@@ -337,6 +414,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="alignedblob_8h_source.html#l00075">75</a> of file <a class="el" href="alignedblob_8h_source.html">alignedblob.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ad95c5a1a4612b1182d2460a9b02f77dc"></a><!-- doxytag: member="tesseract::AlignedBlobParams::min_points" ref="ad95c5a1a4612b1182d2460a9b02f77dc" args="" -->
@@ -349,6 +428,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="alignedblob_8h_source.html#l00074">74</a> of file <a class="el" href="alignedblob_8h_source.html">alignedblob.h</a>.</p>
 
 </div>
 </div>
@@ -363,6 +444,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="alignedblob_8h_source.html#l00072">72</a> of file <a class="el" href="alignedblob_8h_source.html">alignedblob.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ac80a942a45ca308b6db82c52672f2441"></a><!-- doxytag: member="tesseract::AlignedBlobParams::ragged" ref="ac80a942a45ca308b6db82c52672f2441" args="" -->
@@ -375,6 +458,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="alignedblob_8h_source.html#l00065">65</a> of file <a class="el" href="alignedblob_8h_source.html">alignedblob.h</a>.</p>
 
 </div>
 </div>
@@ -389,6 +474,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="alignedblob_8h_source.html#l00064">64</a> of file <a class="el" href="alignedblob_8h_source.html">alignedblob.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="acdc3b3bc6a750096da1641b343517ace"></a><!-- doxytag: member="tesseract::AlignedBlobParams::vertical" ref="acdc3b3bc6a750096da1641b343517ace" args="" -->
@@ -402,11 +489,13 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="alignedblob_8h_source.html#l00077">77</a> of file <a class="el" href="alignedblob_8h_source.html">alignedblob.h</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following files:<ul>
 <li>tesseract-ocr/textord/<a class="el" href="alignedblob_8h_source.html">alignedblob.h</a></li>
-<li>tesseract-ocr/textord/<a class="el" href="alignedblob_8cpp.html">alignedblob.cpp</a></li>
+<li>tesseract-ocr/textord/<a class="el" href="alignedblob_8cpp_source.html">alignedblob.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -429,7 +518,7 @@ Public Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:16 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:52 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

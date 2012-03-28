@@ -176,7 +176,10 @@ Public Attributes</h2></td></tr>
 Static Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_t_o___r_o_w.html#ab8d51dc0bcfd678e08c91bc28de0b255">kErrorWeight</a> = 3</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00519">519</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a97938fde595d8b6cf55ebd65cb94c232"></a><!-- doxytag: member="TO_ROW::TO_ROW" ref="a97938fde595d8b6cf55ebd65cb94c232" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -191,6 +194,11 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00524">524</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">             {
+      clear();
+    }                            <span class="comment">//empty</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a99721b51dd782d8a9951d6f07d3bcc19"></a><!-- doxytag: member="TO_ROW::TO_ROW" ref="a99721b51dd782d8a9951d6f07d3bcc19" args="(BLOBNBOX *blob, float top, float bottom, float row_size)" -->
@@ -230,6 +238,30 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8cpp_source.html#l00626">626</a> of file <a class="el" href="blobbox_8cpp_source.html">blobbox.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">  {
+  clear();
+  y_min = bottom;
+  y_max = top;
+  initial_y_min = bottom;
+
+  <span class="keywordtype">float</span> diff;                    <span class="comment">//in size</span>
+  BLOBNBOX_IT it = &amp;blobs;       <span class="comment">//list of blobs</span>
+
+  it.add_to_end (blob);
+  diff = top - bottom - row_size;
+  <span class="keywordflow">if</span> (diff &gt; 0) {
+    y_max -= diff / 2;
+    y_min += diff / 2;
+  }
+                                 <span class="comment">//very small object</span>
+  <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((top - bottom) * 3 &lt; row_size) {
+    diff = row_size / 3 + bottom - top;
+    y_max += diff / 2;
+    y_min -= diff / 2;
+  }
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -270,6 +302,31 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8cpp_source.html#l00661">661</a> of file <a class="el" href="blobbox_8cpp_source.html">blobbox.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                       {
+  <span class="keywordtype">float</span> allowed;                 <span class="comment">//allowed expansion</span>
+  <span class="keywordtype">float</span> available;               <span class="comment">//expansion</span>
+  BLOBNBOX_IT it = &amp;blobs;       <span class="comment">//list of blobs</span>
+
+  it.add_to_end (blob);
+  allowed = row_size + y_min - y_max;
+  <span class="keywordflow">if</span> (allowed &gt; 0) {
+    available = top &gt; y_max ? top - y_max : 0;
+    <span class="keywordflow">if</span> (bottom &lt; y_min)
+                                 <span class="comment">//total available</span>
+        available += y_min - bottom;
+    <span class="keywordflow">if</span> (available &gt; 0) {
+      available += available;    <span class="comment">//do it gradually</span>
+      <span class="keywordflow">if</span> (available &lt; allowed)
+        available = allowed;
+      <span class="keywordflow">if</span> (bottom &lt; y_min)
+        y_min -= (y_min - bottom) * allowed / available;
+      <span class="keywordflow">if</span> (top &gt; y_max)
+        y_max += (top - y_max) * allowed / available;
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad75977d78697308fc64cbd42f056b9bd"></a><!-- doxytag: member="TO_ROW::believability" ref="ad75977d78697308fc64cbd42f056b9bd" args="() const " -->
@@ -286,6 +343,11 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00560">560</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                {  <span class="comment">//baseline goodness</span>
+      <span class="keywordflow">return</span> credibility;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a39cee94572e70d35179c27cdf21a3022"></a><!-- doxytag: member="TO_ROW::blob_list" ref="a39cee94572e70d35179c27cdf21a3022" args="()" -->
@@ -302,6 +364,11 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00574">574</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                               {  <span class="comment">//get list</span>
+      <span class="keywordflow">return</span> &amp;blobs;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3ee798180ebcd28b1d1667673e3ddb15"></a><!-- doxytag: member="TO_ROW::clear_rep_chars_marked" ref="a3ee798180ebcd28b1d1667673e3ddb15" args="()" -->
@@ -318,6 +385,11 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00609">609</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                  {
+      num_repeated_sets_ = -1;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7353024e690e20451d7027a6b13abc8f"></a><!-- doxytag: member="TO_ROW::compute_vertical_projection" ref="a7353024e690e20451d7027a6b13abc8f" args="()" -->
@@ -334,6 +406,30 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8cpp_source.html#l00724">724</a> of file <a class="el" href="blobbox_8cpp_source.html">blobbox.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                         {  <span class="comment">//project whole row</span>
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> row_box;                   <span class="comment">//bound of row</span>
+  <a class="code" href="class_b_l_o_b_n_b_o_x.html">BLOBNBOX</a> *blob;                <span class="comment">//current blob</span>
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> blob_box;                  <span class="comment">//bounding box</span>
+  BLOBNBOX_IT blob_it = <a class="code" href="class_t_o___r_o_w.html#a39cee94572e70d35179c27cdf21a3022">blob_list</a> ();
+
+  <span class="keywordflow">if</span> (blob_it.empty ())
+    <span class="keywordflow">return</span>;
+  row_box = blob_it.data ()-&gt;bounding_box ();
+  <span class="keywordflow">for</span> (blob_it.mark_cycle_pt (); !blob_it.cycled_list (); blob_it.forward ())
+    row_box += blob_it.data ()-&gt;bounding_box ();
+
+  <a class="code" href="class_t_o___r_o_w.html#a3a0910989c04549a96689f72c72baf91">projection</a>.<a class="code" href="class_s_t_a_t_s.html#abcad6a546e1a1851730bc32f17b154ee">set_range</a> (row_box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a> () - <a class="code" href="blobbox_8cpp.html#a01dbc51856714fc0f1871d2eb3c03a5e">PROJECTION_MARGIN</a>,
+    row_box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a> () + <a class="code" href="blobbox_8cpp.html#a01dbc51856714fc0f1871d2eb3c03a5e">PROJECTION_MARGIN</a>);
+  <a class="code" href="class_t_o___r_o_w.html#afe749f42dd6d01b95947aca3a5eb665b">projection_left</a> = row_box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a> () - <a class="code" href="blobbox_8cpp.html#a01dbc51856714fc0f1871d2eb3c03a5e">PROJECTION_MARGIN</a>;
+  <a class="code" href="class_t_o___r_o_w.html#af5dc57d9873f96b1c93270549c874aab">projection_right</a> = row_box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a> () + <a class="code" href="blobbox_8cpp.html#a01dbc51856714fc0f1871d2eb3c03a5e">PROJECTION_MARGIN</a>;
+  <span class="keywordflow">for</span> (blob_it.mark_cycle_pt (); !blob_it.cycled_list (); blob_it.forward ()) {
+    blob = blob_it.data();
+    <span class="keywordflow">if</span> (blob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a483f44541a4dd818f02225c92f030e07">cblob</a>() != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+      <a class="code" href="blobbox_8cpp.html#a127cbd896383554910521dc8e03fd9ef">vertical_cblob_projection</a>(blob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a483f44541a4dd818f02225c92f030e07">cblob</a>(), &amp;<a class="code" href="class_t_o___r_o_w.html#a3a0910989c04549a96689f72c72baf91">projection</a>);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a5aea8d905e2f034e7c7e75195b81fac9"></a><!-- doxytag: member="TO_ROW::initial_min_y" ref="a5aea8d905e2f034e7c7e75195b81fac9" args="() const " -->
@@ -350,6 +446,11 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00542">542</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                {
+      <span class="keywordflow">return</span> initial_y_min;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a342f76a0a1b31c8964b170a3faba25e8"></a><!-- doxytag: member="TO_ROW::insert_blob" ref="a342f76a0a1b31c8964b170a3faba25e8" args="(BLOBNBOX *blob)" -->
@@ -367,6 +468,25 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8cpp_source.html#l00697">697</a> of file <a class="el" href="blobbox_8cpp_source.html">blobbox.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                          {
+  BLOBNBOX_IT it = &amp;blobs;       <span class="comment">//list of blobs</span>
+
+  <span class="keywordflow">if</span> (it.empty ())
+    it.add_before_then_move (blob);
+  <span class="keywordflow">else</span> {
+    it.mark_cycle_pt ();
+    <span class="keywordflow">while</span> (!it.cycled_list ()
+      &amp;&amp; it.data ()-&gt;bounding_box ().left () &lt;=
+      blob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a7b97b8bc16b1473a28f9c44011522f4e">bounding_box</a> ().<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a> ())
+      it.forward ();
+    <span class="keywordflow">if</span> (it.cycled_list ())
+      it.add_to_end (blob);
+    <span class="keywordflow">else</span>
+      it.add_before_stay_put (blob);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae78743484af3c62d5cff686a0b99c52a"></a><!-- doxytag: member="TO_ROW::intercept" ref="ae78743484af3c62d5cff686a0b99c52a" args="() const " -->
@@ -383,6 +503,11 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00563">563</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                            {  <span class="comment">//real parallel_c</span>
+      <span class="keywordflow">return</span> y_origin;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a22dc07e392af85d9ce625efdd13c6627"></a><!-- doxytag: member="TO_ROW::line_c" ref="a22dc07e392af85d9ce625efdd13c6627" args="() const " -->
@@ -399,6 +524,11 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00548">548</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                         {
+      <span class="keywordflow">return</span> c;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6271a66037a1ba15368e1bf3ef4a8d51"></a><!-- doxytag: member="TO_ROW::line_error" ref="a6271a66037a1ba15368e1bf3ef4a8d51" args="() const " -->
@@ -415,6 +545,11 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00551">551</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                             {
+      <span class="keywordflow">return</span> error;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a51cc690153d9cabdc8217e2ac336d414"></a><!-- doxytag: member="TO_ROW::line_m" ref="a51cc690153d9cabdc8217e2ac336d414" args="() const " -->
@@ -431,6 +566,11 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00545">545</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                         {  <span class="comment">//access to line fit</span>
+      <span class="keywordflow">return</span> m;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a99b13776064db8791dd9d9f8cd9749ee"></a><!-- doxytag: member="TO_ROW::max_y" ref="a99b13776064db8791dd9d9f8cd9749ee" args="() const " -->
@@ -447,6 +587,11 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00533">533</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                        {  <span class="comment">//access function</span>
+      <span class="keywordflow">return</span> y_max;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a695c5bd88c3e527b066e84b785dbab36"></a><!-- doxytag: member="TO_ROW::mean_y" ref="a695c5bd88c3e527b066e84b785dbab36" args="() const " -->
@@ -463,6 +608,11 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00539">539</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                         {
+      <span class="keywordflow">return</span> (y_min + y_max) / 2.0f;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad00c86bd684bd454b57bc3bf2b9d0680"></a><!-- doxytag: member="TO_ROW::min_y" ref="ad00c86bd684bd454b57bc3bf2b9d0680" args="() const " -->
@@ -479,6 +629,11 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00536">536</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                        {
+      <span class="keywordflow">return</span> y_min;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="adf3a6f3c6a3a9dfe5a01182375a7adbb"></a><!-- doxytag: member="TO_ROW::num_repeated_sets" ref="adf3a6f3c6a3a9dfe5a01182375a7adbb" args="() const " -->
@@ -495,6 +650,11 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00612">612</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                  {
+      <span class="keywordflow">return</span> num_repeated_sets_;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a81a46c8d6026c157c152778aa9d1ab58"></a><!-- doxytag: member="TO_ROW::parallel_c" ref="a81a46c8d6026c157c152778aa9d1ab58" args="() const " -->
@@ -511,6 +671,11 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00554">554</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                             {
+      <span class="keywordflow">return</span> para_c;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa57d80c8359f9fa5fec3497f995e7177"></a><!-- doxytag: member="TO_ROW::parallel_error" ref="aa57d80c8359f9fa5fec3497f995e7177" args="() const " -->
@@ -527,6 +692,11 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00557">557</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                 {
+      <span class="keywordflow">return</span> para_error;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a35f5d23b0e66150cf3044a7cb3b87b21"></a><!-- doxytag: member="TO_ROW::rep_chars_marked" ref="a35f5d23b0e66150cf3044a7cb3b87b21" args="() const " -->
@@ -543,6 +713,11 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00606">606</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                  {
+      <span class="keywordflow">return</span> num_repeated_sets_ != -1;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a5a5bfd657e97c2fed2cf6153eca0e98a"></a><!-- doxytag: member="TO_ROW::set_limits" ref="a5a5bfd657e97c2fed2cf6153eca0e98a" args="(float new_min, float new_max)" -->
@@ -570,6 +745,12 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00597">597</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                   {  <span class="comment">//top of row</span>
+      y_min = new_min;
+      y_max = new_max;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a10818e7d801044a4d569466fa1d5f841"></a><!-- doxytag: member="TO_ROW::set_line" ref="a10818e7d801044a4d569466fa1d5f841" args="(float new_m, float new_c, float new_error)" -->
@@ -603,6 +784,13 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00578">578</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                   {
+      m = new_m;
+      c = new_c;
+      error = new_error;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a38c6b27400b2a5ff3ff9f9f9b4b43d69"></a><!-- doxytag: member="TO_ROW::set_num_repeated_sets" ref="a38c6b27400b2a5ff3ff9f9f9b4b43d69" args="(int num_sets)" -->
@@ -620,6 +808,11 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00615">615</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                             {
+      num_repeated_sets_ = num_sets;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a448dbcbfc8d6c3c9c5e8c2fb127fd9d9"></a><!-- doxytag: member="TO_ROW::set_parallel_line" ref="a448dbcbfc8d6c3c9c5e8c2fb127fd9d9" args="(float gradient, float new_c, float new_error)" -->
@@ -653,6 +846,16 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00586">586</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                            {
+      para_c = new_c;
+      para_error = new_error;
+      credibility =
+        (float) (blobs.length () - <a class="code" href="class_t_o___r_o_w.html#ab8d51dc0bcfd678e08c91bc28de0b255">kErrorWeight</a> * new_error);
+      y_origin = (float) (new_c / sqrt (1 + gradient * gradient));
+      <span class="comment">//real intercept</span>
+    }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
@@ -667,6 +870,8 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00621">621</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="acf8bf7f0f335788e106955b8142f832a"></a><!-- doxytag: member="TO_ROW::ascrise" ref="acf8bf7f0f335788e106955b8142f832a" args="" -->
@@ -679,6 +884,8 @@ Static Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00634">634</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
 
 </div>
 </div>
@@ -693,6 +900,8 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00645">645</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a19f4bcbb07931b5db5274a1207af9ec2"></a><!-- doxytag: member="TO_ROW::body_size" ref="a19f4bcbb07931b5db5274a1207af9ec2" args="" -->
@@ -705,6 +914,8 @@ Static Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00636">636</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
 
 </div>
 </div>
@@ -719,6 +930,8 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00644">644</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="acc50308b9a0cd5c73184de33971c55a8"></a><!-- doxytag: member="TO_ROW::descdrop" ref="acc50308b9a0cd5c73184de33971c55a8" args="" -->
@@ -731,6 +944,8 @@ Static Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00635">635</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
 
 </div>
 </div>
@@ -745,6 +960,8 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00626">626</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a903374c27e6052f9441a54be25bcd235"></a><!-- doxytag: member="TO_ROW::fp_nonsp" ref="a903374c27e6052f9441a54be25bcd235" args="" -->
@@ -757,6 +974,8 @@ Static Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00628">628</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
 
 </div>
 </div>
@@ -771,6 +990,8 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00627">627</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a9fca8cf6eb34357e616e056a483e98d5"></a><!-- doxytag: member="TO_ROW::kern_size" ref="a9fca8cf6eb34357e616e056a483e98d5" args="" -->
@@ -783,6 +1004,8 @@ Static Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00641">641</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
 
 </div>
 </div>
@@ -797,6 +1020,8 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00522">522</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a8c51b5da241ad493dfbb297b613dcda0"></a><!-- doxytag: member="TO_ROW::max_nonspace" ref="a8c51b5da241ad493dfbb297b613dcda0" args="" -->
@@ -809,6 +1034,8 @@ Static Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00639">639</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
 
 </div>
 </div>
@@ -823,6 +1050,8 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00620">620</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a367426f5c71d28b9f0dccc95c52d8319"></a><!-- doxytag: member="TO_ROW::min_space" ref="a367426f5c71d28b9f0dccc95c52d8319" args="" -->
@@ -835,6 +1064,8 @@ Static Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00638">638</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
 
 </div>
 </div>
@@ -849,6 +1080,8 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00625">625</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a323c76c41077d4ada275cc5e2e979a52"></a><!-- doxytag: member="TO_ROW::pr_nonsp" ref="a323c76c41077d4ada275cc5e2e979a52" args="" -->
@@ -861,6 +1094,8 @@ Static Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00630">630</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
 
 </div>
 </div>
@@ -875,6 +1110,8 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00629">629</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a3a0910989c04549a96689f72c72baf91"></a><!-- doxytag: member="TO_ROW::projection" ref="a3a0910989c04549a96689f72c72baf91" args="" -->
@@ -887,6 +1124,8 @@ Static Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00646">646</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
 
 </div>
 </div>
@@ -901,6 +1140,8 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00623">623</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="af5dc57d9873f96b1c93270549c874aab"></a><!-- doxytag: member="TO_ROW::projection_right" ref="af5dc57d9873f96b1c93270549c874aab" args="" -->
@@ -913,6 +1154,8 @@ Static Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00624">624</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
 
 </div>
 </div>
@@ -927,6 +1170,8 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00643">643</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="af15ca7af4b650c4089de86ecf8b6f6b2"></a><!-- doxytag: member="TO_ROW::space_size" ref="af15ca7af4b650c4089de86ecf8b6f6b2" args="" -->
@@ -939,6 +1184,8 @@ Static Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00642">642</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
 
 </div>
 </div>
@@ -953,6 +1200,8 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00640">640</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a54a1cf2bfa1478d255a8b79f51ca8e59"></a><!-- doxytag: member="TO_ROW::spacing" ref="a54a1cf2bfa1478d255a8b79f51ca8e59" args="" -->
@@ -965,6 +1214,8 @@ Static Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00631">631</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
 
 </div>
 </div>
@@ -979,6 +1230,8 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00622">622</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a819d94a95b9aab802acbcba097c67b2b"></a><!-- doxytag: member="TO_ROW::xheight" ref="a819d94a95b9aab802acbcba097c67b2b" args="" -->
@@ -991,6 +1244,8 @@ Static Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00632">632</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
 
 </div>
 </div>
@@ -1005,11 +1260,13 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00633">633</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/ccstruct/<a class="el" href="blobbox_8h_source.html">blobbox.h</a></li>
-<li>tesseract-ocr/ccstruct/<a class="el" href="blobbox_8cpp.html">blobbox.cpp</a></li>
+<li>tesseract-ocr/ccstruct/<a class="el" href="blobbox_8cpp_source.html">blobbox.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -1031,7 +1288,7 @@ Static Public Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:14 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:48 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

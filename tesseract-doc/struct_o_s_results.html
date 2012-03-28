@@ -125,7 +125,10 @@ Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_u_n_i_c_h_a_r_s_e_t.html">UNICHARSET</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_o_s_results.html#a78ebdae52f3c685095b56790598ad97c">unicharset</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_o_s_best_result.html">OSBestResult</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_o_s_results.html#a25f64011ea65c038c1ef1a6cedd10f1c">best_result</a></td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="osdetect_8h_source.html#l00047">47</a> of file <a class="el" href="osdetect_8h_source.html">osdetect.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a08aa76cac72da5479bf32789dcc511dc"></a><!-- doxytag: member="OSResults::OSResults" ref="a08aa76cac72da5479bf32789dcc511dc" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -140,6 +143,15 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="osdetect_8h_source.html#l00048">48</a> of file <a class="el" href="osdetect_8h_source.html">osdetect.h</a>.</p>
+<div class="fragment"><pre class="fragment">              : <a class="code" href="struct_o_s_results.html#a78ebdae52f3c685095b56790598ad97c">unicharset</a>(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 4; ++i) {
+      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; <a class="code" href="osdetect_8h.html#ab52d878a730b63bcf57d7bb3113882a1">kMaxNumberOfScripts</a>; ++j)
+        <a class="code" href="struct_o_s_results.html#af612cc25d8432678d5b87a5911544792">scripts_na</a>[i][j] = 0;
+      <a class="code" href="struct_o_s_results.html#a5fe9fa97000f89cd6f4392b55638e882">orientations</a>[i] = 0;
+    }
+  }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -158,6 +170,18 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="osdetect_8cpp_source.html#l00149">149</a> of file <a class="el" href="osdetect_8cpp_source.html">osdetect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                               {
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 4; ++i) {
+    <a class="code" href="struct_o_s_results.html#a5fe9fa97000f89cd6f4392b55638e882">orientations</a>[i] += osr.<a class="code" href="struct_o_s_results.html#a5fe9fa97000f89cd6f4392b55638e882">orientations</a>[i];
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; <a class="code" href="osdetect_8h.html#ab52d878a730b63bcf57d7bb3113882a1">kMaxNumberOfScripts</a>; ++j)
+      <a class="code" href="struct_o_s_results.html#af612cc25d8432678d5b87a5911544792">scripts_na</a>[i][j] += osr.<a class="code" href="struct_o_s_results.html#af612cc25d8432678d5b87a5911544792">scripts_na</a>[i][j];
+  }
+  <a class="code" href="struct_o_s_results.html#a78ebdae52f3c685095b56790598ad97c">unicharset</a> = osr.<a class="code" href="struct_o_s_results.html#a78ebdae52f3c685095b56790598ad97c">unicharset</a>;
+  <a class="code" href="struct_o_s_results.html#af7b5cea89a2bdace52ad5825d6d5d4e6">update_best_orientation</a>();
+  <a class="code" href="struct_o_s_results.html#ab796da60cc16d39f464c03fe4047c358">update_best_script</a>(<a class="code" href="struct_o_s_results.html#a25f64011ea65c038c1ef1a6cedd10f1c">best_result</a>.<a class="code" href="struct_o_s_best_result.html#a6dfb6826b41a81524ce867b005ba5641">orientation_id</a>);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9dcb5250ae2466116c33f5d220223296"></a><!-- doxytag: member="OSResults::get_best_script" ref="a9dcb5250ae2466116c33f5d220223296" args="(int orientation_id) const " -->
@@ -175,6 +199,20 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="osdetect_8cpp_source.html#l00117">117</a> of file <a class="el" href="osdetect_8cpp_source.html">osdetect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                       {
+  <span class="keywordtype">int</span> max_id = -1;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; <a class="code" href="osdetect_8h.html#ab52d878a730b63bcf57d7bb3113882a1">kMaxNumberOfScripts</a>; ++j) {
+    <span class="keyword">const</span> <span class="keywordtype">char</span> *script = <a class="code" href="struct_o_s_results.html#a78ebdae52f3c685095b56790598ad97c">unicharset</a>-&gt;<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a4fc0f6815e2091efedcff7ab6183d19a">get_script_from_script_id</a>(j);
+    <span class="keywordflow">if</span> (strcmp(script, <span class="stringliteral">&quot;Common&quot;</span>) &amp;&amp; strcmp(script, <span class="stringliteral">&quot;NULL&quot;</span>)) {
+      <span class="keywordflow">if</span> (max_id == -1 ||
+          <a class="code" href="struct_o_s_results.html#af612cc25d8432678d5b87a5911544792">scripts_na</a>[orientation_id][j] &gt; <a class="code" href="struct_o_s_results.html#af612cc25d8432678d5b87a5911544792">scripts_na</a>[orientation_id][max_id])
+        max_id = j;
+    }
+  }
+  <span class="keywordflow">return</span> max_id;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4425aefc39fde345cea1288d95691bed"></a><!-- doxytag: member="OSResults::print_scores" ref="a4425aefc39fde345cea1288d95691bed" args="(void) const " -->
@@ -192,6 +230,14 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="osdetect_8cpp_source.html#l00131">131</a> of file <a class="el" href="osdetect_8cpp_source.html">osdetect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                       {
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 4; ++i) {
+    printf(<span class="stringliteral">&quot;Orientation id #%d&quot;</span>, i);
+    <a class="code" href="struct_o_s_results.html#a4425aefc39fde345cea1288d95691bed">print_scores</a>(i);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4c4c5d0fce6889edeea358f755f7e378"></a><!-- doxytag: member="OSResults::print_scores" ref="a4c4c5d0fce6889edeea358f755f7e378" args="(int orientation_id) const " -->
@@ -209,6 +255,16 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="osdetect_8cpp_source.html#l00139">139</a> of file <a class="el" href="osdetect_8cpp_source.html">osdetect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                     {
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; <a class="code" href="osdetect_8h.html#ab52d878a730b63bcf57d7bb3113882a1">kMaxNumberOfScripts</a>; ++j) {
+    <span class="keywordflow">if</span> (<a class="code" href="struct_o_s_results.html#af612cc25d8432678d5b87a5911544792">scripts_na</a>[orientation_id][j]) {
+      printf(<span class="stringliteral">&quot;%12s\t: %f\n&quot;</span>, <a class="code" href="struct_o_s_results.html#a78ebdae52f3c685095b56790598ad97c">unicharset</a>-&gt;<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a4fc0f6815e2091efedcff7ab6183d19a">get_script_from_script_id</a>(j),
+             <a class="code" href="struct_o_s_results.html#af612cc25d8432678d5b87a5911544792">scripts_na</a>[orientation_id][j]);
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa13f0e8c136d10e0af341f163951ed3d"></a><!-- doxytag: member="OSResults::set_best_orientation" ref="aa13f0e8c136d10e0af341f163951ed3d" args="(int orientation_id)" -->
@@ -226,6 +282,12 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="osdetect_8cpp_source.html#l00089">89</a> of file <a class="el" href="osdetect_8cpp_source.html">osdetect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                       {
+  <a class="code" href="struct_o_s_results.html#a25f64011ea65c038c1ef1a6cedd10f1c">best_result</a>.<a class="code" href="struct_o_s_best_result.html#a6dfb6826b41a81524ce867b005ba5641">orientation_id</a> = orientation_id;
+  <a class="code" href="struct_o_s_results.html#a25f64011ea65c038c1ef1a6cedd10f1c">best_result</a>.<a class="code" href="struct_o_s_best_result.html#a67e009467e4db6c40777548ffdfe464e">oconfidence</a> = 0;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="af7b5cea89a2bdace52ad5825d6d5d4e6"></a><!-- doxytag: member="OSResults::update_best_orientation" ref="af7b5cea89a2bdace52ad5825d6d5d4e6" args="()" -->
@@ -242,6 +304,29 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="osdetect_8cpp_source.html#l00067">67</a> of file <a class="el" href="osdetect_8cpp_source.html">osdetect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                        {
+  <span class="keywordtype">float</span> first = <a class="code" href="struct_o_s_results.html#a5fe9fa97000f89cd6f4392b55638e882">orientations</a>[0];
+  <span class="keywordtype">float</span> second = <a class="code" href="struct_o_s_results.html#a5fe9fa97000f89cd6f4392b55638e882">orientations</a>[1];
+  <a class="code" href="struct_o_s_results.html#a25f64011ea65c038c1ef1a6cedd10f1c">best_result</a>.<a class="code" href="struct_o_s_best_result.html#a6dfb6826b41a81524ce867b005ba5641">orientation_id</a> = 0;
+  <span class="keywordflow">if</span> (<a class="code" href="struct_o_s_results.html#a5fe9fa97000f89cd6f4392b55638e882">orientations</a>[0] &lt; <a class="code" href="struct_o_s_results.html#a5fe9fa97000f89cd6f4392b55638e882">orientations</a>[1]) {
+    first = <a class="code" href="struct_o_s_results.html#a5fe9fa97000f89cd6f4392b55638e882">orientations</a>[1];
+    second = <a class="code" href="struct_o_s_results.html#a5fe9fa97000f89cd6f4392b55638e882">orientations</a>[0];
+    <a class="code" href="struct_o_s_results.html#a25f64011ea65c038c1ef1a6cedd10f1c">best_result</a>.<a class="code" href="struct_o_s_best_result.html#a6dfb6826b41a81524ce867b005ba5641">orientation_id</a> = 1;
+  }
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 2; i &lt; 4; ++i) {
+    <span class="keywordflow">if</span> (<a class="code" href="struct_o_s_results.html#a5fe9fa97000f89cd6f4392b55638e882">orientations</a>[i] &gt; first) {
+      second = first;
+      first = <a class="code" href="struct_o_s_results.html#a5fe9fa97000f89cd6f4392b55638e882">orientations</a>[i];
+      <a class="code" href="struct_o_s_results.html#a25f64011ea65c038c1ef1a6cedd10f1c">best_result</a>.<a class="code" href="struct_o_s_best_result.html#a6dfb6826b41a81524ce867b005ba5641">orientation_id</a> = i;
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="struct_o_s_results.html#a5fe9fa97000f89cd6f4392b55638e882">orientations</a>[i] &gt; second) {
+      second = <a class="code" href="struct_o_s_results.html#a5fe9fa97000f89cd6f4392b55638e882">orientations</a>[i];
+    }
+  }
+  <span class="comment">// Store difference of top two orientation scores.</span>
+  <a class="code" href="struct_o_s_results.html#a25f64011ea65c038c1ef1a6cedd10f1c">best_result</a>.<a class="code" href="struct_o_s_best_result.html#a67e009467e4db6c40777548ffdfe464e">oconfidence</a> = first - second;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab796da60cc16d39f464c03fe4047c358"></a><!-- doxytag: member="OSResults::update_best_script" ref="ab796da60cc16d39f464c03fe4047c358" args="(int orientation_id)" -->
@@ -259,6 +344,30 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="osdetect_8cpp_source.html#l00094">94</a> of file <a class="el" href="osdetect_8cpp_source.html">osdetect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                  {
+  <span class="comment">// We skip index 0 to ignore the &quot;Common&quot; script.</span>
+  <span class="keywordtype">float</span> first = <a class="code" href="struct_o_s_results.html#af612cc25d8432678d5b87a5911544792">scripts_na</a>[orientation][1];
+  <span class="keywordtype">float</span> second = <a class="code" href="struct_o_s_results.html#af612cc25d8432678d5b87a5911544792">scripts_na</a>[orientation][2];
+  <a class="code" href="struct_o_s_results.html#a25f64011ea65c038c1ef1a6cedd10f1c">best_result</a>.<a class="code" href="struct_o_s_best_result.html#a0647ea3dc4a399a472c48ab1eacd31e1">script_id</a> = 1;
+  <span class="keywordflow">if</span> (<a class="code" href="struct_o_s_results.html#af612cc25d8432678d5b87a5911544792">scripts_na</a>[orientation][1] &lt; <a class="code" href="struct_o_s_results.html#af612cc25d8432678d5b87a5911544792">scripts_na</a>[orientation][2]) {
+    first = <a class="code" href="struct_o_s_results.html#af612cc25d8432678d5b87a5911544792">scripts_na</a>[orientation][2];
+    second = <a class="code" href="struct_o_s_results.html#af612cc25d8432678d5b87a5911544792">scripts_na</a>[orientation][1];
+    <a class="code" href="struct_o_s_results.html#a25f64011ea65c038c1ef1a6cedd10f1c">best_result</a>.<a class="code" href="struct_o_s_best_result.html#a0647ea3dc4a399a472c48ab1eacd31e1">script_id</a> = 2;
+  }
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 3; i &lt; <a class="code" href="osdetect_8h.html#ab52d878a730b63bcf57d7bb3113882a1">kMaxNumberOfScripts</a>; ++i) {
+    <span class="keywordflow">if</span> (<a class="code" href="struct_o_s_results.html#af612cc25d8432678d5b87a5911544792">scripts_na</a>[orientation][i] &gt; first) {
+      <a class="code" href="struct_o_s_results.html#a25f64011ea65c038c1ef1a6cedd10f1c">best_result</a>.<a class="code" href="struct_o_s_best_result.html#a0647ea3dc4a399a472c48ab1eacd31e1">script_id</a> = i;
+      second = first;
+      first = <a class="code" href="struct_o_s_results.html#af612cc25d8432678d5b87a5911544792">scripts_na</a>[orientation][i];
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="struct_o_s_results.html#af612cc25d8432678d5b87a5911544792">scripts_na</a>[orientation][i] &gt; second) {
+      second = <a class="code" href="struct_o_s_results.html#af612cc25d8432678d5b87a5911544792">scripts_na</a>[orientation][i];
+    }
+  }
+  <a class="code" href="struct_o_s_results.html#a25f64011ea65c038c1ef1a6cedd10f1c">best_result</a>.<a class="code" href="struct_o_s_best_result.html#ae39a2c718b010ed27eb7f820546da6d6">sconfidence</a> =
+      (first / second - 1.0) / (<a class="code" href="osdetect_8cpp.html#a448b61b7951bc14ffab3cc00ba37aadd">kScriptAcceptRatio</a> - 1.0);
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
@@ -273,6 +382,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="osdetect_8h_source.html#l00079">79</a> of file <a class="el" href="osdetect_8h_source.html">osdetect.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a5fe9fa97000f89cd6f4392b55638e882"></a><!-- doxytag: member="OSResults::orientations" ref="a5fe9fa97000f89cd6f4392b55638e882" args="[4]" -->
@@ -285,6 +396,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="osdetect_8h_source.html#l00074">74</a> of file <a class="el" href="osdetect_8h_source.html">osdetect.h</a>.</p>
 
 </div>
 </div>
@@ -299,6 +412,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="osdetect_8h_source.html#l00076">76</a> of file <a class="el" href="osdetect_8h_source.html">osdetect.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a78ebdae52f3c685095b56790598ad97c"></a><!-- doxytag: member="OSResults::unicharset" ref="a78ebdae52f3c685095b56790598ad97c" args="" -->
@@ -312,11 +427,13 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="osdetect_8h_source.html#l00078">78</a> of file <a class="el" href="osdetect_8h_source.html">osdetect.h</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following files:<ul>
 <li>tesseract-ocr/ccmain/<a class="el" href="osdetect_8h_source.html">osdetect.h</a></li>
-<li>tesseract-ocr/ccmain/<a class="el" href="osdetect_8cpp.html">osdetect.cpp</a></li>
+<li>tesseract-ocr/ccmain/<a class="el" href="osdetect_8cpp_source.html">osdetect.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -338,7 +455,7 @@ Public Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:12 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:46 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

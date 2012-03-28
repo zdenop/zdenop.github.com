@@ -152,7 +152,10 @@ Public Member Functions</h2></td></tr>
 Friends</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_o_w.html#afc6deb99d649bb50497f4666630ecb7f">tweak_row_baseline</a> (<a class="el" href="class_r_o_w.html">ROW</a> *, double, double)</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="ocrrow_8h_source.html#l00032">32</a> of file <a class="el" href="ocrrow_8h_source.html">ocrrow.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a562f8cbbfbe912bafde16549fe91d577"></a><!-- doxytag: member="ROW::ROW" ref="a562f8cbbfbe912bafde16549fe91d577" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -167,6 +170,10 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrrow_8h_source.html#l00036">36</a> of file <a class="el" href="ocrrow_8h_source.html">ocrrow.h</a>.</p>
+<div class="fragment"><pre class="fragment">          {
+    }                            <span class="comment">//empty constructor</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a54b78646f7caf16cbca0c3c94a395368"></a><!-- doxytag: member="ROW::ROW" ref="a54b78646f7caf16cbca0c3c94a395368" args="(inT32 spline_size, inT32 *xstarts, double *coeffs, float x_height, float ascenders, float descenders, inT16 kern, inT16 space)" -->
@@ -230,6 +237,20 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrrow_8cpp_source.html#l00036">36</a> of file <a class="el" href="ocrrow_8cpp_source.html">ocrrow.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">    : <a class="code" href="mfoutline_8h.html#a2a4b69f9a2827dc98bc4cbc233118865a83297de004f4e58b9be2108c6cd08a23">baseline</a>(spline_size, xstarts, coeffs),
+      para_(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+  kerning = <a class="code" href="class_r_o_w.html#acc95eb6905c8e269820983d0de93133e">kern</a>;                <span class="comment">//just store stuff</span>
+  spacing = <a class="code" href="class_r_o_w.html#a9914801656b049fbe16ca593f571f4b4">space</a>;
+  xheight = <a class="code" href="class_r_o_w.html#a2954f94ec4eefe1e3729912e5b8ea779">x_height</a>;
+  ascrise = <a class="code" href="class_r_o_w.html#a594cf3a3fd6dd203c8d0e58aa0c5227f">ascenders</a>;
+  bodysize = 0.0f;
+  descdrop = <a class="code" href="class_r_o_w.html#a3c644deaceb136fab5e24e09c8bf8c92">descenders</a>;
+  has_drop_cap_ = <span class="keyword">false</span>;
+  lmargin_ = 0;
+  rmargin_ = 0;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa368609204375e476b7cd7c942c59d9f"></a><!-- doxytag: member="ROW::ROW" ref="aa368609204375e476b7cd7c942c59d9f" args="(TO_ROW *row, inT16 kern, inT16 space)" -->
@@ -263,6 +284,20 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrrow_8cpp_source.html#l00067">67</a> of file <a class="el" href="ocrrow_8cpp_source.html">ocrrow.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">          : para_(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+  kerning = <a class="code" href="class_r_o_w.html#acc95eb6905c8e269820983d0de93133e">kern</a>;                <span class="comment">//just store stuff</span>
+  spacing = <a class="code" href="class_r_o_w.html#a9914801656b049fbe16ca593f571f4b4">space</a>;
+  xheight = to_row-&gt;xheight;
+  bodysize = to_row-&gt;body_size;
+  ascrise = to_row-&gt;ascrise;
+  descdrop = to_row-&gt;descdrop;
+  <a class="code" href="mfoutline_8h.html#a2a4b69f9a2827dc98bc4cbc233118865a83297de004f4e58b9be2108c6cd08a23">baseline</a> = to_row-&gt;baseline;
+  has_drop_cap_ = <span class="keyword">false</span>;
+  lmargin_ = 0;
+  rmargin_ = 0;
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -280,6 +315,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrrow_8h_source.html#l00079">79</a> of file <a class="el" href="ocrrow_8h_source.html">ocrrow.h</a>.</p>
+<div class="fragment"><pre class="fragment">                            {  <span class="comment">//return size</span>
+      <span class="keywordflow">return</span> ascrise;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a097b3543fa3ca5768eb50033d4c4db9c"></a><!-- doxytag: member="ROW::base_line" ref="a097b3543fa3ca5768eb50033d4c4db9c" args="(float xpos) const " -->
@@ -297,6 +337,12 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrrow_8h_source.html#l00056">56</a> of file <a class="el" href="ocrrow_8h_source.html">ocrrow.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                      {  <span class="comment">//at the position</span>
+                                 <span class="comment">//get spline value</span>
+      <span class="keywordflow">return</span> (<span class="keywordtype">float</span>) <a class="code" href="mfoutline_8h.html#a2a4b69f9a2827dc98bc4cbc233118865a83297de004f4e58b9be2108c6cd08a23">baseline</a>.y (xpos);
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab657f290bd4e99106c7ea8868ce7072f"></a><!-- doxytag: member="ROW::body_size" ref="ab657f290bd4e99106c7ea8868ce7072f" args="() const " -->
@@ -313,6 +359,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrrow_8h_source.html#l00070">70</a> of file <a class="el" href="ocrrow_8h_source.html">ocrrow.h</a>.</p>
+<div class="fragment"><pre class="fragment">                            {  <span class="comment">//return body size</span>
+      <span class="keywordflow">return</span> bodysize;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7bb838e55056e39e15d7e2cea8ebebb0"></a><!-- doxytag: member="ROW::bounding_box" ref="a7bb838e55056e39e15d7e2cea8ebebb0" args="() const " -->
@@ -329,6 +380,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrrow_8h_source.html#l00085">85</a> of file <a class="el" href="ocrrow_8h_source.html">ocrrow.h</a>.</p>
+<div class="fragment"><pre class="fragment">                              {  <span class="comment">//return bounding box</span>
+      <span class="keywordflow">return</span> bound_box;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3c644deaceb136fab5e24e09c8bf8c92"></a><!-- doxytag: member="ROW::descenders" ref="a3c644deaceb136fab5e24e09c8bf8c92" args="() const " -->
@@ -345,6 +401,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrrow_8h_source.html#l00082">82</a> of file <a class="el" href="ocrrow_8h_source.html">ocrrow.h</a>.</p>
+<div class="fragment"><pre class="fragment">                             {  <span class="comment">//return size</span>
+      <span class="keywordflow">return</span> descdrop;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a653e5bcceebbaacf727a3c5512ff0a1d"></a><!-- doxytag: member="ROW::has_drop_cap" ref="a653e5bcceebbaacf727a3c5512ff0a1d" args="() const " -->
@@ -361,6 +422,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrrow_8h_source.html#l00105">105</a> of file <a class="el" href="ocrrow_8h_source.html">ocrrow.h</a>.</p>
+<div class="fragment"><pre class="fragment">                              {
+      <span class="keywordflow">return</span> has_drop_cap_;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="acc95eb6905c8e269820983d0de93133e"></a><!-- doxytag: member="ROW::kern" ref="acc95eb6905c8e269820983d0de93133e" args="() const " -->
@@ -377,6 +443,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrrow_8h_source.html#l00067">67</a> of file <a class="el" href="ocrrow_8h_source.html">ocrrow.h</a>.</p>
+<div class="fragment"><pre class="fragment">                       {  <span class="comment">//return kerning</span>
+      <span class="keywordflow">return</span> kerning;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="afb6c1b496c58c7a0c78ee31b0ba78fd3"></a><!-- doxytag: member="ROW::lmargin" ref="afb6c1b496c58c7a0c78ee31b0ba78fd3" args="() const " -->
@@ -393,6 +464,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrrow_8h_source.html#l00095">95</a> of file <a class="el" href="ocrrow_8h_source.html">ocrrow.h</a>.</p>
+<div class="fragment"><pre class="fragment">                          {
+      <span class="keywordflow">return</span> lmargin_;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a857fb9d5a7bd6b928e2beb4a2af30039"></a><!-- doxytag: member="ROW::move" ref="a857fb9d5a7bd6b928e2beb4a2af30039" args="(const ICOORD vec)" -->
@@ -410,6 +486,17 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrrow_8cpp_source.html#l00138">138</a> of file <a class="el" href="ocrrow_8cpp_source.html">ocrrow.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                {
+  WERD_IT it(&amp;words);  <span class="comment">// word iterator</span>
+
+  <span class="keywordflow">for</span> (it.mark_cycle_pt (); !it.cycled_list (); it.forward ())
+    it.data ()-&gt;move (vec);
+
+  bound_box.<a class="code" href="class_t_b_o_x.html#a5fb1ce0d624392f72f82933e63f20e71">move</a> (vec);
+  <a class="code" href="mfoutline_8h.html#a2a4b69f9a2827dc98bc4cbc233118865a83297de004f4e58b9be2108c6cd08a23">baseline</a>.move (vec);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a704a9780baa7ca06702e54db453815db"></a><!-- doxytag: member="ROW::operator=" ref="a704a9780baa7ca06702e54db453815db" args="(const ROW &amp;source)" -->
@@ -427,6 +514,26 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrrow_8cpp_source.html#l00218">218</a> of file <a class="el" href="ocrrow_8cpp_source.html">ocrrow.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                        {
+  this-&gt;<a class="code" href="class_r_o_w.html#a704a9780baa7ca06702e54db453815db">ELIST_LINK::operator= </a>(source);
+  kerning = source.kerning;
+  spacing = source.spacing;
+  xheight = source.xheight;
+  bodysize = source.bodysize;
+  ascrise = source.ascrise;
+  descdrop = source.descdrop;
+  <span class="keywordflow">if</span> (!words.empty ())
+    words.clear ();
+  <a class="code" href="mfoutline_8h.html#a2a4b69f9a2827dc98bc4cbc233118865a83297de004f4e58b9be2108c6cd08a23">baseline</a> = source.baseline;    <span class="comment">//QSPLINES must do =</span>
+  bound_box = source.bound_box;
+  has_drop_cap_ = source.has_drop_cap_;
+  lmargin_ = source.lmargin_;
+  rmargin_ = source.rmargin_;
+  para_ = source.para_;
+  <span class="keywordflow">return</span> *<span class="keyword">this</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a161b418770dc61197a0ba418c35fc997"></a><!-- doxytag: member="ROW::para" ref="a161b418770dc61197a0ba418c35fc997" args="() const " -->
@@ -443,6 +550,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrrow_8h_source.html#l00112">112</a> of file <a class="el" href="ocrrow_8h_source.html">ocrrow.h</a>.</p>
+<div class="fragment"><pre class="fragment">                       {
+      <span class="keywordflow">return</span> para_;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a0b42c2eec2fb387a8ff72889451f9665"></a><!-- doxytag: member="ROW::plot" ref="a0b42c2eec2fb387a8ff72889451f9665" args="(ScrollView *window, ScrollView::Color colour)" -->
@@ -470,6 +582,17 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrrow_8cpp_source.html#l00178">178</a> of file <a class="el" href="ocrrow_8cpp_source.html">ocrrow.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                {
+  <a class="code" href="class_w_e_r_d.html">WERD</a> *word;                    <span class="comment">//current word</span>
+  WERD_IT it = &amp;words;           <span class="comment">//words of ROW</span>
+
+  <span class="keywordflow">for</span> (it.mark_cycle_pt (); !it.cycled_list (); it.forward ()) {
+    word = it.data ();
+    word-&gt;<a class="code" href="class_w_e_r_d.html#ae88f52597b2b6fffa9ca2f8be53908c4">plot</a> (window, colour); <span class="comment">//all in one colour</span>
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac7752c9f627f09538e643a7372455c40"></a><!-- doxytag: member="ROW::plot" ref="ac7752c9f627f09538e643a7372455c40" args="(ScrollView *window)" -->
@@ -487,6 +610,17 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrrow_8cpp_source.html#l00199">199</a> of file <a class="el" href="ocrrow_8cpp_source.html">ocrrow.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                {
+  <a class="code" href="class_w_e_r_d.html">WERD</a> *word;                    <span class="comment">//current word</span>
+  WERD_IT it = &amp;words;           <span class="comment">//words of ROW</span>
+
+  <span class="keywordflow">for</span> (it.mark_cycle_pt (); !it.cycled_list (); it.forward ()) {
+    word = it.data ();
+    word-&gt;<a class="code" href="class_w_e_r_d.html#ae88f52597b2b6fffa9ca2f8be53908c4">plot</a> (window);         <span class="comment">//in rainbow colours</span>
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad38403a98f61a77fe3bf82afedc8d3d2"></a><!-- doxytag: member="ROW::plot_baseline" ref="ad38403a98f61a77fe3bf82afedc8d3d2" args="(ScrollView *window, ScrollView::Color colour)" -->
@@ -514,6 +648,12 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrrow_8h_source.html#l00131">131</a> of file <a class="el" href="ocrrow_8h_source.html">ocrrow.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                               {  <span class="comment">//colour to draw</span>
+                                 <span class="comment">//draw it</span>
+      <a class="code" href="mfoutline_8h.html#a2a4b69f9a2827dc98bc4cbc233118865a83297de004f4e58b9be2108c6cd08a23">baseline</a>.plot (window, colour);
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae48a5c7845ce2d82fa897e4f3d96198e"></a><!-- doxytag: member="ROW::print" ref="ae48a5c7845ce2d82fa897e4f3d96198e" args="(FILE *fp)" -->
@@ -531,6 +671,18 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrrow_8cpp_source.html#l00157">157</a> of file <a class="el" href="ocrrow_8cpp_source.html">ocrrow.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                 {
+  <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Kerning= %d\n&quot;</span>, kerning);
+  <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Spacing= %d\n&quot;</span>, spacing);
+  bound_box.<a class="code" href="class_t_b_o_x.html#a2e753aa9943276301d68e9f9cad99620">print</a>();
+  <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Xheight= %f\n&quot;</span>, xheight);
+  <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Ascrise= %f\n&quot;</span>, ascrise);
+  <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Descdrop= %f\n&quot;</span>, descdrop);
+  <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;has_drop_cap= %d\n&quot;</span>, has_drop_cap_);
+  <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;lmargin= %d, rmargin= %d\n&quot;</span>, lmargin_, rmargin_);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad0341ee4465010249bfc0ae4882e43ec"></a><!-- doxytag: member="ROW::recalc_bounding_box" ref="ad0341ee4465010249bfc0ae4882e43ec" args="()" -->
@@ -547,6 +699,47 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrrow_8cpp_source.html#l00091">91</a> of file <a class="el" href="ocrrow_8cpp_source.html">ocrrow.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                              {  <span class="comment">//recalculate BB</span>
+  <a class="code" href="class_w_e_r_d.html">WERD</a> *word;                    <span class="comment">//current word</span>
+  WERD_IT it = &amp;words;           <span class="comment">//words of ROW</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> left;                    <span class="comment">//of word</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> prev_left;               <span class="comment">//old left</span>
+
+  <span class="keywordflow">if</span> (!it.empty ()) {
+    word = it.data ();
+    prev_left = word-&gt;<a class="code" href="class_w_e_r_d.html#a151bbfb39ecdef93ab1a14b0f9e4ac74">bounding_box</a> ().<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a> ();
+    it.forward ();
+    <span class="keywordflow">while</span> (!it.at_first ()) {
+      word = it.data ();
+      left = word-&gt;<a class="code" href="class_w_e_r_d.html#a151bbfb39ecdef93ab1a14b0f9e4ac74">bounding_box</a> ().<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a> ();
+      <span class="keywordflow">if</span> (left &lt; prev_left) {
+        it.move_to_first ();
+                                 <span class="comment">//words in BB order</span>
+        it.sort (<a class="code" href="werd_8cpp.html#a8a8c04307eb98f244554d5b2eb97ec56">word_comparator</a>);
+        <span class="keywordflow">break</span>;
+      }
+      prev_left = left;
+      it.forward ();
+    }
+  }
+  <span class="keywordflow">for</span> (it.mark_cycle_pt (); !it.cycled_list (); it.forward ()) {
+    word = it.data ();
+    <span class="keywordflow">if</span> (it.at_first ())
+      word-&gt;<a class="code" href="class_w_e_r_d.html#aa42c9f53794ab51c95503cd277e89c60">set_flag</a> (<a class="code" href="werd_8h.html#ad6968adbf8f2cc44adf333ec96efb0beaff21d7c8c8992120fff35942408a00d2">W_BOL</a>, <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>);
+    <span class="keywordflow">else</span>
+                                 <span class="comment">//not start of line</span>
+      word-&gt;<a class="code" href="class_w_e_r_d.html#aa42c9f53794ab51c95503cd277e89c60">set_flag</a> (<a class="code" href="werd_8h.html#ad6968adbf8f2cc44adf333ec96efb0beaff21d7c8c8992120fff35942408a00d2">W_BOL</a>, <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>);
+    <span class="keywordflow">if</span> (it.at_last ())
+      word-&gt;<a class="code" href="class_w_e_r_d.html#aa42c9f53794ab51c95503cd277e89c60">set_flag</a> (<a class="code" href="werd_8h.html#ad6968adbf8f2cc44adf333ec96efb0bea62efb985a62d85e014ee5ab039dd50ce">W_EOL</a>, <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>);
+    <span class="keywordflow">else</span>
+                                 <span class="comment">//not end of line</span>
+      word-&gt;<a class="code" href="class_w_e_r_d.html#aa42c9f53794ab51c95503cd277e89c60">set_flag</a> (<a class="code" href="werd_8h.html#ad6968adbf8f2cc44adf333ec96efb0bea62efb985a62d85e014ee5ab039dd50ce">W_EOL</a>, <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>);
+                                 <span class="comment">//extend BB as reqd</span>
+    bound_box += word-&gt;<a class="code" href="class_w_e_r_d.html#a151bbfb39ecdef93ab1a14b0f9e4ac74">bounding_box</a> ();
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a42e6c8c68f83f5e33e60c628045d3390"></a><!-- doxytag: member="ROW::rmargin" ref="a42e6c8c68f83f5e33e60c628045d3390" args="() const " -->
@@ -563,6 +756,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrrow_8h_source.html#l00098">98</a> of file <a class="el" href="ocrrow_8h_source.html">ocrrow.h</a>.</p>
+<div class="fragment"><pre class="fragment">                          {
+      <span class="keywordflow">return</span> rmargin_;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac0d580e919dd972d3118a7337f6cf621"></a><!-- doxytag: member="ROW::set_body_size" ref="ac0d580e919dd972d3118a7337f6cf621" args="(float new_size)" -->
@@ -580,6 +778,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrrow_8h_source.html#l00073">73</a> of file <a class="el" href="ocrrow_8h_source.html">ocrrow.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                       {  <span class="comment">// set body size</span>
+      bodysize = new_size;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a1a289c49e757d42605fa4448fbeb5b08"></a><!-- doxytag: member="ROW::set_has_drop_cap" ref="a1a289c49e757d42605fa4448fbeb5b08" args="(bool has)" -->
@@ -597,6 +800,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrrow_8h_source.html#l00102">102</a> of file <a class="el" href="ocrrow_8h_source.html">ocrrow.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                    {
+      has_drop_cap_ = has;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7c9c43de4dde741e67ab6d9f45bc2e07"></a><!-- doxytag: member="ROW::set_lmargin" ref="a7c9c43de4dde741e67ab6d9f45bc2e07" args="(inT16 lmargin)" -->
@@ -614,6 +822,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrrow_8h_source.html#l00089">89</a> of file <a class="el" href="ocrrow_8h_source.html">ocrrow.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                    {
+      lmargin_ = <a class="code" href="class_r_o_w.html#afb6c1b496c58c7a0c78ee31b0ba78fd3">lmargin</a>;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3317bff779521c20f23da8cb26180716"></a><!-- doxytag: member="ROW::set_para" ref="a3317bff779521c20f23da8cb26180716" args="(PARA *p)" -->
@@ -631,6 +844,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrrow_8h_source.html#l00109">109</a> of file <a class="el" href="ocrrow_8h_source.html">ocrrow.h</a>.</p>
+<div class="fragment"><pre class="fragment">                           {
+      para_ = p;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a92d0d6671a28f8d6a19082b04039db1a"></a><!-- doxytag: member="ROW::set_rmargin" ref="a92d0d6671a28f8d6a19082b04039db1a" args="(inT16 rmargin)" -->
@@ -648,6 +866,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrrow_8h_source.html#l00092">92</a> of file <a class="el" href="ocrrow_8h_source.html">ocrrow.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                    {
+      rmargin_ = <a class="code" href="class_r_o_w.html#a42e6c8c68f83f5e33e60c628045d3390">rmargin</a>;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a90b980cd6ebbc47e80c0e2ea55ff14a2"></a><!-- doxytag: member="ROW::set_x_height" ref="a90b980cd6ebbc47e80c0e2ea55ff14a2" args="(float new_xheight)" -->
@@ -665,6 +888,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrrow_8h_source.html#l00064">64</a> of file <a class="el" href="ocrrow_8h_source.html">ocrrow.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                         {  <span class="comment">// set x height</span>
+      xheight = new_xheight;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9914801656b049fbe16ca593f571f4b4"></a><!-- doxytag: member="ROW::space" ref="a9914801656b049fbe16ca593f571f4b4" args="() const " -->
@@ -681,6 +909,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrrow_8h_source.html#l00076">76</a> of file <a class="el" href="ocrrow_8h_source.html">ocrrow.h</a>.</p>
+<div class="fragment"><pre class="fragment">                        {  <span class="comment">//return spacing</span>
+      <span class="keywordflow">return</span> spacing;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac9d07f978420b3564bf5508ad294fb70"></a><!-- doxytag: member="ROW::word_list" ref="ac9d07f978420b3564bf5508ad294fb70" args="()" -->
@@ -697,6 +930,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrrow_8h_source.html#l00052">52</a> of file <a class="el" href="ocrrow_8h_source.html">ocrrow.h</a>.</p>
+<div class="fragment"><pre class="fragment">                           {  <span class="comment">//get words</span>
+      <span class="keywordflow">return</span> &amp;words;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2954f94ec4eefe1e3729912e5b8ea779"></a><!-- doxytag: member="ROW::x_height" ref="a2954f94ec4eefe1e3729912e5b8ea779" args="() const " -->
@@ -713,6 +951,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrrow_8h_source.html#l00061">61</a> of file <a class="el" href="ocrrow_8h_source.html">ocrrow.h</a>.</p>
+<div class="fragment"><pre class="fragment">                           {  <span class="comment">//return x height</span>
+      <span class="keywordflow">return</span> xheight;
+    }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Friends And Related Function Documentation</h2>
@@ -747,11 +990,117 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tordmain_8cpp_source.html#l00680">680</a> of file <a class="el" href="tordmain_8cpp_source.html">tordmain.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                  {
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> blob_box;                 <span class="comment">//bounding box</span>
+  <a class="code" href="class_c___b_l_o_b.html">C_BLOB</a> *blob;                  <span class="comment">//current blob</span>
+  <a class="code" href="class_w_e_r_d.html">WERD</a> *word;                    <span class="comment">//current word</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> blob_count;              <span class="comment">//no of blobs</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> src_index;               <span class="comment">//source segment</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> dest_index;              <span class="comment">//destination segment</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> *xstarts;                <span class="comment">//spline segments</span>
+  <span class="keywordtype">double</span> *coeffs;                <span class="comment">//spline coeffs</span>
+  <span class="keywordtype">float</span> ydiff;                   <span class="comment">//baseline error</span>
+  <span class="keywordtype">float</span> x_centre;                <span class="comment">//centre of blob</span>
+                                 <span class="comment">//words of row</span>
+  WERD_IT word_it = row-&gt;<a class="code" href="class_r_o_w.html#ac9d07f978420b3564bf5508ad294fb70">word_list</a> ();
+  C_BLOB_IT blob_it;             <span class="comment">//blob iterator</span>
+
+  blob_count = 0;
+  <span class="keywordflow">for</span> (word_it.mark_cycle_pt (); !word_it.cycled_list (); word_it.forward ()) {
+    word = word_it.data ();      <span class="comment">//current word</span>
+                                 <span class="comment">//get total blobs</span>
+    blob_count += word-&gt;<a class="code" href="class_w_e_r_d.html#a174baefaa99afbfdbf444e4199f3b529">cblob_list</a> ()-&gt;length ();
+  }
+  <span class="keywordflow">if</span> (blob_count == 0)
+    <span class="keywordflow">return</span>;
+  xstarts =
+    (<a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> *) <a class="code" href="memry_8cpp.html#a4c14b091498fb7866a1dd0af51a591fe">alloc_mem</a> ((blob_count + row-&gt;baseline.segments + 1) *
+    <span class="keyword">sizeof</span> (<a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a>));
+  coeffs =
+    (<span class="keywordtype">double</span> *) <a class="code" href="memry_8cpp.html#a4c14b091498fb7866a1dd0af51a591fe">alloc_mem</a> ((blob_count + row-&gt;baseline.segments) * 3 *
+    <span class="keyword">sizeof</span> (double));
+
+  src_index = 0;
+  dest_index = 0;
+  xstarts[0] = row-&gt;baseline.xcoords[0];
+  <span class="keywordflow">for</span> (word_it.mark_cycle_pt (); !word_it.cycled_list (); word_it.forward ()) {
+    word = word_it.data ();      <span class="comment">//current word</span>
+                                 <span class="comment">//blobs in word</span>
+    blob_it.set_to_list (word-&gt;<a class="code" href="class_w_e_r_d.html#a174baefaa99afbfdbf444e4199f3b529">cblob_list</a> ());
+    <span class="keywordflow">for</span> (blob_it.mark_cycle_pt (); !blob_it.cycled_list ();
+    blob_it.forward ()) {
+      blob = blob_it.data ();
+      blob_box = blob-&gt;<a class="code" href="class_c___b_l_o_b.html#a77e52e29e2c622a3a63bb7edb110f6ab">bounding_box</a> ();
+      x_centre = (blob_box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a> () + blob_box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a> ()) / 2.0;
+      ydiff = blob_box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a> () - row-&gt;<a class="code" href="class_r_o_w.html#a097b3543fa3ca5768eb50033d4c4db9c">base_line</a> (x_centre);
+      <span class="keywordflow">if</span> (ydiff &lt; 0)
+        ydiff = -ydiff / row-&gt;<a class="code" href="class_r_o_w.html#a2954f94ec4eefe1e3729912e5b8ea779">x_height</a> ();
+      <span class="keywordflow">else</span>
+        ydiff = ydiff / row-&gt;<a class="code" href="class_r_o_w.html#a2954f94ec4eefe1e3729912e5b8ea779">x_height</a> ();
+      <span class="keywordflow">if</span> (ydiff &lt; blshift_maxshift
+        &amp;&amp; blob_box.<a class="code" href="class_t_b_o_x.html#a8379d4bbc72bdbb1f069fc14790e632d">height</a> () / row-&gt;<a class="code" href="class_r_o_w.html#a2954f94ec4eefe1e3729912e5b8ea779">x_height</a> () &gt; blshift_xfraction) {
+        <span class="keywordflow">if</span> (xstarts[dest_index] &gt;= x_centre)
+          xstarts[dest_index] = blob_box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a> ();
+        coeffs[dest_index * 3] = 0;
+        coeffs[dest_index * 3 + 1] = 0;
+        coeffs[dest_index * 3 + 2] = blob_box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a> ();
+        <span class="comment">//shift it</span>
+        dest_index++;
+        xstarts[dest_index] = blob_box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a> () + 1;
+      }
+      <span class="keywordflow">else</span> {
+        <span class="keywordflow">if</span> (xstarts[dest_index] &lt;= x_centre) {
+          <span class="keywordflow">while</span> (row-&gt;baseline.xcoords[src_index + 1] &lt;= x_centre
+          &amp;&amp; src_index &lt; row-&gt;<a class="code" href="mfoutline_8h.html#a2a4b69f9a2827dc98bc4cbc233118865a83297de004f4e58b9be2108c6cd08a23">baseline</a>.segments - 1) {
+            <span class="keywordflow">if</span> (row-&gt;baseline.xcoords[src_index + 1] &gt;
+            xstarts[dest_index]) {
+              coeffs[dest_index * 3] =
+                row-&gt;baseline.quadratics[src_index].<a class="code" href="class_q_u_a_d___c_o_e_f_f_s.html#aa9ab5e8947242fa1de50d9863165e032">a</a>;
+              coeffs[dest_index * 3 + 1] =
+                row-&gt;baseline.quadratics[src_index].<a class="code" href="class_q_u_a_d___c_o_e_f_f_s.html#a58eae9f9c9aa7b738c5493b8da560747">b</a>;
+              coeffs[dest_index * 3 + 2] =
+                row-&gt;baseline.quadratics[src_index].<a class="code" href="class_q_u_a_d___c_o_e_f_f_s.html#a7f5483bdd3103b7f4a732c8fbc0faa91">c</a>;
+              dest_index++;
+              xstarts[dest_index] =
+                row-&gt;baseline.xcoords[src_index + 1];
+            }
+            src_index++;
+          }
+          coeffs[dest_index * 3] =
+            row-&gt;baseline.quadratics[src_index].<a class="code" href="class_q_u_a_d___c_o_e_f_f_s.html#aa9ab5e8947242fa1de50d9863165e032">a</a>;
+          coeffs[dest_index * 3 + 1] =
+            row-&gt;baseline.quadratics[src_index].<a class="code" href="class_q_u_a_d___c_o_e_f_f_s.html#a58eae9f9c9aa7b738c5493b8da560747">b</a>;
+          coeffs[dest_index * 3 + 2] =
+            row-&gt;baseline.quadratics[src_index].<a class="code" href="class_q_u_a_d___c_o_e_f_f_s.html#a7f5483bdd3103b7f4a732c8fbc0faa91">c</a>;
+          dest_index++;
+          xstarts[dest_index] = row-&gt;baseline.xcoords[src_index + 1];
+        }
+      }
+    }
+  }
+  <span class="keywordflow">while</span> (src_index &lt; row-&gt;<a class="code" href="mfoutline_8h.html#a2a4b69f9a2827dc98bc4cbc233118865a83297de004f4e58b9be2108c6cd08a23">baseline</a>.segments
+    &amp;&amp; row-&gt;baseline.xcoords[src_index + 1] &lt;= xstarts[dest_index])
+    src_index++;
+  <span class="keywordflow">while</span> (src_index &lt; row-&gt;<a class="code" href="mfoutline_8h.html#a2a4b69f9a2827dc98bc4cbc233118865a83297de004f4e58b9be2108c6cd08a23">baseline</a>.segments) {
+    coeffs[dest_index * 3] = row-&gt;baseline.quadratics[src_index].<a class="code" href="class_q_u_a_d___c_o_e_f_f_s.html#aa9ab5e8947242fa1de50d9863165e032">a</a>;
+    coeffs[dest_index * 3 + 1] = row-&gt;baseline.quadratics[src_index].<a class="code" href="class_q_u_a_d___c_o_e_f_f_s.html#a58eae9f9c9aa7b738c5493b8da560747">b</a>;
+    coeffs[dest_index * 3 + 2] = row-&gt;baseline.quadratics[src_index].<a class="code" href="class_q_u_a_d___c_o_e_f_f_s.html#a7f5483bdd3103b7f4a732c8fbc0faa91">c</a>;
+    dest_index++;
+    src_index++;
+    xstarts[dest_index] = row-&gt;baseline.xcoords[src_index];
+  }
+                                 <span class="comment">//turn to spline</span>
+  row-&gt;baseline = <a class="code" href="class_q_s_p_l_i_n_e.html">QSPLINE</a> (dest_index, xstarts, coeffs);
+  <a class="code" href="memry_8cpp.html#a9ef1862b8e026e23eef238af032858e4">free_mem</a>(xstarts);
+  <a class="code" href="memry_8cpp.html#a9ef1862b8e026e23eef238af032858e4">free_mem</a>(coeffs);
+}
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/ccstruct/<a class="el" href="ocrrow_8h_source.html">ocrrow.h</a></li>
-<li>tesseract-ocr/ccstruct/<a class="el" href="ocrrow_8cpp.html">ocrrow.cpp</a></li>
+<li>tesseract-ocr/ccstruct/<a class="el" href="ocrrow_8cpp_source.html">ocrrow.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -773,7 +1122,7 @@ Friends</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:13 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:46 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

@@ -118,7 +118,10 @@ Inheritance diagram for BlnEventHandler:</div>
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_bln_event_handler.html#a49074ac7b069fe1b1a3d13adc4218913">Notify</a> (const <a class="el" href="struct_s_v_event.html">SVEvent</a> *sv_event)</td></tr>
 </table>
-<hr/><h2>Member Function Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="pgedit_8cpp_source.html#l00156">156</a> of file <a class="el" href="pgedit_8cpp_source.html">pgedit.cpp</a>.</p>
+</div><hr/><h2>Member Function Documentation</h2>
 <a class="anchor" id="a49074ac7b069fe1b1a3d13adc4218913"></a><!-- doxytag: member="BlnEventHandler::Notify" ref="a49074ac7b069fe1b1a3d13adc4218913" args="(const SVEvent *sv_event)" -->
 <div class="memitem">
 <div class="memproto">
@@ -136,10 +139,18 @@ Public Member Functions</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="class_s_v_event_handler.html#a7f4f886aeca11e15ceab97833f070887">SVEventHandler</a>.</p>
 
+<p>Definition at line <a class="el" href="pgedit_8cpp_source.html#l00158">158</a> of file <a class="el" href="pgedit_8cpp_source.html">pgedit.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                       {
+    <span class="keywordflow">if</span> (sv_event-&gt;<a class="code" href="struct_s_v_event.html#a5bf8585bd1901b9103eb2783f8afe508">type</a> == <a class="code" href="scrollview_8h.html#a3688a0cf2f95d10a57e095222ccfe9a0adbe9fb2ca110dbf1b838d845d32a89e7">SVET_DESTROY</a>)
+      <a class="code" href="pgedit_8cpp.html#a1d3f8657bd74c7882b7597ffb3b6d31e">bln_word_window</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (sv_event-&gt;<a class="code" href="struct_s_v_event.html#a5bf8585bd1901b9103eb2783f8afe508">type</a> == <a class="code" href="scrollview_8h.html#a3688a0cf2f95d10a57e095222ccfe9a0a2afe407abe8c055c45765b85d20e7946">SVET_CLICK</a>)
+      <a class="code" href="pgedit_8cpp.html#ad51dfba59b3aac4dd370cb69fc70c853">show_point</a>(<a class="code" href="pgedit_8cpp.html#a2ae1f8321a389c4c046624886aa7199d">current_page_res</a>, sv_event-&gt;<a class="code" href="struct_s_v_event.html#a45ffe2bc44987a5461278e78de76f6f7">x</a>, sv_event-&gt;<a class="code" href="struct_s_v_event.html#aabace8b3b902fe15aef808ad9c203bb7">y</a>);
+  }
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>tesseract-ocr/ccmain/<a class="el" href="pgedit_8cpp.html">pgedit.cpp</a></li>
+<li>tesseract-ocr/ccmain/<a class="el" href="pgedit_8cpp_source.html">pgedit.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -161,7 +172,7 @@ Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:11 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:45 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

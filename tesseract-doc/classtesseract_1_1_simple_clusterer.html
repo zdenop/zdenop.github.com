@@ -112,7 +112,10 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_simple_clusterer.html#adc5a7f3cac5009aa69f2831b98a6e189">size</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_simple_clusterer.html#afc17914736fbde1378a9bf9358100491">GetClusters</a> (<a class="el" href="class_generic_vector.html">GenericVector</a>&lt; <a class="el" href="structtesseract_1_1_cluster.html">Cluster</a> &gt; *clusters)</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="paragraphs_8cpp_source.html#l00663">663</a> of file <a class="el" href="paragraphs_8cpp_source.html">paragraphs.cpp</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="afc5f3dd986096b36f59d2cc09972d1ea"></a><!-- doxytag: member="tesseract::SimpleClusterer::SimpleClusterer" ref="afc5f3dd986096b36f59d2cc09972d1ea" args="(int max_cluster_width)" -->
 <div class="memitem">
 <div class="memproto">
@@ -128,6 +131,9 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="paragraphs_8cpp_source.html#l00665">665</a> of file <a class="el" href="paragraphs_8cpp_source.html">paragraphs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">      : max_cluster_width_(max_cluster_width) {}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -146,6 +152,9 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="paragraphs_8cpp_source.html#l00667">667</a> of file <a class="el" href="paragraphs_8cpp_source.html">paragraphs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">{ values_.<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(value); }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="afc17914736fbde1378a9bf9358100491"></a><!-- doxytag: member="tesseract::SimpleClusterer::GetClusters" ref="afc17914736fbde1378a9bf9358100491" args="(GenericVector&lt; Cluster &gt; *clusters)" -->
@@ -163,6 +172,21 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="paragraphs_8cpp_source.html#l00687">687</a> of file <a class="el" href="paragraphs_8cpp_source.html">paragraphs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                  {
+  clusters-&gt;<a class="code" href="class_generic_vector.html#a9cdbff49b186574b83e43afba606fdd9">clear</a>();
+  values_.<a class="code" href="class_generic_vector.html#a999bbd8ff336c81fe1198ea714c7936d">sort</a>();
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; values_.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>();) {
+    <span class="keywordtype">int</span> orig_i = i;
+    <span class="keywordtype">int</span> lo = values_[i];
+    <span class="keywordtype">int</span> hi = lo;
+    <span class="keywordflow">while</span> (++i &lt; values_.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>() &amp;&amp; values_[i] &lt;= lo + max_cluster_width_) {
+      hi = values_[i];
+    }
+    clusters-&gt;<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(Cluster((hi + lo) / 2, i - orig_i));
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="adc5a7f3cac5009aa69f2831b98a6e189"></a><!-- doxytag: member="tesseract::SimpleClusterer::size" ref="adc5a7f3cac5009aa69f2831b98a6e189" args="() const " -->
@@ -179,10 +203,13 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="paragraphs_8cpp_source.html#l00668">668</a> of file <a class="el" href="paragraphs_8cpp_source.html">paragraphs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> values_.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>(); }
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>tesseract-ocr/ccmain/<a class="el" href="paragraphs_8cpp.html">paragraphs.cpp</a></li>
+<li>tesseract-ocr/ccmain/<a class="el" href="paragraphs_8cpp_source.html">paragraphs.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -205,7 +232,7 @@ Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:14 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:49 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

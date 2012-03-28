@@ -121,10 +121,13 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_tab_event_handler.html#a2fd63782d8b8a3832c1d6ffe0225eb9d">TabEventHandler</a> (G *grid)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_tab_event_handler.html#a0342ce480bd648a8b1e87827edfc0a3a">Notify</a> (const <a class="el" href="struct_s_v_event.html">SVEvent</a> *sv_event)</td></tr>
 </table>
-<h3>template&lt;class G&gt;<br/>
- class tesseract::TabEventHandler&lt; G &gt;</h3>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock"><h3>template&lt;class G&gt;<br/>
+class tesseract::TabEventHandler&lt; G &gt;</h3>
 
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+
+<p>Definition at line <a class="el" href="bbgrid_8h_source.html#l00573">573</a> of file <a class="el" href="bbgrid_8h_source.html">bbgrid.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a2fd63782d8b8a3832c1d6ffe0225eb9d"></a><!-- doxytag: member="tesseract::TabEventHandler::TabEventHandler" ref="a2fd63782d8b8a3832c1d6ffe0225eb9d" args="(G *grid)" -->
 <div class="memitem">
 <div class="memproto">
@@ -142,6 +145,10 @@ template&lt;class G &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bbgrid_8h_source.html#l00575">575</a> of file <a class="el" href="bbgrid_8h_source.html">bbgrid.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                    : grid_(grid) {
+  }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -164,6 +171,13 @@ template&lt;class G &gt; </div>
 
 <p>Reimplemented from <a class="el" href="class_s_v_event_handler.html#a7f4f886aeca11e15ceab97833f070887">SVEventHandler</a>.</p>
 
+<p>Definition at line <a class="el" href="bbgrid_8h_source.html#l00577">577</a> of file <a class="el" href="bbgrid_8h_source.html">bbgrid.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                       {
+    <span class="keywordflow">if</span> (sv_event-&gt;<a class="code" href="struct_s_v_event.html#a5bf8585bd1901b9103eb2783f8afe508">type</a> == <a class="code" href="scrollview_8h.html#a3688a0cf2f95d10a57e095222ccfe9a0a2afe407abe8c055c45765b85d20e7946">SVET_CLICK</a>) {
+      grid_-&gt;HandleClick(sv_event-&gt;<a class="code" href="struct_s_v_event.html#a45ffe2bc44987a5461278e78de76f6f7">x</a>, sv_event-&gt;<a class="code" href="struct_s_v_event.html#aabace8b3b902fe15aef808ad9c203bb7">y</a>);
+    }
+  }
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
@@ -190,7 +204,7 @@ template&lt;class G &gt; </div>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:16 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:52 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

@@ -107,7 +107,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <code>#include &quot;<a class="el" href="globaloc_8h_source.html">globaloc.h</a>&quot;</code><br/>
 <code>#include &quot;assert.h&quot;</code><br/>
 <code>#include &lt;stdio.h&gt;</code><br/>
-</div><table class="memberdecls">
+</div>
+<p><a href="danerror_8cpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="danerror_8cpp.html#a480942fa88232bda23e9809e5afa9f25">DoError</a> (int Error, const char *Message)</td></tr>
@@ -139,6 +141,34 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>---------------------------------------------------------------------------- Include Files and Type Defines ---------------------------------------------------------------------------- </p>
 
+<p>Definition at line <a class="el" href="danerror_8cpp_source.html#l00032">32</a> of file <a class="el" href="danerror_8cpp_source.html">danerror.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                             {
+<span class="comment">/*</span>
+<span class="comment"> **     Parameters:</span>
+<span class="comment"> **             Error   error number which is to be trapped</span>
+<span class="comment"> **             Message pointer to a string to be printed as an error message</span>
+<span class="comment"> **     Globals:</span>
+<span class="comment"> **             ErrorTrapStack          stack of error traps</span>
+<span class="comment"> **             CurrentTrapDepth        number of traps on the stack</span>
+<span class="comment"> **     Operation:</span>
+<span class="comment"> **             This routine prints the specified error message to stderr.</span>
+<span class="comment"> **             It then jumps to the current error trap.  If the error trap</span>
+<span class="comment"> **             stack is empty, the calling program is terminated with a</span>
+<span class="comment"> **             fatal error message.</span>
+<span class="comment"> **     Return:</span>
+<span class="comment"> **             None - this routine does not return.</span>
+<span class="comment"> **     Exceptions:</span>
+<span class="comment"> **             Empty error trap stack terminates the calling program.</span>
+<span class="comment"> **     History:</span>
+<span class="comment"> **             4/3/89, DSJ, Created.</span>
+<span class="comment"> */</span>
+  <span class="keywordflow">if</span> (Message != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;\nError: %s!\n&quot;</span>, Message);
+  }
+
+  <a class="code" href="errcode_8h.html#ad43e2936463aaf5c699e23a72182a121">signal_termination_handler</a>(Error);
+}                                <span class="comment">/* DoError */</span>
+</pre></div>
 </div>
 </div>
 </div>
@@ -161,7 +191,7 @@ Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:09 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:42 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

@@ -103,7 +103,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="mfcpch_8h_source.html">mfcpch.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="rect_8h_source.html">rect.h</a>&quot;</code><br/>
-</div><table class="memberdecls">
+</div>
+<p><a href="rect_8cpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">DLLSYM <a class="el" href="class_t_b_o_x.html">TBOX</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rect_8cpp.html#a636aff83f8329ad23c61b5481ea6413f">operator+=</a> (<a class="el" href="class_t_b_o_x.html">TBOX</a> &amp;op1, const <a class="el" href="class_t_b_o_x.html">TBOX</a> &amp;op2)</td></tr>
@@ -135,6 +137,30 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rect_8cpp_source.html#l00221">221</a> of file <a class="el" href="rect_8cpp_source.html">rect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                             {
+  <span class="keywordflow">if</span> (op1.<a class="code" href="class_t_b_o_x.html#adcc7d2858ccb61cd715dbcff32bd5582">overlap</a> (op2)) {
+    <span class="keywordflow">if</span> (op2.bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () &gt; op1.bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ())
+      op1.bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a94c586039b3a003b35cf659b33b938f3" title="rewrite function">set_x</a> (op2.bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ());
+
+    <span class="keywordflow">if</span> (op2.top_right.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () &lt; op1.top_right.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ())
+      op1.top_right.<a class="code" href="class_i_c_o_o_r_d.html#a94c586039b3a003b35cf659b33b938f3" title="rewrite function">set_x</a> (op2.top_right.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ());
+
+    <span class="keywordflow">if</span> (op2.bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () &gt; op1.bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ())
+      op1.bot_left.<a class="code" href="class_i_c_o_o_r_d.html#aa9fb418d1c602c0533e426759da43d67" title="rewrite function">set_y</a> (op2.bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ());
+
+    <span class="keywordflow">if</span> (op2.top_right.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () &lt; op1.top_right.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ())
+      op1.top_right.<a class="code" href="class_i_c_o_o_r_d.html#aa9fb418d1c602c0533e426759da43d67" title="rewrite function">set_y</a> (op2.top_right.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ());
+  }
+  <span class="keywordflow">else</span> {
+    op1.bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a94c586039b3a003b35cf659b33b938f3" title="rewrite function">set_x</a> (<a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a>);
+    op1.bot_left.<a class="code" href="class_i_c_o_o_r_d.html#aa9fb418d1c602c0533e426759da43d67" title="rewrite function">set_y</a> (<a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a>);
+    op1.top_right.<a class="code" href="class_i_c_o_o_r_d.html#a94c586039b3a003b35cf659b33b938f3" title="rewrite function">set_x</a> (-<a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a>);
+    op1.top_right.<a class="code" href="class_i_c_o_o_r_d.html#aa9fb418d1c602c0533e426759da43d67" title="rewrite function">set_y</a> (-<a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a>);
+  }
+  <span class="keywordflow">return</span> op1;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a636aff83f8329ad23c61b5481ea6413f"></a><!-- doxytag: member="rect.cpp::operator+=" ref="a636aff83f8329ad23c61b5481ea6413f" args="(TBOX &amp;op1, const TBOX &amp;op2)" -->
@@ -162,6 +188,23 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rect_8cpp_source.html#l00196">196</a> of file <a class="el" href="rect_8cpp_source.html">rect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                  {
+  <span class="keywordflow">if</span> (op2.bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () &lt; op1.bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ())
+    op1.bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a94c586039b3a003b35cf659b33b938f3" title="rewrite function">set_x</a> (op2.bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ());
+
+  <span class="keywordflow">if</span> (op2.top_right.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () &gt; op1.top_right.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ())
+    op1.top_right.<a class="code" href="class_i_c_o_o_r_d.html#a94c586039b3a003b35cf659b33b938f3" title="rewrite function">set_x</a> (op2.top_right.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ());
+
+  <span class="keywordflow">if</span> (op2.bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () &lt; op1.bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ())
+    op1.bot_left.<a class="code" href="class_i_c_o_o_r_d.html#aa9fb418d1c602c0533e426759da43d67" title="rewrite function">set_y</a> (op2.bot_left.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ());
+
+  <span class="keywordflow">if</span> (op2.top_right.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () &gt; op1.top_right.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ())
+    op1.top_right.<a class="code" href="class_i_c_o_o_r_d.html#aa9fb418d1c602c0533e426759da43d67" title="rewrite function">set_y</a> (op2.top_right.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ());
+
+  <span class="keywordflow">return</span> op1;
+}
+</pre></div>
 </div>
 </div>
 </div>
@@ -184,7 +227,7 @@ Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:09 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:40 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

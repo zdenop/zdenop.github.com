@@ -104,7 +104,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="textblock"><code>#include &quot;<a class="el" href="mfdefs_8h_source.html">mfdefs.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="emalloc_8h_source.html">emalloc.h</a>&quot;</code><br/>
 <code>#include &lt;math.h&gt;</code><br/>
-</div><table class="memberdecls">
+</div>
+<p><a href="mfdefs_8cpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="mfdefs_8h.html#acf6b2e47a8872409e85b7bfeee9961dc">MICROFEATURE</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mfdefs_8cpp.html#a10606897d42fff8ca71fb36795bd581e">NewMicroFeature</a> ()</td></tr>
@@ -126,6 +128,22 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mfdefs_8cpp_source.html#l00045">45</a> of file <a class="el" href="mfdefs_8cpp_source.html">mfdefs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                    { 
+<span class="comment">/*</span>
+<span class="comment"> **     Parameters:</span>
+<span class="comment"> **             MicroFeatures   list of micro-features to be freed</span>
+<span class="comment"> **     Globals: none</span>
+<span class="comment"> **     Operation:</span>
+<span class="comment"> **             This routine deallocates all of the memory consumed by</span>
+<span class="comment"> **             a list of micro-features.</span>
+<span class="comment"> **     Return: none</span>
+<span class="comment"> **     Exceptions: none</span>
+<span class="comment"> **     History: 7/27/89, DSJ, Created.</span>
+<span class="comment"> */</span>
+  <a class="code" href="oldlist_8cpp.html#a1a1efc1a269e5bb5bf16c1a174363ba4">destroy_nodes</a>(MicroFeatures, <a class="code" href="emalloc_8cpp.html#af846576ae65dc13e49ddc616e17baa27">Efree</a>); 
+}                                <span class="comment">/* FreeMicroFeatures */</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a10606897d42fff8ca71fb36795bd581e"></a><!-- doxytag: member="mfdefs.cpp::NewMicroFeature" ref="a10606897d42fff8ca71fb36795bd581e" args="()" -->
@@ -143,6 +161,21 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>---------------------------------------------------------------------------- Include Files and Type Defines ---------------------------------------------------------------------------- ---------------------------------------------------------------------------- Public Code ---------------------------------------------------------------------------- </p>
 
+<p>Definition at line <a class="el" href="mfdefs_8cpp_source.html#l00029">29</a> of file <a class="el" href="mfdefs_8cpp_source.html">mfdefs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                               { 
+<span class="comment">/*</span>
+<span class="comment"> **     Parameters: none</span>
+<span class="comment"> **     Globals: none</span>
+<span class="comment"> **     Operation:</span>
+<span class="comment"> **             This routine allocates and returns a new micro-feature</span>
+<span class="comment"> **             data structure.</span>
+<span class="comment"> **     Return: New micro-feature.</span>
+<span class="comment"> **     Exceptions: none</span>
+<span class="comment"> **     History: 7/27/89, DSJ, Created.</span>
+<span class="comment"> */</span>
+  <span class="keywordflow">return</span> ((<a class="code" href="mfdefs_8h.html#acf6b2e47a8872409e85b7bfeee9961dc">MICROFEATURE</a>) <a class="code" href="emalloc_8cpp.html#a55f2088f1a7b3333bb5c7275ab726bba">Emalloc</a> (<span class="keyword">sizeof</span> (<a class="code" href="mfdefs_8h.html#a6aff904923717a4c878871a7b3c51f59">MFBLOCK</a>)));
+}                                <span class="comment">/* NewMicroFeature */</span>
+</pre></div>
 </div>
 </div>
 </div>
@@ -165,7 +198,7 @@ Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:09 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:41 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

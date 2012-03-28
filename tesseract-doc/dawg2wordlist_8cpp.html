@@ -108,7 +108,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <code>#include &quot;<a class="el" href="tesscallback_8h_source.html">tesscallback.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="trie_8h_source.html">trie.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="unicharset_8h_source.html">unicharset.h</a>&quot;</code><br/>
-</div><table class="memberdecls">
+</div>
+<p><a href="dawg2wordlist_8cpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr><td colspan="2"><h2><a name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_word_outputter.html">WordOutputter</a></td></tr>
@@ -147,6 +149,23 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="dawg2wordlist_8cpp_source.html#l00028">28</a> of file <a class="el" href="dawg2wordlist_8cpp_source.html">dawg2wordlist.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                        {
+  <span class="keyword">const</span> <span class="keywordtype">int</span> <a class="code" href="dawg2wordlist_8cpp.html#aacd4a34e871006f4c22c0a3c1a8b9baa">kDictDebugLevel</a> = 1;
+  FILE *dawg_file = fopen(filename, <span class="stringliteral">&quot;rb&quot;</span>);
+  <span class="keywordflow">if</span> (dawg_file == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Could not open %s for reading.\n&quot;</span>, filename);
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Loading word list from %s\n&quot;</span>, filename);
+  <a class="code" href="classtesseract_1_1_dawg.html">tesseract::Dawg</a> *retval = <span class="keyword">new</span> <a class="code" href="classtesseract_1_1_squished_dawg.html">tesseract::SquishedDawg</a>(
+      dawg_file, <a class="code" href="namespacetesseract.html#a07c41f251f1782c60df4e626c35d2151a9c67e397ff6d57a705cd4cd4524a2b34">tesseract::DAWG_TYPE_WORD</a>, <span class="stringliteral">&quot;eng&quot;</span>, SYSTEM_DAWG_PERM,
+      kDictDebugLevel);
+  <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Word list loaded.\n&quot;</span>);
+  fclose(dawg_file);
+  <span class="keywordflow">return</span> retval;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a0ddf1224851353fc92bfbff6f499fa97"></a><!-- doxytag: member="dawg2wordlist.cpp::main" ref="a0ddf1224851353fc92bfbff6f499fa97" args="(int argc, char *argv[])" -->
@@ -174,6 +193,32 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="dawg2wordlist_8cpp_source.html#l00070">70</a> of file <a class="el" href="dawg2wordlist_8cpp_source.html">dawg2wordlist.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                 {
+  <span class="keywordflow">if</span> (argc != 4) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Print all the words in a given dawg.\n&quot;</span>);
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Usage: %s &lt;unicharset&gt; &lt;dawgfile&gt; &lt;wordlistfile&gt;\n&quot;</span>,
+            argv[0]);
+    <span class="keywordflow">return</span> 1;
+  }
+  <span class="keyword">const</span> <span class="keywordtype">char</span> *unicharset_file = argv[1];
+  <span class="keyword">const</span> <span class="keywordtype">char</span> *dawg_file = argv[2];
+  <span class="keyword">const</span> <span class="keywordtype">char</span> *wordlist_file = argv[3];
+  <a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html">UNICHARSET</a> unicharset;
+  <span class="keywordflow">if</span> (!unicharset.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#af066ba55fdc20f996eaaed05618b377e">load_from_file</a>(unicharset_file)) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Error loading unicharset from %s.\n&quot;</span>, unicharset_file);
+    <span class="keywordflow">return</span> 1;
+  }
+  <a class="code" href="classtesseract_1_1_dawg.html">tesseract::Dawg</a> *dict = <a class="code" href="dawg2wordlist_8cpp.html#a5b4bf0033d9904ad285f6adcb0cc4d0d">LoadSquishedDawg</a>(unicharset, dawg_file);
+  <span class="keywordflow">if</span> (dict == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Error loading dictionary from %s.\n&quot;</span>, dawg_file);
+    <span class="keywordflow">return</span> 1;
+  }
+  <span class="keywordtype">int</span> retval = <a class="code" href="dawg2wordlist_8cpp.html#a7ed4f2196ec2c0cc5e0999ad197c527c">WriteDawgAsWordlist</a>(unicharset, dict, wordlist_file);
+  <span class="keyword">delete</span> dict;
+  <span class="keywordflow">return</span> retval;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7ed4f2196ec2c0cc5e0999ad197c527c"></a><!-- doxytag: member="dawg2wordlist.cpp::WriteDawgAsWordlist" ref="a7ed4f2196ec2c0cc5e0999ad197c527c" args="(const UNICHARSET &amp;unicharset, const tesseract::Dawg *dawg, const char *outfile_name)" -->
@@ -207,6 +252,21 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="dawg2wordlist_8cpp_source.html#l00054">54</a> of file <a class="el" href="dawg2wordlist_8cpp_source.html">dawg2wordlist.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                  {
+  FILE *out = fopen(outfile_name, <span class="stringliteral">&quot;wb&quot;</span>);
+  <span class="keywordflow">if</span> (out == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Could not open %s for writing.\n&quot;</span>, outfile_name);
+    <span class="keywordflow">return</span> 1;
+  }
+  <a class="code" href="class_word_outputter.html">WordOutputter</a> outputter(out);
+  <a class="code" href="class_tess_callback1.html">TessCallback1&lt;const char *&gt;</a> *print_word_cb =
+      <a class="code" href="tesscallback_8h.html#ad000c6729bae0f97075ca10a0b5bf7d6">NewPermanentTessCallback</a>(&amp;outputter, &amp;<a class="code" href="class_word_outputter.html#ad573101b61c94a4f017ed574d4308762">WordOutputter::output_word</a>);
+  dawg-&gt;<a class="code" href="classtesseract_1_1_dawg.html#afa7a4af08c1110868e5b278a704dfec3">iterate_words</a>(unicharset, print_word_cb);
+  <span class="keyword">delete</span> print_word_cb;
+  <span class="keywordflow">return</span> fclose(out);
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Variable Documentation</h2>
@@ -220,6 +280,8 @@ Variables</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="dawg2wordlist_8cpp_source.html#l00026">26</a> of file <a class="el" href="dawg2wordlist_8cpp_source.html">dawg2wordlist.cpp</a>.</p>
 
 </div>
 </div>
@@ -243,7 +305,7 @@ Variables</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:10 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:43 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

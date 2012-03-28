@@ -192,6 +192,8 @@ Friends</h2></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>integer coordinate </p>
+
+<p>Definition at line <a class="el" href="points_8h_source.html#l00030">30</a> of file <a class="el" href="points_8h_source.html">points.h</a>.</p>
 </div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="af3b30f804139a9b9bc33970139f7975e"></a><!-- doxytag: member="ICOORD::ICOORD" ref="af3b30f804139a9b9bc33970139f7975e" args="()" -->
 <div class="memitem">
@@ -209,6 +211,11 @@ Friends</h2></td></tr>
 
 <p>empty constructor </p>
 
+<p>Definition at line <a class="el" href="points_8h_source.html#l00036">36</a> of file <a class="el" href="points_8h_source.html">points.h</a>.</p>
+<div class="fragment"><pre class="fragment">             {
+      <a class="code" href="class_i_c_o_o_r_d.html#a0bba3892d33e49115748480b986fdae8">xcoord</a> = <a class="code" href="class_i_c_o_o_r_d.html#a80ea51273376c5a171c6d0dcb5193b12">ycoord</a> = 0;       <span class="comment">//default zero</span>
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a95ef8c98f7bc08f8576be5a146d97ef1"></a><!-- doxytag: member="ICOORD::ICOORD" ref="a95ef8c98f7bc08f8576be5a146d97ef1" args="(inT16 xin, inT16 yin)" -->
@@ -244,6 +251,12 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="points_8h_source.html#l00042">42</a> of file <a class="el" href="points_8h_source.html">points.h</a>.</p>
+<div class="fragment"><pre class="fragment">                      {
+      <a class="code" href="class_i_c_o_o_r_d.html#a0bba3892d33e49115748480b986fdae8">xcoord</a> = xin;
+      <a class="code" href="class_i_c_o_o_r_d.html#a80ea51273376c5a171c6d0dcb5193b12">ycoord</a> = yin;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a1404719c43acf98086d189cbcac42b28"></a><!-- doxytag: member="ICOORD::~ICOORD" ref="a1404719c43acf98086d189cbcac42b28" args="()" -->
@@ -262,6 +275,10 @@ Friends</h2></td></tr>
 
 <p>destructor </p>
 
+<p>Definition at line <a class="el" href="points_8h_source.html#l00048">48</a> of file <a class="el" href="points_8h_source.html">points.h</a>.</p>
+<div class="fragment"><pre class="fragment">               {
+    }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -281,6 +298,11 @@ Friends</h2></td></tr>
 
 <p>find angle </p>
 
+<p>Definition at line <a class="el" href="points_8h_source.html#l00097">97</a> of file <a class="el" href="points_8h_source.html">points.h</a>.</p>
+<div class="fragment"><pre class="fragment">                        {
+      <span class="keywordflow">return</span> (<span class="keywordtype">float</span>) atan2 ((<span class="keywordtype">double</span>) <a class="code" href="class_i_c_o_o_r_d.html#a80ea51273376c5a171c6d0dcb5193b12">ycoord</a>, (<span class="keywordtype">double</span>) <a class="code" href="class_i_c_o_o_r_d.html#a0bba3892d33e49115748480b986fdae8">xcoord</a>);
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae73dd714e26ceef74c3d1b552693c5a4"></a><!-- doxytag: member="ICOORD::DeSerialize" ref="ae73dd714e26ceef74c3d1b552693c5a4" args="(bool swap, FILE *fp)" -->
@@ -308,6 +330,17 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="points_8cpp_source.html#l00067">67</a> of file <a class="el" href="points_8cpp_source.html">points.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                            {
+  <span class="keywordflow">if</span> (fread(&amp;<a class="code" href="class_i_c_o_o_r_d.html#a0bba3892d33e49115748480b986fdae8">xcoord</a>, <span class="keyword">sizeof</span>(<a class="code" href="class_i_c_o_o_r_d.html#a0bba3892d33e49115748480b986fdae8">xcoord</a>), 1, fp) != 1) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">if</span> (fread(&amp;<a class="code" href="class_i_c_o_o_r_d.html#a80ea51273376c5a171c6d0dcb5193b12">ycoord</a>, <span class="keyword">sizeof</span>(<a class="code" href="class_i_c_o_o_r_d.html#a80ea51273376c5a171c6d0dcb5193b12">ycoord</a>), 1, fp) != 1) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">if</span> (swap) {
+    <a class="code" href="helpers_8h.html#ae7eeeca49954d4b13d269729f2fecd5a">ReverseN</a>(&amp;<a class="code" href="class_i_c_o_o_r_d.html#a0bba3892d33e49115748480b986fdae8">xcoord</a>, <span class="keyword">sizeof</span>(<a class="code" href="class_i_c_o_o_r_d.html#a0bba3892d33e49115748480b986fdae8">xcoord</a>));
+    <a class="code" href="helpers_8h.html#ae7eeeca49954d4b13d269729f2fecd5a">ReverseN</a>(&amp;<a class="code" href="class_i_c_o_o_r_d.html#a80ea51273376c5a171c6d0dcb5193b12">ycoord</a>, <span class="keyword">sizeof</span>(<a class="code" href="class_i_c_o_o_r_d.html#a80ea51273376c5a171c6d0dcb5193b12">ycoord</a>));
+  }
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="afe51e3c6be6d553445db72851cf4c305"></a><!-- doxytag: member="ICOORD::length" ref="afe51e3c6be6d553445db72851cf4c305" args="() const " -->
@@ -326,6 +359,11 @@ Friends</h2></td></tr>
 
 <p>find length </p>
 
+<p>Definition at line <a class="el" href="points_8h_source.html#l00078">78</a> of file <a class="el" href="points_8h_source.html">points.h</a>.</p>
+<div class="fragment"><pre class="fragment">                         {
+      <span class="keywordflow">return</span> (<span class="keywordtype">float</span>) sqrt (<a class="code" href="class_i_c_o_o_r_d.html#a447ebb622a6cedb5a856a30368472559" title="find sq length">sqlength</a> ());
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9d98a8359842e5c17b5582e825606926"></a><!-- doxytag: member="ICOORD::operator!=" ref="a9d98a8359842e5c17b5582e825606926" args="(const ICOORD &amp;other) const " -->
@@ -345,6 +383,11 @@ Friends</h2></td></tr>
 
 <p>test inequality </p>
 
+<p>Definition at line <a class="el" href="points_8h_source.html#l00106">106</a> of file <a class="el" href="points_8h_source.html">points.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                  {
+      <span class="keywordflow">return</span> <a class="code" href="class_i_c_o_o_r_d.html#a0bba3892d33e49115748480b986fdae8">xcoord</a> != other.<a class="code" href="class_i_c_o_o_r_d.html#a0bba3892d33e49115748480b986fdae8">xcoord</a> || <a class="code" href="class_i_c_o_o_r_d.html#a80ea51273376c5a171c6d0dcb5193b12">ycoord</a> != other.<a class="code" href="class_i_c_o_o_r_d.html#a80ea51273376c5a171c6d0dcb5193b12">ycoord</a>;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2f317e15059ca2046518d0540858fd1a"></a><!-- doxytag: member="ICOORD::operator==" ref="a2f317e15059ca2046518d0540858fd1a" args="(const ICOORD &amp;other) const " -->
@@ -364,6 +407,11 @@ Friends</h2></td></tr>
 
 <p>test equality </p>
 
+<p>Definition at line <a class="el" href="points_8h_source.html#l00102">102</a> of file <a class="el" href="points_8h_source.html">points.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                  {
+      <span class="keywordflow">return</span> <a class="code" href="class_i_c_o_o_r_d.html#a0bba3892d33e49115748480b986fdae8">xcoord</a> == other.<a class="code" href="class_i_c_o_o_r_d.html#a0bba3892d33e49115748480b986fdae8">xcoord</a> &amp;&amp; <a class="code" href="class_i_c_o_o_r_d.html#a80ea51273376c5a171c6d0dcb5193b12">ycoord</a> == other.<a class="code" href="class_i_c_o_o_r_d.html#a80ea51273376c5a171c6d0dcb5193b12">ycoord</a>;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a756694a7c93524a9bf75fd5ed8e2a3c3"></a><!-- doxytag: member="ICOORD::pt_to_pt_dist" ref="a756694a7c93524a9bf75fd5ed8e2a3c3" args="(const ICOORD &amp;pt) const " -->
@@ -383,6 +431,11 @@ Friends</h2></td></tr>
 
 <p>Distance between pts. </p>
 
+<p>Definition at line <a class="el" href="points_8h_source.html#l00092">92</a> of file <a class="el" href="points_8h_source.html">points.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                {
+      <span class="keywordflow">return</span> (<span class="keywordtype">float</span>) sqrt (<a class="code" href="class_i_c_o_o_r_d.html#a1b9bc5e2b3ff9091cdd1400ed6f452d6" title="sq dist between pts">pt_to_pt_sqdist</a> (pt));
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a1b9bc5e2b3ff9091cdd1400ed6f452d6"></a><!-- doxytag: member="ICOORD::pt_to_pt_sqdist" ref="a1b9bc5e2b3ff9091cdd1400ed6f452d6" args="(const ICOORD &amp;pt) const " -->
@@ -402,6 +455,15 @@ Friends</h2></td></tr>
 
 <p>sq dist between pts </p>
 
+<p>Definition at line <a class="el" href="points_8h_source.html#l00083">83</a> of file <a class="el" href="points_8h_source.html">points.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                  {
+      <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> gap;
+
+      gap.<a class="code" href="class_i_c_o_o_r_d.html#a0bba3892d33e49115748480b986fdae8">xcoord</a> = <a class="code" href="class_i_c_o_o_r_d.html#a0bba3892d33e49115748480b986fdae8">xcoord</a> - pt.<a class="code" href="class_i_c_o_o_r_d.html#a0bba3892d33e49115748480b986fdae8">xcoord</a>;
+      gap.<a class="code" href="class_i_c_o_o_r_d.html#a80ea51273376c5a171c6d0dcb5193b12">ycoord</a> = <a class="code" href="class_i_c_o_o_r_d.html#a80ea51273376c5a171c6d0dcb5193b12">ycoord</a> - pt.<a class="code" href="class_i_c_o_o_r_d.html#a80ea51273376c5a171c6d0dcb5193b12">ycoord</a>;
+      <span class="keywordflow">return</span> gap.<a class="code" href="class_i_c_o_o_r_d.html#a447ebb622a6cedb5a856a30368472559" title="find sq length">sqlength</a> ();
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aaedd825587ccb78583bbd6717793faea"></a><!-- doxytag: member="ICOORD::rotate" ref="aaedd825587ccb78583bbd6717793faea" args="(const FCOORD &amp;vec)" -->
@@ -426,6 +488,15 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="ipoints_8h_source.html#l00241">241</a> of file <a class="el" href="ipoints_8h_source.html">ipoints.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                              {
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> tmp;
+
+  tmp = (<a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>) floor (<a class="code" href="class_i_c_o_o_r_d.html#a0bba3892d33e49115748480b986fdae8">xcoord</a> * vec.<a class="code" href="class_f_c_o_o_r_d.html#a9edadbfc357c730f62fa3c92677b0d58">x</a> () - <a class="code" href="class_i_c_o_o_r_d.html#a80ea51273376c5a171c6d0dcb5193b12">ycoord</a> * vec.<a class="code" href="class_f_c_o_o_r_d.html#a397f7ce997b246df18e7bd5a20cc422e">y</a> () + 0.5);
+  <a class="code" href="class_i_c_o_o_r_d.html#a80ea51273376c5a171c6d0dcb5193b12">ycoord</a> = (<a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>) floor (<a class="code" href="class_i_c_o_o_r_d.html#a80ea51273376c5a171c6d0dcb5193b12">ycoord</a> * vec.<a class="code" href="class_f_c_o_o_r_d.html#a9edadbfc357c730f62fa3c92677b0d58">x</a> () + <a class="code" href="class_i_c_o_o_r_d.html#a0bba3892d33e49115748480b986fdae8">xcoord</a> * vec.<a class="code" href="class_f_c_o_o_r_d.html#a397f7ce997b246df18e7bd5a20cc422e">y</a> () + 0.5);
+  <a class="code" href="class_i_c_o_o_r_d.html#a0bba3892d33e49115748480b986fdae8">xcoord</a> = tmp;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3159371d913e1b05860ae0c274fda0f6"></a><!-- doxytag: member="ICOORD::Serialize" ref="a3159371d913e1b05860ae0c274fda0f6" args="(FILE *fp) const " -->
@@ -443,6 +514,13 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="points_8cpp_source.html#l00060">60</a> of file <a class="el" href="points_8cpp_source.html">points.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                     {
+  <span class="keywordflow">if</span> (fwrite(&amp;<a class="code" href="class_i_c_o_o_r_d.html#a0bba3892d33e49115748480b986fdae8">xcoord</a>, <span class="keyword">sizeof</span>(<a class="code" href="class_i_c_o_o_r_d.html#a0bba3892d33e49115748480b986fdae8">xcoord</a>), 1, fp) != 1) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">if</span> (fwrite(&amp;<a class="code" href="class_i_c_o_o_r_d.html#a80ea51273376c5a171c6d0dcb5193b12">ycoord</a>, <span class="keyword">sizeof</span>(<a class="code" href="class_i_c_o_o_r_d.html#a80ea51273376c5a171c6d0dcb5193b12">ycoord</a>), 1, fp) != 1) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a202dcd2920b28d85c2338d28dac8c5fe"></a><!-- doxytag: member="ICOORD::set_with_shrink" ref="a202dcd2920b28d85c2338d28dac8c5fe" args="(int x, int y)" -->
@@ -472,6 +550,17 @@ Friends</h2></td></tr>
 
 <p>Set from the given x,y, shrinking the vector to fit if needed. </p>
 
+<p>Definition at line <a class="el" href="points_8cpp_source.html#l00040">40</a> of file <a class="el" href="points_8cpp_source.html">points.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                         {
+  <span class="comment">// Fit the vector into an ICOORD, which is 16 bit.</span>
+  <span class="keywordtype">int</span> factor = 1;
+  <span class="keywordtype">int</span> max_extent = <a class="code" href="ndminx_8h.html#aacc3ee1a7f283f8ef65cea31f4436a95">MAX</a>(abs(<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a>), abs(<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a>));
+  <span class="keywordflow">if</span> (max_extent &gt; <a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a>)
+    factor = max_extent / <a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a> + 1;
+  <a class="code" href="class_i_c_o_o_r_d.html#a0bba3892d33e49115748480b986fdae8">xcoord</a> = <a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> / factor;
+  <a class="code" href="class_i_c_o_o_r_d.html#a80ea51273376c5a171c6d0dcb5193b12">ycoord</a> = <a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> / factor;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a94c586039b3a003b35cf659b33b938f3"></a><!-- doxytag: member="ICOORD::set_x" ref="a94c586039b3a003b35cf659b33b938f3" args="(inT16 xin)" -->
@@ -491,6 +580,11 @@ Friends</h2></td></tr>
 
 <p>rewrite function </p>
 
+<p>Definition at line <a class="el" href="points_8h_source.html#l00061">61</a> of file <a class="el" href="points_8h_source.html">points.h</a>.</p>
+<div class="fragment"><pre class="fragment">                          {
+      <a class="code" href="class_i_c_o_o_r_d.html#a0bba3892d33e49115748480b986fdae8">xcoord</a> = xin;              <span class="comment">//write new value</span>
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa9fb418d1c602c0533e426759da43d67"></a><!-- doxytag: member="ICOORD::set_y" ref="aa9fb418d1c602c0533e426759da43d67" args="(inT16 yin)" -->
@@ -510,6 +604,11 @@ Friends</h2></td></tr>
 
 <p>rewrite function </p>
 
+<p>Definition at line <a class="el" href="points_8h_source.html#l00065">65</a> of file <a class="el" href="points_8h_source.html">points.h</a>.</p>
+<div class="fragment"><pre class="fragment">                          {  <span class="comment">//value to set</span>
+      <a class="code" href="class_i_c_o_o_r_d.html#a80ea51273376c5a171c6d0dcb5193b12">ycoord</a> = yin;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a5e71450225ed82a910bdec74a95a2c6d"></a><!-- doxytag: member="ICOORD::setup_render" ref="a5e71450225ed82a910bdec74a95a2c6d" args="(ICOORD *major_step, ICOORD *minor_step, int *major, int *minor) const " -->
@@ -550,6 +649,29 @@ Friends</h2></td></tr>
 <div class="memdoc">
 <p>Setup for iterating over the pixels in a vector by the well-known Bresenham rendering algorithm. Starting with major/2 in the accumulator, on each step move by major_step, and then add minor to the accumulator. When accumulator &gt;= major subtract major and also move by minor_step. </p>
 
+<p>Definition at line <a class="el" href="points_8cpp_source.html#l00083">83</a> of file <a class="el" href="points_8cpp_source.html">points.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                        {
+  <span class="keywordtype">int</span> abs_x = abs(<a class="code" href="class_i_c_o_o_r_d.html#a0bba3892d33e49115748480b986fdae8">xcoord</a>);
+  <span class="keywordtype">int</span> abs_y = abs(<a class="code" href="class_i_c_o_o_r_d.html#a80ea51273376c5a171c6d0dcb5193b12">ycoord</a>);
+  <span class="keywordflow">if</span> (abs_x &gt;= abs_y) {
+    <span class="comment">// X-direction is major.</span>
+    major_step-&gt;<a class="code" href="class_i_c_o_o_r_d.html#a0bba3892d33e49115748480b986fdae8">xcoord</a> = sign(<a class="code" href="class_i_c_o_o_r_d.html#a0bba3892d33e49115748480b986fdae8">xcoord</a>);
+    major_step-&gt;<a class="code" href="class_i_c_o_o_r_d.html#a80ea51273376c5a171c6d0dcb5193b12">ycoord</a> = 0;
+    minor_step-&gt;<a class="code" href="class_i_c_o_o_r_d.html#a0bba3892d33e49115748480b986fdae8">xcoord</a> = 0;
+    minor_step-&gt;<a class="code" href="class_i_c_o_o_r_d.html#a80ea51273376c5a171c6d0dcb5193b12">ycoord</a> = sign(<a class="code" href="class_i_c_o_o_r_d.html#a80ea51273376c5a171c6d0dcb5193b12">ycoord</a>);
+    *major = abs_x;
+    *minor = abs_y;
+  } <span class="keywordflow">else</span> {
+    <span class="comment">// Y-direction is major.</span>
+    major_step-&gt;<a class="code" href="class_i_c_o_o_r_d.html#a0bba3892d33e49115748480b986fdae8">xcoord</a> = 0;
+    major_step-&gt;<a class="code" href="class_i_c_o_o_r_d.html#a80ea51273376c5a171c6d0dcb5193b12">ycoord</a> = sign(<a class="code" href="class_i_c_o_o_r_d.html#a80ea51273376c5a171c6d0dcb5193b12">ycoord</a>);
+    minor_step-&gt;<a class="code" href="class_i_c_o_o_r_d.html#a0bba3892d33e49115748480b986fdae8">xcoord</a> = sign(<a class="code" href="class_i_c_o_o_r_d.html#a0bba3892d33e49115748480b986fdae8">xcoord</a>);
+    minor_step-&gt;<a class="code" href="class_i_c_o_o_r_d.html#a80ea51273376c5a171c6d0dcb5193b12">ycoord</a> = 0;
+    *major = abs_y;
+    *minor = abs_x;
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a447ebb622a6cedb5a856a30368472559"></a><!-- doxytag: member="ICOORD::sqlength" ref="a447ebb622a6cedb5a856a30368472559" args="() const " -->
@@ -568,6 +690,11 @@ Friends</h2></td></tr>
 
 <p>find sq length </p>
 
+<p>Definition at line <a class="el" href="points_8h_source.html#l00073">73</a> of file <a class="el" href="points_8h_source.html">points.h</a>.</p>
+<div class="fragment"><pre class="fragment">                           {
+      <span class="keywordflow">return</span> (<span class="keywordtype">float</span>) (<a class="code" href="class_i_c_o_o_r_d.html#a0bba3892d33e49115748480b986fdae8">xcoord</a> * <a class="code" href="class_i_c_o_o_r_d.html#a0bba3892d33e49115748480b986fdae8">xcoord</a> + <a class="code" href="class_i_c_o_o_r_d.html#a80ea51273376c5a171c6d0dcb5193b12">ycoord</a> * <a class="code" href="class_i_c_o_o_r_d.html#a80ea51273376c5a171c6d0dcb5193b12">ycoord</a>);
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a59722a47c540007c58a539f0e35b3f33"></a><!-- doxytag: member="ICOORD::x" ref="a59722a47c540007c58a539f0e35b3f33" args="() const " -->
@@ -586,6 +713,11 @@ Friends</h2></td></tr>
 
 <p>access function </p>
 
+<p>Definition at line <a class="el" href="points_8h_source.html#l00052">52</a> of file <a class="el" href="points_8h_source.html">points.h</a>.</p>
+<div class="fragment"><pre class="fragment">                    {
+      <span class="keywordflow">return</span> <a class="code" href="class_i_c_o_o_r_d.html#a0bba3892d33e49115748480b986fdae8">xcoord</a>;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a66bba6ff8a5f060775e1c2ca511f7f29"></a><!-- doxytag: member="ICOORD::y" ref="a66bba6ff8a5f060775e1c2ca511f7f29" args="() const " -->
@@ -604,6 +736,11 @@ Friends</h2></td></tr>
 
 <p>access_function </p>
 
+<p>Definition at line <a class="el" href="points_8h_source.html#l00056">56</a> of file <a class="el" href="points_8h_source.html">points.h</a>.</p>
+<div class="fragment"><pre class="fragment">                    {
+      <span class="keywordflow">return</span> <a class="code" href="class_i_c_o_o_r_d.html#a80ea51273376c5a171c6d0dcb5193b12">ycoord</a>;
+    }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Friends And Related Function Documentation</h2>
@@ -617,6 +754,8 @@ Friends</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="points_8h_source.html#l00032">32</a> of file <a class="el" href="points_8h_source.html">points.h</a>.</p>
 
 </div>
 </div>
@@ -637,6 +776,15 @@ Friends</h2></td></tr>
 
 <p>rotate 90 deg anti </p>
 
+<p>Definition at line <a class="el" href="ipoints_8h_source.html#l00032">32</a> of file <a class="el" href="ipoints_8h_source.html">ipoints.h</a>.</p>
+<div class="fragment"><pre class="fragment">  {
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> result;                 <span class="comment">//output</span>
+
+  result.<a class="code" href="class_i_c_o_o_r_d.html#a0bba3892d33e49115748480b986fdae8">xcoord</a> = -src.<a class="code" href="class_i_c_o_o_r_d.html#a80ea51273376c5a171c6d0dcb5193b12">ycoord</a>;
+  result.<a class="code" href="class_i_c_o_o_r_d.html#a80ea51273376c5a171c6d0dcb5193b12">ycoord</a> = src.<a class="code" href="class_i_c_o_o_r_d.html#a0bba3892d33e49115748480b986fdae8">xcoord</a>;
+  <span class="keywordflow">return</span> result;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a460eaa8eb6ec567bdf1859f9c65ab618"></a><!-- doxytag: member="ICOORD::operator%" ref="a460eaa8eb6ec567bdf1859f9c65ab618" args="(const ICOORD &amp;, const ICOORD &amp;)" -->
@@ -666,6 +814,11 @@ Friends</h2></td></tr>
 
 <p>scalar product </p>
 
+<p>Definition at line <a class="el" href="ipoints_8h_source.html#l00136">136</a> of file <a class="el" href="ipoints_8h_source.html">ipoints.h</a>.</p>
+<div class="fragment"><pre class="fragment">                    {
+  <span class="keywordflow">return</span> op1.<a class="code" href="class_i_c_o_o_r_d.html#a0bba3892d33e49115748480b986fdae8">xcoord</a> * op2.<a class="code" href="class_i_c_o_o_r_d.html#a0bba3892d33e49115748480b986fdae8">xcoord</a> + op1.<a class="code" href="class_i_c_o_o_r_d.html#a80ea51273376c5a171c6d0dcb5193b12">ycoord</a> * op2.<a class="code" href="class_i_c_o_o_r_d.html#a80ea51273376c5a171c6d0dcb5193b12">ycoord</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae37ea1a94d1feb9839c90f7d0a9105cf"></a><!-- doxytag: member="ICOORD::operator*" ref="ae37ea1a94d1feb9839c90f7d0a9105cf" args="(const ICOORD &amp;, const ICOORD &amp;)" -->
@@ -695,6 +848,11 @@ Friends</h2></td></tr>
 
 <p>cross product </p>
 
+<p>Definition at line <a class="el" href="ipoints_8h_source.html#l00149">149</a> of file <a class="el" href="ipoints_8h_source.html">ipoints.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                           {
+  <span class="keywordflow">return</span> op1.<a class="code" href="class_i_c_o_o_r_d.html#a0bba3892d33e49115748480b986fdae8">xcoord</a> * op2.<a class="code" href="class_i_c_o_o_r_d.html#a80ea51273376c5a171c6d0dcb5193b12">ycoord</a> - op1.<a class="code" href="class_i_c_o_o_r_d.html#a80ea51273376c5a171c6d0dcb5193b12">ycoord</a> * op2.<a class="code" href="class_i_c_o_o_r_d.html#a0bba3892d33e49115748480b986fdae8">xcoord</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aeabb8bee8b0168b14825549a3498d46e"></a><!-- doxytag: member="ICOORD::operator*" ref="aeabb8bee8b0168b14825549a3498d46e" args="(const ICOORD &amp;, inT16)" -->
@@ -724,6 +882,15 @@ Friends</h2></td></tr>
 
 <p>multiply </p>
 
+<p>Definition at line <a class="el" href="ipoints_8h_source.html#l00162">162</a> of file <a class="el" href="ipoints_8h_source.html">ipoints.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                      {
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> result;                 <span class="comment">//output</span>
+
+  result.<a class="code" href="class_i_c_o_o_r_d.html#a0bba3892d33e49115748480b986fdae8">xcoord</a> = op1.<a class="code" href="class_i_c_o_o_r_d.html#a0bba3892d33e49115748480b986fdae8">xcoord</a> * scale;
+  result.<a class="code" href="class_i_c_o_o_r_d.html#a80ea51273376c5a171c6d0dcb5193b12">ycoord</a> = op1.<a class="code" href="class_i_c_o_o_r_d.html#a80ea51273376c5a171c6d0dcb5193b12">ycoord</a> * scale;
+  <span class="keywordflow">return</span> result;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a1d751459fe629cc873ea3aafffc65c0c"></a><!-- doxytag: member="ICOORD::operator*" ref="a1d751459fe629cc873ea3aafffc65c0c" args="(inT16, const ICOORD &amp;)" -->
@@ -753,6 +920,15 @@ Friends</h2></td></tr>
 
 <p>multiply </p>
 
+<p>Definition at line <a class="el" href="ipoints_8h_source.html#l00173">173</a> of file <a class="el" href="ipoints_8h_source.html">ipoints.h</a>.</p>
+<div class="fragment"><pre class="fragment">                          {
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> result;                 <span class="comment">//output</span>
+
+  result.<a class="code" href="class_i_c_o_o_r_d.html#a0bba3892d33e49115748480b986fdae8">xcoord</a> = op1.<a class="code" href="class_i_c_o_o_r_d.html#a0bba3892d33e49115748480b986fdae8">xcoord</a> * scale;
+  result.<a class="code" href="class_i_c_o_o_r_d.html#a80ea51273376c5a171c6d0dcb5193b12">ycoord</a> = op1.<a class="code" href="class_i_c_o_o_r_d.html#a80ea51273376c5a171c6d0dcb5193b12">ycoord</a> * scale;
+  <span class="keywordflow">return</span> result;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="acd660889f51808793fda88e8f25bcd5b"></a><!-- doxytag: member="ICOORD::operator*=" ref="acd660889f51808793fda88e8f25bcd5b" args="(ICOORD &amp;, inT16)" -->
@@ -782,6 +958,13 @@ Friends</h2></td></tr>
 
 <p>multiply </p>
 
+<p>Definition at line <a class="el" href="ipoints_8h_source.html#l00192">192</a> of file <a class="el" href="ipoints_8h_source.html">ipoints.h</a>.</p>
+<div class="fragment"><pre class="fragment">             {
+  op1.<a class="code" href="class_i_c_o_o_r_d.html#a0bba3892d33e49115748480b986fdae8">xcoord</a> *= scale;
+  op1.<a class="code" href="class_i_c_o_o_r_d.html#a80ea51273376c5a171c6d0dcb5193b12">ycoord</a> *= scale;
+  <span class="keywordflow">return</span> op1;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad37d779b26849253e46e1a10b7588bb8"></a><!-- doxytag: member="ICOORD::operator+" ref="ad37d779b26849253e46e1a10b7588bb8" args="(const ICOORD &amp;, const ICOORD &amp;)" -->
@@ -811,6 +994,15 @@ Friends</h2></td></tr>
 
 <p>add </p>
 
+<p>Definition at line <a class="el" href="ipoints_8h_source.html#l00068">68</a> of file <a class="el" href="ipoints_8h_source.html">ipoints.h</a>.</p>
+<div class="fragment"><pre class="fragment">                    {
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> sum;                    <span class="comment">//result</span>
+
+  sum.<a class="code" href="class_i_c_o_o_r_d.html#a0bba3892d33e49115748480b986fdae8">xcoord</a> = op1.<a class="code" href="class_i_c_o_o_r_d.html#a0bba3892d33e49115748480b986fdae8">xcoord</a> + op2.<a class="code" href="class_i_c_o_o_r_d.html#a0bba3892d33e49115748480b986fdae8">xcoord</a>;
+  sum.<a class="code" href="class_i_c_o_o_r_d.html#a80ea51273376c5a171c6d0dcb5193b12">ycoord</a> = op1.<a class="code" href="class_i_c_o_o_r_d.html#a80ea51273376c5a171c6d0dcb5193b12">ycoord</a> + op2.<a class="code" href="class_i_c_o_o_r_d.html#a80ea51273376c5a171c6d0dcb5193b12">ycoord</a>;
+  <span class="keywordflow">return</span> sum;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a5df23d19207ded41b99bb3ec1e86c775"></a><!-- doxytag: member="ICOORD::operator+=" ref="a5df23d19207ded41b99bb3ec1e86c775" args="(ICOORD &amp;, const ICOORD &amp;)" -->
@@ -840,6 +1032,13 @@ Friends</h2></td></tr>
 
 <p>add </p>
 
+<p>Definition at line <a class="el" href="ipoints_8h_source.html#l00086">86</a> of file <a class="el" href="ipoints_8h_source.html">ipoints.h</a>.</p>
+<div class="fragment"><pre class="fragment">                    {
+  op1.<a class="code" href="class_i_c_o_o_r_d.html#a0bba3892d33e49115748480b986fdae8">xcoord</a> += op2.<a class="code" href="class_i_c_o_o_r_d.html#a0bba3892d33e49115748480b986fdae8">xcoord</a>;
+  op1.<a class="code" href="class_i_c_o_o_r_d.html#a80ea51273376c5a171c6d0dcb5193b12">ycoord</a> += op2.<a class="code" href="class_i_c_o_o_r_d.html#a80ea51273376c5a171c6d0dcb5193b12">ycoord</a>;
+  <span class="keywordflow">return</span> op1;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="accf0afc79f4a7c8dca9c2dcafbd58028"></a><!-- doxytag: member="ICOORD::operator&#45;" ref="accf0afc79f4a7c8dca9c2dcafbd58028" args="(const ICOORD &amp;)" -->
@@ -859,6 +1058,15 @@ Friends</h2></td></tr>
 
 <p>unary minus </p>
 
+<p>Definition at line <a class="el" href="ipoints_8h_source.html#l00050">50</a> of file <a class="el" href="ipoints_8h_source.html">ipoints.h</a>.</p>
+<div class="fragment"><pre class="fragment">  {
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> result;                 <span class="comment">//output</span>
+
+  result.<a class="code" href="class_i_c_o_o_r_d.html#a0bba3892d33e49115748480b986fdae8">xcoord</a> = -src.<a class="code" href="class_i_c_o_o_r_d.html#a0bba3892d33e49115748480b986fdae8">xcoord</a>;
+  result.<a class="code" href="class_i_c_o_o_r_d.html#a80ea51273376c5a171c6d0dcb5193b12">ycoord</a> = -src.<a class="code" href="class_i_c_o_o_r_d.html#a80ea51273376c5a171c6d0dcb5193b12">ycoord</a>;
+  <span class="keywordflow">return</span> result;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a069d4ec67114d5761434ccf56ef0b724"></a><!-- doxytag: member="ICOORD::operator&#45;" ref="a069d4ec67114d5761434ccf56ef0b724" args="(const ICOORD &amp;, const ICOORD &amp;)" -->
@@ -888,6 +1096,15 @@ Friends</h2></td></tr>
 
 <p>subtract </p>
 
+<p>Definition at line <a class="el" href="ipoints_8h_source.html#l00102">102</a> of file <a class="el" href="ipoints_8h_source.html">ipoints.h</a>.</p>
+<div class="fragment"><pre class="fragment">                    {
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> sum;                    <span class="comment">//result</span>
+
+  sum.<a class="code" href="class_i_c_o_o_r_d.html#a0bba3892d33e49115748480b986fdae8">xcoord</a> = op1.<a class="code" href="class_i_c_o_o_r_d.html#a0bba3892d33e49115748480b986fdae8">xcoord</a> - op2.<a class="code" href="class_i_c_o_o_r_d.html#a0bba3892d33e49115748480b986fdae8">xcoord</a>;
+  sum.<a class="code" href="class_i_c_o_o_r_d.html#a80ea51273376c5a171c6d0dcb5193b12">ycoord</a> = op1.<a class="code" href="class_i_c_o_o_r_d.html#a80ea51273376c5a171c6d0dcb5193b12">ycoord</a> - op2.<a class="code" href="class_i_c_o_o_r_d.html#a80ea51273376c5a171c6d0dcb5193b12">ycoord</a>;
+  <span class="keywordflow">return</span> sum;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a1ddaa32bd3eeea96468076b3f3277e63"></a><!-- doxytag: member="ICOORD::operator&#45;=" ref="a1ddaa32bd3eeea96468076b3f3277e63" args="(ICOORD &amp;, const ICOORD &amp;)" -->
@@ -917,6 +1134,13 @@ Friends</h2></td></tr>
 
 <p>subtract </p>
 
+<p>Definition at line <a class="el" href="ipoints_8h_source.html#l00120">120</a> of file <a class="el" href="ipoints_8h_source.html">ipoints.h</a>.</p>
+<div class="fragment"><pre class="fragment">                    {
+  op1.<a class="code" href="class_i_c_o_o_r_d.html#a0bba3892d33e49115748480b986fdae8">xcoord</a> -= op2.<a class="code" href="class_i_c_o_o_r_d.html#a0bba3892d33e49115748480b986fdae8">xcoord</a>;
+  op1.<a class="code" href="class_i_c_o_o_r_d.html#a80ea51273376c5a171c6d0dcb5193b12">ycoord</a> -= op2.<a class="code" href="class_i_c_o_o_r_d.html#a80ea51273376c5a171c6d0dcb5193b12">ycoord</a>;
+  <span class="keywordflow">return</span> op1;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a95fc0495ec136e4a3bdb35a31507bc13"></a><!-- doxytag: member="ICOORD::operator/" ref="a95fc0495ec136e4a3bdb35a31507bc13" args="(const ICOORD &amp;, inT16)" -->
@@ -946,6 +1170,15 @@ Friends</h2></td></tr>
 
 <p>divide </p>
 
+<p>Definition at line <a class="el" href="ipoints_8h_source.html#l00208">208</a> of file <a class="el" href="ipoints_8h_source.html">ipoints.h</a>.</p>
+<div class="fragment"><pre class="fragment">             {
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> result;                 <span class="comment">//output</span>
+
+  result.<a class="code" href="class_i_c_o_o_r_d.html#a0bba3892d33e49115748480b986fdae8">xcoord</a> = op1.<a class="code" href="class_i_c_o_o_r_d.html#a0bba3892d33e49115748480b986fdae8">xcoord</a> / scale;
+  result.<a class="code" href="class_i_c_o_o_r_d.html#a80ea51273376c5a171c6d0dcb5193b12">ycoord</a> = op1.<a class="code" href="class_i_c_o_o_r_d.html#a80ea51273376c5a171c6d0dcb5193b12">ycoord</a> / scale;
+  <span class="keywordflow">return</span> result;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac803f37f2f8fa461eb61ef2a4da75e2c"></a><!-- doxytag: member="ICOORD::operator/=" ref="ac803f37f2f8fa461eb61ef2a4da75e2c" args="(ICOORD &amp;, inT16)" -->
@@ -975,6 +1208,13 @@ Friends</h2></td></tr>
 
 <p>divide </p>
 
+<p>Definition at line <a class="el" href="ipoints_8h_source.html#l00226">226</a> of file <a class="el" href="ipoints_8h_source.html">ipoints.h</a>.</p>
+<div class="fragment"><pre class="fragment">             {
+  op1.<a class="code" href="class_i_c_o_o_r_d.html#a0bba3892d33e49115748480b986fdae8">xcoord</a> /= scale;
+  op1.<a class="code" href="class_i_c_o_o_r_d.html#a80ea51273376c5a171c6d0dcb5193b12">ycoord</a> /= scale;
+  <span class="keywordflow">return</span> op1;
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
@@ -989,6 +1229,8 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="points_8h_source.html#l00157">157</a> of file <a class="el" href="points_8h_source.html">points.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a80ea51273376c5a171c6d0dcb5193b12"></a><!-- doxytag: member="ICOORD::ycoord" ref="a80ea51273376c5a171c6d0dcb5193b12" args="" -->
@@ -1002,12 +1244,14 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="points_8h_source.html#l00158">158</a> of file <a class="el" href="points_8h_source.html">points.h</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/ccstruct/<a class="el" href="points_8h_source.html">points.h</a></li>
 <li>tesseract-ocr/ccstruct/<a class="el" href="ipoints_8h_source.html">ipoints.h</a></li>
-<li>tesseract-ocr/ccstruct/<a class="el" href="points_8cpp.html">points.cpp</a></li>
+<li>tesseract-ocr/ccstruct/<a class="el" href="points_8cpp_source.html">points.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -1029,7 +1273,7 @@ Friends</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:12 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:46 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

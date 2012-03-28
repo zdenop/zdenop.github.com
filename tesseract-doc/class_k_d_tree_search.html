@@ -111,7 +111,10 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_k_d_tree_search.html#affd80997a38a7583bb69b648510de576">~KDTreeSearch</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_k_d_tree_search.html#a6771cb4c8a3637f721539357aaa8cf76">Search</a> (int *result_count, <a class="el" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a> *distances, void **results)</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="kdtree_8cpp_source.html#l00121">121</a> of file <a class="el" href="kdtree_8cpp_source.html">kdtree.cpp</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a55ef5552589328350716d6f5a57efa8f"></a><!-- doxytag: member="KDTreeSearch::KDTreeSearch" ref="a55ef5552589328350716d6f5a57efa8f" args="(KDTREE *tree, FLOAT32 *query_point, int k_closest)" -->
 <div class="memitem">
 <div class="memproto">
@@ -143,6 +146,15 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="kdtree_8cpp_source.html#l00140">140</a> of file <a class="el" href="kdtree_8cpp_source.html">kdtree.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                            :
+    tree_(tree),
+    query_point_(query_point) {
+  results_ = <span class="keyword">new</span> <a class="code" href="class_min_k.html">MinK&lt;FLOAT32, void *&gt;</a>(<a class="code" href="kdtree_8cpp.html#a322efe6a34504778ebc6b3e2264789d5">MAXSEARCH</a>, k_closest);
+  sb_min_ = <span class="keyword">new</span> <a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a>[tree-&gt;<a class="code" href="struct_k_d_t_r_e_e.html#a510104dbda460e78eb8d323502594ef2">KeySize</a>];
+  sb_max_ = <span class="keyword">new</span> <a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a>[tree-&gt;<a class="code" href="struct_k_d_t_r_e_e.html#a510104dbda460e78eb8d323502594ef2">KeySize</a>];
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="affd80997a38a7583bb69b648510de576"></a><!-- doxytag: member="KDTreeSearch::~KDTreeSearch" ref="affd80997a38a7583bb69b648510de576" args="()" -->
@@ -159,6 +171,13 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="kdtree_8cpp_source.html#l00148">148</a> of file <a class="el" href="kdtree_8cpp_source.html">kdtree.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                            {
+  <span class="keyword">delete</span> results_;
+  <span class="keyword">delete</span>[] sb_min_;
+  <span class="keyword">delete</span>[] sb_max_;
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -193,10 +212,29 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="kdtree_8cpp_source.html#l00156">156</a> of file <a class="el" href="kdtree_8cpp_source.html">kdtree.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                          {
+  <span class="keywordflow">if</span> (tree_-&gt;<a class="code" href="struct_k_d_t_r_e_e.html#ab52e8a6004fc595de526dfa831c2e725">Root</a>.<a class="code" href="struct_k_d_n_o_d_e.html#a66ffa1cc4e73e45599978f8f6416e350">Left</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    *result_count = 0;
+  } <span class="keywordflow">else</span> {
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; tree_-&gt;<a class="code" href="struct_k_d_t_r_e_e.html#a510104dbda460e78eb8d323502594ef2">KeySize</a>; i++) {
+      sb_min_[i] = tree_-&gt;<a class="code" href="struct_k_d_t_r_e_e.html#a486dfb881bc360bbfbd36248bba80552">KeyDesc</a>[i].<a class="code" href="struct_p_a_r_a_m___d_e_s_c.html#a6445e8e433a99239e56c3218437f2695">Min</a>;
+      sb_max_[i] = tree_-&gt;<a class="code" href="struct_k_d_t_r_e_e.html#a486dfb881bc360bbfbd36248bba80552">KeyDesc</a>[i].<a class="code" href="struct_p_a_r_a_m___d_e_s_c.html#a73e76f946bbd324e60914a991d3343d1">Max</a>;
+    }
+    SearchRec(0, tree_-&gt;<a class="code" href="struct_k_d_t_r_e_e.html#ab52e8a6004fc595de526dfa831c2e725">Root</a>.<a class="code" href="struct_k_d_n_o_d_e.html#a66ffa1cc4e73e45599978f8f6416e350">Left</a>);
+    <span class="keywordtype">int</span> <a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a> = results_-&gt;<a class="code" href="class_min_k.html#a09234dac642fad372ea6fefe360f1e85">elements_count</a>();
+    *result_count = <a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a>;
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; <a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a>; j++) {
+      distances[j] = (<a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a>) sqrt((<a class="code" href="host_8h.html#aa8336782d864ba03efadb73a51260961">FLOAT64</a>)results_-&gt;<a class="code" href="class_min_k.html#ac45bba01f3e5ea642f99b462b345f976">elements</a>()[j].key);
+      results[j] = results_-&gt;<a class="code" href="class_min_k.html#ac45bba01f3e5ea642f99b462b345f976">elements</a>()[j].value;
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>tesseract-ocr/classify/<a class="el" href="kdtree_8cpp.html">kdtree.cpp</a></li>
+<li>tesseract-ocr/classify/<a class="el" href="kdtree_8cpp_source.html">kdtree.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -218,7 +256,7 @@ Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:12 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:46 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

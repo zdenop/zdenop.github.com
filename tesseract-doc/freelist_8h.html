@@ -127,6 +127,11 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="freelist_8cpp_source.html#l00022">22</a> of file <a class="el" href="freelist_8cpp_source.html">freelist.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                        {
+  <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span>*<span class="keyword">&gt;</span>(malloc(static_cast&lt;size_t&gt;(size)));
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab462a857e5edf360ae4881bcc92a0bcf"></a><!-- doxytag: member="freelist.h::memfree" ref="ab462a857e5edf360ae4881bcc92a0bcf" args="(void *element)" -->
@@ -144,6 +149,11 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="freelist_8cpp_source.html#l00030">30</a> of file <a class="el" href="freelist_8cpp_source.html">freelist.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                            {
+  free(element);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2467b686d61689eb29f3779ee878753f"></a><!-- doxytag: member="freelist.h::memrealloc" ref="a2467b686d61689eb29f3779ee878753f" args="(void *ptr, int size, int oldsize)" -->
@@ -177,6 +187,11 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="freelist_8cpp_source.html#l00026">26</a> of file <a class="el" href="freelist_8cpp_source.html">freelist.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                  {
+  <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span>*<span class="keyword">&gt;</span>(realloc(ptr, static_cast&lt;size_t&gt;(size)));
+}
+</pre></div>
 </div>
 </div>
 </div>
@@ -199,7 +214,7 @@ Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:09 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:42 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

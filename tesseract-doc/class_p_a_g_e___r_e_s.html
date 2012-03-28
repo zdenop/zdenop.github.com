@@ -124,7 +124,10 @@ Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_generic_vector.html">GenericVector</a>&lt; int &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_p_a_g_e___r_e_s.html#a5aa8ac782c653b77b29590d72ba3d33a">blame_reasons</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_generic_vector.html">GenericVector</a>&lt; <a class="el" href="class_s_t_r_i_n_g.html">STRING</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_p_a_g_e___r_e_s.html#af4e6350f65d0d939058071632dc56e94">misadaption_log</a></td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00218">218</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a62243a900ed0580325d6560ba36f3147"></a><!-- doxytag: member="PAGE_RES::PAGE_RES" ref="a62243a900ed0580325d6560ba36f3147" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -139,6 +142,9 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00243">243</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <a class="code" href="class_p_a_g_e___r_e_s.html#a919a591ee1d557c7318ca569703452f7">Init</a>(); }  <span class="comment">// empty constructor</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa1f8392ac3d411d20d0388cc0f172b29"></a><!-- doxytag: member="PAGE_RES::PAGE_RES" ref="aa1f8392ac3d411d20d0388cc0f172b29" args="(BLOCK_LIST *block_list, WERD_CHOICE **prev_word_best_choice_ptr)" -->
@@ -182,6 +188,10 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00248">248</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
+<div class="fragment"><pre class="fragment">               {               <span class="comment">// destructor</span>
+  }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -199,6 +209,15 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00235">235</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
+<div class="fragment"><pre class="fragment">                     {
+    <a class="code" href="class_p_a_g_e___r_e_s.html#a489c2f236ddd8271ce74950abb2d0881">char_count</a> = 0;
+    <a class="code" href="class_p_a_g_e___r_e_s.html#a173220902fa987fe73708fae5f2c9560">rej_count</a> = 0;
+    <a class="code" href="class_p_a_g_e___r_e_s.html#a65ed9c199c2ef8b3dc464225ad893e7d">rejected</a> = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+    <a class="code" href="class_p_a_g_e___r_e_s.html#a1c5edd82d9dbca80e3042fa38ada0a54">prev_word_best_choice</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    <a class="code" href="class_p_a_g_e___r_e_s.html#a5aa8ac782c653b77b29590d72ba3d33a">blame_reasons</a>.<a class="code" href="class_generic_vector.html#a6751521fd3eb461d81fc83ef93a0def3">init_to_size</a>(<a class="code" href="pageres_8h.html#a8faf52e106c04bfdc9898ffa90b821e1a5b7e21438ec02ceeba07bf96049d84d5">IRR_NUM_REASONS</a>, 0);
+  }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
@@ -213,6 +232,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00228">228</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="aa7b060bebb1b720f66121026c42e2195"></a><!-- doxytag: member="PAGE_RES::block_res_list" ref="aa7b060bebb1b720f66121026c42e2195" args="" -->
@@ -225,6 +246,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00222">222</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
 
 </div>
 </div>
@@ -239,6 +262,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00220">220</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="af4e6350f65d0d939058071632dc56e94"></a><!-- doxytag: member="PAGE_RES::misadaption_log" ref="af4e6350f65d0d939058071632dc56e94" args="" -->
@@ -251,6 +276,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00233">233</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
 
 </div>
 </div>
@@ -265,6 +292,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00226">226</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a173220902fa987fe73708fae5f2c9560"></a><!-- doxytag: member="PAGE_RES::rej_count" ref="a173220902fa987fe73708fae5f2c9560" args="" -->
@@ -278,6 +307,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00221">221</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a65ed9c199c2ef8b3dc464225ad893e7d"></a><!-- doxytag: member="PAGE_RES::rejected" ref="a65ed9c199c2ef8b3dc464225ad893e7d" args="" -->
@@ -290,6 +321,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00223">223</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
 
 </div>
 </div>
@@ -316,7 +349,7 @@ Public Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:12 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:46 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

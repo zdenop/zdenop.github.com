@@ -121,7 +121,10 @@ Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_char_samp_set.html#a5ec1cca06ffee6d552c9a622d69239ad">EnumSamples</a> (string file_name, <a class="el" href="classtesseract_1_1_char_samp_enum.html">CharSampEnum</a> *enumerator)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static FILE *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_char_samp_set.html#a9f791908e4be116483130e4dcd61f784">CreateCharDumpFile</a> (string file_name)</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="char__samp__set_8h_source.html#l00040">40</a> of file <a class="el" href="char__samp__set_8h_source.html">char_samp_set.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a86ed83f376692acdde8eb3a80eb96d70"></a><!-- doxytag: member="tesseract::CharSampSet::CharSampSet" ref="a86ed83f376692acdde8eb3a80eb96d70" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -136,6 +139,13 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__samp__set_8cpp_source.html#l00027">27</a> of file <a class="el" href="char__samp__set_8cpp_source.html">char_samp_set.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                         {
+  cnt_ = 0;
+  samp_buff_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  own_samples_ = <span class="keyword">false</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a068ef020d9868f214c4feda160f0828d"></a><!-- doxytag: member="tesseract::CharSampSet::~CharSampSet" ref="a068ef020d9868f214c4feda160f0828d" args="()" -->
@@ -152,6 +162,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__samp__set_8cpp_source.html#l00033">33</a> of file <a class="el" href="char__samp__set_8cpp_source.html">char_samp_set.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                          {
+  Cleanup();
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -170,6 +185,26 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__samp__set_8cpp_source.html#l00055">55</a> of file <a class="el" href="char__samp__set_8cpp_source.html">char_samp_set.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                         {
+  <span class="keywordflow">if</span> ((cnt_ % <a class="code" href="char__samp__set_8h.html#a7cce6aa6b8dd0efe0cef336c06b386b4">SAMP_ALLOC_BLOCK</a>) == 0) {
+      <span class="comment">// create an extended buffer</span>
+    CharSamp **new_samp_buff =
+        <span class="keyword">reinterpret_cast&lt;</span>CharSamp **<span class="keyword">&gt;</span>(<span class="keyword">new</span> CharSamp *[cnt_ + <a class="code" href="char__samp__set_8h.html#a7cce6aa6b8dd0efe0cef336c06b386b4">SAMP_ALLOC_BLOCK</a>]);
+    <span class="keywordflow">if</span> (new_samp_buff == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      <span class="keywordflow">return</span> <span class="keyword">false</span>;
+    }
+    <span class="comment">// copy old contents</span>
+    <span class="keywordflow">if</span> (cnt_ &gt; 0) {
+      memcpy(new_samp_buff, samp_buff_, cnt_ * <span class="keyword">sizeof</span>(*samp_buff_));
+      <span class="keyword">delete</span> []samp_buff_;
+    }
+    samp_buff_ = new_samp_buff;
+  }
+  samp_buff_[cnt_++] = char_samp;
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9f791908e4be116483130e4dcd61f784"></a><!-- doxytag: member="tesseract::CharSampSet::CreateCharDumpFile" ref="a9f791908e4be116483130e4dcd61f784" args="(string file_name)" -->
@@ -187,6 +222,23 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__samp__set_8cpp_source.html#l00122">122</a> of file <a class="el" href="char__samp__set_8cpp_source.html">char_samp_set.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                      {
+  FILE *fp;
+  <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> val32;
+  <span class="comment">// create the file</span>
+  fp =  fopen(file_name.c_str(), <span class="stringliteral">&quot;wb&quot;</span>);
+  <span class="keywordflow">if</span> (!fp) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="comment">// read and verify marker</span>
+  val32 = 0xfefeabd0;
+  <span class="keywordflow">if</span> (fwrite(&amp;val32, 1, <span class="keyword">sizeof</span>(val32), fp) != <span class="keyword">sizeof</span>(val32)) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="keywordflow">return</span> fp;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a5ec1cca06ffee6d552c9a622d69239ad"></a><!-- doxytag: member="tesseract::CharSampSet::EnumSamples" ref="a5ec1cca06ffee6d552c9a622d69239ad" args="(string file_name, CharSampEnum *enumerator)" -->
@@ -214,6 +266,45 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__samp__set_8cpp_source.html#l00140">140</a> of file <a class="el" href="char__samp__set_8cpp_source.html">char_samp_set.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                      {
+  CachedFile *fp_in;
+  <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> val32;
+  <span class="keywordtype">long</span> i64_size,
+    i64_pos;
+  <span class="comment">// open the file</span>
+  fp_in = <span class="keyword">new</span> CachedFile(file_name);
+  <span class="keywordflow">if</span> (fp_in == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+  i64_size = fp_in-&gt;Size();
+  <span class="keywordflow">if</span> (i64_size &lt; 1) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+  <span class="comment">// read and verify marker</span>
+  <span class="keywordflow">if</span> (fp_in-&gt;Read(&amp;val32, <span class="keyword">sizeof</span>(val32)) != <span class="keyword">sizeof</span>(val32)) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+  <span class="keywordflow">if</span> (val32 != 0xfefeabd0) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+  <span class="comment">// start loading char samples</span>
+  <span class="keywordflow">while</span> (fp_in-&gt;eof() == <span class="keyword">false</span>) {
+    CharSamp *new_samp = <a class="code" href="classtesseract_1_1_char_samp_set.html#a55579e630b48a3c8258f2e2c00af1143">CharSamp::FromCharDumpFile</a>(fp_in);
+    i64_pos = fp_in-&gt;Tell();
+    <span class="keywordflow">if</span> (new_samp != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      <span class="keywordtype">bool</span> ret_flag = (enum_obj)-&gt;EnumCharSamp(new_samp,
+                                               (100.0<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> * i64_pos / i64_size));
+      <span class="keyword">delete</span> new_samp;
+      <span class="keywordflow">if</span> (ret_flag == <span class="keyword">false</span>) {
+        <span class="keywordflow">break</span>;
+      }
+    }
+  }
+  <span class="keyword">delete</span> fp_in;
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a55579e630b48a3c8258f2e2c00af1143"></a><!-- doxytag: member="tesseract::CharSampSet::FromCharDumpFile" ref="a55579e630b48a3c8258f2e2c00af1143" args="(string file_name)" -->
@@ -231,6 +322,35 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__samp__set_8cpp_source.html#l00093">93</a> of file <a class="el" href="char__samp__set_8cpp_source.html">char_samp_set.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                            {
+  FILE *fp;
+  <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> val32;
+  <span class="comment">// open the file</span>
+  fp = fopen(file_name.c_str(), <span class="stringliteral">&quot;rb&quot;</span>);
+  <span class="keywordflow">if</span> (fp == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="comment">// read and verify marker</span>
+  <span class="keywordflow">if</span> (fread(&amp;val32, 1, <span class="keyword">sizeof</span>(val32), fp) != <span class="keyword">sizeof</span>(val32)) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="keywordflow">if</span> (val32 != 0xfefeabd0) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="comment">// create an object</span>
+  <a class="code" href="classtesseract_1_1_char_samp_set.html#a86ed83f376692acdde8eb3a80eb96d70">CharSampSet</a> *samp_set = <span class="keyword">new</span> <a class="code" href="classtesseract_1_1_char_samp_set.html#a86ed83f376692acdde8eb3a80eb96d70">CharSampSet</a>();
+  <span class="keywordflow">if</span> (samp_set == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="keywordflow">if</span> (samp_set-&gt;LoadCharSamples(fp) == <span class="keyword">false</span>) {
+    <span class="keyword">delete</span> samp_set;
+    samp_set = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  fclose(fp);
+  <span class="keywordflow">return</span> samp_set;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a462d6d9f406445d88eacf08a2564a94c"></a><!-- doxytag: member="tesseract::CharSampSet::SampleCount" ref="a462d6d9f406445d88eacf08a2564a94c" args="() const " -->
@@ -247,6 +367,9 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__samp__set_8h_source.html#l00045">45</a> of file <a class="el" href="char__samp__set_8h_source.html">char_samp_set.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> cnt_; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa63a4baf00b2ed6523ffc8c6cfc5a8ca"></a><!-- doxytag: member="tesseract::CharSampSet::Samples" ref="aa63a4baf00b2ed6523ffc8c6cfc5a8ca" args="() const " -->
@@ -263,11 +386,14 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__samp__set_8h_source.html#l00047">47</a> of file <a class="el" href="char__samp__set_8h_source.html">char_samp_set.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> samp_buff_; }
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/cube/<a class="el" href="char__samp__set_8h_source.html">char_samp_set.h</a></li>
-<li>tesseract-ocr/cube/<a class="el" href="char__samp__set_8cpp.html">char_samp_set.cpp</a></li>
+<li>tesseract-ocr/cube/<a class="el" href="char__samp__set_8cpp_source.html">char_samp_set.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -290,7 +416,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:15 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:50 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

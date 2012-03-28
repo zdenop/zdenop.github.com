@@ -106,7 +106,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <code>#include &quot;<a class="el" href="danerror_8h_source.html">danerror.h</a>&quot;</code><br/>
 <code>#include &lt;stdio.h&gt;</code><br/>
 <code>#include &lt;string.h&gt;</code><br/>
-</div><table class="memberdecls">
+</div>
+<p><a href="efio_8cpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr><td colspan="2"><h2><a name="define-members"></a>
 Defines</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="efio_8cpp.html#ab228b4d07c6e54586d2d8f81a2179490">MAXERRORMESSAGE</a>&#160;&#160;&#160;256</td></tr>
@@ -126,6 +128,8 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>---------------------------------------------------------------------------- Include Files and Type Defines ---------------------------------------------------------------------------- </p>
+
+<p>Definition at line <a class="el" href="efio_8cpp_source.html#l00026">26</a> of file <a class="el" href="efio_8cpp_source.html">efio.cpp</a>.</p>
 
 </div>
 </div>
@@ -156,6 +160,39 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>---------------------------------------------------------------------------- Public Code ---------------------------------------------------------------------------- </p>
 
+<p>Definition at line <a class="el" href="efio_8cpp_source.html#l00032">32</a> of file <a class="el" href="efio_8cpp_source.html">efio.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                 { 
+<span class="comment">/*</span>
+<span class="comment"> **     Parameters:</span>
+<span class="comment"> **             Name    name of file to be opened</span>
+<span class="comment"> **             Mode    mode to be used to open file</span>
+<span class="comment"> **     Globals:</span>
+<span class="comment"> **             None</span>
+<span class="comment"> **     Operation:</span>
+<span class="comment"> **             This routine attempts to open the specified file in the</span>
+<span class="comment"> **             specified mode.  If the file can be opened, a pointer to</span>
+<span class="comment"> **             the open file is returned.  If the file cannot be opened,</span>
+<span class="comment"> **             an error is trapped.</span>
+<span class="comment"> **     Return:</span>
+<span class="comment"> **             Pointer to open file.</span>
+<span class="comment"> **     Exceptions:</span>
+<span class="comment"> **             FOPENERROR              unable to open specified file</span>
+<span class="comment"> **     History:</span>
+<span class="comment"> **             5/21/89, DSJ, Created.</span>
+<span class="comment"> */</span>
+  FILE *File;
+  <span class="keywordtype">char</span> ErrorMessage[<a class="code" href="efio_8cpp.html#ab228b4d07c6e54586d2d8f81a2179490">MAXERRORMESSAGE</a>];
+
+  File = fopen (Name, Mode);
+  <span class="keywordflow">if</span> (File == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    sprintf (ErrorMessage, <span class="stringliteral">&quot;Unable to open %s&quot;</span>, Name);
+    <a class="code" href="danerror_8cpp.html#a480942fa88232bda23e9809e5afa9f25">DoError</a>(<a class="code" href="efio_8h.html#a57448c70d638b35c9a0c595d44d649fe">FOPENERROR</a>, ErrorMessage); 
+    <span class="keywordflow">return</span> (<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  }
+  <span class="keywordflow">else</span>
+    <span class="keywordflow">return</span> (File);
+}                                <span class="comment">/* Efopen */</span>
+</pre></div>
 </div>
 </div>
 </div>
@@ -178,7 +215,7 @@ Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:09 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:42 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

@@ -143,6 +143,14 @@ Functions</h2></td></tr>
 </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="docqual_8h_source.html#l00026">26</a> of file <a class="el" href="docqual_8h_source.html">docqual.h</a>.</p>
+<div class="fragment"><pre class="fragment">{
+  <a class="code" href="docqual_8h.html#ac4a411895d63e3bb0bea788e92894d42ac744add072d392855d098a995acb3751">G_NEVER_CRUNCH</a>,
+  <a class="code" href="docqual_8h.html#ac4a411895d63e3bb0bea788e92894d42a46d03f2b7d080cc8319a43ef4bad82b3">G_OK</a>,
+  <a class="code" href="docqual_8h.html#ac4a411895d63e3bb0bea788e92894d42a17acba0fc01478524c8214f0da82815a">G_DODGY</a>,
+  <a class="code" href="docqual_8h.html#ac4a411895d63e3bb0bea788e92894d42a2400fb7991d9c94896464522e10c49ad">G_TERRIBLE</a>
+};
+</pre></div>
 </div>
 </div>
 <hr/><h2>Function Documentation</h2>
@@ -161,6 +169,17 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="docqual_8cpp_source.html#l00413">413</a> of file <a class="el" href="docqual_8cpp_source.html">docqual.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                 {
+  page_res_it.<a class="code" href="class_p_a_g_e___r_e_s___i_t.html#a15febd45d0904bb3c5f7d506368177f0">restart_page</a> ();
+  <span class="keywordflow">while</span> (page_res_it.<a class="code" href="class_p_a_g_e___r_e_s___i_t.html#ab84b4850200ba8802791c6197c113fd0">word</a> () != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    page_res_it.<a class="code" href="class_p_a_g_e___r_e_s___i_t.html#ab84b4850200ba8802791c6197c113fd0">word</a> ()-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#ae24eb58be06cf275aee411d947fd31ef">reject_map</a>.<a class="code" href="class_r_e_j_m_a_p.html#a9fb4a691f24ea06370b55650c197db8b">rej_word_doc_rej</a> ();
+    page_res_it.<a class="code" href="class_p_a_g_e___r_e_s___i_t.html#ab29005f235cc738eebafb7d9ed6fe70b">forward</a> ();
+  }
+                                 <span class="comment">//whole page is rejected</span>
+  page_res_it.<a class="code" href="class_p_a_g_e___r_e_s___i_t.html#aab221a373111c4be685444b5633e22a5">page_res</a>-&gt;<a class="code" href="class_p_a_g_e___r_e_s.html#a65ed9c199c2ef8b3dc464225ad893e7d">rejected</a> = <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a12872e741b5d325f549aa9e65972bfdc"></a><!-- doxytag: member="docqual.h::word_blob_quality" ref="a12872e741b5d325f549aa9e65972bfdc" args="(WERD_RES *word, ROW *row)" -->
@@ -210,7 +229,7 @@ Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:08 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:40 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

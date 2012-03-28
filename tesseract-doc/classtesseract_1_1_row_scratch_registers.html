@@ -139,7 +139,10 @@ Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_row_scratch_registers.html#a03b35da914e3dffa0454959f2a642432">rindent_</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_row_scratch_registers.html#a36b06387969774ec5a66e496ade5561b">rmargin_</a></td></tr>
 </table>
-<hr/><h2>Member Function Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="paragraphs__internal_8h_source.html#l00100">100</a> of file <a class="el" href="paragraphs__internal_8h_source.html">paragraphs_internal.h</a>.</p>
+</div><hr/><h2>Member Function Documentation</h2>
 <a class="anchor" id="a6bd11d00c7e46e5546f5a3a9e8e80bb9"></a><!-- doxytag: member="tesseract::RowScratchRegisters::AddBodyLine" ref="a6bd11d00c7e46e5546f5a3a9e8e80bb9" args="(const ParagraphModel *model)" -->
 <div class="memitem">
 <div class="memproto">
@@ -155,6 +158,14 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="paragraphs_8cpp_source.html#l00601">601</a> of file <a class="el" href="paragraphs_8cpp_source.html">paragraphs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                 {
+  hypotheses_.<a class="code" href="class_generic_vector.html#a393f9f8dcc55ad759a5c7fbdc4840a89">push_back_new</a>(LineHypothesis(<a class="code" href="namespacetesseract.html#af86c486b511cb293ee45a39233f99bd4a92f4e011332f48d7de7ddef587dff012">LT_BODY</a>, model));
+  <span class="keywordtype">int</span> old_idx = hypotheses_.<a class="code" href="class_generic_vector.html#a0a62e2c80254bad72fb8aa37fed3af33">get_index</a>(LineHypothesis(<a class="code" href="namespacetesseract.html#af86c486b511cb293ee45a39233f99bd4a92f4e011332f48d7de7ddef587dff012">LT_BODY</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>));
+  <span class="keywordflow">if</span> (old_idx &gt;= 0)
+    hypotheses_.<a class="code" href="class_generic_vector.html#a3fd37a240a42f1c3052e8d28614d3702">remove</a>(old_idx);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac661ad034b57b7f5a2886c9976933b1b"></a><!-- doxytag: member="tesseract::RowScratchRegisters::AddStartLine" ref="ac661ad034b57b7f5a2886c9976933b1b" args="(const ParagraphModel *model)" -->
@@ -172,6 +183,14 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="paragraphs_8cpp_source.html#l00594">594</a> of file <a class="el" href="paragraphs_8cpp_source.html">paragraphs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                  {
+  hypotheses_.<a class="code" href="class_generic_vector.html#a393f9f8dcc55ad759a5c7fbdc4840a89">push_back_new</a>(LineHypothesis(<a class="code" href="namespacetesseract.html#af86c486b511cb293ee45a39233f99bd4a350c14d666e61e3ad1310244edde8537">LT_START</a>, model));
+  <span class="keywordtype">int</span> old_idx = hypotheses_.<a class="code" href="class_generic_vector.html#a0a62e2c80254bad72fb8aa37fed3af33">get_index</a>(LineHypothesis(<a class="code" href="namespacetesseract.html#af86c486b511cb293ee45a39233f99bd4a350c14d666e61e3ad1310244edde8537">LT_START</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>));
+  <span class="keywordflow">if</span> (old_idx &gt;= 0)
+    hypotheses_.<a class="code" href="class_generic_vector.html#a3fd37a240a42f1c3052e8d28614d3702">remove</a>(old_idx);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a1b995f3649381c72ba904b0b628d7fd7"></a><!-- doxytag: member="tesseract::RowScratchRegisters::AlignsideIndent" ref="a1b995f3649381c72ba904b0b628d7fd7" args="(tesseract::ParagraphJustification just) const " -->
@@ -189,6 +208,15 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="paragraphs__internal_8h_source.html#l00155">155</a> of file <a class="el" href="paragraphs__internal_8h_source.html">paragraphs_internal.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                  {
+    <span class="keywordflow">switch</span> (just) {
+      <span class="keywordflow">case</span> <a class="code" href="namespacetesseract.html#a550970d1662b3ac5830c6a28dba676b1a93a23b19fec3ebdb587df6e0aa9e9fce">tesseract::JUSTIFICATION_RIGHT</a>: <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_row_scratch_registers.html#a03b35da914e3dffa0454959f2a642432">rindent_</a>;
+      <span class="keywordflow">case</span> <a class="code" href="namespacetesseract.html#a550970d1662b3ac5830c6a28dba676b1a0141f695e0959de2dc43e0eb94023ff6">tesseract::JUSTIFICATION_LEFT</a>: <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_row_scratch_registers.html#a880a72675fbddb983dfd23b8c0dc6177">lindent_</a>;
+      <span class="keywordflow">default</span>: <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_row_scratch_registers.html#a880a72675fbddb983dfd23b8c0dc6177">lindent_</a> &gt; <a class="code" href="classtesseract_1_1_row_scratch_registers.html#a03b35da914e3dffa0454959f2a642432">rindent_</a> ? <a class="code" href="classtesseract_1_1_row_scratch_registers.html#a880a72675fbddb983dfd23b8c0dc6177">lindent_</a> : <a class="code" href="classtesseract_1_1_row_scratch_registers.html#a03b35da914e3dffa0454959f2a642432">rindent_</a>;
+    }
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a0d7b1cca6b735498a9286b1842e55f92"></a><!-- doxytag: member="tesseract::RowScratchRegisters::AppendDebugHeaderFields" ref="a0d7b1cca6b735498a9286b1842e55f92" args="(GenericVector&lt; STRING &gt; *header)" -->
@@ -206,6 +234,12 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="paragraphs_8cpp_source.html#l00487">487</a> of file <a class="el" href="paragraphs_8cpp_source.html">paragraphs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                   {
+  header-&gt;<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(<span class="stringliteral">&quot;[lmarg,lind;rind,rmarg]&quot;</span>);
+  header-&gt;<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(<span class="stringliteral">&quot;model&quot;</span>);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a57cc3690c4f6306a3af08421f8b7f006"></a><!-- doxytag: member="tesseract::RowScratchRegisters::AppendDebugInfo" ref="a57cc3690c4f6306a3af08421f8b7f006" args="(const ParagraphTheory &amp;theory, GenericVector&lt; STRING &gt; *dbg) const " -->
@@ -233,6 +267,37 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="paragraphs_8cpp_source.html#l00493">493</a> of file <a class="el" href="paragraphs_8cpp_source.html">paragraphs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                            {
+  <span class="keywordtype">char</span> s[30];
+  snprintf(s, <span class="keyword">sizeof</span>(s), <span class="stringliteral">&quot;[%3d,%3d;%3d,%3d]&quot;</span>,
+           <a class="code" href="classtesseract_1_1_row_scratch_registers.html#a5980c9d63c4c7fde05f13eade2356838">lmargin_</a>, <a class="code" href="classtesseract_1_1_row_scratch_registers.html#a880a72675fbddb983dfd23b8c0dc6177">lindent_</a>, <a class="code" href="classtesseract_1_1_row_scratch_registers.html#a03b35da914e3dffa0454959f2a642432">rindent_</a>, <a class="code" href="classtesseract_1_1_row_scratch_registers.html#a36b06387969774ec5a66e496ade5561b">rmargin_</a>);
+  dbg-&gt;<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(s);
+  <a class="code" href="class_s_t_r_i_n_g.html">STRING</a> model_string;
+  model_string += <span class="keyword">static_cast&lt;</span><span class="keywordtype">char</span><span class="keyword">&gt;</span>(<a class="code" href="classtesseract_1_1_row_scratch_registers.html#a799dffc5a36821b0751fec9de5bfe8c7">GetLineType</a>());
+  model_string += <span class="stringliteral">&quot;:&quot;</span>;
+
+  <span class="keywordtype">int</span> model_numbers = 0;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> h = 0; h &lt; hypotheses_.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>(); h++) {
+    <span class="keywordflow">if</span> (hypotheses_[h].model == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+      <span class="keywordflow">continue</span>;
+    <span class="keywordflow">if</span> (model_numbers &gt; 0)
+      model_string += <span class="stringliteral">&quot;,&quot;</span>;
+    <span class="keywordflow">if</span> (<a class="code" href="namespacetesseract.html#a2f0e8f8921e73010316eaf366ec45852">StrongModel</a>(hypotheses_[h].model)) {
+      model_string += StrOf(1 + theory.IndexOf(hypotheses_[h].model));
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (hypotheses_[h].model == <a class="code" href="namespacetesseract.html#a98233252a018dc9eb158c8223e2db208">kCrownLeft</a>) {
+      model_string += <span class="stringliteral">&quot;CrL&quot;</span>;
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (hypotheses_[h].model == <a class="code" href="namespacetesseract.html#a9fec475017947c91c5cdb29b160f4453">kCrownRight</a>) {
+      model_string += <span class="stringliteral">&quot;CrR&quot;</span>;
+    }
+    model_numbers++;
+  }
+  <span class="keywordflow">if</span> (model_numbers == 0)
+    model_string += <span class="stringliteral">&quot;0&quot;</span>;
+
+  dbg-&gt;<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(model_string);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab4b4ba0ceb0dc647802c7dfb45021797"></a><!-- doxytag: member="tesseract::RowScratchRegisters::DiscardNonMatchingHypotheses" ref="ab4b4ba0ceb0dc647802c7dfb45021797" args="(const SetOfModels &amp;models)" -->
@@ -250,6 +315,17 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="paragraphs_8cpp_source.html#l00642">642</a> of file <a class="el" href="paragraphs_8cpp_source.html">paragraphs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                               {
+  <span class="keywordflow">if</span> (models.empty())
+    <span class="keywordflow">return</span>;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> h = hypotheses_.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>() - 1; h &gt;= 0; h--) {
+    <span class="keywordflow">if</span> (!models.contains(hypotheses_[h].model)) {
+      hypotheses_.<a class="code" href="class_generic_vector.html#a3fd37a240a42f1c3052e8d28614d3702">remove</a>(h);
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a799dffc5a36821b0751fec9de5bfe8c7"></a><!-- doxytag: member="tesseract::RowScratchRegisters::GetLineType" ref="a799dffc5a36821b0751fec9de5bfe8c7" args="() const " -->
@@ -266,6 +342,27 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="paragraphs_8cpp_source.html#l00532">532</a> of file <a class="el" href="paragraphs_8cpp_source.html">paragraphs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                {
+  <span class="keywordflow">if</span> (hypotheses_.<a class="code" href="class_generic_vector.html#afb0d8c52a603b6aa965d63bbf06a27dd">empty</a>())
+    <span class="keywordflow">return</span> <a class="code" href="namespacetesseract.html#af86c486b511cb293ee45a39233f99bd4a5dc9805a3ad0a4c99b98ff282e36d204">LT_UNKNOWN</a>;
+  <span class="keywordtype">bool</span> has_start = <span class="keyword">false</span>;
+  <span class="keywordtype">bool</span> has_body = <span class="keyword">false</span>;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; hypotheses_.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>(); i++) {
+    <span class="keywordflow">switch</span> (hypotheses_[i].ty) {
+      <span class="keywordflow">case</span> <a class="code" href="namespacetesseract.html#af86c486b511cb293ee45a39233f99bd4a350c14d666e61e3ad1310244edde8537">LT_START</a>: has_start = <span class="keyword">true</span>; <span class="keywordflow">break</span>;
+      <span class="keywordflow">case</span> <a class="code" href="namespacetesseract.html#af86c486b511cb293ee45a39233f99bd4a92f4e011332f48d7de7ddef587dff012">LT_BODY</a>: has_body = <span class="keyword">true</span>; <span class="keywordflow">break</span>;
+      <span class="keywordflow">default</span>:
+        <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Encountered bad value in hypothesis list: %c\n&quot;</span>,
+                hypotheses_[i].ty);
+        <span class="keywordflow">break</span>;
+    }
+  }
+  <span class="keywordflow">if</span> (has_start &amp;&amp; has_body)
+    <span class="keywordflow">return</span> <a class="code" href="namespacetesseract.html#af86c486b511cb293ee45a39233f99bd4a923acc0db591045108d7903821a8a594">LT_MULTIPLE</a>;
+  <span class="keywordflow">return</span> has_start ? <a class="code" href="namespacetesseract.html#af86c486b511cb293ee45a39233f99bd4a350c14d666e61e3ad1310244edde8537">LT_START</a> : <a class="code" href="namespacetesseract.html#af86c486b511cb293ee45a39233f99bd4a92f4e011332f48d7de7ddef587dff012">LT_BODY</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="af265196fd27d3180187e3caec659d80c"></a><!-- doxytag: member="tesseract::RowScratchRegisters::GetLineType" ref="af265196fd27d3180187e3caec659d80c" args="(const ParagraphModel *model) const " -->
@@ -283,6 +380,29 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="paragraphs_8cpp_source.html#l00552">552</a> of file <a class="el" href="paragraphs_8cpp_source.html">paragraphs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                           {
+  <span class="keywordflow">if</span> (hypotheses_.<a class="code" href="class_generic_vector.html#afb0d8c52a603b6aa965d63bbf06a27dd">empty</a>())
+    <span class="keywordflow">return</span> <a class="code" href="namespacetesseract.html#af86c486b511cb293ee45a39233f99bd4a5dc9805a3ad0a4c99b98ff282e36d204">LT_UNKNOWN</a>;
+  <span class="keywordtype">bool</span> has_start = <span class="keyword">false</span>;
+  <span class="keywordtype">bool</span> has_body = <span class="keyword">false</span>;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; hypotheses_.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>(); i++) {
+    <span class="keywordflow">if</span> (hypotheses_[i].model != model)
+      <span class="keywordflow">continue</span>;
+    <span class="keywordflow">switch</span> (hypotheses_[i].ty) {
+      <span class="keywordflow">case</span> <a class="code" href="namespacetesseract.html#af86c486b511cb293ee45a39233f99bd4a350c14d666e61e3ad1310244edde8537">LT_START</a>: has_start = <span class="keyword">true</span>; <span class="keywordflow">break</span>;
+      <span class="keywordflow">case</span> <a class="code" href="namespacetesseract.html#af86c486b511cb293ee45a39233f99bd4a92f4e011332f48d7de7ddef587dff012">LT_BODY</a>: has_body = <span class="keyword">true</span>; <span class="keywordflow">break</span>;
+      <span class="keywordflow">default</span>:
+        <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Encountered bad value in hypothesis list: %c\n&quot;</span>,
+                hypotheses_[i].ty);
+        <span class="keywordflow">break</span>;
+    }
+  }
+  <span class="keywordflow">if</span> (has_start &amp;&amp; has_body)
+    <span class="keywordflow">return</span> <a class="code" href="namespacetesseract.html#af86c486b511cb293ee45a39233f99bd4a923acc0db591045108d7903821a8a594">LT_MULTIPLE</a>;
+  <span class="keywordflow">return</span> has_start ? <a class="code" href="namespacetesseract.html#af86c486b511cb293ee45a39233f99bd4a350c14d666e61e3ad1310244edde8537">LT_START</a> : <a class="code" href="namespacetesseract.html#af86c486b511cb293ee45a39233f99bd4a92f4e011332f48d7de7ddef587dff012">LT_BODY</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="af7939bb6dda65342551cf0f958ffe285"></a><!-- doxytag: member="tesseract::RowScratchRegisters::Init" ref="af7939bb6dda65342551cf0f958ffe285" args="(const RowInfo &amp;row)" -->
@@ -300,6 +420,15 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="paragraphs_8cpp_source.html#l00524">524</a> of file <a class="el" href="paragraphs_8cpp_source.html">paragraphs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                 {
+  <a class="code" href="classtesseract_1_1_row_scratch_registers.html#a7a86a2a63937c6b9976d275bd42360fb">ri_</a> = &amp;row;
+  <a class="code" href="classtesseract_1_1_row_scratch_registers.html#a5980c9d63c4c7fde05f13eade2356838">lmargin_</a> = 0;
+  <a class="code" href="classtesseract_1_1_row_scratch_registers.html#a880a72675fbddb983dfd23b8c0dc6177">lindent_</a> = row.pix_ldistance;
+  <a class="code" href="classtesseract_1_1_row_scratch_registers.html#a36b06387969774ec5a66e496ade5561b">rmargin_</a> = 0;
+  <a class="code" href="classtesseract_1_1_row_scratch_registers.html#a03b35da914e3dffa0454959f2a642432">rindent_</a> = row.pix_rdistance;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2734f261fcc7d1c69ce511dd0a57f818"></a><!-- doxytag: member="tesseract::RowScratchRegisters::NonNullHypotheses" ref="a2734f261fcc7d1c69ce511dd0a57f818" args="(SetOfModels *models) const " -->
@@ -317,6 +446,14 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="paragraphs_8cpp_source.html#l00622">622</a> of file <a class="el" href="paragraphs_8cpp_source.html">paragraphs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                     {
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> h = 0; h &lt; hypotheses_.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>(); h++) {
+    <span class="keywordflow">if</span> (hypotheses_[h].model != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+      models-&gt;push_back_new(hypotheses_[h].model);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a56b066d9f536e64951140317d060b637"></a><!-- doxytag: member="tesseract::RowScratchRegisters::OffsideIndent" ref="a56b066d9f536e64951140317d060b637" args="(tesseract::ParagraphJustification just) const " -->
@@ -334,6 +471,15 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="paragraphs__internal_8h_source.html#l00146">146</a> of file <a class="el" href="paragraphs__internal_8h_source.html">paragraphs_internal.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                {
+    <span class="keywordflow">switch</span> (just) {
+      <span class="keywordflow">case</span> <a class="code" href="namespacetesseract.html#a550970d1662b3ac5830c6a28dba676b1a93a23b19fec3ebdb587df6e0aa9e9fce">tesseract::JUSTIFICATION_RIGHT</a>: <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_row_scratch_registers.html#a880a72675fbddb983dfd23b8c0dc6177">lindent_</a>;
+      <span class="keywordflow">case</span> <a class="code" href="namespacetesseract.html#a550970d1662b3ac5830c6a28dba676b1a0141f695e0959de2dc43e0eb94023ff6">tesseract::JUSTIFICATION_LEFT</a>: <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_row_scratch_registers.html#a03b35da914e3dffa0454959f2a642432">rindent_</a>;
+      <span class="keywordflow">default</span>: <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_row_scratch_registers.html#a880a72675fbddb983dfd23b8c0dc6177">lindent_</a> &gt; <a class="code" href="classtesseract_1_1_row_scratch_registers.html#a03b35da914e3dffa0454959f2a642432">rindent_</a> ? <a class="code" href="classtesseract_1_1_row_scratch_registers.html#a880a72675fbddb983dfd23b8c0dc6177">lindent_</a> : <a class="code" href="classtesseract_1_1_row_scratch_registers.html#a03b35da914e3dffa0454959f2a642432">rindent_</a>;
+    }
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4444df7bef80fb2baa7f94dcc848eab3"></a><!-- doxytag: member="tesseract::RowScratchRegisters::SetBodyLine" ref="a4444df7bef80fb2baa7f94dcc848eab3" args="()" -->
@@ -350,6 +496,17 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="paragraphs_8cpp_source.html#l00584">584</a> of file <a class="el" href="paragraphs_8cpp_source.html">paragraphs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                      {
+  <a class="code" href="namespacetesseract.html#af86c486b511cb293ee45a39233f99bd4">LineType</a> current_lt = <a class="code" href="classtesseract_1_1_row_scratch_registers.html#a799dffc5a36821b0751fec9de5bfe8c7">GetLineType</a>();
+  <span class="keywordflow">if</span> (current_lt != <a class="code" href="namespacetesseract.html#af86c486b511cb293ee45a39233f99bd4a5dc9805a3ad0a4c99b98ff282e36d204">LT_UNKNOWN</a> &amp;&amp; current_lt != <a class="code" href="namespacetesseract.html#af86c486b511cb293ee45a39233f99bd4a92f4e011332f48d7de7ddef587dff012">LT_BODY</a>) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Trying to set a line to be BODY when it&#39;s already START.\n&quot;</span>);
+  }
+  <span class="keywordflow">if</span> (current_lt == <a class="code" href="namespacetesseract.html#af86c486b511cb293ee45a39233f99bd4a5dc9805a3ad0a4c99b98ff282e36d204">LT_UNKNOWN</a> || current_lt == <a class="code" href="namespacetesseract.html#af86c486b511cb293ee45a39233f99bd4a350c14d666e61e3ad1310244edde8537">LT_START</a>) {
+    hypotheses_.<a class="code" href="class_generic_vector.html#a393f9f8dcc55ad759a5c7fbdc4840a89">push_back_new</a>(LineHypothesis(<a class="code" href="namespacetesseract.html#af86c486b511cb293ee45a39233f99bd4a92f4e011332f48d7de7ddef587dff012">LT_BODY</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>));
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a5ac1cfb79119ecac5dcc7f292714b58e"></a><!-- doxytag: member="tesseract::RowScratchRegisters::SetStartLine" ref="a5ac1cfb79119ecac5dcc7f292714b58e" args="()" -->
@@ -366,6 +523,17 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="paragraphs_8cpp_source.html#l00574">574</a> of file <a class="el" href="paragraphs_8cpp_source.html">paragraphs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                       {
+  <a class="code" href="namespacetesseract.html#af86c486b511cb293ee45a39233f99bd4">LineType</a> current_lt = <a class="code" href="classtesseract_1_1_row_scratch_registers.html#a799dffc5a36821b0751fec9de5bfe8c7">GetLineType</a>();
+  <span class="keywordflow">if</span> (current_lt != <a class="code" href="namespacetesseract.html#af86c486b511cb293ee45a39233f99bd4a5dc9805a3ad0a4c99b98ff282e36d204">LT_UNKNOWN</a> &amp;&amp; current_lt != <a class="code" href="namespacetesseract.html#af86c486b511cb293ee45a39233f99bd4a350c14d666e61e3ad1310244edde8537">LT_START</a>) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Trying to set a line to be START when it&#39;s already BODY.\n&quot;</span>);
+  }
+  <span class="keywordflow">if</span> (current_lt == <a class="code" href="namespacetesseract.html#af86c486b511cb293ee45a39233f99bd4a5dc9805a3ad0a4c99b98ff282e36d204">LT_UNKNOWN</a> || current_lt == <a class="code" href="namespacetesseract.html#af86c486b511cb293ee45a39233f99bd4a92f4e011332f48d7de7ddef587dff012">LT_BODY</a>) {
+    hypotheses_.<a class="code" href="class_generic_vector.html#a393f9f8dcc55ad759a5c7fbdc4840a89">push_back_new</a>(LineHypothesis(<a class="code" href="namespacetesseract.html#af86c486b511cb293ee45a39233f99bd4a350c14d666e61e3ad1310244edde8537">LT_START</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>));
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4b5abb3df8a610b52476ae463c4a900f"></a><!-- doxytag: member="tesseract::RowScratchRegisters::SetUnknown" ref="a4b5abb3df8a610b52476ae463c4a900f" args="()" -->
@@ -382,6 +550,9 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="paragraphs__internal_8h_source.html#l00123">123</a> of file <a class="el" href="paragraphs__internal_8h_source.html">paragraphs_internal.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ hypotheses_.<a class="code" href="class_generic_vector.html#af1793745c45178626c9afe48c7a1e140">truncate</a>(0); }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae97c077ce2f7231d098ad4c36ed397bc"></a><!-- doxytag: member="tesseract::RowScratchRegisters::StartHypotheses" ref="ae97c077ce2f7231d098ad4c36ed397bc" args="(SetOfModels *models) const " -->
@@ -399,6 +570,14 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="paragraphs_8cpp_source.html#l00608">608</a> of file <a class="el" href="paragraphs_8cpp_source.html">paragraphs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                   {
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> h = 0; h &lt; hypotheses_.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>(); h++) {
+    <span class="keywordflow">if</span> (hypotheses_[h].ty == <a class="code" href="namespacetesseract.html#af86c486b511cb293ee45a39233f99bd4a350c14d666e61e3ad1310244edde8537">LT_START</a> &amp;&amp; <a class="code" href="namespacetesseract.html#a2f0e8f8921e73010316eaf366ec45852">StrongModel</a>(hypotheses_[h].model))
+      models-&gt;push_back_new(hypotheses_[h].model);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a286be9e6a0dbff4773e63908e47128bd"></a><!-- doxytag: member="tesseract::RowScratchRegisters::StrongHypotheses" ref="a286be9e6a0dbff4773e63908e47128bd" args="(SetOfModels *models) const " -->
@@ -416,6 +595,14 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="paragraphs_8cpp_source.html#l00615">615</a> of file <a class="el" href="paragraphs_8cpp_source.html">paragraphs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                    {
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> h = 0; h &lt; hypotheses_.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>(); h++) {
+    <span class="keywordflow">if</span> (<a class="code" href="namespacetesseract.html#a2f0e8f8921e73010316eaf366ec45852">StrongModel</a>(hypotheses_[h].model))
+      models-&gt;push_back_new(hypotheses_[h].model);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="abca09d3b4538c40ba7da907dd41fff79"></a><!-- doxytag: member="tesseract::RowScratchRegisters::UniqueBodyHypothesis" ref="abca09d3b4538c40ba7da907dd41fff79" args="() const " -->
@@ -432,6 +619,13 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="paragraphs_8cpp_source.html#l00635">635</a> of file <a class="el" href="paragraphs_8cpp_source.html">paragraphs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                      {
+  <span class="keywordflow">if</span> (hypotheses_.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>() != 1 || hypotheses_[0].ty != <a class="code" href="namespacetesseract.html#af86c486b511cb293ee45a39233f99bd4a92f4e011332f48d7de7ddef587dff012">LT_BODY</a>)
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordflow">return</span> hypotheses_[0].model;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6ff04cb924366a9448613f454b3543fe"></a><!-- doxytag: member="tesseract::RowScratchRegisters::UniqueStartHypothesis" ref="a6ff04cb924366a9448613f454b3543fe" args="() const " -->
@@ -448,6 +642,13 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="paragraphs_8cpp_source.html#l00629">629</a> of file <a class="el" href="paragraphs_8cpp_source.html">paragraphs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                       {
+  <span class="keywordflow">if</span> (hypotheses_.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>() != 1 || hypotheses_[0].ty != <a class="code" href="namespacetesseract.html#af86c486b511cb293ee45a39233f99bd4a350c14d666e61e3ad1310244edde8537">LT_START</a>)
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordflow">return</span> hypotheses_[0].model;
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
@@ -462,6 +663,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="paragraphs__internal_8h_source.html#l00178">178</a> of file <a class="el" href="paragraphs__internal_8h_source.html">paragraphs_internal.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a5980c9d63c4c7fde05f13eade2356838"></a><!-- doxytag: member="tesseract::RowScratchRegisters::lmargin_" ref="a5980c9d63c4c7fde05f13eade2356838" args="" -->
@@ -474,6 +677,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="paragraphs__internal_8h_source.html#l00177">177</a> of file <a class="el" href="paragraphs__internal_8h_source.html">paragraphs_internal.h</a>.</p>
 
 </div>
 </div>
@@ -488,6 +693,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="paragraphs__internal_8h_source.html#l00170">170</a> of file <a class="el" href="paragraphs__internal_8h_source.html">paragraphs_internal.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a03b35da914e3dffa0454959f2a642432"></a><!-- doxytag: member="tesseract::RowScratchRegisters::rindent_" ref="a03b35da914e3dffa0454959f2a642432" args="" -->
@@ -500,6 +707,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="paragraphs__internal_8h_source.html#l00179">179</a> of file <a class="el" href="paragraphs__internal_8h_source.html">paragraphs_internal.h</a>.</p>
 
 </div>
 </div>
@@ -514,11 +723,13 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="paragraphs__internal_8h_source.html#l00180">180</a> of file <a class="el" href="paragraphs__internal_8h_source.html">paragraphs_internal.h</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/ccmain/<a class="el" href="paragraphs__internal_8h_source.html">paragraphs_internal.h</a></li>
-<li>tesseract-ocr/ccmain/<a class="el" href="paragraphs_8cpp.html">paragraphs.cpp</a></li>
+<li>tesseract-ocr/ccmain/<a class="el" href="paragraphs_8cpp_source.html">paragraphs.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -541,7 +752,7 @@ Public Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:14 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:49 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

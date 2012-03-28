@@ -128,7 +128,10 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_cube_search_object.html#adc4581915d3dd311f0196100595878bc">NoSpaceCost</a> (int seg_pt)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_cube_search_object.html#afa309edb6d199529049b7da8eef78f13">NoSpaceCost</a> (int seg_pt, int end_pt)</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="cube__search__object_8h_source.html#l00041">41</a> of file <a class="el" href="cube__search__object_8h_source.html">cube_search_object.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="ab16ae0d7623e509af1f8cdf7bda6991e"></a><!-- doxytag: member="tesseract::CubeSearchObject::CubeSearchObject" ref="ab16ae0d7623e509af1f8cdf7bda6991e" args="(CubeRecoContext *cntxt, CharSamp *samp)" -->
 <div class="memitem">
 <div class="memproto">
@@ -154,6 +157,28 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__search__object_8cpp_source.html#l00028">28</a> of file <a class="el" href="cube__search__object_8cpp_source.html">cube_search_object.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">    : <a class="code" href="classtesseract_1_1_search_object.html#af3705e1c951417f2678463abf5cbe7dd">SearchObject</a>(cntxt) {
+  init_ = <span class="keyword">false</span>;
+  reco_cache_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  samp_cache_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  segments_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  segment_cnt_ = 0;
+  samp_ = samp;
+  left_ = 0;
+  itop_ = 0;
+  space_cost_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  no_space_cost_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  wid_ = samp_-&gt;Width();
+  hgt_ = samp_-&gt;Height();
+  max_seg_per_char_ = <a class="code" href="classtesseract_1_1_search_object.html#af59efea2206aba120d36feb377fb57ae">cntxt_</a>-&gt;Params()-&gt;MaxSegPerChar();
+  rtl_ = (<a class="code" href="classtesseract_1_1_search_object.html#af59efea2206aba120d36feb377fb57ae">cntxt_</a>-&gt;ReadingOrder() == <a class="code" href="classtesseract_1_1_cube_reco_context.html#ab885faf434ff0ab68d81e98d09486789ad086d7c90c84e60ff11c1363865d82b6">CubeRecoContext::R2L</a>);
+  min_spc_gap_ =
+      <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(hgt_ * <a class="code" href="classtesseract_1_1_search_object.html#af59efea2206aba120d36feb377fb57ae">cntxt_</a>-&gt;Params()-&gt;MinSpaceHeightRatio());
+  max_spc_gap_ =
+      <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(hgt_ * <a class="code" href="classtesseract_1_1_search_object.html#af59efea2206aba120d36feb377fb57ae">cntxt_</a>-&gt;Params()-&gt;MaxSpaceHeightRatio());
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad498d79124341911fa7f4605e4311ae9"></a><!-- doxytag: member="tesseract::CubeSearchObject::~CubeSearchObject" ref="ad498d79124341911fa7f4605e4311ae9" args="()" -->
@@ -170,6 +195,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__search__object_8cpp_source.html#l00050">50</a> of file <a class="el" href="cube__search__object_8cpp_source.html">cube_search_object.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                    {
+  Cleanup();
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -200,6 +230,39 @@ Public Member Functions</h2></td></tr>
 
 <p>Implements <a class="el" href="classtesseract_1_1_search_object.html#a5dab984639f6efd6fddac11f198f47dd">tesseract::SearchObject</a>.</p>
 
+<p>Definition at line <a class="el" href="cube__search__object_8cpp_source.html#l00228">228</a> of file <a class="el" href="cube__search__object_8cpp_source.html">cube_search_object.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                       {
+  <span class="keywordflow">if</span> (!init_ &amp;&amp; !Init())
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordflow">if</span> (!IsValidSegmentRange(start_pt, end_pt)) {
+    fprintf(stderr, <span class="stringliteral">&quot;Cube ERROR (CubeSearchObject::CharBox): invalid &quot;</span>
+            <span class="stringliteral">&quot;segment range (%d, %d)\n&quot;</span>, start_pt, end_pt);
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="comment">// create a char samp object from the specified range of segments,</span>
+  <span class="comment">// extract its dimensions into a leptonica box, and delete it</span>
+  <span class="keywordtype">bool</span> left_most;
+  <span class="keywordtype">bool</span> right_most;
+  CharSamp *samp = <a class="code" href="classtesseract_1_1_char_samp.html#a9236e114544d03207eb3005e1602c68d">CharSamp::FromConComps</a>(segments_, start_pt + 1,
+                                          end_pt - start_pt, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>,
+                                          &amp;left_most, &amp;right_most, hgt_);
+  <span class="keywordflow">if</span> (!samp)
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordflow">if</span> (kUseCroppedChars) {
+    CharSamp *cropped_samp = samp-&gt;Crop();
+    <span class="keyword">delete</span> samp;
+    <span class="keywordflow">if</span> (!cropped_samp) {
+      <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    }
+    samp = cropped_samp;
+  }
+  Box *box = boxCreate(samp-&gt;Left(), samp-&gt;Top(),
+                       samp-&gt;Width(), samp-&gt;Height());
+  <span class="keyword">delete</span> samp;
+  <span class="keywordflow">return</span> box;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a01aff334f72aba105a0ad4f30877a302"></a><!-- doxytag: member="tesseract::CubeSearchObject::CharSample" ref="a01aff334f72aba105a0ad4f30877a302" args="(int start_pt, int end_pt)" -->
@@ -229,6 +292,67 @@ Public Member Functions</h2></td></tr>
 
 <p>Implements <a class="el" href="classtesseract_1_1_search_object.html#a0b0c370b28194bd9f100c69b6247d43b">tesseract::SearchObject</a>.</p>
 
+<p>Definition at line <a class="el" href="cube__search__object_8cpp_source.html#l00168">168</a> of file <a class="el" href="cube__search__object_8cpp_source.html">cube_search_object.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                               {
+  <span class="comment">// init if necessary</span>
+  <span class="keywordflow">if</span> (!init_ &amp;&amp; !Init())
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="comment">// validate segment range</span>
+  <span class="keywordflow">if</span> (!IsValidSegmentRange(start_pt, end_pt))
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+
+  <span class="comment">// look for the samp in the cache</span>
+  <span class="keywordflow">if</span> (samp_cache_ &amp;&amp; samp_cache_[start_pt + 1] &amp;&amp;
+      samp_cache_[start_pt + 1][end_pt]) {
+    <span class="keywordflow">return</span> samp_cache_[start_pt + 1][end_pt];
+  }
+  <span class="comment">// create a char samp object from the specified range of segments</span>
+  <span class="keywordtype">bool</span> left_most;
+  <span class="keywordtype">bool</span> right_most;
+  CharSamp *samp = <a class="code" href="classtesseract_1_1_char_samp.html#a9236e114544d03207eb3005e1602c68d">CharSamp::FromConComps</a>(segments_, start_pt + 1,
+                                          end_pt - start_pt, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>,
+                                          &amp;left_most, &amp;right_most, hgt_);
+  <span class="keywordflow">if</span> (!samp)
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+
+  <span class="keywordflow">if</span> (kUseCroppedChars) {
+    CharSamp *cropped_samp = samp-&gt;Crop();
+    <span class="comment">// we no longer need the orig sample</span>
+    <span class="keyword">delete</span> samp;
+    <span class="keywordflow">if</span> (!cropped_samp)
+      <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    samp = cropped_samp;
+  }
+
+  <span class="comment">// get the dimensions of the new cropped sample</span>
+  <span class="keywordtype">int</span> char_top = samp-&gt;Top();
+  <span class="keywordtype">int</span> char_wid = samp-&gt;Width();
+  <span class="keywordtype">int</span> char_hgt = samp-&gt;Height();
+
+  <span class="comment">// for cursive languages, these features correspond to whether</span>
+  <span class="comment">// the charsamp is at the beginning or end of conncomp</span>
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_search_object.html#af59efea2206aba120d36feb377fb57ae">cntxt_</a>-&gt;Cursive() == <span class="keyword">true</span>) {
+    <span class="comment">// first and last char flags depend on reading order</span>
+    <span class="keywordtype">bool</span> first_char = rtl_ ? right_most : left_most;
+    <span class="keywordtype">bool</span> last_char = rtl_ ? left_most : right_most;
+
+    samp-&gt;SetFirstChar(first_char ? 255 : 0);
+    samp-&gt;SetLastChar(last_char ? 255 : 0);
+  } <span class="keywordflow">else</span> {
+    <span class="comment">// for non cursive languages, these features correspond</span>
+    <span class="comment">// to whether the charsamp is at the begining or end of the word</span>
+    samp-&gt;SetFirstChar((start_pt == -1) ? 255 : 0);
+    samp-&gt;SetLastChar((end_pt == (segment_cnt_ - 1)) ? 255 : 0);
+  }
+  samp-&gt;SetNormTop(255 * char_top / hgt_);
+  samp-&gt;SetNormBottom(255 * (char_top + char_hgt) / hgt_);
+  samp-&gt;SetNormAspectRatio(255 * char_wid / (char_wid + char_hgt));
+
+  <span class="comment">// add to cache &amp; return</span>
+  samp_cache_[start_pt + 1][end_pt] = samp;
+  <span class="keywordflow">return</span> samp;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="adc4581915d3dd311f0196100595878bc"></a><!-- doxytag: member="tesseract::CubeSearchObject::NoSpaceCost" ref="adc4581915d3dd311f0196100595878bc" args="(int seg_pt)" -->
@@ -248,6 +372,14 @@ Public Member Functions</h2></td></tr>
 
 <p>Implements <a class="el" href="classtesseract_1_1_search_object.html#a46707a2629be43da582ac20fe7a2b2ed">tesseract::SearchObject</a>.</p>
 
+<p>Definition at line <a class="el" href="cube__search__object_8cpp_source.html#l00437">437</a> of file <a class="el" href="cube__search__object_8cpp_source.html">cube_search_object.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                            {
+  <span class="comment">// If failed to compute costs, return a 1.0 prob</span>
+  <span class="keywordflow">if</span> (!space_cost_ &amp;&amp; !ComputeSpaceCosts())
+    <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_cube_utils.html#a0983096f5ebcb35879a1e0e6038c32f8">CubeUtils::Prob2Cost</a>(0.0);
+  <span class="keywordflow">return</span> no_space_cost_[pt_idx];
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="afa309edb6d199529049b7da8eef78f13"></a><!-- doxytag: member="tesseract::CubeSearchObject::NoSpaceCost" ref="afa309edb6d199529049b7da8eef78f13" args="(int seg_pt, int end_pt)" -->
@@ -277,6 +409,17 @@ Public Member Functions</h2></td></tr>
 
 <p>Implements <a class="el" href="classtesseract_1_1_search_object.html#a67bff0adba2ab6caedb31addc5ad856e">tesseract::SearchObject</a>.</p>
 
+<p>Definition at line <a class="el" href="cube__search__object_8cpp_source.html#l00446">446</a> of file <a class="el" href="cube__search__object_8cpp_source.html">cube_search_object.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                       {
+  <span class="comment">// If fail to compute costs, return a 1.0 prob</span>
+  <span class="keywordflow">if</span> (!space_cost_ &amp;&amp; !ComputeSpaceCosts())
+    <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_cube_utils.html#a0983096f5ebcb35879a1e0e6038c32f8">CubeUtils::Prob2Cost</a>(1.0);
+  <span class="keywordtype">int</span> no_spc_cost = 0;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> pt_idx = st_pt + 1; pt_idx &lt; end_pt; pt_idx++)
+    no_spc_cost += <a class="code" href="classtesseract_1_1_cube_search_object.html#adc4581915d3dd311f0196100595878bc">NoSpaceCost</a>(pt_idx);
+  <span class="keywordflow">return</span> no_spc_cost;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a62bad8e701d9e1e3d5ab8ceb76bc9398"></a><!-- doxytag: member="tesseract::CubeSearchObject::RecognizeSegment" ref="a62bad8e701d9e1e3d5ab8ceb76bc9398" args="(int start_pt, int end_pt)" -->
@@ -306,6 +449,64 @@ Public Member Functions</h2></td></tr>
 
 <p>Implements <a class="el" href="classtesseract_1_1_search_object.html#a26b97832ffb768305f3529f55b1fa3bd">tesseract::SearchObject</a>.</p>
 
+<p>Definition at line <a class="el" href="cube__search__object_8cpp_source.html#l00262">262</a> of file <a class="el" href="cube__search__object_8cpp_source.html">cube_search_object.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                         {
+  <span class="comment">// init if necessary</span>
+  <span class="keywordflow">if</span> (!init_ &amp;&amp; !Init()) {
+    fprintf(stderr, <span class="stringliteral">&quot;Cube ERROR (CubeSearchObject::RecognizeSegment): could &quot;</span>
+            <span class="stringliteral">&quot;not initialize CubeSearchObject\n&quot;</span>);
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="comment">// validate segment range</span>
+  <span class="keywordflow">if</span> (!IsValidSegmentRange(start_pt, end_pt)) {
+    fprintf(stderr, <span class="stringliteral">&quot;Cube ERROR (CubeSearchObject::RecognizeSegment): invalid &quot;</span>
+            <span class="stringliteral">&quot;segment range (%d, %d)\n&quot;</span>, start_pt, end_pt);
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="comment">// look for the recognition results in cache in the cache</span>
+  <span class="keywordflow">if</span> (reco_cache_ &amp;&amp; reco_cache_[start_pt + 1] &amp;&amp;
+      reco_cache_[start_pt + 1][end_pt]) {
+    <span class="keywordflow">return</span> reco_cache_[start_pt + 1][end_pt];
+  }
+
+  <span class="comment">// create the char sample corresponding to the blob</span>
+  CharSamp *samp = <a class="code" href="classtesseract_1_1_cube_search_object.html#a01aff334f72aba105a0ad4f30877a302">CharSample</a>(start_pt, end_pt);
+  <span class="keywordflow">if</span> (!samp) {
+    fprintf(stderr, <span class="stringliteral">&quot;Cube ERROR (CubeSearchObject::RecognizeSegment): could &quot;</span>
+            <span class="stringliteral">&quot;not construct CharSamp\n&quot;</span>);
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="comment">// recognize the char sample</span>
+  CharClassifier *char_classifier = <a class="code" href="classtesseract_1_1_search_object.html#af59efea2206aba120d36feb377fb57ae">cntxt_</a>-&gt;Classifier();
+  <span class="keywordflow">if</span> (char_classifier) {
+    reco_cache_[start_pt + 1][end_pt] = char_classifier-&gt;Classify(samp);
+  } <span class="keywordflow">else</span> {
+    <span class="comment">// no classifer: all characters are equally probable; add a penalty</span>
+    <span class="comment">// that favors 2-segment characters and aspect ratios (w/h) &gt; 1</span>
+    fprintf(stderr, <span class="stringliteral">&quot;Cube WARNING (CubeSearchObject::RecognizeSegment): cube &quot;</span>
+            <span class="stringliteral">&quot;context has no character classifier!! Inventing a probability &quot;</span>
+            <span class="stringliteral">&quot;distribution.\n&quot;</span>);
+    <span class="keywordtype">int</span> class_cnt = <a class="code" href="classtesseract_1_1_search_object.html#af59efea2206aba120d36feb377fb57ae">cntxt_</a>-&gt;CharacterSet()-&gt;ClassCount();
+    CharAltList *alt_list = <span class="keyword">new</span> CharAltList(<a class="code" href="classtesseract_1_1_search_object.html#af59efea2206aba120d36feb377fb57ae">cntxt_</a>-&gt;CharacterSet(), class_cnt);
+    <span class="keywordtype">int</span> seg_cnt = end_pt - start_pt;
+    <span class="keywordtype">double</span> prob_val = (1.0 / class_cnt) *
+        exp(-abs(seg_cnt - 2.0)) *
+        exp(-samp-&gt;Width() / <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(samp-&gt;Height()));
+
+    <span class="keywordflow">if</span> (alt_list) {
+      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> class_idx = 0; class_idx &lt; class_cnt; class_idx++) {
+        alt_list-&gt;Insert(class_idx, <a class="code" href="classtesseract_1_1_cube_utils.html#a0983096f5ebcb35879a1e0e6038c32f8">CubeUtils::Prob2Cost</a>(prob_val));
+      }
+      reco_cache_[start_pt + 1][end_pt] = alt_list;
+    }
+  }
+
+  <span class="keywordflow">return</span> reco_cache_[start_pt + 1][end_pt];
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7d5fb530cd7cade3a6b8f02c7b660dea"></a><!-- doxytag: member="tesseract::CubeSearchObject::SegPtCnt" ref="a7d5fb530cd7cade3a6b8f02c7b660dea" args="()" -->
@@ -324,6 +525,13 @@ Public Member Functions</h2></td></tr>
 
 <p>Implements <a class="el" href="classtesseract_1_1_search_object.html#aeb806f349cc47c57bc0ed9dd0ff4d7be">tesseract::SearchObject</a>.</p>
 
+<p>Definition at line <a class="el" href="cube__search__object_8cpp_source.html#l00114">114</a> of file <a class="el" href="cube__search__object_8cpp_source.html">cube_search_object.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                               {
+  <span class="keywordflow">if</span> (!init_ &amp;&amp; !Init())
+    <span class="keywordflow">return</span> -1;
+  <span class="keywordflow">return</span> segment_cnt_ - 1;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aca7c17893eece064b5a67c5bac2ce5d5"></a><!-- doxytag: member="tesseract::CubeSearchObject::SpaceCost" ref="aca7c17893eece064b5a67c5bac2ce5d5" args="(int seg_pt)" -->
@@ -343,11 +551,20 @@ Public Member Functions</h2></td></tr>
 
 <p>Implements <a class="el" href="classtesseract_1_1_search_object.html#af5f84b755ef91e3d1053dd450c7d8525">tesseract::SearchObject</a>.</p>
 
+<p>Definition at line <a class="el" href="cube__search__object_8cpp_source.html#l00427">427</a> of file <a class="el" href="cube__search__object_8cpp_source.html">cube_search_object.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                          {
+  <span class="keywordflow">if</span> (!space_cost_ &amp;&amp; !ComputeSpaceCosts()) {
+    <span class="comment">// Failed to compute costs return a zero prob</span>
+    <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_cube_utils.html#a0983096f5ebcb35879a1e0e6038c32f8">CubeUtils::Prob2Cost</a>(0.0);
+  }
+  <span class="keywordflow">return</span> space_cost_[pt_idx];
+}
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/cube/<a class="el" href="cube__search__object_8h_source.html">cube_search_object.h</a></li>
-<li>tesseract-ocr/cube/<a class="el" href="cube__search__object_8cpp.html">cube_search_object.cpp</a></li>
+<li>tesseract-ocr/cube/<a class="el" href="cube__search__object_8cpp_source.html">cube_search_object.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -370,7 +587,7 @@ Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:15 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:51 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

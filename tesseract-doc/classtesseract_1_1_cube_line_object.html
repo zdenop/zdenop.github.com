@@ -114,7 +114,10 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_cube_line_object.html#ac5a9474e8b292e91331bc5131ab86111">PhraseCount</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtesseract_1_1_cube_object.html">CubeObject</a> **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_cube_line_object.html#aec7b4d2fb48274b0eb358fb829194764">Phrases</a> ()</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="cube__line__object_8h_source.html#l00032">32</a> of file <a class="el" href="cube__line__object_8h_source.html">cube_line_object.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="aca2857f8784b8c487d57197626552667"></a><!-- doxytag: member="tesseract::CubeLineObject::CubeLineObject" ref="aca2857f8784b8c487d57197626552667" args="(CubeRecoContext *cntxt, Pix *pix)" -->
 <div class="memitem">
 <div class="memproto">
@@ -140,6 +143,16 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__line__object_8cpp_source.html#l00024">24</a> of file <a class="el" href="cube__line__object_8cpp_source.html">cube_line_object.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                               {
+  line_pix_ = pix;
+  own_pix_ = <span class="keyword">false</span>;
+  processed_ = <span class="keyword">false</span>;
+  cntxt_ = cntxt;
+  phrase_cnt_ = 0;
+  phrases_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a349567250b0463d05b229a8d7917dcbd"></a><!-- doxytag: member="tesseract::CubeLineObject::~CubeLineObject" ref="a349567250b0463d05b229a8d7917dcbd" args="()" -->
@@ -156,6 +169,25 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__line__object_8cpp_source.html#l00033">33</a> of file <a class="el" href="cube__line__object_8cpp_source.html">cube_line_object.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                {
+  <span class="keywordflow">if</span> (line_pix_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp; own_pix_ == <span class="keyword">true</span>) {
+    pixDestroy(&amp;line_pix_);
+    line_pix_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="keywordflow">if</span> (phrases_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> phrase_idx = 0; phrase_idx &lt; phrase_cnt_; phrase_idx++) {
+      <span class="keywordflow">if</span> (phrases_[phrase_idx] != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+        <span class="keyword">delete</span> phrases_[phrase_idx];
+      }
+    }
+
+    <span class="keyword">delete</span> []phrases_;
+    phrases_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -173,6 +205,14 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__line__object_8h_source.html#l00038">38</a> of file <a class="el" href="cube__line__object_8h_source.html">cube_line_object.h</a>.</p>
+<div class="fragment"><pre class="fragment">                           {
+    <span class="keywordflow">if</span> (!processed_ &amp;&amp; !Process()) {
+      <span class="keywordflow">return</span> 0;
+    }
+    <span class="keywordflow">return</span> phrase_cnt_;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aec7b4d2fb48274b0eb358fb829194764"></a><!-- doxytag: member="tesseract::CubeLineObject::Phrases" ref="aec7b4d2fb48274b0eb358fb829194764" args="()" -->
@@ -189,11 +229,19 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__line__object_8h_source.html#l00044">44</a> of file <a class="el" href="cube__line__object_8h_source.html">cube_line_object.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                {
+    <span class="keywordflow">if</span> (!processed_ &amp;&amp; !Process()) {
+      <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    }
+    <span class="keywordflow">return</span> phrases_;
+  }
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/cube/<a class="el" href="cube__line__object_8h_source.html">cube_line_object.h</a></li>
-<li>tesseract-ocr/cube/<a class="el" href="cube__line__object_8cpp.html">cube_line_object.cpp</a></li>
+<li>tesseract-ocr/cube/<a class="el" href="cube__line__object_8cpp_source.html">cube_line_object.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -216,7 +264,7 @@ Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:15 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:51 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

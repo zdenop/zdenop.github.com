@@ -121,7 +121,10 @@ Static Public Member Functions</h2></td></tr>
 Protected Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_word_unigrams.html#a14623fdba39beee456c834cdc6a8976f">CostInternal</a> (const char *str) const </td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="word__unigrams_8h_source.html#l00034">34</a> of file <a class="el" href="word__unigrams_8h_source.html">word_unigrams.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="afd00490f957dd1842384c372a2949141"></a><!-- doxytag: member="tesseract::WordUnigrams::WordUnigrams" ref="afd00490f957dd1842384c372a2949141" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -136,6 +139,13 @@ Protected Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="word__unigrams_8cpp_source.html#l00032">32</a> of file <a class="el" href="word__unigrams_8cpp_source.html">word_unigrams.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                           {
+  costs_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  words_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  word_cnt_ = 0;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a60f14b6354f60c7411695103bc422601"></a><!-- doxytag: member="tesseract::WordUnigrams::~WordUnigrams" ref="a60f14b6354f60c7411695103bc422601" args="()" -->
@@ -152,6 +162,22 @@ Protected Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="word__unigrams_8cpp_source.html#l00038">38</a> of file <a class="el" href="word__unigrams_8cpp_source.html">word_unigrams.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                            {
+  <span class="keywordflow">if</span> (words_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">if</span> (words_[0] != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      <span class="keyword">delete</span> []words_[0];
+    }
+
+    <span class="keyword">delete</span> []words_;
+    words_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="keywordflow">if</span> (costs_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keyword">delete</span> []costs_;
+  }
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -186,6 +212,97 @@ Protected Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="word__unigrams_8cpp_source.html#l00150">150</a> of file <a class="el" href="word__unigrams_8cpp_source.html">word_unigrams.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                {
+  <span class="keywordflow">if</span> (!key_str32)
+    <span class="keywordflow">return</span> 0;
+  <span class="comment">// convert string to UTF8 to split into space-separated words</span>
+  <span class="keywordtype">string</span> key_str;
+  <a class="code" href="classtesseract_1_1_cube_utils.html#a30c20693fc79e49a67c9694700f1d0b5">CubeUtils::UTF32ToUTF8</a>(key_str32, &amp;key_str);
+  vector&lt;string&gt; words;
+  <a class="code" href="classtesseract_1_1_cube_utils.html#af7dea4521db1e7099c93606d0f5bf4a4">CubeUtils::SplitStringUsing</a>(key_str, <span class="stringliteral">&quot; \t&quot;</span>, &amp;words);
+
+  <span class="comment">// no words =&gt; no cost</span>
+  <span class="keywordflow">if</span> (words.size() &lt;= 0) {
+    <span class="keywordflow">return</span> 0;
+  }
+
+  <span class="comment">// aggregate the costs of all the words</span>
+  <span class="keywordtype">int</span> cost = 0;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> word_idx = 0; word_idx &lt; words.size(); word_idx++) {
+    <span class="comment">// convert each word back to UTF32 for analyzing case and punctuation</span>
+    <a class="code" href="namespacetesseract.html#a5e51e225e3ac13c918ed9f77715fa041">string_32</a> str32;
+    <a class="code" href="classtesseract_1_1_cube_utils.html#a911ee12931d18c46e7db79c6758a91cc">CubeUtils::UTF8ToUTF32</a>(words[word_idx].c_str(), &amp;str32);
+    <span class="keywordtype">int</span> len = <a class="code" href="classtesseract_1_1_cube_utils.html#a88fe596e3dcadab7909c0bff64f61f59">CubeUtils::StrLen</a>(str32.c_str());
+
+    <span class="comment">// strip all trailing punctuation</span>
+    <span class="keywordtype">string</span> clean_str;
+    <span class="keywordtype">int</span> clean_len = len;
+    <span class="keywordtype">bool</span> trunc = <span class="keyword">false</span>;
+    <span class="keywordflow">while</span> (clean_len &gt; 0 &amp;&amp;
+           lang_mod-&gt;IsTrailingPunc(str32.c_str()[clean_len - 1])) {
+      --clean_len;
+      trunc = <span class="keyword">true</span>;
+    }
+
+    <span class="comment">// If either the original string was not truncated (no trailing</span>
+    <span class="comment">// punctuation) or the entire string was removed (all characters</span>
+    <span class="comment">// are trailing punctuation), evaluate original word as is;</span>
+    <span class="comment">// otherwise, copy all but the trailing punctuation characters</span>
+    <a class="code" href="namespacetesseract.html#aea2c6172b0ca77907e29cd018595b425">char_32</a> *clean_str32 = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    <span class="keywordflow">if</span> (clean_len == 0 || !trunc) {
+      clean_str32 = <a class="code" href="classtesseract_1_1_cube_utils.html#a2cea16ea1fc9c8d1020c159617ed90e3">CubeUtils::StrDup</a>(str32.c_str());
+    } <span class="keywordflow">else</span> {
+      clean_str32 = <span class="keyword">new</span> <a class="code" href="namespacetesseract.html#aea2c6172b0ca77907e29cd018595b425">char_32</a>[clean_len + 1];
+      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; clean_len; ++i) {
+        clean_str32[i] = str32[i];
+      }
+      clean_str32[clean_len] = <span class="charliteral">&#39;\0&#39;</span>;
+    }
+    <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(clean_str32 != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+
+    <span class="keywordtype">string</span> str8;
+    <a class="code" href="classtesseract_1_1_cube_utils.html#a30c20693fc79e49a67c9694700f1d0b5">CubeUtils::UTF32ToUTF8</a>(clean_str32, &amp;str8);
+    <span class="keywordtype">int</span> word_cost = <a class="code" href="classtesseract_1_1_word_unigrams.html#a14623fdba39beee456c834cdc6a8976f">CostInternal</a>(str8.c_str());
+
+    <span class="comment">// if case invariant, get costs of all-upper-case and all-lower-case</span>
+    <span class="comment">// versions and return the min cost</span>
+    <span class="keywordflow">if</span> (clean_len &gt;= kMinLengthNumOrCaseInvariant &amp;&amp;
+        <a class="code" href="classtesseract_1_1_cube_utils.html#a0c67516e85144e0d736f30c21208aeda">CubeUtils::IsCaseInvariant</a>(clean_str32, char_set)) {
+      <a class="code" href="namespacetesseract.html#aea2c6172b0ca77907e29cd018595b425">char_32</a> *lower_32 = <a class="code" href="classtesseract_1_1_cube_utils.html#ac051dbde8b019f824b1bd8ae8d69d10e">CubeUtils::ToLower</a>(clean_str32, char_set);
+      <span class="keywordflow">if</span> (lower_32) {
+        <span class="keywordtype">string</span> lower_8;
+        <a class="code" href="classtesseract_1_1_cube_utils.html#a30c20693fc79e49a67c9694700f1d0b5">CubeUtils::UTF32ToUTF8</a>(lower_32, &amp;lower_8);
+        word_cost = <a class="code" href="ndminx_8h.html#a74e75242132eaabbc1c512488a135926">MIN</a>(word_cost, <a class="code" href="classtesseract_1_1_word_unigrams.html#a14623fdba39beee456c834cdc6a8976f">CostInternal</a>(lower_8.c_str()));
+        <span class="keyword">delete</span> [] lower_32;
+      }
+      <a class="code" href="namespacetesseract.html#aea2c6172b0ca77907e29cd018595b425">char_32</a> *upper_32 = <a class="code" href="classtesseract_1_1_cube_utils.html#ac5f9453d9b30ec4343940ad428a4638d">CubeUtils::ToUpper</a>(clean_str32, char_set);
+      <span class="keywordflow">if</span> (upper_32) {
+        <span class="keywordtype">string</span> upper_8;
+        <a class="code" href="classtesseract_1_1_cube_utils.html#a30c20693fc79e49a67c9694700f1d0b5">CubeUtils::UTF32ToUTF8</a>(upper_32, &amp;upper_8);
+        word_cost = <a class="code" href="ndminx_8h.html#a74e75242132eaabbc1c512488a135926">MIN</a>(word_cost, <a class="code" href="classtesseract_1_1_word_unigrams.html#a14623fdba39beee456c834cdc6a8976f">CostInternal</a>(upper_8.c_str()));
+        <span class="keyword">delete</span> [] upper_32;
+      }
+    }
+
+    <span class="keywordflow">if</span> (clean_len &gt;= kMinLengthNumOrCaseInvariant) {
+      <span class="comment">// if characters are all numeric, incur 0 word cost</span>
+      <span class="keywordtype">bool</span> is_numeric = <span class="keyword">true</span>;
+      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; clean_len; ++i) {
+        <span class="keywordflow">if</span> (!lang_mod-&gt;IsDigit(clean_str32[i]))
+          is_numeric = <span class="keyword">false</span>;
+      }
+      <span class="keywordflow">if</span> (is_numeric)
+        word_cost = 0;
+    }
+    <span class="keyword">delete</span> [] clean_str32;
+    cost += word_cost;
+  }  <span class="comment">// word_idx</span>
+
+  <span class="comment">// return the mean cost</span>
+  <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(cost / <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(words.size()));
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a14623fdba39beee456c834cdc6a8976f"></a><!-- doxytag: member="tesseract::WordUnigrams::CostInternal" ref="a14623fdba39beee456c834cdc6a8976f" args="(const char *str) const " -->
@@ -203,6 +320,30 @@ Protected Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="word__unigrams_8cpp_source.html#l00243">243</a> of file <a class="el" href="word__unigrams_8cpp_source.html">word_unigrams.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                        {
+  <span class="keywordflow">if</span> (strlen(key_str) == 0)
+    <span class="keywordflow">return</span> not_in_list_cost_;
+  <span class="keywordtype">int</span> hi = word_cnt_ - 1;
+  <span class="keywordtype">int</span> lo = 0;
+  <span class="keywordflow">while</span> (lo &lt;= hi) {
+    <span class="keywordtype">int</span> current = (hi + lo) / 2;
+    <span class="keywordtype">int</span> comp = strcmp(key_str, words_[current]);
+    <span class="comment">// a match</span>
+    <span class="keywordflow">if</span> (comp == 0) {
+      <span class="keywordflow">return</span> costs_[current];
+    }
+    <span class="keywordflow">if</span> (comp &lt; 0) {
+      <span class="comment">// go lower</span>
+      hi = current - 1;
+    } <span class="keywordflow">else</span> {
+      <span class="comment">// go higher</span>
+      lo = current + 1;
+    }
+  }
+  <span class="keywordflow">return</span> not_in_list_cost_;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7e57ac1c4afd17adaeb8abb06351dc76"></a><!-- doxytag: member="tesseract::WordUnigrams::Create" ref="a7e57ac1c4afd17adaeb8abb06351dc76" args="(const string &amp;data_file_path, const string &amp;lang)" -->
@@ -230,11 +371,102 @@ Protected Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="word__unigrams_8cpp_source.html#l00055">55</a> of file <a class="el" href="word__unigrams_8cpp_source.html">word_unigrams.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                       {
+  <span class="keywordtype">string</span> file_name;
+  <span class="keywordtype">string</span> str;
+
+  file_name = data_file_path + lang;
+  file_name += <span class="stringliteral">&quot;.cube.word-freq&quot;</span>;
+
+  <span class="comment">// load the string into memory</span>
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_cube_utils.html#ac5c5bf284cd96f78f62f19938bec750a">CubeUtils::ReadFileToString</a>(file_name, &amp;str) == <span class="keyword">false</span>) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="comment">// split into lines</span>
+  vector&lt;string&gt; str_vec;
+  <a class="code" href="classtesseract_1_1_cube_utils.html#af7dea4521db1e7099c93606d0f5bf4a4">CubeUtils::SplitStringUsing</a>(str, <span class="stringliteral">&quot;\r\n \t&quot;</span>, &amp;str_vec);
+  <span class="keywordflow">if</span> (str_vec.size() &lt; 2) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="comment">// allocate memory</span>
+  <a class="code" href="classtesseract_1_1_word_unigrams.html#afd00490f957dd1842384c372a2949141">WordUnigrams</a> *word_unigrams_obj = <span class="keyword">new</span> <a class="code" href="classtesseract_1_1_word_unigrams.html#afd00490f957dd1842384c372a2949141">WordUnigrams</a>();
+  <span class="keywordflow">if</span> (word_unigrams_obj == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    fprintf(stderr, <span class="stringliteral">&quot;Cube ERROR (WordUnigrams::Create): could not create &quot;</span>
+            <span class="stringliteral">&quot;word unigrams object.\n&quot;</span>);
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="keywordtype">int</span> full_len = str.length();
+  <span class="keywordtype">int</span> word_cnt = str_vec.size() / 2;
+  word_unigrams_obj-&gt;words_ = <span class="keyword">new</span> <span class="keywordtype">char</span>*[word_cnt];
+  word_unigrams_obj-&gt;costs_ = <span class="keyword">new</span> <span class="keywordtype">int</span>[word_cnt];
+
+  <span class="keywordflow">if</span> (word_unigrams_obj-&gt;words_ == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> ||
+      word_unigrams_obj-&gt;costs_ == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    fprintf(stderr, <span class="stringliteral">&quot;Cube ERROR (WordUnigrams::Create): error allocating &quot;</span>
+            <span class="stringliteral">&quot;word unigram fields.\n&quot;</span>);
+    <span class="keyword">delete</span> word_unigrams_obj;
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  word_unigrams_obj-&gt;words_[0] = <span class="keyword">new</span> <span class="keywordtype">char</span>[full_len];
+  <span class="keywordflow">if</span> (word_unigrams_obj-&gt;words_[0] == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    fprintf(stderr, <span class="stringliteral">&quot;Cube ERROR (WordUnigrams::Create): error allocating &quot;</span>
+            <span class="stringliteral">&quot;word unigram fields.\n&quot;</span>);
+    <span class="keyword">delete</span> word_unigrams_obj;
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="comment">// construct sorted list of words and costs</span>
+  word_unigrams_obj-&gt;word_cnt_ = 0;
+  <span class="keywordtype">char</span> *char_buff = word_unigrams_obj-&gt;words_[0];
+  word_cnt = 0;
+  <span class="keywordtype">int</span> max_cost = 0;
+
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> wrd = 0; wrd &lt; str_vec.size(); wrd += 2) {
+    word_unigrams_obj-&gt;words_[word_cnt] = char_buff;
+
+    strcpy(char_buff, str_vec[wrd].c_str());
+    char_buff += (str_vec[wrd].length() + 1);
+
+    <span class="keywordflow">if</span> (sscanf(str_vec[wrd + 1].c_str(), <span class="stringliteral">&quot;%d&quot;</span>,
+               word_unigrams_obj-&gt;costs_ + word_cnt) != 1) {
+      fprintf(stderr, <span class="stringliteral">&quot;Cube ERROR (WordUnigrams::Create): error reading &quot;</span>
+              <span class="stringliteral">&quot;word unigram data.\n&quot;</span>);
+      <span class="keyword">delete</span> word_unigrams_obj;
+      <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    }
+    <span class="comment">// update max cost</span>
+    max_cost = <a class="code" href="ndminx_8h.html#aacc3ee1a7f283f8ef65cea31f4436a95">MAX</a>(max_cost, word_unigrams_obj-&gt;costs_[word_cnt]);
+    word_cnt++;
+  }
+  word_unigrams_obj-&gt;word_cnt_ = word_cnt;
+
+  <span class="comment">// compute the not-in-list-cost by assuming that a word not in the list</span>
+  <span class="comment">// [ahmadab]: This can be computed as follows:</span>
+  <span class="comment">// - Given that the distribution of words follow Zipf&#39;s law:</span>
+  <span class="comment">//   (F = K / (rank ^ S)), where s is slightly &gt; 1.0</span>
+  <span class="comment">// - Number of words in the list is N</span>
+  <span class="comment">// - The mean frequency of a word that did not appear in the list is the</span>
+  <span class="comment">//   area under the rest of the Zipf&#39;s curve divided by 2 (the mean)</span>
+  <span class="comment">// - The area would be the bound integral from N to infinity =</span>
+  <span class="comment">//   (K * S) / (N ^ (S + 1)) ~= K / (N ^ 2)</span>
+  <span class="comment">// - Given that cost = -LOG(prob), the cost of an unlisted word would be</span>
+  <span class="comment">//   = max_cost + 2*LOG(N)</span>
+  word_unigrams_obj-&gt;not_in_list_cost_ = max_cost +
+      (2 * <a class="code" href="classtesseract_1_1_cube_utils.html#a0983096f5ebcb35879a1e0e6038c32f8">CubeUtils::Prob2Cost</a>(1.0 / word_cnt));
+  <span class="comment">// success</span>
+  <span class="keywordflow">return</span> word_unigrams_obj;
+}
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/cube/<a class="el" href="word__unigrams_8h_source.html">word_unigrams.h</a></li>
-<li>tesseract-ocr/cube/<a class="el" href="word__unigrams_8cpp.html">word_unigrams.cpp</a></li>
+<li>tesseract-ocr/cube/<a class="el" href="word__unigrams_8cpp_source.html">word_unigrams.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -257,7 +489,7 @@ Protected Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:15 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:51 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

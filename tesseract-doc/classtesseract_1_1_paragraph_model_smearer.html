@@ -112,7 +112,10 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_paragraph_model_smearer.html#a42b97ade9478b6198e94bae46b8de969">ParagraphModelSmearer</a> (<a class="el" href="class_generic_vector.html">GenericVector</a>&lt; <a class="el" href="classtesseract_1_1_row_scratch_registers.html">RowScratchRegisters</a> &gt; *rows, int row_start, int row_end, <a class="el" href="classtesseract_1_1_paragraph_theory.html">ParagraphTheory</a> *theory)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_paragraph_model_smearer.html#ad5865041cc00c68c5cb2235e35c31b31">Smear</a> ()</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="paragraphs__internal_8h_source.html#l00234">234</a> of file <a class="el" href="paragraphs__internal_8h_source.html">paragraphs_internal.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a42b97ade9478b6198e94bae46b8de969"></a><!-- doxytag: member="tesseract::ParagraphModelSmearer::ParagraphModelSmearer" ref="a42b97ade9478b6198e94bae46b8de969" args="(GenericVector&lt; RowScratchRegisters &gt; *rows, int row_start, int row_end, ParagraphTheory *theory)" -->
 <div class="memitem">
 <div class="memproto">
@@ -150,6 +153,20 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="paragraphs_8cpp_source.html#l01258">1258</a> of file <a class="el" href="paragraphs_8cpp_source.html">paragraphs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">        : theory_(theory), rows_(rows), row_start_(row_start),
+          row_end_(row_end) {
+  <span class="keywordflow">if</span> (!AcceptableRowArgs(0, 0, __func__, rows, row_start, row_end)) {
+    row_start_ = 0;
+    row_end_ = 0;
+    <span class="keywordflow">return</span>;
+  }
+  <a class="code" href="namespacetesseract.html#a5616e4c6a53be12ea0d684b1f0fb8485">SetOfModels</a> no_models;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> row = row_start - 1; row &lt;= row_end; row++) {
+    open_models_.<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(no_models);
+  }
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -167,11 +184,107 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="paragraphs_8cpp_source.html#l01305">1305</a> of file <a class="el" href="paragraphs_8cpp_source.html">paragraphs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                  {
+  CalculateOpenModels(row_start_, row_end_);
+
+  <span class="comment">// For each row which we&#39;re unsure about (that is, it is LT_UNKNOWN or</span>
+  <span class="comment">// we have multiple LT_START hypotheses), see if there&#39;s a model that</span>
+  <span class="comment">// was recently used (an &quot;open&quot; model) which might model it well.</span>
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = row_start_; i &lt; row_end_; i++) {
+    RowScratchRegisters &amp;row = (*rows_)[i];
+    <span class="keywordflow">if</span> (row.ri_-&gt;num_words == 0)
+      <span class="keywordflow">continue</span>;
+
+    <span class="comment">// Step One:</span>
+    <span class="comment">//   Figure out if there are &quot;open&quot; models which are left-alined or</span>
+    <span class="comment">//   right-aligned.  This is important for determining whether the</span>
+    <span class="comment">//   &quot;first&quot; word in a row would fit at the &quot;end&quot; of the previous row.</span>
+    <span class="keywordtype">bool</span> left_align_open = <span class="keyword">false</span>;
+    <span class="keywordtype">bool</span> right_align_open = <span class="keyword">false</span>;
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> m = 0; m &lt; OpenModels(i).size(); m++) {
+      <span class="keywordflow">switch</span> (OpenModels(i)[m]-&gt;justification()) {
+        <span class="keywordflow">case</span> <a class="code" href="namespacetesseract.html#a550970d1662b3ac5830c6a28dba676b1a0141f695e0959de2dc43e0eb94023ff6">JUSTIFICATION_LEFT</a>: left_align_open = <span class="keyword">true</span>; <span class="keywordflow">break</span>;
+        <span class="keywordflow">case</span> <a class="code" href="namespacetesseract.html#a550970d1662b3ac5830c6a28dba676b1a93a23b19fec3ebdb587df6e0aa9e9fce">JUSTIFICATION_RIGHT</a>: right_align_open = <span class="keyword">true</span>; <span class="keywordflow">break</span>;
+        <span class="keywordflow">default</span>: left_align_open = right_align_open = <span class="keyword">true</span>;
+      }
+    }
+    <span class="comment">// Step Two:</span>
+    <span class="comment">//   Use that knowledge to figure out if this row is likely to</span>
+    <span class="comment">//   start a paragraph.</span>
+    <span class="keywordtype">bool</span> likely_start;
+    <span class="keywordflow">if</span> (i == 0) {
+      likely_start = <span class="keyword">true</span>;
+    } <span class="keywordflow">else</span> {
+      <span class="keywordflow">if</span> ((left_align_open &amp;&amp; right_align_open) ||
+          (!left_align_open &amp;&amp; !right_align_open)) {
+        likely_start = <a class="code" href="namespacetesseract.html#ac154ce339833f35931ef5b2e57d47a2a">LikelyParagraphStart</a>((*rows_)[i - 1], row,
+                                            <a class="code" href="namespacetesseract.html#a550970d1662b3ac5830c6a28dba676b1a0141f695e0959de2dc43e0eb94023ff6">JUSTIFICATION_LEFT</a>) ||
+                       <a class="code" href="namespacetesseract.html#ac154ce339833f35931ef5b2e57d47a2a">LikelyParagraphStart</a>((*rows_)[i - 1], row,
+                                            <a class="code" href="namespacetesseract.html#a550970d1662b3ac5830c6a28dba676b1a93a23b19fec3ebdb587df6e0aa9e9fce">JUSTIFICATION_RIGHT</a>);
+      } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (left_align_open) {
+        likely_start = <a class="code" href="namespacetesseract.html#ac154ce339833f35931ef5b2e57d47a2a">LikelyParagraphStart</a>((*rows_)[i - 1], row,
+                                            <a class="code" href="namespacetesseract.html#a550970d1662b3ac5830c6a28dba676b1a0141f695e0959de2dc43e0eb94023ff6">JUSTIFICATION_LEFT</a>);
+      } <span class="keywordflow">else</span> {
+        likely_start = <a class="code" href="namespacetesseract.html#ac154ce339833f35931ef5b2e57d47a2a">LikelyParagraphStart</a>((*rows_)[i - 1], row,
+                                            <a class="code" href="namespacetesseract.html#a550970d1662b3ac5830c6a28dba676b1a93a23b19fec3ebdb587df6e0aa9e9fce">JUSTIFICATION_RIGHT</a>);
+      }
+    }
+
+    <span class="comment">// Step Three:</span>
+    <span class="comment">//   If this text line seems like an obvious first line of an</span>
+    <span class="comment">//   open model, or an obvious continuation of an existing</span>
+    <span class="comment">//   modelled paragraph, mark it up.</span>
+    <span class="keywordflow">if</span> (likely_start) {
+      <span class="comment">// Add Start Hypotheses for all Open models that fit.</span>
+      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> m = 0; m &lt; OpenModels(i).size(); m++) {
+        <span class="keywordflow">if</span> (<a class="code" href="namespacetesseract.html#a8f44dde2641dd1047debf38c4429dc2b">ValidFirstLine</a>(rows_, i, OpenModels(i)[m])) {
+          row.AddStartLine(OpenModels(i)[m]);
+        }
+      }
+    } <span class="keywordflow">else</span> {
+      <span class="comment">// Add relevant body line hypotheses.</span>
+      <a class="code" href="namespacetesseract.html#a5616e4c6a53be12ea0d684b1f0fb8485">SetOfModels</a> last_line_models;
+      <span class="keywordflow">if</span> (i &gt; 0) {
+        (*rows_)[i - 1].StrongHypotheses(&amp;last_line_models);
+      } <span class="keywordflow">else</span> {
+        theory_-&gt;NonCenteredModels(&amp;last_line_models);
+      }
+      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> m = 0; m &lt; last_line_models.size(); m++) {
+        <span class="keyword">const</span> <a class="code" href="class_paragraph_model.html">ParagraphModel</a> *model = last_line_models[m];
+        <span class="keywordflow">if</span> (<a class="code" href="namespacetesseract.html#a7933d5b144ff81c13320bfb6f32e0264">ValidBodyLine</a>(rows_, i, model))
+          row.AddBodyLine(model);
+      }
+    }
+
+    <span class="comment">// Step Four:</span>
+    <span class="comment">//   If we&#39;re still quite unsure about this line, go through all</span>
+    <span class="comment">//   models in our theory and see if this row could be the start</span>
+    <span class="comment">//   of any of our  models.</span>
+    <span class="keywordflow">if</span> (row.GetLineType() == <a class="code" href="namespacetesseract.html#af86c486b511cb293ee45a39233f99bd4a5dc9805a3ad0a4c99b98ff282e36d204">LT_UNKNOWN</a> ||
+        (row.GetLineType() == <a class="code" href="namespacetesseract.html#af86c486b511cb293ee45a39233f99bd4a350c14d666e61e3ad1310244edde8537">LT_START</a> &amp;&amp; !row.UniqueStartHypothesis())) {
+      <a class="code" href="namespacetesseract.html#a5616e4c6a53be12ea0d684b1f0fb8485">SetOfModels</a> all_models;
+      theory_-&gt;NonCenteredModels(&amp;all_models);
+      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> m = 0; m &lt; all_models.size(); m++) {
+        <span class="keywordflow">if</span> (<a class="code" href="namespacetesseract.html#a8f44dde2641dd1047debf38c4429dc2b">ValidFirstLine</a>(rows_, i, all_models[m])) {
+          row.AddStartLine(all_models[m]);
+        }
+      }
+    }
+    <span class="comment">// Step Five:</span>
+    <span class="comment">//   Since we may have updated the hypotheses about this row, we need</span>
+    <span class="comment">//   to recalculate the Open models for the rest of rows[i + 1, row_end)</span>
+    <span class="keywordflow">if</span> (row.GetLineType() != <a class="code" href="namespacetesseract.html#af86c486b511cb293ee45a39233f99bd4a5dc9805a3ad0a4c99b98ff282e36d204">LT_UNKNOWN</a>) {
+      CalculateOpenModels(i + 1, row_end_);
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/ccmain/<a class="el" href="paragraphs__internal_8h_source.html">paragraphs_internal.h</a></li>
-<li>tesseract-ocr/ccmain/<a class="el" href="paragraphs_8cpp.html">paragraphs.cpp</a></li>
+<li>tesseract-ocr/ccmain/<a class="el" href="paragraphs_8cpp_source.html">paragraphs.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -194,7 +307,7 @@ Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:14 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:49 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

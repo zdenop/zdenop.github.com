@@ -121,7 +121,10 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_params_editor.html#a2d617405ae4bcdfc977aa7d77e4ea27a">ParamsEditor</a> (<a class="el" href="classtesseract_1_1_tesseract.html">tesseract::Tesseract</a> *, <a class="el" href="class_scroll_view.html">ScrollView</a> *sv=NULL)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_params_editor.html#abdb6c0426283a5270066c358c638489c">Notify</a> (const <a class="el" href="struct_s_v_event.html">SVEvent</a> *sve)</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="paramsd_8h_source.html#l00091">91</a> of file <a class="el" href="paramsd_8h_source.html">paramsd.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a2d617405ae4bcdfc977aa7d77e4ea27a"></a><!-- doxytag: member="ParamsEditor::ParamsEditor" ref="a2d617405ae4bcdfc977aa7d77e4ea27a" args="(tesseract::Tesseract *, ScrollView *sv=NULL)" -->
 <div class="memitem">
 <div class="memproto">
@@ -147,6 +150,38 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="paramsd_8cpp_source.html#l00289">289</a> of file <a class="el" href="paramsd_8cpp_source.html">paramsd.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                 {
+  <span class="keywordflow">if</span> (sv == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keyword">const</span> <span class="keywordtype">char</span>* name = <span class="stringliteral">&quot;ParamEditorMAIN&quot;</span>;
+    sv = <span class="keyword">new</span> <a class="code" href="class_scroll_view.html">ScrollView</a>(name, 1, 1, 200, 200, 300, 200);
+  }
+
+  sv_window_ = sv;
+
+  <span class="comment">//Only one event handler per window.</span>
+  <span class="comment">//sv-&gt;AddEventHandler((SVEventHandler*) this);</span>
+
+  <a class="code" href="class_s_v_menu_node.html">SVMenuNode</a>* svMenuRoot = BuildListOfAllLeaves(tess);
+
+  <a class="code" href="class_s_t_r_i_n_g.html">STRING</a> paramfile;
+  paramfile = tess-&gt;<a class="code" href="classtesseract_1_1_c_c_util.html#a4932d2070d3b91264958078abc991b17">datadir</a>;
+  paramfile += <a class="code" href="paramsd_8cpp.html#a885bbceac3da2daacf10048f43cc015f">VARDIR</a>;             <span class="comment">// parameters dir</span>
+  paramfile += <span class="stringliteral">&quot;edited&quot;</span>;           <span class="comment">// actual name</span>
+
+  <a class="code" href="class_s_v_menu_node.html">SVMenuNode</a>* std_menu = svMenuRoot-&gt;<a class="code" href="class_s_v_menu_node.html#a2d119f4867dcb3015103eabb6cd7386d">AddChild</a> (<span class="stringliteral">&quot;Build Config File&quot;</span>);
+
+  writeCommands[0] = nrParams+1;
+  std_menu-&gt;<a class="code" href="class_s_v_menu_node.html#a2d119f4867dcb3015103eabb6cd7386d">AddChild</a>(<span class="stringliteral">&quot;All Parameters&quot;</span>, writeCommands[0],
+                     paramfile.<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a>(), <span class="stringliteral">&quot;Config file name?&quot;</span>);
+
+  writeCommands[1] = nrParams+2;
+  std_menu-&gt;<a class="code" href="class_s_v_menu_node.html#a2d119f4867dcb3015103eabb6cd7386d">AddChild</a> (<span class="stringliteral">&quot;changed_ Parameters Only&quot;</span>, writeCommands[1],
+                      paramfile.<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a>(), <span class="stringliteral">&quot;Config file name?&quot;</span>);
+
+  svMenuRoot-&gt;<a class="code" href="class_s_v_menu_node.html#a693800de6b590b47e81213fef7de180a">BuildMenu</a>(sv, <span class="keyword">false</span>);
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -167,11 +202,29 @@ Public Member Functions</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="class_s_v_event_handler.html#a7f4f886aeca11e15ceab97833f070887">SVEventHandler</a>.</p>
 
+<p>Definition at line <a class="el" href="paramsd_8cpp_source.html#l00269">269</a> of file <a class="el" href="paramsd_8cpp_source.html">paramsd.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                            {
+  <span class="keywordflow">if</span> (sve-&gt;<a class="code" href="struct_s_v_event.html#a5bf8585bd1901b9103eb2783f8afe508">type</a> == <a class="code" href="scrollview_8h.html#a3688a0cf2f95d10a57e095222ccfe9a0a3752863b11af097f289eb55405df8fa5">SVET_POPUP</a>) {  <span class="comment">// only catch SVET_POPUP!</span>
+    <span class="keywordtype">char</span>* param = sve-&gt;<a class="code" href="struct_s_v_event.html#a6e0de466c57df117c731bfb4db68fc79">parameter</a>;
+    <span class="keywordflow">if</span> (sve-&gt;<a class="code" href="struct_s_v_event.html#ad0db5c2aa893a41b6c6f65b9d3f62318">command_id</a> == writeCommands[0]) {
+      WriteParams(param, <span class="keyword">false</span>);
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (sve-&gt;<a class="code" href="struct_s_v_event.html#ad0db5c2aa893a41b6c6f65b9d3f62318">command_id</a> == writeCommands[1]) {
+      WriteParams(param, <span class="keyword">true</span>);
+    } <span class="keywordflow">else</span> {
+      <a class="code" href="class_param_content.html">ParamContent</a>* vc = <a class="code" href="class_param_content.html#a54541fcefedf797523067cf2fd4c3b4e">ParamContent::GetParamContentById</a>(
+          sve-&gt;<a class="code" href="struct_s_v_event.html#ad0db5c2aa893a41b6c6f65b9d3f62318">command_id</a>);
+      vc-&gt;<a class="code" href="class_param_content.html#adcee8a97409ca91f89c2400a8b51b496">SetValue</a>(param);
+      sv_window_-&gt;<a class="code" href="class_scroll_view.html#aeeb2a822cfbad2f87696eacc79774027">AddMessage</a>(<span class="stringliteral">&quot;Setting %s to %s&quot;</span>,
+                             vc-&gt;<a class="code" href="class_param_content.html#ad7cdc377a8fbc48671bbc780c804c308">GetName</a>(), vc-&gt;<a class="code" href="class_param_content.html#a7a1ef10296b8123bee1a2ab800bcef21">GetValue</a>());
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/ccmain/<a class="el" href="paramsd_8h_source.html">paramsd.h</a></li>
-<li>tesseract-ocr/ccmain/<a class="el" href="paramsd_8cpp.html">paramsd.cpp</a></li>
+<li>tesseract-ocr/ccmain/<a class="el" href="paramsd_8cpp_source.html">paramsd.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -193,7 +246,7 @@ Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:12 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:46 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

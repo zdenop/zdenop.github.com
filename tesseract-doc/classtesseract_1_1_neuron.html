@@ -158,7 +158,10 @@ Protected Attributes</h2></td></tr>
 Static Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static const float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_neuron.html#a3e21eafa1a7015d1a14a321621e724aa">kSigmoidTable</a> []</td></tr>
 </table>
-<hr/><h2>Member Enumeration Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="neuron_8h_source.html#l00024">24</a> of file <a class="el" href="neuron_8h_source.html">neuron.h</a>.</p>
+</div><hr/><h2>Member Enumeration Documentation</h2>
 <a class="anchor" id="aaca04e8e86b6305b6ef5cafa97a69ccc"></a><!-- doxytag: member="tesseract::Neuron::NeuronTypes" ref="aaca04e8e86b6305b6ef5cafa97a69ccc" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -182,6 +185,14 @@ Static Protected Attributes</h2></td></tr>
 </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="neuron_8h_source.html#l00027">27</a> of file <a class="el" href="neuron_8h_source.html">neuron.h</a>.</p>
+<div class="fragment"><pre class="fragment">                     {
+      <a class="code" href="classtesseract_1_1_neuron.html#aaca04e8e86b6305b6ef5cafa97a69ccca8a5c16f1c34dd4b835bcbedfdcd2a8b3">Unknown</a> = 0,
+      <a class="code" href="classtesseract_1_1_neuron.html#aaca04e8e86b6305b6ef5cafa97a69cccabf08baf29ab216392a1f0ad5c439d220">Input</a>,
+      <a class="code" href="classtesseract_1_1_neuron.html#aaca04e8e86b6305b6ef5cafa97a69ccca98cb3df28d5382cccc5471de1a31cc45">Hidden</a>,
+      <a class="code" href="classtesseract_1_1_neuron.html#aaca04e8e86b6305b6ef5cafa97a69ccca7763743f69f362cb5e9f885457389f14">Output</a>
+    };
+</pre></div>
 </div>
 </div>
 <hr/><h2>Constructor &amp; Destructor Documentation</h2>
@@ -199,6 +210,11 @@ Static Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="neuron_8cpp_source.html#l00017">17</a> of file <a class="el" href="neuron_8cpp_source.html">neuron.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">               {
+  <a class="code" href="classtesseract_1_1_neuron.html#aa7d2dbd60eb9b1658235231328d433f6">Init</a>();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aabed977ad58b676ecbbe061065d66f51"></a><!-- doxytag: member="tesseract::Neuron::~Neuron" ref="aabed977ad58b676ecbbe061065d66f51" args="()" -->
@@ -215,6 +231,10 @@ Static Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="neuron_8cpp_source.html#l00022">22</a> of file <a class="el" href="neuron_8cpp_source.html">neuron.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                {
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -249,6 +269,14 @@ Static Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="neuron_8cpp_source.html#l00074">74</a> of file <a class="el" href="neuron_8cpp_source.html">neuron.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                             {
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> in = 0; in &lt; from_cnt; in++) {
+    <a class="code" href="classtesseract_1_1_neuron.html#a94802e87a7f08527f75cb9e051cc0605">fan_in_</a>.push_back(neurons + in);
+    <a class="code" href="classtesseract_1_1_neuron.html#ad56351b172a4616dceec90f5d7fe984b">fan_in_weights_</a>.push_back(wts_offset + in);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a76332b030bf687b40e64dda184e618a0"></a><!-- doxytag: member="tesseract::Neuron::bias" ref="a76332b030bf687b40e64dda184e618a0" args="() const " -->
@@ -265,6 +293,11 @@ Static Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="neuron_8h_source.html#l00114">114</a> of file <a class="el" href="neuron_8h_source.html">neuron.h</a>.</p>
+<div class="fragment"><pre class="fragment">                       {
+      <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_neuron.html#a51752dcc36486a7299eeb6ae3761fcd4">bias_</a>;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a54f61762c8e4573804bea699ff7b9311"></a><!-- doxytag: member="tesseract::Neuron::Clear" ref="a54f61762c8e4573804bea699ff7b9311" args="()" -->
@@ -281,6 +314,11 @@ Static Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="neuron_8h_source.html#l00037">37</a> of file <a class="el" href="neuron_8h_source.html">neuron.h</a>.</p>
+<div class="fragment"><pre class="fragment">                 {
+      <a class="code" href="classtesseract_1_1_neuron.html#a2b109732594a4fd6240995520eb9a225">frwd_dirty_</a>  =  <span class="keyword">true</span>;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a34a3470583c330d6e6c46a3e2a81c012"></a><!-- doxytag: member="tesseract::Neuron::fan_in" ref="a34a3470583c330d6e6c46a3e2a81c012" args="(int idx) const " -->
@@ -298,6 +336,11 @@ Static Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="neuron_8h_source.html#l00105">105</a> of file <a class="el" href="neuron_8h_source.html">neuron.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                   {
+      <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_neuron.html#a94802e87a7f08527f75cb9e051cc0605">fan_in_</a>[idx];
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a640f3c1af33401c7b7da18ccd49ee68e"></a><!-- doxytag: member="tesseract::Neuron::fan_in_cnt" ref="a640f3c1af33401c7b7da18ccd49ee68e" args="() const " -->
@@ -314,6 +357,11 @@ Static Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="neuron_8h_source.html#l00102">102</a> of file <a class="el" href="neuron_8h_source.html">neuron.h</a>.</p>
+<div class="fragment"><pre class="fragment">                           {
+      <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_neuron.html#a94802e87a7f08527f75cb9e051cc0605">fan_in_</a>.size();
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac92db227c777f36a8c6aee05c1f1d766"></a><!-- doxytag: member="tesseract::Neuron::fan_in_wts" ref="ac92db227c777f36a8c6aee05c1f1d766" args="(int idx) const " -->
@@ -331,6 +379,11 @@ Static Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="neuron_8h_source.html#l00108">108</a> of file <a class="el" href="neuron_8h_source.html">neuron.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                    {
+      <span class="keywordflow">return</span> *(<a class="code" href="classtesseract_1_1_neuron.html#ad56351b172a4616dceec90f5d7fe984b">fan_in_weights_</a>[idx]);
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aacf58b3d21f61bf84e2815931f869464"></a><!-- doxytag: member="tesseract::Neuron::FeedForward" ref="aacf58b3d21f61bf84e2815931f869464" args="()" -->
@@ -347,6 +400,29 @@ Static Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="neuron_8cpp_source.html#l00039">39</a> of file <a class="el" href="neuron_8cpp_source.html">neuron.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                         {
+  <span class="keywordflow">if</span> (!<a class="code" href="classtesseract_1_1_neuron.html#a2b109732594a4fd6240995520eb9a225">frwd_dirty_</a> ) {
+    <span class="keywordflow">return</span>;
+  }
+  <span class="comment">// nothing to do for input nodes: just pass the input to the o/p</span>
+  <span class="comment">// otherwise, pull the output of all fan-in neurons</span>
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_neuron.html#a4373a2ce8c99d78cb25cd9e68bc6b106">node_type_</a> != <a class="code" href="classtesseract_1_1_neuron.html#aaca04e8e86b6305b6ef5cafa97a69cccabf08baf29ab216392a1f0ad5c439d220">Input</a>) {
+    <span class="keywordtype">int</span> <a class="code" href="classtesseract_1_1_neuron.html#a640f3c1af33401c7b7da18ccd49ee68e">fan_in_cnt</a> = <a class="code" href="classtesseract_1_1_neuron.html#a94802e87a7f08527f75cb9e051cc0605">fan_in_</a>.size();
+    <span class="comment">// sum out the activation</span>
+    <a class="code" href="classtesseract_1_1_neuron.html#af5b3c2c30dea3732624df7e23b62f8df">activation_</a> = -<a class="code" href="classtesseract_1_1_neuron.html#a51752dcc36486a7299eeb6ae3761fcd4">bias_</a>;
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> in = 0; in &lt; <a class="code" href="classtesseract_1_1_neuron.html#a640f3c1af33401c7b7da18ccd49ee68e">fan_in_cnt</a>; in++) {
+      <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_neuron.html#a94802e87a7f08527f75cb9e051cc0605">fan_in_</a>[in]-&gt;<a class="code" href="classtesseract_1_1_neuron.html#a2b109732594a4fd6240995520eb9a225">frwd_dirty_</a>) {
+        <a class="code" href="classtesseract_1_1_neuron.html#a94802e87a7f08527f75cb9e051cc0605">fan_in_</a>[in]-&gt;FeedForward();
+      }
+      <a class="code" href="classtesseract_1_1_neuron.html#af5b3c2c30dea3732624df7e23b62f8df">activation_</a> += ((*(<a class="code" href="classtesseract_1_1_neuron.html#ad56351b172a4616dceec90f5d7fe984b">fan_in_weights_</a>[in])) * <a class="code" href="classtesseract_1_1_neuron.html#a94802e87a7f08527f75cb9e051cc0605">fan_in_</a>[in]-&gt;output_);
+    }
+    <span class="comment">// sigmoid it</span>
+    <a class="code" href="classtesseract_1_1_neuron.html#aecec05557a84adbe5ebc74714bae0d93">output_</a> = <a class="code" href="classtesseract_1_1_neuron.html#a6b38598355a4ebd977f20f0582db3d49">Sigmoid</a>(<a class="code" href="classtesseract_1_1_neuron.html#af5b3c2c30dea3732624df7e23b62f8df">activation_</a>);
+  }
+  <a class="code" href="classtesseract_1_1_neuron.html#a2b109732594a4fd6240995520eb9a225">frwd_dirty_</a> = <span class="keyword">false</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a0c1f2386bd491c36c87852b4a6bfa121"></a><!-- doxytag: member="tesseract::Neuron::id" ref="a0c1f2386bd491c36c87852b4a6bfa121" args="() const " -->
@@ -363,6 +439,11 @@ Static Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="neuron_8h_source.html#l00099">99</a> of file <a class="el" href="neuron_8h_source.html">neuron.h</a>.</p>
+<div class="fragment"><pre class="fragment">                   {
+      <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_neuron.html#acf182e566805bb493276be54e8b07b5a">id_</a>;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa7d2dbd60eb9b1658235231328d433f6"></a><!-- doxytag: member="tesseract::Neuron::Init" ref="aa7d2dbd60eb9b1658235231328d433f6" args="()" -->
@@ -379,6 +460,18 @@ Static Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="neuron_8cpp_source.html#l00026">26</a> of file <a class="el" href="neuron_8cpp_source.html">neuron.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                  {
+  <a class="code" href="classtesseract_1_1_neuron.html#acf182e566805bb493276be54e8b07b5a">id_</a> = -1;
+  <a class="code" href="classtesseract_1_1_neuron.html#a2b109732594a4fd6240995520eb9a225">frwd_dirty_</a> = <span class="keyword">false</span>;
+  <a class="code" href="classtesseract_1_1_neuron.html#a94802e87a7f08527f75cb9e051cc0605">fan_in_</a>.clear();
+  <a class="code" href="classtesseract_1_1_neuron.html#ad56351b172a4616dceec90f5d7fe984b">fan_in_weights_</a>.clear();
+  <a class="code" href="classtesseract_1_1_neuron.html#af5b3c2c30dea3732624df7e23b62f8df">activation_</a> = 0.0f;
+  <a class="code" href="classtesseract_1_1_neuron.html#aecec05557a84adbe5ebc74714bae0d93">output_</a> = 0.0f;
+  <a class="code" href="classtesseract_1_1_neuron.html#a51752dcc36486a7299eeb6ae3761fcd4">bias_</a> = 0.0f;
+  <a class="code" href="classtesseract_1_1_neuron.html#a4373a2ce8c99d78cb25cd9e68bc6b106">node_type_</a> = <a class="code" href="classtesseract_1_1_neuron.html#aaca04e8e86b6305b6ef5cafa97a69ccca8a5c16f1c34dd4b835bcbedfdcd2a8b3">Unknown</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa42ba2b8ca765112ad135ad4383e9a2f"></a><!-- doxytag: member="tesseract::Neuron::node_type" ref="aa42ba2b8ca765112ad135ad4383e9a2f" args="() const " -->
@@ -395,6 +488,11 @@ Static Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="neuron_8h_source.html#l00117">117</a> of file <a class="el" href="neuron_8h_source.html">neuron.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                        {
+      <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_neuron.html#a4373a2ce8c99d78cb25cd9e68bc6b106">node_type_</a>;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac5d956e226190d1cf2d021493beeb1b8"></a><!-- doxytag: member="tesseract::Neuron::output" ref="ac5d956e226190d1cf2d021493beeb1b8" args="() const " -->
@@ -411,6 +509,11 @@ Static Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="neuron_8h_source.html#l00093">93</a> of file <a class="el" href="neuron_8h_source.html">neuron.h</a>.</p>
+<div class="fragment"><pre class="fragment">                         {
+      <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_neuron.html#aecec05557a84adbe5ebc74714bae0d93">output_</a>;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2620b6621c27ccc5386978fabbc5d045"></a><!-- doxytag: member="tesseract::Neuron::ReadBinary" ref="a2620b6621c27ccc5386978fabbc5d045" args="(BuffType *input_buff)" -->
@@ -430,6 +533,38 @@ template&lt;class BuffType &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="neuron_8h_source.html#l00042">42</a> of file <a class="el" href="neuron_8h_source.html">neuron.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                    {
+      <span class="keywordtype">float</span> val;
+      <span class="keywordflow">if</span> (input_buff-&gt;Read(&amp;val, <span class="keyword">sizeof</span>(val)) != <span class="keyword">sizeof</span>(val)) {
+        <span class="keywordflow">return</span> <span class="keyword">false</span>;
+      }
+      <span class="comment">// input nodes should have no biases</span>
+      <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_neuron.html#a4373a2ce8c99d78cb25cd9e68bc6b106">node_type_</a> == <a class="code" href="classtesseract_1_1_neuron.html#aaca04e8e86b6305b6ef5cafa97a69cccabf08baf29ab216392a1f0ad5c439d220">Input</a>) {
+        <a class="code" href="classtesseract_1_1_neuron.html#a51752dcc36486a7299eeb6ae3761fcd4">bias_</a> = kInputNodeBias;
+      } <span class="keywordflow">else</span> {
+        <a class="code" href="classtesseract_1_1_neuron.html#a51752dcc36486a7299eeb6ae3761fcd4">bias_</a> = val;
+      }
+      <span class="comment">// read fanin count</span>
+      <span class="keywordtype">int</span> <a class="code" href="classtesseract_1_1_neuron.html#a640f3c1af33401c7b7da18ccd49ee68e">fan_in_cnt</a>;
+      <span class="keywordflow">if</span> (input_buff-&gt;Read(&amp;fan_in_cnt, <span class="keyword">sizeof</span>(fan_in_cnt)) !=
+          <span class="keyword">sizeof</span>(<a class="code" href="classtesseract_1_1_neuron.html#a640f3c1af33401c7b7da18ccd49ee68e">fan_in_cnt</a>)) {
+        <span class="keywordflow">return</span> <span class="keyword">false</span>;
+      }
+      <span class="comment">// validate fan-in cnt</span>
+      <span class="keywordflow">if</span> (fan_in_cnt != <a class="code" href="classtesseract_1_1_neuron.html#a94802e87a7f08527f75cb9e051cc0605">fan_in_</a>.size()) {
+        <span class="keywordflow">return</span> <span class="keyword">false</span>;
+      }
+      <span class="comment">// read the weights</span>
+      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> in = 0; in &lt; <a class="code" href="classtesseract_1_1_neuron.html#a640f3c1af33401c7b7da18ccd49ee68e">fan_in_cnt</a>; in++) {
+        <span class="keywordflow">if</span> (input_buff-&gt;Read(&amp;val, <span class="keyword">sizeof</span>(val)) != <span class="keyword">sizeof</span>(val)) {
+          <span class="keywordflow">return</span> <span class="keyword">false</span>;
+        }
+        *(<a class="code" href="classtesseract_1_1_neuron.html#ad56351b172a4616dceec90f5d7fe984b">fan_in_weights_</a>[in]) = val;
+      }
+      <span class="keywordflow">return</span> <span class="keyword">true</span>;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a29d8526568d7b1a5df75065712e03868"></a><!-- doxytag: member="tesseract::Neuron::set_id" ref="a29d8526568d7b1a5df75065712e03868" args="(int id)" -->
@@ -447,6 +582,11 @@ template&lt;class BuffType &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="neuron_8h_source.html#l00111">111</a> of file <a class="el" href="neuron_8h_source.html">neuron.h</a>.</p>
+<div class="fragment"><pre class="fragment">                        {
+      <a class="code" href="classtesseract_1_1_neuron.html#acf182e566805bb493276be54e8b07b5a">id_</a> = <a class="code" href="classtesseract_1_1_neuron.html#a0c1f2386bd491c36c87852b4a6bfa121">id</a>;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="af4e0f355208188f9d6017166153d18f9"></a><!-- doxytag: member="tesseract::Neuron::set_node_type" ref="af4e0f355208188f9d6017166153d18f9" args="(NeuronTypes type)" -->
@@ -464,6 +604,11 @@ template&lt;class BuffType &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="neuron_8cpp_source.html#l00062">62</a> of file <a class="el" href="neuron_8cpp_source.html">neuron.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                           {
+  <a class="code" href="classtesseract_1_1_neuron.html#a4373a2ce8c99d78cb25cd9e68bc6b106">node_type_</a> = Type;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab672142abe2db452d9085ecb6689e25d"></a><!-- doxytag: member="tesseract::Neuron::set_output" ref="ab672142abe2db452d9085ecb6689e25d" args="(float out_val)" -->
@@ -481,6 +626,11 @@ template&lt;class BuffType &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="neuron_8h_source.html#l00096">96</a> of file <a class="el" href="neuron_8h_source.html">neuron.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                   {
+      <a class="code" href="classtesseract_1_1_neuron.html#aecec05557a84adbe5ebc74714bae0d93">output_</a> = out_val;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6b38598355a4ebd977f20f0582db3d49"></a><!-- doxytag: member="tesseract::Neuron::Sigmoid" ref="a6b38598355a4ebd977f20f0582db3d49" args="(float activation)" -->
@@ -498,6 +648,17 @@ template&lt;class BuffType &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="neuron_8cpp_source.html#l00085">85</a> of file <a class="el" href="neuron_8cpp_source.html">neuron.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                      {
+  <span class="keywordflow">if</span> (activation &lt;= -10.0<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>) {
+    <span class="keywordflow">return</span> 0.0f;
+  } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (activation &gt;= 10.0<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>) {
+    <span class="keywordflow">return</span> 1.0f;
+  } <span class="keywordflow">else</span> {
+    <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_neuron.html#a3e21eafa1a7015d1a14a321621e724aa">kSigmoidTable</a>[<span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(100 * (activation + 10.0))];
+  }
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
@@ -512,6 +673,8 @@ template&lt;class BuffType &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="neuron_8h_source.html#l00129">129</a> of file <a class="el" href="neuron_8h_source.html">neuron.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a51752dcc36486a7299eeb6ae3761fcd4"></a><!-- doxytag: member="tesseract::Neuron::bias_" ref="a51752dcc36486a7299eeb6ae3761fcd4" args="" -->
@@ -524,6 +687,8 @@ template&lt;class BuffType &gt; </div>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="neuron_8h_source.html#l00127">127</a> of file <a class="el" href="neuron_8h_source.html">neuron.h</a>.</p>
 
 </div>
 </div>
@@ -538,6 +703,8 @@ template&lt;class BuffType &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="neuron_8h_source.html#l00133">133</a> of file <a class="el" href="neuron_8h_source.html">neuron.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ad56351b172a4616dceec90f5d7fe984b"></a><!-- doxytag: member="tesseract::Neuron::fan_in_weights_" ref="ad56351b172a4616dceec90f5d7fe984b" args="" -->
@@ -550,6 +717,8 @@ template&lt;class BuffType &gt; </div>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="neuron_8h_source.html#l00135">135</a> of file <a class="el" href="neuron_8h_source.html">neuron.h</a>.</p>
 
 </div>
 </div>
@@ -564,6 +733,8 @@ template&lt;class BuffType &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="neuron_8h_source.html#l00141">141</a> of file <a class="el" href="neuron_8h_source.html">neuron.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="acf182e566805bb493276be54e8b07b5a"></a><!-- doxytag: member="tesseract::Neuron::id_" ref="acf182e566805bb493276be54e8b07b5a" args="" -->
@@ -576,6 +747,8 @@ template&lt;class BuffType &gt; </div>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="neuron_8h_source.html#l00125">125</a> of file <a class="el" href="neuron_8h_source.html">neuron.h</a>.</p>
 
 </div>
 </div>
@@ -590,6 +763,8 @@ template&lt;class BuffType &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="neuron_8h_source.html#l00138">138</a> of file <a class="el" href="neuron_8h_source.html">neuron.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a4373a2ce8c99d78cb25cd9e68bc6b106"></a><!-- doxytag: member="tesseract::Neuron::node_type_" ref="a4373a2ce8c99d78cb25cd9e68bc6b106" args="" -->
@@ -602,6 +777,8 @@ template&lt;class BuffType &gt; </div>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="neuron_8h_source.html#l00123">123</a> of file <a class="el" href="neuron_8h_source.html">neuron.h</a>.</p>
 
 </div>
 </div>
@@ -616,13 +793,15 @@ template&lt;class BuffType &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="neuron_8h_source.html#l00131">131</a> of file <a class="el" href="neuron_8h_source.html">neuron.h</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/neural_networks/runtime/<a class="el" href="neuron_8h_source.html">neuron.h</a></li>
-<li>tesseract-ocr/neural_networks/runtime/<a class="el" href="neural__net_8cpp.html">neural_net.cpp</a></li>
-<li>tesseract-ocr/neural_networks/runtime/<a class="el" href="neuron_8cpp.html">neuron.cpp</a></li>
-<li>tesseract-ocr/neural_networks/runtime/<a class="el" href="sigmoid__table_8cpp.html">sigmoid_table.cpp</a></li>
+<li>tesseract-ocr/neural_networks/runtime/<a class="el" href="neural__net_8cpp_source.html">neural_net.cpp</a></li>
+<li>tesseract-ocr/neural_networks/runtime/<a class="el" href="neuron_8cpp_source.html">neuron.cpp</a></li>
+<li>tesseract-ocr/neural_networks/runtime/<a class="el" href="sigmoid__table_8cpp_source.html">sigmoid_table.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -645,7 +824,7 @@ template&lt;class BuffType &gt; </div>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:16 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:52 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

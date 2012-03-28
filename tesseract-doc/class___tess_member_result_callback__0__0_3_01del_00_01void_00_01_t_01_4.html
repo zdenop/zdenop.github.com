@@ -126,10 +126,13 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class___tess_member_result_callback__0__0_3_01del_00_01void_00_01_t_01_4.html#a00719cec2be6e4858cac531da57e0ff0">_TessMemberResultCallback_0_0</a> (T *object, <a class="el" href="class___tess_member_result_callback__0__0_3_01del_00_01void_00_01_t_01_4.html#af103e3b708c434a9a8b8b5cc2dba4944">MemberSignature</a> member)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class___tess_member_result_callback__0__0_3_01del_00_01void_00_01_t_01_4.html#a5745dbfbbd71574cfd73783850bff636">Run</a> ()</td></tr>
 </table>
-<h3>template&lt;bool del, class T&gt;<br/>
- class _TessMemberResultCallback_0_0&lt; del, void, T &gt;</h3>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock"><h3>template&lt;bool del, class T&gt;<br/>
+class _TessMemberResultCallback_0_0&lt; del, void, T &gt;</h3>
 
-<hr/><h2>Member Typedef Documentation</h2>
+
+<p>Definition at line <a class="el" href="tesscallback_8h_source.html#l00155">155</a> of file <a class="el" href="tesscallback_8h_source.html">tesscallback.h</a>.</p>
+</div><hr/><h2>Member Typedef Documentation</h2>
 <a class="anchor" id="a198e719b493d8a653cdc442e5f30377e"></a><!-- doxytag: member="_TessMemberResultCallback_0_0&lt; del, void, T &gt;::base" ref="a198e719b493d8a653cdc442e5f30377e" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -142,6 +145,8 @@ template&lt;bool del, class T &gt; </div>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="tesscallback_8h_source.html#l00158">158</a> of file <a class="el" href="tesscallback_8h_source.html">tesscallback.h</a>.</p>
 
 </div>
 </div>
@@ -157,6 +162,8 @@ template&lt;bool del, class T &gt; </div>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="tesscallback_8h_source.html#l00159">159</a> of file <a class="el" href="tesscallback_8h_source.html">tesscallback.h</a>.</p>
 
 </div>
 </div>
@@ -188,6 +195,11 @@ template&lt;bool del, class T &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tesscallback_8h_source.html#l00166">166</a> of file <a class="el" href="tesscallback_8h_source.html">tesscallback.h</a>.</p>
+<div class="fragment"><pre class="fragment">    : object_(<span class="keywordtype">object</span>),
+      member_(member) {
+  }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -209,6 +221,18 @@ template&lt;bool del, class T &gt; </div>
 
 <p>Implements <a class="el" href="class_tess_closure.html#a71de156dcb5860a8c56d2ad9dd4c4529">TessClosure</a>.</p>
 
+<p>Definition at line <a class="el" href="tesscallback_8h_source.html#l00172">172</a> of file <a class="el" href="tesscallback_8h_source.html">tesscallback.h</a>.</p>
+<div class="fragment"><pre class="fragment">                     {
+    <span class="keywordflow">if</span> (!del) {
+      (object_-&gt;*member_)();
+    } <span class="keywordflow">else</span> {
+      (object_-&gt;*member_)();
+      <span class="comment">//  zero out the pointer to ensure segfault if used again</span>
+      member_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+      <span class="keyword">delete</span> <span class="keyword">this</span>;
+    }
+  }
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
@@ -234,7 +258,7 @@ template&lt;bool del, class T &gt; </div>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:11 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:44 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

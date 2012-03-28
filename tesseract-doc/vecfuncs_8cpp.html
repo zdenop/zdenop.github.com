@@ -103,7 +103,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="mfcpch_8h_source.html">mfcpch.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="vecfuncs_8h_source.html">vecfuncs.h</a>&quot;</code><br/>
-</div><table class="memberdecls">
+</div>
+<p><a href="vecfuncs_8cpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="vecfuncs_8cpp.html#a57d4a186a22b01e2110793bc22a5d8f0">direction</a> (<a class="el" href="struct_e_d_g_e_p_t.html">EDGEPT</a> *point)</td></tr>
@@ -127,6 +129,28 @@ Functions</h2></td></tr>
 <p>prev point</p>
 <p>next point </p>
 
+<p>Definition at line <a class="el" href="vecfuncs_8cpp_source.html#l00043">43</a> of file <a class="el" href="vecfuncs_8cpp_source.html">vecfuncs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                             {
+  <span class="keywordtype">int</span> dir;                       
+  <a class="code" href="struct_e_d_g_e_p_t.html">EDGEPT</a> *prev;                  
+  <a class="code" href="struct_e_d_g_e_p_t.html">EDGEPT</a> *next;                  
+  dir = 0;
+  prev = point-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a8326da8daf597bcdc5a05064a37cbbb1">prev</a>;
+  next = point-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>;
+
+  <span class="keywordflow">if</span> (((prev-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> &lt;= point-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a>) &amp;&amp;
+    (point-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> &lt; next-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a>)) ||
+    ((prev-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> &lt; point-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a>) &amp;&amp; (point-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> &lt;= next-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a>)))
+    dir = 1;
+
+  <span class="keywordflow">if</span> (((prev-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> &gt;= point-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a>) &amp;&amp;
+    (point-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> &gt; next-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a>)) ||
+    ((prev-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> &gt; point-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a>) &amp;&amp; (point-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> &gt;= next-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a>)))
+    dir = -1;
+
+  <span class="keywordflow">return</span> dir;
+}
+</pre></div>
 </div>
 </div>
 </div>
@@ -149,7 +173,7 @@ Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:09 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:40 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

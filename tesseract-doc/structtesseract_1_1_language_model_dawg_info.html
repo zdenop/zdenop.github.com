@@ -118,7 +118,10 @@ Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtesseract_1_1_dawg_info_vector.html">DawgInfoVector</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtesseract_1_1_language_model_dawg_info.html#a85dcf51ff18343073e6cf3f69abbb454">constraints</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">PermuterType&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtesseract_1_1_language_model_dawg_info.html#a172ed1149f12df85de309b228715a002">permuter</a></td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="language__model_8h_source.html#l00100">100</a> of file <a class="el" href="language__model_8h_source.html">language_model.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="aee00495bcd346e6aea0e417782cf5bc7"></a><!-- doxytag: member="tesseract::LanguageModelDawgInfo::LanguageModelDawgInfo" ref="aee00495bcd346e6aea0e417782cf5bc7" args="(DawgInfoVector *a, DawgInfoVector *c, PermuterType pt)" -->
 <div class="memitem">
 <div class="memproto">
@@ -150,6 +153,12 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="language__model_8h_source.html#l00101">101</a> of file <a class="el" href="language__model_8h_source.html">language_model.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                         : <a class="code" href="structtesseract_1_1_language_model_dawg_info.html#a172ed1149f12df85de309b228715a002">permuter</a>(pt) {
+    <a class="code" href="structtesseract_1_1_language_model_dawg_info.html#a2d7385e4ce4b93154fed39ca5ec199fb">active_dawgs</a> = <span class="keyword">new</span> DawgInfoVector(*a);
+    <a class="code" href="structtesseract_1_1_language_model_dawg_info.html#a85dcf51ff18343073e6cf3f69abbb454">constraints</a> = <span class="keyword">new</span> DawgInfoVector(*c);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab38535ca6bf27b8b01b385cb3a977179"></a><!-- doxytag: member="tesseract::LanguageModelDawgInfo::~LanguageModelDawgInfo" ref="ab38535ca6bf27b8b01b385cb3a977179" args="()" -->
@@ -166,6 +175,12 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="language__model_8h_source.html#l00106">106</a> of file <a class="el" href="language__model_8h_source.html">language_model.h</a>.</p>
+<div class="fragment"><pre class="fragment">                           {
+    <span class="keyword">delete</span> <a class="code" href="structtesseract_1_1_language_model_dawg_info.html#a2d7385e4ce4b93154fed39ca5ec199fb">active_dawgs</a>;
+    <span class="keyword">delete</span> <a class="code" href="structtesseract_1_1_language_model_dawg_info.html#a85dcf51ff18343073e6cf3f69abbb454">constraints</a>;
+  }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
@@ -180,6 +195,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="language__model_8h_source.html#l00110">110</a> of file <a class="el" href="language__model_8h_source.html">language_model.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a85dcf51ff18343073e6cf3f69abbb454"></a><!-- doxytag: member="tesseract::LanguageModelDawgInfo::constraints" ref="a85dcf51ff18343073e6cf3f69abbb454" args="" -->
@@ -193,6 +210,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="language__model_8h_source.html#l00111">111</a> of file <a class="el" href="language__model_8h_source.html">language_model.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a172ed1149f12df85de309b228715a002"></a><!-- doxytag: member="tesseract::LanguageModelDawgInfo::permuter" ref="a172ed1149f12df85de309b228715a002" args="" -->
@@ -205,6 +224,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="language__model_8h_source.html#l00112">112</a> of file <a class="el" href="language__model_8h_source.html">language_model.h</a>.</p>
 
 </div>
 </div>
@@ -232,7 +253,7 @@ Public Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:17 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:54 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

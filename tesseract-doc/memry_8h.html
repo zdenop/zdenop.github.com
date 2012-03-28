@@ -133,6 +133,11 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="memry_8cpp_source.html#l00052">52</a> of file <a class="el" href="memry_8cpp_source.html">memry.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                   {
+  <span class="keywordflow">return</span> calloc(static_cast&lt;size_t&gt;(<a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a>), 1);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4c14b091498fb7866a1dd0af51a591fe"></a><!-- doxytag: member="memry.h::alloc_mem" ref="a4c14b091498fb7866a1dd0af51a591fe" args="(inT32 count)" -->
@@ -150,6 +155,11 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="memry_8cpp_source.html#l00048">48</a> of file <a class="el" href="memry_8cpp_source.html">memry.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                             {
+  <span class="keywordflow">return</span> malloc(static_cast&lt;size_t&gt;(<a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a>));
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a29cbb5255dbc65a22c2a47c21480f264"></a><!-- doxytag: member="memry.h::alloc_string" ref="a29cbb5255dbc65a22c2a47c21480f264" args="(inT32 count)" -->
@@ -167,6 +177,12 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="memry_8cpp_source.html#l00031">31</a> of file <a class="el" href="memry_8cpp_source.html">memry.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                {
+  <span class="comment">// Round up the amount allocated to a multiple of 4</span>
+  <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keywordtype">char</span>*<span class="keyword">&gt;</span>(malloc((<a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a> + 3) &amp; ~3));
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2d9a87464b391f9004ebcab8f8545241"></a><!-- doxytag: member="memry.h::alloc_struct" ref="a2d9a87464b391f9004ebcab8f8545241" args="(inT32 count, const char *name=NULL)" -->
@@ -194,6 +210,11 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="memry_8cpp_source.html#l00040">40</a> of file <a class="el" href="memry_8cpp_source.html">memry.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                              {
+  <span class="keywordflow">return</span> malloc(<a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a>);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab30c02896b354139efbfb8936dfe8b69"></a><!-- doxytag: member="memry.h::free_big_mem" ref="ab30c02896b354139efbfb8936dfe8b69" args="(void *oldchunk)" -->
@@ -211,6 +232,11 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="memry_8cpp_source.html#l00060">60</a> of file <a class="el" href="memry_8cpp_source.html">memry.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                  {
+  free(oldchunk);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9ef1862b8e026e23eef238af032858e4"></a><!-- doxytag: member="memry.h::free_mem" ref="a9ef1862b8e026e23eef238af032858e4" args="(void *oldchunk)" -->
@@ -228,6 +254,11 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="memry_8cpp_source.html#l00056">56</a> of file <a class="el" href="memry_8cpp_source.html">memry.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                              {
+  free(oldchunk);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aadab03126da19fefc98afefc9549d5c3"></a><!-- doxytag: member="memry.h::free_string" ref="aadab03126da19fefc98afefc9549d5c3" args="(char *string)" -->
@@ -245,6 +276,11 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="memry_8cpp_source.html#l00036">36</a> of file <a class="el" href="memry_8cpp_source.html">memry.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                               {
+  free(<span class="keywordtype">string</span>);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a663c99cbcf3eb087c6b9aeed7dc6dd71"></a><!-- doxytag: member="memry.h::free_struct" ref="a663c99cbcf3eb087c6b9aeed7dc6dd71" args="(void *deadstruct, inT32, const char *name=NULL)" -->
@@ -278,6 +314,11 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="memry_8cpp_source.html#l00044">44</a> of file <a class="el" href="memry_8cpp_source.html">memry.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                        {
+  free(deadstruct);
+}
+</pre></div>
 </div>
 </div>
 </div>
@@ -300,7 +341,7 @@ Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:09 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:41 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

@@ -135,7 +135,10 @@ Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="host_8h.html#a7712a7e28433d0ade59219a129549b6f">BOOL8</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_b_l_o_c_k___r_e_s.html#a87db4b18e94fa645be370a8c09d9bedb">italic</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">ROW_RES_LIST&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_b_l_o_c_k___r_e_s.html#a6e2016cde81e99d0f5c989a71089c286">row_res_list</a></td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00256">256</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="ac324be1a7e060e1dfdb2ebadd5e27778"></a><!-- doxytag: member="BLOCK_RES::BLOCK_RES" ref="ac324be1a7e060e1dfdb2ebadd5e27778" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -150,6 +153,10 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00271">271</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
+<div class="fragment"><pre class="fragment">              {
+  }                            <span class="comment">// empty constructor</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a327b8e01e0b7481186681fe579452819"></a><!-- doxytag: member="BLOCK_RES::BLOCK_RES" ref="a327b8e01e0b7481186681fe579452819" args="(BLOCK *the_block)" -->
@@ -167,6 +174,27 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8cpp_source.html#l00110">110</a> of file <a class="el" href="pageres_8cpp_source.html">pageres.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                     {
+  ROW_IT row_it (the_block-&gt;<a class="code" href="class_b_l_o_c_k.html#ae9826e422b0bf17a7592dee8db3fe058" title="get rows">row_list</a> ());
+  ROW_RES_IT row_res_it(&amp;<a class="code" href="class_b_l_o_c_k___r_e_s.html#a6e2016cde81e99d0f5c989a71089c286">row_res_list</a>);
+
+  <a class="code" href="class_b_l_o_c_k___r_e_s.html#a9b394a8aa95834346c8bc02f0493933b">char_count</a> = 0;
+  <a class="code" href="class_b_l_o_c_k___r_e_s.html#a508dffc62c4a514859372e0a9a6530ca">rej_count</a> = 0;
+  <a class="code" href="class_b_l_o_c_k___r_e_s.html#a3e2fcae60d1a04516f49c877f8fcd057">font_class</a> = -1;               <span class="comment">//not assigned</span>
+  <a class="code" href="class_b_l_o_c_k___r_e_s.html#a4355c39c6d8adcffce7c320c7ac9e481">x_height</a> = -1.0;
+  <a class="code" href="class_b_l_o_c_k___r_e_s.html#a48b5b4d9d273b9cf646888c5d237b5c5">font_assigned</a> = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+  <a class="code" href="class_b_l_o_c_k___r_e_s.html#aea6aff06e2f8e242a1c65d8b64ff1671">bold</a> = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+  <a class="code" href="class_b_l_o_c_k___r_e_s.html#a87db4b18e94fa645be370a8c09d9bedb">italic</a> = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+  <a class="code" href="class_b_l_o_c_k___r_e_s.html#a9613d21439ba46bcfc6fa68a293030d5">row_count</a> = 0;
+
+  <a class="code" href="class_b_l_o_c_k___r_e_s.html#ae7c240d4878247ebdfe78433446751bf">block</a> = the_block;
+
+  <span class="keywordflow">for</span> (row_it.mark_cycle_pt(); !row_it.cycled_list(); row_it.forward()) {
+    row_res_it.add_to_end(<span class="keyword">new</span> <a class="code" href="class_r_o_w___r_e_s.html">ROW_RES</a>(row_it.data()));
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a0b76db0827ee8124c2cc2e6fd0f3180b"></a><!-- doxytag: member="BLOCK_RES::~BLOCK_RES" ref="a0b76db0827ee8124c2cc2e6fd0f3180b" args="()" -->
@@ -183,6 +211,10 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00276">276</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
+<div class="fragment"><pre class="fragment">                {              <span class="comment">// destructor</span>
+  }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
@@ -197,6 +229,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00258">258</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="aea6aff06e2f8e242a1c65d8b64ff1671"></a><!-- doxytag: member="BLOCK_RES::bold" ref="aea6aff06e2f8e242a1c65d8b64ff1671" args="" -->
@@ -209,6 +243,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00266">266</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
 
 </div>
 </div>
@@ -223,6 +259,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00259">259</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a48b5b4d9d273b9cf646888c5d237b5c5"></a><!-- doxytag: member="BLOCK_RES::font_assigned" ref="a48b5b4d9d273b9cf646888c5d237b5c5" args="" -->
@@ -235,6 +273,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00264">264</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
 
 </div>
 </div>
@@ -249,6 +289,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00261">261</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a87db4b18e94fa645be370a8c09d9bedb"></a><!-- doxytag: member="BLOCK_RES::italic" ref="a87db4b18e94fa645be370a8c09d9bedb" args="" -->
@@ -261,6 +303,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00267">267</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
 
 </div>
 </div>
@@ -275,6 +319,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00260">260</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a9613d21439ba46bcfc6fa68a293030d5"></a><!-- doxytag: member="BLOCK_RES::row_count" ref="a9613d21439ba46bcfc6fa68a293030d5" args="" -->
@@ -287,6 +333,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00262">262</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
 
 </div>
 </div>
@@ -301,6 +349,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00269">269</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a4355c39c6d8adcffce7c320c7ac9e481"></a><!-- doxytag: member="BLOCK_RES::x_height" ref="a4355c39c6d8adcffce7c320c7ac9e481" args="" -->
@@ -314,11 +364,13 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00263">263</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/ccstruct/<a class="el" href="pageres_8h_source.html">pageres.h</a></li>
-<li>tesseract-ocr/ccstruct/<a class="el" href="pageres_8cpp.html">pageres.cpp</a></li>
+<li>tesseract-ocr/ccstruct/<a class="el" href="pageres_8cpp_source.html">pageres.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -340,7 +392,7 @@ Public Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:11 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:45 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

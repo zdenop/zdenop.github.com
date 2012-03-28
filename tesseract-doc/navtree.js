@@ -6,9 +6,8 @@ var NAVTREE =
     ] ],
     [ "Modules", "modules.html", [
       [ "Advanced API", "group___advanced_a_p_i.html", null ],
-      [ "ocropus add-ons", "group__ocropus_add_ons.html", [
-        [ "ThresholderParams", "group___thresholder_params.html", null ]
-      ] ]
+      [ "ocropus add-ons", "group__ocropus_add_ons.html", null ],
+      [ "Thresholder Parameters", "group___thresholder_params.html", null ]
     ] ],
     [ "Class List", "annotated.html", [
       [ "_ConstTessMemberResultCallback_0_0< del, R, T >", "class___const_tess_member_result_callback__0__0.html", null ],

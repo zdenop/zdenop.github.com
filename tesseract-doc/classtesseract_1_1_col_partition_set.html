@@ -141,7 +141,10 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_col_partition_set.html#a2269c86ba6ee44b5be119493e7b2246e">AccumulateColumnWidthsAndGaps</a> (int *total_width, int *width_samples, int *total_gap, int *gap_samples)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_col_partition_set.html#a51f3aa3845b8ea00943fac4ca72e905f">Print</a> ()</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="colpartitionset_8h_source.html#l00040">40</a> of file <a class="el" href="colpartitionset_8h_source.html">colpartitionset.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a96ae4c04676ab794a249bf4c8ae9d82b"></a><!-- doxytag: member="tesseract::ColPartitionSet::ColPartitionSet" ref="a96ae4c04676ab794a249bf4c8ae9d82b" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -156,6 +159,10 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="colpartitionset_8h_source.html#l00042">42</a> of file <a class="el" href="colpartitionset_8h_source.html">colpartitionset.h</a>.</p>
+<div class="fragment"><pre class="fragment">                    {
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a56d9224144d2911b2c631c078a2d0a76"></a><!-- doxytag: member="tesseract::ColPartitionSet::ColPartitionSet" ref="a56d9224144d2911b2c631c078a2d0a76" args="(ColPartition_LIST *partitions)" -->
@@ -173,6 +180,13 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="colpartitionset_8cpp_source.html#l00033">33</a> of file <a class="el" href="colpartitionset_8cpp_source.html">colpartitionset.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                              {
+  ColPartition_IT it(&amp;parts_);
+  it.add_list_after(partitions);
+  ComputeCoverage();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9a2e5194a5ad227e5a3fa389766acc6d"></a><!-- doxytag: member="tesseract::ColPartitionSet::ColPartitionSet" ref="a9a2e5194a5ad227e5a3fa389766acc6d" args="(ColPartition *partition)" -->
@@ -190,6 +204,13 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="colpartitionset_8cpp_source.html#l00039">39</a> of file <a class="el" href="colpartitionset_8cpp_source.html">colpartitionset.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                   {
+  ColPartition_IT it(&amp;parts_);
+  it.add_after_then_move(part);
+  ComputeCoverage();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a40c51443b9abc135469fe23e7cf10f8f"></a><!-- doxytag: member="tesseract::ColPartitionSet::~ColPartitionSet" ref="a40c51443b9abc135469fe23e7cf10f8f" args="()" -->
@@ -206,6 +227,10 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="colpartitionset_8cpp_source.html#l00045">45</a> of file <a class="el" href="colpartitionset_8cpp_source.html">colpartitionset.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                  {
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -246,6 +271,22 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="colpartitionset_8cpp_source.html#l00557">557</a> of file <a class="el" href="colpartitionset_8cpp_source.html">colpartitionset.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                      {
+  ColPartition_IT it(&amp;parts_);
+  <span class="keywordflow">for</span> (it.mark_cycle_pt(); !it.cycled_list(); it.forward()) {
+    ColPartition* part = it.data();
+    *total_width += part-&gt;ColumnWidth();
+    ++*width_samples;
+    <span class="keywordflow">if</span> (!it.at_last()) {
+      ColPartition* next_part = it.data_relative(1);
+      <span class="keywordtype">int</span> gap = part-&gt;KeyWidth(part-&gt;right_key(), next_part-&gt;left_key());
+      *total_gap += gap;
+      ++*gap_samples;
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2bc71914f948cda279ea34f6d34a5cbe"></a><!-- doxytag: member="tesseract::ColPartitionSet::AddToColumnSetsIfUnique" ref="a2bc71914f948cda279ea34f6d34a5cbe" args="(PartSetVector *column_sets, WidthCallback *cb)" -->
@@ -273,6 +314,52 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="colpartitionset_8cpp_source.html#l00164">164</a> of file <a class="el" href="colpartitionset_8cpp_source.html">colpartitionset.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                 {
+  <span class="keywordtype">bool</span> debug = <a class="code" href="classtesseract_1_1_aligned_blob.html#a357ff9e1d9bac2b1d88fb0d335fa7f3e">TabFind::WithinTestRegion</a>(2, bounding_box_.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>(),
+                                         bounding_box_.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>());
+  <span class="keywordflow">if</span> (debug) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Considering new column candidate:\n&quot;</span>);
+    <a class="code" href="classtesseract_1_1_col_partition_set.html#a51f3aa3845b8ea00943fac4ca72e905f">Print</a>();
+  }
+  <span class="keywordflow">if</span> (!<a class="code" href="classtesseract_1_1_col_partition_set.html#a9d821d919ed86c9e7eafeda711c2e33d">LegalColumnCandidate</a>()) {
+    <span class="keywordflow">if</span> (debug) {
+      <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Not a legal column candidate:\n&quot;</span>);
+      <a class="code" href="classtesseract_1_1_col_partition_set.html#a51f3aa3845b8ea00943fac4ca72e905f">Print</a>();
+    }
+    <span class="keyword">delete</span> <span class="keyword">this</span>;
+    <span class="keywordflow">return</span>;
+  }
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; column_sets-&gt;size(); ++i) {
+    <a class="code" href="classtesseract_1_1_col_partition_set.html#a96ae4c04676ab794a249bf4c8ae9d82b">ColPartitionSet</a>* columns = column_sets-&gt;get(i);
+    <span class="comment">// In ordering the column set candidates, good_coverage_ is king,</span>
+    <span class="comment">// followed by good_column_count_ and then bad_coverage_.</span>
+    <span class="keywordtype">bool</span> better = good_coverage_ &gt; columns-&gt;good_coverage_;
+    <span class="keywordflow">if</span> (good_coverage_ == columns-&gt;good_coverage_) {
+      better = good_column_count_ &gt; columns-&gt;good_column_count_;
+      <span class="keywordflow">if</span> (good_column_count_ == columns-&gt;good_column_count_) {
+          better = bad_coverage_ &gt; columns-&gt;bad_coverage_;
+      }
+    }
+    <span class="keywordflow">if</span> (better) {
+      <span class="comment">// The new one is better so add it.</span>
+      <span class="keywordflow">if</span> (debug)
+        <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Good one\n&quot;</span>);
+      column_sets-&gt;insert(<span class="keyword">this</span>, i);
+      <span class="keywordflow">return</span>;
+    }
+    <span class="keywordflow">if</span> (columns-&gt;CompatibleColumns(<span class="keyword">false</span>, <span class="keyword">this</span>, cb)) {
+      <span class="keywordflow">if</span> (debug)
+        <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Duplicate\n&quot;</span>);
+      <span class="keyword">delete</span> <span class="keyword">this</span>;
+      <span class="keywordflow">return</span>;  <span class="comment">// It is not unique.</span>
+    }
+  }
+  <span class="keywordflow">if</span> (debug)
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Added to end\n&quot;</span>);
+  column_sets-&gt;push_back(<span class="keyword">this</span>);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a09c60356e320cb1c00243d3e66d09cb7"></a><!-- doxytag: member="tesseract::ColPartitionSet::bounding_box" ref="a09c60356e320cb1c00243d3e66d09cb7" args="() const " -->
@@ -289,6 +376,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="colpartitionset_8h_source.html#l00050">50</a> of file <a class="el" href="colpartitionset_8h_source.html">colpartitionset.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                   {
+    <span class="keywordflow">return</span> bounding_box_;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a77f3363ca10aa193d51e1f8f45ceb41e"></a><!-- doxytag: member="tesseract::ColPartitionSet::ChangeWorkColumns" ref="a77f3363ca10aa193d51e1f8f45ceb41e" args="(const ICOORD &amp;bleft, const ICOORD &amp;tright, int resolution, ColPartition_LIST *used_parts, WorkingPartSet_LIST *working_set)" -->
@@ -334,6 +426,74 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="colpartitionset_8cpp_source.html#l00485">485</a> of file <a class="el" href="colpartitionset_8cpp_source.html">colpartitionset.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                               {
+  <span class="comment">// Move the input list to a temporary location so we can delete its elements</span>
+  <span class="comment">// as we add them to the output working_set.</span>
+  WorkingPartSet_LIST work_src;
+  WorkingPartSet_IT src_it(&amp;work_src);
+  src_it.add_list_after(working_set_list);
+  src_it.move_to_first();
+  WorkingPartSet_IT dest_it(working_set_list);
+  <span class="comment">// Completed blocks and to_blocks are accumulated and given to the first new</span>
+  <span class="comment">// one  whenever we keep a column, or at the end.</span>
+  BLOCK_LIST completed_blocks;
+  TO_BLOCK_LIST to_blocks;
+  WorkingPartSet* first_new_set = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  WorkingPartSet* working_set = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  ColPartition_IT col_it(&amp;parts_);
+  <span class="keywordflow">for</span> (col_it.mark_cycle_pt(); !col_it.cycled_list(); col_it.forward()) {
+    ColPartition* column = col_it.data();
+    <span class="comment">// Any existing column to the left of column is completed.</span>
+    <span class="keywordflow">while</span> (!src_it.empty() &amp;&amp;
+           ((working_set = src_it.data())-&gt;column() == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> ||
+            working_set-&gt;column()-&gt;right_key() &lt;= column-&gt;left_key())) {
+      src_it.extract();
+      working_set-&gt;ExtractCompletedBlocks(bleft, tright, resolution,
+                                          used_parts, &amp;completed_blocks,
+                                          &amp;to_blocks);
+      <span class="keyword">delete</span> working_set;
+      src_it.forward();
+    }
+    <span class="comment">// Make a new between-column WorkingSet for before the current column.</span>
+    working_set = <span class="keyword">new</span> WorkingPartSet(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+    dest_it.add_after_then_move(working_set);
+    <span class="keywordflow">if</span> (first_new_set == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+      first_new_set = working_set;
+    <span class="comment">// A matching column gets to stay, and first_new_set gets all the</span>
+    <span class="comment">// completed_sets.</span>
+    working_set = src_it.empty() ? <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> : src_it.data();
+    <span class="keywordflow">if</span> (working_set != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp;
+        working_set-&gt;column()-&gt;MatchingColumns(*column)) {
+      working_set-&gt;set_column(column);
+      dest_it.add_after_then_move(src_it.extract());
+      src_it.forward();
+      first_new_set-&gt;InsertCompletedBlocks(&amp;completed_blocks, &amp;to_blocks);
+      first_new_set = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    } <span class="keywordflow">else</span> {
+      <span class="comment">// Just make a new working set for the current column.</span>
+      working_set = <span class="keyword">new</span> WorkingPartSet(column);
+      dest_it.add_after_then_move(working_set);
+    }
+  }
+  <span class="comment">// Complete any remaining src working sets.</span>
+  <span class="keywordflow">while</span> (!src_it.empty()) {
+    working_set = src_it.extract();
+    working_set-&gt;ExtractCompletedBlocks(bleft, tright, resolution,
+                                        used_parts, &amp;completed_blocks,
+                                        &amp;to_blocks);
+    <span class="keyword">delete</span> working_set;
+    src_it.forward();
+  }
+  <span class="comment">// Make a new between-column WorkingSet for after the last column.</span>
+  working_set = <span class="keyword">new</span> WorkingPartSet(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  dest_it.add_after_then_move(working_set);
+  <span class="keywordflow">if</span> (first_new_set == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    first_new_set = working_set;
+  <span class="comment">// The first_new_set now gets any accumulated completed_parts/blocks.</span>
+  first_new_set-&gt;InsertCompletedBlocks(&amp;completed_blocks, &amp;to_blocks);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9a65bec02d946f263f18aa86a186c91c"></a><!-- doxytag: member="tesseract::ColPartitionSet::ColumnContaining" ref="a9a65bec02d946f263f18aa86a186c91c" args="(int x, int y)" -->
@@ -361,6 +521,17 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="colpartitionset_8cpp_source.html#l00059">59</a> of file <a class="el" href="colpartitionset_8cpp_source.html">colpartitionset.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                            {
+  ColPartition_IT it(&amp;parts_);
+  <span class="keywordflow">for</span> (it.mark_cycle_pt(); !it.cycled_list(); it.forward()) {
+    ColPartition* part = it.data();
+    <span class="keywordflow">if</span> (part-&gt;ColumnContains(x, y))
+      <span class="keywordflow">return</span> part;
+  }
+  <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6f40d8cf38c386948d471c427decbc7d"></a><!-- doxytag: member="tesseract::ColPartitionSet::ColumnCount" ref="a6f40d8cf38c386948d471c427decbc7d" args="()" -->
@@ -377,6 +548,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="colpartitionset_8h_source.html#l00056">56</a> of file <a class="el" href="colpartitionset_8h_source.html">colpartitionset.h</a>.</p>
+<div class="fragment"><pre class="fragment">                    {
+    <span class="keywordflow">return</span> parts_.length();
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a473a52c7a5b02694be17c9864d61ada0"></a><!-- doxytag: member="tesseract::ColPartitionSet::CompatibleColumns" ref="a473a52c7a5b02694be17c9864d61ada0" args="(bool debug, ColPartitionSet *other, WidthCallback *cb)" -->
@@ -410,6 +586,86 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="colpartitionset_8cpp_source.html#l00212">212</a> of file <a class="el" href="colpartitionset_8cpp_source.html">colpartitionset.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                           {
+  <span class="keywordflow">if</span> (debug) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;CompatibleColumns testing compatibility\n&quot;</span>);
+    <a class="code" href="classtesseract_1_1_col_partition_set.html#a51f3aa3845b8ea00943fac4ca72e905f">Print</a>();
+    other-&gt;Print();
+  }
+  <span class="keywordflow">if</span> (other-&gt;parts_.empty()) {
+    <span class="keywordflow">if</span> (debug)
+      <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;CompatibleColumns true due to empty other\n&quot;</span>);
+    <span class="keywordflow">return</span> <span class="keyword">true</span>;
+  }
+  ColPartition_IT it(&amp;other-&gt;parts_);
+  <span class="keywordflow">for</span> (it.mark_cycle_pt(); !it.cycled_list(); it.forward()) {
+    ColPartition* part = it.data();
+    <span class="keywordflow">if</span> (part-&gt;blob_type() &lt; <a class="code" href="blobbox_8h.html#aebfaf711760a99b60c297d1d619df575a8a98863f18016aa4ccfd2d07dbb092a4">BRT_UNKNOWN</a>) {
+      <span class="keywordflow">if</span> (debug) {
+        <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;CompatibleColumns ignoring image partition\n&quot;</span>);
+        part-&gt;Print();
+      }
+      <span class="keywordflow">continue</span>;  <span class="comment">// Image partitions are irrelevant to column compatibility.</span>
+    }
+    <span class="keywordtype">int</span> y = part-&gt;MidY();
+    <span class="keywordtype">int</span> left = part-&gt;bounding_box().left();
+    <span class="keywordtype">int</span> right = part-&gt;bounding_box().right();
+    ColPartition* left_col = <a class="code" href="classtesseract_1_1_col_partition_set.html#a9a65bec02d946f263f18aa86a186c91c">ColumnContaining</a>(left, y);
+    ColPartition* right_col = <a class="code" href="classtesseract_1_1_col_partition_set.html#a9a65bec02d946f263f18aa86a186c91c">ColumnContaining</a>(right, y);
+    <span class="keywordflow">if</span> (right_col == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> || left_col == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      <span class="keywordflow">if</span> (debug) {
+        <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;CompatibleColumns false due to partition edge outside\n&quot;</span>);
+        part-&gt;Print();
+      }
+      <span class="keywordflow">return</span> <span class="keyword">false</span>;  <span class="comment">// A partition edge lies outside of all columns</span>
+    }
+    <span class="keywordflow">if</span> (right_col != left_col &amp;&amp; cb-&gt;Run(right - left)) {
+      <span class="keywordflow">if</span> (debug) {
+        <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;CompatibleColumns false due to good width in multiple cols\n&quot;</span>);
+        part-&gt;Print();
+      }
+      <span class="keywordflow">return</span> <span class="keyword">false</span>;  <span class="comment">// Partition with a good width must be in a single column.</span>
+    }
+
+    ColPartition_IT it2= it;
+    <span class="keywordflow">while</span> (!it2.at_last()) {
+      it2.forward();
+      ColPartition* next_part = it2.data();
+      <span class="keywordflow">if</span> (!<a class="code" href="class_b_l_o_b_n_b_o_x.html#a07444bc838d7efe7c41f8b00913447ac">BLOBNBOX::IsTextType</a>(next_part-&gt;blob_type()))
+        <span class="keywordflow">continue</span>;  <span class="comment">// Non-text partitions are irrelevant.</span>
+      <span class="keywordtype">int</span> next_left = next_part-&gt;bounding_box().left();
+      <span class="keywordflow">if</span> (next_left == right) {
+        <span class="keywordflow">break</span>;  <span class="comment">// They share the same edge, so one must be a pull-out.</span>
+      }
+      <span class="comment">// Search to see if right and next_left fall within a single column.</span>
+      ColPartition* next_left_col = <a class="code" href="classtesseract_1_1_col_partition_set.html#a9a65bec02d946f263f18aa86a186c91c">ColumnContaining</a>(next_left, y);
+      <span class="keywordflow">if</span> (right_col == next_left_col) {
+        <span class="comment">// There is a column break in this column.</span>
+        <span class="comment">// This can be due to a figure caption within a column, a pull-out</span>
+        <span class="comment">// block, or a simple broken textline that remains to be merged:</span>
+        <span class="comment">// all allowed, or a change in column layout: not allowed.</span>
+        <span class="comment">// If both partitions are of good width, then it is likely</span>
+        <span class="comment">// a change in column layout, otherwise probably an allowed situation.</span>
+        <span class="keywordflow">if</span> (part-&gt;good_width() &amp;&amp; next_part-&gt;good_width()) {
+          <span class="keywordflow">if</span> (debug) {
+            <span class="keywordtype">int</span> next_right = next_part-&gt;bounding_box().right();
+            <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;CompatibleColumns false due to 2 parts of good width\n&quot;</span>);
+            <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;part1 %d-%d, part2 %d-%d\n&quot;</span>,
+                    left, right, next_left, next_right);
+            right_col-&gt;Print();
+          }
+          <span class="keywordflow">return</span> <span class="keyword">false</span>;
+        }
+      }
+      <span class="keywordflow">break</span>;
+    }
+  }
+  <span class="keywordflow">if</span> (debug)
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;CompatibleColumns true!\n&quot;</span>);
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a99232d52ed5fd8b56f165923562a9cab"></a><!-- doxytag: member="tesseract::ColPartitionSet::Copy" ref="a99232d52ed5fd8b56f165923562a9cab" args="(bool good_only)" -->
@@ -427,6 +683,22 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="colpartitionset_8cpp_source.html#l00343">343</a> of file <a class="el" href="colpartitionset_8cpp_source.html">colpartitionset.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                     {
+  ColPartition_LIST copy_parts;
+  ColPartition_IT src_it(&amp;parts_);
+  ColPartition_IT dest_it(&amp;copy_parts);
+  <span class="keywordflow">for</span> (src_it.mark_cycle_pt(); !src_it.cycled_list(); src_it.forward()) {
+    ColPartition* part = src_it.data();
+    <span class="keywordflow">if</span> (<a class="code" href="class_b_l_o_b_n_b_o_x.html#a07444bc838d7efe7c41f8b00913447ac">BLOBNBOX::IsTextType</a>(part-&gt;blob_type()) &amp;&amp;
+        (!good_only || part-&gt;good_width() || part-&gt;good_column()))
+      dest_it.add_after_then_move(part-&gt;ShallowCopy());
+  }
+  <span class="keywordflow">if</span> (dest_it.empty())
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code" href="classtesseract_1_1_col_partition_set.html#a96ae4c04676ab794a249bf4c8ae9d82b">ColPartitionSet</a>(&amp;copy_parts);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a36859fa1a9497c3b0e52834a90d0acd5"></a><!-- doxytag: member="tesseract::ColPartitionSet::DisplayColumnEdges" ref="a36859fa1a9497c3b0e52834a90d0acd5" args="(int y_bottom, int y_top, ScrollView *win)" -->
@@ -460,6 +732,18 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="colpartitionset_8cpp_source.html#l00375">375</a> of file <a class="el" href="colpartitionset_8cpp_source.html">colpartitionset.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                          {
+<span class="preprocessor">  #ifndef GRAPHICS_DISABLED</span>
+<span class="preprocessor"></span>  ColPartition_IT it(&amp;parts_);
+  <span class="keywordflow">for</span> (it.mark_cycle_pt(); !it.cycled_list(); it.forward()) {
+    ColPartition* part = it.data();
+    win-&gt;<a class="code" href="class_scroll_view.html#a2ba16f17fc401bb28be1a08160207e45">Line</a>(part-&gt;LeftAtY(y_top), y_top, part-&gt;LeftAtY(y_bottom), y_bottom);
+    win-&gt;<a class="code" href="class_scroll_view.html#a2ba16f17fc401bb28be1a08160207e45">Line</a>(part-&gt;RightAtY(y_top), y_top, part-&gt;RightAtY(y_bottom), y_bottom);
+  }
+<span class="preprocessor">  #endif  // GRAPHICS_DISABLED</span>
+<span class="preprocessor"></span>}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a5dd02f8c69dafac5d4dd8511cddaa4f7"></a><!-- doxytag: member="tesseract::ColPartitionSet::Empty" ref="a5dd02f8c69dafac5d4dd8511cddaa4f7" args="()" -->
@@ -476,6 +760,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="colpartitionset_8h_source.html#l00053">53</a> of file <a class="el" href="colpartitionset_8h_source.html">colpartitionset.h</a>.</p>
+<div class="fragment"><pre class="fragment">               {
+    <span class="keywordflow">return</span> parts_.empty();
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae48258575cffe3725081778e493cfa04"></a><!-- doxytag: member="tesseract::ColPartitionSet::GetColumnBoxes" ref="ae48258575cffe3725081778e493cfa04" args="(int y_bottom, int y_top, ColSegment_LIST *segments)" -->
@@ -509,6 +798,21 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="colpartitionset_8cpp_source.html#l00359">359</a> of file <a class="el" href="colpartitionset_8cpp_source.html">colpartitionset.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                {
+  ColPartition_IT it(&amp;parts_);
+  ColSegment_IT col_it(segments);
+  col_it.move_to_last();
+  <span class="keywordflow">for</span> (it.mark_cycle_pt(); !it.cycled_list(); it.forward()) {
+    ColPartition* part = it.data();
+    <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> bot_left(part-&gt;LeftAtY(y_top), y_bottom);
+    <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> top_right(part-&gt;RightAtY(y_bottom), y_top);
+    ColSegment *col_seg = <span class="keyword">new</span> ColSegment();
+    col_seg-&gt;InsertBox(<a class="code" href="class_t_b_o_x.html">TBOX</a>(bot_left, top_right));
+    col_it.add_after_then_move(col_seg);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4e4928726f63e6d53e67dc82007703e1"></a><!-- doxytag: member="tesseract::ColPartitionSet::GetColumnByIndex" ref="a4e4928726f63e6d53e67dc82007703e1" args="(int index)" -->
@@ -526,6 +830,16 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="colpartitionset_8cpp_source.html#l00049">49</a> of file <a class="el" href="colpartitionset_8cpp_source.html">colpartitionset.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                         {
+  ColPartition_IT it(&amp;parts_);
+  it.mark_cycle_pt();
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; index &amp;&amp; !it.cycled_list(); ++i, it.forward());
+  <span class="keywordflow">if</span> (it.cycled_list())
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordflow">return</span> it.data();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a772763e56afc044cc330bae623bc117a"></a><!-- doxytag: member="tesseract::ColPartitionSet::ImproveColumnCandidate" ref="a772763e56afc044cc330bae623bc117a" args="(WidthCallback *cb, PartSetVector *src_sets)" -->
@@ -553,6 +867,89 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="colpartitionset_8cpp_source.html#l00079">79</a> of file <a class="el" href="colpartitionset_8cpp_source.html">colpartitionset.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                      {
+  <span class="keywordtype">int</span> set_size = src_sets-&gt;size();
+  <span class="comment">// Iterate over the provided column sets, as each one may have something</span>
+  <span class="comment">// to improve this.</span>
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; set_size; ++i) {
+    <a class="code" href="classtesseract_1_1_col_partition_set.html#a96ae4c04676ab794a249bf4c8ae9d82b">ColPartitionSet</a>* column_set = src_sets-&gt;get(i);
+    <span class="keywordflow">if</span> (column_set == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+      <span class="keywordflow">continue</span>;
+    <span class="comment">// Iterate over the parts in this and column_set, adding bigger or</span>
+    <span class="comment">// new parts in column_set to this.</span>
+    ColPartition_IT part_it(&amp;parts_);
+    <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(!part_it.empty());
+    <span class="keywordtype">int</span> prev_right = <a class="code" href="host_8h.html#ae6f88d5bb15e97510f484289f2fc89fd">MIN_INT32</a>;
+    part_it.mark_cycle_pt();
+    ColPartition_IT col_it(&amp;column_set-&gt;parts_);
+    <span class="keywordflow">for</span> (col_it.mark_cycle_pt(); !col_it.cycled_list(); col_it.forward()) {
+      ColPartition* col_part = col_it.data();
+      <span class="keywordflow">if</span> (col_part-&gt;blob_type() &lt; <a class="code" href="blobbox_8h.html#aebfaf711760a99b60c297d1d619df575a8a98863f18016aa4ccfd2d07dbb092a4">BRT_UNKNOWN</a>)
+        <span class="keywordflow">continue</span>;  <span class="comment">// Ignore image partitions.</span>
+      <span class="keywordtype">int</span> col_left = col_part-&gt;left_key();
+      <span class="keywordtype">int</span> col_right = col_part-&gt;right_key();
+      <span class="comment">// Sync-up part_it (in this) so it matches the col_part in column_set.</span>
+      ColPartition* part = part_it.data();
+      <span class="keywordflow">while</span> (!part_it.at_last() &amp;&amp; part-&gt;right_key() &lt; col_left) {
+        prev_right = part-&gt;right_key();
+        part_it.forward();
+        part = part_it.data();
+      }
+      <span class="keywordtype">int</span> part_left = part-&gt;left_key();
+      <span class="keywordtype">int</span> part_right = part-&gt;right_key();
+      <span class="keywordflow">if</span> (part_right &lt; col_left || col_right &lt; part_left) {
+        <span class="comment">// There is no overlap so this is a new partition.</span>
+        AddPartition(col_part-&gt;ShallowCopy(), &amp;part_it);
+        <span class="keywordflow">continue</span>;
+      }
+      <span class="comment">// Check the edges of col_part to see if they can improve part.</span>
+      <span class="keywordtype">bool</span> part_width_ok = cb-&gt;Run(part-&gt;KeyWidth(part_left, part_right));
+      <span class="keywordflow">if</span> (col_left &lt; part_left &amp;&amp; col_left &gt; prev_right) {
+        <span class="comment">// The left edge of the column is better and it doesn&#39;t overlap,</span>
+        <span class="comment">// so we can potentially expand it.</span>
+        <span class="keywordtype">int</span> col_box_left = col_part-&gt;BoxLeftKey();
+        <span class="keywordtype">bool</span> tab_width_ok = cb-&gt;Run(part-&gt;KeyWidth(col_left, part_right));
+        <span class="keywordtype">bool</span> box_width_ok = cb-&gt;Run(part-&gt;KeyWidth(col_box_left, part_right));
+        <span class="keywordflow">if</span> (tab_width_ok || (!part_width_ok )) {
+          <span class="comment">// The tab is leaving the good column metric at least as good as</span>
+          <span class="comment">// it was before, so use the tab.</span>
+          part-&gt;CopyLeftTab(*col_part, <span class="keyword">false</span>);
+          part-&gt;SetColumnGoodness(cb);
+        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (col_box_left &lt; part_left &amp;&amp;
+                   (box_width_ok || !part_width_ok)) {
+          <span class="comment">// The box is leaving the good column metric at least as good as</span>
+          <span class="comment">// it was before, so use the box.</span>
+          part-&gt;CopyLeftTab(*col_part, <span class="keyword">true</span>);
+          part-&gt;SetColumnGoodness(cb);
+        }
+        part_left = part-&gt;left_key();
+      }
+      <span class="keywordflow">if</span> (col_right &gt; part_right &amp;&amp;
+          (part_it.at_last() ||
+           part_it.data_relative(1)-&gt;left_key() &gt; col_right)) {
+        <span class="comment">// The right edge is better, so we can possibly expand it.</span>
+        <span class="keywordtype">int</span> col_box_right = col_part-&gt;BoxRightKey();
+        <span class="keywordtype">bool</span> tab_width_ok = cb-&gt;Run(part-&gt;KeyWidth(part_left, col_right));
+        <span class="keywordtype">bool</span> box_width_ok = cb-&gt;Run(part-&gt;KeyWidth(part_left, col_box_right));
+        <span class="keywordflow">if</span> (tab_width_ok || (!part_width_ok )) {
+          <span class="comment">// The tab is leaving the good column metric at least as good as</span>
+          <span class="comment">// it was before, so use the tab.</span>
+          part-&gt;CopyRightTab(*col_part, <span class="keyword">false</span>);
+          part-&gt;SetColumnGoodness(cb);
+        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (col_box_right &gt; part_right &amp;&amp;
+                   (box_width_ok || !part_width_ok)) {
+          <span class="comment">// The box is leaving the good column metric at least as good as</span>
+          <span class="comment">// it was before, so use the box.</span>
+          part-&gt;CopyRightTab(*col_part, <span class="keyword">true</span>);
+          part-&gt;SetColumnGoodness(cb);
+        }
+      }
+    }
+  }
+  ComputeCoverage();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9d821d919ed86c9e7eafeda711c2e33d"></a><!-- doxytag: member="tesseract::ColPartitionSet::LegalColumnCandidate" ref="a9d821d919ed86c9e7eafeda711c2e33d" args="()" -->
@@ -569,6 +966,29 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="colpartitionset_8cpp_source.html#l00320">320</a> of file <a class="el" href="colpartitionset_8cpp_source.html">colpartitionset.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                           {
+  ColPartition_IT it(&amp;parts_);
+  <span class="keywordflow">if</span> (it.empty())
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordtype">bool</span> any_text_parts = <span class="keyword">false</span>;
+  <span class="keywordflow">for</span> (it.mark_cycle_pt(); !it.cycled_list(); it.forward()) {
+    ColPartition* part = it.data();
+    <span class="keywordflow">if</span> (<a class="code" href="class_b_l_o_b_n_b_o_x.html#a07444bc838d7efe7c41f8b00913447ac">BLOBNBOX::IsTextType</a>(part-&gt;blob_type())) {
+      <span class="keywordflow">if</span> (!part-&gt;IsLegal())
+        <span class="keywordflow">return</span> <span class="keyword">false</span>;  <span class="comment">// Individual partition is illegal.</span>
+      any_text_parts = <span class="keyword">true</span>;
+    }
+    <span class="keywordflow">if</span> (!it.at_last()) {
+      ColPartition* next_part = it.data_relative(1);
+      <span class="keywordflow">if</span> (next_part-&gt;left_key() &lt; part-&gt;right_key()) {
+        <span class="keywordflow">return</span> <span class="keyword">false</span>;
+      }
+    }
+  }
+  <span class="keywordflow">return</span> any_text_parts;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a51f3aa3845b8ea00943fac4ca72e905f"></a><!-- doxytag: member="tesseract::ColPartitionSet::Print" ref="a51f3aa3845b8ea00943fac4ca72e905f" args="()" -->
@@ -585,6 +1005,20 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="colpartitionset_8cpp_source.html#l00576">576</a> of file <a class="el" href="colpartitionset_8cpp_source.html">colpartitionset.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                            {
+  ColPartition_IT it(&amp;parts_);
+  <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Partition set of %d parts, %d good, coverage=%d+%d&quot;</span>
+          <span class="stringliteral">&quot; (%d,%d)-&gt;(%d,%d)\n&quot;</span>,
+          it.length(), good_column_count_, good_coverage_, bad_coverage_,
+          bounding_box_.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>(), bounding_box_.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>(),
+          bounding_box_.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>(), bounding_box_.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>());
+  <span class="keywordflow">for</span> (it.mark_cycle_pt(); !it.cycled_list(); it.forward()) {
+    ColPartition* part = it.data();
+    part-&gt;Print();
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae221122d16d0eb0233029e524de378d6"></a><!-- doxytag: member="tesseract::ColPartitionSet::RelinquishParts" ref="ae221122d16d0eb0233029e524de378d6" args="()" -->
@@ -601,6 +1035,15 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="colpartitionset_8cpp_source.html#l00070">70</a> of file <a class="el" href="colpartitionset_8cpp_source.html">colpartitionset.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                      {
+  ColPartition_IT it(&amp;parts_);
+  <span class="keywordflow">while</span> (!it.empty()) {
+    it.extract();
+    it.forward();
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a71afe4ff3ef968e65fb729c7a1a1fd0c"></a><!-- doxytag: member="tesseract::ColPartitionSet::SpanningType" ref="a71afe4ff3ef968e65fb729c7a1a1fd0c" args="(int resolution, int left, int right, int y, int left_margin, int right_margin, int *first_col, int *last_col, int *first_spanned_col)" -->
@@ -670,6 +1113,88 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="colpartitionset_8cpp_source.html#l00394">394</a> of file <a class="el" href="colpartitionset_8cpp_source.html">colpartitionset.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                         {
+  *first_col = -1;
+  *last_col = -1;
+  *first_spanned_col = -1;
+  <span class="keywordtype">int</span> margin_columns = 0;
+  ColPartition_IT it(&amp;parts_);
+  <span class="keywordtype">int</span> col_index = 1;
+  <span class="keywordflow">for</span> (it.mark_cycle_pt(); !it.cycled_list(); it.forward(), col_index += 2) {
+    ColPartition* part = it.data();
+    <span class="keywordflow">if</span> (part-&gt;ColumnContains(left, y)) {
+      <span class="comment">// In the default case, first_col is set, but columns_spanned remains</span>
+      <span class="comment">// zero, so first_col will get reset in the first column genuinely</span>
+      <span class="comment">// spanned, but we can tell the difference from a noise partition</span>
+      <span class="comment">// that touches no column.</span>
+      *first_col = col_index;
+      <span class="keywordflow">if</span> (part-&gt;ColumnContains(right, y)) {
+        <span class="comment">// Both within a single column.</span>
+        *last_col = col_index;
+        <span class="keywordflow">return</span> <a class="code" href="namespacetesseract.html#a1c442f32007891bd4ea6e885b34cc06aa53dd9af51c333b786fe51bd5f01543d6">CST_FLOWING</a>;
+      }
+      <span class="keywordflow">if</span> (left_margin &lt;= part-&gt;LeftAtY(y)) {
+        <span class="comment">// It completely spans this column.</span>
+        *first_spanned_col = col_index;
+        margin_columns = 1;
+      }
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (part-&gt;ColumnContains(right, y)) {
+      <span class="keywordflow">if</span> (*first_col &lt; 0) {
+        <span class="comment">// It started in-between.</span>
+        *first_col = col_index - 1;
+      }
+      <span class="keywordflow">if</span> (right_margin &gt;= part-&gt;RightAtY(y)) {
+        <span class="comment">// It completely spans this column.</span>
+        <span class="keywordflow">if</span> (margin_columns == 0)
+          *first_spanned_col = col_index;
+        ++margin_columns;
+      }
+      *last_col = col_index;
+      <span class="keywordflow">break</span>;
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (left &lt; part-&gt;LeftAtY(y) &amp;&amp; right &gt; part-&gt;RightAtY(y)) {
+      <span class="comment">// Neither left nor right are contained within, so it spans this</span>
+      <span class="comment">// column.</span>
+      <span class="keywordflow">if</span> (*first_col &lt; 0) {
+        <span class="comment">// It started in between the previous column and the current column.</span>
+        *first_col = col_index - 1;
+      }
+      <span class="keywordflow">if</span> (margin_columns == 0)
+        *first_spanned_col = col_index;
+      *last_col = col_index;
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (right &lt; part-&gt;LeftAtY(y)) {
+      <span class="comment">// We have gone past the end.</span>
+      *last_col = col_index - 1;
+      <span class="keywordflow">if</span> (*first_col &lt; 0) {
+        <span class="comment">// It must lie completely between columns =&gt;noise.</span>
+        *first_col = col_index - 1;
+      }
+      <span class="keywordflow">break</span>;
+    }
+  }
+  <span class="keywordflow">if</span> (*first_col &lt; 0)
+    *first_col = col_index - 1;  <span class="comment">// The last in-between.</span>
+  <span class="keywordflow">if</span> (*last_col &lt; 0)
+    *last_col = col_index - 1;  <span class="comment">// The last in-between.</span>
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(*first_col &gt;= 0 &amp;&amp; *last_col &gt;= 0);
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(*first_col &lt;= *last_col);
+  <span class="keywordflow">if</span> (*first_col == *last_col &amp;&amp; right - left &lt; <a class="code" href="namespacetesseract.html#aa5d3fda875a0c1990a5e99213d6dc942">kMinColumnWidth</a> * resolution) {
+    <span class="comment">// Neither end was in a column, and it didn&#39;t span any, so it lies</span>
+    <span class="comment">// entirely between columns, therefore noise.</span>
+    <span class="keywordflow">return</span> <a class="code" href="namespacetesseract.html#a1c442f32007891bd4ea6e885b34cc06aad17bb659c6735f37306a6161f4013416">CST_NOISE</a>;
+  } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (margin_columns &lt;= 1) {
+    <span class="comment">// An exception for headings that stick outside of single-column text.</span>
+    <span class="keywordflow">if</span> (margin_columns == 1 &amp;&amp; parts_.singleton()) {
+      <span class="keywordflow">return</span> <a class="code" href="namespacetesseract.html#a1c442f32007891bd4ea6e885b34cc06aacf3616b52ca15a43ddfd40b9c91c9cd5">CST_HEADING</a>;
+    }
+    <span class="comment">// It is a pullout, as left and right were not in the same column, but</span>
+    <span class="comment">// it doesn&#39;t go to the edge of its start and end.</span>
+    <span class="keywordflow">return</span> <a class="code" href="namespacetesseract.html#a1c442f32007891bd4ea6e885b34cc06aa8c1a2f43d95cbf09416204e1f5e04163">CST_PULLOUT</a>;
+  }
+  <span class="comment">// Its margins went to the edges of first and last columns =&gt; heading.</span>
+  <span class="keywordflow">return</span> <a class="code" href="namespacetesseract.html#a1c442f32007891bd4ea6e885b34cc06aacf3616b52ca15a43ddfd40b9c91c9cd5">CST_HEADING</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae2ac889a0a2b3d8297a7c52667f5d6f4"></a><!-- doxytag: member="tesseract::ColPartitionSet::UnmatchedWidth" ref="ae2ac889a0a2b3d8297a7c52667f5d6f4" args="(ColPartitionSet *part_set)" -->
@@ -687,11 +1212,35 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="colpartitionset_8cpp_source.html#l00295">295</a> of file <a class="el" href="colpartitionset_8cpp_source.html">colpartitionset.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                             {
+  <span class="keywordtype">int</span> total_width = 0;
+  ColPartition_IT it(&amp;part_set-&gt;parts_);
+  <span class="keywordflow">for</span> (it.mark_cycle_pt(); !it.cycled_list(); it.forward()) {
+    ColPartition* part = it.data();
+    <span class="keywordflow">if</span> (!<a class="code" href="class_b_l_o_b_n_b_o_x.html#a07444bc838d7efe7c41f8b00913447ac">BLOBNBOX::IsTextType</a>(part-&gt;blob_type())) {
+      <span class="keywordflow">continue</span>;  <span class="comment">// Non-text partitions are irrelevant to column compatibility.</span>
+    }
+    <span class="keywordtype">int</span> y = part-&gt;MidY();
+    BLOBNBOX_C_IT box_it(part-&gt;boxes());
+    <span class="keywordflow">for</span> (box_it.mark_cycle_pt(); !box_it.cycled_list(); box_it.forward()) {
+      <span class="keyword">const</span> <a class="code" href="class_t_b_o_x.html">TBOX</a>&amp; box = it.data()-&gt;bounding_box();
+      <span class="comment">// Assume that the whole blob is outside any column iff its x-middle</span>
+      <span class="comment">// is outside.</span>
+      <span class="keywordtype">int</span> x = (box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>() + box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>()) / 2;
+      ColPartition* col = <a class="code" href="classtesseract_1_1_col_partition_set.html#a9a65bec02d946f263f18aa86a186c91c">ColumnContaining</a>(x, y);
+      <span class="keywordflow">if</span> (col == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+        total_width += box.<a class="code" href="class_t_b_o_x.html#af95494a2ccacc70cc2b83820b2948619">width</a>();
+    }
+  }
+  <span class="keywordflow">return</span> total_width;
+}
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/textord/<a class="el" href="colpartitionset_8h_source.html">colpartitionset.h</a></li>
-<li>tesseract-ocr/textord/<a class="el" href="colpartitionset_8cpp.html">colpartitionset.cpp</a></li>
+<li>tesseract-ocr/textord/<a class="el" href="colpartitionset_8cpp_source.html">colpartitionset.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -714,7 +1263,7 @@ Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:17 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:53 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

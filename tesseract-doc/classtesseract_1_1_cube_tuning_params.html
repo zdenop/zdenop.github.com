@@ -131,7 +131,10 @@ Public Member Functions</h2></td></tr>
 Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classtesseract_1_1_cube_tuning_params.html">CubeTuningParams</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_cube_tuning_params.html#aa636ca504579130bf09e203361a3ff47">Create</a> (const string &amp;data_file, const string &amp;lang)</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="cube__tuning__params_8h_source.html#l00031">31</a> of file <a class="el" href="cube__tuning__params_8h_source.html">cube_tuning_params.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a80c805ffe08d9255fe3f567a1ded9791"></a><!-- doxytag: member="tesseract::CubeTuningParams::CubeTuningParams" ref="a80c805ffe08d9255fe3f567a1ded9791" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -146,6 +149,29 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__tuning__params_8cpp_source.html#l00027">27</a> of file <a class="el" href="cube__tuning__params_8cpp_source.html">cube_tuning_params.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                   {
+  <a class="code" href="classtesseract_1_1_tuning_params.html#ab229bbf707022cace4517db9d036d499">reco_wgt_</a> = 1.0;
+  <a class="code" href="classtesseract_1_1_tuning_params.html#ac75248f72bdad2baa235e8ec9f7df0a0">size_wgt_</a> = 1.0;
+  <a class="code" href="classtesseract_1_1_tuning_params.html#a669dc45f5309f38c5a8be98fc9766eec">char_bigrams_wgt_</a> = 1.0;
+  <a class="code" href="classtesseract_1_1_tuning_params.html#a1a7dbc05624b980f088f2a6fed9a9d1b">word_unigrams_wgt_</a> = 0.0;
+  <a class="code" href="classtesseract_1_1_tuning_params.html#a606d1d14c2b7c6f0478ad92adc921b61">max_seg_per_char_</a> = 8;
+  <a class="code" href="classtesseract_1_1_tuning_params.html#a01257c28f61300c7ef1a29bbd80b817e">beam_width_</a> = 32;
+  <a class="code" href="classtesseract_1_1_tuning_params.html#ac029b6f08d241e309a861e2e970809b3">tp_classifier_</a> = <a class="code" href="classtesseract_1_1_tuning_params.html#a4404799ff32c49a0307a47694bf2f94ba6e409d826f36c9474ea023130f02a232">NN</a>;
+  <a class="code" href="classtesseract_1_1_tuning_params.html#a625fb6f3eb1dbab3f1985503046245d0">tp_feat_</a> = <a class="code" href="classtesseract_1_1_tuning_params.html#a2b1c025469e919800e21ac36d852b699a77a5e6adc522d14daee68de8385a3b8f">BMP</a>;
+  <a class="code" href="classtesseract_1_1_tuning_params.html#ad96f57d9c80e0d538ec8fed1bc91055c">conv_grid_size_</a> = 32;
+  <a class="code" href="classtesseract_1_1_tuning_params.html#aec68d6f0467185de5c759e41822e6f1a">hist_wind_wid_</a> = 0;
+  <a class="code" href="classtesseract_1_1_tuning_params.html#ad03b466658f7cb6ac4225c2a2601699f">max_word_aspect_ratio_</a> = 10.0;
+  <a class="code" href="classtesseract_1_1_tuning_params.html#ac625293da7991548ea725ea903e29f82">min_space_height_ratio_</a> = 0.2;
+  <a class="code" href="classtesseract_1_1_tuning_params.html#aae3f14d6dcf443f0a4ff063f0bff89c2">max_space_height_ratio_</a> = 0.3;
+  <a class="code" href="classtesseract_1_1_tuning_params.html#ab49559612d8893fe182c66de08e9fa28">min_con_comp_size_</a> = 0;
+  <a class="code" href="classtesseract_1_1_tuning_params.html#a064ead05d47ac926d01aaa231bdfee00">combiner_run_thresh_</a> = 1.0;
+  <a class="code" href="classtesseract_1_1_tuning_params.html#a3f162ede8be31236c53dcce512da5394">combiner_classifier_thresh_</a> = 0.5;
+  ood_wgt_ = 1.0;
+  num_wgt_ = 1.0;
+
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a67fb0fc980129f14bd014ad0e4a5d1df"></a><!-- doxytag: member="tesseract::CubeTuningParams::~CubeTuningParams" ref="a67fb0fc980129f14bd014ad0e4a5d1df" args="()" -->
@@ -162,6 +188,10 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__tuning__params_8cpp_source.html#l00049">49</a> of file <a class="el" href="cube__tuning__params_8cpp_source.html">cube_tuning_params.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                    {
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -190,6 +220,29 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__tuning__params_8cpp_source.html#l00054">54</a> of file <a class="el" href="cube__tuning__params_8cpp_source.html">cube_tuning_params.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                               {
+  <a class="code" href="classtesseract_1_1_cube_tuning_params.html#a80c805ffe08d9255fe3f567a1ded9791">CubeTuningParams</a> *obj = <span class="keyword">new</span> <a class="code" href="classtesseract_1_1_cube_tuning_params.html#a80c805ffe08d9255fe3f567a1ded9791">CubeTuningParams</a>();
+  <span class="keywordflow">if</span> (!obj) {
+    fprintf(stderr, <span class="stringliteral">&quot;Cube ERROR (CubeTuningParams::Create): unable to &quot;</span>
+            <span class="stringliteral">&quot;allocate new tuning params object\n&quot;</span>);
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="keywordtype">string</span> tuning_params_file;
+  tuning_params_file = data_file_path + lang;
+  tuning_params_file += <span class="stringliteral">&quot;.cube.params&quot;</span>;
+
+  <span class="keywordflow">if</span> (!obj-&gt;Load(tuning_params_file)) {
+    fprintf(stderr, <span class="stringliteral">&quot;Cube ERROR (CubeTuningParams::Create): unable to &quot;</span>
+            <span class="stringliteral">&quot;load tuning parameters from %s\n&quot;</span>, tuning_params_file.c_str());
+    <span class="keyword">delete</span> obj;
+    obj = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="keywordflow">return</span> obj;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3198aaa8d178661bf353836045abde7e"></a><!-- doxytag: member="tesseract::CubeTuningParams::Load" ref="a3198aaa8d178661bf353836045abde7e" args="(string file_name)" -->
@@ -209,6 +262,117 @@ Static Public Member Functions</h2></td></tr>
 
 <p>Implements <a class="el" href="classtesseract_1_1_tuning_params.html#a6dac140d3f6d043d7fa3f5c442094b95">tesseract::TuningParams</a>.</p>
 
+<p>Definition at line <a class="el" href="cube__tuning__params_8cpp_source.html#l00078">78</a> of file <a class="el" href="cube__tuning__params_8cpp_source.html">cube_tuning_params.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                     {
+  <span class="comment">// load the string into memory</span>
+  <span class="keywordtype">string</span> param_str;
+
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_cube_utils.html#ac5c5bf284cd96f78f62f19938bec750a">CubeUtils::ReadFileToString</a>(tuning_params_file, &amp;param_str) == <span class="keyword">false</span>) {
+    fprintf(stderr, <span class="stringliteral">&quot;Cube ERROR (CubeTuningParams::Load): unable to read &quot;</span>
+            <span class="stringliteral">&quot;file %s\n&quot;</span>, tuning_params_file.c_str());
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+
+  <span class="comment">// split into lines</span>
+  vector&lt;string&gt; str_vec;
+  <a class="code" href="classtesseract_1_1_cube_utils.html#af7dea4521db1e7099c93606d0f5bf4a4">CubeUtils::SplitStringUsing</a>(param_str, <span class="stringliteral">&quot;\r\n&quot;</span>, &amp;str_vec);
+  <span class="keywordflow">if</span> (str_vec.size() &lt; 8) {
+    fprintf(stderr, <span class="stringliteral">&quot;Cube ERROR (CubeTuningParams::Load): number of rows &quot;</span>
+            <span class="stringliteral">&quot;in parameter file is too low\n&quot;</span>);
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+
+  <span class="comment">// for all entries</span>
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> entry = 0; entry &lt; str_vec.size(); entry++) {
+    <span class="comment">// tokenize</span>
+    vector&lt;string&gt; str_tok;
+
+    <span class="comment">// should be only two tokens</span>
+    <a class="code" href="classtesseract_1_1_cube_utils.html#af7dea4521db1e7099c93606d0f5bf4a4">CubeUtils::SplitStringUsing</a>(str_vec[entry], <span class="stringliteral">&quot;=&quot;</span>, &amp;str_tok);
+    <span class="keywordflow">if</span> (str_tok.size() != 2) {
+      fprintf(stderr, <span class="stringliteral">&quot;Cube ERROR (CubeTuningParams::Load): invalid format in &quot;</span>
+              <span class="stringliteral">&quot;line: %s.\n&quot;</span>, str_vec[entry].c_str());
+      <span class="keywordflow">return</span> <span class="keyword">false</span>;
+    }
+
+    <span class="keywordtype">double</span> val = 0;
+    <span class="keywordtype">char</span> peekchar = (str_tok[1].c_str())[0];
+    <span class="keywordflow">if</span> ((peekchar &gt;= <span class="charliteral">&#39;0&#39;</span> &amp;&amp; peekchar &lt;= <span class="charliteral">&#39;9&#39;</span>) ||
+         peekchar == <span class="charliteral">&#39;-&#39;</span> || peekchar == <span class="charliteral">&#39;+&#39;</span> ||
+         peekchar == <span class="charliteral">&#39;.&#39;</span>) {
+      <span class="comment">// read the value</span>
+      <span class="keywordflow">if</span> (sscanf(str_tok[1].c_str(), <span class="stringliteral">&quot;%lf&quot;</span>, &amp;val) != 1) {
+        fprintf(stderr, <span class="stringliteral">&quot;Cube ERROR (CubeTuningParams::Load): invalid format &quot;</span>
+                <span class="stringliteral">&quot;in line: %s.\n&quot;</span>, str_vec[entry].c_str());
+        <span class="keywordflow">return</span> <span class="keyword">false</span>;
+      }
+    }
+
+    <span class="comment">// token type</span>
+    <span class="keywordflow">if</span> (str_tok[0] == <span class="stringliteral">&quot;RecoWgt&quot;</span>) {
+      <a class="code" href="classtesseract_1_1_tuning_params.html#ab229bbf707022cace4517db9d036d499">reco_wgt_</a> = val;
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (str_tok[0] == <span class="stringliteral">&quot;SizeWgt&quot;</span>) {
+      <a class="code" href="classtesseract_1_1_tuning_params.html#ac75248f72bdad2baa235e8ec9f7df0a0">size_wgt_</a> = val;
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (str_tok[0] == <span class="stringliteral">&quot;CharBigramsWgt&quot;</span>) {
+      <a class="code" href="classtesseract_1_1_tuning_params.html#a669dc45f5309f38c5a8be98fc9766eec">char_bigrams_wgt_</a> = val;
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (str_tok[0] == <span class="stringliteral">&quot;WordUnigramsWgt&quot;</span>) {
+      <a class="code" href="classtesseract_1_1_tuning_params.html#a1a7dbc05624b980f088f2a6fed9a9d1b">word_unigrams_wgt_</a> = val;
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (str_tok[0] == <span class="stringliteral">&quot;MaxSegPerChar&quot;</span>) {
+      <a class="code" href="classtesseract_1_1_tuning_params.html#a606d1d14c2b7c6f0478ad92adc921b61">max_seg_per_char_</a> = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(val);
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (str_tok[0] == <span class="stringliteral">&quot;BeamWidth&quot;</span>) {
+      <a class="code" href="classtesseract_1_1_tuning_params.html#a01257c28f61300c7ef1a29bbd80b817e">beam_width_</a> = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(val);
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (str_tok[0] == <span class="stringliteral">&quot;Classifier&quot;</span>) {
+      <span class="keywordflow">if</span> (str_tok[1] == <span class="stringliteral">&quot;NN&quot;</span>) {
+        <a class="code" href="classtesseract_1_1_tuning_params.html#ac029b6f08d241e309a861e2e970809b3">tp_classifier_</a> = <a class="code" href="classtesseract_1_1_tuning_params.html#a4404799ff32c49a0307a47694bf2f94ba6e409d826f36c9474ea023130f02a232">TuningParams::NN</a>;
+      } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (str_tok[1] == <span class="stringliteral">&quot;HYBRID_NN&quot;</span>) {
+        <a class="code" href="classtesseract_1_1_tuning_params.html#ac029b6f08d241e309a861e2e970809b3">tp_classifier_</a> = <a class="code" href="classtesseract_1_1_tuning_params.html#a4404799ff32c49a0307a47694bf2f94ba39ea8e61fbe13d025554076247e9ff3c">TuningParams::HYBRID_NN</a>;
+      } <span class="keywordflow">else</span> {
+        fprintf(stderr, <span class="stringliteral">&quot;Cube ERROR (CubeTuningParams::Load): invalid &quot;</span>
+                <span class="stringliteral">&quot;classifier type in line: %s.\n&quot;</span>, str_vec[entry].c_str());
+        <span class="keywordflow">return</span> <span class="keyword">false</span>;
+      }
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (str_tok[0] == <span class="stringliteral">&quot;FeatureType&quot;</span>) {
+      <span class="keywordflow">if</span> (str_tok[1] == <span class="stringliteral">&quot;BMP&quot;</span>) {
+        <a class="code" href="classtesseract_1_1_tuning_params.html#a625fb6f3eb1dbab3f1985503046245d0">tp_feat_</a> = <a class="code" href="classtesseract_1_1_tuning_params.html#a2b1c025469e919800e21ac36d852b699a77a5e6adc522d14daee68de8385a3b8f">TuningParams::BMP</a>;
+      } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (str_tok[1] == <span class="stringliteral">&quot;CHEBYSHEV&quot;</span>) {
+        <a class="code" href="classtesseract_1_1_tuning_params.html#a625fb6f3eb1dbab3f1985503046245d0">tp_feat_</a> = <a class="code" href="classtesseract_1_1_tuning_params.html#a2b1c025469e919800e21ac36d852b699adb6668fd25628268552f4a6ebf81e47c">TuningParams::CHEBYSHEV</a>;
+      } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (str_tok[1] == <span class="stringliteral">&quot;HYBRID&quot;</span>) {
+        <a class="code" href="classtesseract_1_1_tuning_params.html#a625fb6f3eb1dbab3f1985503046245d0">tp_feat_</a> = <a class="code" href="classtesseract_1_1_tuning_params.html#a2b1c025469e919800e21ac36d852b699aec577e154f491c89dc750f02f51cfa08">TuningParams::HYBRID</a>;
+      } <span class="keywordflow">else</span> {
+        fprintf(stderr, <span class="stringliteral">&quot;Cube ERROR (CubeTuningParams::Load): invalid feature &quot;</span>
+                <span class="stringliteral">&quot;type in line: %s.\n&quot;</span>, str_vec[entry].c_str());
+        <span class="keywordflow">return</span> <span class="keyword">false</span>;
+      }
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (str_tok[0] == <span class="stringliteral">&quot;ConvGridSize&quot;</span>) {
+      <a class="code" href="classtesseract_1_1_tuning_params.html#ad96f57d9c80e0d538ec8fed1bc91055c">conv_grid_size_</a> = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(val);
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (str_tok[0] == <span class="stringliteral">&quot;HistWindWid&quot;</span>) {
+      <a class="code" href="classtesseract_1_1_tuning_params.html#aec68d6f0467185de5c759e41822e6f1a">hist_wind_wid_</a> = val;
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (str_tok[0] == <span class="stringliteral">&quot;MinConCompSize&quot;</span>) {
+      <a class="code" href="classtesseract_1_1_tuning_params.html#ab49559612d8893fe182c66de08e9fa28">min_con_comp_size_</a> = val;
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (str_tok[0] == <span class="stringliteral">&quot;MaxWordAspectRatio&quot;</span>) {
+      <a class="code" href="classtesseract_1_1_tuning_params.html#ad03b466658f7cb6ac4225c2a2601699f">max_word_aspect_ratio_</a> = val;
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (str_tok[0] == <span class="stringliteral">&quot;MinSpaceHeightRatio&quot;</span>) {
+      <a class="code" href="classtesseract_1_1_tuning_params.html#ac625293da7991548ea725ea903e29f82">min_space_height_ratio_</a> = val;
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (str_tok[0] == <span class="stringliteral">&quot;MaxSpaceHeightRatio&quot;</span>) {
+      <a class="code" href="classtesseract_1_1_tuning_params.html#aae3f14d6dcf443f0a4ff063f0bff89c2">max_space_height_ratio_</a> = val;
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (str_tok[0] == <span class="stringliteral">&quot;CombinerRunThresh&quot;</span>) {
+      <a class="code" href="classtesseract_1_1_tuning_params.html#a064ead05d47ac926d01aaa231bdfee00">combiner_run_thresh_</a> = val;
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (str_tok[0] == <span class="stringliteral">&quot;CombinerClassifierThresh&quot;</span>) {
+      <a class="code" href="classtesseract_1_1_tuning_params.html#a3f162ede8be31236c53dcce512da5394">combiner_classifier_thresh_</a> = val;
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (str_tok[0] == <span class="stringliteral">&quot;OODWgt&quot;</span>) {
+      ood_wgt_ = val;
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (str_tok[0] == <span class="stringliteral">&quot;NumWgt&quot;</span>) {
+      num_wgt_ = val;
+    } <span class="keywordflow">else</span> {
+      fprintf(stderr, <span class="stringliteral">&quot;Cube ERROR (CubeTuningParams::Load): unknown parameter &quot;</span>
+              <span class="stringliteral">&quot;in line: %s.\n&quot;</span>, str_vec[entry].c_str());
+      <span class="keywordflow">return</span> <span class="keyword">false</span>;
+    }
+  }
+
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ace2e41404c2fe2500ef7a0609dcc9d83"></a><!-- doxytag: member="tesseract::CubeTuningParams::NumWgt" ref="ace2e41404c2fe2500ef7a0609dcc9d83" args="()" -->
@@ -225,6 +389,9 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__tuning__params_8h_source.html#l00038">38</a> of file <a class="el" href="cube__tuning__params_8h_source.html">cube_tuning_params.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> num_wgt_; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="adbf73ba7cbc288126fa8bb2877f9db7a"></a><!-- doxytag: member="tesseract::CubeTuningParams::OODWgt" ref="adbf73ba7cbc288126fa8bb2877f9db7a" args="()" -->
@@ -241,6 +408,9 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__tuning__params_8h_source.html#l00037">37</a> of file <a class="el" href="cube__tuning__params_8h_source.html">cube_tuning_params.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> ood_wgt_; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a95fe5bbb6aa56db63d0daac56265c419"></a><!-- doxytag: member="tesseract::CubeTuningParams::Save" ref="a95fe5bbb6aa56db63d0daac56265c419" args="(string file_name)" -->
@@ -260,6 +430,37 @@ Static Public Member Functions</h2></td></tr>
 
 <p>Implements <a class="el" href="classtesseract_1_1_tuning_params.html#a1c927208b2dcf449b160818d7ff6f287">tesseract::TuningParams</a>.</p>
 
+<p>Definition at line <a class="el" href="cube__tuning__params_8cpp_source.html#l00189">189</a> of file <a class="el" href="cube__tuning__params_8cpp_source.html">cube_tuning_params.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                            {
+  FILE *params_file = fopen(file_name.c_str(), <span class="stringliteral">&quot;wb&quot;</span>);
+  <span class="keywordflow">if</span> (params_file == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    fprintf(stderr, <span class="stringliteral">&quot;Cube ERROR (CubeTuningParams::Save): error opening file &quot;</span>
+            <span class="stringliteral">&quot;%s for write.\n&quot;</span>, file_name.c_str());
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+
+  fprintf(params_file, <span class="stringliteral">&quot;RecoWgt=%.4f\n&quot;</span>, <a class="code" href="classtesseract_1_1_tuning_params.html#ab229bbf707022cace4517db9d036d499">reco_wgt_</a>);
+  fprintf(params_file, <span class="stringliteral">&quot;SizeWgt=%.4f\n&quot;</span>, <a class="code" href="classtesseract_1_1_tuning_params.html#ac75248f72bdad2baa235e8ec9f7df0a0">size_wgt_</a>);
+  fprintf(params_file, <span class="stringliteral">&quot;CharBigramsWgt=%.4f\n&quot;</span>, <a class="code" href="classtesseract_1_1_tuning_params.html#a669dc45f5309f38c5a8be98fc9766eec">char_bigrams_wgt_</a>);
+  fprintf(params_file, <span class="stringliteral">&quot;WordUnigramsWgt=%.4f\n&quot;</span>, <a class="code" href="classtesseract_1_1_tuning_params.html#a1a7dbc05624b980f088f2a6fed9a9d1b">word_unigrams_wgt_</a>);
+  fprintf(params_file, <span class="stringliteral">&quot;MaxSegPerChar=%d\n&quot;</span>, <a class="code" href="classtesseract_1_1_tuning_params.html#a606d1d14c2b7c6f0478ad92adc921b61">max_seg_per_char_</a>);
+  fprintf(params_file, <span class="stringliteral">&quot;BeamWidth=%d\n&quot;</span>, <a class="code" href="classtesseract_1_1_tuning_params.html#a01257c28f61300c7ef1a29bbd80b817e">beam_width_</a>);
+  fprintf(params_file, <span class="stringliteral">&quot;ConvGridSize=%d\n&quot;</span>, <a class="code" href="classtesseract_1_1_tuning_params.html#ad96f57d9c80e0d538ec8fed1bc91055c">conv_grid_size_</a>);
+  fprintf(params_file, <span class="stringliteral">&quot;HistWindWid=%d\n&quot;</span>, <a class="code" href="classtesseract_1_1_tuning_params.html#aec68d6f0467185de5c759e41822e6f1a">hist_wind_wid_</a>);
+  fprintf(params_file, <span class="stringliteral">&quot;MinConCompSize=%d\n&quot;</span>, <a class="code" href="classtesseract_1_1_tuning_params.html#ab49559612d8893fe182c66de08e9fa28">min_con_comp_size_</a>);
+  fprintf(params_file, <span class="stringliteral">&quot;MaxWordAspectRatio=%.4f\n&quot;</span>, <a class="code" href="classtesseract_1_1_tuning_params.html#ad03b466658f7cb6ac4225c2a2601699f">max_word_aspect_ratio_</a>);
+  fprintf(params_file, <span class="stringliteral">&quot;MinSpaceHeightRatio=%.4f\n&quot;</span>, <a class="code" href="classtesseract_1_1_tuning_params.html#ac625293da7991548ea725ea903e29f82">min_space_height_ratio_</a>);
+  fprintf(params_file, <span class="stringliteral">&quot;MaxSpaceHeightRatio=%.4f\n&quot;</span>, <a class="code" href="classtesseract_1_1_tuning_params.html#aae3f14d6dcf443f0a4ff063f0bff89c2">max_space_height_ratio_</a>);
+  fprintf(params_file, <span class="stringliteral">&quot;CombinerRunThresh=%.4f\n&quot;</span>, <a class="code" href="classtesseract_1_1_tuning_params.html#a064ead05d47ac926d01aaa231bdfee00">combiner_run_thresh_</a>);
+  fprintf(params_file, <span class="stringliteral">&quot;CombinerClassifierThresh=%.4f\n&quot;</span>,
+          <a class="code" href="classtesseract_1_1_tuning_params.html#a3f162ede8be31236c53dcce512da5394">combiner_classifier_thresh_</a>);
+  fprintf(params_file, <span class="stringliteral">&quot;OODWgt=%.4f\n&quot;</span>, ood_wgt_);
+  fprintf(params_file, <span class="stringliteral">&quot;NumWgt=%.4f\n&quot;</span>, num_wgt_);
+
+  fclose(params_file);
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a339edd16c84c0bb5f5d5354c3b999572"></a><!-- doxytag: member="tesseract::CubeTuningParams::SetNumWgt" ref="a339edd16c84c0bb5f5d5354c3b999572" args="(double wgt)" -->
@@ -277,6 +478,9 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__tuning__params_8h_source.html#l00041">41</a> of file <a class="el" href="cube__tuning__params_8h_source.html">cube_tuning_params.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ num_wgt_ = wgt; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a61bae76d628b44a7e34bc34ba28dd54a"></a><!-- doxytag: member="tesseract::CubeTuningParams::SetOODWgt" ref="a61bae76d628b44a7e34bc34ba28dd54a" args="(double wgt)" -->
@@ -294,11 +498,14 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__tuning__params_8h_source.html#l00040">40</a> of file <a class="el" href="cube__tuning__params_8h_source.html">cube_tuning_params.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ ood_wgt_ = wgt; }
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/cube/<a class="el" href="cube__tuning__params_8h_source.html">cube_tuning_params.h</a></li>
-<li>tesseract-ocr/cube/<a class="el" href="cube__tuning__params_8cpp.html">cube_tuning_params.cpp</a></li>
+<li>tesseract-ocr/cube/<a class="el" href="cube__tuning__params_8cpp_source.html">cube_tuning_params.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -321,7 +528,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:15 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:51 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

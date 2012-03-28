@@ -107,7 +107,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <code>#include &quot;<a class="el" href="drawedg_8h_source.html">drawedg.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="edgloop_8h_source.html">edgloop.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="edgblob_8h_source.html">edgblob.h</a>&quot;</code><br/>
-</div><table class="memberdecls">
+</div>
+<p><a href="edgblob_8cpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr><td colspan="2"><h2><a name="define-members"></a>
 Defines</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="edgblob_8cpp.html#a77366c1bd428629dc898e188bfd182a3">EXTERN</a></td></tr>
@@ -159,6 +161,8 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="edgblob_8cpp_source.html#l00031">31</a> of file <a class="el" href="edgblob_8cpp_source.html">edgblob.cpp</a>.</p>
+
 </div>
 </div>
 <hr/><h2>Function Documentation</h2>
@@ -193,6 +197,27 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="edgblob_8cpp_source.html#l00450">450</a> of file <a class="el" href="edgblob_8cpp_source.html">edgblob.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                        {
+  <a class="code" href="class_c___o_u_t_l_i_n_e.html">C_OUTLINE</a> *outline;            <span class="comment">// master outline</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> child_count;             <span class="comment">// no of children</span>
+
+  outline = blob_it-&gt;data();
+  <span class="keywordflow">if</span> (<a class="code" href="edgblob_8cpp.html#a5ee9ae16416593b6eae3ebcdfcf70fb1">edges_use_new_outline_complexity</a>)
+    child_count = buckets-&gt;<a class="code" href="class_o_l___b_u_c_k_e_t_s.html#a52b8246c4e14c66fcfc65d4afe974a39">outline_complexity</a>(outline,
+                                               <a class="code" href="edgblob_8cpp.html#a4411090594db829033b24025f4de29d9">edges_children_count_limit</a>,
+                                               0);
+  <span class="keywordflow">else</span>
+    child_count = buckets-&gt;<a class="code" href="class_o_l___b_u_c_k_e_t_s.html#a57daddafdf2066abdb0ef246dc53c518">count_children</a>(outline,
+                                           <a class="code" href="edgblob_8cpp.html#a4411090594db829033b24025f4de29d9">edges_children_count_limit</a>);
+  <span class="keywordflow">if</span> (child_count &gt; <a class="code" href="edgblob_8cpp.html#a4411090594db829033b24025f4de29d9">edges_children_count_limit</a>)
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+
+  <span class="keywordflow">if</span> (child_count &gt; 0)
+    buckets-&gt;<a class="code" href="class_o_l___b_u_c_k_e_t_s.html#a40db83a30a179c7987bae8e4d37ebef5">extract_children</a>(outline, blob_it);
+  <span class="keywordflow">return</span> <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a448e1f9764807e5383235b51b2984ae1"></a><!-- doxytag: member="edgblob.cpp::empty_buckets" ref="a448e1f9764807e5383235b51b2984ae1" args="(BLOCK *block, OL_BUCKETS *buckets)" -->
@@ -220,6 +245,41 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="edgblob_8cpp_source.html#l00404">404</a> of file <a class="el" href="edgblob_8cpp_source.html">edgblob.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                    {
+  <a class="code" href="host_8h.html#a7712a7e28433d0ade59219a129549b6f">BOOL8</a> good_blob;               <span class="comment">// healthy blob</span>
+  C_OUTLINE_LIST outlines;       <span class="comment">// outlines in block</span>
+                                 <span class="comment">// iterator</span>
+  C_OUTLINE_IT out_it = &amp;outlines;
+  C_OUTLINE_IT bucket_it = buckets-&gt;<a class="code" href="class_o_l___b_u_c_k_e_t_s.html#a01bec8d569fc17d9c8cbe35d571be4ed">start_scan</a>();
+  C_OUTLINE_IT parent_it;        <span class="comment">// parent outline</span>
+  <a class="code" href="class_c___b_l_o_b.html">C_BLOB</a> *blob;                  <span class="comment">// new blob</span>
+  C_BLOB_IT good_blobs = block-&gt;<a class="code" href="class_b_l_o_c_k.html#a23196fe0d7230572b44aa77031a1d72a" title="get blobs">blob_list</a>();
+  C_BLOB_IT junk_blobs = block-&gt;<a class="code" href="class_b_l_o_c_k.html#a08f23fffc748fbb0e7ae8804b7c0c90e">reject_blobs</a>();
+
+  <span class="keywordflow">while</span> (!bucket_it.empty()) {
+    out_it.set_to_list(&amp;outlines);
+    <span class="keywordflow">do</span> {
+      parent_it = bucket_it;     <span class="comment">// find outermost</span>
+      <span class="keywordflow">do</span> {
+        bucket_it.forward();
+      } <span class="keywordflow">while</span> (!bucket_it.at_first() &amp;&amp;
+               !(*parent_it.data() &lt; *bucket_it.data()));
+    } <span class="keywordflow">while</span> (!bucket_it.at_first());
+
+                                 <span class="comment">// move to new list</span>
+    out_it.add_after_then_move(parent_it.extract());
+    good_blob = <a class="code" href="edgblob_8cpp.html#a099676098c0d1c86ca9a2d1a479ad27d">capture_children</a>(buckets, &amp;junk_blobs, &amp;out_it);
+    blob = <span class="keyword">new</span> <a class="code" href="class_c___b_l_o_b.html">C_BLOB</a>(&amp;outlines);
+    <span class="keywordflow">if</span> (good_blob)
+      good_blobs.add_after_then_move(blob);
+    <span class="keywordflow">else</span>
+      junk_blobs.add_after_then_move(blob);
+
+    bucket_it.set_to_list(buckets-&gt;<a class="code" href="class_o_l___b_u_c_k_e_t_s.html#a919d0b0a037dcfe929db28eaf9b4c967">scan_next</a>());
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a16ca13da58e65267e7e34355091ca891"></a><!-- doxytag: member="edgblob.cpp::extract_edges" ref="a16ca13da58e65267e7e34355091ca891" args="(Pix *pix, BLOCK *block)" -->
@@ -247,6 +307,23 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="edgblob_8cpp_source.html#l00336">336</a> of file <a class="el" href="edgblob_8cpp_source.html">edgblob.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                 {  <span class="comment">// block to scan</span>
+  C_OUTLINE_LIST outlines;       <span class="comment">// outlines in block</span>
+  C_OUTLINE_IT out_it = &amp;outlines;
+
+  <span class="comment">// TODO(rays) move the pix all the way down to the bottom.</span>
+  <a class="code" href="class_i_m_a_g_e.html">IMAGE</a> image;
+  image.<a class="code" href="class_i_m_a_g_e.html#aac99e9fed5c4bc572e2415971e34591e">FromPix</a>(pix);
+
+  <a class="code" href="scanedg_8cpp.html#a7828e79362811e3054815de5c8a81b75">block_edges</a>(&amp;image, block, &amp;out_it);
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> bleft;                  <span class="comment">// block box</span>
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> tright;
+  block-&gt;<a class="code" href="class_p_d_b_l_k.html#a91950a96127b4a0bb9b237e1f5f889a4" title="get box">bounding_box</a>(bleft, tright);
+                                 <span class="comment">// make blobs</span>
+  <a class="code" href="edgblob_8cpp.html#ae0cc26838f9973f097882b899b69b249">outlines_to_blobs</a>(block, bleft, tright, &amp;outlines);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad9597834f89a0acb1b78514a7a3feb6d"></a><!-- doxytag: member="edgblob.cpp::fill_buckets" ref="ad9597834f89a0acb1b78514a7a3feb6d" args="(C_OUTLINE_LIST *outlines, OL_BUCKETS *buckets)" -->
@@ -274,6 +351,22 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="edgblob_8cpp_source.html#l00379">379</a> of file <a class="el" href="edgblob_8cpp_source.html">edgblob.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                   {
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> ol_box;                     <span class="comment">// outline box</span>
+  C_OUTLINE_IT out_it = outlines;  <span class="comment">// iterator</span>
+  C_OUTLINE_IT bucket_it;          <span class="comment">// iterator in bucket</span>
+  <a class="code" href="class_c___o_u_t_l_i_n_e.html">C_OUTLINE</a> *outline;              <span class="comment">// current outline</span>
+
+  <span class="keywordflow">for</span> (out_it.mark_cycle_pt(); !out_it.cycled_list(); out_it.forward()) {
+    outline = out_it.extract();  <span class="comment">// take off list</span>
+                                 <span class="comment">// get box</span>
+    ol_box = outline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#a6481db8e9c00281f20f45df48d499679">bounding_box</a>();
+    bucket_it.set_to_list((*buckets) (ol_box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>(), ol_box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>()));
+    bucket_it.add_to_end(outline);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae0cc26838f9973f097882b899b69b249"></a><!-- doxytag: member="edgblob.cpp::outlines_to_blobs" ref="ae0cc26838f9973f097882b899b69b249" args="(BLOCK *block, ICOORD bleft, ICOORD tright, C_OUTLINE_LIST *outlines)" -->
@@ -313,6 +406,15 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="edgblob_8cpp_source.html#l00360">360</a> of file <a class="el" href="edgblob_8cpp_source.html">edgblob.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                 {
+                                 <span class="comment">// make buckets</span>
+  <a class="code" href="class_o_l___b_u_c_k_e_t_s.html">OL_BUCKETS</a> buckets(bleft, tright);
+
+  <a class="code" href="edgblob_8cpp.html#ad9597834f89a0acb1b78514a7a3feb6d">fill_buckets</a>(outlines, &amp;buckets);
+  <a class="code" href="edgblob_8cpp.html#a448e1f9764807e5383235b51b2984ae1">empty_buckets</a>(block, &amp;buckets);
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Variable Documentation</h2>
@@ -328,6 +430,8 @@ Variables</h2></td></tr>
 <div class="memdoc">
 <p>"Min area fraction of grandchild for box" </p>
 
+<p>Definition at line <a class="el" href="edgblob_8cpp_source.html#l00061">61</a> of file <a class="el" href="edgblob_8cpp_source.html">edgblob.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a1c3f12a33758ab5c83dde7fc3954ad06"></a><!-- doxytag: member="edgblob.cpp::edges_childarea" ref="a1c3f12a33758ab5c83dde7fc3954ad06" args="" -->
@@ -341,6 +445,8 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"Min area fraction of child outline" </p>
+
+<p>Definition at line <a class="el" href="edgblob_8cpp_source.html#l00059">59</a> of file <a class="el" href="edgblob_8cpp_source.html">edgblob.cpp</a>.</p>
 
 </div>
 </div>
@@ -356,6 +462,8 @@ Variables</h2></td></tr>
 <div class="memdoc">
 <p>"Max holes allowed in blob" </p>
 
+<p>Definition at line <a class="el" href="edgblob_8cpp_source.html#l00051">51</a> of file <a class="el" href="edgblob_8cpp_source.html">edgblob.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a95fd6349e34702c3fcc3cd346c559d06"></a><!-- doxytag: member="edgblob.cpp::edges_children_fix" ref="a95fd6349e34702c3fcc3cd346c559d06" args="" -->
@@ -369,6 +477,8 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"Remove boxy parents of char-like children" </p>
+
+<p>Definition at line <a class="el" href="edgblob_8cpp_source.html#l00053">53</a> of file <a class="el" href="edgblob_8cpp_source.html">edgblob.cpp</a>.</p>
 
 </div>
 </div>
@@ -384,6 +494,8 @@ Variables</h2></td></tr>
 <div class="memdoc">
 <p>"Importance ratio for chucking outlines" </p>
 
+<p>Definition at line <a class="el" href="edgblob_8cpp_source.html#l00049">49</a> of file <a class="el" href="edgblob_8cpp_source.html">edgblob.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a4df127e52b28ef687af8128df96a54a7"></a><!-- doxytag: member="edgblob.cpp::edges_debug" ref="a4df127e52b28ef687af8128df96a54a7" args="" -->
@@ -397,6 +509,8 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"turn on debugging for this module" </p>
+
+<p>Definition at line <a class="el" href="edgblob_8cpp_source.html#l00045">45</a> of file <a class="el" href="edgblob_8cpp_source.html">edgblob.cpp</a>.</p>
 
 </div>
 </div>
@@ -412,6 +526,8 @@ Variables</h2></td></tr>
 <div class="memdoc">
 <p>"Max layers of nested children inside a character outline" </p>
 
+<p>Definition at line <a class="el" href="edgblob_8cpp_source.html#l00043">43</a> of file <a class="el" href="edgblob_8cpp_source.html">edgblob.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ab212bf226a60aa5a7737568cb9022b29"></a><!-- doxytag: member="edgblob.cpp::edges_max_children_per_outline" ref="ab212bf226a60aa5a7737568cb9022b29" args="" -->
@@ -425,6 +541,8 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"Max number of children inside a character outline" </p>
+
+<p>Definition at line <a class="el" href="edgblob_8cpp_source.html#l00041">41</a> of file <a class="el" href="edgblob_8cpp_source.html">edgblob.cpp</a>.</p>
 
 </div>
 </div>
@@ -440,6 +558,8 @@ Variables</h2></td></tr>
 <div class="memdoc">
 <p>"Min pixels for potential char in box" </p>
 
+<p>Definition at line <a class="el" href="edgblob_8cpp_source.html#l00055">55</a> of file <a class="el" href="edgblob_8cpp_source.html">edgblob.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ad9100fbb62368b53d9ab52a434378591"></a><!-- doxytag: member="edgblob.cpp::edges_patharea_ratio" ref="ad9100fbb62368b53d9ab52a434378591" args="" -->
@@ -454,6 +574,8 @@ Variables</h2></td></tr>
 <div class="memdoc">
 <p>"Max lensq/area for acceptable child outline" </p>
 
+<p>Definition at line <a class="el" href="edgblob_8cpp_source.html#l00057">57</a> of file <a class="el" href="edgblob_8cpp_source.html">edgblob.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a5ee9ae16416593b6eae3ebcdfcf70fb1"></a><!-- doxytag: member="edgblob.cpp::edges_use_new_outline_complexity" ref="a5ee9ae16416593b6eae3ebcdfcf70fb1" args="" -->
@@ -467,6 +589,8 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"Use the new outline complexity module" </p>
+
+<p>Definition at line <a class="el" href="edgblob_8cpp_source.html#l00039">39</a> of file <a class="el" href="edgblob_8cpp_source.html">edgblob.cpp</a>.</p>
 
 </div>
 </div>
@@ -490,7 +614,7 @@ Variables</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:10 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:42 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

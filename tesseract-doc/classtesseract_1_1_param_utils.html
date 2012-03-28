@@ -119,7 +119,10 @@ Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_param_utils.html#a53d101144fd6a9e6d45980e832f9e054">GetParamAsString</a> (const char *name, const <a class="el" href="structtesseract_1_1_params_vectors.html">ParamsVectors</a> *member_params, <a class="el" href="class_s_t_r_i_n_g.html">STRING</a> *value)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_param_utils.html#ac9884aced9c9941e8df8763960d798c4">PrintParams</a> (FILE *fp, const <a class="el" href="structtesseract_1_1_params_vectors.html">ParamsVectors</a> *member_params)</td></tr>
 </table>
-<hr/><h2>Member Function Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="params_8h_source.html#l00051">51</a> of file <a class="el" href="params_8h_source.html">params.h</a>.</p>
+</div><hr/><h2>Member Function Documentation</h2>
 <a class="anchor" id="a46ae9cf132d4dd072915c1b0b2199205"></a><!-- doxytag: member="tesseract::ParamUtils::FindParam" ref="a46ae9cf132d4dd072915c1b0b2199205" args="(const char *name, const GenericVector&lt; T * &gt; &amp;global_vec, const GenericVector&lt; T * &gt; &amp;member_vec)" -->
 <div class="memitem">
 <div class="memproto">
@@ -153,6 +156,18 @@ template&lt;class T &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="params_8h_source.html#l00077">77</a> of file <a class="el" href="params_8h_source.html">params.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                            {
+    <span class="keywordtype">int</span> i;
+    <span class="keywordflow">for</span> (i = 0; i &lt; global_vec.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>(); ++i) {
+      <span class="keywordflow">if</span> (strcmp(global_vec[i]-&gt;name_str(), name) == 0) <span class="keywordflow">return</span> global_vec[i];
+    }
+    <span class="keywordflow">for</span> (i = 0; i &lt; member_vec.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>(); ++i) {
+      <span class="keywordflow">if</span> (strcmp(member_vec[i]-&gt;name_str(), name) == 0) <span class="keywordflow">return</span> member_vec[i];
+    }
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a53d101144fd6a9e6d45980e832f9e054"></a><!-- doxytag: member="tesseract::ParamUtils::GetParamAsString" ref="a53d101144fd6a9e6d45980e832f9e054" args="(const char *name, const ParamsVectors *member_params, STRING *value)" -->
@@ -186,6 +201,43 @@ template&lt;class T &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="params_8cpp_source.html#l00150">150</a> of file <a class="el" href="params_8cpp_source.html">params.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                 {
+  <span class="comment">// Look for the parameter among string parameters.</span>
+  StringParam *sp = FindParam&lt;StringParam&gt;(name, <a class="code" href="params_8cpp.html#a71a3243019391d3a438fd279c07cef87">GlobalParams</a>()-&gt;<a class="code" href="structtesseract_1_1_params_vectors.html#a446a70d7d7c85af255d053ae54c5df8a">string_params</a>,
+                                           member_params-&gt;string_params);
+  <span class="keywordflow">if</span> (sp) {
+    *value = sp-&gt;<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a>();
+    <span class="keywordflow">return</span> <span class="keyword">true</span>;
+  }
+  <span class="comment">// Look for the parameter among int parameters.</span>
+  IntParam *ip = FindParam&lt;IntParam&gt;(name, <a class="code" href="params_8cpp.html#a71a3243019391d3a438fd279c07cef87">GlobalParams</a>()-&gt;<a class="code" href="structtesseract_1_1_params_vectors.html#a22c42b48d2c626d2f3f3b0abd21bc902">int_params</a>,
+                                     member_params-&gt;int_params);
+  <span class="keywordflow">if</span> (ip) {
+    <span class="keywordtype">char</span> buf[128];
+    snprintf(buf, <span class="keyword">sizeof</span>(buf), <span class="stringliteral">&quot;%d&quot;</span>, <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a>(*ip));
+    *value = buf;
+    <span class="keywordflow">return</span> <span class="keyword">true</span>;
+  }
+  <span class="comment">// Look for the parameter among bool parameters.</span>
+  BoolParam *bp = FindParam&lt;BoolParam&gt;(name, <a class="code" href="params_8cpp.html#a71a3243019391d3a438fd279c07cef87">GlobalParams</a>()-&gt;<a class="code" href="structtesseract_1_1_params_vectors.html#a6bb13133287d8d8d18c81bb974b1b54f">bool_params</a>,
+                                       member_params-&gt;bool_params);
+  <span class="keywordflow">if</span> (bp != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    *value = <a class="code" href="host_8h.html#a7712a7e28433d0ade59219a129549b6f">BOOL8</a>(*bp) ? <span class="stringliteral">&quot;1&quot;</span>: <span class="stringliteral">&quot;0&quot;</span>;
+    <span class="keywordflow">return</span> <span class="keyword">true</span>;
+  }
+  <span class="comment">// Look for the parameter among double parameters.</span>
+  DoubleParam *dp = FindParam&lt;DoubleParam&gt;(name, <a class="code" href="params_8cpp.html#a71a3243019391d3a438fd279c07cef87">GlobalParams</a>()-&gt;<a class="code" href="structtesseract_1_1_params_vectors.html#a83a1b9a0571c97380bdf3a32591cf196">double_params</a>,
+                                           member_params-&gt;double_params);
+  <span class="keywordflow">if</span> (dp != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordtype">char</span> buf[128];
+    snprintf(buf, <span class="keyword">sizeof</span>(buf), <span class="stringliteral">&quot;%g&quot;</span>, <span class="keywordtype">double</span>(*dp));
+    *value = buf;
+    <span class="keywordflow">return</span> <span class="keyword">true</span>;
+  }
+  <span class="keywordflow">return</span> <span class="keyword">false</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac9884aced9c9941e8df8763960d798c4"></a><!-- doxytag: member="tesseract::ParamUtils::PrintParams" ref="ac9884aced9c9941e8df8763960d798c4" args="(FILE *fp, const ParamsVectors *member_params)" -->
@@ -213,6 +265,31 @@ template&lt;class T &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="params_8cpp_source.html#l00188">188</a> of file <a class="el" href="params_8cpp_source.html">params.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                         {
+  <span class="keywordtype">int</span> v, i;
+  <span class="keywordtype">int</span> num_iterations = (member_params == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) ? 1 : 2;
+  <span class="keywordflow">for</span> (v = 0; v &lt; num_iterations; ++v) {
+    <span class="keyword">const</span> ParamsVectors *vec = (v == 0) ? <a class="code" href="params_8cpp.html#a71a3243019391d3a438fd279c07cef87">GlobalParams</a>() : member_params;
+    <span class="keywordflow">for</span> (i = 0; i &lt; vec-&gt;int_params.size(); ++i) {
+      fprintf(fp, <span class="stringliteral">&quot;%s\t%d\n&quot;</span>, vec-&gt;int_params[i]-&gt;name_str(),
+              (<a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a>)(*vec-&gt;int_params[i]));
+    }
+    <span class="keywordflow">for</span> (i = 0; i &lt; vec-&gt;bool_params.size(); ++i) {
+      fprintf(fp, <span class="stringliteral">&quot;%s\t%d\n&quot;</span>, vec-&gt;bool_params[i]-&gt;name_str(),
+              (<a class="code" href="host_8h.html#a7712a7e28433d0ade59219a129549b6f">BOOL8</a>)(*vec-&gt;bool_params[i]));
+    }
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; vec-&gt;string_params.size(); ++i) {
+      fprintf(fp, <span class="stringliteral">&quot;%s\t%s\n&quot;</span>, vec-&gt;string_params[i]-&gt;name_str(),
+              vec-&gt;string_params[i]-&gt;string());
+    }
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; vec-&gt;double_params.size(); ++i) {
+      fprintf(fp, <span class="stringliteral">&quot;%s\t%g\n&quot;</span>, vec-&gt;double_params[i]-&gt;name_str(),
+              (double)(*vec-&gt;double_params[i]));
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a0709ab180ade22613925bc317ddf34b7"></a><!-- doxytag: member="tesseract::ParamUtils::ReadParamsFile" ref="a0709ab180ade22613925bc317ddf34b7" args="(const char *file, SetParamConstraint constraint, ParamsVectors *member_params)" -->
@@ -246,6 +323,33 @@ template&lt;class T &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="params_8cpp_source.html#l00043">43</a> of file <a class="el" href="params_8cpp_source.html">params.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                              {
+  <span class="keywordtype">char</span> flag;                     <span class="comment">// file flag</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> nameoffset;              <span class="comment">// offset for real name</span>
+  FILE *fp;                      <span class="comment">// file pointer</span>
+                                 <span class="comment">// iterators</span>
+
+  <span class="keywordflow">if</span> (*file == <a class="code" href="params_8cpp.html#a0ea7ff5947c5f5430a29fdd98391eb2a">PLUS</a>) {
+    flag = <a class="code" href="params_8cpp.html#a0ea7ff5947c5f5430a29fdd98391eb2a">PLUS</a>;                 <span class="comment">// file has flag</span>
+    nameoffset = 1;
+  } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (*file == <a class="code" href="params_8cpp.html#a5381a445a1e4bdc36460151d82eed95a">MINUS</a>) {
+    flag = <a class="code" href="params_8cpp.html#a5381a445a1e4bdc36460151d82eed95a">MINUS</a>;
+    nameoffset = 1;
+  } <span class="keywordflow">else</span> {
+    flag = <a class="code" href="params_8cpp.html#a214c717b2e51e1993a749ac99df7de58">EQUAL</a>;
+    nameoffset = 0;
+  }
+
+  fp = fopen(file + nameoffset, <span class="stringliteral">&quot;rb&quot;</span>);
+  <span class="keywordflow">if</span> (fp == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;read_params_file: Can&#39;t open %s\n&quot;</span>, file + nameoffset);
+    <span class="keywordflow">return</span> <span class="keyword">true</span>;
+  }
+  <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_param_utils.html#a6ca0a83aacf78d729af30cb6f794d77a">ReadParamsFromFp</a>(fp, -1, constraint, member_params);
+  fclose(fp);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6ca0a83aacf78d729af30cb6f794d77a"></a><!-- doxytag: member="tesseract::ParamUtils::ReadParamsFromFp" ref="a6ca0a83aacf78d729af30cb6f794d77a" args="(FILE *fp, inT64 end_offset, SetParamConstraint constraint, ParamsVectors *member_params)" -->
@@ -285,6 +389,40 @@ template&lt;class T &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="params_8cpp_source.html#l00071">71</a> of file <a class="el" href="params_8cpp_source.html">params.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                {
+  <span class="keywordtype">char</span> line[<a class="code" href="platform_8h.html#ab99ded389af74001a6298fc9e44e74e5">MAX_PATH</a>];           <span class="comment">// input line</span>
+  <span class="keywordtype">bool</span> anyerr = <span class="keyword">false</span>;           <span class="comment">// true if any error</span>
+  <span class="keywordtype">bool</span> foundit;                  <span class="comment">// found parameter</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> length;                  <span class="comment">// length of line</span>
+  <span class="keywordtype">char</span> *valptr;                  <span class="comment">// value field</span>
+
+  <span class="keywordflow">while</span> ((end_offset &lt; 0 || ftell(fp) &lt; end_offset) &amp;&amp;
+         fgets(line, <a class="code" href="platform_8h.html#ab99ded389af74001a6298fc9e44e74e5">MAX_PATH</a>, fp)) {
+    <span class="keywordflow">if</span> (line[0] != <span class="charliteral">&#39;\n&#39;</span> &amp;&amp; line[0] != <span class="charliteral">&#39;#&#39;</span>) {
+      length = strlen (line);
+      <span class="keywordflow">if</span> (line[length - 1] == <span class="charliteral">&#39;\n&#39;</span>)
+        line[length - 1] = <span class="charliteral">&#39;\0&#39;</span>;  <span class="comment">// cut newline</span>
+      <span class="keywordflow">for</span> (valptr = line; *valptr &amp;&amp; *valptr != <span class="charliteral">&#39; &#39;</span> &amp;&amp; *valptr != <span class="charliteral">&#39;\t&#39;</span>;
+        valptr++);
+      <span class="keywordflow">if</span> (*valptr) {             <span class="comment">// found blank</span>
+        *valptr = <span class="charliteral">&#39;\0&#39;</span>;          <span class="comment">// make name a string</span>
+        <span class="keywordflow">do</span>
+          valptr++;              <span class="comment">// find end of blanks</span>
+        <span class="keywordflow">while</span> (*valptr == <span class="charliteral">&#39; &#39;</span> || *valptr == <span class="charliteral">&#39;\t&#39;</span>);
+      }
+      foundit = <a class="code" href="classtesseract_1_1_param_utils.html#aecfd4f0112e3753b19c856d210fb8f69">SetParam</a>(line, valptr, constraint, member_params);
+
+      <span class="keywordflow">if</span> (!foundit) {
+        anyerr = <span class="keyword">true</span>;         <span class="comment">// had an error</span>
+        <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;read_params_file: parameter not found: %s\n&quot;</span>, line);
+        exit(1);
+      }
+    }
+  }
+  <span class="keywordflow">return</span> anyerr;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="abace0d66ffc43a2960b1e1b05579b7ee"></a><!-- doxytag: member="tesseract::ParamUtils::RemoveParam" ref="abace0d66ffc43a2960b1e1b05579b7ee" args="(T *param_ptr, GenericVector&lt; T * &gt; *vec)" -->
@@ -314,6 +452,16 @@ template&lt;class T &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="params_8h_source.html#l00091">91</a> of file <a class="el" href="params_8h_source.html">params.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                 {
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; vec-&gt;<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>(); ++i) {
+      <span class="keywordflow">if</span> ((*vec)[i] == param_ptr) {
+        vec-&gt;<a class="code" href="class_generic_vector.html#a3fd37a240a42f1c3052e8d28614d3702">remove</a>(i);
+        <span class="keywordflow">return</span>;
+      }
+    }
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aecfd4f0112e3753b19c856d210fb8f69"></a><!-- doxytag: member="tesseract::ParamUtils::SetParam" ref="aecfd4f0112e3753b19c856d210fb8f69" args="(const char *name, const char *value, SetParamConstraint constraint, ParamsVectors *member_params)" -->
@@ -353,11 +501,54 @@ template&lt;class T &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="params_8cpp_source.html#l00106">106</a> of file <a class="el" href="params_8cpp_source.html">params.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                        {
+  <span class="comment">// Look for the parameter among string parameters.</span>
+  StringParam *sp = FindParam&lt;StringParam&gt;(name, <a class="code" href="params_8cpp.html#a71a3243019391d3a438fd279c07cef87">GlobalParams</a>()-&gt;<a class="code" href="structtesseract_1_1_params_vectors.html#a446a70d7d7c85af255d053ae54c5df8a">string_params</a>,
+                                           member_params-&gt;string_params);
+  <span class="keywordflow">if</span> (sp != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp; sp-&gt;constraint_ok(constraint)) sp-&gt;set_value(value);
+  <span class="keywordflow">if</span> (*value == <span class="charliteral">&#39;\0&#39;</span>) <span class="keywordflow">return</span> (sp != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+
+  <span class="comment">// Look for the parameter among int parameters.</span>
+  <span class="keywordtype">int</span> intval;
+  IntParam *ip = FindParam&lt;IntParam&gt;(name, <a class="code" href="params_8cpp.html#a71a3243019391d3a438fd279c07cef87">GlobalParams</a>()-&gt;<a class="code" href="structtesseract_1_1_params_vectors.html#a22c42b48d2c626d2f3f3b0abd21bc902">int_params</a>,
+                                     member_params-&gt;int_params);
+  <span class="keywordflow">if</span> (ip &amp;&amp; ip-&gt;constraint_ok(constraint) &amp;&amp;
+      sscanf(value, <a class="code" href="host_8h.html#abe22434564efd658acebe9e8cf6235bc">INT32FORMAT</a>, &amp;intval) == 1) ip-&gt;set_value(intval);
+
+  <span class="comment">// Look for the parameter among bool parameters.</span>
+  BoolParam *bp = FindParam&lt;BoolParam&gt;(name, <a class="code" href="params_8cpp.html#a71a3243019391d3a438fd279c07cef87">GlobalParams</a>()-&gt;<a class="code" href="structtesseract_1_1_params_vectors.html#a6bb13133287d8d8d18c81bb974b1b54f">bool_params</a>,
+                                       member_params-&gt;bool_params);
+  <span class="keywordflow">if</span> (bp != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp; bp-&gt;constraint_ok(constraint)) {
+    <span class="keywordflow">if</span> (*value == <span class="charliteral">&#39;T&#39;</span> || *value == <span class="charliteral">&#39;t&#39;</span> ||
+        *value == <span class="charliteral">&#39;Y&#39;</span> || *value == <span class="charliteral">&#39;y&#39;</span> || *value == <span class="charliteral">&#39;1&#39;</span>) {
+      bp-&gt;set_value(<span class="keyword">true</span>);
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (*value == <span class="charliteral">&#39;F&#39;</span> || *value == <span class="charliteral">&#39;f&#39;</span> ||
+                *value == <span class="charliteral">&#39;N&#39;</span> || *value == <span class="charliteral">&#39;n&#39;</span> || *value == <span class="charliteral">&#39;0&#39;</span>) {
+      bp-&gt;set_value(<span class="keyword">false</span>);
+    }
+  }
+
+  <span class="comment">// Look for the parameter among double parameters.</span>
+  <span class="keywordtype">double</span> doubleval;
+  DoubleParam *dp = FindParam&lt;DoubleParam&gt;(name, <a class="code" href="params_8cpp.html#a71a3243019391d3a438fd279c07cef87">GlobalParams</a>()-&gt;<a class="code" href="structtesseract_1_1_params_vectors.html#a83a1b9a0571c97380bdf3a32591cf196">double_params</a>,
+                                           member_params-&gt;double_params);
+  <span class="keywordflow">if</span> (dp != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp; dp-&gt;constraint_ok(constraint)) {
+<span class="preprocessor">#ifdef EMBEDDED</span>
+<span class="preprocessor"></span>      doubleval = strtofloat(value);
+<span class="preprocessor">#else</span>
+<span class="preprocessor"></span>      <span class="keywordflow">if</span> (sscanf(value, <span class="stringliteral">&quot;%lf&quot;</span>, &amp;doubleval) == 1)
+<span class="preprocessor">#endif</span>
+<span class="preprocessor"></span>      dp-&gt;set_value(doubleval);
+  }
+  <span class="keywordflow">return</span> (sp || ip || bp || dp);
+}
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/ccutil/<a class="el" href="params_8h_source.html">params.h</a></li>
-<li>tesseract-ocr/ccutil/<a class="el" href="params_8cpp.html">params.cpp</a></li>
+<li>tesseract-ocr/ccutil/<a class="el" href="params_8cpp_source.html">params.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -380,7 +571,7 @@ template&lt;class T &gt; </div>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:15 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:50 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

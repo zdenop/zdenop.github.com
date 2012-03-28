@@ -106,7 +106,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <code>#include &quot;<a class="el" href="cutil_8h_source.html">cutil.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="callcpp_8h_source.html">callcpp.h</a>&quot;</code><br/>
 <code>#include &lt;assert.h&gt;</code><br/>
-</div><table class="memberdecls">
+</div>
+<p><a href="closed_8cpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr><td colspan="2"><h2><a name="define-members"></a>
 Defines</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="closed_8cpp.html#a032503e76d6f69bc67e99e909c8125da">TABLE_SIZE</a>&#160;&#160;&#160;2000</td></tr>
@@ -137,6 +139,8 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="closed_8cpp_source.html#l00039">39</a> of file <a class="el" href="closed_8cpp_source.html">closed.cpp</a>.</p>
+
 </div>
 </div>
 <hr/><h2>Function Documentation</h2>
@@ -165,6 +169,36 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="closed_8cpp_source.html#l00050">50</a> of file <a class="el" href="closed_8cpp_source.html">closed.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                   {
+  <span class="keywordtype">int</span> x;
+  <span class="keywordtype">int</span> i = 0;
+  <span class="keywordtype">int</span> table_limit = <a class="code" href="closed_8cpp.html#a032503e76d6f69bc67e99e909c8125da">TABLE_SIZE</a>;
+
+  x = state-&gt;<a class="code" href="struct_s_t_a_t_e.html#aa75ceb95132aecb5a8ae1e594a19733a">part2</a> % table_limit;
+  <span class="keywordflow">while</span> (i &lt; table_limit) {
+    assert (0 &lt;= x &amp;&amp; x &lt; table_limit);
+    <span class="comment">/* Found it */</span>
+    <span class="keywordflow">if</span> ((state_table[x].part2 == state-&gt;<a class="code" href="struct_s_t_a_t_e.html#aa75ceb95132aecb5a8ae1e594a19733a">part2</a>) &amp;&amp;
+    (state_table[x].<a class="code" href="struct_s_t_a_t_e.html#a2099a72d99d2ba5f828ad8538d328f4b">part1</a> == state-&gt;<a class="code" href="struct_s_t_a_t_e.html#a2099a72d99d2ba5f828ad8538d328f4b">part1</a>)) {
+      <span class="keywordflow">return</span> (<a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>);
+    }
+    <span class="comment">/* Not in table */</span>
+    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (state_table[x].part1 == <a class="code" href="closed_8h.html#a854af682e4205dfeddb86f4fd4875495">NO_STATE</a>) {
+      state_table[x].<a class="code" href="struct_s_t_a_t_e.html#aa75ceb95132aecb5a8ae1e594a19733a">part2</a> = state-&gt;<a class="code" href="struct_s_t_a_t_e.html#aa75ceb95132aecb5a8ae1e594a19733a">part2</a>;
+      state_table[x].<a class="code" href="struct_s_t_a_t_e.html#a2099a72d99d2ba5f828ad8538d328f4b">part1</a> = state-&gt;<a class="code" href="struct_s_t_a_t_e.html#a2099a72d99d2ba5f828ad8538d328f4b">part1</a>;
+      <span class="keywordflow">return</span> (<a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>);
+    }
+    i++;
+    <span class="keywordflow">if</span> (++x &gt;= table_limit)
+      x = 0;
+  }
+  <a class="code" href="callcpp_8cpp.html#a21679e7fec2d69db23107348fa13c153">cprintf</a>(<span class="stringliteral">&quot;warning: hash table is full&quot;</span>);
+
+  abort();
+  <span class="keywordflow">return</span> 0;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="af42fdf0836fd4f40c478a4c46f4148c5"></a><!-- doxytag: member="closed.cpp::hash_lookup" ref="af42fdf0836fd4f40c478a4c46f4148c5" args="(HASH_TABLE state_table, STATE *state)" -->
@@ -192,6 +226,35 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="closed_8cpp_source.html#l00086">86</a> of file <a class="el" href="closed_8cpp_source.html">closed.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                      {
+  <span class="keywordtype">int</span> x;
+  <span class="keywordtype">int</span> i = 0;
+  <span class="keywordtype">int</span> table_limit = <a class="code" href="closed_8cpp.html#a032503e76d6f69bc67e99e909c8125da">TABLE_SIZE</a>;
+
+  x = state-&gt;<a class="code" href="struct_s_t_a_t_e.html#aa75ceb95132aecb5a8ae1e594a19733a">part2</a> % table_limit;
+  <span class="keywordflow">while</span> (i &lt; table_limit) {
+    assert (0 &lt;= x &amp;&amp; x &lt; table_limit);
+    <span class="comment">/* Found it */</span>
+    <span class="keywordflow">if</span> ((state_table[x].part2 == state-&gt;<a class="code" href="struct_s_t_a_t_e.html#aa75ceb95132aecb5a8ae1e594a19733a">part2</a>) &amp;&amp;
+    (state_table[x].<a class="code" href="struct_s_t_a_t_e.html#a2099a72d99d2ba5f828ad8538d328f4b">part1</a> == state-&gt;<a class="code" href="struct_s_t_a_t_e.html#a2099a72d99d2ba5f828ad8538d328f4b">part1</a>)) {
+      <span class="keywordflow">return</span> (<a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>);
+    }
+    <span class="comment">/* Not in table */</span>
+    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (state_table[x].part1 == <a class="code" href="closed_8h.html#a854af682e4205dfeddb86f4fd4875495">NO_STATE</a>) {
+      <span class="keywordflow">return</span> (<a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>);
+    }
+
+    i++;
+    <span class="keywordflow">if</span> (++x &gt;= table_limit)
+      x = 0;
+  }
+  <a class="code" href="callcpp_8cpp.html#a21679e7fec2d69db23107348fa13c153">cprintf</a> (<span class="stringliteral">&quot;warning: fell off end of hash table  (%x) %x\n&quot;</span>,
+    state-&gt;<a class="code" href="struct_s_t_a_t_e.html#aa75ceb95132aecb5a8ae1e594a19733a">part2</a>, state-&gt;<a class="code" href="struct_s_t_a_t_e.html#aa75ceb95132aecb5a8ae1e594a19733a">part2</a> % table_limit);
+  abort();
+  <span class="keywordflow">return</span> 0;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa74a9d96d39b412ec05403353ba7d5a4"></a><!-- doxytag: member="closed.cpp::new_hash_table" ref="aa74a9d96d39b412ec05403353ba7d5a4" args="()" -->
@@ -208,6 +271,19 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="closed_8cpp_source.html#l00120">120</a> of file <a class="el" href="closed_8cpp_source.html">closed.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                            {
+  <a class="code" href="struct_s_t_a_t_e.html">HASH_TABLE</a> ht;
+  <span class="keywordtype">int</span> x;
+
+  ht = (<a class="code" href="closed_8h.html#a8c58d81ec903d9b388b5d576c8e2fa49">HASH_TABLE</a>) <a class="code" href="freelist_8cpp.html#a5898fbe61f6ffe4c1be71a107193cdfd">memalloc</a> (<a class="code" href="closed_8cpp.html#a032503e76d6f69bc67e99e909c8125da">TABLE_SIZE</a> * <span class="keyword">sizeof</span> (<a class="code" href="struct_s_t_a_t_e.html">STATE</a>));
+  <span class="keywordflow">for</span> (x = 0; x &lt; <a class="code" href="closed_8cpp.html#a032503e76d6f69bc67e99e909c8125da">TABLE_SIZE</a>; x++) {
+    ht[x].<a class="code" href="struct_s_t_a_t_e.html#a2099a72d99d2ba5f828ad8538d328f4b">part1</a> = <a class="code" href="closed_8h.html#a854af682e4205dfeddb86f4fd4875495">NO_STATE</a>;
+    ht[x].<a class="code" href="struct_s_t_a_t_e.html#aa75ceb95132aecb5a8ae1e594a19733a">part2</a> = <a class="code" href="closed_8h.html#a854af682e4205dfeddb86f4fd4875495">NO_STATE</a>;
+  }
+  <span class="keywordflow">return</span> (ht);
+}
+</pre></div>
 </div>
 </div>
 </div>
@@ -230,7 +306,7 @@ Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:10 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:43 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

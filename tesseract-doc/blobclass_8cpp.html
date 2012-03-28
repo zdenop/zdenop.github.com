@@ -112,7 +112,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <code>#include &lt;math.h&gt;</code><br/>
 <code>#include &lt;stdio.h&gt;</code><br/>
 <code>#include &lt;signal.h&gt;</code><br/>
-</div><table class="memberdecls">
+</div>
+<p><a href="blobclass_8cpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr><td colspan="2"><h2><a name="define-members"></a>
 Defines</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="blobclass_8cpp.html#a0947c0a3d28c188caa4497cce08539c9">MAXFILENAME</a>&#160;&#160;&#160;80</td></tr>
@@ -140,6 +142,8 @@ Variables</h2></td></tr>
 <div class="memdoc">
 <p>---------------------------------------------------------------------------- Include Files and Type Defines ---------------------------------------------------------------------------- </p>
 
+<p>Definition at line <a class="el" href="blobclass_8cpp_source.html#l00033">33</a> of file <a class="el" href="blobclass_8cpp_source.html">blobclass.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a8bc90c18cf8e3a8c2d45d3842e94902b"></a><!-- doxytag: member="blobclass.cpp::MAXMATCHES" ref="a8bc90c18cf8e3a8c2d45d3842e94902b" args="" -->
@@ -152,6 +156,8 @@ Variables</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="blobclass_8cpp_source.html#l00034">34</a> of file <a class="el" href="blobclass_8cpp_source.html">blobclass.cpp</a>.</p>
 
 </div>
 </div>
@@ -213,6 +219,56 @@ Variables</h2></td></tr>
 <div class="memdoc">
 <p>---------------------------------------------------------------------------- Public Code ---------------------------------------------------------------------------- </p>
 
+<p>Definition at line <a class="el" href="blobclass_8cpp_source.html#l00052">52</a> of file <a class="el" href="blobclass_8cpp_source.html">blobclass.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                         {
+<span class="comment">/*</span>
+<span class="comment"> **      Parameters:</span>
+<span class="comment"> **              Blob            blob whose micro-features are to be learned</span>
+<span class="comment"> **              Row             row of text that blob came from</span>
+<span class="comment"> **              BlobText        text that corresponds to blob</span>
+<span class="comment"> **              TextLength      number of characters in blob</span>
+<span class="comment"> **      Globals:</span>
+<span class="comment"> **              imagefile       base filename of the page being learned</span>
+<span class="comment"> **              classify_font_name</span>
+<span class="comment"> **                              name of font currently being trained on</span>
+<span class="comment"> **      Operation:</span>
+<span class="comment"> **              Extract micro-features from the specified blob and append</span>
+<span class="comment"> **              them to the appropriate file.</span>
+<span class="comment"> **      Return: none</span>
+<span class="comment"> **      Exceptions: none</span>
+<span class="comment"> **      History: 7/28/89, DSJ, Created.</span>
+<span class="comment"> */</span>
+<span class="preprocessor">#define TRAIN_SUFFIX    &quot;.tr&quot;</span>
+<span class="preprocessor"></span>  <span class="keyword">static</span> FILE *FeatureFile = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <a class="code" href="class_s_t_r_i_n_g.html">STRING</a> Filename(filename);
+
+  <span class="comment">// If no fontname was set, try to extract it from the filename</span>
+  <a class="code" href="class_s_t_r_i_n_g.html">STRING</a> CurrFontName = <a class="code" href="blobclass_8cpp.html#aa9bc8ba4ba34ad675c28584c68838003">classify_font_name</a>;
+  <span class="keywordflow">if</span> (CurrFontName == kUnknownFontName) {
+    <span class="comment">// filename is expected to be of the form [lang].[fontname].exp[num]</span>
+    <span class="comment">// The [lang], [fontname] and [num] fields should not have &#39;.&#39; characters.</span>
+    <span class="keyword">const</span> <span class="keywordtype">char</span> *basename = strrchr(filename.<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a>(), <span class="charliteral">&#39;/&#39;</span>);
+    <span class="keyword">const</span> <span class="keywordtype">char</span> *firstdot = strchr(basename ? basename : filename.<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a>(), <span class="charliteral">&#39;.&#39;</span>);
+    <span class="keyword">const</span> <span class="keywordtype">char</span> *lastdot  = strrchr(filename.<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a>(), <span class="charliteral">&#39;.&#39;</span>);
+    <span class="keywordflow">if</span> (firstdot != lastdot &amp;&amp; firstdot != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp; lastdot != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      ++firstdot;
+      CurrFontName = firstdot;
+      CurrFontName[lastdot - firstdot] = <span class="charliteral">&#39;\0&#39;</span>;
+    }
+  }
+
+  <span class="comment">// if a feature file is not yet open, open it</span>
+  <span class="comment">// the name of the file is the name of the image plus TRAIN_SUFFIX</span>
+  <span class="keywordflow">if</span> (FeatureFile == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    Filename += <a class="code" href="blobclass_8cpp.html#a9bcbb139609a6c158f220274ee1c0633">TRAIN_SUFFIX</a>;
+    FeatureFile = <a class="code" href="efio_8cpp.html#a1a07e904724c29e89b04235a34ded950">Efopen</a>(Filename.string(), <span class="stringliteral">&quot;wb&quot;</span>);
+    <a class="code" href="callcpp_8cpp.html#a21679e7fec2d69db23107348fa13c153">cprintf</a>(<span class="stringliteral">&quot;TRAINING ... Font name = %s\n&quot;</span>, CurrFontName.<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a>());
+  }
+
+  <a class="code" href="blobclass_8cpp.html#aa38d9ea697967c87442bc9a97a64f7e5">LearnBlob</a>(FeatureDefs, FeatureFile, Blob, denorm, BlobText,
+            CurrFontName.<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a>());
+}                                <span class="comment">// LearnBlob</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a02e4125bedba195dc32e8f8de3866f25"></a><!-- doxytag: member="blobclass.cpp::LearnBlob" ref="a02e4125bedba195dc32e8f8de3866f25" args="(const FEATURE_DEFS_STRUCT &amp;FeatureDefs, FILE *FeatureFile, TBLOB *Blob, const DENORM &amp;denorm, const char *BlobText, const char *FontName)" -->
@@ -264,6 +320,31 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobclass_8cpp_source.html#l00102">102</a> of file <a class="el" href="blobclass_8cpp_source.html">blobclass.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                           {
+  <a class="code" href="struct_c_h_a_r___d_e_s_c___s_t_r_u_c_t.html">CHAR_DESC</a> CharDesc;
+
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(FeatureFile != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+
+  CharDesc = <a class="code" href="extract_8cpp.html#a5b26dea6ab55a323ea6a17939bfcc5af">ExtractBlobFeatures</a>(FeatureDefs, denorm, Blob);
+  <span class="keywordflow">if</span> (CharDesc == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="callcpp_8cpp.html#a21679e7fec2d69db23107348fa13c153">cprintf</a>(<span class="stringliteral">&quot;LearnBLob: CharDesc was NULL. Aborting.\n&quot;</span>);
+    <span class="keywordflow">return</span>;
+  }
+
+  <span class="keywordflow">if</span> (<a class="code" href="featdefs_8cpp.html#af8fa799b7b0c0c8e18648a521ef2775f">ValidCharDescription</a>(FeatureDefs, CharDesc)) {
+    <span class="comment">// label the features with a class name and font name</span>
+    fprintf(FeatureFile, <span class="stringliteral">&quot;\n%s %s\n&quot;</span>, FontName, BlobText);
+
+    <span class="comment">// write micro-features to file and clean up</span>
+    <a class="code" href="featdefs_8cpp.html#a52fa2e188f92a8642277f83873efa212">WriteCharDescription</a>(FeatureDefs, FeatureFile, CharDesc);
+  } <span class="keywordflow">else</span> {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Blob learned was invalid!\n&quot;</span>);
+  }
+  <a class="code" href="featdefs_8cpp.html#ae2a92eefc3755300284119692527e3b9">FreeCharDescription</a>(CharDesc);
+
+}                                <span class="comment">// LearnBlob</span>
+</pre></div>
 </div>
 </div>
 <hr/><h2>Variable Documentation</h2>
@@ -278,6 +359,8 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"Default font name to be used in training" </p>
+
+<p>Definition at line <a class="el" href="blobclass_8cpp_source.html#l00039">39</a> of file <a class="el" href="blobclass_8cpp_source.html">blobclass.cpp</a>.</p>
 
 </div>
 </div>
@@ -315,7 +398,7 @@ Variables</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:09 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:41 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

@@ -122,7 +122,10 @@ Protected Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_char_bigrams.html#acca74d8457ec604bc39f0f0b3a77443b">PairCost</a> (<a class="el" href="namespacetesseract.html#aea2c6172b0ca77907e29cd018595b425">char_32</a> ch1, <a class="el" href="namespacetesseract.html#aea2c6172b0ca77907e29cd018595b425">char_32</a> ch2) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_char_bigrams.html#aad8d15924e4b9793972b1c7488cc8466">MeanCostWithSpaces</a> (const <a class="el" href="namespacetesseract.html#aea2c6172b0ca77907e29cd018595b425">char_32</a> *char_32_ptr) const </td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="char__bigrams_8h_source.html#l00056">56</a> of file <a class="el" href="char__bigrams_8h_source.html">char_bigrams.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a17e9f5a3b5a5dc9704b89c698e5db481"></a><!-- doxytag: member="tesseract::CharBigrams::CharBigrams" ref="a17e9f5a3b5a5dc9704b89c698e5db481" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -137,6 +140,11 @@ Protected Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__bigrams_8cpp_source.html#l00032">32</a> of file <a class="el" href="char__bigrams_8cpp_source.html">char_bigrams.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                         {
+  memset(&amp;bigram_table_, 0, <span class="keyword">sizeof</span>(bigram_table_));
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae622fa52434296b70785149199b7007f"></a><!-- doxytag: member="tesseract::CharBigrams::~CharBigrams" ref="ae622fa52434296b70785149199b7007f" args="()" -->
@@ -153,6 +161,20 @@ Protected Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__bigrams_8cpp_source.html#l00036">36</a> of file <a class="el" href="char__bigrams_8cpp_source.html">char_bigrams.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                          {
+  <span class="keywordflow">if</span> (bigram_table_.char_bigram != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> ch1 = 0; ch1 &lt;= bigram_table_.max_char; ch1++) {
+      CharBigram *char_bigram = bigram_table_.char_bigram + ch1;
+
+      <span class="keywordflow">if</span> (char_bigram-&gt;bigram != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+        <span class="keyword">delete</span> []char_bigram-&gt;bigram;
+      }
+    }
+    <span class="keyword">delete</span> []bigram_table_.char_bigram;
+  }
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -181,6 +203,30 @@ Protected Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__bigrams_8cpp_source.html#l00169">169</a> of file <a class="el" href="char__bigrams_8cpp_source.html">char_bigrams.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                         {
+  <span class="keywordflow">if</span> (!char_32_ptr || char_32_ptr[0] == 0) {
+    <span class="keywordflow">return</span> bigram_table_.worst_cost;
+  }
+  <span class="keywordtype">int</span> cost = <a class="code" href="classtesseract_1_1_char_bigrams.html#aad8d15924e4b9793972b1c7488cc8466">MeanCostWithSpaces</a>(char_32_ptr);
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_cube_utils.html#a88fe596e3dcadab7909c0bff64f61f59">CubeUtils::StrLen</a>(char_32_ptr) &gt;= kMinLengthCaseInvariant &amp;&amp;
+      <a class="code" href="classtesseract_1_1_cube_utils.html#a0c67516e85144e0d736f30c21208aeda">CubeUtils::IsCaseInvariant</a>(char_32_ptr, char_set)) {
+    <a class="code" href="namespacetesseract.html#aea2c6172b0ca77907e29cd018595b425">char_32</a> *lower_32 = <a class="code" href="classtesseract_1_1_cube_utils.html#ac051dbde8b019f824b1bd8ae8d69d10e">CubeUtils::ToLower</a>(char_32_ptr, char_set);
+    <span class="keywordflow">if</span> (lower_32 &amp;&amp; lower_32[0] != 0) {
+      <span class="keywordtype">int</span> cost_lower = <a class="code" href="classtesseract_1_1_char_bigrams.html#aad8d15924e4b9793972b1c7488cc8466">MeanCostWithSpaces</a>(lower_32);
+      cost = <a class="code" href="ndminx_8h.html#a74e75242132eaabbc1c512488a135926">MIN</a>(cost, cost_lower);
+      <span class="keyword">delete</span> [] lower_32;
+    }
+    <a class="code" href="namespacetesseract.html#aea2c6172b0ca77907e29cd018595b425">char_32</a> *upper_32 = <a class="code" href="classtesseract_1_1_cube_utils.html#ac5f9453d9b30ec4343940ad428a4638d">CubeUtils::ToUpper</a>(char_32_ptr, char_set);
+    <span class="keywordflow">if</span> (upper_32 &amp;&amp; upper_32[0] != 0) {
+      <span class="keywordtype">int</span> cost_upper = <a class="code" href="classtesseract_1_1_char_bigrams.html#aad8d15924e4b9793972b1c7488cc8466">MeanCostWithSpaces</a>(upper_32);
+      cost = <a class="code" href="ndminx_8h.html#a74e75242132eaabbc1c512488a135926">MIN</a>(cost, cost_upper);
+      <span class="keyword">delete</span> [] upper_32;
+    }
+  }
+  <span class="keywordflow">return</span> cost;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a736a26176210da09fd5c57498de1cf77"></a><!-- doxytag: member="tesseract::CharBigrams::Create" ref="a736a26176210da09fd5c57498de1cf77" args="(const string &amp;data_file_path, const string &amp;lang)" -->
@@ -208,6 +254,116 @@ Protected Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__bigrams_8cpp_source.html#l00049">49</a> of file <a class="el" href="char__bigrams_8cpp_source.html">char_bigrams.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                     {
+  <span class="keywordtype">string</span> file_name;
+  <span class="keywordtype">string</span> str;
+
+  file_name = data_file_path + lang;
+  file_name += <span class="stringliteral">&quot;.cube.bigrams&quot;</span>;
+
+  <span class="comment">// load the string into memory</span>
+  <span class="keywordflow">if</span> (!<a class="code" href="classtesseract_1_1_cube_utils.html#ac5c5bf284cd96f78f62f19938bec750a">CubeUtils::ReadFileToString</a>(file_name, &amp;str)) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="comment">// construct a new object</span>
+  <a class="code" href="classtesseract_1_1_char_bigrams.html#a17e9f5a3b5a5dc9704b89c698e5db481">CharBigrams</a> *char_bigrams_obj = <span class="keyword">new</span> <a class="code" href="classtesseract_1_1_char_bigrams.html#a17e9f5a3b5a5dc9704b89c698e5db481">CharBigrams</a>();
+  <span class="keywordflow">if</span> (char_bigrams_obj == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    fprintf(stderr, <span class="stringliteral">&quot;Cube ERROR (CharBigrams::Create): could not create &quot;</span>
+            <span class="stringliteral">&quot;character bigrams object.\n&quot;</span>);
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  CharBigramTable *table = &amp;char_bigrams_obj-&gt;bigram_table_;
+
+  table-&gt;total_cnt = 0;
+  table-&gt;max_char = -1;
+  table-&gt;char_bigram = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+
+  <span class="comment">// split into lines</span>
+  vector&lt;string&gt; str_vec;
+  <a class="code" href="classtesseract_1_1_cube_utils.html#af7dea4521db1e7099c93606d0f5bf4a4">CubeUtils::SplitStringUsing</a>(str, <span class="stringliteral">&quot;\r\n&quot;</span>, &amp;str_vec);
+
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> big = 0; big &lt; str_vec.size(); big++) {
+    <a class="code" href="namespacetesseract.html#aea2c6172b0ca77907e29cd018595b425">char_32</a> ch1;
+    <a class="code" href="namespacetesseract.html#aea2c6172b0ca77907e29cd018595b425">char_32</a> ch2;
+    <span class="keywordtype">int</span> cnt;
+    <span class="keywordflow">if</span> (sscanf(str_vec[big].c_str(), <span class="stringliteral">&quot;%d %x %x&quot;</span>, &amp;cnt, &amp;ch1, &amp;ch2) != 3) {
+      fprintf(stderr, <span class="stringliteral">&quot;Cube ERROR (CharBigrams::Create): invalid format &quot;</span>
+              <span class="stringliteral">&quot;reading line: %s\n&quot;</span>, str_vec[big].c_str());
+      <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    }
+
+    <span class="comment">// expand the bigram table</span>
+    <span class="keywordflow">if</span> (ch1 &gt; table-&gt;max_char) {
+      CharBigram *char_bigram = <span class="keyword">new</span> CharBigram[ch1 + 1];
+      <span class="keywordflow">if</span> (char_bigram == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+        fprintf(stderr, <span class="stringliteral">&quot;Cube ERROR (CharBigrams::Create): error allocating &quot;</span>
+                <span class="stringliteral">&quot;additional memory for character bigram table.\n&quot;</span>);
+        <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+      }
+
+      <span class="keywordflow">if</span> (table-&gt;char_bigram != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp; table-&gt;max_char &gt;= 0) {
+        memcpy(char_bigram, table-&gt;char_bigram,
+          (table-&gt;max_char + 1) * <span class="keyword">sizeof</span>(*char_bigram));
+
+        <span class="keyword">delete</span> []table-&gt;char_bigram;
+      }
+      table-&gt;char_bigram = char_bigram;
+
+      <span class="comment">// init</span>
+      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> new_big = table-&gt;max_char + 1; new_big &lt;= ch1; new_big++) {
+        table-&gt;char_bigram[new_big].total_cnt = 0;
+        table-&gt;char_bigram[new_big].max_char = -1;
+        table-&gt;char_bigram[new_big].bigram = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+      }
+      table-&gt;max_char = ch1;
+    }
+
+    <span class="keywordflow">if</span> (ch2 &gt; table-&gt;char_bigram[ch1].max_char) {
+      Bigram *bigram = <span class="keyword">new</span> Bigram[ch2 + 1];
+      <span class="keywordflow">if</span> (bigram == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+        fprintf(stderr, <span class="stringliteral">&quot;Cube ERROR (CharBigrams::Create): error allocating &quot;</span>
+                <span class="stringliteral">&quot;memory for bigram.\n&quot;</span>);
+        <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+      }
+
+      <span class="keywordflow">if</span> (table-&gt;char_bigram[ch1].bigram != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp;
+          table-&gt;char_bigram[ch1].max_char &gt;= 0) {
+        memcpy(bigram, table-&gt;char_bigram[ch1].bigram,
+          (table-&gt;char_bigram[ch1].max_char + 1) * <span class="keyword">sizeof</span>(*bigram));
+        <span class="keyword">delete</span> []table-&gt;char_bigram[ch1].bigram;
+      }
+      table-&gt;char_bigram[ch1].bigram = bigram;
+
+      <span class="comment">// init</span>
+      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> new_big = table-&gt;char_bigram[ch1].max_char + 1;
+           new_big &lt;= ch2; new_big++) {
+        table-&gt;char_bigram[ch1].bigram[new_big].cnt = 0;
+      }
+      table-&gt;char_bigram[ch1].max_char = ch2;
+    }
+
+    table-&gt;char_bigram[ch1].bigram[ch2].cnt = cnt;
+    table-&gt;char_bigram[ch1].total_cnt += cnt;
+    table-&gt;total_cnt += cnt;
+  }
+
+  <span class="comment">// compute costs (-log probs)</span>
+  table-&gt;worst_cost = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(
+      -<a class="code" href="cube__const_8h.html#ab1e863295c568a5acf35176a474a87a9">PROB2COST_SCALE</a> * log(0.5 / table-&gt;total_cnt));
+  <span class="keywordflow">for</span> (<a class="code" href="namespacetesseract.html#aea2c6172b0ca77907e29cd018595b425">char_32</a> ch1 = 0; ch1 &lt;= table-&gt;max_char; ch1++) {
+    <span class="keywordflow">for</span> (<a class="code" href="namespacetesseract.html#aea2c6172b0ca77907e29cd018595b425">char_32</a> ch2 = 0; ch2 &lt;= table-&gt;char_bigram[ch1].max_char; ch2++) {
+      <span class="keywordtype">int</span> cnt = table-&gt;char_bigram[ch1].bigram[ch2].cnt;
+      table-&gt;char_bigram[ch1].bigram[ch2].cost =
+          <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(-<a class="code" href="cube__const_8h.html#ab1e863295c568a5acf35176a474a87a9">PROB2COST_SCALE</a> *
+                           log(<a class="code" href="ndminx_8h.html#aacc3ee1a7f283f8ef65cea31f4436a95">MAX</a>(0.5, static_cast&lt;double&gt;(cnt)) /
+                               table-&gt;total_cnt));
+    }
+  }
+  <span class="keywordflow">return</span> char_bigrams_obj;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aad8d15924e4b9793972b1c7488cc8466"></a><!-- doxytag: member="tesseract::CharBigrams::MeanCostWithSpaces" ref="aad8d15924e4b9793972b1c7488cc8466" args="(const char_32 *char_32_ptr) const " -->
@@ -225,6 +381,21 @@ Protected Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__bigrams_8cpp_source.html#l00192">192</a> of file <a class="el" href="char__bigrams_8cpp_source.html">char_bigrams.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                    {
+  <span class="keywordflow">if</span> (!char_32_ptr)
+    <span class="keywordflow">return</span> bigram_table_.worst_cost;
+  <span class="keywordtype">int</span> len = <a class="code" href="classtesseract_1_1_cube_utils.html#a88fe596e3dcadab7909c0bff64f61f59">CubeUtils::StrLen</a>(char_32_ptr);
+  <span class="keywordtype">int</span> cost = 0;
+  <span class="keywordtype">int</span> c = 0;
+  cost = <a class="code" href="classtesseract_1_1_char_bigrams.html#acca74d8457ec604bc39f0f0b3a77443b">PairCost</a>(<span class="charliteral">&#39; &#39;</span>, char_32_ptr[0]);
+  <span class="keywordflow">for</span> (c = 1; c &lt; len; c++) {
+    cost += <a class="code" href="classtesseract_1_1_char_bigrams.html#acca74d8457ec604bc39f0f0b3a77443b">PairCost</a>(char_32_ptr[c - 1], char_32_ptr[c]);
+  }
+  cost += <a class="code" href="classtesseract_1_1_char_bigrams.html#acca74d8457ec604bc39f0f0b3a77443b">PairCost</a>(char_32_ptr[len - 1], <span class="charliteral">&#39; &#39;</span>);
+  <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(cost / <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(len + 1));
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="acca74d8457ec604bc39f0f0b3a77443b"></a><!-- doxytag: member="tesseract::CharBigrams::PairCost" ref="acca74d8457ec604bc39f0f0b3a77443b" args="(char_32 ch1, char_32 ch2) const " -->
@@ -252,11 +423,22 @@ Protected Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__bigrams_8cpp_source.html#l00159">159</a> of file <a class="el" href="char__bigrams_8cpp_source.html">char_bigrams.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                        {
+  <span class="keywordflow">if</span> (ch1 &gt; bigram_table_.max_char) {
+    <span class="keywordflow">return</span> bigram_table_.worst_cost;
+  }
+  <span class="keywordflow">if</span> (ch2 &gt; bigram_table_.char_bigram[ch1].max_char) {
+    <span class="keywordflow">return</span> bigram_table_.worst_cost;
+  }
+  <span class="keywordflow">return</span> bigram_table_.char_bigram[ch1].bigram[ch2].cost;
+}
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/cube/<a class="el" href="char__bigrams_8h_source.html">char_bigrams.h</a></li>
-<li>tesseract-ocr/cube/<a class="el" href="char__bigrams_8cpp.html">char_bigrams.cpp</a></li>
+<li>tesseract-ocr/cube/<a class="el" href="char__bigrams_8cpp_source.html">char_bigrams.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -279,7 +461,7 @@ Protected Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:15 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:50 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

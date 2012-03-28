@@ -129,6 +129,8 @@ Static Package Attributes</h2></td></tr>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>The ScrollViewImageHandler is a helper class which takes care of image processing. It is used to construct an Image from the message-stream and basically consists of a number of utility functions to process the input stream.</p>
 <dl class="author"><dt><b>Author:</b></dt><dd><a href="mailto:wanke@google.com">wanke@google.com</a> </dd></dl>
+
+<p>Definition at line <a class="el" href="_s_v_image_handler_8java_source.html#l00026">26</a> of file <a class="el" href="_s_v_image_handler_8java_source.html">SVImageHandler.java</a>.</p>
 </div><hr/><h2>Member Function Documentation</h2>
 <a class="anchor" id="a86f7eba22aa97e4f3ed7fce24e6a22e5"></a><!-- doxytag: member="com::google::scrollview::ui::SVImageHandler::createImage" ref="a86f7eba22aa97e4f3ed7fce24e6a22e5" args="(String name, int width, int height, int bitsPerPixel)" -->
 <div class="memitem">
@@ -168,6 +170,35 @@ Static Package Attributes</h2></td></tr>
 <div class="memdoc">
 <p>Starts creation of a new image. </p>
 
+<p>Definition at line <a class="el" href="_s_v_image_handler_8java_source.html#l00146">146</a> of file <a class="el" href="_s_v_image_handler_8java_source.html">SVImageHandler.java</a>.</p>
+<div class="fragment"><pre class="fragment">                        {
+    <span class="comment">// Create buffered image that does not support transparency</span>
+    <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_image_handler.html#a01ff12d69b5f63dea35e73fe2a957098">bpp</a> = bitsPerPixel;
+    <span class="keywordflow">if</span> (<a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_image_handler.html#a01ff12d69b5f63dea35e73fe2a957098">bpp</a> == 1) {
+      <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_image_handler.html#a2eb56f18bcd41021c69469a7666967d5">bytePerPixel</a> = 1;
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_image_handler.html#a01ff12d69b5f63dea35e73fe2a957098">bpp</a> == 8) {
+      <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_image_handler.html#a2eb56f18bcd41021c69469a7666967d5">bytePerPixel</a> = 2;
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_image_handler.html#a01ff12d69b5f63dea35e73fe2a957098">bpp</a> == 32) {
+      <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_image_handler.html#a2eb56f18bcd41021c69469a7666967d5">bytePerPixel</a> = 7;
+    } <span class="keywordflow">else</span> {
+      <span class="keywordflow">throw</span> <span class="keyword">new</span> IllegalArgumentException(
+          <span class="stringliteral">&quot;bpp should be 1 (binary), 8 (gray) or 32 (argb), is &quot;</span> + <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_image_handler.html#a01ff12d69b5f63dea35e73fe2a957098">bpp</a>);
+    }
+    <span class="keywordflow">if</span> (<a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_image_handler.html#ab37a878f5034f8a5987599e36505cdce">imageName</a> != null) {
+      <span class="keywordflow">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="stringliteral">&quot;Image &quot;</span> + <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_image_handler.html#ab37a878f5034f8a5987599e36505cdce">imageName</a> + <span class="stringliteral">&quot; already opened!&quot;</span>);
+    }
+    <span class="keywordflow">else</span> {
+      <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_image_handler.html#ab37a878f5034f8a5987599e36505cdce">imageName</a> = name;
+      <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_image_handler.html#a61ea729cbd0e52d4b3456289c17a024b">bytesRead</a> = 0;
+      <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_image_handler.html#ababfad1e66b39e9bb0c2f6998c2ee190">readImageData</a> = <span class="keyword">true</span>;
+      SVImageHandler.height = <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_image_handler.html#a4b52ffa369937cf5706a7711fc87bfb7">height</a>;
+      SVImageHandler.width = <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_image_handler.html#a4b3324a0863e2b11e9859204af522ad3">width</a>;
+      <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_image_handler.html#aa6a6364b6286609dc253eb206b96fcfd">pictureArray</a> = <span class="keyword">new</span> <span class="keywordtype">int</span>[<a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_image_handler.html#a4b3324a0863e2b11e9859204af522ad3">width</a> * <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_image_handler.html#a4b52ffa369937cf5706a7711fc87bfb7">height</a>];
+    }   
+
+    System.out.println(<span class="stringliteral">&quot;Processing Image with &quot;</span> + <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_image_handler.html#a01ff12d69b5f63dea35e73fe2a957098">bpp</a> + <span class="stringliteral">&quot; bpp, size &quot;</span> + <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_image_handler.html#a4b3324a0863e2b11e9859204af522ad3">width</a> + <span class="stringliteral">&quot;x&quot;</span> + <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_image_handler.html#a4b52ffa369937cf5706a7711fc87bfb7">height</a>);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aaa60c2511aa95d830494f5c196ae2eb0"></a><!-- doxytag: member="com::google::scrollview::ui::SVImageHandler::getImage" ref="aaa60c2511aa95d830494f5c196ae2eb0" args="(String name)" -->
@@ -186,6 +217,11 @@ Static Package Attributes</h2></td></tr>
 <div class="memdoc">
 <p>Find the image corresponding to a given name </p>
 
+<p>Definition at line <a class="el" href="_s_v_image_handler_8java_source.html#l00189">189</a> of file <a class="el" href="_s_v_image_handler_8java_source.html">SVImageHandler.java</a>.</p>
+<div class="fragment"><pre class="fragment">                                             {
+    <span class="keywordflow">return</span> <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_image_handler.html#acb563126b52587d32e1156c5d9d95a82">images</a>.get(name);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6e566ce3033bb85a12fa8d43cd62e252"></a><!-- doxytag: member="com::google::scrollview::ui::SVImageHandler::getMissingRemainingBytes" ref="a6e566ce3033bb85a12fa8d43cd62e252" args="()" -->
@@ -203,6 +239,11 @@ Static Package Attributes</h2></td></tr>
 <div class="memdoc">
 <p>Computes how many bytes of the image data are still missing </p>
 
+<p>Definition at line <a class="el" href="_s_v_image_handler_8java_source.html#l00225">225</a> of file <a class="el" href="_s_v_image_handler_8java_source.html">SVImageHandler.java</a>.</p>
+<div class="fragment"><pre class="fragment">                                               {
+    <span class="keywordflow">return</span> (<a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_image_handler.html#a4b52ffa369937cf5706a7711fc87bfb7">height</a> * <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_image_handler.html#a4b3324a0863e2b11e9859204af522ad3">width</a> * <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_image_handler.html#a2eb56f18bcd41021c69469a7666967d5">bytePerPixel</a>) - <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_image_handler.html#a61ea729cbd0e52d4b3456289c17a024b">bytesRead</a>;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae8bca7b74ae44c36798cfd4df2fe8cf7"></a><!-- doxytag: member="com::google::scrollview::ui::SVImageHandler::getReadImageData" ref="ae8bca7b74ae44c36798cfd4df2fe8cf7" args="()" -->
@@ -220,6 +261,11 @@ Static Package Attributes</h2></td></tr>
 <div class="memdoc">
 <p>Returns whether we a currently reading image data or not </p>
 
+<p>Definition at line <a class="el" href="_s_v_image_handler_8java_source.html#l00220">220</a> of file <a class="el" href="_s_v_image_handler_8java_source.html">SVImageHandler.java</a>.</p>
+<div class="fragment"><pre class="fragment">                                           {
+    <span class="keywordflow">return</span> <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_image_handler.html#ababfad1e66b39e9bb0c2f6998c2ee190">readImageData</a>;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a5e86dc56c333b52333ceed3996e7677b"></a><!-- doxytag: member="com::google::scrollview::ui::SVImageHandler::openImage" ref="a5e86dc56c333b52333ceed3996e7677b" args="(String location)" -->
@@ -244,6 +290,12 @@ Static Package Attributes</h2></td></tr>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="_s_v_image_handler_8java_source.html#l00183">183</a> of file <a class="el" href="_s_v_image_handler_8java_source.html">SVImageHandler.java</a>.</p>
+<div class="fragment"><pre class="fragment">                                                {
+    PImage img = <span class="keyword">new</span> PImage(location);
+    <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_image_handler.html#acb563126b52587d32e1156c5d9d95a82">images</a>.put(location, img);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a15797ee62854070fadb2fdbf1cf1fec6"></a><!-- doxytag: member="com::google::scrollview::ui::SVImageHandler::parseData" ref="a15797ee62854070fadb2fdbf1cf1fec6" args="(String inputLine)" -->
@@ -262,6 +314,29 @@ Static Package Attributes</h2></td></tr>
 <div class="memdoc">
 <p>Gets called while currently reading image data. Decides, how to process it (which image type, whether all data is there). </p>
 
+<p>Definition at line <a class="el" href="_s_v_image_handler_8java_source.html#l00197">197</a> of file <a class="el" href="_s_v_image_handler_8java_source.html">SVImageHandler.java</a>.</p>
+<div class="fragment"><pre class="fragment">                                                 {
+    <span class="keywordtype">int</span>[] data = null;
+
+    <span class="keywordflow">if</span> (<a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_image_handler.html#a01ff12d69b5f63dea35e73fe2a957098">bpp</a> == 1) {
+      data = processBinaryImage(inputLine);
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_image_handler.html#a01ff12d69b5f63dea35e73fe2a957098">bpp</a> == 8) {
+      data = processGrayImage(inputLine);
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_image_handler.html#a01ff12d69b5f63dea35e73fe2a957098">bpp</a> == 32) {
+      data = process32bppImage(inputLine);
+    } <span class="keywordflow">else</span> {
+      System.out.println(<span class="stringliteral">&quot;Unsupported Bit Type: &quot;</span> + <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_image_handler.html#a01ff12d69b5f63dea35e73fe2a957098">bpp</a>);
+    }
+
+    System.arraycopy(data, 0, <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_image_handler.html#aa6a6364b6286609dc253eb206b96fcfd">pictureArray</a>, <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_image_handler.html#a61ea729cbd0e52d4b3456289c17a024b">bytesRead</a>, data.length);
+    <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_image_handler.html#a61ea729cbd0e52d4b3456289c17a024b">bytesRead</a> += data.length;
+
+    <span class="comment">// We have read all image data - close the image</span>
+    <span class="keywordflow">if</span> (<a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_image_handler.html#a61ea729cbd0e52d4b3456289c17a024b">bytesRead</a> == (<a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_image_handler.html#a4b52ffa369937cf5706a7711fc87bfb7">height</a> * <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_image_handler.html#a4b3324a0863e2b11e9859204af522ad3">width</a>)) {
+      closeImage();
+    }
+  }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
@@ -276,6 +351,8 @@ Static Package Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="_s_v_image_handler_8java_source.html#l00040">40</a> of file <a class="el" href="_s_v_image_handler_8java_source.html">SVImageHandler.java</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a2eb56f18bcd41021c69469a7666967d5"></a><!-- doxytag: member="com::google::scrollview::ui::SVImageHandler::bytePerPixel" ref="a2eb56f18bcd41021c69469a7666967d5" args="" -->
@@ -288,6 +365,8 @@ Static Package Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="_s_v_image_handler_8java_source.html#l00043">43</a> of file <a class="el" href="_s_v_image_handler_8java_source.html">SVImageHandler.java</a>.</p>
 
 </div>
 </div>
@@ -302,6 +381,8 @@ Static Package Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="_s_v_image_handler_8java_source.html#l00039">39</a> of file <a class="el" href="_s_v_image_handler_8java_source.html">SVImageHandler.java</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a4b52ffa369937cf5706a7711fc87bfb7"></a><!-- doxytag: member="com::google::scrollview::ui::SVImageHandler::height" ref="a4b52ffa369937cf5706a7711fc87bfb7" args="" -->
@@ -314,6 +395,8 @@ Static Package Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="_s_v_image_handler_8java_source.html#l00046">46</a> of file <a class="el" href="_s_v_image_handler_8java_source.html">SVImageHandler.java</a>.</p>
 
 </div>
 </div>
@@ -329,6 +412,8 @@ Static Package Attributes</h2></td></tr>
 <div class="memdoc">
 <p>These are all values belonging to the image which is currently being read </p>
 
+<p>Definition at line <a class="el" href="_s_v_image_handler_8java_source.html#l00038">38</a> of file <a class="el" href="_s_v_image_handler_8java_source.html">SVImageHandler.java</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="acb563126b52587d32e1156c5d9d95a82"></a><!-- doxytag: member="com::google::scrollview::ui::SVImageHandler::images" ref="acb563126b52587d32e1156c5d9d95a82" args="" -->
@@ -343,6 +428,8 @@ Static Package Attributes</h2></td></tr>
 <div class="memdoc">
 <p>Stores a mapping from the name of the string to its actual image. It enables us to re-use images without having to load or transmit them again </p>
 
+<p>Definition at line <a class="el" href="_s_v_image_handler_8java_source.html#l00031">31</a> of file <a class="el" href="_s_v_image_handler_8java_source.html">SVImageHandler.java</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="aa6a6364b6286609dc253eb206b96fcfd"></a><!-- doxytag: member="com::google::scrollview::ui::SVImageHandler::pictureArray" ref="aa6a6364b6286609dc253eb206b96fcfd" args="[]" -->
@@ -355,6 +442,8 @@ Static Package Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="_s_v_image_handler_8java_source.html#l00041">41</a> of file <a class="el" href="_s_v_image_handler_8java_source.html">SVImageHandler.java</a>.</p>
 
 </div>
 </div>
@@ -370,6 +459,8 @@ Static Package Attributes</h2></td></tr>
 <div class="memdoc">
 <p>A global flag stating whether we are currently expecting Image data </p>
 
+<p>Definition at line <a class="el" href="_s_v_image_handler_8java_source.html#l00034">34</a> of file <a class="el" href="_s_v_image_handler_8java_source.html">SVImageHandler.java</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a4b3324a0863e2b11e9859204af522ad3"></a><!-- doxytag: member="com::google::scrollview::ui::SVImageHandler::width" ref="a4b3324a0863e2b11e9859204af522ad3" args="" -->
@@ -383,10 +474,12 @@ Static Package Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="_s_v_image_handler_8java_source.html#l00045">45</a> of file <a class="el" href="_s_v_image_handler_8java_source.html">SVImageHandler.java</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>tesseract-ocr/java/com/google/scrollview/ui/<a class="el" href="_s_v_image_handler_8java.html">SVImageHandler.java</a></li>
+<li>tesseract-ocr/java/com/google/scrollview/ui/<a class="el" href="_s_v_image_handler_8java_source.html">SVImageHandler.java</a></li>
 </ul>
 </div>
 </div>
@@ -412,7 +505,7 @@ Static Package Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:14 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:48 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

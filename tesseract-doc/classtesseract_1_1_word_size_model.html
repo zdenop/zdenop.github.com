@@ -122,7 +122,10 @@ Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_word_size_model.html#ac7ba49f1e8f8612e9f7804cc97701b2c">PairCost</a> (int width_0, int height_0, int top_0, int width_1, int height_1, int top_1, const <a class="el" href="structtesseract_1_1_pair_size_info.html">PairSizeInfo</a> &amp;pair_info)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_word_size_model.html#a5c4e2c2046229629b86be47ad6683a95">SizeCode</a> (int cls_id, int start, int end)</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="word__size__model_8h_source.html#l00053">53</a> of file <a class="el" href="word__size__model_8h_source.html">word_size_model.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a9b75f5ba542fe0c5db1d717fa927dfb2"></a><!-- doxytag: member="tesseract::WordSizeModel::WordSizeModel" ref="a9b75f5ba542fe0c5db1d717fa927dfb2" args="(CharSet *, bool contextual)" -->
 <div class="memitem">
 <div class="memproto">
@@ -148,6 +151,12 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="word__size__model_8cpp_source.html#l00028">28</a> of file <a class="el" href="word__size__model_8cpp_source.html">word_size_model.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                {
+  char_set_ = char_set;
+  contextual_ = contextual;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a41c3ffbdf981d72c0295c79030709c26"></a><!-- doxytag: member="tesseract::WordSizeModel::~WordSizeModel" ref="a41c3ffbdf981d72c0295c79030709c26" args="()" -->
@@ -164,6 +173,15 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="word__size__model_8cpp_source.html#l00033">33</a> of file <a class="el" href="word__size__model_8cpp_source.html">word_size_model.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                              {
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> fnt = 0; fnt &lt; font_pair_size_models_.size(); fnt++) {
+    FontPairSizeInfo fnt_info = font_pair_size_models_[fnt];
+    <span class="keyword">delete</span> []fnt_info.pair_size_info[0];
+    <span class="keyword">delete</span> []fnt_info.pair_size_info;
+  }
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -192,6 +210,77 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="word__size__model_8cpp_source.html#l00210">210</a> of file <a class="el" href="word__size__model_8cpp_source.html">word_size_model.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                 {
+  <span class="keywordflow">if</span> (samp_cnt &lt; 2) {
+    <span class="keywordflow">return</span> 0;
+  }
+  <span class="keywordtype">double</span> best_dist = <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(<a class="code" href="cube__const_8h.html#ab15bac3baa4fd3e56ba19eefebe4065f">WORST_COST</a>);
+  <span class="keywordtype">int</span> best_fnt = -1;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> fnt = 0; fnt &lt; font_pair_size_models_.size(); fnt++) {
+    <span class="keyword">const</span> FontPairSizeInfo *fnt_info = &amp;font_pair_size_models_[fnt];
+    <span class="keywordtype">double</span> mean_dist = 0;
+    <span class="keywordtype">int</span> pair_cnt = 0;
+
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> smp_0 = 0; smp_0 &lt; samp_cnt; smp_0++) {
+      <span class="keywordtype">int</span> cls_0 = char_set_-&gt;ClassID(samp_array[smp_0]-&gt;StrLabel());
+      <span class="keywordflow">if</span> (cls_0 &lt; 1) {
+        <span class="keywordflow">continue</span>;
+      }
+      <span class="comment">// compute size code for samp 0 based on class id and position</span>
+      <span class="keywordtype">int</span> size_code_0;
+      <span class="keywordflow">if</span> (contextual_) {
+        size_code_0 = <a class="code" href="classtesseract_1_1_word_size_model.html#a5c4e2c2046229629b86be47ad6683a95">SizeCode</a>(cls_0,
+                               samp_array[smp_0]-&gt;FirstChar() == 0 ? 0 : 1,
+                               samp_array[smp_0]-&gt;LastChar() == 0 ? 0 : 1);
+      } <span class="keywordflow">else</span> {
+        size_code_0 = cls_0;
+      }
+
+      <span class="keywordtype">int</span> char0_height = samp_array[smp_0]-&gt;Height();
+      <span class="keywordtype">int</span> char0_width = samp_array[smp_0]-&gt;Width();
+      <span class="keywordtype">int</span> char0_top = samp_array[smp_0]-&gt;Top();
+
+      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> smp_1 = smp_0 + 1; smp_1 &lt; samp_cnt; smp_1++) {
+        <span class="keywordtype">int</span> cls_1 = char_set_-&gt;ClassID(samp_array[smp_1]-&gt;StrLabel());
+        <span class="keywordflow">if</span> (cls_1 &lt; 1) {
+          <span class="keywordflow">continue</span>;
+        }
+        <span class="comment">// compute size code for samp 0 based on class id and position</span>
+        <span class="keywordtype">int</span> size_code_1;
+        <span class="keywordflow">if</span> (contextual_) {
+          size_code_1 = <a class="code" href="classtesseract_1_1_word_size_model.html#a5c4e2c2046229629b86be47ad6683a95">SizeCode</a>(cls_1,
+                                 samp_array[smp_1]-&gt;FirstChar() == 0 ? 0 : 1,
+                                 samp_array[smp_1]-&gt;LastChar() == 0 ? 0 : 1);
+        } <span class="keywordflow">else</span> {
+          size_code_1 = cls_1;
+        }
+        <span class="keywordtype">double</span> dist = <a class="code" href="classtesseract_1_1_word_size_model.html#ac7ba49f1e8f8612e9f7804cc97701b2c">PairCost</a>(
+            char0_width, char0_height, char0_top, samp_array[smp_1]-&gt;Width(),
+            samp_array[smp_1]-&gt;Height(), samp_array[smp_1]-&gt;Top(),
+            fnt_info-&gt;pair_size_info[size_code_0][size_code_1]);
+        <span class="keywordflow">if</span> (dist &gt; 0) {
+          mean_dist += dist;
+          pair_cnt++;
+        }
+      }  <span class="comment">// smp_1</span>
+    }  <span class="comment">// smp_0</span>
+    <span class="keywordflow">if</span> (pair_cnt == 0) {
+      <span class="keywordflow">continue</span>;
+    }
+    mean_dist /= pair_cnt;
+    <span class="keywordflow">if</span> (best_fnt == -1 || mean_dist &lt; best_dist) {
+      best_dist = mean_dist;
+      best_fnt = fnt;
+    }
+  }
+  <span class="keywordflow">if</span> (best_fnt == -1) {
+    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(<a class="code" href="cube__const_8h.html#ab15bac3baa4fd3e56ba19eefebe4065f">WORST_COST</a>);
+  } <span class="keywordflow">else</span> {
+    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(best_dist);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a5a0d31478a6e742e14f72eaf80319dfc"></a><!-- doxytag: member="tesseract::WordSizeModel::Create" ref="a5a0d31478a6e742e14f72eaf80319dfc" args="(const string &amp;data_file_path, const string &amp;lang, CharSet *char_set, bool contextual)" -->
@@ -231,6 +320,22 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="word__size__model_8cpp_source.html#l00041">41</a> of file <a class="el" href="word__size__model_8cpp_source.html">word_size_model.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                      {
+  <a class="code" href="classtesseract_1_1_word_size_model.html#a9b75f5ba542fe0c5db1d717fa927dfb2">WordSizeModel</a> *obj = <span class="keyword">new</span> <a class="code" href="classtesseract_1_1_word_size_model.html#a9b75f5ba542fe0c5db1d717fa927dfb2">WordSizeModel</a>(char_set, contextual);
+  <span class="keywordflow">if</span> (!obj) {
+    fprintf(stderr, <span class="stringliteral">&quot;Cube ERROR (WordSizeModel::Create): unable to allocate &quot;</span>
+            <span class="stringliteral">&quot;new word size model object\n&quot;</span>);
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="keywordflow">if</span> (!obj-&gt;Init(data_file_path, lang)) {
+    <span class="keyword">delete</span> obj;
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="keywordflow">return</span> obj;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6f3ded9607bdd2d6919ce6cc192f7cdc"></a><!-- doxytag: member="tesseract::WordSizeModel::FontCount" ref="a6f3ded9607bdd2d6919ce6cc192f7cdc" args="() const " -->
@@ -247,6 +352,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="word__size__model_8h_source.html#l00072">72</a> of file <a class="el" href="word__size__model_8h_source.html">word_size_model.h</a>.</p>
+<div class="fragment"><pre class="fragment">                               {
+    <span class="keywordflow">return</span> font_pair_size_models_.size();
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3c25501e446587259a47f4a0300ad3c0"></a><!-- doxytag: member="tesseract::WordSizeModel::FontInfo" ref="a3c25501e446587259a47f4a0300ad3c0" args="() const " -->
@@ -263,6 +373,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="word__size__model_8h_source.html#l00075">75</a> of file <a class="el" href="word__size__model_8h_source.html">word_size_model.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                  {
+    <span class="keywordflow">return</span> &amp;font_pair_size_models_[0];
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac7ba49f1e8f8612e9f7804cc97701b2c"></a><!-- doxytag: member="tesseract::WordSizeModel::PairCost" ref="ac7ba49f1e8f8612e9f7804cc97701b2c" args="(int width_0, int height_0, int top_0, int width_1, int height_1, int top_1, const PairSizeInfo &amp;pair_info)" -->
@@ -320,6 +435,27 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="word__size__model_8cpp_source.html#l00280">280</a> of file <a class="el" href="word__size__model_8cpp_source.html">word_size_model.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                              {
+  <span class="keywordtype">double</span> scale_factor = <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(pair_info.hgt_0) /
+      static_cast&lt;double&gt;(height_0);
+  <span class="keywordtype">double</span> dist = 0.0;
+  <span class="keywordflow">if</span> (scale_factor &gt; 0) {
+    <span class="keywordtype">double</span> norm_width_0 = width_0 * scale_factor;
+    <span class="keywordtype">double</span> norm_width_1 = width_1 * scale_factor;
+    <span class="keywordtype">double</span> norm_height_1 = height_1 * scale_factor;
+    <span class="keywordtype">double</span> norm_delta_top = (top_1 - top_0) * scale_factor;
+
+    <span class="comment">// accumulate the distance between the model character and the</span>
+    <span class="comment">// predicted one on all dimensions of the pair</span>
+    dist += fabs(pair_info.wid_0 - norm_width_0);
+    dist += fabs(pair_info.wid_1 - norm_width_1);
+    dist += fabs(pair_info.hgt_1 - norm_height_1);
+    dist += fabs(pair_info.delta_top - norm_delta_top);
+  }
+  <span class="keywordflow">return</span> dist;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a12c9929faae2c4a6440f4cbc472ad17e"></a><!-- doxytag: member="tesseract::WordSizeModel::Save" ref="a12c9929faae2c4a6440f4cbc472ad17e" args="(string file_name)" -->
@@ -370,11 +506,16 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="word__size__model_8h_source.html#l00080">80</a> of file <a class="el" href="word__size__model_8h_source.html">word_size_model.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                             {
+    <span class="keywordflow">return</span> (cls_id &lt;&lt; 2) + (end &lt;&lt; 1) + start;
+  }
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/cube/<a class="el" href="word__size__model_8h_source.html">word_size_model.h</a></li>
-<li>tesseract-ocr/cube/<a class="el" href="word__size__model_8cpp.html">word_size_model.cpp</a></li>
+<li>tesseract-ocr/cube/<a class="el" href="word__size__model_8cpp_source.html">word_size_model.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -397,7 +538,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:15 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:51 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

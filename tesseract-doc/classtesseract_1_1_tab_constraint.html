@@ -127,7 +127,10 @@ Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_tab_constraint.html#aa0800603fcb709406c0641e77cad6bfd">MergeConstraints</a> (TabConstraint_LIST *list1, TabConstraint_LIST *list2)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_tab_constraint.html#a491c6bb6d99ecfc63c495912756f11fe">ApplyConstraints</a> (TabConstraint_LIST *constraints)</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="tabvector_8h_source.html#l00069">69</a> of file <a class="el" href="tabvector_8h_source.html">tabvector.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="ab385d0b05f6dd4e88f7924cfdc03be39"></a><!-- doxytag: member="tesseract::TabConstraint::TabConstraint" ref="ab385d0b05f6dd4e88f7924cfdc03be39" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -142,6 +145,13 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tabvector_8h_source.html#l00071">71</a> of file <a class="el" href="tabvector_8h_source.html">tabvector.h</a>.</p>
+<div class="fragment"><pre class="fragment">                  {
+    <span class="comment">// This empty constructor is here only so that the class can be ELISTIZED.</span>
+    <span class="comment">// TODO(rays) change deep_copy in elst.h line 955 to take a callback copier</span>
+    <span class="comment">// and eliminate CLASSNAME##_copier.</span>
+  }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -160,6 +170,27 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tabvector_8cpp_source.html#l00120">120</a> of file <a class="el" href="tabvector_8cpp_source.html">tabvector.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                    {
+  <span class="keywordtype">int</span> y_min = -<a class="code" href="host_8h.html#aac62d87844689a18b6f5339a89ed6e7f">MAX_INT32</a>;
+  <span class="keywordtype">int</span> y_max = <a class="code" href="host_8h.html#aac62d87844689a18b6f5339a89ed6e7f">MAX_INT32</a>;
+  GetConstraints(constraints, &amp;y_min, &amp;y_max);
+  <span class="keywordtype">int</span> y = (y_min + y_max) / 2;
+  TabConstraint_IT it(constraints);
+  <span class="keywordflow">for</span> (it.mark_cycle_pt(); !it.cycled_list(); it.forward()) {
+    <a class="code" href="classtesseract_1_1_tab_constraint.html#ab385d0b05f6dd4e88f7924cfdc03be39">TabConstraint</a>* constraint = it.data();
+    TabVector* v = constraint-&gt;vector_;
+    <span class="keywordflow">if</span> (constraint-&gt;is_top_) {
+      v-&gt;SetYEnd(y);
+      v-&gt;set_top_constraints(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+    } <span class="keywordflow">else</span> {
+      v-&gt;SetYStart(y);
+      v-&gt;set_bottom_constraints(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+    }
+  }
+  <span class="keyword">delete</span> constraints;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="afed4c53827765cd37f19c19eef8c56bb"></a><!-- doxytag: member="tesseract::TabConstraint::CompatibleConstraints" ref="afed4c53827765cd37f19c19eef8c56bb" args="(TabConstraint_LIST *list1, TabConstraint_LIST *list2)" -->
@@ -187,6 +218,21 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tabvector_8cpp_source.html#l00079">79</a> of file <a class="el" href="tabvector_8cpp_source.html">tabvector.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                     {
+  <span class="keywordflow">if</span> (list1 == list2)
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordtype">int</span> y_min = -<a class="code" href="host_8h.html#aac62d87844689a18b6f5339a89ed6e7f">MAX_INT32</a>;
+  <span class="keywordtype">int</span> y_max = <a class="code" href="host_8h.html#aac62d87844689a18b6f5339a89ed6e7f">MAX_INT32</a>;
+  <span class="keywordflow">if</span> (<a class="code" href="alignedblob_8cpp.html#ace3f88c2ebef0843236018cd170eea14">textord_debug_tabfind</a> &gt; 3)
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Testing constraint compatibility\n&quot;</span>);
+  GetConstraints(list1, &amp;y_min, &amp;y_max);
+  GetConstraints(list2, &amp;y_min, &amp;y_max);
+  <span class="keywordflow">if</span> (<a class="code" href="alignedblob_8cpp.html#ace3f88c2ebef0843236018cd170eea14">textord_debug_tabfind</a> &gt; 3)
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Resulting range = [%d,%d]\n&quot;</span>, y_min, y_max);
+  <span class="keywordflow">return</span> y_max &gt;= y_min;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2da3803f652487ceef7080fcf4f9263d"></a><!-- doxytag: member="tesseract::TabConstraint::CreateConstraint" ref="a2da3803f652487ceef7080fcf4f9263d" args="(TabVector *vector, bool is_top)" -->
@@ -214,6 +260,18 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tabvector_8cpp_source.html#l00067">67</a> of file <a class="el" href="tabvector_8cpp_source.html">tabvector.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                   {
+  <a class="code" href="classtesseract_1_1_tab_constraint.html#ab385d0b05f6dd4e88f7924cfdc03be39">TabConstraint</a>* constraint = <span class="keyword">new</span> <a class="code" href="classtesseract_1_1_tab_constraint.html#ab385d0b05f6dd4e88f7924cfdc03be39">TabConstraint</a>(vector, is_top);
+  TabConstraint_LIST* constraints = <span class="keyword">new</span> TabConstraint_LIST;
+  TabConstraint_IT it(constraints);
+  it.add_to_end(constraint);
+  <span class="keywordflow">if</span> (is_top)
+    vector-&gt;set_top_constraints(constraints);
+  <span class="keywordflow">else</span>
+    vector-&gt;set_bottom_constraints(constraints);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa0800603fcb709406c0641e77cad6bfd"></a><!-- doxytag: member="tesseract::TabConstraint::MergeConstraints" ref="aa0800603fcb709406c0641e77cad6bfd" args="(TabConstraint_LIST *list1, TabConstraint_LIST *list2)" -->
@@ -241,11 +299,33 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tabvector_8cpp_source.html#l00096">96</a> of file <a class="el" href="tabvector_8cpp_source.html">tabvector.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                {
+  <span class="keywordflow">if</span> (list1 == list2)
+    <span class="keywordflow">return</span>;
+  TabConstraint_IT it(list2);
+  <span class="keywordflow">if</span> (<a class="code" href="alignedblob_8cpp.html#ace3f88c2ebef0843236018cd170eea14">textord_debug_tabfind</a> &gt; 3)
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Merging constraints\n&quot;</span>);
+  <span class="comment">// The vectors of all constraints on list2 are now going to be on list1.</span>
+  <span class="keywordflow">for</span> (it.mark_cycle_pt(); !it.cycled_list(); it.forward()) {
+    <a class="code" href="classtesseract_1_1_tab_constraint.html#ab385d0b05f6dd4e88f7924cfdc03be39">TabConstraint</a>* constraint = it.data();
+    <span class="keywordflow">if</span> (<a class="code" href="alignedblob_8cpp.html#ace3f88c2ebef0843236018cd170eea14">textord_debug_tabfind</a>&gt; 3)
+      constraint-&gt;vector_-&gt;Print(<span class="stringliteral">&quot;Merge&quot;</span>);
+    <span class="keywordflow">if</span> (constraint-&gt;is_top_)
+      constraint-&gt;vector_-&gt;set_top_constraints(list1);
+    <span class="keywordflow">else</span>
+      constraint-&gt;vector_-&gt;set_bottom_constraints(list1);
+  }
+  it = list1;
+  it.add_list_before(list2);
+  <span class="keyword">delete</span> list2;
+}
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/textord/<a class="el" href="tabvector_8h_source.html">tabvector.h</a></li>
-<li>tesseract-ocr/textord/<a class="el" href="tabvector_8cpp.html">tabvector.cpp</a></li>
+<li>tesseract-ocr/textord/<a class="el" href="tabvector_8cpp_source.html">tabvector.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -268,7 +348,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:17 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:53 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

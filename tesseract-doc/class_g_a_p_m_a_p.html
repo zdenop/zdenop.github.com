@@ -113,7 +113,10 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_g_a_p_m_a_p.html#a5c9bc0fba372a1fd51fa8c6919afa363">~GAPMAP</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="host_8h.html#a7712a7e28433d0ade59219a129549b6f">BOOL8</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_g_a_p_m_a_p.html#a4e9ecf4f9ab09454c84474ef21e06e89">table_gap</a> (<a class="el" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> left, <a class="el" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> right)</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="gap__map_8h_source.html#l00007">7</a> of file <a class="el" href="gap__map_8h_source.html">gap_map.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a81bd55fa87cfc5e74784ba3de5528766"></a><!-- doxytag: member="GAPMAP::GAPMAP" ref="a81bd55fa87cfc5e74784ba3de5528766" args="(TO_BLOCK *block)" -->
 <div class="memitem">
 <div class="memproto">
@@ -129,6 +132,119 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="gap__map_8cpp_source.html#l00027">27</a> of file <a class="el" href="gap__map_8cpp_source.html">gap_map.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                {
+  TO_ROW_IT row_it;              <span class="comment">//row iterator</span>
+  <a class="code" href="class_t_o___r_o_w.html">TO_ROW</a> *row;                   <span class="comment">//current row</span>
+  BLOBNBOX_IT blob_it;           <span class="comment">//iterator</span>
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> blob_box;
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> prev_blob_box;
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> gap_width;
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> start_of_row;
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> end_of_row;
+  <a class="code" href="class_s_t_a_t_s.html">STATS</a> xht_stats (0, 128);
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> min_quantum;
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> max_quantum;
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> i;
+
+  row_it.set_to_list (block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#a4846ebdcc832b4b0a762d87c0d83a056">get_rows</a> ());
+  <span class="comment">/*</span>
+<span class="comment">    Find left and right extremes and bucket size</span>
+<span class="comment">  */</span>
+  map = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  min_left = <a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a>;
+  max_right = -<a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a>;
+  total_rows = 0;
+  any_tabs = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+  <span class="keywordflow">for</span> (row_it.mark_cycle_pt (); !row_it.cycled_list (); row_it.forward ()) {
+    row = row_it.data ();
+    <span class="keywordflow">if</span> (!row-&gt;<a class="code" href="class_t_o___r_o_w.html#a39cee94572e70d35179c27cdf21a3022">blob_list</a> ()-&gt;empty ()) {
+      total_rows++;
+      xht_stats.add ((<a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>) floor (row-&gt;<a class="code" href="class_t_o___r_o_w.html#a819d94a95b9aab802acbcba097c67b2b">xheight</a> + 0.5), 1);
+      blob_it.set_to_list (row-&gt;<a class="code" href="class_t_o___r_o_w.html#a39cee94572e70d35179c27cdf21a3022">blob_list</a> ());
+      start_of_row = blob_it.data ()-&gt;bounding_box ().left ();
+      end_of_row = blob_it.data_relative (-1)-&gt;bounding_box ().right ();
+      <span class="keywordflow">if</span> (min_left &gt; start_of_row)
+        min_left = start_of_row;
+      <span class="keywordflow">if</span> (max_right &lt; end_of_row)
+        max_right = end_of_row;
+    }
+  }
+  <span class="keywordflow">if</span> ((total_rows &lt; 3) || (min_left &gt;= max_right)) {
+    total_rows = 0;
+    min_left = max_right = 0;
+    <span class="keywordflow">return</span>;
+  }
+  bucket_size = (<a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>) floor (xht_stats.median () + 0.5) / 2;
+  map_max = (max_right - min_left) / bucket_size;
+  map = (<a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> *) <a class="code" href="memry_8cpp.html#a4c14b091498fb7866a1dd0af51a591fe">alloc_mem</a> ((map_max + 1) * <span class="keyword">sizeof</span> (<a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>));
+  <span class="keywordflow">for</span> (i = 0; i &lt;= map_max; i++)
+    map[i] = 0;
+
+  <span class="keywordflow">for</span> (row_it.mark_cycle_pt (); !row_it.cycled_list (); row_it.forward ()) {
+    row = row_it.data ();
+    <span class="keywordflow">if</span> (!row-&gt;<a class="code" href="class_t_o___r_o_w.html#a39cee94572e70d35179c27cdf21a3022">blob_list</a> ()-&gt;empty ()) {
+      blob_it.set_to_list (row-&gt;<a class="code" href="class_t_o___r_o_w.html#a39cee94572e70d35179c27cdf21a3022">blob_list</a> ());
+      blob_it.mark_cycle_pt ();
+      blob_box = <a class="code" href="blobbox_8cpp.html#a343c30f9e935058965b844710a2e3180">box_next</a> (&amp;blob_it);
+      prev_blob_box = blob_box;
+      <span class="keywordflow">if</span> (<a class="code" href="gap__map_8cpp.html#ab080986fc73bac25275f62f01c3bfbab">gapmap_use_ends</a>) {
+        <span class="comment">/* Leading space */</span>
+        gap_width = blob_box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a> () - min_left;
+        <span class="keywordflow">if</span> ((gap_width &gt; <a class="code" href="gap__map_8cpp.html#aee71c7980baff241f8a3a15c22aeb141">gapmap_big_gaps</a> * row-&gt;<a class="code" href="class_t_o___r_o_w.html#a819d94a95b9aab802acbcba097c67b2b">xheight</a>)
+        &amp;&amp; gap_width &gt; 2) {
+          max_quantum = (blob_box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a> () - min_left) / bucket_size;
+          <span class="keywordflow">for</span> (i = 0; i &lt;= max_quantum; i++)
+            map[i]++;
+        }
+      }
+      <span class="keywordflow">while</span> (!blob_it.cycled_list ()) {
+        blob_box = <a class="code" href="blobbox_8cpp.html#a343c30f9e935058965b844710a2e3180">box_next</a> (&amp;blob_it);
+        gap_width = blob_box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a> () - prev_blob_box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a> ();
+        <span class="keywordflow">if</span> ((gap_width &gt; <a class="code" href="gap__map_8cpp.html#aee71c7980baff241f8a3a15c22aeb141">gapmap_big_gaps</a> * row-&gt;<a class="code" href="class_t_o___r_o_w.html#a819d94a95b9aab802acbcba097c67b2b">xheight</a>)
+        &amp;&amp; gap_width &gt; 2) {
+          min_quantum =
+            (prev_blob_box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a> () - min_left) / bucket_size;
+          max_quantum = (blob_box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a> () - min_left) / bucket_size;
+          <span class="keywordflow">for</span> (i = min_quantum; i &lt;= max_quantum; i++)
+            map[i]++;
+        }
+        prev_blob_box = blob_box;
+      }
+      <span class="keywordflow">if</span> (<a class="code" href="gap__map_8cpp.html#ab080986fc73bac25275f62f01c3bfbab">gapmap_use_ends</a>) {
+        <span class="comment">/* Trailing space */</span>
+        gap_width = max_right - prev_blob_box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a> ();
+        <span class="keywordflow">if</span> ((gap_width &gt; <a class="code" href="gap__map_8cpp.html#aee71c7980baff241f8a3a15c22aeb141">gapmap_big_gaps</a> * row-&gt;<a class="code" href="class_t_o___r_o_w.html#a819d94a95b9aab802acbcba097c67b2b">xheight</a>)
+        &amp;&amp; gap_width &gt; 2) {
+          min_quantum =
+            (prev_blob_box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a> () - min_left) / bucket_size;
+          <span class="keywordflow">for</span> (i = min_quantum; i &lt;= map_max; i++)
+            map[i]++;
+        }
+      }
+    }
+  }
+  <span class="keywordflow">for</span> (i = 0; i &lt;= map_max; i++) {
+    <span class="keywordflow">if</span> (map[i] &gt; total_rows / 2) {
+      <span class="keywordflow">if</span> (<a class="code" href="gap__map_8cpp.html#a5d901d9b3c14ab63c779f4b40ab4f1a7">gapmap_no_isolated_quanta</a> &amp;&amp;
+        (((i == 0) &amp;&amp;
+        (map[i + 1] &lt;= total_rows / 2)) ||
+        ((i == map_max) &amp;&amp;
+        (map[i - 1] &lt;= total_rows / 2)) ||
+        ((i &gt; 0) &amp;&amp;
+        (i &lt; map_max) &amp;&amp;
+        (map[i - 1] &lt;= total_rows / 2) &amp;&amp;
+      (map[i + 1] &lt;= total_rows / 2)))) {
+        map[i] = 0;              <span class="comment">//prevent isolated quantum</span>
+      }
+      <span class="keywordflow">else</span>
+        any_tabs = <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+    }
+  }
+  <span class="keywordflow">if</span> (<a class="code" href="gap__map_8cpp.html#adc526f3d4e78d454166cf37d496fb61e">gapmap_debug</a> &amp;&amp; any_tabs)
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a> (<span class="stringliteral">&quot;Table found\n&quot;</span>);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a5c9bc0fba372a1fd51fa8c6919afa363"></a><!-- doxytag: member="GAPMAP::~GAPMAP" ref="a5c9bc0fba372a1fd51fa8c6919afa363" args="()" -->
@@ -145,6 +261,12 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="gap__map_8h_source.html#l00013">13</a> of file <a class="el" href="gap__map_8h_source.html">gap_map.h</a>.</p>
+<div class="fragment"><pre class="fragment">               {                 <span class="comment">//destructor</span>
+      <span class="keywordflow">if</span> (map != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+        <a class="code" href="memry_8cpp.html#a9ef1862b8e026e23eef238af032858e4">free_mem</a>(map);
+    }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -173,11 +295,29 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="gap__map_8cpp_source.html#l00148">148</a> of file <a class="el" href="gap__map_8cpp_source.html">gap_map.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                         {
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> min_quantum;
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> max_quantum;
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> i;
+  <a class="code" href="host_8h.html#a7712a7e28433d0ade59219a129549b6f">BOOL8</a> tab_found = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+
+  <span class="keywordflow">if</span> (!any_tabs)
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+
+  min_quantum = (left - min_left) / bucket_size;
+  max_quantum = (right - min_left) / bucket_size;
+  <span class="keywordflow">for</span> (i = min_quantum; (!tab_found &amp;&amp; (i &lt;= max_quantum)); i++)
+    <span class="keywordflow">if</span> (map[i] &gt; total_rows / 2)
+      tab_found = <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+  <span class="keywordflow">return</span> tab_found;
+}
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/textord/<a class="el" href="gap__map_8h_source.html">gap_map.h</a></li>
-<li>tesseract-ocr/textord/<a class="el" href="gap__map_8cpp.html">gap_map.cpp</a></li>
+<li>tesseract-ocr/textord/<a class="el" href="gap__map_8cpp_source.html">gap_map.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -199,7 +339,7 @@ Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:12 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:46 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

@@ -119,7 +119,10 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_permuter_state.html#aa0ff0e4697ce87380aba4d4e4c2e8d0a">set_debug</a> (bool debug)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_permuter_state.html#aece009078b8c6466ac4896d0c3a44962">position_marked</a> (int pos)</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="permute_8h_source.html#l00113">113</a> of file <a class="el" href="permute_8h_source.html">permute.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="ae276fa337d36d3371b9058c7d11879f2"></a><!-- doxytag: member="tesseract::PermuterState::PermuterState" ref="ae276fa337d36d3371b9058c7d11879f2" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -134,6 +137,16 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="permute_8cpp_source.html#l00231">231</a> of file <a class="el" href="permute_8cpp_source.html">permute.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                             {
+  unicharset_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  char_choices_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  adjust_factor_ = 1.0f;
+  allow_collision_ = <span class="keyword">false</span>;
+  word_length_ = 0;
+  debug_ = <span class="keyword">false</span>;
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -168,6 +181,24 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="permute_8cpp_source.html#l00266">266</a> of file <a class="el" href="permute_8cpp_source.html">permute.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                            {
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(char_choices_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(start_pos + strlen(pos_str) - 1 &lt; word_length_);
+  <span class="keywordflow">if</span> (debug_) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Copy over %s -&gt; %s @ %d &quot;</span>, pos_str, perm_state_, start_pos);
+  }
+  <span class="comment">// copy over preferred position without the terminating null</span>
+  <span class="keywordflow">if</span> (!allow_collision_) {
+    <span class="keywordtype">int</span> len = strlen(pos_str);
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; len; ++i)
+      <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_permuter_state.html#aece009078b8c6466ac4896d0c3a44962">position_marked</a>(start_pos + i)) <span class="keywordflow">return</span>;
+  }
+  strncpy(&amp;perm_state_[start_pos], pos_str, strlen(pos_str));
+  adjust_factor_ *= weight;
+  <span class="keywordflow">if</span> (debug_) <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;==&gt; %s %f\n&quot;</span>, perm_state_, adjust_factor_);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad9a566862538222380f59f1c244265e6"></a><!-- doxytag: member="tesseract::PermuterState::AddPreference" ref="ad9a566862538222380f59f1c244265e6" args="(int char_pos, BLOB_CHOICE *blob_choice, float weight)" -->
@@ -201,6 +232,24 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="permute_8cpp_source.html#l00284">284</a> of file <a class="el" href="permute_8cpp_source.html">permute.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                {
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(char_choices_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(char_pos &lt; word_length_);
+  <span class="comment">// avoid collision (but this doesn&#39;t work if the first choice is favored!</span>
+  <span class="keywordflow">if</span> (!allow_collision_ &amp;&amp; <a class="code" href="classtesseract_1_1_permuter_state.html#aece009078b8c6466ac4896d0c3a44962">position_marked</a>(char_pos)) <span class="keywordflow">return</span>;
+
+  <span class="keywordflow">if</span> (debug_) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Set UID %d -&gt; %s @ %d &quot;</span>,
+            blob_choice-&gt;<a class="code" href="class_b_l_o_b___c_h_o_i_c_e.html#aaba6190b77c5f3dc21905fc4118afa94">unichar_id</a>(), perm_state_, char_pos);
+  }
+  <span class="keywordtype">int</span> pos = <a class="code" href="namespacetesseract.html#a1d350f26199c9116aa8b3faa7cd64cf2">find_choice_by_uid</a>(char_choices_-&gt;<a class="code" href="class_generic_vector.html#a33070cfea2a16a20c6b30bbcfecd8ecc">get</a>(char_pos),
+                               blob_choice-&gt;<a class="code" href="class_b_l_o_b___c_h_o_i_c_e.html#aaba6190b77c5f3dc21905fc4118afa94">unichar_id</a>());
+  perm_state_[char_pos] = pos + <span class="charliteral">&#39;0&#39;</span>;
+  adjust_factor_ *= weight;
+  <span class="keywordflow">if</span> (debug_) <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;==&gt; %s %f\n&quot;</span>, perm_state_, adjust_factor_);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a42605faab273dcf1f464774fcd8744b3"></a><!-- doxytag: member="tesseract::PermuterState::GetPermutedWord" ref="a42605faab273dcf1f464774fcd8744b3" args="(float *certainties, float *adjust_factor)" -->
@@ -228,6 +277,17 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="permute_8cpp_source.html#l00303">303</a> of file <a class="el" href="permute_8cpp_source.html">permute.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                  {
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(char_choices_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html">WERD_CHOICE</a> *word_choice = <a class="code" href="namespacetesseract.html#a17fb104bbf4cd7af5cc91d97421ece8e">get_choice_from_posstr</a>(
+      unicharset_, *char_choices_, 0, perm_state_, certainties);
+  <span class="keywordtype">float</span> rating = word_choice-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a52ea24dcb5ff15ad8aee3fd774622216">rating</a>() * adjust_factor_;
+  word_choice-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a8536420fe62adffbfda94a08796db533">set_rating</a>(rating);
+  *adjust_factor = adjust_factor_;
+  <span class="keywordflow">return</span> word_choice;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a951743e7b77b35fbd88a0a02c8ae6e02"></a><!-- doxytag: member="tesseract::PermuterState::Init" ref="a951743e7b77b35fbd88a0a02c8ae6e02" args="(const BLOB_CHOICE_LIST_VECTOR &amp;char_choices, const UNICHARSET &amp;unicharset, float default_bias, bool debug)" -->
@@ -267,6 +327,26 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="permute_8cpp_source.html#l00240">240</a> of file <a class="el" href="permute_8cpp_source.html">permute.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                     {
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(char_choices.<a class="code" href="class_generic_vector.html#a690cd403343d371ed7763fdaf3ed71d2">length</a>() &lt; <a class="code" href="permute_8h.html#aa99c7d68f51de4afed182cc89cd5fef0">MAX_PERM_LENGTH</a>);
+  unicharset_ = &amp;unicharset;
+  char_choices_ = &amp;char_choices;
+  word_length_ = char_choices.<a class="code" href="class_generic_vector.html#a690cd403343d371ed7763fdaf3ed71d2">length</a>();
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; word_length_; ++i)
+    perm_state_[i] = kPosFree;
+  perm_state_[word_length_] = <span class="charliteral">&#39;\0&#39;</span>;
+  <span class="comment">// Skip fragment choice and the mark positions so they remain unchanged.</span>
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; word_length_; ++i) {
+    <a class="code" href="unichar_8h.html#a8578b19fa1ff5ca75080db1a18ecc32e">UNICHAR_ID</a> unichar_id = <a class="code" href="namespacetesseract.html#ab822bbc3c0f362dc6b70f7d5363a5e42">get_top_choice_uid</a>(char_choices.<a class="code" href="class_generic_vector.html#a33070cfea2a16a20c6b30bbcfecd8ecc">get</a>(i));
+    <span class="keywordflow">if</span> (unicharset.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#af08440927e3b87f99bd3a3fbd8e126dc">get_fragment</a>(unichar_id) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+      perm_state_[i] = <span class="charliteral">&#39;1&#39;</span>;
+  }
+  adjust_factor_ = default_bias;
+  allow_collision_ = <span class="keyword">false</span>;
+  debug_ = debug;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aece009078b8c6466ac4896d0c3a44962"></a><!-- doxytag: member="tesseract::PermuterState::position_marked" ref="aece009078b8c6466ac4896d0c3a44962" args="(int pos)" -->
@@ -284,6 +364,9 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="permute_8h_source.html#l00131">131</a> of file <a class="el" href="permute_8h_source.html">permute.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> perm_state_[pos] != kPosFree; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9cf9c0dafdc7c5e5abb8f2328afc1eac"></a><!-- doxytag: member="tesseract::PermuterState::set_adjust_factor" ref="a9cf9c0dafdc7c5e5abb8f2328afc1eac" args="(float factor)" -->
@@ -301,6 +384,9 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="permute_8h_source.html#l00129">129</a> of file <a class="el" href="permute_8h_source.html">permute.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ adjust_factor_ = factor; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a321744605c3a2bd97487275fbc3b5f53"></a><!-- doxytag: member="tesseract::PermuterState::set_allow_collision" ref="a321744605c3a2bd97487275fbc3b5f53" args="(bool flag)" -->
@@ -318,6 +404,9 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="permute_8h_source.html#l00128">128</a> of file <a class="el" href="permute_8h_source.html">permute.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ allow_collision_ = flag; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa0ff0e4697ce87380aba4d4e4c2e8d0a"></a><!-- doxytag: member="tesseract::PermuterState::set_debug" ref="aa0ff0e4697ce87380aba4d4e4c2e8d0a" args="(bool debug)" -->
@@ -335,11 +424,14 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="permute_8h_source.html#l00130">130</a> of file <a class="el" href="permute_8h_source.html">permute.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ debug_ = debug; }
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/dict/<a class="el" href="permute_8h_source.html">permute.h</a></li>
-<li>tesseract-ocr/dict/<a class="el" href="permute_8cpp.html">permute.cpp</a></li>
+<li>tesseract-ocr/dict/<a class="el" href="permute_8cpp_source.html">permute.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -362,7 +454,7 @@ Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:16 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:51 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

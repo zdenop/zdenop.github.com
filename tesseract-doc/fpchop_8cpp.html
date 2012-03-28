@@ -112,7 +112,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <code>#include &quot;<a class="el" href="topitch_8h_source.html">topitch.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="fpchop_8h_source.html">fpchop.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="notdll_8h_source.html">notdll.h</a>&quot;</code><br/>
-</div><table class="memberdecls">
+</div>
+<p><a href="fpchop_8cpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr><td colspan="2"><h2><a name="define-members"></a>
 Defines</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fpchop_8cpp.html#a77366c1bd428629dc898e188bfd182a3">EXTERN</a></td></tr>
@@ -150,6 +152,8 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="fpchop_8cpp_source.html#l00038">38</a> of file <a class="el" href="fpchop_8cpp_source.html">fpchop.cpp</a>.</p>
+
 </div>
 </div>
 <hr/><h2>Function Documentation</h2>
@@ -178,6 +182,25 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="fpchop_8cpp_source.html#l00865">865</a> of file <a class="el" href="fpchop_8cpp_source.html">fpchop.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                       {
+                                 <span class="comment">//output list</span>
+  C_OUTLINE_FRAG_IT frag_it = frags;
+
+  <span class="keywordflow">if</span> (!frags-&gt;empty ()) {
+    <span class="keywordflow">for</span> (frag_it.mark_cycle_pt (); !frag_it.cycled_list ();
+    frag_it.forward ()) {
+      <span class="keywordflow">if</span> (frag_it.data ()-&gt;ycoord &gt; frag-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#a58db00d6d620f9559bb4f9420928e0af">ycoord</a>
+        || (frag_it.data ()-&gt;ycoord == frag-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#a58db00d6d620f9559bb4f9420928e0af">ycoord</a>
+         &amp;&amp; frag-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#af47b343a5b12475452c6ff6c14ea9d95">other_end</a>-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#a58db00d6d620f9559bb4f9420928e0af">ycoord</a> &lt; frag-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#a58db00d6d620f9559bb4f9420928e0af">ycoord</a>)) {
+        frag_it.add_before_then_move (frag);
+        <span class="keywordflow">return</span>;
+      }
+    }
+  }
+  frag_it.add_to_end (frag);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a1ec8eecb5022ef4527945f94627e916a"></a><!-- doxytag: member="fpchop.cpp::add_repeated_word" ref="a1ec8eecb5022ef4527945f94627e916a" args="(WERD_IT *rep_it, inT16 &amp;rep_left, inT16 &amp;prev_chop_coord, uinT8 &amp;blanks, float pitch, WERD_IT *word_it)" -->
@@ -229,6 +252,28 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="fpchop_8cpp_source.html#l00213">213</a> of file <a class="el" href="fpchop_8cpp_source.html">fpchop.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                         {
+  <a class="code" href="class_w_e_r_d.html">WERD</a> *word;                    <span class="comment">//word to move</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> new_blanks;              <span class="comment">//extra blanks</span>
+
+  <span class="keywordflow">if</span> (rep_left &gt; prev_chop_coord) {
+    new_blanks = (<a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a>) floor ((rep_left - prev_chop_coord) / pitch + 0.5);
+    blanks += new_blanks;
+  }
+  word = rep_it-&gt;extract ();
+  prev_chop_coord = word-&gt;<a class="code" href="class_w_e_r_d.html#a151bbfb39ecdef93ab1a14b0f9e4ac74">bounding_box</a> ().<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a> ();
+  word_it-&gt;add_after_then_move (word);
+  word-&gt;<a class="code" href="class_w_e_r_d.html#a93ba22caf0b8b3b19a47fdf2c11f4bf6">set_blanks</a> (blanks);
+  rep_it-&gt;forward ();
+  <span class="keywordflow">if</span> (rep_it-&gt;empty ())
+    rep_left = <a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a>;
+  <span class="keywordflow">else</span>
+    rep_left = rep_it-&gt;data ()-&gt;bounding_box ().left ();
+  blanks = 0;
+  <span class="keywordflow">return</span> word;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac4275b5c0c8c10cc8775f51ec5c4aab6"></a><!-- doxytag: member="fpchop.cpp::close_chopped_cfragments" ref="ac4275b5c0c8c10cc8775f51ec5c4aab6" args="(C_OUTLINE_FRAG_LIST *frags, C_OUTLINE_LIST *children, float pitch_error, C_OUTLINE_IT *dest_it)" -->
@@ -268,6 +313,55 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="fpchop_8cpp_source.html#l00894">894</a> of file <a class="el" href="fpchop_8cpp_source.html">fpchop.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                               {
+                                 <span class="comment">//iterator</span>
+  C_OUTLINE_FRAG_IT frag_it = frags;
+  <a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html">C_OUTLINE_FRAG</a> *bottom_frag;   <span class="comment">//bottom of cut</span>
+  <a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html">C_OUTLINE_FRAG</a> *top_frag;      <span class="comment">//top of cut</span>
+  <a class="code" href="class_c___o_u_t_l_i_n_e.html">C_OUTLINE</a> *outline;            <span class="comment">//new outline</span>
+  <a class="code" href="class_c___o_u_t_l_i_n_e.html">C_OUTLINE</a> *child;              <span class="comment">//current child</span>
+  C_OUTLINE_IT child_it = children;
+  C_OUTLINE_IT olchild_it;       <span class="comment">//children of outline</span>
+
+  <span class="keywordflow">while</span> (!frag_it.empty ()) {
+    frag_it.move_to_first ();
+                                 <span class="comment">//get bottom one</span>
+    bottom_frag = frag_it.extract ();
+    frag_it.forward ();
+    top_frag = frag_it.data ();  <span class="comment">//look at next</span>
+    <span class="keywordflow">if</span> ((bottom_frag-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#aa3d89d6ff984029b96313eb1ffedf171">steps</a> == 0 &amp;&amp; top_frag-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#aa3d89d6ff984029b96313eb1ffedf171">steps</a> == 0)
+    || (bottom_frag-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#aa3d89d6ff984029b96313eb1ffedf171">steps</a> != 0 &amp;&amp; top_frag-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#aa3d89d6ff984029b96313eb1ffedf171">steps</a> != 0)) {
+      <span class="keywordflow">if</span> (frag_it.data_relative (1)-&gt;ycoord == top_frag-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#a58db00d6d620f9559bb4f9420928e0af">ycoord</a>)
+        frag_it.forward ();
+    }
+    top_frag = frag_it.extract ();
+    <span class="keywordflow">if</span> (top_frag-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#af47b343a5b12475452c6ff6c14ea9d95">other_end</a> != bottom_frag) {
+      outline = <a class="code" href="fpchop_8cpp.html#a375591af79f8740853e7c5016d65c7ac">join_chopped_fragments</a> (bottom_frag, top_frag);
+      <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a> (outline == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+    }
+    <span class="keywordflow">else</span> {
+      outline = <a class="code" href="fpchop_8cpp.html#a375591af79f8740853e7c5016d65c7ac">join_chopped_fragments</a> (bottom_frag, top_frag);
+      <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a> (outline != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+      olchild_it.set_to_list (outline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#a87880b33bc69fa17ab37a93706ae8d84">child</a> ());
+      <span class="keywordflow">for</span> (child_it.mark_cycle_pt (); !child_it.cycled_list ();
+      child_it.forward ()) {
+        child = child_it.data ();
+        <span class="keywordflow">if</span> (*child &lt; *outline)
+          olchild_it.add_to_end (child_it.extract ());
+      }
+      <span class="keywordflow">if</span> (outline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#a6481db8e9c00281f20f45df48d499679">bounding_box</a> ().<a class="code" href="class_t_b_o_x.html#af95494a2ccacc70cc2b83820b2948619">width</a> () &gt; pitch_error)
+        dest_it-&gt;add_after_then_move (outline);
+      <span class="keywordflow">else</span>
+        <span class="keyword">delete</span> outline;          <span class="comment">//make it disappear</span>
+    }
+  }
+  <span class="keywordflow">while</span> (!child_it.empty ()) {
+    dest_it-&gt;add_after_then_move (child_it.extract ());
+    child_it.forward ();
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac4f288cfb9603b1d0a8d420855c8fba8"></a><!-- doxytag: member="fpchop.cpp::fixed_chop_cblob" ref="ac4f288cfb9603b1d0a8d420855c8fba8" args="(C_BLOB *blob, inT16 chop_coord, float pitch_error, C_OUTLINE_LIST *left_outlines, C_OUTLINE_LIST *right_outlines)" -->
@@ -313,6 +407,39 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="fpchop_8cpp_source.html#l00279">279</a> of file <a class="el" href="fpchop_8cpp_source.html">fpchop.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                       {
+  <a class="code" href="class_c___o_u_t_l_i_n_e.html">C_OUTLINE</a> *old_right;          <span class="comment">//already there</span>
+  C_OUTLINE_LIST new_outlines;   <span class="comment">//new right ones</span>
+                                 <span class="comment">//ouput iterator</span>
+  C_OUTLINE_IT left_it = left_outlines;
+                                 <span class="comment">//in/out iterator</span>
+  C_OUTLINE_IT right_it = right_outlines;
+  C_OUTLINE_IT new_it = &amp;new_outlines;
+  C_OUTLINE_IT blob_it;          <span class="comment">//outlines in blob</span>
+
+  <span class="keywordflow">if</span> (!right_it.empty ()) {
+    <span class="keywordflow">while</span> (!right_it.empty ()) {
+      old_right = right_it.extract ();
+      right_it.forward ();
+      <a class="code" href="fpchop_8cpp.html#a725ecaa2d2c5f4d463c40708a1ee5a6a">fixed_split_coutline</a>(old_right,
+                           chop_coord,
+                           pitch_error,
+                           &amp;left_it,
+                           &amp;new_it);
+    }
+    right_it.add_list_before (&amp;new_outlines);
+  }
+  <span class="keywordflow">if</span> (blob != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    blob_it.set_to_list (blob-&gt;<a class="code" href="class_c___b_l_o_b.html#ae510f3d0e7398fbb46608082429eac89">out_list</a> ());
+    <span class="keywordflow">for</span> (blob_it.mark_cycle_pt (); !blob_it.cycled_list ();
+      blob_it.forward ())
+    <a class="code" href="fpchop_8cpp.html#a725ecaa2d2c5f4d463c40708a1ee5a6a">fixed_split_coutline</a> (blob_it.extract (), chop_coord, pitch_error,
+        &amp;left_it, &amp;right_it);
+    <span class="keyword">delete</span> blob;
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7d832098cc043f50b04d2734c4b8eefb"></a><!-- doxytag: member="fpchop.cpp::fixed_chop_coutline" ref="a7d832098cc043f50b04d2734c4b8eefb" args="(C_OUTLINE *srcline, inT16 chop_coord, float pitch_error, C_OUTLINE_FRAG_LIST *left_frags, C_OUTLINE_FRAG_LIST *right_frags)" -->
@@ -358,6 +485,118 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="fpchop_8cpp_source.html#l00404">404</a> of file <a class="el" href="fpchop_8cpp_source.html">fpchop.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                           {
+  <a class="code" href="host_8h.html#a7712a7e28433d0ade59219a129549b6f">BOOL8</a> first_frag;              <span class="comment">//fragment</span>
+  <a class="code" href="host_8h.html#a7712a7e28433d0ade59219a129549b6f">BOOL8</a> anticlock;               <span class="comment">//direction of loop</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> left_edge;               <span class="comment">//of outline</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> startindex;              <span class="comment">//in first fragment</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> length;                  <span class="comment">//of outline</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> stepindex;               <span class="comment">//into outline</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> head_index;              <span class="comment">//start of fragment</span>
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> head_pos;               <span class="comment">//start of fragment</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> tail_index;              <span class="comment">//end of fragment</span>
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> tail_pos;               <span class="comment">//end of fragment</span>
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> pos;                    <span class="comment">//current point</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> first_index = 0;         <span class="comment">//first tail</span>
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> first_pos;              <span class="comment">//first tail</span>
+
+  length = srcline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#afb87d87d3d48e964937b068f55f3ca3a">pathlength</a> ();
+  pos = srcline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#a0f9fef7d74691bbcf45faa2272600500">start_pos</a> ();
+  anticlock = srcline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#a525f228da74b410f410b20bcd6c32bd8">turn_direction</a> () &gt; 0;
+  left_edge = pos.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ();
+  tail_index = 0;
+  tail_pos = pos;
+  <span class="keywordflow">for</span> (stepindex = 0; stepindex &lt; length; stepindex++) {
+    <span class="keywordflow">if</span> (pos.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () &lt; left_edge) {
+      left_edge = pos.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ();
+      tail_index = stepindex;
+      tail_pos = pos;
+    }
+    pos += srcline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#af6831ec849fb5ab1f2b49517fbbd5f85">step</a> (stepindex);
+  }
+  <span class="keywordflow">if</span> (left_edge &gt;= chop_coord - pitch_error)
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;                <span class="comment">//not worth it</span>
+
+  startindex = tail_index;
+  first_frag = <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+  head_index = tail_index;
+  head_pos = tail_pos;
+  <span class="keywordflow">do</span> {
+    <span class="keywordflow">do</span> {
+      tail_pos += srcline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#af6831ec849fb5ab1f2b49517fbbd5f85">step</a> (tail_index);
+      tail_index++;
+      <span class="keywordflow">if</span> (tail_index == length)
+        tail_index = 0;
+    }
+    <span class="keywordflow">while</span> (tail_pos.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () != chop_coord &amp;&amp; tail_index != startindex);
+    <span class="keywordflow">if</span> (tail_index == startindex) {
+      <span class="keywordflow">if</span> (first_frag)
+        <span class="keywordflow">return</span> <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;            <span class="comment">//doesn&#39;t cross line</span>
+      <span class="keywordflow">else</span>
+        <span class="keywordflow">break</span>;
+    }
+    <span class="comment">//#ifdef __UNIX__</span>
+    <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a> (head_index != tail_index);
+    <span class="comment">//#endif</span>
+    <span class="keywordflow">if</span> (!first_frag) {
+      <a class="code" href="fpchop_8cpp.html#a0a6f1acf9bc02e11a300e7559ca4972a">save_chop_cfragment</a>(head_index,
+                          head_pos,
+                          tail_index,
+                          tail_pos,
+                          srcline,
+                          left_frags);
+    }
+    <span class="keywordflow">else</span> {
+      first_index = tail_index;
+      first_pos = tail_pos;
+      first_frag = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+    }
+    <span class="keywordflow">while</span> (srcline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#af6831ec849fb5ab1f2b49517fbbd5f85">step</a> (tail_index).<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () == 0) {
+      tail_pos += srcline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#af6831ec849fb5ab1f2b49517fbbd5f85">step</a> (tail_index);
+      tail_index++;
+      <span class="keywordflow">if</span> (tail_index == length)
+        tail_index = 0;
+    }
+    head_index = tail_index;
+    head_pos = tail_pos;
+    <span class="keywordflow">while</span> (srcline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#af6831ec849fb5ab1f2b49517fbbd5f85">step</a> (tail_index).<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () &gt; 0) {
+      <span class="keywordflow">do</span> {
+        tail_pos += srcline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#af6831ec849fb5ab1f2b49517fbbd5f85">step</a> (tail_index);
+        tail_index++;
+        <span class="keywordflow">if</span> (tail_index == length)
+          tail_index = 0;
+      }
+      <span class="keywordflow">while</span> (tail_pos.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () != chop_coord);
+      <span class="comment">//#ifdef __UNIX__</span>
+      <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a> (head_index != tail_index);
+      <span class="comment">//#endif</span>
+      <a class="code" href="fpchop_8cpp.html#a0a6f1acf9bc02e11a300e7559ca4972a">save_chop_cfragment</a>(head_index,
+                          head_pos,
+                          tail_index,
+                          tail_pos,
+                          srcline,
+                          right_frags);
+      <span class="keywordflow">while</span> (srcline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#af6831ec849fb5ab1f2b49517fbbd5f85">step</a> (tail_index).<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () == 0) {
+        tail_pos += srcline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#af6831ec849fb5ab1f2b49517fbbd5f85">step</a> (tail_index);
+        tail_index++;
+        <span class="keywordflow">if</span> (tail_index == length)
+          tail_index = 0;
+      }
+      head_index = tail_index;
+      head_pos = tail_pos;
+    }
+  }
+  <span class="keywordflow">while</span> (tail_index != startindex);
+  <a class="code" href="fpchop_8cpp.html#a0a6f1acf9bc02e11a300e7559ca4972a">save_chop_cfragment</a>(head_index,
+                      head_pos,
+                      first_index,
+                      first_pos,
+                      srcline,
+                      left_frags);
+  <span class="keywordflow">return</span> <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;                   <span class="comment">//did some chopping</span>
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a847ce086f4000dcaea3f209f5ca70429"></a><!-- doxytag: member="fpchop.cpp::fixed_pitch_words" ref="a847ce086f4000dcaea3f209f5ca70429" args="(TO_ROW *row, FCOORD rotation)" -->
@@ -385,6 +624,157 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="fpchop_8cpp_source.html#l00053">53</a> of file <a class="el" href="fpchop_8cpp_source.html">fpchop.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                        {
+  <a class="code" href="host_8h.html#a7712a7e28433d0ade59219a129549b6f">BOOL8</a> bol;                     <span class="comment">//start of line</span>
+  <a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a> blanks;                  <span class="comment">//in front of word</span>
+  <a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a> new_blanks;              <span class="comment">//blanks in empty cell</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> chop_coord;              <span class="comment">//chop boundary</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> prev_chop_coord;         <span class="comment">//start of cell</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> rep_left;                <span class="comment">//left edge of rep word</span>
+  <a class="code" href="class_r_o_w.html">ROW</a> *real_row;                 <span class="comment">//output row</span>
+  C_OUTLINE_LIST left_coutlines;
+  C_OUTLINE_LIST right_coutlines;
+  C_BLOB_LIST cblobs;
+  C_BLOB_IT cblob_it = &amp;cblobs;
+  WERD_LIST words;
+  WERD_IT word_it = &amp;words;      <span class="comment">//new words</span>
+                                 <span class="comment">//repeated blobs</span>
+  WERD_IT rep_it = &amp;row-&gt;<a class="code" href="class_t_o___r_o_w.html#a93c01f889dc8031cfd19c45069d49aed">rep_words</a>;
+  <a class="code" href="class_w_e_r_d.html">WERD</a> *word;                    <span class="comment">//new word</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> xstarts[2];              <span class="comment">//row ends</span>
+  <span class="keywordtype">double</span> coeffs[3];              <span class="comment">//quadratic</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> prev_x;                  <span class="comment">//end of prev blob</span>
+                                 <span class="comment">//iterator</span>
+  BLOBNBOX_IT box_it = row-&gt;<a class="code" href="class_t_o___r_o_w.html#a39cee94572e70d35179c27cdf21a3022">blob_list</a> ();
+                                 <span class="comment">//boundaries</span>
+  ICOORDELT_IT cell_it = &amp;row-&gt;<a class="code" href="class_t_o___r_o_w.html#a90aca184dd67683af2f14903ddabf7c2">char_cells</a>;
+
+<span class="preprocessor">#ifndef GRAPHICS_DISABLED</span>
+<span class="preprocessor"></span>  <span class="keywordflow">if</span> (<a class="code" href="topitch_8cpp.html#a18a35fc9c67a01ad53601578a50e530a">textord_show_page_cuts</a> &amp;&amp; <a class="code" href="drawtord_8cpp.html#a65aeba67da16b0fd87082f9966362f0e">to_win</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="drawtord_8cpp.html#a0e989a3f79b110a1bcd477561de37207">plot_row_cells</a> (<a class="code" href="drawtord_8cpp.html#a65aeba67da16b0fd87082f9966362f0e">to_win</a>, <a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8a0959f7470b08ae1a38aa7e38fba29402">ScrollView::RED</a>, row, 0, &amp;row-&gt;<a class="code" href="class_t_o___r_o_w.html#a90aca184dd67683af2f14903ddabf7c2">char_cells</a>);
+  }
+<span class="preprocessor">#endif</span>
+<span class="preprocessor"></span>
+  prev_x = -<a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a>;
+  bol = <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+  blanks = 0;
+  <span class="keywordflow">if</span> (rep_it.empty ())
+    rep_left = <a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a>;
+  <span class="keywordflow">else</span>
+    rep_left = rep_it.data ()-&gt;bounding_box ().left ();
+  <span class="keywordflow">if</span> (box_it.empty ())
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;                 <span class="comment">//empty row</span>
+  xstarts[0] = box_it.data ()-&gt;bounding_box ().left ();
+  <span class="keywordflow">if</span> (rep_left &lt; xstarts[0]) {
+    xstarts[0] = rep_left;
+  }
+  <span class="keywordflow">if</span> (cell_it.empty () || row-&gt;<a class="code" href="class_t_o___r_o_w.html#a90aca184dd67683af2f14903ddabf7c2">char_cells</a>.singleton ()) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a> (<span class="stringliteral">&quot;Row without enough char cells!\n&quot;</span>);
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a> (<span class="stringliteral">&quot;Leftmost blob is at (%d,%d)\n&quot;</span>,
+      box_it.data ()-&gt;bounding_box ().left (),
+      box_it.data ()-&gt;bounding_box ().bottom ());
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a> (!cell_it.empty () &amp;&amp; !row-&gt;<a class="code" href="class_t_o___r_o_w.html#a90aca184dd67683af2f14903ddabf7c2">char_cells</a>.singleton ());
+  prev_chop_coord = cell_it.data ()-&gt;x ();
+  word = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordflow">while</span> (rep_left &lt; cell_it.data ()-&gt;x ()) {
+    word = <a class="code" href="fpchop_8cpp.html#a1ec8eecb5022ef4527945f94627e916a">add_repeated_word</a> (&amp;rep_it, rep_left, prev_chop_coord,
+      blanks, row-&gt;<a class="code" href="class_t_o___r_o_w.html#a08041181b248c640984261653189212a">fixed_pitch</a>, &amp;word_it);
+  }
+  cell_it.mark_cycle_pt ();
+  <span class="keywordflow">if</span> (prev_chop_coord &gt;= cell_it.data ()-&gt;x ())
+    cell_it.forward ();
+  <span class="keywordflow">for</span> (; !cell_it.cycled_list (); cell_it.forward ()) {
+    chop_coord = cell_it.data ()-&gt;x ();
+    <span class="keywordflow">while</span> (!box_it.empty ()
+    &amp;&amp; box_it.data ()-&gt;bounding_box ().left () &lt;= chop_coord) {
+      <span class="keywordflow">if</span> (box_it.data ()-&gt;bounding_box ().right () &gt; prev_x)
+        prev_x = box_it.data ()-&gt;bounding_box ().right ();
+      <a class="code" href="fpchop_8cpp.html#a9fd0a4200a7f9548505d80456ea3f9e9">split_to_blob</a> (box_it.extract (), chop_coord,
+        <a class="code" href="fpchop_8cpp.html#a3a42cc68fcf01c0535132af2f2337b3d">textord_fp_chop_error</a> + 0.5f,
+        &amp;left_coutlines,
+        &amp;right_coutlines);
+      box_it.forward ();
+      <span class="keywordflow">while</span> (!box_it.empty() &amp;&amp; box_it.data()-&gt;cblob() == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+        <span class="keyword">delete</span> box_it.extract();
+        box_it.forward();
+      }
+    }
+    <span class="keywordflow">if</span> (!right_coutlines.empty() &amp;&amp; left_coutlines.empty())
+      <a class="code" href="fpchop_8cpp.html#a9fd0a4200a7f9548505d80456ea3f9e9">split_to_blob</a> (<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, chop_coord,
+        <a class="code" href="fpchop_8cpp.html#a3a42cc68fcf01c0535132af2f2337b3d">textord_fp_chop_error</a> + 0.5<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>,
+        &amp;left_coutlines,
+        &amp;right_coutlines);
+    <span class="keywordflow">if</span> (!left_coutlines.empty ())
+      cblob_it.add_after_then_move (<span class="keyword">new</span> <a class="code" href="class_c___b_l_o_b.html">C_BLOB</a> (&amp;left_coutlines));
+    <span class="keywordflow">else</span> {
+      <span class="keywordflow">if</span> (rep_left &lt; chop_coord) {
+        <span class="keywordflow">if</span> (rep_left &gt; prev_chop_coord)
+          new_blanks = (<a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a>) floor ((rep_left - prev_chop_coord)
+            / row-&gt;<a class="code" href="class_t_o___r_o_w.html#a08041181b248c640984261653189212a">fixed_pitch</a> + 0.5);
+        <span class="keywordflow">else</span>
+          new_blanks = 0;
+      }
+      <span class="keywordflow">else</span> {
+        <span class="keywordflow">if</span> (chop_coord &gt; prev_chop_coord)
+          new_blanks = (<a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a>) floor ((chop_coord - prev_chop_coord)
+            / row-&gt;<a class="code" href="class_t_o___r_o_w.html#a08041181b248c640984261653189212a">fixed_pitch</a> + 0.5);
+        <span class="keywordflow">else</span>
+          new_blanks = 0;
+      }
+      <span class="keywordflow">if</span> (!cblob_it.empty()) {
+        <span class="keywordflow">if</span> (blanks &lt; 1 &amp;&amp; word != NULL &amp;&amp; !word-&gt;flag (<a class="code" href="werd_8h.html#ad6968adbf8f2cc44adf333ec96efb0beaa20dcde8552519bb81c4206b0e57a8ce">W_REP_CHAR</a>))
+          blanks = 1;
+        word = <span class="keyword">new</span> <a class="code" href="class_w_e_r_d.html">WERD</a> (&amp;cblobs, blanks, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+        cblob_it.set_to_list (&amp;cblobs);
+        word-&gt;<a class="code" href="class_w_e_r_d.html#aa42c9f53794ab51c95503cd277e89c60">set_flag</a> (<a class="code" href="werd_8h.html#ad6968adbf8f2cc44adf333ec96efb0beac5f734536428e7e43dffe5c87d72d14e">W_DONT_CHOP</a>, <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>);
+        word_it.add_after_then_move (word);
+        <span class="keywordflow">if</span> (bol) {
+          word-&gt;<a class="code" href="class_w_e_r_d.html#aa42c9f53794ab51c95503cd277e89c60">set_flag</a> (<a class="code" href="werd_8h.html#ad6968adbf8f2cc44adf333ec96efb0beaff21d7c8c8992120fff35942408a00d2">W_BOL</a>, <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>);
+          bol = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+        }
+        blanks = new_blanks;
+      }
+      <span class="keywordflow">else</span>
+        blanks += new_blanks;
+      <span class="keywordflow">while</span> (rep_left &lt; chop_coord) {
+        word = <a class="code" href="fpchop_8cpp.html#a1ec8eecb5022ef4527945f94627e916a">add_repeated_word</a> (&amp;rep_it, rep_left, prev_chop_coord,
+          blanks, row-&gt;<a class="code" href="class_t_o___r_o_w.html#a08041181b248c640984261653189212a">fixed_pitch</a>, &amp;word_it);
+      }
+    }
+    <span class="keywordflow">if</span> (prev_chop_coord &lt; chop_coord)
+      prev_chop_coord = chop_coord;
+  }
+  <span class="keywordflow">if</span> (!cblob_it.empty()) {
+    word = <span class="keyword">new</span> <a class="code" href="class_w_e_r_d.html">WERD</a>(&amp;cblobs, blanks, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+    word-&gt;<a class="code" href="class_w_e_r_d.html#aa42c9f53794ab51c95503cd277e89c60">set_flag</a> (<a class="code" href="werd_8h.html#ad6968adbf8f2cc44adf333ec96efb0beac5f734536428e7e43dffe5c87d72d14e">W_DONT_CHOP</a>, <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>);
+    word_it.add_after_then_move (word);
+    <span class="keywordflow">if</span> (bol)
+      word-&gt;<a class="code" href="class_w_e_r_d.html#aa42c9f53794ab51c95503cd277e89c60">set_flag</a> (<a class="code" href="werd_8h.html#ad6968adbf8f2cc44adf333ec96efb0beaff21d7c8c8992120fff35942408a00d2">W_BOL</a>, <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>);
+  }
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a> (word != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <span class="keywordflow">while</span> (!rep_it.empty ()) {
+    <a class="code" href="fpchop_8cpp.html#a1ec8eecb5022ef4527945f94627e916a">add_repeated_word</a> (&amp;rep_it, rep_left, prev_chop_coord,
+      blanks, row-&gt;<a class="code" href="class_t_o___r_o_w.html#a08041181b248c640984261653189212a">fixed_pitch</a>, &amp;word_it);
+  }
+                                 <span class="comment">//at end of line</span>
+  word_it.data ()-&gt;set_flag (<a class="code" href="werd_8h.html#ad6968adbf8f2cc44adf333ec96efb0bea62efb985a62d85e014ee5ab039dd50ce">W_EOL</a>, <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>);
+  <span class="keywordflow">if</span> (prev_chop_coord &gt; prev_x)
+    prev_x = prev_chop_coord;
+  xstarts[1] = prev_x + 1;
+  coeffs[0] = 0;
+  coeffs[1] = row-&gt;<a class="code" href="class_t_o___r_o_w.html#a51cc690153d9cabdc8217e2ac336d414">line_m</a> ();
+  coeffs[2] = row-&gt;<a class="code" href="class_t_o___r_o_w.html#a22dc07e392af85d9ce625efdd13c6627">line_c</a> ();
+  real_row = <span class="keyword">new</span> <a class="code" href="class_r_o_w.html">ROW</a> (row, (<a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>) row-&gt;<a class="code" href="class_t_o___r_o_w.html#a9fca8cf6eb34357e616e056a483e98d5">kern_size</a>, (<a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>) row-&gt;<a class="code" href="class_t_o___r_o_w.html#af15ca7af4b650c4089de86ecf8b6f6b2">space_size</a>);
+  word_it.set_to_list (real_row-&gt;<a class="code" href="class_r_o_w.html#ac9d07f978420b3564bf5508ad294fb70">word_list</a> ());
+                                 <span class="comment">//put words in row</span>
+  word_it.add_list_after (&amp;words);
+  real_row-&gt;<a class="code" href="class_r_o_w.html#ad0341ee4465010249bfc0ae4882e43ec">recalc_bounding_box</a> ();
+  <span class="keywordflow">return</span> real_row;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a725ecaa2d2c5f4d463c40708a1ee5a6a"></a><!-- doxytag: member="fpchop.cpp::fixed_split_coutline" ref="a725ecaa2d2c5f4d463c40708a1ee5a6a" args="(C_OUTLINE *srcline, inT16 chop_coord, float pitch_error, C_OUTLINE_IT *left_it, C_OUTLINE_IT *right_it)" -->
@@ -430,6 +820,71 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="fpchop_8cpp_source.html#l00325">325</a> of file <a class="el" href="fpchop_8cpp_source.html">fpchop.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                           {
+  <a class="code" href="class_c___o_u_t_l_i_n_e.html">C_OUTLINE</a> *child;              <span class="comment">//child outline</span>
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> srcbox;                    <span class="comment">//box of outline</span>
+  C_OUTLINE_LIST left_ch;        <span class="comment">//left children</span>
+  C_OUTLINE_LIST right_ch;       <span class="comment">//right children</span>
+  C_OUTLINE_FRAG_LIST left_frags;<span class="comment">//chopped fragments</span>
+  C_OUTLINE_FRAG_LIST right_frags;;
+  C_OUTLINE_IT left_ch_it = &amp;left_ch;
+                                 <span class="comment">//for whole children</span>
+  C_OUTLINE_IT right_ch_it = &amp;right_ch;
+                                 <span class="comment">//for holes</span>
+  C_OUTLINE_IT child_it = srcline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#a87880b33bc69fa17ab37a93706ae8d84">child</a> ();
+
+  srcbox = srcline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#a6481db8e9c00281f20f45df48d499679">bounding_box</a> ();
+                                 <span class="comment">//left of line</span>
+  <span class="keywordflow">if</span> (srcbox.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a> () + srcbox.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a> () &lt;= chop_coord * 2
+                                 <span class="comment">//and not far over</span>
+    &amp;&amp; srcbox.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a> () &lt; chop_coord + pitch_error)
+                                 <span class="comment">//stick whole in left</span>
+    left_it-&gt;add_after_then_move (srcline);
+  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (srcbox.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a> () + srcbox.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a> () &gt; chop_coord * 2
+    &amp;&amp; srcbox.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a> () &gt; chop_coord - pitch_error)
+                                 <span class="comment">//stick whole in right</span>
+    right_it-&gt;add_before_stay_put (srcline);
+  <span class="keywordflow">else</span> {
+                                 <span class="comment">//needs real chopping</span>
+    <span class="keywordflow">if</span> (<a class="code" href="fpchop_8cpp.html#a7d832098cc043f50b04d2734c4b8eefb">fixed_chop_coutline</a> (srcline, chop_coord, pitch_error,
+    &amp;left_frags, &amp;right_frags)) {
+      <span class="keywordflow">for</span> (child_it.mark_cycle_pt (); !child_it.cycled_list ();
+      child_it.forward ()) {
+        child = child_it.extract ();
+        srcbox = child-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#a6481db8e9c00281f20f45df48d499679">bounding_box</a> ();
+        <span class="keywordflow">if</span> (srcbox.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a> () &lt; chop_coord)
+          left_ch_it.add_after_then_move (child);
+        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (srcbox.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a> () &gt; chop_coord)
+          right_ch_it.add_after_then_move (child);
+        <span class="keywordflow">else</span> {
+          <span class="keywordflow">if</span> (<a class="code" href="fpchop_8cpp.html#a7d832098cc043f50b04d2734c4b8eefb">fixed_chop_coutline</a> (child, chop_coord, pitch_error,
+            &amp;left_frags, &amp;right_frags))
+            <span class="keyword">delete</span> child;
+          <span class="keywordflow">else</span> {
+            <span class="keywordflow">if</span> (srcbox.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a> () + srcbox.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a> () &lt;= chop_coord * 2)
+              left_ch_it.add_after_then_move (child);
+            <span class="keywordflow">else</span>
+              right_ch_it.add_after_then_move (child);
+          }
+        }
+      }
+      <a class="code" href="fpchop_8cpp.html#ac4275b5c0c8c10cc8775f51ec5c4aab6">close_chopped_cfragments</a>(&amp;left_frags, &amp;left_ch, pitch_error, left_it);
+      <a class="code" href="fpchop_8cpp.html#ac4275b5c0c8c10cc8775f51ec5c4aab6">close_chopped_cfragments</a>(&amp;right_frags, &amp;right_ch, pitch_error, right_it);
+      <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a> (left_ch.empty () &amp;&amp; right_ch.empty ());
+      <span class="comment">//no children left</span>
+      <span class="keyword">delete</span> srcline;            <span class="comment">//smashed up</span>
+    }
+    <span class="keywordflow">else</span> {
+      <span class="keywordflow">if</span> (srcbox.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a> () + srcbox.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a> () &lt;= chop_coord * 2)
+                                 <span class="comment">//stick whole in left</span>
+        left_it-&gt;add_after_then_move (srcline);
+      <span class="keywordflow">else</span>
+        right_it-&gt;add_before_stay_put (srcline);
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a375591af79f8740853e7c5016d65c7ac"></a><!-- doxytag: member="fpchop.cpp::join_chopped_fragments" ref="a375591af79f8740853e7c5016d65c7ac" args="(C_OUTLINE_FRAG *bottom, C_OUTLINE_FRAG *top)" -->
@@ -457,6 +912,34 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="fpchop_8cpp_source.html#l00955">955</a> of file <a class="el" href="fpchop_8cpp_source.html">fpchop.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                   {
+  <a class="code" href="class_c___o_u_t_l_i_n_e.html">C_OUTLINE</a> *outline;            <span class="comment">//closed loop</span>
+
+  <span class="keywordflow">if</span> (bottom-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#af47b343a5b12475452c6ff6c14ea9d95">other_end</a> == top) {
+    <span class="keywordflow">if</span> (bottom-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#aa3d89d6ff984029b96313eb1ffedf171">steps</a> == 0)
+      outline = top-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#a9a96841ca88a927dcf89903fc8006829">close</a> ();   <span class="comment">//turn to outline</span>
+    <span class="keywordflow">else</span>
+      outline = bottom-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#a9a96841ca88a927dcf89903fc8006829">close</a> ();
+    <span class="keyword">delete</span> <a class="code" href="structarray__record.html#ac669bc877615327b853410a841f48f4b">top</a>;
+    <span class="keyword">delete</span> bottom;
+    <span class="keywordflow">return</span> outline;
+  }
+  <span class="keywordflow">if</span> (bottom-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#aa3d89d6ff984029b96313eb1ffedf171">steps</a> == 0) {
+    <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a> (top-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#aa3d89d6ff984029b96313eb1ffedf171">steps</a> != 0);
+    <a class="code" href="fpchop_8cpp.html#ad2273ca7e91ca8154840f53753a2ee94">join_segments</a> (bottom-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#af47b343a5b12475452c6ff6c14ea9d95">other_end</a>, top);
+  }
+  <span class="keywordflow">else</span> {
+    <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a> (top-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#aa3d89d6ff984029b96313eb1ffedf171">steps</a> == 0);
+    <a class="code" href="fpchop_8cpp.html#ad2273ca7e91ca8154840f53753a2ee94">join_segments</a> (top-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#af47b343a5b12475452c6ff6c14ea9d95">other_end</a>, bottom);
+  }
+  top-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#af47b343a5b12475452c6ff6c14ea9d95">other_end</a>-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#af47b343a5b12475452c6ff6c14ea9d95">other_end</a> = bottom-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#af47b343a5b12475452c6ff6c14ea9d95">other_end</a>;
+  bottom-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#af47b343a5b12475452c6ff6c14ea9d95">other_end</a>-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#af47b343a5b12475452c6ff6c14ea9d95">other_end</a> = top-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#af47b343a5b12475452c6ff6c14ea9d95">other_end</a>;
+  <span class="keyword">delete</span> bottom;
+  <span class="keyword">delete</span> <a class="code" href="structarray__record.html#ac669bc877615327b853410a841f48f4b">top</a>;
+  <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad2273ca7e91ca8154840f53753a2ee94"></a><!-- doxytag: member="fpchop.cpp::join_segments" ref="ad2273ca7e91ca8154840f53753a2ee94" args="(C_OUTLINE_FRAG *bottom, C_OUTLINE_FRAG *top)" -->
@@ -484,6 +967,35 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="fpchop_8cpp_source.html#l00993">993</a> of file <a class="el" href="fpchop_8cpp_source.html">fpchop.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                    {
+  <a class="code" href="class_d_i_r128.html">DIR128</a> *steps;                  <span class="comment">//new steps</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> stepcount;               <span class="comment">//no of steps</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> fake_count;              <span class="comment">//fake steps</span>
+  <a class="code" href="class_d_i_r128.html">DIR128</a> fake_step;               <span class="comment">//step entry</span>
+
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a> (bottom-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#a7265903e4d24691b1603aaabf1759c0b">end</a>.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () == top-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#ab73dd2ebe4d7766121e62353da385ae2">start</a>.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ());
+  fake_count = top-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#ab73dd2ebe4d7766121e62353da385ae2">start</a>.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () - bottom-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#a7265903e4d24691b1603aaabf1759c0b">end</a>.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ();
+  <span class="keywordflow">if</span> (fake_count &lt; 0) {
+    fake_count = -fake_count;
+    fake_step = 32;
+  }
+  <span class="keywordflow">else</span>
+    fake_step = 96;
+
+  stepcount = bottom-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#a48db13a611990a03339379b9125bd036">stepcount</a> + fake_count + top-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#a48db13a611990a03339379b9125bd036">stepcount</a>;
+  steps = <span class="keyword">new</span> <a class="code" href="class_d_i_r128.html">DIR128</a>[stepcount];
+  memmove (steps, bottom-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#aa3d89d6ff984029b96313eb1ffedf171">steps</a>, bottom-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#a48db13a611990a03339379b9125bd036">stepcount</a>);
+  memset (steps + bottom-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#a48db13a611990a03339379b9125bd036">stepcount</a>, fake_step.<a class="code" href="class_d_i_r128.html#a20420b3fa5c0968a2ebb0763c7e43c2f">get_dir</a>(), fake_count);
+  memmove (steps + bottom-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#a48db13a611990a03339379b9125bd036">stepcount</a> + fake_count, top-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#aa3d89d6ff984029b96313eb1ffedf171">steps</a>,
+    top-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#a48db13a611990a03339379b9125bd036">stepcount</a>);
+  <span class="keyword">delete</span> [] bottom-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#aa3d89d6ff984029b96313eb1ffedf171">steps</a>;
+  bottom-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#aa3d89d6ff984029b96313eb1ffedf171">steps</a> = steps;
+  bottom-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#a48db13a611990a03339379b9125bd036">stepcount</a> = stepcount;
+  bottom-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#a7265903e4d24691b1603aaabf1759c0b">end</a> = top-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#a7265903e4d24691b1603aaabf1759c0b">end</a>;
+  bottom-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#af47b343a5b12475452c6ff6c14ea9d95">other_end</a>-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#a7265903e4d24691b1603aaabf1759c0b">end</a> = top-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#a7265903e4d24691b1603aaabf1759c0b">end</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a019d2f8c09c7b1f67dda7ff96a199934"></a><!-- doxytag: member="fpchop.cpp::next_anti_left_seg" ref="a019d2f8c09c7b1f67dda7ff96a199934" args="(C_OUTLINE *srcline, inT16 tail_index, inT16 startindex, inT32 length, inT16 chop_coord, float pitch_error, ICOORD *tail_pos)" -->
@@ -541,6 +1053,52 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="fpchop_8cpp_source.html#l00529">529</a> of file <a class="el" href="fpchop_8cpp_source.html">fpchop.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                          {
+  <a class="code" href="host_8h.html#a7712a7e28433d0ade59219a129549b6f">BOOL8</a> test_valid;              <span class="comment">//test pt valid</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> chop_starty;             <span class="comment">//test chop pt</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> test_index;              <span class="comment">//possible chop pt</span>
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> test_pos;               <span class="comment">//possible chop pt</span>
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> prev_step;              <span class="comment">//in x to tail pos</span>
+
+  test_valid = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+  chop_starty = -<a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a>;
+  test_index = tail_index;       <span class="comment">//stop warnings</span>
+  <span class="keywordflow">do</span> {
+    *tail_pos += srcline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#af6831ec849fb5ab1f2b49517fbbd5f85">step</a> (tail_index);
+    prev_step = srcline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#af6831ec849fb5ab1f2b49517fbbd5f85">step</a> (tail_index);
+    tail_index++;
+    <span class="keywordflow">if</span> (tail_index &gt;= length)
+      tail_index = 0;
+    <span class="keywordflow">if</span> (test_valid &amp;&amp; tail_pos-&gt;<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () == chop_coord &amp;&amp; prev_step.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () &lt; 0) {
+      <span class="keywordflow">if</span> (tail_pos-&gt;<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () &gt;= chop_starty) {
+        chop_starty = -<a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a>;
+        test_valid = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+      }
+      <span class="keywordflow">else</span> {
+        *tail_pos = test_pos;
+        tail_index = test_index;
+        <span class="keywordflow">break</span>;                   <span class="comment">//must chop there</span>
+      }
+    }
+    <span class="keywordflow">if</span> (tail_pos-&gt;<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () == chop_coord
+      &amp;&amp; srcline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#af6831ec849fb5ab1f2b49517fbbd5f85">step</a> (tail_index).<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () &gt; 0
+    &amp;&amp; tail_pos-&gt;<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () &gt; chop_starty) {
+      chop_starty = tail_pos-&gt;<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ();
+      test_index = tail_index;
+      test_pos = *tail_pos;
+      test_valid = <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+    }
+    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (tail_pos-&gt;<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () == chop_coord
+      &amp;&amp; srcline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#af6831ec849fb5ab1f2b49517fbbd5f85">step</a> (tail_index).<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () &lt; 0
+      &amp;&amp; prev_step.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () &gt; 0 &amp;&amp; tail_pos-&gt;<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () &gt; chop_starty)
+      <span class="keywordflow">break</span>;                     <span class="comment">//must chop here</span>
+  }
+  <span class="keywordflow">while</span> (tail_index != startindex
+    &amp;&amp; tail_pos-&gt;<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () &lt; chop_coord + pitch_error);
+  <span class="keywordflow">return</span> tail_index;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a92cc5aef57817264bacea6b0906af519"></a><!-- doxytag: member="fpchop.cpp::next_anti_right_seg" ref="a92cc5aef57817264bacea6b0906af519" args="(C_OUTLINE *srcline, inT16 tail_index, inT16 startindex, inT32 length, inT16 chop_coord, float pitch_error, ICOORD *tail_pos)" -->
@@ -598,6 +1156,53 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="fpchop_8cpp_source.html#l00590">590</a> of file <a class="el" href="fpchop_8cpp_source.html">fpchop.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                           {
+  <a class="code" href="host_8h.html#a7712a7e28433d0ade59219a129549b6f">BOOL8</a> test_valid;              <span class="comment">//test pt valid</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> chop_starty;             <span class="comment">//test chop pt</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> test_index;              <span class="comment">//possible chop pt</span>
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> test_pos;               <span class="comment">//possible chop pt</span>
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> prev_step;              <span class="comment">//in x to tail pos</span>
+
+  test_valid = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+  chop_starty = <a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a>;
+  test_index = tail_index;       <span class="comment">//stop warnings</span>
+  <span class="keywordflow">do</span> {
+                                 <span class="comment">//move forward</span>
+    *tail_pos += srcline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#af6831ec849fb5ab1f2b49517fbbd5f85">step</a> (tail_index);
+    prev_step = srcline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#af6831ec849fb5ab1f2b49517fbbd5f85">step</a> (tail_index);
+    tail_index++;
+    <span class="keywordflow">if</span> (tail_index &gt;= length)
+      tail_index = 0;
+    <span class="keywordflow">if</span> (test_valid &amp;&amp; tail_pos-&gt;<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () == chop_coord &amp;&amp; prev_step.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () &gt; 0) {
+      <span class="keywordflow">if</span> (tail_pos-&gt;<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () &lt;= chop_starty) {
+        chop_starty = <a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a>;
+        test_valid = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+      }
+      <span class="keywordflow">else</span> {
+        *tail_pos = test_pos;
+        tail_index = test_index;
+        <span class="keywordflow">break</span>;                   <span class="comment">//must chop there</span>
+      }
+    }
+    <span class="keywordflow">if</span> (tail_pos-&gt;<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () == chop_coord
+      &amp;&amp; srcline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#af6831ec849fb5ab1f2b49517fbbd5f85">step</a> (tail_index).<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () &lt; 0
+    &amp;&amp; tail_pos-&gt;<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () &lt; chop_starty) {
+      chop_starty = tail_pos-&gt;<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ();
+      test_index = tail_index;
+      test_pos = *tail_pos;
+      test_valid = <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;         <span class="comment">//save possible chop pt</span>
+    }
+    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (tail_pos-&gt;<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () == chop_coord
+      &amp;&amp; srcline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#af6831ec849fb5ab1f2b49517fbbd5f85">step</a> (tail_index).<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () &gt; 0
+      &amp;&amp; prev_step.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () &lt; 0 &amp;&amp; tail_pos-&gt;<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () &lt; chop_starty)
+      <span class="keywordflow">break</span>;                     <span class="comment">//must chop here</span>
+  }
+  <span class="keywordflow">while</span> (tail_index != startindex
+    &amp;&amp; tail_pos-&gt;<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () &gt; chop_coord - pitch_error);
+  <span class="keywordflow">return</span> tail_index;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac2cbe3636e25d91955e1154a387ff375"></a><!-- doxytag: member="fpchop.cpp::next_clock_left_seg" ref="ac2cbe3636e25d91955e1154a387ff375" args="(C_OUTLINE *srcline, inT16 tail_index, inT16 startindex, inT32 length, inT16 chop_coord, float pitch_error, ICOORD *tail_pos)" -->
@@ -655,6 +1260,52 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="fpchop_8cpp_source.html#l00652">652</a> of file <a class="el" href="fpchop_8cpp_source.html">fpchop.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                           {
+  <a class="code" href="host_8h.html#a7712a7e28433d0ade59219a129549b6f">BOOL8</a> test_valid;              <span class="comment">//test pt valid</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> chop_starty;             <span class="comment">//test chop pt</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> test_index;              <span class="comment">//possible chop pt</span>
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> test_pos;               <span class="comment">//possible chop pt</span>
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> prev_step;              <span class="comment">//in x to tail pos</span>
+
+  test_valid = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+  chop_starty = <a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a>;
+  test_index = tail_index;       <span class="comment">//stop warnings</span>
+  <span class="keywordflow">do</span> {
+    *tail_pos += srcline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#af6831ec849fb5ab1f2b49517fbbd5f85">step</a> (tail_index);
+    prev_step = srcline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#af6831ec849fb5ab1f2b49517fbbd5f85">step</a> (tail_index);
+    tail_index++;
+    <span class="keywordflow">if</span> (tail_index &gt;= length)
+      tail_index = 0;
+    <span class="keywordflow">if</span> (test_valid &amp;&amp; tail_pos-&gt;<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () == chop_coord &amp;&amp; prev_step.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () &lt; 0) {
+      <span class="keywordflow">if</span> (tail_pos-&gt;<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () &lt;= chop_starty) {
+        chop_starty = <a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a>;
+        test_valid = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+      }
+      <span class="keywordflow">else</span> {
+        *tail_pos = test_pos;
+        tail_index = test_index;
+        <span class="keywordflow">break</span>;                   <span class="comment">//must chop there</span>
+      }
+    }
+    <span class="keywordflow">if</span> (tail_pos-&gt;<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () == chop_coord
+      &amp;&amp; srcline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#af6831ec849fb5ab1f2b49517fbbd5f85">step</a> (tail_index).<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () &gt; 0
+    &amp;&amp; tail_pos-&gt;<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () &lt; chop_starty) {
+      chop_starty = tail_pos-&gt;<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ();
+      test_index = tail_index;
+      test_pos = *tail_pos;
+      test_valid = <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+    }
+    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (tail_pos-&gt;<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () == chop_coord
+      &amp;&amp; srcline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#af6831ec849fb5ab1f2b49517fbbd5f85">step</a> (tail_index).<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () &gt; 0
+      &amp;&amp; prev_step.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () &gt; 0 &amp;&amp; tail_pos-&gt;<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () &lt; chop_starty)
+      <span class="keywordflow">break</span>;                     <span class="comment">//must chop here</span>
+  }
+  <span class="keywordflow">while</span> (tail_index != startindex
+    &amp;&amp; tail_pos-&gt;<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () &lt; chop_coord + pitch_error);
+  <span class="keywordflow">return</span> tail_index;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3ff8ada0179737493daf1bda74670988"></a><!-- doxytag: member="fpchop.cpp::next_clock_right_seg" ref="a3ff8ada0179737493daf1bda74670988" args="(C_OUTLINE *srcline, inT16 tail_index, inT16 startindex, inT32 length, inT16 chop_coord, float pitch_error, ICOORD *tail_pos)" -->
@@ -712,6 +1363,53 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="fpchop_8cpp_source.html#l00713">713</a> of file <a class="el" href="fpchop_8cpp_source.html">fpchop.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                            {
+  <a class="code" href="host_8h.html#a7712a7e28433d0ade59219a129549b6f">BOOL8</a> test_valid;              <span class="comment">//test pt valid</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> chop_starty;             <span class="comment">//test chop pt</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> test_index;              <span class="comment">//possible chop pt</span>
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> test_pos;               <span class="comment">//possible chop pt</span>
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> prev_step;              <span class="comment">//in x to tail pos</span>
+
+  test_valid = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+  chop_starty = <a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a>;
+  test_index = tail_index;       <span class="comment">//stop warnings</span>
+  <span class="keywordflow">do</span> {
+                                 <span class="comment">//move forward</span>
+    *tail_pos += srcline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#af6831ec849fb5ab1f2b49517fbbd5f85">step</a> (tail_index);
+    prev_step = srcline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#af6831ec849fb5ab1f2b49517fbbd5f85">step</a> (tail_index);
+    tail_index++;
+    <span class="keywordflow">if</span> (tail_index &gt;= length)
+      tail_index = 0;
+    <span class="keywordflow">if</span> (test_valid &amp;&amp; tail_pos-&gt;<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () == chop_coord &amp;&amp; prev_step.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () &gt; 0) {
+      <span class="keywordflow">if</span> (tail_pos-&gt;<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () &gt;= chop_starty) {
+        chop_starty = <a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a>;
+        test_valid = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+      }
+      <span class="keywordflow">else</span> {
+        *tail_pos = test_pos;
+        tail_index = test_index;
+        <span class="keywordflow">break</span>;                   <span class="comment">//must chop there</span>
+      }
+    }
+    <span class="keywordflow">if</span> (tail_pos-&gt;<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () == chop_coord
+      &amp;&amp; srcline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#af6831ec849fb5ab1f2b49517fbbd5f85">step</a> (tail_index).<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () &lt; 0
+    &amp;&amp; tail_pos-&gt;<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () &gt; chop_starty) {
+      chop_starty = tail_pos-&gt;<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ();
+      test_index = tail_index;
+      test_pos = *tail_pos;
+      test_valid = <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;         <span class="comment">//save possible chop pt</span>
+    }
+    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (tail_pos-&gt;<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () == chop_coord
+      &amp;&amp; srcline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#af6831ec849fb5ab1f2b49517fbbd5f85">step</a> (tail_index).<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () &lt; 0
+      &amp;&amp; prev_step.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () &lt; 0 &amp;&amp; tail_pos-&gt;<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () &gt; chop_starty)
+      <span class="keywordflow">break</span>;                     <span class="comment">//must chop here</span>
+  }
+  <span class="keywordflow">while</span> (tail_index != startindex
+    &amp;&amp; tail_pos-&gt;<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () &gt; chop_coord - pitch_error);
+  <span class="keywordflow">return</span> tail_index;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a0a6f1acf9bc02e11a300e7559ca4972a"></a><!-- doxytag: member="fpchop.cpp::save_chop_cfragment" ref="a0a6f1acf9bc02e11a300e7559ca4972a" args="(inT16 head_index, ICOORD head_pos, inT16 tail_index, ICOORD tail_pos, C_OUTLINE *srcline, C_OUTLINE_FRAG_LIST *frags)" -->
@@ -763,6 +1461,33 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="fpchop_8cpp_source.html#l00774">774</a> of file <a class="el" href="fpchop_8cpp_source.html">fpchop.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                          {
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> jump;                    <span class="comment">//gap across end</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> stepcount;               <span class="comment">//total steps</span>
+  <a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html">C_OUTLINE_FRAG</a> *head;          <span class="comment">//head of fragment</span>
+  <a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html">C_OUTLINE_FRAG</a> *tail;          <span class="comment">//tail of fragment</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> tail_y;                  <span class="comment">//ycoord of tail</span>
+
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a> (tail_pos.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () == head_pos.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ());
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a> (tail_index != head_index);
+  stepcount = tail_index - head_index;
+  <span class="keywordflow">if</span> (stepcount &lt; 0)
+    stepcount += srcline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#afb87d87d3d48e964937b068f55f3ca3a">pathlength</a> ();
+  jump = tail_pos.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () - head_pos.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ();
+  <span class="keywordflow">if</span> (jump &lt; 0)
+    jump = -jump;
+  <span class="keywordflow">if</span> (jump == stepcount)
+    <span class="keywordflow">return</span>;                      <span class="comment">//its a nop</span>
+  tail_y = tail_pos.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ();
+  head = <span class="keyword">new</span> <a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html">C_OUTLINE_FRAG</a> (head_pos, tail_pos, srcline,
+    head_index, tail_index);
+  tail = <span class="keyword">new</span> <a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html">C_OUTLINE_FRAG</a> (head, tail_y);
+  head-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#af47b343a5b12475452c6ff6c14ea9d95">other_end</a> = tail;
+  <a class="code" href="fpchop_8cpp.html#a1434d38fe4f3bae685a9a7e57ae920e8">add_frag_to_list</a>(head, frags);
+  <a class="code" href="fpchop_8cpp.html#a1434d38fe4f3bae685a9a7e57ae920e8">add_frag_to_list</a>(tail, frags);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9fd0a4200a7f9548505d80456ea3f9e9"></a><!-- doxytag: member="fpchop.cpp::split_to_blob" ref="a9fd0a4200a7f9548505d80456ea3f9e9" args="(BLOBNBOX *blob, inT16 chop_coord, float pitch_error, C_OUTLINE_LIST *left_coutlines, C_OUTLINE_LIST *right_coutlines)" -->
@@ -808,6 +1533,25 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="fpchop_8cpp_source.html#l00249">249</a> of file <a class="el" href="fpchop_8cpp_source.html">fpchop.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                    {
+  <a class="code" href="class_c___b_l_o_b.html">C_BLOB</a> *real_cblob;            <span class="comment">//cblob to chop</span>
+
+  <span class="keywordflow">if</span> (blob != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    real_cblob = blob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a483f44541a4dd818f02225c92f030e07">cblob</a>();
+  } <span class="keywordflow">else</span> {
+    real_cblob = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="keywordflow">if</span> (!right_coutlines-&gt;empty() || real_cblob != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <a class="code" href="fpchop_8cpp.html#ac4f288cfb9603b1d0a8d420855c8fba8">fixed_chop_cblob</a>(real_cblob,
+                     chop_coord,
+                     pitch_error,
+                     left_coutlines,
+                     right_coutlines);
+  <span class="keywordflow">if</span> (blob != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <span class="keyword">delete</span> blob;                 <span class="comment">//free it</span>
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Variable Documentation</h2>
@@ -823,6 +1567,8 @@ Variables</h2></td></tr>
 <div class="memdoc">
 <p>"Max allowed bending of chop cells" </p>
 
+<p>Definition at line <a class="el" href="fpchop_8cpp_source.html#l00041">41</a> of file <a class="el" href="fpchop_8cpp_source.html">fpchop.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a5e6ddb6e5f74a267ec259c7aa056a749"></a><!-- doxytag: member="fpchop.cpp::textord_fp_chop_snap" ref="a5e6ddb6e5f74a267ec259c7aa056a749" args="" -->
@@ -836,6 +1582,8 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"Max distance of chop pt from vertex" </p>
+
+<p>Definition at line <a class="el" href="fpchop_8cpp_source.html#l00043">43</a> of file <a class="el" href="fpchop_8cpp_source.html">fpchop.cpp</a>.</p>
 
 </div>
 </div>
@@ -859,7 +1607,7 @@ Variables</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:10 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:42 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

@@ -132,7 +132,10 @@ Friends</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_m_a_g_e_l_i_n_e.html#a7d72787bdb368c17e88b0035564b4d26">IMAGE::fast_get_line</a> (<a class="el" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> x, <a class="el" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> y, <a class="el" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> width, <a class="el" href="class_i_m_a_g_e_l_i_n_e.html">IMAGELINE</a> *linebuf)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_m_a_g_e_l_i_n_e.html#a5ff526ef092f45e31596d44e423867ec">IMAGE::fast_put_line</a> (<a class="el" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> x, <a class="el" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> y, <a class="el" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> width, <a class="el" href="class_i_m_a_g_e_l_i_n_e.html">IMAGELINE</a> *linebuf)</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="img_8h_source.html#l00324">324</a> of file <a class="el" href="img_8h_source.html">img.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="aa55d2aa15b9aa7442bf40a9b728211c5"></a><!-- doxytag: member="IMAGELINE::IMAGELINE" ref="aa55d2aa15b9aa7442bf40a9b728211c5" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -148,6 +151,14 @@ Friends</h2></td></tr>
 <div class="memdoc">
 <p>default constructor </p>
 
+<p>Definition at line <a class="el" href="img_8h_source.html#l00336">336</a> of file <a class="el" href="img_8h_source.html">img.h</a>.</p>
+<div class="fragment"><pre class="fragment">                {
+      linewidth = 0;
+      line = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+      <a class="code" href="class_i_m_a_g_e_l_i_n_e.html#a0bf967eba44b6352a126f74c1a057172" title="image pixels">pixels</a> = line;
+      <a class="code" href="class_i_m_a_g_e_l_i_n_e.html#ac60badda4f68e244ddba91eacbe1ce80" title="bits per pixel">bpp</a> = 8;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a62cc6ca890b07f2bfb8385b0f4132dd9"></a><!-- doxytag: member="IMAGELINE::~IMAGELINE" ref="a62cc6ca890b07f2bfb8385b0f4132dd9" args="()" -->
@@ -164,6 +175,12 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="img_8h_source.html#l00355">355</a> of file <a class="el" href="img_8h_source.html">img.h</a>.</p>
+<div class="fragment"><pre class="fragment">                  {              <span class="comment">//destructor</span>
+      <span class="keywordflow">if</span> (line != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+        <a class="code" href="memry_8cpp.html#a9ef1862b8e026e23eef238af032858e4">free_mem</a>(line);
+    }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -182,6 +199,20 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="img_8h_source.html#l00342">342</a> of file <a class="el" href="img_8h_source.html">img.h</a>.</p>
+<div class="fragment"><pre class="fragment">                           {  <span class="comment">//size of line</span>
+      <span class="keywordflow">if</span> (width &lt;= 0)
+        width = <a class="code" href="img_8h.html#ab426021d403d4a45ab3a61c5b75beb6d">MAXIMAGEWIDTH</a>;
+      <span class="keywordflow">if</span> (width &gt; linewidth) {
+        <span class="keywordflow">if</span> (line != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+          <a class="code" href="memry_8cpp.html#a9ef1862b8e026e23eef238af032858e4">free_mem</a>(line);
+        linewidth = width;
+        line = (<a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a> *) <a class="code" href="memry_8cpp.html#a4c14b091498fb7866a1dd0af51a591fe">alloc_mem</a> (linewidth * <span class="keyword">sizeof</span> (<a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a>));
+      }
+      <a class="code" href="class_i_m_a_g_e_l_i_n_e.html#a0bf967eba44b6352a126f74c1a057172" title="image pixels">pixels</a> = line;
+      <a class="code" href="class_i_m_a_g_e_l_i_n_e.html#ac60badda4f68e244ddba91eacbe1ce80" title="bits per pixel">bpp</a> = 8;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a06bb1210d29ccfc2e6c160085f7b9b1c"></a><!-- doxytag: member="IMAGELINE::init" ref="a06bb1210d29ccfc2e6c160085f7b9b1c" args="()" -->
@@ -198,6 +229,16 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="img_8h_source.html#l00368">368</a> of file <a class="el" href="img_8h_source.html">img.h</a>.</p>
+<div class="fragment"><pre class="fragment">                {
+      <span class="keywordflow">if</span> (line == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+        <a class="code" href="class_i_m_a_g_e_l_i_n_e.html#a06bb1210d29ccfc2e6c160085f7b9b1c">init</a> (0);
+      <span class="keywordflow">else</span> {
+        <a class="code" href="class_i_m_a_g_e_l_i_n_e.html#a0bf967eba44b6352a126f74c1a057172" title="image pixels">pixels</a> = line;
+        <a class="code" href="class_i_m_a_g_e_l_i_n_e.html#ac60badda4f68e244ddba91eacbe1ce80" title="bits per pixel">bpp</a> = 8;
+      }
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a78713d2ff99869b8b1648c602b181ba8"></a><!-- doxytag: member="IMAGELINE::operator[]" ref="a78713d2ff99869b8b1648c602b181ba8" args="(inT32 index)" -->
@@ -216,6 +257,11 @@ Friends</h2></td></tr>
 <div class="memdoc">
 <p>colour pixels </p>
 
+<p>Definition at line <a class="el" href="img_8h_source.html#l00330">330</a> of file <a class="el" href="img_8h_source.html">img.h</a>.</p>
+<div class="fragment"><pre class="fragment">                 {
+      <span class="keywordflow">return</span> &amp;<a class="code" href="class_i_m_a_g_e_l_i_n_e.html#a0bf967eba44b6352a126f74c1a057172" title="image pixels">pixels</a>[index * 3]; <span class="comment">//coercion access op</span>
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6037be8392ca69c8514ccc78c92c4f26"></a><!-- doxytag: member="IMAGELINE::set_bpp" ref="a6037be8392ca69c8514ccc78c92c4f26" args="(inT8 new_bpp)" -->
@@ -234,6 +280,14 @@ Friends</h2></td></tr>
 <div class="memdoc">
 <p>For colour </p>
 
+<p>Definition at line <a class="el" href="img_8h_source.html#l00361">361</a> of file <a class="el" href="img_8h_source.html">img.h</a>.</p>
+<div class="fragment"><pre class="fragment">                               {
+      <span class="keywordflow">if</span> (new_bpp &lt;= 8)
+        <a class="code" href="class_i_m_a_g_e_l_i_n_e.html#ac60badda4f68e244ddba91eacbe1ce80" title="bits per pixel">bpp</a> = 8;
+      <span class="keywordflow">else</span>
+        <a class="code" href="class_i_m_a_g_e_l_i_n_e.html#ac60badda4f68e244ddba91eacbe1ce80" title="bits per pixel">bpp</a> = 24;
+    }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Friends And Related Function Documentation</h2>
@@ -573,6 +627,8 @@ Friends</h2></td></tr>
 
 <p>bits per pixel </p>
 
+<p>Definition at line <a class="el" href="img_8h_source.html#l00328">328</a> of file <a class="el" href="img_8h_source.html">img.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a0bf967eba44b6352a126f74c1a057172"></a><!-- doxytag: member="IMAGELINE::pixels" ref="a0bf967eba44b6352a126f74c1a057172" args="" -->
@@ -587,6 +643,8 @@ Friends</h2></td></tr>
 <div class="memdoc">
 
 <p>image pixels </p>
+
+<p>Definition at line <a class="el" href="img_8h_source.html#l00327">327</a> of file <a class="el" href="img_8h_source.html">img.h</a>.</p>
 
 </div>
 </div>
@@ -613,7 +671,7 @@ Friends</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:12 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:46 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

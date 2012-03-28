@@ -104,7 +104,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="textblock"><code>#include &quot;<a class="el" href="states_8h_source.html">states.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="structures_8h_source.html">structures.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="callcpp_8h_source.html">callcpp.h</a>&quot;</code><br/>
-</div><table class="memberdecls">
+</div>
+<p><a href="states_8cpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="states_8cpp.html#acedee689c575ebef12ffd1072de15977">makestructure</a> (newstate, free_state, <a class="el" href="struct_s_t_a_t_e.html">STATE</a>)</td></tr>
@@ -152,6 +154,49 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="states_8cpp_source.html#l00049">49</a> of file <a class="el" href="states_8cpp_source.html">states.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                         {
+  <span class="keywordtype">int</span> x;
+  <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> mask;
+  <span class="keywordtype">int</span> depth;
+  <span class="keywordtype">int</span> pieces = 0;
+  <a class="code" href="states_8h.html#afeb312869cc56f5a20c6f3dcb65644cc">SEARCH_STATE</a> s;
+
+  s = <a class="code" href="freelist_8cpp.html#a5898fbe61f6ffe4c1be71a107193cdfd">memalloc</a> (<span class="keyword">sizeof</span> (<span class="keywordtype">int</span>) * (<a class="code" href="states_8cpp.html#a4373c199724dece68ce64aeb3977dfdc">ones_in_state</a> (state, num_joints) + 1));
+
+  depth = 1;
+  mask = 1 &lt;&lt; (num_joints - 1 - 32);
+  <span class="keywordflow">for</span> (x = num_joints; x &gt; 32; x--) {
+    <span class="keywordflow">if</span> (state-&gt;<a class="code" href="struct_s_t_a_t_e.html#a2099a72d99d2ba5f828ad8538d328f4b">part1</a> &amp; mask) {
+      s[depth++] = pieces;
+      pieces = 0;
+    }
+    <span class="keywordflow">else</span> {
+      pieces++;
+    }
+    mask &gt;&gt;= 1;
+  }
+
+  <span class="keywordflow">if</span> (num_joints &gt; 32)
+    mask = 1 &lt;&lt; 31;
+  <span class="keywordflow">else</span>
+    mask = 1 &lt;&lt; (num_joints - 1);
+
+  <span class="keywordflow">while</span> (x--) {
+    <span class="keywordflow">if</span> (state-&gt;<a class="code" href="struct_s_t_a_t_e.html#aa75ceb95132aecb5a8ae1e594a19733a">part2</a> &amp; mask) {
+      s[depth++] = pieces;
+      pieces = 0;
+    }
+    <span class="keywordflow">else</span> {
+      pieces++;
+    }
+    mask &gt;&gt;= 1;
+  }
+  s[0] = depth - 1;
+
+  <span class="keywordflow">return</span> (s);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="acd6fd8bb4f29a8f5674ec05b47e63466"></a><!-- doxytag: member="states.cpp::bin_to_pieces" ref="acd6fd8bb4f29a8f5674ec05b47e63466" args="(STATE *state, int num_joints, PIECES_STATE pieces)" -->
@@ -187,6 +232,34 @@ Functions</h2></td></tr>
 <p>bin_to_pieces</p>
 <p>Convert the binary (bit vector) format of a search state to an array of piece counts. This array has a zero element after the last valid character. </p>
 
+<p>Definition at line <a class="el" href="states_8cpp_source.html#l00099">99</a> of file <a class="el" href="states_8cpp_source.html">states.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                      {
+  <span class="keywordtype">int</span> x;
+  <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> mask;             <span class="comment">/* Bit mask */</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> num_pieces = 0;
+  <span class="comment">/* Preset mask */</span>
+  mask = ((num_joints &gt; 32) ?
+    (1 &lt;&lt; (num_joints - 1 - 32)) : (1 &lt;&lt; (num_joints - 1)));
+
+  pieces[num_pieces] = 0;
+
+  <span class="keywordflow">for</span> (x = num_joints - 1; x &gt;= 0; x--) {
+                                 <span class="comment">/* Iterate all bits */</span>
+    pieces[num_pieces]++;
+
+    <span class="keywordflow">if</span> ((x &lt; 32) ?               <span class="comment">/* Test for 1 bit */</span>
+      ((state-&gt;<a class="code" href="struct_s_t_a_t_e.html#aa75ceb95132aecb5a8ae1e594a19733a">part2</a> &amp; mask) ? <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a> : <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>) :
+    ((state-&gt;<a class="code" href="struct_s_t_a_t_e.html#a2099a72d99d2ba5f828ad8538d328f4b">part1</a> &amp; mask) ? <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a> : FALSE)) {
+      pieces[++num_pieces] = 0;
+    }
+    <span class="comment">/* Next mask value */</span>
+    mask = ((mask == 1) ? (1 &lt;&lt; 31) : (mask &gt;&gt; 1));
+  }
+  pieces[num_pieces]++;
+  pieces[++num_pieces] = 0;
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a> (num_pieces &lt; <a class="code" href="states_8h.html#a2f47d18aa9ea116103da072b110cf09d">MAX_NUM_CHUNKS</a> + 2);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a5104caef86ae4abd56bbb88b463492f6"></a><!-- doxytag: member="states.cpp::insert_new_chunk" ref="a5104caef86ae4abd56bbb88b463492f6" args="(register STATE *state, register int index, register int num_joints)" -->
@@ -222,6 +295,31 @@ Functions</h2></td></tr>
 <p>insert_new_chunk</p>
 <p>Add a new chunk division into this state vector at the location requested. </p>
 
+<p>Definition at line <a class="el" href="states_8cpp_source.html#l00133">133</a> of file <a class="el" href="states_8cpp_source.html">states.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                               {
+  <span class="keyword">register</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> mask;
+  <span class="keyword">register</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> result;
+
+  index = (num_joints - index);
+  <span class="keywordflow">if</span> (index &lt; 32) {
+    mask = ~0;
+    mask &lt;&lt;= index;
+    result = (mask &amp; state-&gt;part2) &lt;&lt; 1;
+    result |= (~mask &amp; state-&gt;part2);
+    state-&gt;part1 &lt;&lt;= 1;
+    <span class="keywordflow">if</span> (state-&gt;part2 &amp; 0x80000000)
+      state-&gt;part1 |= 1;
+    state-&gt;part2 = result;
+  }
+  <span class="keywordflow">else</span> {
+    mask = ~0;
+    mask &lt;&lt;= index - 32;
+    result = (mask &amp; state-&gt;part1) &lt;&lt; 1;
+    result |= (~mask &amp; state-&gt;part1);
+    state-&gt;part1 = result;
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="acedee689c575ebef12ffd1072de15977"></a><!-- doxytag: member="states.cpp::makestructure" ref="acedee689c575ebef12ffd1072de15977" args="(newstate, free_state, STATE)" -->
@@ -274,6 +372,16 @@ Functions</h2></td></tr>
 <p>new_state</p>
 <p>Create a memory space for a new state variable. Set its initial value according to the parameters. </p>
 
+<p>Definition at line <a class="el" href="states_8cpp_source.html#l00166">166</a> of file <a class="el" href="states_8cpp_source.html">states.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                  {
+  <a class="code" href="struct_s_t_a_t_e.html">STATE</a> *this_state;
+
+  this_state = newstate ();
+  this_state-&gt;<a class="code" href="struct_s_t_a_t_e.html#a2099a72d99d2ba5f828ad8538d328f4b">part1</a> = oldstate-&gt;<a class="code" href="struct_s_t_a_t_e.html#a2099a72d99d2ba5f828ad8538d328f4b">part1</a>;
+  this_state-&gt;<a class="code" href="struct_s_t_a_t_e.html#aa75ceb95132aecb5a8ae1e594a19733a">part2</a> = oldstate-&gt;<a class="code" href="struct_s_t_a_t_e.html#aa75ceb95132aecb5a8ae1e594a19733a">part2</a>;
+  <span class="keywordflow">return</span> (this_state);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4373c199724dece68ce64aeb3977dfdc"></a><!-- doxytag: member="states.cpp::ones_in_state" ref="a4373c199724dece68ce64aeb3977dfdc" args="(STATE *state, int num_joints)" -->
@@ -303,6 +411,34 @@ Functions</h2></td></tr>
 <p>ones_in_state</p>
 <p>Return the number of ones that are in this state. </p>
 
+<p>Definition at line <a class="el" href="states_8cpp_source.html#l00181">181</a> of file <a class="el" href="states_8cpp_source.html">states.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                {
+  <a class="code" href="host_8h.html#a2ba4d271e85baf0d333318985cb3bced">inT8</a> num_ones = 0;
+  <a class="code" href="host_8h.html#a2ba4d271e85baf0d333318985cb3bced">inT8</a> x;
+  <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> mask;
+
+  <span class="keywordflow">if</span> (num_joints &gt; 32)           <span class="comment">/* Preset mask */</span>
+    mask = 1 &lt;&lt; (num_joints - 1 - 32);
+  <span class="keywordflow">else</span>
+    mask = 1 &lt;&lt; (num_joints - 1);
+
+  <span class="keywordflow">for</span> (x = num_joints - 1; x &gt;= 0; x--) {
+                                 <span class="comment">/* Iterate all bits */</span>
+
+    <span class="keywordflow">if</span> (x &lt; 32)
+      num_ones += ((state-&gt;<a class="code" href="struct_s_t_a_t_e.html#aa75ceb95132aecb5a8ae1e594a19733a">part2</a> &amp; mask) ? 1 : 0);
+    <span class="keywordflow">else</span>
+      num_ones += ((state-&gt;<a class="code" href="struct_s_t_a_t_e.html#a2099a72d99d2ba5f828ad8538d328f4b">part1</a> &amp; mask) ? 1 : 0);
+
+    <span class="keywordflow">if</span> (mask == 1)               <span class="comment">/* Next mask value */</span>
+      mask = 1 &lt;&lt; 31;
+    <span class="keywordflow">else</span>
+      mask &gt;&gt;= 1;
+  }
+
+  <span class="keywordflow">return</span> (num_ones);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="acb25e4d3e4da45c03f24fa3fcada7a98"></a><!-- doxytag: member="states.cpp::print_state" ref="acb25e4d3e4da45c03f24fa3fcada7a98" args="(const char *label, STATE *state, int num_joints)" -->
@@ -338,6 +474,37 @@ Functions</h2></td></tr>
 <p>print_state</p>
 <p>Print out the current state variable on a line with a label. </p>
 
+<p>Definition at line <a class="el" href="states_8cpp_source.html#l00214">214</a> of file <a class="el" href="states_8cpp_source.html">states.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                  {
+  <span class="keywordtype">int</span> x;
+  <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> mask;             <span class="comment">/* Bit mask */</span>
+
+  <span class="keywordflow">if</span> (num_joints &gt; 32)           <span class="comment">/* Preset mask */</span>
+    mask = 1 &lt;&lt; (num_joints - 1 - 32);
+  <span class="keywordflow">else</span>
+    mask = 1 &lt;&lt; (num_joints - 1);
+
+  <a class="code" href="callcpp_8cpp.html#a21679e7fec2d69db23107348fa13c153">cprintf</a> (<span class="stringliteral">&quot;%s &quot;</span>, label);
+
+  <span class="keywordflow">for</span> (x = num_joints - 1; x &gt;= 0; x--) {
+                                 <span class="comment">/* Iterate all bits */</span>
+
+    <span class="keywordflow">if</span> (x &lt; 32)
+      <a class="code" href="callcpp_8cpp.html#a21679e7fec2d69db23107348fa13c153">cprintf</a> (<span class="stringliteral">&quot;%d&quot;</span>, ((state-&gt;<a class="code" href="struct_s_t_a_t_e.html#aa75ceb95132aecb5a8ae1e594a19733a">part2</a> &amp; mask) ? 1 : 0));
+    <span class="keywordflow">else</span>
+      <a class="code" href="callcpp_8cpp.html#a21679e7fec2d69db23107348fa13c153">cprintf</a> (<span class="stringliteral">&quot;%d&quot;</span>, ((state-&gt;<a class="code" href="struct_s_t_a_t_e.html#a2099a72d99d2ba5f828ad8538d328f4b">part1</a> &amp; mask) ? 1 : 0));
+    <span class="keywordflow">if</span> (x % 4 == 0)
+      <a class="code" href="callcpp_8cpp.html#a21679e7fec2d69db23107348fa13c153">cprintf</a> (<span class="stringliteral">&quot; &quot;</span>);
+
+    <span class="keywordflow">if</span> (mask == 1)               <span class="comment">/* Next mask value */</span>
+      mask = 1 &lt;&lt; 31;
+    <span class="keywordflow">else</span>
+      mask &gt;&gt;= 1;
+  }
+
+  <a class="code" href="cutil_8h.html#a1185f064cc7bdd3f2a433da85a834c37">new_line</a>();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a729ff52cc5d4d1cfcf99792458df6c4f"></a><!-- doxytag: member="states.cpp::print_state" ref="a729ff52cc5d4d1cfcf99792458df6c4f" args="(STATE *state, int num_joints, STRING *toappend)" -->
@@ -371,6 +538,19 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="states_8cpp_source.html#l00246">246</a> of file <a class="el" href="states_8cpp_source.html">states.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                 {
+  <a class="code" href="states_8h.html#a5fa79db9c64231406ef3807adfad627d">PIECES_STATE</a> pieces;
+  <a class="code" href="states_8cpp.html#acd6fd8bb4f29a8f5674ec05b47e63466">bin_to_pieces</a>(state, num_joints, pieces);
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; pieces[i] &gt; 0; i++) {
+   <span class="keywordflow">if</span> (i &gt; 0) {
+     toappend-&gt;<a class="code" href="class_s_t_r_i_n_g.html#a779cd637dd42d58d5500a3a657077e84">add_str_int</a>(<span class="stringliteral">&quot; &quot;</span>, pieces[i]);
+   } <span class="keywordflow">else</span> {
+     toappend-&gt;<a class="code" href="class_s_t_r_i_n_g.html#a779cd637dd42d58d5500a3a657077e84">add_str_int</a>(<span class="stringliteral">&quot;&quot;</span>, pieces[i]);
+   }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4d7464b9adab39859eca306e1a41ba7e"></a><!-- doxytag: member="states.cpp::set_n_ones" ref="a4d7464b9adab39859eca306e1a41ba7e" args="(STATE *state, int n)" -->
@@ -400,6 +580,20 @@ Functions</h2></td></tr>
 <p>set_n_ones</p>
 <p>Set the first n bits in a state. </p>
 
+<p>Definition at line <a class="el" href="states_8cpp_source.html#l00263">263</a> of file <a class="el" href="states_8cpp_source.html">states.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                     {
+  <span class="keywordflow">if</span> (n &lt; 32) {
+    state-&gt;<a class="code" href="struct_s_t_a_t_e.html#aa75ceb95132aecb5a8ae1e594a19733a">part2</a> = ~0;
+    state-&gt;<a class="code" href="struct_s_t_a_t_e.html#aa75ceb95132aecb5a8ae1e594a19733a">part2</a> &gt;&gt;= 32 - n;
+    state-&gt;<a class="code" href="struct_s_t_a_t_e.html#a2099a72d99d2ba5f828ad8538d328f4b">part1</a> = 0;
+  }
+  <span class="keywordflow">else</span> {
+    state-&gt;<a class="code" href="struct_s_t_a_t_e.html#aa75ceb95132aecb5a8ae1e594a19733a">part2</a> = ~0;
+    state-&gt;<a class="code" href="struct_s_t_a_t_e.html#a2099a72d99d2ba5f828ad8538d328f4b">part1</a> = ~0;
+    state-&gt;<a class="code" href="struct_s_t_a_t_e.html#a2099a72d99d2ba5f828ad8538d328f4b">part1</a> &gt;&gt;= 64 - n;
+  }
+}
+</pre></div>
 </div>
 </div>
 </div>
@@ -422,7 +616,7 @@ Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:09 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:42 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

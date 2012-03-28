@@ -105,7 +105,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <code>#include &quot;<a class="el" href="fpoint_8h_source.html">fpoint.h</a>&quot;</code><br/>
 <code>#include &lt;stdio.h&gt;</code><br/>
 <code>#include &lt;math.h&gt;</code><br/>
-</div><table class="memberdecls">
+</div>
+<p><a href="fpoint_8cpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fpoint_8cpp.html#a415c805f668844bd4e652968a7978c41">DistanceBetween</a> (<a class="el" href="struct_f_p_o_i_n_t.html">FPOINT</a> A, <a class="el" href="struct_f_p_o_i_n_t.html">FPOINT</a> B)</td></tr>
@@ -138,6 +140,13 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>---------------------------------------------------------------------------- Include Files and Type Defines ---------------------------------------------------------------------------- ---------------------------------------------------------------------------- Public Code ---------------------------------------------------------------------------- </p>
 
+<p>Definition at line <a class="el" href="fpoint_8cpp_source.html#l00031">31</a> of file <a class="el" href="fpoint_8cpp_source.html">fpoint.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                            {
+  <span class="keywordtype">double</span> xd = <a class="code" href="fpoint_8h.html#a3882f9c0c6c99c9bf796113a1524cba1">XDelta</a>(A, B);
+  <span class="keywordtype">double</span> yd = <a class="code" href="fpoint_8h.html#abeec3d0313052da8c1e239e64acaf5cd">YDelta</a>(A, B);
+  <span class="keywordflow">return</span> sqrt(static_cast&lt;double&gt;(xd * xd + yd * yd));
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a64d002c6db7589a73c3fcc0f2e80ad80"></a><!-- doxytag: member="fpoint.cpp::NormalizedAngleFrom" ref="a64d002c6db7589a73c3fcc0f2e80ad80" args="(FPOINT *Point1, FPOINT *Point2, FLOAT32 FullScale)" -->
@@ -171,6 +180,33 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="fpoint_8cpp_source.html#l00039">39</a> of file <a class="el" href="fpoint_8cpp_source.html">fpoint.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                               {
+<span class="comment">/*</span>
+<span class="comment"> **     Parameters:</span>
+<span class="comment"> **             Point1, Point2  points to compute angle between</span>
+<span class="comment"> **             FullScale       value to associate with 2*pi</span>
+<span class="comment"> **     Globals: none</span>
+<span class="comment"> **     Operation: Return the angle from Point1 to Point2 normalized to</span>
+<span class="comment"> **             lie in the range 0 to FullScale (where FullScale corresponds</span>
+<span class="comment"> **             to 2*pi or 360 degrees).</span>
+<span class="comment"> **     Return: none</span>
+<span class="comment"> **     Exceptions: none</span>
+<span class="comment"> **     History: Wed Mar 28 14:27:25 1990, DSJ, Created.</span>
+<span class="comment"> */</span>
+  <a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a> Angle;
+  <a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a> NumRadsInCircle = 2.0 * <a class="code" href="const_8h.html#a598a3330b3c21701223ee0ca14316eca">PI</a>;
+
+  Angle = <a class="code" href="fpoint_8h.html#ab2882d6616a94607705192ca8c484764">AngleFrom</a> (*Point1, *Point2);
+  <span class="keywordflow">if</span> (Angle &lt; 0.0)
+    Angle += NumRadsInCircle;
+  Angle *= FullScale / NumRadsInCircle;
+  <span class="keywordflow">if</span> (Angle &lt; 0.0 || Angle &gt;= FullScale)
+    Angle = 0.0;
+  <span class="keywordflow">return</span> (Angle);
+
+}                                <span class="comment">/* NormalizedAngleFrom */</span>
+</pre></div>
 </div>
 </div>
 </div>
@@ -193,7 +229,7 @@ Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:09 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:41 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

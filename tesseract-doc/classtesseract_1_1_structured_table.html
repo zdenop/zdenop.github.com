@@ -175,7 +175,10 @@ Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_structured_table.html#a4d6c741190fdf2e49551baf63e53dafe">median_cell_width_</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_structured_table.html#a7e77d9ccc738260e085d54d840020844">max_text_height_</a></td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="tablerecog_8h_source.html#l00072">72</a> of file <a class="el" href="tablerecog_8h_source.html">tablerecog.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a61e7479fd0274d93178161ff1b90f12d"></a><!-- doxytag: member="tesseract::StructuredTable::StructuredTable" ref="a61e7479fd0274d93178161ff1b90f12d" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -190,6 +193,19 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8cpp_source.html#l00063">63</a> of file <a class="el" href="tablerecog_8cpp_source.html">tablerecog.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">    : <a class="code" href="classtesseract_1_1_structured_table.html#a3e7a1ec39e82e5f0cca9c11133ddfe1b">text_grid_</a>(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>),
+      <a class="code" href="classtesseract_1_1_structured_table.html#a62fec6d4270cd340c843b445f85de7a3">line_grid_</a>(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>),
+      <a class="code" href="classtesseract_1_1_structured_table.html#a1480c3fdb3fa9e7de7a3a032351004a4">is_lined_</a>(<span class="keyword">false</span>),
+      <a class="code" href="classtesseract_1_1_structured_table.html#aae33c28056468e9da3b8b652e3cf0c94">space_above_</a>(0),
+      <a class="code" href="classtesseract_1_1_structured_table.html#a5d0168255bb07d28f1e30276d3fb751c">space_below_</a>(0),
+      <a class="code" href="classtesseract_1_1_structured_table.html#a369e1cab57c1cf20f454d31bc2d9b69c">space_left_</a>(0),
+      <a class="code" href="classtesseract_1_1_structured_table.html#a950d1abfe05a5582cc71617d3e689c80">space_right_</a>(0),
+      <a class="code" href="classtesseract_1_1_structured_table.html#a69b525ae08de1ff7dd256f61b9ae28b8">median_cell_height_</a>(0),
+      <a class="code" href="classtesseract_1_1_structured_table.html#a4d6c741190fdf2e49551baf63e53dafe">median_cell_width_</a>(0),
+      <a class="code" href="classtesseract_1_1_structured_table.html#a7e77d9ccc738260e085d54d840020844">max_text_height_</a>(<a class="code" href="host_8h.html#aac62d87844689a18b6f5339a89ed6e7f">MAX_INT32</a>) {
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7b7955c72479ce32909b345c656415f5"></a><!-- doxytag: member="tesseract::StructuredTable::~StructuredTable" ref="a7b7955c72479ce32909b345c656415f5" args="()" -->
@@ -206,6 +222,10 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8cpp_source.html#l00076">76</a> of file <a class="el" href="tablerecog_8cpp_source.html">tablerecog.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                  {
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -223,6 +243,46 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8cpp_source.html#l00531">531</a> of file <a class="el" href="tablerecog_8cpp_source.html">tablerecog.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                        {
+  <a class="code" href="namespacetesseract.html#a990e3f25988f7d70c40a13225e645492">ColPartitionGridSearch</a> gsearch(<a class="code" href="classtesseract_1_1_structured_table.html#a62fec6d4270cd340c843b445f85de7a3">line_grid_</a>);
+  gsearch.SetUniqueMode(<span class="keyword">true</span>);
+
+  <span class="comment">// Is the closest line above good? Loop multiple times for tables with</span>
+  <span class="comment">// multi-line (sometimes 2) borders. Limit the number of lines by</span>
+  <span class="comment">// making sure they stay within a table cell or so.</span>
+  ColPartition* line = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  gsearch.StartVerticalSearch(<a class="code" href="classtesseract_1_1_structured_table.html#ad73e474cdce4ccd7af1a09efa6fa9fa9">bounding_box_</a>.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>(), <a class="code" href="classtesseract_1_1_structured_table.html#ad73e474cdce4ccd7af1a09efa6fa9fa9">bounding_box_</a>.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>(),
+                              <a class="code" href="classtesseract_1_1_structured_table.html#ad73e474cdce4ccd7af1a09efa6fa9fa9">bounding_box_</a>.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>());
+  <span class="keywordflow">while</span> ((line = gsearch.NextVerticalSearch(<span class="keyword">false</span>)) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">if</span> (!line-&gt;IsHorizontalLine())
+      <span class="keywordflow">break</span>;
+    <a class="code" href="class_t_b_o_x.html">TBOX</a> text_search(<a class="code" href="classtesseract_1_1_structured_table.html#ad73e474cdce4ccd7af1a09efa6fa9fa9">bounding_box_</a>.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>(), <a class="code" href="classtesseract_1_1_structured_table.html#ad73e474cdce4ccd7af1a09efa6fa9fa9">bounding_box_</a>.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>() + 1,
+                     <a class="code" href="classtesseract_1_1_structured_table.html#ad73e474cdce4ccd7af1a09efa6fa9fa9">bounding_box_</a>.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>(), line-&gt;MidY());
+    <span class="keywordflow">if</span> (text_search.height() &gt; <a class="code" href="classtesseract_1_1_structured_table.html#a69b525ae08de1ff7dd256f61b9ae28b8">median_cell_height_</a> * 2)
+      <span class="keywordflow">break</span>;
+    <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_structured_table.html#ae190c12603d6999e32720726ccec6f6c">CountPartitions</a>(text_search) &gt; 0)
+      <span class="keywordflow">break</span>;
+    <a class="code" href="classtesseract_1_1_structured_table.html#ad73e474cdce4ccd7af1a09efa6fa9fa9">bounding_box_</a>.<a class="code" href="class_t_b_o_x.html#a7f40dfd290a907200bdc98c196f63f45">set_top</a>(line-&gt;MidY());
+  }
+  <span class="comment">// As above, is the closest line below good?</span>
+  line = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  gsearch.StartVerticalSearch(<a class="code" href="classtesseract_1_1_structured_table.html#ad73e474cdce4ccd7af1a09efa6fa9fa9">bounding_box_</a>.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>(), <a class="code" href="classtesseract_1_1_structured_table.html#ad73e474cdce4ccd7af1a09efa6fa9fa9">bounding_box_</a>.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>(),
+                              <a class="code" href="classtesseract_1_1_structured_table.html#ad73e474cdce4ccd7af1a09efa6fa9fa9">bounding_box_</a>.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>());
+  <span class="keywordflow">while</span> ((line = gsearch.NextVerticalSearch(<span class="keyword">true</span>)) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">if</span> (!line-&gt;IsHorizontalLine())
+      <span class="keywordflow">break</span>;
+    <a class="code" href="class_t_b_o_x.html">TBOX</a> text_search(<a class="code" href="classtesseract_1_1_structured_table.html#ad73e474cdce4ccd7af1a09efa6fa9fa9">bounding_box_</a>.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>(), line-&gt;MidY(),
+                     <a class="code" href="classtesseract_1_1_structured_table.html#ad73e474cdce4ccd7af1a09efa6fa9fa9">bounding_box_</a>.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>(), <a class="code" href="classtesseract_1_1_structured_table.html#ad73e474cdce4ccd7af1a09efa6fa9fa9">bounding_box_</a>.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>() - 1);
+    <span class="keywordflow">if</span> (text_search.height() &gt; <a class="code" href="classtesseract_1_1_structured_table.html#a69b525ae08de1ff7dd256f61b9ae28b8">median_cell_height_</a> * 2)
+      <span class="keywordflow">break</span>;
+    <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_structured_table.html#ae190c12603d6999e32720726ccec6f6c">CountPartitions</a>(text_search) &gt; 0)
+      <span class="keywordflow">break</span>;
+    <a class="code" href="classtesseract_1_1_structured_table.html#ad73e474cdce4ccd7af1a09efa6fa9fa9">bounding_box_</a>.<a class="code" href="class_t_b_o_x.html#a6f803b24b046883cb0f3882dc3d92302">set_bottom</a>(line-&gt;MidY());
+  }
+  <span class="comment">// TODO(nbeato): vertical lines</span>
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3c7bee910fbd573f3999c58db9539c02"></a><!-- doxytag: member="tesseract::StructuredTable::bounding_box" ref="a3c7bee910fbd573f3999c58db9539c02" args="() const " -->
@@ -239,6 +299,11 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8cpp_source.html#l00106">106</a> of file <a class="el" href="tablerecog_8cpp_source.html">tablerecog.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                {
+  <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_structured_table.html#ad73e474cdce4ccd7af1a09efa6fa9fa9">bounding_box_</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a876e5d9f12bd9f23a1bc41144ba49135"></a><!-- doxytag: member="tesseract::StructuredTable::CalculateCellFilledPercentage" ref="a876e5d9f12bd9f23a1bc41144ba49135" args="(int row, int column)" -->
@@ -266,6 +331,26 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8cpp_source.html#l00263">263</a> of file <a class="el" href="tablerecog_8cpp_source.html">tablerecog.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                         {
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(0 &lt;= row &amp;&amp; row &lt;= <a class="code" href="classtesseract_1_1_structured_table.html#a5516d2be345fb1740fd35a4316da2072">row_count</a>());
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(0 &lt;= column &amp;&amp; column &lt;= <a class="code" href="classtesseract_1_1_structured_table.html#aeefea2e84ee34a4b7495949e9d0dbede">column_count</a>());
+  <span class="keyword">const</span> <a class="code" href="class_t_b_o_x.html">TBOX</a> kCellBox(<a class="code" href="classtesseract_1_1_structured_table.html#aa44caf479da7fa5f65c5600063e7a073">cell_x_</a>[column], <a class="code" href="classtesseract_1_1_structured_table.html#a61ad297f7e3351085670324ec9f4a95f">cell_y_</a>[row],
+                      <a class="code" href="classtesseract_1_1_structured_table.html#aa44caf479da7fa5f65c5600063e7a073">cell_x_</a>[column + 1], <a class="code" href="classtesseract_1_1_structured_table.html#a61ad297f7e3351085670324ec9f4a95f">cell_y_</a>[row + 1]);
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(!kCellBox.null_box());
+
+  <a class="code" href="namespacetesseract.html#a990e3f25988f7d70c40a13225e645492">ColPartitionGridSearch</a> gsearch(<a class="code" href="classtesseract_1_1_structured_table.html#a3e7a1ec39e82e5f0cca9c11133ddfe1b">text_grid_</a>);
+  gsearch.SetUniqueMode(<span class="keyword">true</span>);
+  gsearch.StartRectSearch(kCellBox);
+  <span class="keywordtype">double</span> area_covered = 0;
+  ColPartition* text = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordflow">while</span> ((text = gsearch.NextRectSearch()) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">if</span> (text-&gt;IsTextType())
+      area_covered += text-&gt;bounding_box().intersection(kCellBox).area();
+  }
+  <span class="keywordflow">return</span> <a class="code" href="ndminx_8h.html#a74e75242132eaabbc1c512488a135926">MIN</a>(1.0, area_covered / kCellBox.area());
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a5ff1789e2e45b46e9b0d29e75120e068"></a><!-- doxytag: member="tesseract::StructuredTable::CalculateMargins" ref="a5ff1789e2e45b46e9b0d29e75120e068" args="()" -->
@@ -282,6 +367,16 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8cpp_source.html#l00457">457</a> of file <a class="el" href="tablerecog_8cpp_source.html">tablerecog.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                       {
+  <a class="code" href="classtesseract_1_1_structured_table.html#aae33c28056468e9da3b8b652e3cf0c94">space_above_</a> = <a class="code" href="host_8h.html#aac62d87844689a18b6f5339a89ed6e7f">MAX_INT32</a>;
+  <a class="code" href="classtesseract_1_1_structured_table.html#a5d0168255bb07d28f1e30276d3fb751c">space_below_</a> = <a class="code" href="host_8h.html#aac62d87844689a18b6f5339a89ed6e7f">MAX_INT32</a>;
+  <a class="code" href="classtesseract_1_1_structured_table.html#a950d1abfe05a5582cc71617d3e689c80">space_right_</a> = <a class="code" href="host_8h.html#aac62d87844689a18b6f5339a89ed6e7f">MAX_INT32</a>;
+  <a class="code" href="classtesseract_1_1_structured_table.html#a369e1cab57c1cf20f454d31bc2d9b69c">space_left_</a> = <a class="code" href="host_8h.html#aac62d87844689a18b6f5339a89ed6e7f">MAX_INT32</a>;
+  <a class="code" href="classtesseract_1_1_structured_table.html#ae86b1f857121b9e9270143d8fdbe5715">UpdateMargins</a>(<a class="code" href="classtesseract_1_1_structured_table.html#a3e7a1ec39e82e5f0cca9c11133ddfe1b">text_grid_</a>);
+  <a class="code" href="classtesseract_1_1_structured_table.html#ae86b1f857121b9e9270143d8fdbe5715">UpdateMargins</a>(<a class="code" href="classtesseract_1_1_structured_table.html#a62fec6d4270cd340c843b445f85de7a3">line_grid_</a>);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2e34d7cc3d51305252ab3f88a4d75c82"></a><!-- doxytag: member="tesseract::StructuredTable::CalculateStats" ref="a2e34d7cc3d51305252ab3f88a4d75c82" args="()" -->
@@ -298,6 +393,22 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8cpp_source.html#l00511">511</a> of file <a class="el" href="tablerecog_8cpp_source.html">tablerecog.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                     {
+  <span class="keyword">const</span> <span class="keywordtype">int</span> kMaxCellHeight = 1000;
+  <span class="keyword">const</span> <span class="keywordtype">int</span> kMaxCellWidth = 1000;
+  <a class="code" href="class_s_t_a_t_s.html">STATS</a> height_stats(0, kMaxCellHeight + 1);
+  <a class="code" href="class_s_t_a_t_s.html">STATS</a> width_stats(0, kMaxCellWidth + 1);
+
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="classtesseract_1_1_structured_table.html#a5516d2be345fb1740fd35a4316da2072">row_count</a>(); ++i)
+    height_stats.add(<a class="code" href="classtesseract_1_1_structured_table.html#ae6f73aa2764c036433b2cca3c7c058b3">row_height</a>(i), <a class="code" href="classtesseract_1_1_structured_table.html#aeefea2e84ee34a4b7495949e9d0dbede">column_count</a>());
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="classtesseract_1_1_structured_table.html#aeefea2e84ee34a4b7495949e9d0dbede">column_count</a>(); ++i)
+    width_stats.add(<a class="code" href="classtesseract_1_1_structured_table.html#a8b7c2dbdaac6a8a502de0badba4a4fd7">column_width</a>(i), <a class="code" href="classtesseract_1_1_structured_table.html#a5516d2be345fb1740fd35a4316da2072">row_count</a>());
+
+  <a class="code" href="classtesseract_1_1_structured_table.html#a69b525ae08de1ff7dd256f61b9ae28b8">median_cell_height_</a> = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(height_stats.median() + 0.5);
+  <a class="code" href="classtesseract_1_1_structured_table.html#a4d6c741190fdf2e49551baf63e53dafe">median_cell_width_</a> = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(width_stats.median() + 0.5);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aad8221b60221210d9cad2cede71d705e"></a><!-- doxytag: member="tesseract::StructuredTable::cell_count" ref="aad8221b60221210d9cad2cede71d705e" args="() const " -->
@@ -314,6 +425,11 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8cpp_source.html#l00100">100</a> of file <a class="el" href="tablerecog_8cpp_source.html">tablerecog.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                      {
+  <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_structured_table.html#a5516d2be345fb1740fd35a4316da2072">row_count</a>() * <a class="code" href="classtesseract_1_1_structured_table.html#aeefea2e84ee34a4b7495949e9d0dbede">column_count</a>();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9f06f45074d0987e9c6d6eee54033ccd"></a><!-- doxytag: member="tesseract::StructuredTable::ClearStructure" ref="a9f06f45074d0987e9c6d6eee54033ccd" args="()" -->
@@ -330,6 +446,19 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8cpp_source.html#l00301">301</a> of file <a class="el" href="tablerecog_8cpp_source.html">tablerecog.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                     {
+  <a class="code" href="classtesseract_1_1_structured_table.html#aa44caf479da7fa5f65c5600063e7a073">cell_x_</a>.<a class="code" href="class_generic_vector.html#a9cdbff49b186574b83e43afba606fdd9">clear</a>();
+  <a class="code" href="classtesseract_1_1_structured_table.html#a61ad297f7e3351085670324ec9f4a95f">cell_y_</a>.<a class="code" href="class_generic_vector.html#a9cdbff49b186574b83e43afba606fdd9">clear</a>();
+  <a class="code" href="classtesseract_1_1_structured_table.html#a1480c3fdb3fa9e7de7a3a032351004a4">is_lined_</a> = <span class="keyword">false</span>;
+  <a class="code" href="classtesseract_1_1_structured_table.html#aae33c28056468e9da3b8b652e3cf0c94">space_above_</a> = 0;
+  <a class="code" href="classtesseract_1_1_structured_table.html#a5d0168255bb07d28f1e30276d3fb751c">space_below_</a> = 0;
+  <a class="code" href="classtesseract_1_1_structured_table.html#a369e1cab57c1cf20f454d31bc2d9b69c">space_left_</a> = 0;
+  <a class="code" href="classtesseract_1_1_structured_table.html#a950d1abfe05a5582cc71617d3e689c80">space_right_</a> = 0;
+  <a class="code" href="classtesseract_1_1_structured_table.html#a69b525ae08de1ff7dd256f61b9ae28b8">median_cell_height_</a> = 0;
+  <a class="code" href="classtesseract_1_1_structured_table.html#a4d6c741190fdf2e49551baf63e53dafe">median_cell_width_</a> = 0;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aeefea2e84ee34a4b7495949e9d0dbede"></a><!-- doxytag: member="tesseract::StructuredTable::column_count" ref="aeefea2e84ee34a4b7495949e9d0dbede" args="() const " -->
@@ -346,6 +475,11 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8cpp_source.html#l00097">97</a> of file <a class="el" href="tablerecog_8cpp_source.html">tablerecog.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                        {
+  <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_structured_table.html#aa44caf479da7fa5f65c5600063e7a073">cell_x_</a>.<a class="code" href="class_generic_vector.html#a690cd403343d371ed7763fdaf3ed71d2">length</a>() == 0 ? 0 : <a class="code" href="classtesseract_1_1_structured_table.html#aa44caf479da7fa5f65c5600063e7a073">cell_x_</a>.<a class="code" href="class_generic_vector.html#a690cd403343d371ed7763fdaf3ed71d2">length</a>() - 1;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a8b7c2dbdaac6a8a502de0badba4a4fd7"></a><!-- doxytag: member="tesseract::StructuredTable::column_width" ref="a8b7c2dbdaac6a8a502de0badba4a4fd7" args="(int column) const " -->
@@ -363,6 +497,12 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8cpp_source.html#l00119">119</a> of file <a class="el" href="tablerecog_8cpp_source.html">tablerecog.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                  {
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(0 &lt;= column &amp;&amp; column &lt; <a class="code" href="classtesseract_1_1_structured_table.html#aeefea2e84ee34a4b7495949e9d0dbede">column_count</a>());
+  <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_structured_table.html#aa44caf479da7fa5f65c5600063e7a073">cell_x_</a>[column + 1] - <a class="code" href="classtesseract_1_1_structured_table.html#aa44caf479da7fa5f65c5600063e7a073">cell_x_</a>[column];
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a298934f8abccabe361df8b6a991b5c97"></a><!-- doxytag: member="tesseract::StructuredTable::CountFilledCells" ref="a298934f8abccabe361df8b6a991b5c97" args="()" -->
@@ -379,6 +519,11 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8cpp_source.html#l00220">220</a> of file <a class="el" href="tablerecog_8cpp_source.html">tablerecog.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                      {
+  <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_structured_table.html#a298934f8abccabe361df8b6a991b5c97">CountFilledCells</a>(0, <a class="code" href="classtesseract_1_1_structured_table.html#a5516d2be345fb1740fd35a4316da2072">row_count</a>() - 1, 0, <a class="code" href="classtesseract_1_1_structured_table.html#aeefea2e84ee34a4b7495949e9d0dbede">column_count</a>() - 1);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a82ba543f584a8ffdd39f45e006159114"></a><!-- doxytag: member="tesseract::StructuredTable::CountFilledCells" ref="a82ba543f584a8ffdd39f45e006159114" args="(int row_start, int row_end, int column_start, int column_end)" -->
@@ -418,6 +563,26 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8cpp_source.html#l00229">229</a> of file <a class="el" href="tablerecog_8cpp_source.html">tablerecog.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                              {
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(0 &lt;= row_start &amp;&amp; row_start &lt;= row_end &amp;&amp; row_end &lt; <a class="code" href="classtesseract_1_1_structured_table.html#a5516d2be345fb1740fd35a4316da2072">row_count</a>());
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(0 &lt;= column_start &amp;&amp; column_start &lt;= column_end &amp;&amp;
+              column_end &lt; <a class="code" href="classtesseract_1_1_structured_table.html#aeefea2e84ee34a4b7495949e9d0dbede">column_count</a>());
+  <span class="keywordtype">int</span> <a class="code" href="classtesseract_1_1_structured_table.html#aad8221b60221210d9cad2cede71d705e">cell_count</a> = 0;
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> cell_box;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> row = row_start; row &lt;= row_end; ++row) {
+    cell_box.<a class="code" href="class_t_b_o_x.html#a6f803b24b046883cb0f3882dc3d92302">set_bottom</a>(<a class="code" href="classtesseract_1_1_structured_table.html#a61ad297f7e3351085670324ec9f4a95f">cell_y_</a>[row]);
+    cell_box.<a class="code" href="class_t_b_o_x.html#a7f40dfd290a907200bdc98c196f63f45">set_top</a>(<a class="code" href="classtesseract_1_1_structured_table.html#a61ad297f7e3351085670324ec9f4a95f">cell_y_</a>[row + 1]);
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> col = column_start; col &lt;= column_end; ++col) {
+      cell_box.<a class="code" href="class_t_b_o_x.html#ae6151cd794841e100d8a346a0c4a46e6">set_left</a>(<a class="code" href="classtesseract_1_1_structured_table.html#aa44caf479da7fa5f65c5600063e7a073">cell_x_</a>[col]);
+      cell_box.<a class="code" href="class_t_b_o_x.html#a2246293d3667b28c52a52353a2d5caea">set_right</a>(<a class="code" href="classtesseract_1_1_structured_table.html#aa44caf479da7fa5f65c5600063e7a073">cell_x_</a>[col + 1]);
+      <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_structured_table.html#ae190c12603d6999e32720726ccec6f6c">CountPartitions</a>(cell_box) &gt; 0)
+        ++<a class="code" href="classtesseract_1_1_structured_table.html#aad8221b60221210d9cad2cede71d705e">cell_count</a>;
+    }
+  }
+  <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_structured_table.html#aad8221b60221210d9cad2cede71d705e">cell_count</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7fa7ba1ae2c09eae1a43476bcb6dbb81"></a><!-- doxytag: member="tesseract::StructuredTable::CountFilledCellsInColumn" ref="a7fa7ba1ae2c09eae1a43476bcb6dbb81" args="(int column)" -->
@@ -435,6 +600,11 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8cpp_source.html#l00226">226</a> of file <a class="el" href="tablerecog_8cpp_source.html">tablerecog.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                        {
+  <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_structured_table.html#a298934f8abccabe361df8b6a991b5c97">CountFilledCells</a>(0, <a class="code" href="classtesseract_1_1_structured_table.html#a5516d2be345fb1740fd35a4316da2072">row_count</a>() - 1, column, column);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab309005ab9016419f2d4af29e524f945"></a><!-- doxytag: member="tesseract::StructuredTable::CountFilledCellsInRow" ref="ab309005ab9016419f2d4af29e524f945" args="(int row)" -->
@@ -452,6 +622,11 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8cpp_source.html#l00223">223</a> of file <a class="el" href="tablerecog_8cpp_source.html">tablerecog.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                  {
+  <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_structured_table.html#a298934f8abccabe361df8b6a991b5c97">CountFilledCells</a>(row, row, 0, <a class="code" href="classtesseract_1_1_structured_table.html#aeefea2e84ee34a4b7495949e9d0dbede">column_count</a>() - 1);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9d51b6ec44c4019aeffb8d29e53411e7"></a><!-- doxytag: member="tesseract::StructuredTable::CountHorizontalIntersections" ref="a9d51b6ec44c4019aeffb8d29e53411e7" args="(int y)" -->
@@ -469,6 +644,30 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8cpp_source.html#l00655">655</a> of file <a class="el" href="tablerecog_8cpp_source.html">tablerecog.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                       {
+  <span class="keywordtype">int</span> <a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a> = 0;
+  <span class="comment">// Make a small box to keep the search time down.</span>
+  <span class="keyword">const</span> <span class="keywordtype">int</span> kGridSize = <a class="code" href="classtesseract_1_1_structured_table.html#a3e7a1ec39e82e5f0cca9c11133ddfe1b">text_grid_</a>-&gt;gridsize();
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> horizontal_box = <a class="code" href="classtesseract_1_1_structured_table.html#ad73e474cdce4ccd7af1a09efa6fa9fa9">bounding_box_</a>;
+  horizontal_box.<a class="code" href="class_t_b_o_x.html#a6f803b24b046883cb0f3882dc3d92302">set_bottom</a>(y - kGridSize);
+  horizontal_box.<a class="code" href="class_t_b_o_x.html#a7f40dfd290a907200bdc98c196f63f45">set_top</a>(y + kGridSize);
+
+  <a class="code" href="namespacetesseract.html#a990e3f25988f7d70c40a13225e645492">ColPartitionGridSearch</a> gsearch(<a class="code" href="classtesseract_1_1_structured_table.html#a3e7a1ec39e82e5f0cca9c11133ddfe1b">text_grid_</a>);
+  gsearch.SetUniqueMode(<span class="keyword">true</span>);
+  gsearch.StartRectSearch(horizontal_box);
+  ColPartition* text = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordflow">while</span> ((text = gsearch.NextRectSearch()) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">if</span> (!text-&gt;IsTextType())
+      <span class="keywordflow">continue</span>;
+
+    <span class="keyword">const</span> <a class="code" href="class_t_b_o_x.html">TBOX</a>&amp; box = text-&gt;bounding_box();
+    <span class="keywordflow">if</span> (box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>() &lt; y &amp;&amp; y &lt; box.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>())
+      ++count;
+  }
+  <span class="keywordflow">return</span> <a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae190c12603d6999e32720726ccec6f6c"></a><!-- doxytag: member="tesseract::StructuredTable::CountPartitions" ref="ae190c12603d6999e32720726ccec6f6c" args="(const TBOX &amp;box)" -->
@@ -486,6 +685,20 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8cpp_source.html#l00681">681</a> of file <a class="el" href="tablerecog_8cpp_source.html">tablerecog.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                    {
+  <a class="code" href="namespacetesseract.html#a990e3f25988f7d70c40a13225e645492">ColPartitionGridSearch</a> gsearch(<a class="code" href="classtesseract_1_1_structured_table.html#a3e7a1ec39e82e5f0cca9c11133ddfe1b">text_grid_</a>);
+  gsearch.SetUniqueMode(<span class="keyword">true</span>);
+  gsearch.StartRectSearch(box);
+  <span class="keywordtype">int</span> <a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a> = 0;
+  ColPartition* text = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordflow">while</span> ((text = gsearch.NextRectSearch()) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">if</span> (text-&gt;IsTextType())
+      ++count;
+  }
+  <span class="keywordflow">return</span> <a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae4f7bc2ae0ce34f6ba90c262cb4042b5"></a><!-- doxytag: member="tesseract::StructuredTable::CountVerticalIntersections" ref="ae4f7bc2ae0ce34f6ba90c262cb4042b5" args="(int x)" -->
@@ -503,6 +716,29 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8cpp_source.html#l00631">631</a> of file <a class="el" href="tablerecog_8cpp_source.html">tablerecog.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                     {
+  <span class="keywordtype">int</span> <a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a> = 0;
+  <span class="comment">// Make a small box to keep the search time down.</span>
+  <span class="keyword">const</span> <span class="keywordtype">int</span> kGridSize = <a class="code" href="classtesseract_1_1_structured_table.html#a3e7a1ec39e82e5f0cca9c11133ddfe1b">text_grid_</a>-&gt;gridsize();
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> vertical_box = <a class="code" href="classtesseract_1_1_structured_table.html#ad73e474cdce4ccd7af1a09efa6fa9fa9">bounding_box_</a>;
+  vertical_box.<a class="code" href="class_t_b_o_x.html#ae6151cd794841e100d8a346a0c4a46e6">set_left</a>(x - kGridSize);
+  vertical_box.<a class="code" href="class_t_b_o_x.html#a2246293d3667b28c52a52353a2d5caea">set_right</a>(x + kGridSize);
+
+  <a class="code" href="namespacetesseract.html#a990e3f25988f7d70c40a13225e645492">ColPartitionGridSearch</a> gsearch(<a class="code" href="classtesseract_1_1_structured_table.html#a3e7a1ec39e82e5f0cca9c11133ddfe1b">text_grid_</a>);
+  gsearch.SetUniqueMode(<span class="keyword">true</span>);
+  gsearch.StartRectSearch(vertical_box);
+  ColPartition* text = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordflow">while</span> ((text = gsearch.NextRectSearch()) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">if</span> (!text-&gt;IsTextType())
+      <span class="keywordflow">continue</span>;
+    <span class="keyword">const</span> <a class="code" href="class_t_b_o_x.html">TBOX</a>&amp; box = text-&gt;bounding_box();
+    <span class="keywordflow">if</span> (box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>() &lt; x &amp;&amp; x &lt; box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>())
+      ++count;
+  }
+  <span class="keywordflow">return</span> <a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a963787fcfcc5343b74b5e873723752a0"></a><!-- doxytag: member="tesseract::StructuredTable::Display" ref="a963787fcfcc5343b74b5e873723752a0" args="(ScrollView *window, ScrollView::Color color)" -->
@@ -530,6 +766,25 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8cpp_source.html#l00282">282</a> of file <a class="el" href="tablerecog_8cpp_source.html">tablerecog.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                       {
+<span class="preprocessor">#ifndef GRAPHICS_DISABLED</span>
+<span class="preprocessor"></span>  window-&gt;<a class="code" href="class_scroll_view.html#ad5f03af259325c42eaaffa843cd1fdde">Brush</a>(<a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8a77673d8f27617bcfe50a6ebdd81e8c79">ScrollView::NONE</a>);
+  window-&gt;<a class="code" href="class_scroll_view.html#a79855c525ec660b452382e9813d2edb5">Pen</a>(color);
+  window-&gt;<a class="code" href="class_scroll_view.html#ac2a8fdf5d37967ea4a298dc092b6ed0e">Rectangle</a>(<a class="code" href="classtesseract_1_1_structured_table.html#ad73e474cdce4ccd7af1a09efa6fa9fa9">bounding_box_</a>.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>(), <a class="code" href="classtesseract_1_1_structured_table.html#ad73e474cdce4ccd7af1a09efa6fa9fa9">bounding_box_</a>.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>(),
+                    <a class="code" href="classtesseract_1_1_structured_table.html#ad73e474cdce4ccd7af1a09efa6fa9fa9">bounding_box_</a>.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>(), <a class="code" href="classtesseract_1_1_structured_table.html#ad73e474cdce4ccd7af1a09efa6fa9fa9">bounding_box_</a>.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>());
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="classtesseract_1_1_structured_table.html#aa44caf479da7fa5f65c5600063e7a073">cell_x_</a>.<a class="code" href="class_generic_vector.html#a690cd403343d371ed7763fdaf3ed71d2">length</a>(); i++) {
+    window-&gt;<a class="code" href="class_scroll_view.html#a2ba16f17fc401bb28be1a08160207e45">Line</a>(<a class="code" href="classtesseract_1_1_structured_table.html#aa44caf479da7fa5f65c5600063e7a073">cell_x_</a>[i], <a class="code" href="classtesseract_1_1_structured_table.html#ad73e474cdce4ccd7af1a09efa6fa9fa9">bounding_box_</a>.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>(),
+                 <a class="code" href="classtesseract_1_1_structured_table.html#aa44caf479da7fa5f65c5600063e7a073">cell_x_</a>[i], <a class="code" href="classtesseract_1_1_structured_table.html#ad73e474cdce4ccd7af1a09efa6fa9fa9">bounding_box_</a>.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>());
+  }
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="classtesseract_1_1_structured_table.html#a61ad297f7e3351085670324ec9f4a95f">cell_y_</a>.<a class="code" href="class_generic_vector.html#a690cd403343d371ed7763fdaf3ed71d2">length</a>(); i++) {
+    window-&gt;<a class="code" href="class_scroll_view.html#a2ba16f17fc401bb28be1a08160207e45">Line</a>(<a class="code" href="classtesseract_1_1_structured_table.html#ad73e474cdce4ccd7af1a09efa6fa9fa9">bounding_box_</a>.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>(), <a class="code" href="classtesseract_1_1_structured_table.html#a61ad297f7e3351085670324ec9f4a95f">cell_y_</a>[i],
+                 <a class="code" href="classtesseract_1_1_structured_table.html#ad73e474cdce4ccd7af1a09efa6fa9fa9">bounding_box_</a>.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>(), <a class="code" href="classtesseract_1_1_structured_table.html#a61ad297f7e3351085670324ec9f4a95f">cell_y_</a>[i]);
+  }
+  window-&gt;<a class="code" href="class_scroll_view.html#a609e2f95d6421deb558244f5d45cf25a">UpdateWindow</a>();
+<span class="preprocessor">#endif</span>
+<span class="preprocessor"></span>}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3cb05866929df4ec8793b53fcd9ae0a8"></a><!-- doxytag: member="tesseract::StructuredTable::DoesPartitionFit" ref="a3cb05866929df4ec8793b53fcd9ae0a8" args="(const ColPartition &amp;part) const " -->
@@ -547,6 +802,18 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8cpp_source.html#l00208">208</a> of file <a class="el" href="tablerecog_8cpp_source.html">tablerecog.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                     {
+  <span class="keyword">const</span> <a class="code" href="class_t_b_o_x.html">TBOX</a>&amp; box = part.bounding_box();
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="classtesseract_1_1_structured_table.html#aa44caf479da7fa5f65c5600063e7a073">cell_x_</a>.<a class="code" href="class_generic_vector.html#a690cd403343d371ed7763fdaf3ed71d2">length</a>(); ++i)
+    <span class="keywordflow">if</span> (box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>() &lt; <a class="code" href="classtesseract_1_1_structured_table.html#aa44caf479da7fa5f65c5600063e7a073">cell_x_</a>[i] &amp;&amp; <a class="code" href="classtesseract_1_1_structured_table.html#aa44caf479da7fa5f65c5600063e7a073">cell_x_</a>[i] &lt; box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>())
+      <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="classtesseract_1_1_structured_table.html#a61ad297f7e3351085670324ec9f4a95f">cell_y_</a>.<a class="code" href="class_generic_vector.html#a690cd403343d371ed7763fdaf3ed71d2">length</a>(); ++i)
+    <span class="keywordflow">if</span> (box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>() &lt; <a class="code" href="classtesseract_1_1_structured_table.html#a61ad297f7e3351085670324ec9f4a95f">cell_y_</a>[i] &amp;&amp; <a class="code" href="classtesseract_1_1_structured_table.html#a61ad297f7e3351085670324ec9f4a95f">cell_y_</a>[i] &lt; box.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>())
+      <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a855165a2c1cf7e18aa4df0d56b56d86c"></a><!-- doxytag: member="tesseract::StructuredTable::FindCellSplitLocations" ref="a855165a2c1cf7e18aa4df0d56b56d86c" args="(const GenericVector&lt; int &gt; &amp;min_list, const GenericVector&lt; int &gt; &amp;max_list, int max_merged, GenericVector&lt; int &gt; *locations)" -->
@@ -586,6 +853,48 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8cpp_source.html#l00585">585</a> of file <a class="el" href="tablerecog_8cpp_source.html">tablerecog.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                            {
+  locations-&gt;<a class="code" href="class_generic_vector.html#a9cdbff49b186574b83e43afba606fdd9">clear</a>();
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(min_list.<a class="code" href="class_generic_vector.html#a690cd403343d371ed7763fdaf3ed71d2">length</a>() == max_list.<a class="code" href="class_generic_vector.html#a690cd403343d371ed7763fdaf3ed71d2">length</a>());
+  <span class="keywordflow">if</span> (min_list.<a class="code" href="class_generic_vector.html#a690cd403343d371ed7763fdaf3ed71d2">length</a>() == 0)
+    <span class="keywordflow">return</span>;
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(min_list.<a class="code" href="class_generic_vector.html#a33070cfea2a16a20c6b30bbcfecd8ecc">get</a>(0) &lt; max_list.<a class="code" href="class_generic_vector.html#a33070cfea2a16a20c6b30bbcfecd8ecc">get</a>(0));
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(min_list.<a class="code" href="class_generic_vector.html#a33070cfea2a16a20c6b30bbcfecd8ecc">get</a>(min_list.<a class="code" href="class_generic_vector.html#a690cd403343d371ed7763fdaf3ed71d2">length</a>() - 1) &lt;
+              max_list.<a class="code" href="class_generic_vector.html#a33070cfea2a16a20c6b30bbcfecd8ecc">get</a>(max_list.<a class="code" href="class_generic_vector.html#a690cd403343d371ed7763fdaf3ed71d2">length</a>() - 1));
+
+  locations-&gt;<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(min_list.<a class="code" href="class_generic_vector.html#a33070cfea2a16a20c6b30bbcfecd8ecc">get</a>(0));
+  <span class="keywordtype">int</span> min_index = 0;
+  <span class="keywordtype">int</span> max_index = 0;
+  <span class="keywordtype">int</span> stacked_partitions = 0;
+  <span class="keywordtype">int</span> last_cross_position = <a class="code" href="host_8h.html#aac62d87844689a18b6f5339a89ed6e7f">MAX_INT32</a>;
+  <span class="comment">// max_index will expire after min_index.</span>
+  <span class="comment">// However, we can&#39;t &quot;increase&quot; the hill size if min_index expired.</span>
+  <span class="comment">// So finish processing when min_index expires.</span>
+  <span class="keywordflow">while</span> (min_index &lt; min_list.<a class="code" href="class_generic_vector.html#a690cd403343d371ed7763fdaf3ed71d2">length</a>()) {
+    <span class="comment">// Increase the hill count.</span>
+    <span class="keywordflow">if</span> (min_list[min_index] &lt; max_list[max_index]) {
+      ++stacked_partitions;
+      <span class="keywordflow">if</span> (last_cross_position != <a class="code" href="host_8h.html#aac62d87844689a18b6f5339a89ed6e7f">MAX_INT32</a> &amp;&amp;
+          stacked_partitions &gt; max_merged) {
+        <span class="keywordtype">int</span> mid = (last_cross_position + min_list[min_index]) / 2;
+        locations-&gt;<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(mid);
+        last_cross_position = <a class="code" href="host_8h.html#aac62d87844689a18b6f5339a89ed6e7f">MAX_INT32</a>;
+      }
+      ++min_index;
+    } <span class="keywordflow">else</span> {
+      <span class="comment">// Decrease the hill count.</span>
+      --stacked_partitions;
+      <span class="keywordflow">if</span> (last_cross_position == <a class="code" href="host_8h.html#aac62d87844689a18b6f5339a89ed6e7f">MAX_INT32</a> &amp;&amp;
+          stacked_partitions &lt;= max_merged) {
+        last_cross_position = max_list[max_index];
+      }
+      ++max_index;
+    }
+  }
+  locations-&gt;<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(max_list.<a class="code" href="class_generic_vector.html#a33070cfea2a16a20c6b30bbcfecd8ecc">get</a>(max_list.<a class="code" href="class_generic_vector.html#a690cd403343d371ed7763fdaf3ed71d2">length</a>() - 1));
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a37a39634fe1a9f1d11f05cb8214f4444"></a><!-- doxytag: member="tesseract::StructuredTable::FindHorizontalMargin" ref="a37a39634fe1a9f1d11f05cb8214f4444" args="(ColPartitionGrid *grid, int start_y, bool decrease) const " -->
@@ -619,6 +928,23 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8cpp_source.html#l00494">494</a> of file <a class="el" href="tablerecog_8cpp_source.html">tablerecog.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                               {
+  <a class="code" href="namespacetesseract.html#a990e3f25988f7d70c40a13225e645492">ColPartitionGridSearch</a> gsearch(grid);
+  gsearch.SetUniqueMode(<span class="keyword">true</span>);
+  gsearch.StartSideSearch(border, <a class="code" href="classtesseract_1_1_structured_table.html#ad73e474cdce4ccd7af1a09efa6fa9fa9">bounding_box_</a>.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>(), <a class="code" href="classtesseract_1_1_structured_table.html#ad73e474cdce4ccd7af1a09efa6fa9fa9">bounding_box_</a>.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>());
+  ColPartition* part = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordflow">while</span> ((part = gsearch.NextSideSearch(decrease)) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">if</span> (!part-&gt;IsTextType() &amp;&amp; !part-&gt;IsVerticalLine())
+      <span class="keywordflow">continue</span>;
+    <span class="keywordtype">int</span> distance = decrease ? border - part-&gt;bounding_box().right()
+                            : part-&gt;bounding_box().left() - border;
+    <span class="keywordflow">if</span> (distance &gt;= 0)
+      <span class="keywordflow">return</span> distance;
+  }
+  <span class="keywordflow">return</span> <a class="code" href="host_8h.html#aac62d87844689a18b6f5339a89ed6e7f">MAX_INT32</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a918b3e568bf9c5518a61744b9e2903a9"></a><!-- doxytag: member="tesseract::StructuredTable::FindLinedStructure" ref="a918b3e568bf9c5518a61744b9e2903a9" args="()" -->
@@ -635,6 +961,53 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8cpp_source.html#l00137">137</a> of file <a class="el" href="tablerecog_8cpp_source.html">tablerecog.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                         {
+  <a class="code" href="classtesseract_1_1_structured_table.html#a9f06f45074d0987e9c6d6eee54033ccd">ClearStructure</a>();
+
+  <span class="comment">// Search for all of the lines in the current box.</span>
+  <span class="comment">// Update the cellular structure with the exact lines.</span>
+  <a class="code" href="namespacetesseract.html#a990e3f25988f7d70c40a13225e645492">ColPartitionGridSearch</a> box_search(<a class="code" href="classtesseract_1_1_structured_table.html#a62fec6d4270cd340c843b445f85de7a3">line_grid_</a>);
+  box_search.SetUniqueMode(<span class="keyword">true</span>);
+  box_search.StartRectSearch(<a class="code" href="classtesseract_1_1_structured_table.html#ad73e474cdce4ccd7af1a09efa6fa9fa9">bounding_box_</a>);
+  ColPartition* line = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+
+  <span class="keywordflow">while</span> ((line = box_search.NextRectSearch()) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">if</span> (line-&gt;IsHorizontalLine())
+      <a class="code" href="classtesseract_1_1_structured_table.html#a61ad297f7e3351085670324ec9f4a95f">cell_y_</a>.<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(line-&gt;MidY());
+    <span class="keywordflow">if</span> (line-&gt;IsVerticalLine())
+      <a class="code" href="classtesseract_1_1_structured_table.html#aa44caf479da7fa5f65c5600063e7a073">cell_x_</a>.<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(line-&gt;MidX());
+  }
+
+  <span class="comment">// HasSignificantLines should guarantee cells.</span>
+  <span class="comment">// Because that code is a different class, just gracefully</span>
+  <span class="comment">// return false. This could be an assert.</span>
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_structured_table.html#aa44caf479da7fa5f65c5600063e7a073">cell_x_</a>.<a class="code" href="class_generic_vector.html#a690cd403343d371ed7763fdaf3ed71d2">length</a>() &lt; 3 || <a class="code" href="classtesseract_1_1_structured_table.html#a61ad297f7e3351085670324ec9f4a95f">cell_y_</a>.<a class="code" href="class_generic_vector.html#a690cd403343d371ed7763fdaf3ed71d2">length</a>() &lt; 3)
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+
+  <a class="code" href="classtesseract_1_1_structured_table.html#aa44caf479da7fa5f65c5600063e7a073">cell_x_</a>.<a class="code" href="class_generic_vector.html#a999bbd8ff336c81fe1198ea714c7936d">sort</a>();
+  <a class="code" href="classtesseract_1_1_structured_table.html#a61ad297f7e3351085670324ec9f4a95f">cell_y_</a>.<a class="code" href="class_generic_vector.html#a999bbd8ff336c81fe1198ea714c7936d">sort</a>();
+
+  <span class="comment">// Remove duplicates that may have occurred due to split lines.</span>
+  <a class="code" href="classtesseract_1_1_structured_table.html#aa44caf479da7fa5f65c5600063e7a073">cell_x_</a>.<a class="code" href="class_generic_vector.html#a8cb22ff55d6dd125d93cd03fd73bf8ad">compact_sorted</a>();
+  <a class="code" href="classtesseract_1_1_structured_table.html#a61ad297f7e3351085670324ec9f4a95f">cell_y_</a>.<a class="code" href="class_generic_vector.html#a8cb22ff55d6dd125d93cd03fd73bf8ad">compact_sorted</a>();
+
+  <span class="comment">// The border should be the extents of line boxes, not middle.</span>
+  <a class="code" href="classtesseract_1_1_structured_table.html#aa44caf479da7fa5f65c5600063e7a073">cell_x_</a>[0] = <a class="code" href="classtesseract_1_1_structured_table.html#ad73e474cdce4ccd7af1a09efa6fa9fa9">bounding_box_</a>.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>();
+  <a class="code" href="classtesseract_1_1_structured_table.html#aa44caf479da7fa5f65c5600063e7a073">cell_x_</a>[<a class="code" href="classtesseract_1_1_structured_table.html#aa44caf479da7fa5f65c5600063e7a073">cell_x_</a>.<a class="code" href="class_generic_vector.html#a690cd403343d371ed7763fdaf3ed71d2">length</a>() - 1] = <a class="code" href="classtesseract_1_1_structured_table.html#ad73e474cdce4ccd7af1a09efa6fa9fa9">bounding_box_</a>.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>();
+  <a class="code" href="classtesseract_1_1_structured_table.html#a61ad297f7e3351085670324ec9f4a95f">cell_y_</a>[0] = <a class="code" href="classtesseract_1_1_structured_table.html#ad73e474cdce4ccd7af1a09efa6fa9fa9">bounding_box_</a>.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>();
+  <a class="code" href="classtesseract_1_1_structured_table.html#a61ad297f7e3351085670324ec9f4a95f">cell_y_</a>[<a class="code" href="classtesseract_1_1_structured_table.html#a61ad297f7e3351085670324ec9f4a95f">cell_y_</a>.<a class="code" href="class_generic_vector.html#a690cd403343d371ed7763fdaf3ed71d2">length</a>() - 1] = <a class="code" href="classtesseract_1_1_structured_table.html#ad73e474cdce4ccd7af1a09efa6fa9fa9">bounding_box_</a>.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>();
+
+  <span class="comment">// Remove duplicates that may have occurred due to moving the borders.</span>
+  <a class="code" href="classtesseract_1_1_structured_table.html#aa44caf479da7fa5f65c5600063e7a073">cell_x_</a>.<a class="code" href="class_generic_vector.html#a8cb22ff55d6dd125d93cd03fd73bf8ad">compact_sorted</a>();
+  <a class="code" href="classtesseract_1_1_structured_table.html#a61ad297f7e3351085670324ec9f4a95f">cell_y_</a>.<a class="code" href="class_generic_vector.html#a8cb22ff55d6dd125d93cd03fd73bf8ad">compact_sorted</a>();
+
+  <a class="code" href="classtesseract_1_1_structured_table.html#a5ff1789e2e45b46e9b0d29e75120e068">CalculateMargins</a>();
+  <a class="code" href="classtesseract_1_1_structured_table.html#a2e34d7cc3d51305252ab3f88a4d75c82">CalculateStats</a>();
+  <a class="code" href="classtesseract_1_1_structured_table.html#a1480c3fdb3fa9e7de7a3a032351004a4">is_lined_</a> = <a class="code" href="classtesseract_1_1_structured_table.html#a10d18f070403d28436812e28c8eddf21">VerifyLinedTableCells</a>();
+  <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_structured_table.html#a1480c3fdb3fa9e7de7a3a032351004a4">is_lined_</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a235fd8f82d814906b0407a323c94d7f6"></a><!-- doxytag: member="tesseract::StructuredTable::FindVerticalMargin" ref="a235fd8f82d814906b0407a323c94d7f6" args="(ColPartitionGrid *grid, int start_x, bool decrease) const " -->
@@ -668,6 +1041,24 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8cpp_source.html#l00477">477</a> of file <a class="el" href="tablerecog_8cpp_source.html">tablerecog.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                             {
+  <a class="code" href="namespacetesseract.html#a990e3f25988f7d70c40a13225e645492">ColPartitionGridSearch</a> gsearch(grid);
+  gsearch.SetUniqueMode(<span class="keyword">true</span>);
+  gsearch.StartVerticalSearch(<a class="code" href="classtesseract_1_1_structured_table.html#ad73e474cdce4ccd7af1a09efa6fa9fa9">bounding_box_</a>.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>(), <a class="code" href="classtesseract_1_1_structured_table.html#ad73e474cdce4ccd7af1a09efa6fa9fa9">bounding_box_</a>.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>(),
+                              border);
+  ColPartition* part = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordflow">while</span> ((part = gsearch.NextVerticalSearch(decrease)) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">if</span> (!part-&gt;IsTextType() &amp;&amp; !part-&gt;IsHorizontalLine())
+      <span class="keywordflow">continue</span>;
+    <span class="keywordtype">int</span> distance = decrease ? border - part-&gt;bounding_box().top()
+                            : part-&gt;bounding_box().bottom() - border;
+    <span class="keywordflow">if</span> (distance &gt;= 0)
+      <span class="keywordflow">return</span> distance;
+  }
+  <span class="keywordflow">return</span> <a class="code" href="host_8h.html#aac62d87844689a18b6f5339a89ed6e7f">MAX_INT32</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9096fe209bc3bac12d3d6478cfe614bd"></a><!-- doxytag: member="tesseract::StructuredTable::FindWhitespacedColumns" ref="a9096fe209bc3bac12d3d6478cfe614bd" args="()" -->
@@ -684,6 +1075,47 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8cpp_source.html#l00347">347</a> of file <a class="el" href="tablerecog_8cpp_source.html">tablerecog.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                             {
+  <span class="comment">// Set of the extents of all partitions on the page.</span>
+  <a class="code" href="class_generic_vector_eq_eq.html">GenericVectorEqEq&lt;int&gt;</a> left_sides;
+  <a class="code" href="class_generic_vector_eq_eq.html">GenericVectorEqEq&lt;int&gt;</a> right_sides;
+
+  <span class="comment">// Look at each text partition. We want to find the partitions</span>
+  <span class="comment">// that have extremal left/right sides. These will give us a basis</span>
+  <span class="comment">// for the table columns.</span>
+  <a class="code" href="namespacetesseract.html#a990e3f25988f7d70c40a13225e645492">ColPartitionGridSearch</a> gsearch(<a class="code" href="classtesseract_1_1_structured_table.html#a3e7a1ec39e82e5f0cca9c11133ddfe1b">text_grid_</a>);
+  gsearch.SetUniqueMode(<span class="keyword">true</span>);
+  gsearch.StartRectSearch(<a class="code" href="classtesseract_1_1_structured_table.html#ad73e474cdce4ccd7af1a09efa6fa9fa9">bounding_box_</a>);
+  ColPartition* text = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordflow">while</span> ((text = gsearch.NextRectSearch()) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">if</span> (!text-&gt;IsTextType())
+      <span class="keywordflow">continue</span>;
+
+    <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(text-&gt;bounding_box().left() &lt; text-&gt;bounding_box().right());
+    <span class="keywordtype">int</span> spacing = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(text-&gt;median_width() *
+                                   <a class="code" href="namespacetesseract.html#a459c450e19dcfec134e92887f41bb9ac">kHorizontalSpacing</a> / 2.0 + 0.5);
+    left_sides.<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(text-&gt;bounding_box().left() - spacing);
+    right_sides.<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(text-&gt;bounding_box().right() + spacing);
+  }
+  <span class="comment">// It causes disaster below, so avoid it!</span>
+  <span class="keywordflow">if</span> (left_sides.<a class="code" href="class_generic_vector.html#a690cd403343d371ed7763fdaf3ed71d2">length</a>() == 0 || right_sides.<a class="code" href="class_generic_vector.html#a690cd403343d371ed7763fdaf3ed71d2">length</a>() == 0)
+    <span class="keywordflow">return</span>;
+
+  <span class="comment">// Since data may be inserted in grid order, we sort the left/right sides.</span>
+  left_sides.<a class="code" href="class_generic_vector.html#a999bbd8ff336c81fe1198ea714c7936d">sort</a>();
+  right_sides.<a class="code" href="class_generic_vector.html#a999bbd8ff336c81fe1198ea714c7936d">sort</a>();
+
+  <span class="comment">// At this point, in the &quot;merged list&quot;, we expect to have a left side,</span>
+  <span class="comment">// followed by either more left sides or a right side. The last number</span>
+  <span class="comment">// should be a right side. We find places where the splits occur by looking</span>
+  <span class="comment">// for &quot;valleys&quot;. If we want to force gap sizes or allow overlap, change</span>
+  <span class="comment">// the spacing above. If you want to let lines &quot;slice&quot; partitions as long</span>
+  <span class="comment">// as it is infrequent, change the following function.</span>
+  <a class="code" href="classtesseract_1_1_structured_table.html#a855165a2c1cf7e18aa4df0d56b56d86c">FindCellSplitLocations</a>(left_sides, right_sides, <a class="code" href="namespacetesseract.html#a4b621a2aed2de5bbc9f60f5a2e1050a5">kCellSplitColumnThreshold</a>,
+                         &amp;<a class="code" href="classtesseract_1_1_structured_table.html#aa44caf479da7fa5f65c5600063e7a073">cell_x_</a>);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a267d885a876327019d2fd85ef6dade90"></a><!-- doxytag: member="tesseract::StructuredTable::FindWhitespacedRows" ref="a267d885a876327019d2fd85ef6dade90" args="()" -->
@@ -700,6 +1132,72 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8cpp_source.html#l00392">392</a> of file <a class="el" href="tablerecog_8cpp_source.html">tablerecog.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                          {
+  <span class="comment">// Set of the extents of all partitions on the page.</span>
+  <a class="code" href="class_generic_vector_eq_eq.html">GenericVectorEqEq&lt;int&gt;</a> bottom_sides;
+  <a class="code" href="class_generic_vector_eq_eq.html">GenericVectorEqEq&lt;int&gt;</a> top_sides;
+  <span class="comment">// We will be &quot;shrinking&quot; partitions, so keep the min/max around to</span>
+  <span class="comment">// make sure the bottom/top lines do not intersect text.</span>
+  <span class="keywordtype">int</span> min_bottom = <a class="code" href="host_8h.html#aac62d87844689a18b6f5339a89ed6e7f">MAX_INT32</a>;
+  <span class="keywordtype">int</span> max_top = <a class="code" href="host_8h.html#ae6f88d5bb15e97510f484289f2fc89fd">MIN_INT32</a>;
+
+  <span class="comment">// Look at each text partition. We want to find the partitions</span>
+  <span class="comment">// that have extremal bottom/top sides. These will give us a basis</span>
+  <span class="comment">// for the table rows. Because the textlines can be skewed and close due</span>
+  <span class="comment">// to warping, the height of the partitions is toned down a little bit.</span>
+  <a class="code" href="namespacetesseract.html#a990e3f25988f7d70c40a13225e645492">ColPartitionGridSearch</a> gsearch(<a class="code" href="classtesseract_1_1_structured_table.html#a3e7a1ec39e82e5f0cca9c11133ddfe1b">text_grid_</a>);
+  gsearch.SetUniqueMode(<span class="keyword">true</span>);
+  gsearch.StartRectSearch(<a class="code" href="classtesseract_1_1_structured_table.html#ad73e474cdce4ccd7af1a09efa6fa9fa9">bounding_box_</a>);
+  ColPartition* text = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordflow">while</span> ((text = gsearch.NextRectSearch()) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">if</span> (!text-&gt;IsTextType())
+      <span class="keywordflow">continue</span>;
+
+    <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(text-&gt;bounding_box().bottom() &lt; text-&gt;bounding_box().top());
+    min_bottom = <a class="code" href="ndminx_8h.html#a74e75242132eaabbc1c512488a135926">MIN</a>(min_bottom, text-&gt;bounding_box().bottom());
+    max_top = <a class="code" href="ndminx_8h.html#aacc3ee1a7f283f8ef65cea31f4436a95">MAX</a>(max_top, text-&gt;bounding_box().top());
+
+    <span class="comment">// Ignore &quot;tall&quot; text partitions, as these are usually false positive</span>
+    <span class="comment">// vertical text or multiple lines pulled together.</span>
+    <span class="keywordflow">if</span> (text-&gt;bounding_box().height() &gt; <a class="code" href="classtesseract_1_1_structured_table.html#a7e77d9ccc738260e085d54d840020844">max_text_height_</a>)
+      <span class="keywordflow">continue</span>;
+
+    <span class="keywordtype">int</span> spacing = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(text-&gt;bounding_box().height() *
+                                   <a class="code" href="namespacetesseract.html#a0420369bcc5ffea9087e2779a2dacdb6">kVerticalSpacing</a> / 2.0 + 0.5);
+    <span class="keywordtype">int</span> bottom = text-&gt;bounding_box().bottom() - spacing;
+    <span class="keywordtype">int</span> top = text-&gt;bounding_box().top() + spacing;
+    <span class="comment">// For horizontal text, the factor can be negative. This should</span>
+    <span class="comment">// probably cause a warning or failure. I haven&#39;t actually checked if</span>
+    <span class="comment">// it happens.</span>
+    <span class="keywordflow">if</span> (bottom &gt;= top)
+      <span class="keywordflow">continue</span>;
+
+    bottom_sides.<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(bottom);
+    top_sides.<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(top);
+  }
+  <span class="comment">// It causes disaster below, so avoid it!</span>
+  <span class="keywordflow">if</span> (bottom_sides.<a class="code" href="class_generic_vector.html#a690cd403343d371ed7763fdaf3ed71d2">length</a>() == 0 || top_sides.<a class="code" href="class_generic_vector.html#a690cd403343d371ed7763fdaf3ed71d2">length</a>() == 0)
+    <span class="keywordflow">return</span>;
+
+  <span class="comment">// Since data may be inserted in grid order, we sort the bottom/top sides.</span>
+  bottom_sides.<a class="code" href="class_generic_vector.html#a999bbd8ff336c81fe1198ea714c7936d">sort</a>();
+  top_sides.<a class="code" href="class_generic_vector.html#a999bbd8ff336c81fe1198ea714c7936d">sort</a>();
+
+  <span class="comment">// At this point, in the &quot;merged list&quot;, we expect to have a bottom side,</span>
+  <span class="comment">// followed by either more bottom sides or a top side. The last number</span>
+  <span class="comment">// should be a top side. We find places where the splits occur by looking</span>
+  <span class="comment">// for &quot;valleys&quot;. If we want to force gap sizes or allow overlap, change</span>
+  <span class="comment">// the spacing above. If you want to let lines &quot;slice&quot; partitions as long</span>
+  <span class="comment">// as it is infrequent, change the following function.</span>
+  <a class="code" href="classtesseract_1_1_structured_table.html#a855165a2c1cf7e18aa4df0d56b56d86c">FindCellSplitLocations</a>(bottom_sides, top_sides, <a class="code" href="namespacetesseract.html#a39a015a67ade7e0efecbb76e7b675720">kCellSplitRowThreshold</a>,
+                         &amp;<a class="code" href="classtesseract_1_1_structured_table.html#a61ad297f7e3351085670324ec9f4a95f">cell_y_</a>);
+
+  <span class="comment">// Recover the min/max correctly since it was shifted.</span>
+  <a class="code" href="classtesseract_1_1_structured_table.html#a61ad297f7e3351085670324ec9f4a95f">cell_y_</a>[0] = min_bottom;
+  <a class="code" href="classtesseract_1_1_structured_table.html#a61ad297f7e3351085670324ec9f4a95f">cell_y_</a>[<a class="code" href="classtesseract_1_1_structured_table.html#a61ad297f7e3351085670324ec9f4a95f">cell_y_</a>.<a class="code" href="class_generic_vector.html#a690cd403343d371ed7763fdaf3ed71d2">length</a>() - 1] = max_top;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a8931e5502d9bcccee24083f44f8262f3"></a><!-- doxytag: member="tesseract::StructuredTable::FindWhitespacedStructure" ref="a8931e5502d9bcccee24083f44f8262f3" args="()" -->
@@ -716,6 +1214,26 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8cpp_source.html#l00184">184</a> of file <a class="el" href="tablerecog_8cpp_source.html">tablerecog.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                               {
+  <a class="code" href="classtesseract_1_1_structured_table.html#a9f06f45074d0987e9c6d6eee54033ccd">ClearStructure</a>();
+  <a class="code" href="classtesseract_1_1_structured_table.html#a9096fe209bc3bac12d3d6478cfe614bd">FindWhitespacedColumns</a>();
+  <a class="code" href="classtesseract_1_1_structured_table.html#a267d885a876327019d2fd85ef6dade90">FindWhitespacedRows</a>();
+
+  <span class="keywordflow">if</span> (!<a class="code" href="classtesseract_1_1_structured_table.html#adeb681371e657a5596c79acfd558fcc9">VerifyWhitespacedTable</a>()) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  } <span class="keywordflow">else</span> {
+    <a class="code" href="classtesseract_1_1_structured_table.html#ad73e474cdce4ccd7af1a09efa6fa9fa9">bounding_box_</a>.<a class="code" href="class_t_b_o_x.html#ae6151cd794841e100d8a346a0c4a46e6">set_left</a>(<a class="code" href="classtesseract_1_1_structured_table.html#aa44caf479da7fa5f65c5600063e7a073">cell_x_</a>[0]);
+    <a class="code" href="classtesseract_1_1_structured_table.html#ad73e474cdce4ccd7af1a09efa6fa9fa9">bounding_box_</a>.<a class="code" href="class_t_b_o_x.html#a2246293d3667b28c52a52353a2d5caea">set_right</a>(<a class="code" href="classtesseract_1_1_structured_table.html#aa44caf479da7fa5f65c5600063e7a073">cell_x_</a>[<a class="code" href="classtesseract_1_1_structured_table.html#aa44caf479da7fa5f65c5600063e7a073">cell_x_</a>.<a class="code" href="class_generic_vector.html#a690cd403343d371ed7763fdaf3ed71d2">length</a>() - 1]);
+    <a class="code" href="classtesseract_1_1_structured_table.html#ad73e474cdce4ccd7af1a09efa6fa9fa9">bounding_box_</a>.<a class="code" href="class_t_b_o_x.html#a6f803b24b046883cb0f3882dc3d92302">set_bottom</a>(<a class="code" href="classtesseract_1_1_structured_table.html#a61ad297f7e3351085670324ec9f4a95f">cell_y_</a>[0]);
+    <a class="code" href="classtesseract_1_1_structured_table.html#ad73e474cdce4ccd7af1a09efa6fa9fa9">bounding_box_</a>.<a class="code" href="class_t_b_o_x.html#a7f40dfd290a907200bdc98c196f63f45">set_top</a>(<a class="code" href="classtesseract_1_1_structured_table.html#a61ad297f7e3351085670324ec9f4a95f">cell_y_</a>[<a class="code" href="classtesseract_1_1_structured_table.html#a61ad297f7e3351085670324ec9f4a95f">cell_y_</a>.<a class="code" href="class_generic_vector.html#a690cd403343d371ed7763fdaf3ed71d2">length</a>() - 1]);
+    <a class="code" href="classtesseract_1_1_structured_table.html#a1b867f9bd1c26b92dcf946592e2db94c">AbsorbNearbyLines</a>();
+    <a class="code" href="classtesseract_1_1_structured_table.html#a5ff1789e2e45b46e9b0d29e75120e068">CalculateMargins</a>();
+    <a class="code" href="classtesseract_1_1_structured_table.html#a2e34d7cc3d51305252ab3f88a4d75c82">CalculateStats</a>();
+    <span class="keywordflow">return</span> <span class="keyword">true</span>;
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3dc40da641753dbaf7b8351f67b95ddb"></a><!-- doxytag: member="tesseract::StructuredTable::Init" ref="a3dc40da641753dbaf7b8351f67b95ddb" args="()" -->
@@ -732,6 +1250,10 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8cpp_source.html#l00079">79</a> of file <a class="el" href="tablerecog_8cpp_source.html">tablerecog.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                           {
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a1507dc9a3a530f8819cfd18f3635cbf3"></a><!-- doxytag: member="tesseract::StructuredTable::is_lined" ref="a1507dc9a3a530f8819cfd18f3635cbf3" args="() const " -->
@@ -748,6 +1270,11 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8cpp_source.html#l00091">91</a> of file <a class="el" href="tablerecog_8cpp_source.html">tablerecog.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                     {
+  <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_structured_table.html#a1480c3fdb3fa9e7de7a3a032351004a4">is_lined_</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aeba605980cd361c291fc5cfb770c3efa"></a><!-- doxytag: member="tesseract::StructuredTable::median_cell_height" ref="aeba605980cd361c291fc5cfb770c3efa" args="()" -->
@@ -764,6 +1291,11 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8cpp_source.html#l00109">109</a> of file <a class="el" href="tablerecog_8cpp_source.html">tablerecog.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                        {
+  <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_structured_table.html#a69b525ae08de1ff7dd256f61b9ae28b8">median_cell_height_</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a25242413ecf219632e47b776e91de532"></a><!-- doxytag: member="tesseract::StructuredTable::median_cell_width" ref="a25242413ecf219632e47b776e91de532" args="()" -->
@@ -780,6 +1312,11 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8cpp_source.html#l00112">112</a> of file <a class="el" href="tablerecog_8cpp_source.html">tablerecog.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                       {
+  <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_structured_table.html#a4d6c741190fdf2e49551baf63e53dafe">median_cell_width_</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a5516d2be345fb1740fd35a4316da2072"></a><!-- doxytag: member="tesseract::StructuredTable::row_count" ref="a5516d2be345fb1740fd35a4316da2072" args="() const " -->
@@ -796,6 +1333,11 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8cpp_source.html#l00094">94</a> of file <a class="el" href="tablerecog_8cpp_source.html">tablerecog.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                     {
+  <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_structured_table.html#a61ad297f7e3351085670324ec9f4a95f">cell_y_</a>.<a class="code" href="class_generic_vector.html#a690cd403343d371ed7763fdaf3ed71d2">length</a>() == 0 ? 0 : <a class="code" href="classtesseract_1_1_structured_table.html#a61ad297f7e3351085670324ec9f4a95f">cell_y_</a>.<a class="code" href="class_generic_vector.html#a690cd403343d371ed7763fdaf3ed71d2">length</a>() - 1;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae6f73aa2764c036433b2cca3c7c058b3"></a><!-- doxytag: member="tesseract::StructuredTable::row_height" ref="ae6f73aa2764c036433b2cca3c7c058b3" args="(int row) const " -->
@@ -813,6 +1355,12 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8cpp_source.html#l00115">115</a> of file <a class="el" href="tablerecog_8cpp_source.html">tablerecog.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                             {
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(0 &lt;= row &amp;&amp; row &lt; <a class="code" href="classtesseract_1_1_structured_table.html#a5516d2be345fb1740fd35a4316da2072">row_count</a>());
+  <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_structured_table.html#a61ad297f7e3351085670324ec9f4a95f">cell_y_</a>[row + 1] - <a class="code" href="classtesseract_1_1_structured_table.html#a61ad297f7e3351085670324ec9f4a95f">cell_y_</a>[row];
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a735232879bcc0cad741b02fee2c2e660"></a><!-- doxytag: member="tesseract::StructuredTable::set_bounding_box" ref="a735232879bcc0cad741b02fee2c2e660" args="(const TBOX &amp;box)" -->
@@ -830,6 +1378,11 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8cpp_source.html#l00103">103</a> of file <a class="el" href="tablerecog_8cpp_source.html">tablerecog.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                      {
+  <a class="code" href="classtesseract_1_1_structured_table.html#ad73e474cdce4ccd7af1a09efa6fa9fa9">bounding_box_</a> = box;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a98ef5d31a061ce9b3091fb79f0191c69"></a><!-- doxytag: member="tesseract::StructuredTable::set_line_grid" ref="a98ef5d31a061ce9b3091fb79f0191c69" args="(ColPartitionGrid *lines)" -->
@@ -847,6 +1400,11 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8cpp_source.html#l00085">85</a> of file <a class="el" href="tablerecog_8cpp_source.html">tablerecog.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                               {
+  <a class="code" href="classtesseract_1_1_structured_table.html#a62fec6d4270cd340c843b445f85de7a3">line_grid_</a> = line_grid;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a47a275de6919be20e719b704c45814f1"></a><!-- doxytag: member="tesseract::StructuredTable::set_max_text_height" ref="a47a275de6919be20e719b704c45814f1" args="(int height)" -->
@@ -864,6 +1422,11 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8cpp_source.html#l00088">88</a> of file <a class="el" href="tablerecog_8cpp_source.html">tablerecog.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                    {
+  <a class="code" href="classtesseract_1_1_structured_table.html#a7e77d9ccc738260e085d54d840020844">max_text_height_</a> = height;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae525ff4858f6123817232f93ecc43476"></a><!-- doxytag: member="tesseract::StructuredTable::set_text_grid" ref="ae525ff4858f6123817232f93ecc43476" args="(ColPartitionGrid *text)" -->
@@ -881,6 +1444,11 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8cpp_source.html#l00082">82</a> of file <a class="el" href="tablerecog_8cpp_source.html">tablerecog.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                               {
+  <a class="code" href="classtesseract_1_1_structured_table.html#a3e7a1ec39e82e5f0cca9c11133ddfe1b">text_grid_</a> = text_grid;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a32b66cd4497a4126fcca80a5acd8da1c"></a><!-- doxytag: member="tesseract::StructuredTable::space_above" ref="a32b66cd4497a4126fcca80a5acd8da1c" args="() const " -->
@@ -897,6 +1465,11 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8cpp_source.html#l00123">123</a> of file <a class="el" href="tablerecog_8cpp_source.html">tablerecog.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                       {
+  <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_structured_table.html#aae33c28056468e9da3b8b652e3cf0c94">space_above_</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a75ce97ac260ae3697d22827e8108aa74"></a><!-- doxytag: member="tesseract::StructuredTable::space_below" ref="a75ce97ac260ae3697d22827e8108aa74" args="() const " -->
@@ -913,6 +1486,11 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8cpp_source.html#l00126">126</a> of file <a class="el" href="tablerecog_8cpp_source.html">tablerecog.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                       {
+  <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_structured_table.html#a5d0168255bb07d28f1e30276d3fb751c">space_below_</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae86b1f857121b9e9270143d8fdbe5715"></a><!-- doxytag: member="tesseract::StructuredTable::UpdateMargins" ref="ae86b1f857121b9e9270143d8fdbe5715" args="(ColPartitionGrid *grid)" -->
@@ -930,6 +1508,18 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8cpp_source.html#l00467">467</a> of file <a class="el" href="tablerecog_8cpp_source.html">tablerecog.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                          {
+  <span class="keywordtype">int</span> below = <a class="code" href="classtesseract_1_1_structured_table.html#a235fd8f82d814906b0407a323c94d7f6">FindVerticalMargin</a>(grid, <a class="code" href="classtesseract_1_1_structured_table.html#ad73e474cdce4ccd7af1a09efa6fa9fa9">bounding_box_</a>.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>(), <span class="keyword">true</span>);
+  <a class="code" href="classtesseract_1_1_structured_table.html#a5d0168255bb07d28f1e30276d3fb751c">space_below_</a> = <a class="code" href="ndminx_8h.html#a74e75242132eaabbc1c512488a135926">MIN</a>(space_below_, below);
+  <span class="keywordtype">int</span> above = <a class="code" href="classtesseract_1_1_structured_table.html#a235fd8f82d814906b0407a323c94d7f6">FindVerticalMargin</a>(grid, <a class="code" href="classtesseract_1_1_structured_table.html#ad73e474cdce4ccd7af1a09efa6fa9fa9">bounding_box_</a>.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>(), <span class="keyword">false</span>);
+  <a class="code" href="classtesseract_1_1_structured_table.html#aae33c28056468e9da3b8b652e3cf0c94">space_above_</a> = <a class="code" href="ndminx_8h.html#a74e75242132eaabbc1c512488a135926">MIN</a>(space_above_, above);
+  <span class="keywordtype">int</span> left = <a class="code" href="classtesseract_1_1_structured_table.html#a37a39634fe1a9f1d11f05cb8214f4444">FindHorizontalMargin</a>(grid, <a class="code" href="classtesseract_1_1_structured_table.html#ad73e474cdce4ccd7af1a09efa6fa9fa9">bounding_box_</a>.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>(), <span class="keyword">true</span>);
+  <a class="code" href="classtesseract_1_1_structured_table.html#a369e1cab57c1cf20f454d31bc2d9b69c">space_left_</a> = <a class="code" href="ndminx_8h.html#a74e75242132eaabbc1c512488a135926">MIN</a>(space_left_, left);
+  <span class="keywordtype">int</span> right = <a class="code" href="classtesseract_1_1_structured_table.html#a37a39634fe1a9f1d11f05cb8214f4444">FindHorizontalMargin</a>(grid, <a class="code" href="classtesseract_1_1_structured_table.html#ad73e474cdce4ccd7af1a09efa6fa9fa9">bounding_box_</a>.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>(), <span class="keyword">false</span>);
+  <a class="code" href="classtesseract_1_1_structured_table.html#a950d1abfe05a5582cc71617d3e689c80">space_right_</a> = <a class="code" href="ndminx_8h.html#a74e75242132eaabbc1c512488a135926">MIN</a>(space_right_, right);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a10d18f070403d28436812e28c8eddf21"></a><!-- doxytag: member="tesseract::StructuredTable::VerifyLinedTableCells" ref="a10d18f070403d28436812e28c8eddf21" args="()" -->
@@ -946,6 +1536,21 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8cpp_source.html#l00315">315</a> of file <a class="el" href="tablerecog_8cpp_source.html">tablerecog.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                            {
+  <span class="comment">// Function only called when lines exist.</span>
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(<a class="code" href="classtesseract_1_1_structured_table.html#a61ad297f7e3351085670324ec9f4a95f">cell_y_</a>.<a class="code" href="class_generic_vector.html#a690cd403343d371ed7763fdaf3ed71d2">length</a>() &gt;= 2 &amp;&amp; <a class="code" href="classtesseract_1_1_structured_table.html#aa44caf479da7fa5f65c5600063e7a073">cell_x_</a>.<a class="code" href="class_generic_vector.html#a690cd403343d371ed7763fdaf3ed71d2">length</a>() &gt;= 2);
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="classtesseract_1_1_structured_table.html#a61ad297f7e3351085670324ec9f4a95f">cell_y_</a>.<a class="code" href="class_generic_vector.html#a690cd403343d371ed7763fdaf3ed71d2">length</a>(); ++i) {
+    <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_structured_table.html#a9d51b6ec44c4019aeffb8d29e53411e7">CountHorizontalIntersections</a>(<a class="code" href="classtesseract_1_1_structured_table.html#a61ad297f7e3351085670324ec9f4a95f">cell_y_</a>[i]) &gt; 0)
+      <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="classtesseract_1_1_structured_table.html#aa44caf479da7fa5f65c5600063e7a073">cell_x_</a>.<a class="code" href="class_generic_vector.html#a690cd403343d371ed7763fdaf3ed71d2">length</a>(); ++i) {
+    <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_structured_table.html#ae4f7bc2ae0ce34f6ba90c262cb4042b5">CountVerticalIntersections</a>(<a class="code" href="classtesseract_1_1_structured_table.html#aa44caf479da7fa5f65c5600063e7a073">cell_x_</a>[i]) &gt; 0)
+      <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a175d7d7c8b49471e593c99ab3c43f44e"></a><!-- doxytag: member="tesseract::StructuredTable::VerifyRowFilled" ref="a175d7d7c8b49471e593c99ab3c43f44e" args="(int row)" -->
@@ -963,6 +1568,16 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8cpp_source.html#l00252">252</a> of file <a class="el" href="tablerecog_8cpp_source.html">tablerecog.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                             {
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="classtesseract_1_1_structured_table.html#aeefea2e84ee34a4b7495949e9d0dbede">column_count</a>(); ++i) {
+    <span class="keywordtype">double</span> area_filled = <a class="code" href="classtesseract_1_1_structured_table.html#a876e5d9f12bd9f23a1bc41144ba49135">CalculateCellFilledPercentage</a>(row, i);
+    <span class="keywordflow">if</span> (area_filled &gt;= <a class="code" href="namespacetesseract.html#a787309c5a8b6594e5aed4adda5e15671">kMinFilledArea</a>)
+      <span class="keywordflow">return</span> <span class="keyword">true</span>;
+  }
+  <span class="keywordflow">return</span> <span class="keyword">false</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="adeb681371e657a5596c79acfd558fcc9"></a><!-- doxytag: member="tesseract::StructuredTable::VerifyWhitespacedTable" ref="adeb681371e657a5596c79acfd558fcc9" args="()" -->
@@ -979,6 +1594,12 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8cpp_source.html#l00337">337</a> of file <a class="el" href="tablerecog_8cpp_source.html">tablerecog.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                             {
+  <span class="comment">// criteria for a table, must be at least 2x3 or 3x2</span>
+  <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_structured_table.html#a5516d2be345fb1740fd35a4316da2072">row_count</a>() &gt;= 2 &amp;&amp; <a class="code" href="classtesseract_1_1_structured_table.html#aeefea2e84ee34a4b7495949e9d0dbede">column_count</a>() &gt;= 2 &amp;&amp; <a class="code" href="classtesseract_1_1_structured_table.html#aad8221b60221210d9cad2cede71d705e">cell_count</a>() &gt;= 6;
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
@@ -993,6 +1614,8 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8h_source.html#l00242">242</a> of file <a class="el" href="tablerecog_8h_source.html">tablerecog.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="aa44caf479da7fa5f65c5600063e7a073"></a><!-- doxytag: member="tesseract::StructuredTable::cell_x_" ref="aa44caf479da7fa5f65c5600063e7a073" args="" -->
@@ -1005,6 +1628,8 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="tablerecog_8h_source.html#l00243">243</a> of file <a class="el" href="tablerecog_8h_source.html">tablerecog.h</a>.</p>
 
 </div>
 </div>
@@ -1019,6 +1644,8 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8h_source.html#l00244">244</a> of file <a class="el" href="tablerecog_8h_source.html">tablerecog.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a1480c3fdb3fa9e7de7a3a032351004a4"></a><!-- doxytag: member="tesseract::StructuredTable::is_lined_" ref="a1480c3fdb3fa9e7de7a3a032351004a4" args="" -->
@@ -1031,6 +1658,8 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="tablerecog_8h_source.html#l00245">245</a> of file <a class="el" href="tablerecog_8h_source.html">tablerecog.h</a>.</p>
 
 </div>
 </div>
@@ -1045,6 +1674,8 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8h_source.html#l00238">238</a> of file <a class="el" href="tablerecog_8h_source.html">tablerecog.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a7e77d9ccc738260e085d54d840020844"></a><!-- doxytag: member="tesseract::StructuredTable::max_text_height_" ref="a7e77d9ccc738260e085d54d840020844" args="" -->
@@ -1057,6 +1688,8 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="tablerecog_8h_source.html#l00254">254</a> of file <a class="el" href="tablerecog_8h_source.html">tablerecog.h</a>.</p>
 
 </div>
 </div>
@@ -1071,6 +1704,8 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8h_source.html#l00251">251</a> of file <a class="el" href="tablerecog_8h_source.html">tablerecog.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a4d6c741190fdf2e49551baf63e53dafe"></a><!-- doxytag: member="tesseract::StructuredTable::median_cell_width_" ref="a4d6c741190fdf2e49551baf63e53dafe" args="" -->
@@ -1083,6 +1718,8 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="tablerecog_8h_source.html#l00252">252</a> of file <a class="el" href="tablerecog_8h_source.html">tablerecog.h</a>.</p>
 
 </div>
 </div>
@@ -1097,6 +1734,8 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8h_source.html#l00247">247</a> of file <a class="el" href="tablerecog_8h_source.html">tablerecog.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a5d0168255bb07d28f1e30276d3fb751c"></a><!-- doxytag: member="tesseract::StructuredTable::space_below_" ref="a5d0168255bb07d28f1e30276d3fb751c" args="" -->
@@ -1109,6 +1748,8 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="tablerecog_8h_source.html#l00248">248</a> of file <a class="el" href="tablerecog_8h_source.html">tablerecog.h</a>.</p>
 
 </div>
 </div>
@@ -1123,6 +1764,8 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8h_source.html#l00249">249</a> of file <a class="el" href="tablerecog_8h_source.html">tablerecog.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a950d1abfe05a5582cc71617d3e689c80"></a><!-- doxytag: member="tesseract::StructuredTable::space_right_" ref="a950d1abfe05a5582cc71617d3e689c80" args="" -->
@@ -1135,6 +1778,8 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="tablerecog_8h_source.html#l00250">250</a> of file <a class="el" href="tablerecog_8h_source.html">tablerecog.h</a>.</p>
 
 </div>
 </div>
@@ -1149,11 +1794,13 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8h_source.html#l00237">237</a> of file <a class="el" href="tablerecog_8h_source.html">tablerecog.h</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/textord/<a class="el" href="tablerecog_8h_source.html">tablerecog.h</a></li>
-<li>tesseract-ocr/textord/<a class="el" href="tablerecog_8cpp.html">tablerecog.cpp</a></li>
+<li>tesseract-ocr/textord/<a class="el" href="tablerecog_8cpp_source.html">tablerecog.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -1176,7 +1823,7 @@ Protected Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:17 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:53 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

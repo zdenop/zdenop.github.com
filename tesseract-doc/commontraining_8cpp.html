@@ -128,7 +128,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <code>#include &quot;<a class="el" href="shapetable_8h_source.html">shapetable.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="unicity__table_8h_source.html">unicity_table.h</a>&quot;</code><br/>
 <code>#include &lt;math.h&gt;</code><br/>
-</div><table class="memberdecls">
+</div>
+<p><a href="commontraining_8cpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr><td colspan="2"><h2><a name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetesseract.html">tesseract</a></td></tr>
@@ -206,6 +208,20 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="commontraining_8cpp_source.html#l00935">935</a> of file <a class="el" href="commontraining_8cpp_source.html">commontraining.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">{
+  <a class="code" href="struct_p_r_o_t_o_t_y_p_e.html">PROTOTYPE</a>* Proto;
+  <a class="code" href="struct_l_a_b_e_l_e_d_l_i_s_t_n_o_d_e.html">LABELEDLIST</a> LabeledProtoList;
+
+  LabeledProtoList = <a class="code" href="commontraining_8cpp.html#a83417b534a3cb0ea9e43eba33e37f1bc">NewLabeledList</a>(CharName);
+  <a class="code" href="oldlist_8h.html#a2cf19ba78be6b54f66823d58f34f2a53">iterate</a>(ProtoList)
+  {
+    Proto = (<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html">PROTOTYPE</a> *) <a class="code" href="oldlist_8h.html#a69547be764424f18b0be535400747978">first_node</a> (ProtoList);
+    LabeledProtoList-&gt;<a class="code" href="struct_l_a_b_e_l_e_d_l_i_s_t_n_o_d_e.html#a848ab6ee611dbc860f80a47ecef2faa7">List</a> = <a class="code" href="oldlist_8cpp.html#a9c4294375af81ab4c133b6b5a3679a16">push</a>(LabeledProtoList-&gt;<a class="code" href="struct_l_a_b_e_l_e_d_l_i_s_t_n_o_d_e.html#a848ab6ee611dbc860f80a47ecef2faa7">List</a>, Proto);
+  }
+  *NormProtoList = <a class="code" href="oldlist_8cpp.html#a9c4294375af81ab4c133b6b5a3679a16">push</a>(*NormProtoList, LabeledProtoList);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a561b5ddf89562dbf46af5ef6ce1e058e"></a><!-- doxytag: member="commontraining.cpp::CleanUpUnusedData" ref="a561b5ddf89562dbf46af5ef6ce1e058e" args="(LIST ProtoList)" -->
@@ -223,6 +239,31 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="commontraining_8cpp_source.html#l00683">683</a> of file <a class="el" href="commontraining_8cpp_source.html">commontraining.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">{
+  <a class="code" href="struct_p_r_o_t_o_t_y_p_e.html">PROTOTYPE</a>* Prototype;
+
+  <a class="code" href="oldlist_8h.html#a2cf19ba78be6b54f66823d58f34f2a53">iterate</a>(ProtoList)
+  {
+    Prototype = (<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html">PROTOTYPE</a> *) <a class="code" href="oldlist_8h.html#a69547be764424f18b0be535400747978">first_node</a> (ProtoList);
+    <span class="keywordflow">if</span>(Prototype-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a35cf2e2dd8cc8b0e9476ad49f36abd24">Variance</a>.<a class="code" href="union_f_l_o_a_t_u_n_i_o_n.html#a4b36c5b636aac27041dd340386f3801f">Elliptical</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    {
+      <a class="code" href="freelist_8cpp.html#ab462a857e5edf360ae4881bcc92a0bcf">memfree</a>(Prototype-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a35cf2e2dd8cc8b0e9476ad49f36abd24">Variance</a>.<a class="code" href="union_f_l_o_a_t_u_n_i_o_n.html#a4b36c5b636aac27041dd340386f3801f">Elliptical</a>);
+      Prototype-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a35cf2e2dd8cc8b0e9476ad49f36abd24">Variance</a>.<a class="code" href="union_f_l_o_a_t_u_n_i_o_n.html#a4b36c5b636aac27041dd340386f3801f">Elliptical</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    }
+    <span class="keywordflow">if</span>(Prototype-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a0b016afed9c049598aa41feb3770fc15">Magnitude</a>.<a class="code" href="union_f_l_o_a_t_u_n_i_o_n.html#a4b36c5b636aac27041dd340386f3801f">Elliptical</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    {
+      <a class="code" href="freelist_8cpp.html#ab462a857e5edf360ae4881bcc92a0bcf">memfree</a>(Prototype-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a0b016afed9c049598aa41feb3770fc15">Magnitude</a>.<a class="code" href="union_f_l_o_a_t_u_n_i_o_n.html#a4b36c5b636aac27041dd340386f3801f">Elliptical</a>);
+      Prototype-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a0b016afed9c049598aa41feb3770fc15">Magnitude</a>.<a class="code" href="union_f_l_o_a_t_u_n_i_o_n.html#a4b36c5b636aac27041dd340386f3801f">Elliptical</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    }
+    <span class="keywordflow">if</span>(Prototype-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#af202ff952380614068536ea0b504285e">Weight</a>.<a class="code" href="union_f_l_o_a_t_u_n_i_o_n.html#a4b36c5b636aac27041dd340386f3801f">Elliptical</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    {
+      <a class="code" href="freelist_8cpp.html#ab462a857e5edf360ae4881bcc92a0bcf">memfree</a>(Prototype-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#af202ff952380614068536ea0b504285e">Weight</a>.<a class="code" href="union_f_l_o_a_t_u_n_i_o_n.html#a4b36c5b636aac27041dd340386f3801f">Elliptical</a>);
+      Prototype-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#af202ff952380614068536ea0b504285e">Weight</a>.<a class="code" href="union_f_l_o_a_t_u_n_i_o_n.html#a4b36c5b636aac27041dd340386f3801f">Elliptical</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa89103a9b87cd5fe196c69787aacca2f"></a><!-- doxytag: member="commontraining.cpp::FindClass" ref="aa89103a9b87cd5fe196c69787aacca2f" args="(LIST List, const char *Label)" -->
@@ -250,6 +291,20 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="commontraining_8cpp_source.html#l00778">778</a> of file <a class="el" href="commontraining_8cpp_source.html">commontraining.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">{
+  <a class="code" href="struct_m_e_r_g_e___c_l_a_s_s___n_o_d_e.html">MERGE_CLASS</a>   MergeClass;
+
+  <a class="code" href="oldlist_8h.html#a2cf19ba78be6b54f66823d58f34f2a53">iterate</a> (List)
+  {
+    MergeClass = (<a class="code" href="commontraining_8h.html#a04868818ab7f00c7b35f7f978dca7852">MERGE_CLASS</a>) <a class="code" href="oldlist_8h.html#a69547be764424f18b0be535400747978">first_node</a> (List);
+    <span class="keywordflow">if</span> (strcmp (MergeClass-&gt;<a class="code" href="struct_m_e_r_g_e___c_l_a_s_s___n_o_d_e.html#a748285b0d7014218f0b335dcb0513168">Label</a>, Label) == 0)
+      <span class="keywordflow">return</span> (MergeClass);
+  }
+  <span class="keywordflow">return</span> (<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+
+}       <span class="comment">/* FindClass */</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7acd4f2950ab3bd42ed87dc7b081be83"></a><!-- doxytag: member="commontraining.cpp::FindList" ref="a7acd4f2950ab3bd42ed87dc7b081be83" args="(LIST List, char *Label)" -->
@@ -277,6 +332,20 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="commontraining_8cpp_source.html#l00385">385</a> of file <a class="el" href="commontraining_8cpp_source.html">commontraining.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">{
+  <a class="code" href="struct_l_a_b_e_l_e_d_l_i_s_t_n_o_d_e.html">LABELEDLIST</a>   LabeledList;
+
+  <a class="code" href="oldlist_8h.html#a2cf19ba78be6b54f66823d58f34f2a53">iterate</a> (List)
+  {
+    LabeledList = (<a class="code" href="commontraining_8h.html#af49d04c90ffcf9376c7a1e1db99182cb">LABELEDLIST</a>) <a class="code" href="oldlist_8h.html#a69547be764424f18b0be535400747978">first_node</a> (List);
+    <span class="keywordflow">if</span> (strcmp (LabeledList-&gt;<a class="code" href="struct_l_a_b_e_l_e_d_l_i_s_t_n_o_d_e.html#ad4701118c2e75f005c1f7e4c53abb35d">Label</a>, Label) == 0)
+      <span class="keywordflow">return</span> (LabeledList);
+  }
+  <span class="keywordflow">return</span> (<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+
+}       <span class="comment">/* FindList */</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a0f90ef232622ab0d996654dd91a278e2"></a><!-- doxytag: member="commontraining.cpp::FreeLabeledClassList" ref="a0f90ef232622ab0d996654dd91a278e2" args="(LIST ClassList)" -->
@@ -294,6 +363,21 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="commontraining_8cpp_source.html#l00809">809</a> of file <a class="el" href="commontraining_8cpp_source.html">commontraining.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">{
+  <a class="code" href="struct_m_e_r_g_e___c_l_a_s_s___n_o_d_e.html">MERGE_CLASS</a>   MergeClass;
+
+  <a class="code" href="oldlist_8h.html#a2cf19ba78be6b54f66823d58f34f2a53">iterate</a> (ClassList)           <span class="comment">/* iterate thru all of the fonts */</span>
+  {
+    MergeClass = (<a class="code" href="commontraining_8h.html#a04868818ab7f00c7b35f7f978dca7852">MERGE_CLASS</a>) <a class="code" href="oldlist_8h.html#a69547be764424f18b0be535400747978">first_node</a> (ClassList);
+    free (MergeClass-&gt;<a class="code" href="struct_m_e_r_g_e___c_l_a_s_s___n_o_d_e.html#a748285b0d7014218f0b335dcb0513168">Label</a>);
+    <a class="code" href="protos_8cpp.html#a751a34c0eb8b7dcba1439287dd3eb3d5">FreeClass</a>(MergeClass-&gt;<a class="code" href="struct_m_e_r_g_e___c_l_a_s_s___n_o_d_e.html#a1c7b735de8e1caa16763adf0cfc95593">Class</a>);
+    <span class="keyword">delete</span> MergeClass;
+  }
+  <a class="code" href="oldlist_8cpp.html#a338e68bdadcbdf51db4c7268c4529409">destroy</a> (ClassList);
+
+}       <span class="comment">/* FreeLabeledClassList */</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a499ee1a13b378e272171053afca0de80"></a><!-- doxytag: member="commontraining.cpp::FreeLabeledList" ref="a499ee1a13b378e272171053afca0de80" args="(LABELEDLIST LabeledList)" -->
@@ -311,6 +395,25 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="commontraining_8cpp_source.html#l00548">548</a> of file <a class="el" href="commontraining_8cpp_source.html">commontraining.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                              {
+<span class="comment">/*</span>
+<span class="comment"> **     Parameters:</span>
+<span class="comment"> **             LabeledList     labeled list to be freed</span>
+<span class="comment"> **     Globals: none</span>
+<span class="comment"> **     Operation:</span>
+<span class="comment"> **             This routine deallocates all of the memory consumed by</span>
+<span class="comment"> **             a labeled list.  It does not free any memory which may be</span>
+<span class="comment"> **             consumed by the items in the list.</span>
+<span class="comment"> **     Return: none</span>
+<span class="comment"> **     Exceptions: none</span>
+<span class="comment"> **     History: Fri Aug 18 17:52:45 1989, DSJ, Created.</span>
+<span class="comment"> */</span>
+  <a class="code" href="oldlist_8cpp.html#a338e68bdadcbdf51db4c7268c4529409">destroy</a>(LabeledList-&gt;<a class="code" href="struct_l_a_b_e_l_e_d_l_i_s_t_n_o_d_e.html#a848ab6ee611dbc860f80a47ecef2faa7">List</a>);
+  free(LabeledList-&gt;<a class="code" href="struct_l_a_b_e_l_e_d_l_i_s_t_n_o_d_e.html#ad4701118c2e75f005c1f7e4c53abb35d">Label</a>);
+  free(LabeledList);
+}  <span class="comment">/* FreeLabeledList */</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7a389fb9515f5942d514995b3dfb904c"></a><!-- doxytag: member="commontraining.cpp::FreeNormProtoList" ref="a7a389fb9515f5942d514995b3dfb904c" args="(LIST CharList)" -->
@@ -328,6 +431,19 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="commontraining_8cpp_source.html#l00919">919</a> of file <a class="el" href="commontraining_8cpp_source.html">commontraining.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">{
+  <a class="code" href="struct_l_a_b_e_l_e_d_l_i_s_t_n_o_d_e.html">LABELEDLIST</a>   char_sample;
+
+  <a class="code" href="oldlist_8h.html#a2cf19ba78be6b54f66823d58f34f2a53">iterate</a> (CharList)            <span class="comment">/* iterate thru all of the fonts */</span>
+  {
+    char_sample = (<a class="code" href="commontraining_8h.html#af49d04c90ffcf9376c7a1e1db99182cb">LABELEDLIST</a>) <a class="code" href="oldlist_8h.html#a69547be764424f18b0be535400747978">first_node</a> (CharList);
+    <a class="code" href="commontraining_8cpp.html#a499ee1a13b378e272171053afca0de80">FreeLabeledList</a> (char_sample);
+  }
+  <a class="code" href="oldlist_8cpp.html#a338e68bdadcbdf51db4c7268c4529409">destroy</a> (CharList);
+
+}       <span class="comment">// FreeNormProtoList</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2eb4d580c0984a25fea59c6ec1196cec"></a><!-- doxytag: member="commontraining.cpp::FreeTrainingSamples" ref="a2eb4d580c0984a25fea59c6ec1196cec" args="(LIST CharList)" -->
@@ -345,6 +461,36 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="commontraining_8cpp_source.html#l00518">518</a> of file <a class="el" href="commontraining_8cpp_source.html">commontraining.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                        {
+<span class="comment">/*</span>
+<span class="comment"> **     Parameters:</span>
+<span class="comment"> **             FontList        list of all fonts in document</span>
+<span class="comment"> **     Globals: none</span>
+<span class="comment"> **     Operation:</span>
+<span class="comment"> **             This routine deallocates all of the space allocated to</span>
+<span class="comment"> **             the specified list of training samples.</span>
+<span class="comment"> **     Return: none</span>
+<span class="comment"> **     Exceptions: none</span>
+<span class="comment"> **     History: Fri Aug 18 17:44:27 1989, DSJ, Created.</span>
+<span class="comment"> */</span>
+  <a class="code" href="struct_l_a_b_e_l_e_d_l_i_s_t_n_o_d_e.html">LABELEDLIST</a> char_sample;
+  <a class="code" href="struct_f_e_a_t_u_r_e___s_e_t___s_t_r_u_c_t.html">FEATURE_SET</a> FeatureSet;
+  <a class="code" href="structlist__rec.html">LIST</a> FeatureList;
+
+
+  <a class="code" href="oldlist_8h.html#a2cf19ba78be6b54f66823d58f34f2a53">iterate</a>(CharList) {  <span class="comment">/* iterate thru all of the fonts */</span>
+    char_sample = (<a class="code" href="commontraining_8h.html#af49d04c90ffcf9376c7a1e1db99182cb">LABELEDLIST</a>) <a class="code" href="oldlist_8h.html#a69547be764424f18b0be535400747978">first_node</a>(CharList);
+    FeatureList = char_sample-&gt;<a class="code" href="struct_l_a_b_e_l_e_d_l_i_s_t_n_o_d_e.html#a848ab6ee611dbc860f80a47ecef2faa7">List</a>;
+    <a class="code" href="oldlist_8h.html#a2cf19ba78be6b54f66823d58f34f2a53">iterate</a>(FeatureList) {  <span class="comment">/* iterate thru all of the classes */</span>
+      FeatureSet = (<a class="code" href="ocrfeatures_8h.html#ac0c2f756ba2c7f34a21efbe13a49ac39">FEATURE_SET</a>) <a class="code" href="oldlist_8h.html#a69547be764424f18b0be535400747978">first_node</a>(FeatureList);
+      <a class="code" href="ocrfeatures_8cpp.html#a72b29c3d875eb9a2241385b1f1388b2d">FreeFeatureSet</a>(FeatureSet);
+    }
+    <a class="code" href="commontraining_8cpp.html#a499ee1a13b378e272171053afca0de80">FreeLabeledList</a>(char_sample);
+  }
+  <a class="code" href="oldlist_8cpp.html#a338e68bdadcbdf51db4c7268c4529409">destroy</a>(CharList);
+}  <span class="comment">/* FreeTrainingSamples */</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="acc69f64ead8e1c64560ef259e5d87b5b"></a><!-- doxytag: member="commontraining.cpp::GetNextFilename" ref="acc69f64ead8e1c64560ef259e5d87b5b" args="(int argc, const char *const *argv)" -->
@@ -372,6 +518,27 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="commontraining_8cpp_source.html#l00362">362</a> of file <a class="el" href="commontraining_8cpp_source.html">commontraining.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                {
+  <span class="comment">/*</span>
+<span class="comment">   **   Parameters: none</span>
+<span class="comment">   **   Globals:</span>
+<span class="comment">   **           tessoptind                      defined by tessopt sys call</span>
+<span class="comment">   **   Operation:</span>
+<span class="comment">   **           This routine returns the next command line argument.  If</span>
+<span class="comment">   **           there are no remaining command line arguments, it returns</span>
+<span class="comment">   **           NULL.  This routine should only be called after all option</span>
+<span class="comment">   **           arguments have been parsed and removed with ParseArguments.</span>
+<span class="comment">   **   Return: Next command line argument or NULL.</span>
+<span class="comment">   **   Exceptions: none</span>
+<span class="comment">   **   History: Fri Aug 18 09:34:12 1989, DSJ, Created.</span>
+<span class="comment">   */</span>
+  <span class="keywordflow">if</span> (<a class="code" href="tessopt_8cpp.html#aef382bc42a86adef688f3b7901cc9593">tessoptind</a> &lt; argc)
+    <span class="keywordflow">return</span> argv[<a class="code" href="tessopt_8cpp.html#aef382bc42a86adef688f3b7901cc9593">tessoptind</a>++];
+  <span class="keywordflow">else</span>
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+}       <span class="comment">/* GetNextFilename */</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a88de955bbcaeab3e84facf165a1313c5"></a><!-- doxytag: member="commontraining.cpp::INT_PARAM_FLAG" ref="a88de955bbcaeab3e84facf165a1313c5" args="(debug_level, 0,&quot;Level of Trainer debugging&quot;)" -->
@@ -477,6 +644,70 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="commontraining_8cpp_source.html#l00618">618</a> of file <a class="el" href="commontraining_8cpp_source.html">commontraining.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                           {
+  <a class="code" href="struct_p_r_o_t_o_t_y_p_e.html">PROTOTYPE</a>     *Prototype;
+  <span class="keywordtype">bool</span> debug = strcmp(FLAGS_test_ch.c_str(), label) == 0;
+
+  <a class="code" href="structlist__rec.html">LIST</a> pProtoList = ProtoList;
+  <a class="code" href="oldlist_8h.html#a2cf19ba78be6b54f66823d58f34f2a53">iterate</a>(pProtoList) {
+    Prototype = (<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html">PROTOTYPE</a> *) <a class="code" href="oldlist_8h.html#a69547be764424f18b0be535400747978">first_node</a> (pProtoList);
+    <span class="keywordflow">if</span> (Prototype-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a5d94887aaa0acd7e4a0c04c420af5670">Significant</a> || Prototype-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a8e04c7f378d30c248bc6e55703ac69a6">Merged</a>)
+      <span class="keywordflow">continue</span>;
+    <a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a> best_dist = 0.125;
+    <a class="code" href="struct_p_r_o_t_o_t_y_p_e.html">PROTOTYPE</a>* best_match = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    <span class="comment">// Find the nearest alive prototype.</span>
+    <a class="code" href="structlist__rec.html">LIST</a> list_it = ProtoList;
+    <a class="code" href="oldlist_8h.html#a2cf19ba78be6b54f66823d58f34f2a53">iterate</a>(list_it) {
+      <a class="code" href="struct_p_r_o_t_o_t_y_p_e.html">PROTOTYPE</a>* test_p = (<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html">PROTOTYPE</a> *) <a class="code" href="oldlist_8h.html#a69547be764424f18b0be535400747978">first_node</a> (list_it);
+      <span class="keywordflow">if</span> (test_p != Prototype &amp;&amp; !test_p-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a8e04c7f378d30c248bc6e55703ac69a6">Merged</a>) {
+        <a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a> dist = <a class="code" href="kdtree_8cpp.html#abc92dabbfb9cb69dd9a8375f20c68da1">ComputeDistance</a>(Clusterer-&gt;<a class="code" href="struct_c_l_u_s_t_e_r_e_r.html#ac78a1d40ce4bac0a156a21e2d987f394">SampleSize</a>,
+                                       Clusterer-&gt;<a class="code" href="struct_c_l_u_s_t_e_r_e_r.html#af44850047e9f5b3648871d7517c04316">ParamDesc</a>,
+                                       Prototype-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#af9c4f61cdbf39f6494b4691799bd4fa6">Mean</a>, test_p-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#af9c4f61cdbf39f6494b4691799bd4fa6">Mean</a>);
+        <span class="keywordflow">if</span> (dist &lt; best_dist) {
+          best_match = test_p;
+          best_dist = dist;
+        }
+      }
+    }
+    <span class="keywordflow">if</span> (best_match != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp; !best_match-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a5d94887aaa0acd7e4a0c04c420af5670">Significant</a>) {
+      <span class="keywordflow">if</span> (debug)
+        <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Merging red clusters (%d+%d) at %g,%g and %g,%g\n&quot;</span>,
+                best_match-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a2ba6bfd64f308a26cdd0a75c52e002f5">NumSamples</a>, Prototype-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a2ba6bfd64f308a26cdd0a75c52e002f5">NumSamples</a>,
+                best_match-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#af9c4f61cdbf39f6494b4691799bd4fa6">Mean</a>[0], best_match-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#af9c4f61cdbf39f6494b4691799bd4fa6">Mean</a>[1],
+                Prototype-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#af9c4f61cdbf39f6494b4691799bd4fa6">Mean</a>[0], Prototype-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#af9c4f61cdbf39f6494b4691799bd4fa6">Mean</a>[1]);
+      best_match-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a2ba6bfd64f308a26cdd0a75c52e002f5">NumSamples</a> = <a class="code" href="cluster_8cpp.html#a13004a2cbbcf26c3d95fd207274823c9">MergeClusters</a>(Clusterer-&gt;<a class="code" href="struct_c_l_u_s_t_e_r_e_r.html#ac78a1d40ce4bac0a156a21e2d987f394">SampleSize</a>,
+                                             Clusterer-&gt;<a class="code" href="struct_c_l_u_s_t_e_r_e_r.html#af44850047e9f5b3648871d7517c04316">ParamDesc</a>,
+                                             best_match-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a2ba6bfd64f308a26cdd0a75c52e002f5">NumSamples</a>,
+                                             Prototype-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a2ba6bfd64f308a26cdd0a75c52e002f5">NumSamples</a>,
+                                             best_match-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#af9c4f61cdbf39f6494b4691799bd4fa6">Mean</a>,
+                                             best_match-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#af9c4f61cdbf39f6494b4691799bd4fa6">Mean</a>, Prototype-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#af9c4f61cdbf39f6494b4691799bd4fa6">Mean</a>);
+      Prototype-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a2ba6bfd64f308a26cdd0a75c52e002f5">NumSamples</a> = 0;
+      Prototype-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a8e04c7f378d30c248bc6e55703ac69a6">Merged</a> = 1;
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (best_match != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      <span class="keywordflow">if</span> (debug)
+        <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Red proto at %g,%g matched a green one at %g,%g\n&quot;</span>,
+                Prototype-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#af9c4f61cdbf39f6494b4691799bd4fa6">Mean</a>[0], Prototype-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#af9c4f61cdbf39f6494b4691799bd4fa6">Mean</a>[1],
+                best_match-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#af9c4f61cdbf39f6494b4691799bd4fa6">Mean</a>[0], best_match-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#af9c4f61cdbf39f6494b4691799bd4fa6">Mean</a>[1]);
+      Prototype-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a8e04c7f378d30c248bc6e55703ac69a6">Merged</a> = 1;
+    }
+  }
+  <span class="comment">// Mark significant those that now have enough samples.</span>
+  <span class="keywordtype">int</span> min_samples = (<a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a>) (Config-&gt;<a class="code" href="struct_c_l_u_s_t_e_r_c_o_n_f_i_g.html#a30f3f6f54aa8e9371a0398f04bca0de3">MinSamples</a> * Clusterer-&gt;<a class="code" href="struct_c_l_u_s_t_e_r_e_r.html#aa4a7b4654dcb4918ac9a282d976b72d9">NumChar</a>);
+  pProtoList = ProtoList;
+  <a class="code" href="oldlist_8h.html#a2cf19ba78be6b54f66823d58f34f2a53">iterate</a>(pProtoList) {
+    Prototype = (<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html">PROTOTYPE</a> *) <a class="code" href="oldlist_8h.html#a69547be764424f18b0be535400747978">first_node</a> (pProtoList);
+    <span class="comment">// Process insignificant protos that do not match a green one</span>
+    <span class="keywordflow">if</span> (!Prototype-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a5d94887aaa0acd7e4a0c04c420af5670">Significant</a> &amp;&amp; Prototype-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a2ba6bfd64f308a26cdd0a75c52e002f5">NumSamples</a> &gt;= min_samples &amp;&amp;
+        !Prototype-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a8e04c7f378d30c248bc6e55703ac69a6">Merged</a>) {
+      <span class="keywordflow">if</span> (debug)
+        <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Red proto at %g,%g becoming green\n&quot;</span>,
+                Prototype-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#af9c4f61cdbf39f6494b4691799bd4fa6">Mean</a>[0], Prototype-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#af9c4f61cdbf39f6494b4691799bd4fa6">Mean</a>[1]);
+      Prototype-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a5d94887aaa0acd7e4a0c04c420af5670">Significant</a> = <span class="keyword">true</span>;
+    }
+  }
+}       <span class="comment">/* MergeInsignificantProtos */</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad07aa0e45caed9a49158afcd82d9e825"></a><!-- doxytag: member="commontraining.cpp::NewLabeledClass" ref="ad07aa0e45caed9a49158afcd82d9e825" args="(const char *Label)" -->
@@ -494,6 +725,18 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="commontraining_8cpp_source.html#l00795">795</a> of file <a class="el" href="commontraining_8cpp_source.html">commontraining.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">{
+  <a class="code" href="struct_m_e_r_g_e___c_l_a_s_s___n_o_d_e.html">MERGE_CLASS</a>   MergeClass;
+
+  MergeClass = <span class="keyword">new</span> <a class="code" href="struct_m_e_r_g_e___c_l_a_s_s___n_o_d_e.html">MERGE_CLASS_NODE</a>;
+  MergeClass-&gt;<a class="code" href="struct_m_e_r_g_e___c_l_a_s_s___n_o_d_e.html#a748285b0d7014218f0b335dcb0513168">Label</a> = (<span class="keywordtype">char</span>*)<a class="code" href="emalloc_8cpp.html#a55f2088f1a7b3333bb5c7275ab726bba">Emalloc</a> (strlen (Label)+1);
+  strcpy (MergeClass-&gt;<a class="code" href="struct_m_e_r_g_e___c_l_a_s_s___n_o_d_e.html#a748285b0d7014218f0b335dcb0513168">Label</a>, Label);
+  MergeClass-&gt;<a class="code" href="struct_m_e_r_g_e___c_l_a_s_s___n_o_d_e.html#a1c7b735de8e1caa16763adf0cfc95593">Class</a> = <a class="code" href="protos_8cpp.html#ae1b779964924a618a307d8d6f0ec6dff">NewClass</a> (<a class="code" href="intproto_8h.html#a3e890a5d21d8456ad197510fd7caf277">MAX_NUM_PROTOS</a>, <a class="code" href="intproto_8h.html#a5f9a45f938cb06ecc0f9dbdc144155b1">MAX_NUM_CONFIGS</a>);
+  <span class="keywordflow">return</span> (MergeClass);
+
+}       <span class="comment">/* NewLabeledClass */</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a83417b534a3cb0ea9e43eba33e37f1bc"></a><!-- doxytag: member="commontraining.cpp::NewLabeledList" ref="a83417b534a3cb0ea9e43eba33e37f1bc" args="(const char *Label)" -->
@@ -511,6 +754,20 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="commontraining_8cpp_source.html#l00417">417</a> of file <a class="el" href="commontraining_8cpp_source.html">commontraining.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">{
+  <a class="code" href="struct_l_a_b_e_l_e_d_l_i_s_t_n_o_d_e.html">LABELEDLIST</a>   LabeledList;
+
+  LabeledList = (<a class="code" href="commontraining_8h.html#af49d04c90ffcf9376c7a1e1db99182cb">LABELEDLIST</a>) <a class="code" href="emalloc_8cpp.html#a55f2088f1a7b3333bb5c7275ab726bba">Emalloc</a> (<span class="keyword">sizeof</span> (<a class="code" href="struct_l_a_b_e_l_e_d_l_i_s_t_n_o_d_e.html">LABELEDLISTNODE</a>));
+  LabeledList-&gt;<a class="code" href="struct_l_a_b_e_l_e_d_l_i_s_t_n_o_d_e.html#ad4701118c2e75f005c1f7e4c53abb35d">Label</a> = (<span class="keywordtype">char</span>*)<a class="code" href="emalloc_8cpp.html#a55f2088f1a7b3333bb5c7275ab726bba">Emalloc</a> (strlen (Label)+1);
+  strcpy (LabeledList-&gt;<a class="code" href="struct_l_a_b_e_l_e_d_l_i_s_t_n_o_d_e.html#ad4701118c2e75f005c1f7e4c53abb35d">Label</a>, Label);
+  LabeledList-&gt;<a class="code" href="struct_l_a_b_e_l_e_d_l_i_s_t_n_o_d_e.html#a848ab6ee611dbc860f80a47ecef2faa7">List</a> = <a class="code" href="oldlist_8h.html#ae212530ca629c67513698e988c705a5a">NIL_LIST</a>;
+  LabeledList-&gt;<a class="code" href="struct_l_a_b_e_l_e_d_l_i_s_t_n_o_d_e.html#aab481329945e65c4aeee79b145e4de51">SampleCount</a> = 0;
+  LabeledList-&gt;<a class="code" href="struct_l_a_b_e_l_e_d_l_i_s_t_n_o_d_e.html#af23335c4319e0c5f010380d9de8f5a6d">font_sample_count</a> = 0;
+  <span class="keywordflow">return</span> (LabeledList);
+
+}       <span class="comment">/* NewLabeledList */</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a8959d42d4e9ba28a3e128aed3cefb479"></a><!-- doxytag: member="commontraining.cpp::Normalize" ref="a8959d42d4e9ba28a3e128aed3cefb479" args="(float *Values)" -->
@@ -528,6 +785,21 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="commontraining_8cpp_source.html#l00902">902</a> of file <a class="el" href="commontraining_8cpp_source.html">commontraining.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">{
+  <span class="keyword">register</span> <span class="keywordtype">float</span> Slope;
+  <span class="keyword">register</span> <span class="keywordtype">float</span> Intercept;
+  <span class="keyword">register</span> <span class="keywordtype">float</span> Normalizer;
+
+  Slope      = tan (Values [2] * 2 * <a class="code" href="const_8h.html#a598a3330b3c21701223ee0ca14316eca">PI</a>);
+  Intercept  = Values [1] - Slope * Values [0];
+  Normalizer = 1 / sqrt (Slope * Slope + 1.0);
+
+  Values [0] = Slope * Normalizer;
+  Values [1] = - Normalizer;
+  Values [2] = Intercept * Normalizer;
+} <span class="comment">// Normalize</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="abeba7db95e0009664b96ac0441e7dc16"></a><!-- doxytag: member="commontraining.cpp::NumberOfProtos" ref="abeba7db95e0009664b96ac0441e7dc16" args="(LIST ProtoList, BOOL8 CountSigProtos, BOOL8 CountInsigProtos)" -->
@@ -561,6 +833,21 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="commontraining_8cpp_source.html#l00953">953</a> of file <a class="el" href="commontraining_8cpp_source.html">commontraining.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">{
+  <span class="keywordtype">int</span> N = 0;
+  <a class="code" href="struct_p_r_o_t_o_t_y_p_e.html">PROTOTYPE</a>     *Proto;
+
+  <a class="code" href="oldlist_8h.html#a2cf19ba78be6b54f66823d58f34f2a53">iterate</a>(ProtoList)
+  {
+    Proto = (<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html">PROTOTYPE</a> *) <a class="code" href="oldlist_8h.html#a69547be764424f18b0be535400747978">first_node</a> ( ProtoList );
+    <span class="keywordflow">if</span> (( Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a5d94887aaa0acd7e4a0c04c420af5670">Significant</a> &amp;&amp; CountSigProtos )        ||
+        ( ! Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a5d94887aaa0acd7e4a0c04c420af5670">Significant</a> &amp;&amp; CountInsigProtos ) )
+      N++;
+  }
+  <span class="keywordflow">return</span>(N);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a5177d61ebf73a60571198cb6eaa753ac"></a><!-- doxytag: member="commontraining.cpp::ParseArguments" ref="a5177d61ebf73a60571198cb6eaa753ac" args="(int *argc, char ***argv)" -->
@@ -588,6 +875,99 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="commontraining_8cpp_source.html#l00088">88</a> of file <a class="el" href="commontraining_8cpp_source.html">commontraining.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                             {
+<span class="comment">/*</span>
+<span class="comment"> **     Parameters:</span>
+<span class="comment"> **             argc    number of command line arguments to parse</span>
+<span class="comment"> **             argv    command line arguments</span>
+<span class="comment"> **     Globals:</span>
+<span class="comment"> **             ShowSignificantProtos   flag controlling proto display</span>
+<span class="comment"> **             ShowInsignificantProtos flag controlling proto display</span>
+<span class="comment"> **             Config                  current clustering parameters</span>
+<span class="comment"> **             tessoptarg, tessoptind          defined by tessopt sys call</span>
+<span class="comment"> **             Argc, Argv              global copies of argc and argv</span>
+<span class="comment"> **     Operation:</span>
+<span class="comment"> **             This routine parses the command line arguments that were</span>
+<span class="comment"> **             passed to the program.  The legal arguments are shown in the usage</span>
+<span class="comment"> **             message below:</span>
+<span class="comment"></span>
+<span class="comment"> **     Return: none</span>
+<span class="comment"> **     Exceptions: Illegal options terminate the program.</span>
+<span class="comment"> **     History: 7/24/89, DSJ, Created.</span>
+<span class="comment"> */</span>
+<span class="preprocessor">#ifndef USE_STD_NAMESPACE</span>
+<span class="preprocessor"></span>  InitGoogle(<a class="code" href="commontraining_8cpp.html#ac1e8179d7ded1e0ae4170780e168b5cc">kUsage</a>, argc, argv, <span class="keyword">true</span>);
+  <a class="code" href="tessopt_8cpp.html#aef382bc42a86adef688f3b7901cc9593">tessoptind</a> = 1;
+<span class="preprocessor">#else</span>
+<span class="preprocessor"></span>  <span class="keywordtype">int</span>    Option;
+  <span class="keywordtype">int</span>    ParametersRead;
+  <a class="code" href="host_8h.html#a7712a7e28433d0ade59219a129549b6f">BOOL8</a>  Error;
+
+  Error = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+  <span class="keywordflow">while</span> ((Option = <a class="code" href="tessopt_8cpp.html#a810b696d632429d99dd1a92fbcfed32d">tessopt</a>(*argc, *argv, <span class="stringliteral">&quot;F:O:U:D:C:I:M:B:S:X:c:&quot;</span>)) != EOF) {
+    <span class="keywordflow">switch</span> (Option) {
+      <span class="keywordflow">case</span> <span class="charliteral">&#39;C&#39;</span>:
+        ParametersRead = sscanf(<a class="code" href="tessopt_8cpp.html#ae2c7e7835346e9460d1534ecc3ba3f2f">tessoptarg</a>, <span class="stringliteral">&quot;%lf&quot;</span>, &amp;(<a class="code" href="commontraining_8cpp.html#a1630a3dc82a9a7cef07bb6153df9eb9c">Config</a>.<a class="code" href="struct_c_l_u_s_t_e_r_c_o_n_f_i_g.html#a4758d8ddf0644e204132b779a786b6fb">Confidence</a>) );
+        <span class="keywordflow">if</span> ( ParametersRead != 1 ) Error = <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+        <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( <a class="code" href="commontraining_8cpp.html#a1630a3dc82a9a7cef07bb6153df9eb9c">Config</a>.<a class="code" href="struct_c_l_u_s_t_e_r_c_o_n_f_i_g.html#a4758d8ddf0644e204132b779a786b6fb">Confidence</a> &gt; 1 ) <a class="code" href="commontraining_8cpp.html#a1630a3dc82a9a7cef07bb6153df9eb9c">Config</a>.<a class="code" href="struct_c_l_u_s_t_e_r_c_o_n_f_i_g.html#a4758d8ddf0644e204132b779a786b6fb">Confidence</a> = 1;
+        <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( <a class="code" href="commontraining_8cpp.html#a1630a3dc82a9a7cef07bb6153df9eb9c">Config</a>.<a class="code" href="struct_c_l_u_s_t_e_r_c_o_n_f_i_g.html#a4758d8ddf0644e204132b779a786b6fb">Confidence</a> &lt; 0 ) <a class="code" href="commontraining_8cpp.html#a1630a3dc82a9a7cef07bb6153df9eb9c">Config</a>.<a class="code" href="struct_c_l_u_s_t_e_r_c_o_n_f_i_g.html#a4758d8ddf0644e204132b779a786b6fb">Confidence</a> = 0;
+        <span class="keywordflow">break</span>;
+      <span class="keywordflow">case</span> <span class="charliteral">&#39;I&#39;</span>:
+        ParametersRead = sscanf(<a class="code" href="tessopt_8cpp.html#ae2c7e7835346e9460d1534ecc3ba3f2f">tessoptarg</a>, <span class="stringliteral">&quot;%f&quot;</span>, &amp;(<a class="code" href="commontraining_8cpp.html#a1630a3dc82a9a7cef07bb6153df9eb9c">Config</a>.<a class="code" href="struct_c_l_u_s_t_e_r_c_o_n_f_i_g.html#a77c7d2361e92592098a3287cabc26a6d">Independence</a>) );
+        <span class="keywordflow">if</span> ( ParametersRead != 1 ) Error = <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+        <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( <a class="code" href="commontraining_8cpp.html#a1630a3dc82a9a7cef07bb6153df9eb9c">Config</a>.<a class="code" href="struct_c_l_u_s_t_e_r_c_o_n_f_i_g.html#a77c7d2361e92592098a3287cabc26a6d">Independence</a> &gt; 1 ) <a class="code" href="commontraining_8cpp.html#a1630a3dc82a9a7cef07bb6153df9eb9c">Config</a>.<a class="code" href="struct_c_l_u_s_t_e_r_c_o_n_f_i_g.html#a77c7d2361e92592098a3287cabc26a6d">Independence</a> = 1;
+        <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( <a class="code" href="commontraining_8cpp.html#a1630a3dc82a9a7cef07bb6153df9eb9c">Config</a>.<a class="code" href="struct_c_l_u_s_t_e_r_c_o_n_f_i_g.html#a77c7d2361e92592098a3287cabc26a6d">Independence</a> &lt; 0 ) <a class="code" href="commontraining_8cpp.html#a1630a3dc82a9a7cef07bb6153df9eb9c">Config</a>.<a class="code" href="struct_c_l_u_s_t_e_r_c_o_n_f_i_g.html#a77c7d2361e92592098a3287cabc26a6d">Independence</a> = 0;
+        <span class="keywordflow">break</span>;
+      <span class="keywordflow">case</span> <span class="charliteral">&#39;M&#39;</span>:
+        ParametersRead = sscanf(<a class="code" href="tessopt_8cpp.html#ae2c7e7835346e9460d1534ecc3ba3f2f">tessoptarg</a>, <span class="stringliteral">&quot;%f&quot;</span>, &amp;(<a class="code" href="commontraining_8cpp.html#a1630a3dc82a9a7cef07bb6153df9eb9c">Config</a>.<a class="code" href="struct_c_l_u_s_t_e_r_c_o_n_f_i_g.html#a30f3f6f54aa8e9371a0398f04bca0de3">MinSamples</a>) );
+        <span class="keywordflow">if</span> ( ParametersRead != 1 ) Error = <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+        <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( <a class="code" href="commontraining_8cpp.html#a1630a3dc82a9a7cef07bb6153df9eb9c">Config</a>.<a class="code" href="struct_c_l_u_s_t_e_r_c_o_n_f_i_g.html#a30f3f6f54aa8e9371a0398f04bca0de3">MinSamples</a> &gt; 1 ) <a class="code" href="commontraining_8cpp.html#a1630a3dc82a9a7cef07bb6153df9eb9c">Config</a>.<a class="code" href="struct_c_l_u_s_t_e_r_c_o_n_f_i_g.html#a30f3f6f54aa8e9371a0398f04bca0de3">MinSamples</a> = 1;
+        <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( <a class="code" href="commontraining_8cpp.html#a1630a3dc82a9a7cef07bb6153df9eb9c">Config</a>.<a class="code" href="struct_c_l_u_s_t_e_r_c_o_n_f_i_g.html#a30f3f6f54aa8e9371a0398f04bca0de3">MinSamples</a> &lt; 0 ) <a class="code" href="commontraining_8cpp.html#a1630a3dc82a9a7cef07bb6153df9eb9c">Config</a>.<a class="code" href="struct_c_l_u_s_t_e_r_c_o_n_f_i_g.html#a30f3f6f54aa8e9371a0398f04bca0de3">MinSamples</a> = 0;
+        <span class="keywordflow">break</span>;
+      <span class="keywordflow">case</span> <span class="charliteral">&#39;B&#39;</span>:
+        ParametersRead = sscanf(<a class="code" href="tessopt_8cpp.html#ae2c7e7835346e9460d1534ecc3ba3f2f">tessoptarg</a>, <span class="stringliteral">&quot;%f&quot;</span>, &amp;(<a class="code" href="commontraining_8cpp.html#a1630a3dc82a9a7cef07bb6153df9eb9c">Config</a>.<a class="code" href="struct_c_l_u_s_t_e_r_c_o_n_f_i_g.html#aaf0758a0e763d9525d6d7781db8ade14">MaxIllegal</a>) );
+        <span class="keywordflow">if</span> ( ParametersRead != 1 ) Error = <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+        <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( <a class="code" href="commontraining_8cpp.html#a1630a3dc82a9a7cef07bb6153df9eb9c">Config</a>.<a class="code" href="struct_c_l_u_s_t_e_r_c_o_n_f_i_g.html#aaf0758a0e763d9525d6d7781db8ade14">MaxIllegal</a> &gt; 1 ) <a class="code" href="commontraining_8cpp.html#a1630a3dc82a9a7cef07bb6153df9eb9c">Config</a>.<a class="code" href="struct_c_l_u_s_t_e_r_c_o_n_f_i_g.html#aaf0758a0e763d9525d6d7781db8ade14">MaxIllegal</a> = 1;
+        <span class="keywordflow">else</span> <span class="keywordflow">if</span> ( <a class="code" href="commontraining_8cpp.html#a1630a3dc82a9a7cef07bb6153df9eb9c">Config</a>.<a class="code" href="struct_c_l_u_s_t_e_r_c_o_n_f_i_g.html#aaf0758a0e763d9525d6d7781db8ade14">MaxIllegal</a> &lt; 0 ) <a class="code" href="commontraining_8cpp.html#a1630a3dc82a9a7cef07bb6153df9eb9c">Config</a>.<a class="code" href="struct_c_l_u_s_t_e_r_c_o_n_f_i_g.html#aaf0758a0e763d9525d6d7781db8ade14">MaxIllegal</a> = 0;
+        <span class="keywordflow">break</span>;
+      <span class="keywordflow">case</span> <span class="charliteral">&#39;c&#39;</span>:
+        FLAGS_configfile.set_value(<a class="code" href="tessopt_8cpp.html#ae2c7e7835346e9460d1534ecc3ba3f2f">tessoptarg</a>);
+        <span class="keywordflow">break</span>;
+      <span class="keywordflow">case</span> <span class="charliteral">&#39;D&#39;</span>:
+        FLAGS_D.set_value(<a class="code" href="tessopt_8cpp.html#ae2c7e7835346e9460d1534ecc3ba3f2f">tessoptarg</a>);
+        <span class="keywordflow">break</span>;
+      <span class="keywordflow">case</span> <span class="charliteral">&#39;U&#39;</span>:
+        FLAGS_U.set_value(<a class="code" href="tessopt_8cpp.html#ae2c7e7835346e9460d1534ecc3ba3f2f">tessoptarg</a>);
+        <span class="keywordflow">break</span>;
+      <span class="keywordflow">case</span> <span class="charliteral">&#39;O&#39;</span>:
+        FLAGS_O.set_value(<a class="code" href="tessopt_8cpp.html#ae2c7e7835346e9460d1534ecc3ba3f2f">tessoptarg</a>);
+        <span class="keywordflow">break</span>;
+      <span class="keywordflow">case</span> <span class="charliteral">&#39;F&#39;</span>:
+        FLAGS_F.set_value(<a class="code" href="tessopt_8cpp.html#ae2c7e7835346e9460d1534ecc3ba3f2f">tessoptarg</a>);
+        <span class="keywordflow">break</span>;
+      <span class="keywordflow">case</span> <span class="charliteral">&#39;X&#39;</span>:
+        FLAGS_X.set_value(<a class="code" href="tessopt_8cpp.html#ae2c7e7835346e9460d1534ecc3ba3f2f">tessoptarg</a>);
+        <span class="keywordflow">break</span>;
+      <span class="keywordflow">case</span> <span class="charliteral">&#39;?&#39;</span>:
+        Error = <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+        <span class="keywordflow">break</span>;
+    }
+    <span class="keywordflow">if</span> (Error) {
+      fprintf(stderr, <span class="stringliteral">&quot;Usage: %s %s\n&quot;</span>, (*argv)[0], <a class="code" href="commontraining_8cpp.html#ac1e8179d7ded1e0ae4170780e168b5cc">kUsage</a>);
+      exit(2);
+    }
+  }
+<span class="preprocessor">#endif</span>
+<span class="preprocessor"></span>  <span class="comment">// Set additional parameters from config file if specified.</span>
+  <span class="keywordflow">if</span> (!FLAGS_configfile.empty()) {
+    <a class="code" href="classtesseract_1_1_param_utils.html#a0709ab180ade22613925bc317ddf34b7">tesseract::ParamUtils::ReadParamsFile</a>(
+        FLAGS_configfile.c_str(),
+        <a class="code" href="namespacetesseract.html#a0fc9989588ecf8f236da49b58f96a6c5a713c7bc13788ed69eb16dd9e5f309d12">tesseract::SET_PARAM_CONSTRAINT_NON_INIT_ONLY</a>,
+        <a class="code" href="commontraining_8cpp.html#acbe955bd3fe0e5af5ace2d4bb3c1fbe7">ccutil</a>.<a class="code" href="classtesseract_1_1_c_c_util.html#ac993425386ae1f73762107299ee8a114">params</a>());
+  }
+}  <span class="comment">// ParseArguments</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a858311d0ef1820c6e83cc15ecc0e0e28"></a><!-- doxytag: member="commontraining.cpp::ReadTrainingSamples" ref="a858311d0ef1820c6e83cc15ecc0e0e28" args="(const FEATURE_DEFS_STRUCT &amp;feature_defs, const char *feature_name, int max_samples, UNICHARSET *unicharset, FILE *file, LIST *training_samples)" -->
@@ -639,6 +1019,72 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="commontraining_8cpp_source.html#l00448">448</a> of file <a class="el" href="commontraining_8cpp_source.html">commontraining.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                             {
+<span class="comment">/*</span>
+<span class="comment">**  Parameters:</span>
+<span class="comment">**    file    open text file to read samples from</span>
+<span class="comment">**  Globals: none</span>
+<span class="comment">**  Operation:</span>
+<span class="comment">**    This routine reads training samples from a file and</span>
+<span class="comment">**    places them into a data structure which organizes the</span>
+<span class="comment">**    samples by FontName and CharName.  It then returns this</span>
+<span class="comment">**    data structure.</span>
+<span class="comment">**  Return: none</span>
+<span class="comment">**  Exceptions: none</span>
+<span class="comment">**  History: Fri Aug 18 13:11:39 1989, DSJ, Created.</span>
+<span class="comment">**       Tue May 17 1998 simplifications to structure, illiminated</span>
+<span class="comment">**        font, and feature specification levels of structure.</span>
+<span class="comment">*/</span>
+  <span class="keywordtype">char</span>    buffer[2048];
+  <span class="keywordtype">char</span>    unichar[<a class="code" href="unichar_8h.html#a902bc40c9d89802bc063afe30ce9e708">UNICHAR_LEN</a> + 1];
+  <a class="code" href="struct_l_a_b_e_l_e_d_l_i_s_t_n_o_d_e.html">LABELEDLIST</a> char_sample;
+  <a class="code" href="struct_f_e_a_t_u_r_e___s_e_t___s_t_r_u_c_t.html">FEATURE_SET</a> feature_samples;
+  <a class="code" href="struct_c_h_a_r___d_e_s_c___s_t_r_u_c_t.html">CHAR_DESC</a> char_desc;
+  <span class="keywordtype">int</span>   i;
+  <span class="keywordtype">int</span> feature_type = <a class="code" href="featdefs_8cpp.html#a46a09d60beb44b9c9156346595f352ee">ShortNameToFeatureType</a>(feature_defs, feature_name);
+  <span class="comment">// Zero out the font_sample_count for all the classes.</span>
+  <a class="code" href="structlist__rec.html">LIST</a> it = *training_samples;
+  <a class="code" href="oldlist_8h.html#a2cf19ba78be6b54f66823d58f34f2a53">iterate</a>(it) {
+    char_sample = <span class="keyword">reinterpret_cast&lt;</span><a class="code" href="struct_l_a_b_e_l_e_d_l_i_s_t_n_o_d_e.html">LABELEDLIST</a><span class="keyword">&gt;</span>(<a class="code" href="oldlist_8h.html#a69547be764424f18b0be535400747978">first_node</a>(it));
+    char_sample-&gt;<a class="code" href="struct_l_a_b_e_l_e_d_l_i_s_t_n_o_d_e.html#af23335c4319e0c5f010380d9de8f5a6d">font_sample_count</a> = 0;
+  }
+
+  <span class="keywordflow">while</span> (fgets(buffer, 2048, file) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">if</span> (buffer[0] == <span class="charliteral">&#39;\n&#39;</span>)
+      <span class="keywordflow">continue</span>;
+
+    sscanf(buffer, <span class="stringliteral">&quot;%*s %s&quot;</span>, unichar);
+    <span class="keywordflow">if</span> (unicharset != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp; !unicharset-&gt;<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a9f8861ffb917e7341c821928da5865f0">contains_unichar</a>(unichar)) {
+      unicharset-&gt;<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#ab5198816dde686850da3530a1f8261fe">unichar_insert</a>(unichar);
+      <span class="keywordflow">if</span> (unicharset-&gt;<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#aa3e8073ebaf3e0022654c45f27135032">size</a>() &gt; <a class="code" href="matchdefs_8h.html#adcc52d7d059a8ca452172df64faa231c">MAX_NUM_CLASSES</a>) {
+        <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Error: Size of unicharset in training is &quot;</span>
+                <span class="stringliteral">&quot;greater than MAX_NUM_CLASSES\n&quot;</span>);
+        exit(1);
+      }
+    }
+    char_sample = <a class="code" href="commontraining_8cpp.html#a7acd4f2950ab3bd42ed87dc7b081be83">FindList</a>(*training_samples, unichar);
+    <span class="keywordflow">if</span> (char_sample == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      char_sample = <a class="code" href="commontraining_8cpp.html#a83417b534a3cb0ea9e43eba33e37f1bc">NewLabeledList</a>(unichar);
+      *training_samples = <a class="code" href="oldlist_8cpp.html#a9c4294375af81ab4c133b6b5a3679a16">push</a>(*training_samples, char_sample);
+    }
+    char_desc = <a class="code" href="featdefs_8cpp.html#ae1558f5d4119a9e651a85e10887be9f3">ReadCharDescription</a>(feature_defs, file);
+    feature_samples = char_desc-&gt;<a class="code" href="struct_c_h_a_r___d_e_s_c___s_t_r_u_c_t.html#ae04ec3a6b5e474d83930ff3e57a42acb">FeatureSets</a>[feature_type];
+    <span class="keywordflow">if</span> (char_sample-&gt;<a class="code" href="struct_l_a_b_e_l_e_d_l_i_s_t_n_o_d_e.html#af23335c4319e0c5f010380d9de8f5a6d">font_sample_count</a> &lt; max_samples || max_samples &lt;= 0) {
+      char_sample-&gt;<a class="code" href="struct_l_a_b_e_l_e_d_l_i_s_t_n_o_d_e.html#a848ab6ee611dbc860f80a47ecef2faa7">List</a> = <a class="code" href="oldlist_8cpp.html#a9c4294375af81ab4c133b6b5a3679a16">push</a>(char_sample-&gt;<a class="code" href="struct_l_a_b_e_l_e_d_l_i_s_t_n_o_d_e.html#a848ab6ee611dbc860f80a47ecef2faa7">List</a>, feature_samples);
+      char_sample-&gt;<a class="code" href="struct_l_a_b_e_l_e_d_l_i_s_t_n_o_d_e.html#aab481329945e65c4aeee79b145e4de51">SampleCount</a>++;
+      char_sample-&gt;<a class="code" href="struct_l_a_b_e_l_e_d_l_i_s_t_n_o_d_e.html#af23335c4319e0c5f010380d9de8f5a6d">font_sample_count</a>++;
+    } <span class="keywordflow">else</span> {
+      <a class="code" href="ocrfeatures_8cpp.html#a72b29c3d875eb9a2241385b1f1388b2d">FreeFeatureSet</a>(feature_samples);
+    }
+    <span class="keywordflow">for</span> (i = 0; i &lt; char_desc-&gt;<a class="code" href="struct_c_h_a_r___d_e_s_c___s_t_r_u_c_t.html#a44c9d1024eb43636b98d19c92f4e4b0f">NumFeatureSets</a>; i++) {
+      <span class="keywordflow">if</span> (feature_type != i)
+        <a class="code" href="ocrfeatures_8cpp.html#a72b29c3d875eb9a2241385b1f1388b2d">FreeFeatureSet</a>(char_desc-&gt;<a class="code" href="struct_c_h_a_r___d_e_s_c___s_t_r_u_c_t.html#ae04ec3a6b5e474d83930ff3e57a42acb">FeatureSets</a>[i]);
+    }
+    free(char_desc);
+  }
+}  <span class="comment">// ReadTrainingSamples</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aad49ec475f2a0dc40c789df41d101c94"></a><!-- doxytag: member="commontraining.cpp::RemoveInsignificantProtos" ref="aad49ec475f2a0dc40c789df41d101c94" args="(LIST ProtoList, BOOL8 KeepSigProtos, BOOL8 KeepInsigProtos, int N)" -->
@@ -678,6 +1124,68 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="commontraining_8cpp_source.html#l00710">710</a> of file <a class="el" href="commontraining_8cpp_source.html">commontraining.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">{
+  <a class="code" href="structlist__rec.html">LIST</a> NewProtoList = <a class="code" href="oldlist_8h.html#ae212530ca629c67513698e988c705a5a">NIL_LIST</a>;
+  <a class="code" href="structlist__rec.html">LIST</a> pProtoList;
+  <a class="code" href="struct_p_r_o_t_o_t_y_p_e.html">PROTOTYPE</a>* Proto;
+  <a class="code" href="struct_p_r_o_t_o_t_y_p_e.html">PROTOTYPE</a>* NewProto;
+  <span class="keywordtype">int</span> i;
+
+  pProtoList = ProtoList;
+  <a class="code" href="oldlist_8h.html#a2cf19ba78be6b54f66823d58f34f2a53">iterate</a>(pProtoList)
+  {
+    Proto = (<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html">PROTOTYPE</a> *) <a class="code" href="oldlist_8h.html#a69547be764424f18b0be535400747978">first_node</a> (pProtoList);
+    <span class="keywordflow">if</span> ((Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a5d94887aaa0acd7e4a0c04c420af5670">Significant</a> &amp;&amp; KeepSigProtos) ||
+        (!Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a5d94887aaa0acd7e4a0c04c420af5670">Significant</a> &amp;&amp; KeepInsigProtos))
+    {
+      NewProto = (<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html">PROTOTYPE</a> *)<a class="code" href="emalloc_8cpp.html#a55f2088f1a7b3333bb5c7275ab726bba">Emalloc</a>(<span class="keyword">sizeof</span>(<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html">PROTOTYPE</a>));
+
+      NewProto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#af9c4f61cdbf39f6494b4691799bd4fa6">Mean</a> = (<a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a> *)<a class="code" href="emalloc_8cpp.html#a55f2088f1a7b3333bb5c7275ab726bba">Emalloc</a>(N * <span class="keyword">sizeof</span>(<a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a>));
+      NewProto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a5d94887aaa0acd7e4a0c04c420af5670">Significant</a> = Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a5d94887aaa0acd7e4a0c04c420af5670">Significant</a>;
+      NewProto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#aad81f08b6e171698866b445c0b3d4b35">Style</a> = Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#aad81f08b6e171698866b445c0b3d4b35">Style</a>;
+      NewProto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a2ba6bfd64f308a26cdd0a75c52e002f5">NumSamples</a> = Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a2ba6bfd64f308a26cdd0a75c52e002f5">NumSamples</a>;
+      NewProto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#aff59384612de343b799b92a5d80282b7">Cluster</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+      NewProto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#ae53408c33cdd473a9ed1f028e8172b0b">Distrib</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+
+      <span class="keywordflow">for</span> (i=0; i &lt; N; i++)
+        NewProto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#af9c4f61cdbf39f6494b4691799bd4fa6">Mean</a>[i] = Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#af9c4f61cdbf39f6494b4691799bd4fa6">Mean</a>[i];
+      if (Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a35cf2e2dd8cc8b0e9476ad49f36abd24">Variance</a>.<a class="code" href="union_f_l_o_a_t_u_n_i_o_n.html#a4b36c5b636aac27041dd340386f3801f">Elliptical</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+      {
+        NewProto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a35cf2e2dd8cc8b0e9476ad49f36abd24">Variance</a>.<a class="code" href="union_f_l_o_a_t_u_n_i_o_n.html#a4b36c5b636aac27041dd340386f3801f">Elliptical</a> = (<a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a> *)<a class="code" href="emalloc_8cpp.html#a55f2088f1a7b3333bb5c7275ab726bba">Emalloc</a>(N * <span class="keyword">sizeof</span>(<a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a>));
+        <span class="keywordflow">for</span> (i=0; i &lt; N; i++)
+          NewProto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a35cf2e2dd8cc8b0e9476ad49f36abd24">Variance</a>.<a class="code" href="union_f_l_o_a_t_u_n_i_o_n.html#a4b36c5b636aac27041dd340386f3801f">Elliptical</a>[i] = Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a35cf2e2dd8cc8b0e9476ad49f36abd24">Variance</a>.<a class="code" href="union_f_l_o_a_t_u_n_i_o_n.html#a4b36c5b636aac27041dd340386f3801f">Elliptical</a>[i];
+      }
+      <span class="keywordflow">else</span>
+        NewProto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a35cf2e2dd8cc8b0e9476ad49f36abd24">Variance</a>.<a class="code" href="union_f_l_o_a_t_u_n_i_o_n.html#a4b36c5b636aac27041dd340386f3801f">Elliptical</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+      <span class="comment">//---------------------------------------------</span>
+      <span class="keywordflow">if</span> (Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a0b016afed9c049598aa41feb3770fc15">Magnitude</a>.<a class="code" href="union_f_l_o_a_t_u_n_i_o_n.html#a4b36c5b636aac27041dd340386f3801f">Elliptical</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+      {
+        NewProto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a0b016afed9c049598aa41feb3770fc15">Magnitude</a>.<a class="code" href="union_f_l_o_a_t_u_n_i_o_n.html#a4b36c5b636aac27041dd340386f3801f">Elliptical</a> = (<a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a> *)<a class="code" href="emalloc_8cpp.html#a55f2088f1a7b3333bb5c7275ab726bba">Emalloc</a>(N * <span class="keyword">sizeof</span>(<a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a>));
+        <span class="keywordflow">for</span> (i=0; i &lt; N; i++)
+          NewProto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a0b016afed9c049598aa41feb3770fc15">Magnitude</a>.<a class="code" href="union_f_l_o_a_t_u_n_i_o_n.html#a4b36c5b636aac27041dd340386f3801f">Elliptical</a>[i] = Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a0b016afed9c049598aa41feb3770fc15">Magnitude</a>.<a class="code" href="union_f_l_o_a_t_u_n_i_o_n.html#a4b36c5b636aac27041dd340386f3801f">Elliptical</a>[i];
+      }
+      <span class="keywordflow">else</span>
+        NewProto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a0b016afed9c049598aa41feb3770fc15">Magnitude</a>.<a class="code" href="union_f_l_o_a_t_u_n_i_o_n.html#a4b36c5b636aac27041dd340386f3801f">Elliptical</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+      <span class="comment">//------------------------------------------------</span>
+      <span class="keywordflow">if</span> (Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#af202ff952380614068536ea0b504285e">Weight</a>.<a class="code" href="union_f_l_o_a_t_u_n_i_o_n.html#a4b36c5b636aac27041dd340386f3801f">Elliptical</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+      {
+        NewProto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#af202ff952380614068536ea0b504285e">Weight</a>.<a class="code" href="union_f_l_o_a_t_u_n_i_o_n.html#a4b36c5b636aac27041dd340386f3801f">Elliptical</a> = (<a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a> *)<a class="code" href="emalloc_8cpp.html#a55f2088f1a7b3333bb5c7275ab726bba">Emalloc</a>(N * <span class="keyword">sizeof</span>(<a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a>));
+        <span class="keywordflow">for</span> (i=0; i &lt; N; i++)
+          NewProto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#af202ff952380614068536ea0b504285e">Weight</a>.<a class="code" href="union_f_l_o_a_t_u_n_i_o_n.html#a4b36c5b636aac27041dd340386f3801f">Elliptical</a>[i] = Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#af202ff952380614068536ea0b504285e">Weight</a>.<a class="code" href="union_f_l_o_a_t_u_n_i_o_n.html#a4b36c5b636aac27041dd340386f3801f">Elliptical</a>[i];
+      }
+      <span class="keywordflow">else</span>
+        NewProto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#af202ff952380614068536ea0b504285e">Weight</a>.<a class="code" href="union_f_l_o_a_t_u_n_i_o_n.html#a4b36c5b636aac27041dd340386f3801f">Elliptical</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+
+      NewProto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a40a4a7e28d83ad5ad3c64e54734104be">TotalMagnitude</a> = Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#a40a4a7e28d83ad5ad3c64e54734104be">TotalMagnitude</a>;
+      NewProto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#aefd3ba15fc4dd0029aa9cda07092382b">LogMagnitude</a> = Proto-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#aefd3ba15fc4dd0029aa9cda07092382b">LogMagnitude</a>;
+      NewProtoList = <a class="code" href="oldlist_8cpp.html#a1019c2e1108695bb4f33f83e02ee62ad">push_last</a>(NewProtoList, NewProto);
+    }
+  }
+  <a class="code" href="cluster_8cpp.html#a7e5357920f0bded023b15d29ddf15ebf">FreeProtoList</a>(&amp;ProtoList);
+  <span class="keywordflow">return</span> (NewProtoList);
+}       <span class="comment">/* RemoveInsignificantProtos */</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aeec0a66901e2f5ba2fba6c5023a6734e"></a><!-- doxytag: member="commontraining.cpp::SetUpForClustering" ref="aeec0a66901e2f5ba2fba6c5023a6734e" args="(const FEATURE_DEFS_STRUCT &amp;FeatureDefs, LABELEDLIST char_sample, const char *program_feature_type)" -->
@@ -711,6 +1219,55 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="commontraining_8cpp_source.html#l00567">567</a> of file <a class="el" href="commontraining_8cpp_source.html">commontraining.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                {
+<span class="comment">/*</span>
+<span class="comment"> **     Parameters:</span>
+<span class="comment"> **             char_sample: LABELEDLIST that holds all the feature information for a</span>
+<span class="comment"> **             given character.</span>
+<span class="comment"> **     Globals:</span>
+<span class="comment"> **             None</span>
+<span class="comment"> **     Operation:</span>
+<span class="comment"> **             This routine reads samples from a LABELEDLIST and enters</span>
+<span class="comment"> **             those samples into a clusterer data structure.  This</span>
+<span class="comment"> **             data structure is then returned to the caller.</span>
+<span class="comment"> **     Return:</span>
+<span class="comment"> **             Pointer to new clusterer data structure.</span>
+<span class="comment"> **     Exceptions:</span>
+<span class="comment"> **             None</span>
+<span class="comment"> **     History:</span>
+<span class="comment"> **             8/16/89, DSJ, Created.</span>
+<span class="comment"> */</span>
+  <a class="code" href="host_8h.html#acb2dfad543247740dab87d31bb49dfff">uinT16</a> N;
+  <span class="keywordtype">int</span> i, j;
+  <a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a> *Sample = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <a class="code" href="struct_c_l_u_s_t_e_r_e_r.html">CLUSTERER</a> *Clusterer;
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> CharID;
+  <a class="code" href="structlist__rec.html">LIST</a> FeatureList = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <a class="code" href="struct_f_e_a_t_u_r_e___s_e_t___s_t_r_u_c_t.html">FEATURE_SET</a> FeatureSet = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+
+  <span class="keywordtype">int</span> desc_index = <a class="code" href="featdefs_8cpp.html#a46a09d60beb44b9c9156346595f352ee">ShortNameToFeatureType</a>(FeatureDefs, program_feature_type);
+  N = FeatureDefs.<a class="code" href="struct_f_e_a_t_u_r_e___d_e_f_s___s_t_r_u_c_t.html#ab09a6d77d42a8a2b5882bbc27ee4f23c">FeatureDesc</a>[desc_index]-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___d_e_s_c___s_t_r_u_c_t.html#a0edbab02900ae01549f742582236eb6d">NumParams</a>;
+  Clusterer = <a class="code" href="cluster_8cpp.html#a93e53684b74358b68adf48b2ee32b042">MakeClusterer</a>(N, FeatureDefs.<a class="code" href="struct_f_e_a_t_u_r_e___d_e_f_s___s_t_r_u_c_t.html#ab09a6d77d42a8a2b5882bbc27ee4f23c">FeatureDesc</a>[desc_index]-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___d_e_s_c___s_t_r_u_c_t.html#acc46f9f5b3cded3ca8e7de3e94407c58">ParamDesc</a>);
+
+  FeatureList = char_sample-&gt;<a class="code" href="struct_l_a_b_e_l_e_d_l_i_s_t_n_o_d_e.html#a848ab6ee611dbc860f80a47ecef2faa7">List</a>;
+  CharID = 0;
+  <a class="code" href="oldlist_8h.html#a2cf19ba78be6b54f66823d58f34f2a53">iterate</a>(FeatureList) {
+    FeatureSet = (<a class="code" href="ocrfeatures_8h.html#ac0c2f756ba2c7f34a21efbe13a49ac39">FEATURE_SET</a>) <a class="code" href="oldlist_8h.html#a69547be764424f18b0be535400747978">first_node</a>(FeatureList);
+    <span class="keywordflow">for</span> (i = 0; i &lt; FeatureSet-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_e_t___s_t_r_u_c_t.html#a929fdddbb7cb689f66b59e06d51aee46">MaxNumFeatures</a>; i++) {
+      <span class="keywordflow">if</span> (Sample == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+        Sample = (<a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a> *)<a class="code" href="emalloc_8cpp.html#a55f2088f1a7b3333bb5c7275ab726bba">Emalloc</a>(N * <span class="keyword">sizeof</span>(<a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a>));
+      <span class="keywordflow">for</span> (j = 0; j &lt; N; j++)
+        Sample[j] = FeatureSet-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_e_t___s_t_r_u_c_t.html#a4664d6a22a9d12f4011de4d877664c45">Features</a>[i]-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_t_r_u_c_t.html#ace52f36cfcba955504f4a24f86a897b4">Params</a>[j];
+      <a class="code" href="cluster_8cpp.html#ab3cc5ee277d4a2cf4000668b1ffbcf4a">MakeSample</a> (Clusterer, Sample, CharID);
+    }
+    CharID++;
+  }
+  <span class="keywordflow">if</span> ( Sample != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> ) free( Sample );
+  <span class="keywordflow">return</span>( Clusterer );
+
+}       <span class="comment">/* SetUpForClustering */</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae0ede748b48d1f73abdaeac0c2a1a000"></a><!-- doxytag: member="commontraining.cpp::SetUpForFloat2Int" ref="ae0ede748b48d1f73abdaeac0c2a1a000" args="(const UNICHARSET &amp;unicharset, LIST LabeledClassList)" -->
@@ -739,6 +1296,68 @@ Variables</h2></td></tr>
 <div class="memdoc">
 <p>SetUpForFloat2Int </p>
 
+<p>Definition at line <a class="el" href="commontraining_8cpp_source.html#l00839">839</a> of file <a class="el" href="commontraining_8cpp_source.html">commontraining.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                       {
+  <a class="code" href="struct_m_e_r_g_e___c_l_a_s_s___n_o_d_e.html">MERGE_CLASS</a>   MergeClass;
+  <a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html">CLASS_TYPE</a>            Class;
+  <span class="keywordtype">int</span>                           NumProtos;
+  <span class="keywordtype">int</span>                           NumConfigs;
+  <span class="keywordtype">int</span>                           NumWords;
+  <span class="keywordtype">int</span>                           i, j;
+  <span class="keywordtype">float</span>                 Values[3];
+  <a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html">PROTO</a>                 NewProto;
+  <a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html">PROTO</a>                 OldProto;
+  <a class="code" href="bitvec_8h.html#a584fa1e33e36d105f97bc7e7288fb259">BIT_VECTOR</a>            NewConfig;
+  <a class="code" href="bitvec_8h.html#a584fa1e33e36d105f97bc7e7288fb259">BIT_VECTOR</a>            OldConfig;
+
+  <span class="comment">//    printf(&quot;Float2Int ...\n&quot;);</span>
+
+  <a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html">CLASS_STRUCT</a>* float_classes = <span class="keyword">new</span> <a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html">CLASS_STRUCT</a>[unicharset.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#aa3e8073ebaf3e0022654c45f27135032">size</a>()];
+  <a class="code" href="oldlist_8h.html#a2cf19ba78be6b54f66823d58f34f2a53">iterate</a>(LabeledClassList)
+  {
+    <a class="code" href="class_unicity_table_eq_eq.html">UnicityTableEqEq&lt;int&gt;</a>   font_set;
+    MergeClass = (<a class="code" href="commontraining_8h.html#a04868818ab7f00c7b35f7f978dca7852">MERGE_CLASS</a>) <a class="code" href="oldlist_8h.html#a69547be764424f18b0be535400747978">first_node</a> (LabeledClassList);
+    Class = &amp;float_classes[unicharset.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#ae786fa834962ef4d6dbf8300c6c5d456">unichar_to_id</a>(MergeClass-&gt;<a class="code" href="struct_m_e_r_g_e___c_l_a_s_s___n_o_d_e.html#a748285b0d7014218f0b335dcb0513168">Label</a>)];
+    NumProtos = MergeClass-&gt;<a class="code" href="struct_m_e_r_g_e___c_l_a_s_s___n_o_d_e.html#a1c7b735de8e1caa16763adf0cfc95593">Class</a>-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#aed122893fec98b9ebccee234bbb00292">NumProtos</a>;
+    NumConfigs = MergeClass-&gt;<a class="code" href="struct_m_e_r_g_e___c_l_a_s_s___n_o_d_e.html#a1c7b735de8e1caa16763adf0cfc95593">Class</a>-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#a452c42efe7ec87439ef16f1e51d57f2c">NumConfigs</a>;
+    font_set.<a class="code" href="class_unicity_table.html#a18c8fc9ccbd7c0befdae1ab65bafdb12">move</a>(&amp;MergeClass-&gt;<a class="code" href="struct_m_e_r_g_e___c_l_a_s_s___n_o_d_e.html#a1c7b735de8e1caa16763adf0cfc95593">Class</a>-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#a42fd551c9f2ee48e5873ae7308df64b4">font_set</a>);
+    Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#aed122893fec98b9ebccee234bbb00292">NumProtos</a> = NumProtos;
+    Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#ae5646d21fd1609343ad276deac642757">MaxNumProtos</a> = NumProtos;
+    Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#add1a2c4f7b02eb438c377242495013ef">Prototypes</a> = (<a class="code" href="protos_8h.html#a04b1cd7341d318ccc4e679aec5cfad0e">PROTO</a>) <a class="code" href="emalloc_8cpp.html#a55f2088f1a7b3333bb5c7275ab726bba">Emalloc</a> (<span class="keyword">sizeof</span>(<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html">PROTO_STRUCT</a>) * NumProtos);
+    <span class="keywordflow">for</span>(i=0; i &lt; NumProtos; i++)
+    {
+      NewProto = <a class="code" href="protos_8h.html#a3def7bc87c3ad9ad793128f0dc5b8fce">ProtoIn</a>(Class, i);
+      OldProto = <a class="code" href="protos_8h.html#a3def7bc87c3ad9ad793128f0dc5b8fce">ProtoIn</a>(MergeClass-&gt;<a class="code" href="struct_m_e_r_g_e___c_l_a_s_s___n_o_d_e.html#a1c7b735de8e1caa16763adf0cfc95593">Class</a>, i);
+      Values[0] = OldProto-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#a54dd1cca86a1fd5c9ead8499cba99784">X</a>;
+      Values[1] = OldProto-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#a8dcd81037c1bc672e97ef7a54306dd93">Y</a>;
+      Values[2] = OldProto-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#a6cc7458f385f9c4673e1ce9a6dc9e80a">Angle</a>;
+      <a class="code" href="commontraining_8cpp.html#a8959d42d4e9ba28a3e128aed3cefb479">Normalize</a>(Values);
+      NewProto-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#a54dd1cca86a1fd5c9ead8499cba99784">X</a> = OldProto-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#a54dd1cca86a1fd5c9ead8499cba99784">X</a>;
+      NewProto-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#a8dcd81037c1bc672e97ef7a54306dd93">Y</a> = OldProto-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#a8dcd81037c1bc672e97ef7a54306dd93">Y</a>;
+      NewProto-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#aa29d8aaab147327320e2bc94a821aad1">Length</a> = OldProto-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#aa29d8aaab147327320e2bc94a821aad1">Length</a>;
+      NewProto-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#a6cc7458f385f9c4673e1ce9a6dc9e80a">Angle</a> = OldProto-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#a6cc7458f385f9c4673e1ce9a6dc9e80a">Angle</a>;
+      NewProto-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#ae3211a725f109fbd40efc6cd154330f7">A</a> = Values[0];
+      NewProto-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#a884630c87acb7606ac02516d1ea4ea9e">B</a> = Values[1];
+      NewProto-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#a09d1e20c0a8362582127fa3554bb83ae">C</a> = Values[2];
+    }
+
+    Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#a452c42efe7ec87439ef16f1e51d57f2c">NumConfigs</a> = NumConfigs;
+    Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#a35830ba1f40d31ef5bb3ad9d4e4596dc">MaxNumConfigs</a> = NumConfigs;
+    Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#a42fd551c9f2ee48e5873ae7308df64b4">font_set</a>.<a class="code" href="class_unicity_table.html#a18c8fc9ccbd7c0befdae1ab65bafdb12">move</a>(&amp;font_set);
+    Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#ac5524279d10e5bafe306355d72309b69">Configurations</a> = (<a class="code" href="bitvec_8h.html#a584fa1e33e36d105f97bc7e7288fb259">BIT_VECTOR</a>*) <a class="code" href="emalloc_8cpp.html#a55f2088f1a7b3333bb5c7275ab726bba">Emalloc</a> (<span class="keyword">sizeof</span>(<a class="code" href="bitvec_8h.html#a584fa1e33e36d105f97bc7e7288fb259">BIT_VECTOR</a>) * NumConfigs);
+    NumWords = <a class="code" href="bitvec_8h.html#a905ff9b6c51cb231dd8baf1713a3c9b8">WordsInVectorOfSize</a>(NumProtos);
+    <span class="keywordflow">for</span>(i=0; i &lt; NumConfigs; i++)
+    {
+      NewConfig = <a class="code" href="bitvec_8cpp.html#a502314dc3ee4b178df067713b324b868">NewBitVector</a>(NumProtos);
+      OldConfig = MergeClass-&gt;<a class="code" href="struct_m_e_r_g_e___c_l_a_s_s___n_o_d_e.html#a1c7b735de8e1caa16763adf0cfc95593">Class</a>-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#ac5524279d10e5bafe306355d72309b69">Configurations</a>[i];
+      <span class="keywordflow">for</span>(j=0; j &lt; NumWords; j++)
+        NewConfig[j] = OldConfig[j];
+      Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#ac5524279d10e5bafe306355d72309b69">Configurations</a>[i] = NewConfig;
+    }
+  }
+  <span class="keywordflow">return</span> float_classes;
+} <span class="comment">// SetUpForFloat2Int</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a251ad529e06d1fc942d93397bc8ec9d8"></a><!-- doxytag: member="commontraining.cpp::STRING_PARAM_FLAG" ref="a251ad529e06d1fc942d93397bc8ec9d8" args="(configfile,&quot;&quot;,&quot;File to load more configs from&quot;)" -->
@@ -1050,6 +1669,8 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="commontraining_8cpp_source.html#l00085">85</a> of file <a class="el" href="commontraining_8cpp_source.html">commontraining.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a1630a3dc82a9a7cef07bb6153df9eb9c"></a><!-- doxytag: member="commontraining.cpp::Config" ref="a1630a3dc82a9a7cef07bb6153df9eb9c" args="" -->
@@ -1062,6 +1683,8 @@ Variables</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="commontraining_8cpp_source.html#l00053">53</a> of file <a class="el" href="commontraining_8cpp_source.html">commontraining.cpp</a>.</p>
 
 </div>
 </div>
@@ -1076,6 +1699,8 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="commontraining_8cpp_source.html#l00084">84</a> of file <a class="el" href="commontraining_8cpp_source.html">commontraining.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ac1e8179d7ded1e0ae4170780e168b5cc"></a><!-- doxytag: member="commontraining.cpp::kUsage" ref="ac1e8179d7ded1e0ae4170780e168b5cc" args="" -->
@@ -1088,6 +1713,8 @@ Variables</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="commontraining_8cpp_source.html#l00071">71</a> of file <a class="el" href="commontraining_8cpp_source.html">commontraining.cpp</a>.</p>
 
 </div>
 </div>
@@ -1111,7 +1738,7 @@ Variables</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:10 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:43 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

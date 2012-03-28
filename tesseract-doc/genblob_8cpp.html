@@ -104,7 +104,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="textblock"><code>#include &quot;<a class="el" href="mfcpch_8h_source.html">mfcpch.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="genblob_8h_source.html">genblob.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="stepblob_8h_source.html">stepblob.h</a>&quot;</code><br/>
-</div><table class="memberdecls">
+</div>
+<p><a href="genblob_8cpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="genblob_8cpp.html#adf90dfe481e3980859ab92739b51caa6">c_blob_comparator</a> (const void *blob1p, const void *blob2p)</td></tr>
@@ -135,6 +137,14 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="genblob_8cpp_source.html#l00031">31</a> of file <a class="el" href="genblob_8cpp_source.html">genblob.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                       {
+  <a class="code" href="class_c___b_l_o_b.html">C_BLOB</a> *blob1 = *(<a class="code" href="class_c___b_l_o_b.html">C_BLOB</a> **) blob1p;
+  <a class="code" href="class_c___b_l_o_b.html">C_BLOB</a> *blob2 = *(<a class="code" href="class_c___b_l_o_b.html">C_BLOB</a> **) blob2p;
+
+  <span class="keywordflow">return</span> blob1-&gt;<a class="code" href="class_c___b_l_o_b.html#a77e52e29e2c622a3a63bb7edb110f6ab">bounding_box</a> ().<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a> () - blob2-&gt;<a class="code" href="class_c___b_l_o_b.html#a77e52e29e2c622a3a63bb7edb110f6ab">bounding_box</a> ().<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a> ();
+}
+</pre></div>
 </div>
 </div>
 </div>
@@ -157,7 +167,7 @@ Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:08 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:40 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

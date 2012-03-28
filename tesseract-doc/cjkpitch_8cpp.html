@@ -107,7 +107,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <code>#include &quot;<a class="el" href="ndminx_8h_source.html">ndminx.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="topitch_8h_source.html">topitch.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="tovars_8h_source.html">tovars.h</a>&quot;</code><br/>
-</div><table class="memberdecls">
+</div>
+<p><a href="cjkpitch_8cpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cjkpitch_8cpp.html#a569376d5bd104938452ead2e78c21158">compute_fixed_pitch_cjk</a> (<a class="el" href="class_i_c_o_o_r_d.html">ICOORD</a> page_tr, TO_BLOCK_LIST *port_blocks)</td></tr>
@@ -141,6 +143,45 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cjkpitch_8cpp_source.html#l01057">1057</a> of file <a class="el" href="cjkpitch_8cpp_source.html">cjkpitch.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                         {
+  FPAnalyzer analyzer;
+  analyzer.Init(page_tr, port_blocks);
+  <span class="keywordflow">if</span> (analyzer.num_rows() == 0) <span class="keywordflow">return</span>;
+
+  analyzer.Pass1Analyze();
+  analyzer.EstimatePitch(<span class="keyword">true</span>);
+
+  <span class="comment">// Perform pass1 analysis again with the initial estimation of row</span>
+  <span class="comment">// pitches, for better estimation.</span>
+  analyzer.Pass1Analyze();
+  analyzer.EstimatePitch(<span class="keyword">true</span>);
+
+  <span class="comment">// Early exit if the page doesn&#39;t seem to contain fixed pitch rows.</span>
+  <span class="keywordflow">if</span> (!analyzer.maybe_fixed_pitch()) {
+    <span class="keywordflow">if</span> (<a class="code" href="topitch_8cpp.html#ad764b0bdba3585a8abdceb60288e54f0">textord_debug_pitch_test</a>) {
+      <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Page doesn&#39;t seem to contain fixed pitch rows\n&quot;</span>);
+    }
+    <span class="keywordflow">return</span>;
+  }
+
+  <span class="keywordtype">int</span> iteration = 0;
+  <span class="keywordflow">do</span> {
+    analyzer.MergeFragments();
+    analyzer.FinalizeLargeChars();
+    analyzer.EstimatePitch(<span class="keyword">false</span>);
+    iteration++;
+  } <span class="keywordflow">while</span> (analyzer.Pass2Analyze() &amp;&amp; iteration &lt; analyzer.max_iteration());
+
+  <span class="keywordflow">if</span> (<a class="code" href="topitch_8cpp.html#ad764b0bdba3585a8abdceb60288e54f0">textord_debug_pitch_test</a>) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;compute_fixed_pitch_cjk finished after %d iteration (limit=%d)\n&quot;</span>,
+            iteration, analyzer.max_iteration());
+  }
+
+  analyzer.OutputEstimations();
+  <span class="keywordflow">if</span> (<a class="code" href="topitch_8cpp.html#ad764b0bdba3585a8abdceb60288e54f0">textord_debug_pitch_test</a>) analyzer.DebugOutputResult();
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Variable Documentation</h2>
@@ -155,6 +196,8 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"If true, word delimiter spaces are assumed to have " "variable width, even though characters have fixed pitch." </p>
+
+<p>Definition at line <a class="el" href="cjkpitch_8cpp_source.html#l00028">28</a> of file <a class="el" href="cjkpitch_8cpp_source.html">cjkpitch.cpp</a>.</p>
 
 </div>
 </div>
@@ -178,7 +221,7 @@ Variables</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:10 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:42 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

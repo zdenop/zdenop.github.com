@@ -114,6 +114,8 @@ Static Public Member Functions</h2></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="classtesseract_1_1_line_finder.html">LineFinder</a> class is a simple static function wrapper class that mainly exposes the FindVerticalLines function. </p>
+
+<p>Definition at line <a class="el" href="linefind_8h_source.html#l00039">39</a> of file <a class="el" href="linefind_8h_source.html">linefind.h</a>.</p>
 </div><hr/><h2>Member Function Documentation</h2>
 <a class="anchor" id="a9d00a88e3c4d6e1b9c7b28c3f6825b88"></a><!-- doxytag: member="tesseract::LineFinder::ConvertBoxaToBlobs" ref="a9d00a88e3c4d6e1b9c7b28c3f6825b88" args="(int image_width, int image_height, Boxa **boxes, C_BLOB_LIST *blobs)" -->
 <div class="memitem">
@@ -155,6 +157,39 @@ Static Public Member Functions</h2></td></tr>
 <p>The output is a list of C_BLOBs that are owned by the list.</p>
 <p>The C_OUTLINEs in the C_BLOBs contain no outline data - just empty bounding boxes. The Boxa is consumed and destroyed. </p>
 
+<p>Definition at line <a class="el" href="linefind_8cpp_source.html#l00321">321</a> of file <a class="el" href="linefind_8cpp_source.html">linefind.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                      {
+  C_OUTLINE_LIST outlines;
+  C_OUTLINE_IT ol_it = &amp;outlines;
+  <span class="comment">// Iterate the boxes to convert to outlines.</span>
+  <span class="keywordtype">int</span> nboxes = boxaGetCount(*boxes);
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; nboxes; ++i) {
+    l_int32 x, y, width, height;
+    boxaGetBoxGeometry(*boxes, i, &amp;x, &amp;y, &amp;width, &amp;height);
+    <span class="comment">// Make a C_OUTLINE from the leptonica box. This is a bit of a hack,</span>
+    <span class="comment">// as there is no outline, just a bounding box, but with some very</span>
+    <span class="comment">// small changes to coutln.cpp, it works nicely.</span>
+    <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> top_left(x, y);
+    <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> bot_right(x + width, y + height);
+    <a class="code" href="class_c_r_a_c_k_e_d_g_e.html">CRACKEDGE</a> startpt;
+    startpt.<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#ae7bcdb1f6f28f612a0ff4ace03b38165">pos</a> = top_left;
+    <a class="code" href="class_c___o_u_t_l_i_n_e.html">C_OUTLINE</a>* outline = <span class="keyword">new</span> <a class="code" href="coutln_8h.html#a33c25172cfe8e7ec617eb16413b61294">C_OUTLINE</a>(&amp;startpt, top_left, bot_right, 0);
+    ol_it.add_after_then_move(outline);
+  }
+  <span class="comment">// Use outlines_to_blobs to convert the outlines to blobs and find</span>
+  <span class="comment">// overlapping and contained objects. The output list of blobs in the block</span>
+  <span class="comment">// has all the bad ones filtered out and deleted.</span>
+  <a class="code" href="class_b_l_o_c_k.html">BLOCK</a> block;
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> page_tl(0, 0);
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> page_br(image_width, image_height);
+  <a class="code" href="edgblob_8cpp.html#ae0cc26838f9973f097882b899b69b249">outlines_to_blobs</a>(&amp;block, page_tl, page_br, &amp;outlines);
+  <span class="comment">// Transfer the created blobs to the output list.</span>
+  C_BLOB_IT blob_it(blobs);
+  blob_it.add_list_after(block.<a class="code" href="class_b_l_o_c_k.html#a23196fe0d7230572b44aa77031a1d72a" title="get blobs">blob_list</a>());
+  <span class="comment">// The boxes aren&#39;t needed any more.</span>
+  boxaDestroy(boxes);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3a72521c00cb7725b2282b7b3cc6e6b9"></a><!-- doxytag: member="tesseract::LineFinder::FindAndRemoveLines" ref="a3a72521c00cb7725b2282b7b3cc6e6b9" args="(int resolution, bool debug, Pix *pix, int *vertical_x, int *vertical_y, Pix **pix_music_mask, TabVector_LIST *v_lines, TabVector_LIST *h_lines)" -->
@@ -224,11 +259,81 @@ Static Public Member Functions</h2></td></tr>
 <p>The output vectors are owned by the list and Frozen (cannot refit) by having no boxes, as there is no need to refit or merge separator lines.</p>
 <p>The detected lines are removed from the pix. </p>
 
+<p>Definition at line <a class="el" href="linefind_8cpp_source.html#l00243">243</a> of file <a class="el" href="linefind_8cpp_source.html">linefind.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                             {
+  <span class="keywordflow">if</span> (pix == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> || vertical_x == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> || vertical_y == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Error in parameters for LineFinder::FindAndRemoveLines\n&quot;</span>);
+    <span class="keywordflow">return</span>;
+  }
+  Pix* pix_vline = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  Pix* pix_non_vline = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  Pix* pix_hline = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  Pix* pix_non_hline = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  Pix* pix_intersections = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  Pixa* pixa_display = debug ? pixaCreate(0) : <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  GetLineMasks(resolution, pix, &amp;pix_vline, &amp;pix_non_vline, &amp;pix_hline,
+               &amp;pix_non_hline, &amp;pix_intersections, pix_music_mask,
+               pixa_display);
+  <span class="comment">// Find lines, convert to TabVector_LIST and remove those that are used.</span>
+  FindAndRemoveVLines(resolution, pix_intersections, vertical_x, vertical_y,
+                      &amp;pix_vline, pix_non_vline, pix, v_lines);
+  <span class="keywordflow">if</span> (pix_hline != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="comment">// Recompute intersections and re-filter false positive h-lines.</span>
+    <span class="keywordflow">if</span> (pix_vline != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+      pixAnd(pix_intersections, pix_vline, pix_hline);
+    <span class="keywordflow">else</span>
+      pixDestroy(&amp;pix_intersections);
+    <span class="keywordflow">if</span> (!FilterFalsePositives(resolution, pix_non_hline, pix_intersections,
+                              pix_hline)) {
+      pixDestroy(&amp;pix_hline);
+    }
+  }
+  FindAndRemoveHLines(resolution, pix_intersections, *vertical_x, *vertical_y,
+                      &amp;pix_hline, pix_non_hline, pix, h_lines);
+  <span class="keywordflow">if</span> (pixa_display != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp; pix_vline != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    pixaAddPix(pixa_display, pix_vline, L_CLONE);
+  <span class="keywordflow">if</span> (pixa_display != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp; pix_hline != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    pixaAddPix(pixa_display, pix_hline, L_CLONE);
+  <span class="keywordflow">if</span> (pix_vline != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp; pix_hline != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="comment">// Remove joins (intersections) where lines cross, and the residue.</span>
+    <span class="comment">// Recalculate the intersections, since some lines have been deleted.</span>
+    pixAnd(pix_intersections, pix_vline, pix_hline);
+    <span class="comment">// Fatten up the intersections and seed-fill to get the intersection</span>
+    <span class="comment">// residue.</span>
+    Pix* pix_join_residue = pixDilateBrick(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, pix_intersections, 5, 5);
+    pixSeedfillBinary(pix_join_residue, pix_join_residue, pix, 8);
+    <span class="comment">// Now remove the intersection residue.</span>
+    pixSubtract(pix, pix, pix_join_residue);
+    pixDestroy(&amp;pix_join_residue);
+  }
+  <span class="comment">// Remove any detected music.</span>
+  <span class="keywordflow">if</span> (pix_music_mask != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp; *pix_music_mask != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">if</span> (pixa_display != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+      pixaAddPix(pixa_display, *pix_music_mask, L_CLONE);
+    pixSubtract(pix, pix, *pix_music_mask);
+  }
+  <span class="keywordflow">if</span> (pixa_display != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    pixaAddPix(pixa_display, pix, L_CLONE);
+
+  pixDestroy(&amp;pix_vline);
+  pixDestroy(&amp;pix_non_vline);
+  pixDestroy(&amp;pix_hline);
+  pixDestroy(&amp;pix_non_hline);
+  pixDestroy(&amp;pix_intersections);
+  <span class="keywordflow">if</span> (pixa_display != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+<span class="preprocessor">#if LIBLEPT_MINOR_VERSION &gt;= 69 || LIBLEPT_MAJOR_VERSION &gt; 1</span>
+<span class="preprocessor"></span>    pixaConvertToPdf(pixa_display, resolution, 1.0<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>, 0, 0, <span class="stringliteral">&quot;LineFinding&quot;</span>,
+                     <span class="stringliteral">&quot;vhlinefinding.pdf&quot;</span>);
+<span class="preprocessor">#endif</span>
+<span class="preprocessor"></span>    pixaDestroy(&amp;pixa_display);
+  }
+}
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/textord/<a class="el" href="linefind_8h_source.html">linefind.h</a></li>
-<li>tesseract-ocr/textord/<a class="el" href="linefind_8cpp.html">linefind.cpp</a></li>
+<li>tesseract-ocr/textord/<a class="el" href="linefind_8cpp_source.html">linefind.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -251,7 +356,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:17 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:53 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

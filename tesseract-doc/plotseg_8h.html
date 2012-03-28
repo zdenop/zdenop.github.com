@@ -142,6 +142,22 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="plotseg_8cpp_source.html#l00057">57</a> of file <a class="el" href="plotseg_8cpp_source.html">plotseg.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                    {
+  <span class="comment">/* If no window create it */</span>
+  <span class="keywordflow">if</span> (<a class="code" href="plotseg_8cpp.html#a8ad48aa579fd5ee6e929da14bbb9350f">segm_window</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="plotseg_8cpp.html#a8ad48aa579fd5ee6e929da14bbb9350f">segm_window</a> = <a class="code" href="callcpp_8cpp.html#a34ec4ea9e8e6a9d755e3c7e5e6820583">c_create_window</a> (<span class="stringliteral">&quot;Segmentation&quot;</span>, 5, 10,
+      500, 256, -1000.0, 1000.0, 0.0, 256.0);
+  }
+  <span class="keywordflow">else</span> {
+    <a class="code" href="callcpp_8cpp.html#afdb928ca6fcb1a387ca1fa91f88130dc">c_clear_window</a>(<a class="code" href="plotseg_8cpp.html#a8ad48aa579fd5ee6e929da14bbb9350f">segm_window</a>);
+  }
+
+  <a class="code" href="plotseg_8cpp.html#ad48391045e140afee88e329b79dbd5d6">render_segmentation</a>(<a class="code" href="plotseg_8cpp.html#a8ad48aa579fd5ee6e929da14bbb9350f">segm_window</a>, chunks, segmentation);
+  <span class="comment">/* Put data in the window */</span>
+  <a class="code" href="callcpp_8cpp.html#ac91d916a53eb48572d9937d0d93b558c">c_make_current</a>(<a class="code" href="plotseg_8cpp.html#a8ad48aa579fd5ee6e929da14bbb9350f">segm_window</a>);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad48391045e140afee88e329b79dbd5d6"></a><!-- doxytag: member="plotseg.h::render_segmentation" ref="ad48391045e140afee88e329b79dbd5d6" args="(ScrollView *window, TBLOB *chunks, SEARCH_STATE segmentation)" -->
@@ -175,6 +191,32 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="plotseg_8cpp_source.html#l00078">78</a> of file <a class="el" href="plotseg_8cpp_source.html">plotseg.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                    {
+  <a class="code" href="struct_t_b_l_o_b.html">TBLOB</a> *blob;
+  <a class="code" href="callcpp_8h.html#a17bc059e437838f094a5a25c2d5ab88f">C_COL</a> color = <a class="code" href="callcpp_8h.html#a17bc059e437838f094a5a25c2d5ab88fac1e9bce8242f443c54c7405223d616cd">Black</a>;
+  <span class="keywordtype">int</span> char_num = -1;
+  <span class="keywordtype">int</span> chunks_left = 0;
+
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> bbox;
+  <span class="keywordflow">if</span> (chunks) bbox = chunks-&gt;<a class="code" href="struct_t_b_l_o_b.html#a8f1f8f110170fe12cf8147d504cd0ea2">bounding_box</a>();
+
+  <span class="keywordflow">for</span> (blob = chunks; blob != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>; blob = blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a88a541f55c8bfd63a9f0c419189499bb">next</a>) {
+    bbox += blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a8f1f8f110170fe12cf8147d504cd0ea2">bounding_box</a>();
+    <span class="keywordflow">if</span> (chunks_left-- == 0) {
+      color = <a class="code" href="render_8cpp.html#a6edf1001fd84878871c310d6a2a270d6">color_list</a>[++char_num % <a class="code" href="render_8h.html#a49286c80a7005e4f2faf8f2c54005a54">NUM_COLORS</a>];
+
+      <span class="keywordflow">if</span> (char_num &lt; segmentation[0])
+        chunks_left = segmentation[char_num + 1];
+      <span class="keywordflow">else</span>
+        chunks_left = <a class="code" href="host_8h.html#aac62d87844689a18b6f5339a89ed6e7f">MAX_INT32</a>;
+    }
+    <a class="code" href="render_8cpp.html#a7ee7085b157e15b1651947b1e121f9b5">render_outline</a>(window, blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a>, color);
+  }
+  window-&gt;<a class="code" href="class_scroll_view.html#a5a6c86ea0a618cf7642a8228fd7faab9">ZoomToRectangle</a>(bbox.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>(), bbox.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>(),
+                          bbox.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>(), bbox.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>());
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Variable Documentation</h2>
@@ -189,6 +231,8 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="plotseg_8cpp_source.html#l00045">45</a> of file <a class="el" href="plotseg_8cpp_source.html">plotseg.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a2aed15ed158681a35b22e37ce65cbc3f"></a><!-- doxytag: member="plotseg.h::wordrec_display_segmentations" ref="a2aed15ed158681a35b22e37ce65cbc3f" args="" -->
@@ -202,6 +246,8 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"Display Segmentations" </p>
+
+<p>Definition at line <a class="el" href="plotseg_8cpp_source.html#l00047">47</a> of file <a class="el" href="plotseg_8cpp_source.html">plotseg.cpp</a>.</p>
 
 </div>
 </div>
@@ -225,7 +271,7 @@ Variables</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:10 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:43 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

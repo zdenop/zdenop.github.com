@@ -125,7 +125,10 @@ Public Member Functions</h2></td></tr>
 Friends</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_l_i_s_t.html#a4aec179a718fd9e202aa2075bfaa5709">ELIST_ITERATOR</a></td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="elst_8h_source.html#l00114">114</a> of file <a class="el" href="elst_8h_source.html">elst.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="ae37e11e80a427b1ea5c43321d7f8af56"></a><!-- doxytag: member="ELIST::ELIST" ref="ae37e11e80a427b1ea5c43321d7f8af56" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -140,6 +143,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="elst_8h_source.html#l00125">125</a> of file <a class="el" href="elst_8h_source.html">elst.h</a>.</p>
+<div class="fragment"><pre class="fragment">            {  <span class="comment">//constructor</span>
+      <a class="code" href="oldlist_8cpp.html#ad9ec1d10cbd07fc3376ef300df603418">last</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -174,6 +182,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="elst_8h_source.html#l00175">175</a> of file <a class="el" href="elst_8h_source.html">elst.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                       {
+      <span class="keywordflow">return</span> (<a class="code" href="class_e_l_i_s_t.html#a01af0288f3fadb4d222a03f3fe7c6811">add_sorted_and_find</a>(comparator, unique, new_link) == new_link);
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a01af0288f3fadb4d222a03f3fe7c6811"></a><!-- doxytag: member="ELIST::add_sorted_and_find" ref="a01af0288f3fadb4d222a03f3fe7c6811" args="(int comparator(const void *, const void *), bool unique, ELIST_LINK *new_link)" -->
@@ -207,6 +220,37 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="elst_8cpp_source.html#l00173">173</a> of file <a class="el" href="elst_8cpp_source.html">elst.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                       {
+  <span class="comment">// Check for adding at the end.</span>
+  <span class="keywordflow">if</span> (<a class="code" href="oldlist_8cpp.html#ad9ec1d10cbd07fc3376ef300df603418">last</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> || comparator(&amp;<a class="code" href="oldlist_8cpp.html#ad9ec1d10cbd07fc3376ef300df603418">last</a>, &amp;new_link) &lt; 0) {
+    <span class="keywordflow">if</span> (<a class="code" href="oldlist_8cpp.html#ad9ec1d10cbd07fc3376ef300df603418">last</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      new_link-&gt;next = new_link;
+    } <span class="keywordflow">else</span> {
+      new_link-&gt;next = <a class="code" href="oldlist_8cpp.html#ad9ec1d10cbd07fc3376ef300df603418">last</a>-&gt;<a class="code" href="structlist__rec.html#af4f6ed22cbbd6d68b0bc4505defed426">next</a>;
+      <a class="code" href="oldlist_8cpp.html#ad9ec1d10cbd07fc3376ef300df603418">last</a>-&gt;<a class="code" href="structlist__rec.html#af4f6ed22cbbd6d68b0bc4505defed426">next</a> = new_link;
+    }
+    <a class="code" href="oldlist_8cpp.html#ad9ec1d10cbd07fc3376ef300df603418">last</a> = new_link;
+  } <span class="keywordflow">else</span> {
+    <span class="comment">// Need to use an iterator.</span>
+    <a class="code" href="class_e_l_i_s_t___i_t_e_r_a_t_o_r.html">ELIST_ITERATOR</a> it(<span class="keyword">this</span>);
+    <span class="keywordflow">for</span> (it.mark_cycle_pt(); !it.cycled_list(); it.forward()) {
+      <a class="code" href="class_e_l_i_s_t___l_i_n_k.html">ELIST_LINK</a>* link = it.data();
+      <span class="keywordtype">int</span> compare = comparator(&amp;link, &amp;new_link);
+      <span class="keywordflow">if</span> (compare &gt; 0) {
+        <span class="keywordflow">break</span>;
+      } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (unique &amp;&amp; compare == 0) {
+        <span class="keywordflow">return</span> link;
+      }
+    }
+    <span class="keywordflow">if</span> (it.cycled_list())
+      it.add_to_end(new_link);
+    <span class="keywordflow">else</span>
+      it.add_before_then_move(new_link);
+  }
+  <span class="keywordflow">return</span> new_link;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aec667b2b89d45695712f041bc3e09198"></a><!-- doxytag: member="ELIST::assign_to_sublist" ref="aec667b2b89d45695712f041bc3e09198" args="(ELIST_ITERATOR *start_it, ELIST_ITERATOR *end_it)" -->
@@ -234,6 +278,22 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="elst_8cpp_source.html#l00078">78</a> of file <a class="el" href="elst_8cpp_source.html">elst.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                      {  <span class="comment">//from list end</span>
+  <span class="keyword">const</span> <a class="code" href="class_e_r_r_c_o_d_e.html">ERRCODE</a> LIST_NOT_EMPTY =
+    <span class="stringliteral">&quot;Destination list must be empty before extracting a sublist&quot;</span>;
+
+<span class="preprocessor">  #ifndef NDEBUG</span>
+<span class="preprocessor"></span>  <span class="keywordflow">if</span> (!<span class="keyword">this</span>)
+    <a class="code" href="lsterr_8h.html#aa905f4edc3563a45c13d5067f6398d6a">NULL_OBJECT</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST::assign_to_sublist&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+<span class="preprocessor">  #endif</span>
+<span class="preprocessor"></span>
+  <span class="keywordflow">if</span> (!<a class="code" href="class_e_l_i_s_t.html#a7788b6c4e4b9623e43c58fe3b2976edd">empty</a> ())
+    LIST_NOT_EMPTY.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST.assign_to_sublist&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+
+  <a class="code" href="oldlist_8cpp.html#ad9ec1d10cbd07fc3376ef300df603418">last</a> = start_it-&gt;extract_sublist (end_it);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7788b6c4e4b9623e43c58fe3b2976edd"></a><!-- doxytag: member="ELIST::empty" ref="a7788b6c4e4b9623e43c58fe3b2976edd" args="() const " -->
@@ -250,6 +310,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="elst_8h_source.html#l00133">133</a> of file <a class="el" href="elst_8h_source.html">elst.h</a>.</p>
+<div class="fragment"><pre class="fragment">                       {  <span class="comment">//is list empty?</span>
+      <span class="keywordflow">return</span> !<a class="code" href="oldlist_8cpp.html#ad9ec1d10cbd07fc3376ef300df603418">last</a>;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9e3110796c3e5189fa846b44122176ac"></a><!-- doxytag: member="ELIST::internal_clear" ref="a9e3110796c3e5189fa846b44122176ac" args="(void(*zapper)(ELIST_LINK *))" -->
@@ -267,6 +332,29 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="elst_8cpp_source.html#l00042">42</a> of file <a class="el" href="elst_8cpp_source.html">elst.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                               {
+                                 <span class="comment">//ptr to zapper functn</span>
+  <a class="code" href="class_e_l_i_s_t___l_i_n_k.html">ELIST_LINK</a> *ptr;
+  <a class="code" href="class_e_l_i_s_t___l_i_n_k.html">ELIST_LINK</a> *next;
+
+<span class="preprocessor">  #ifndef NDEBUG</span>
+<span class="preprocessor"></span>  <span class="keywordflow">if</span> (!<span class="keyword">this</span>)
+    <a class="code" href="lsterr_8h.html#aa905f4edc3563a45c13d5067f6398d6a">NULL_OBJECT</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST::internal_clear&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+<span class="preprocessor">  #endif</span>
+<span class="preprocessor"></span>
+  <span class="keywordflow">if</span> (!<a class="code" href="class_e_l_i_s_t.html#a7788b6c4e4b9623e43c58fe3b2976edd">empty</a> ()) {
+    ptr = <a class="code" href="oldlist_8cpp.html#ad9ec1d10cbd07fc3376ef300df603418">last</a>-&gt;<a class="code" href="structlist__rec.html#af4f6ed22cbbd6d68b0bc4505defed426">next</a>;            <span class="comment">//set to first</span>
+    <a class="code" href="oldlist_8cpp.html#ad9ec1d10cbd07fc3376ef300df603418">last</a>-&gt;<a class="code" href="structlist__rec.html#af4f6ed22cbbd6d68b0bc4505defed426">next</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;           <span class="comment">//break circle</span>
+    <a class="code" href="oldlist_8cpp.html#ad9ec1d10cbd07fc3376ef300df603418">last</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;                 <span class="comment">//set list empty</span>
+    <span class="keywordflow">while</span> (ptr) {
+      next = ptr-&gt;next;
+      zapper(ptr);
+      ptr = next;
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a575eb2690055500a718e5ea8c6740de3"></a><!-- doxytag: member="ELIST::internal_deep_copy" ref="a575eb2690055500a718e5ea8c6740de3" args="(ELIST_LINK *(*copier)(ELIST_LINK *), const ELIST *list)" -->
@@ -310,6 +398,21 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="elst_8cpp_source.html#l00102">102</a> of file <a class="el" href="elst_8cpp_source.html">elst.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                          {  <span class="comment">// count elements</span>
+  <a class="code" href="class_e_l_i_s_t___i_t_e_r_a_t_o_r.html">ELIST_ITERATOR</a> it(const_cast&lt;ELIST*&gt;(<span class="keyword">this</span>));
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> <a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a> = 0;
+
+<span class="preprocessor">  #ifndef NDEBUG</span>
+<span class="preprocessor"></span>  <span class="keywordflow">if</span> (!<span class="keyword">this</span>)
+    <a class="code" href="lsterr_8h.html#aa905f4edc3563a45c13d5067f6398d6a">NULL_OBJECT</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST::length&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+<span class="preprocessor">  #endif</span>
+<span class="preprocessor"></span>
+  <span class="keywordflow">for</span> (it.mark_cycle_pt (); !it.cycled_list (); it.forward ())
+    count++;
+  <span class="keywordflow">return</span> <a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a8bd9cf7457dd6a17a68860b77abd379a"></a><!-- doxytag: member="ELIST::shallow_copy" ref="a8bd9cf7457dd6a17a68860b77abd379a" args="(ELIST *from_list)" -->
@@ -327,6 +430,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="elst_8h_source.html#l00141">141</a> of file <a class="el" href="elst_8h_source.html">elst.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                        {  <span class="comment">//beware destructors!!</span>
+      <a class="code" href="oldlist_8cpp.html#ad9ec1d10cbd07fc3376ef300df603418">last</a> = from_list-&gt;last;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="abbe9f968d190bf5bf261e13af7bfc543"></a><!-- doxytag: member="ELIST::singleton" ref="abbe9f968d190bf5bf261e13af7bfc543" args="() const " -->
@@ -343,6 +451,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="elst_8h_source.html#l00137">137</a> of file <a class="el" href="elst_8h_source.html">elst.h</a>.</p>
+<div class="fragment"><pre class="fragment">                           {
+      <span class="keywordflow">return</span> <a class="code" href="oldlist_8cpp.html#ad9ec1d10cbd07fc3376ef300df603418">last</a> ? (<a class="code" href="oldlist_8cpp.html#ad9ec1d10cbd07fc3376ef300df603418">last</a> == last-&gt;<a class="code" href="structlist__rec.html#af4f6ed22cbbd6d68b0bc4505defed426">next</a>) : <span class="keyword">false</span>;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a82eb75fa241c49b6ccdc92d96f810ece"></a><!-- doxytag: member="ELIST::sort" ref="a82eb75fa241c49b6ccdc92d96f810ece" args="(int comparator(const void *, const void *))" -->
@@ -360,6 +473,42 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="elst_8cpp_source.html#l00126">126</a> of file <a class="el" href="elst_8cpp_source.html">elst.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                             {
+  <a class="code" href="class_e_l_i_s_t___i_t_e_r_a_t_o_r.html">ELIST_ITERATOR</a> it(<span class="keyword">this</span>);
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> <a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a>;
+  <a class="code" href="class_e_l_i_s_t___l_i_n_k.html">ELIST_LINK</a> **<a class="code" href="structarray__record.html#aedd2fbe577bea4938d80154db35c6685">base</a>;             <span class="comment">//ptr array to sort</span>
+  <a class="code" href="class_e_l_i_s_t___l_i_n_k.html">ELIST_LINK</a> **current;
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> i;
+
+<span class="preprocessor">  #ifndef NDEBUG</span>
+<span class="preprocessor"></span>  <span class="keywordflow">if</span> (!<span class="keyword">this</span>)
+    <a class="code" href="lsterr_8h.html#aa905f4edc3563a45c13d5067f6398d6a">NULL_OBJECT</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST::sort&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+<span class="preprocessor">  #endif</span>
+<span class="preprocessor"></span>
+  <span class="comment">/* Allocate an array of pointers, one per list element */</span>
+  count = <a class="code" href="class_e_l_i_s_t.html#a571dfff8a1c0cef0f0120708a1b32185">length</a> ();
+  base = (<a class="code" href="class_e_l_i_s_t___l_i_n_k.html">ELIST_LINK</a> **) malloc (count * <span class="keyword">sizeof</span> (<a class="code" href="class_e_l_i_s_t___l_i_n_k.html">ELIST_LINK</a> *));
+
+  <span class="comment">/* Extract all elements, putting the pointers in the array */</span>
+  current = <a class="code" href="structarray__record.html#aedd2fbe577bea4938d80154db35c6685">base</a>;
+  <span class="keywordflow">for</span> (it.mark_cycle_pt (); !it.cycled_list (); it.forward ()) {
+    *current = it.extract ();
+    current++;
+  }
+
+  <span class="comment">/* Sort the pointer array */</span>
+  qsort ((<span class="keywordtype">char</span> *) base, count, <span class="keyword">sizeof</span> (*base), comparator);
+
+  <span class="comment">/* Rebuild the list from the sorted pointers */</span>
+  current = <a class="code" href="structarray__record.html#aedd2fbe577bea4938d80154db35c6685">base</a>;
+  <span class="keywordflow">for</span> (i = 0; i &lt; <a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a>; i++) {
+    it.add_to_end (*current);
+    current++;
+  }
+  free(base);
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Friends And Related Function Documentation</h2>
@@ -374,11 +523,13 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="elst_8h_source.html#l00116">116</a> of file <a class="el" href="elst_8h_source.html">elst.h</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/ccutil/<a class="el" href="elst_8h_source.html">elst.h</a></li>
-<li>tesseract-ocr/ccutil/<a class="el" href="elst_8cpp.html">elst.cpp</a></li>
+<li>tesseract-ocr/ccutil/<a class="el" href="elst_8cpp_source.html">elst.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -400,7 +551,7 @@ Friends</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:12 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:45 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

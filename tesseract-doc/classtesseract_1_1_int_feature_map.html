@@ -130,7 +130,10 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_int_feature_map.html#a18fa91458f954396cb4f56932818402d">MapIndexedFeatures</a> (const <a class="el" href="class_generic_vector.html">GenericVector</a>&lt; int &gt; &amp;index_features, <a class="el" href="class_generic_vector.html">GenericVector</a>&lt; int &gt; *map_features) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_int_feature_map.html#ac69ac65f1ffcf6eaba34582fc399cd68">DebugMapFeatures</a> (const <a class="el" href="class_generic_vector.html">GenericVector</a>&lt; int &gt; &amp;map_features) const </td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="intfeaturemap_8h_source.html#l00048">48</a> of file <a class="el" href="intfeaturemap_8h_source.html">intfeaturemap.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a3fbd4062c08d2b3234e43b6fb8278bca"></a><!-- doxytag: member="tesseract::IntFeatureMap::IntFeatureMap" ref="a3fbd4062c08d2b3234e43b6fb8278bca" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -145,6 +148,14 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intfeaturemap_8cpp_source.html#l00035">35</a> of file <a class="el" href="intfeaturemap_8cpp_source.html">intfeaturemap.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">  : mapping_changed_(<span class="keyword">true</span>), compact_size_(0) {
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> dir = 0; dir &lt; kNumOffsetMaps; ++dir) {
+    offset_plus_[dir] = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    offset_minus_[dir] = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae7cf24a11435b7ebabbaa21f55d14325"></a><!-- doxytag: member="tesseract::IntFeatureMap::~IntFeatureMap" ref="ae7cf24a11435b7ebabbaa21f55d14325" args="()" -->
@@ -161,6 +172,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intfeaturemap_8cpp_source.html#l00043">43</a> of file <a class="el" href="intfeaturemap_8cpp_source.html">intfeaturemap.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                              {
+  Clear();
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -178,6 +194,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intfeaturemap_8h_source.html#l00057">57</a> of file <a class="el" href="intfeaturemap_8h_source.html">intfeaturemap.h</a>.</p>
+<div class="fragment"><pre class="fragment">                           {
+    <span class="keywordflow">return</span> compact_size_;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac69ac65f1ffcf6eaba34582fc399cd68"></a><!-- doxytag: member="tesseract::IntFeatureMap::DebugMapFeatures" ref="ac69ac65f1ffcf6eaba34582fc399cd68" args="(const GenericVector&lt; int &gt; &amp;map_features) const " -->
@@ -195,6 +216,14 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intfeaturemap_8cpp_source.html#l00173">173</a> of file <a class="el" href="intfeaturemap_8cpp_source.html">intfeaturemap.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                  {
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; map_features.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>(); ++i) {
+    <a class="code" href="struct_i_n_t___f_e_a_t_u_r_e___s_t_r_u_c_t.html">INT_FEATURE_STRUCT</a> <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> = <a class="code" href="classtesseract_1_1_int_feature_map.html#a53738bef24bcebaaac0c6b4298eedb6f">InverseMapFeature</a>(map_features[i]);
+    f.<a class="code" href="struct_i_n_t___f_e_a_t_u_r_e___s_t_r_u_c_t.html#a8e441f7715985972c22a29e4f4ab139e">print</a>();
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9f520c6a69fa114d9eff812d936063a2"></a><!-- doxytag: member="tesseract::IntFeatureMap::DeleteMapFeature" ref="a9f520c6a69fa114d9eff812d936063a2" args="(int map_feature)" -->
@@ -212,6 +241,12 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intfeaturemap_8cpp_source.html#l00064">64</a> of file <a class="el" href="intfeaturemap_8cpp_source.html">intfeaturemap.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                    {
+  feature_map_.Merge(-1, map_feature);
+  mapping_changed_ = <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a1b381ee377aaf73f4e07ce08849ca8c6"></a><!-- doxytag: member="tesseract::IntFeatureMap::feature_map" ref="a1b381ee377aaf73f4e07ce08849ca8c6" args="() const " -->
@@ -228,6 +263,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intfeaturemap_8h_source.html#l00063">63</a> of file <a class="el" href="intfeaturemap_8h_source.html">intfeaturemap.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                          {
+    <span class="keywordflow">return</span> feature_map_;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad9eca6f10e8740cc82c239b6c7dfdb90"></a><!-- doxytag: member="tesseract::IntFeatureMap::feature_space" ref="ad9eca6f10e8740cc82c239b6c7dfdb90" args="() const " -->
@@ -244,6 +284,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intfeaturemap_8h_source.html#l00060">60</a> of file <a class="el" href="intfeaturemap_8h_source.html">intfeaturemap.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                               {
+    <span class="keywordflow">return</span> feature_space_;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="af3348594a6926c20c0366e3acb56a4ef"></a><!-- doxytag: member="tesseract::IntFeatureMap::FinalizeMapping" ref="af3348594a6926c20c0366e3acb56a4ef" args="(SampleIterator *it)" -->
@@ -261,6 +306,19 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intfeaturemap_8cpp_source.html#l00160">160</a> of file <a class="el" href="intfeaturemap_8cpp_source.html">intfeaturemap.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                     {
+  <span class="keywordflow">if</span> (mapping_changed_) {
+    feature_map_.CompleteMerges();
+    compact_size_ = feature_map_.CompactSize();
+<span class="preprocessor">#ifdef EXPERIMENT_ON</span>
+<span class="preprocessor"></span>    it-&gt;MapSampleFeatures(*<span class="keyword">this</span>);
+<span class="preprocessor">#endif</span>
+<span class="preprocessor"></span>    mapping_changed_ = <span class="keyword">false</span>;
+  }
+  <span class="keywordflow">return</span> compact_size_;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa04a441902ce2cc53b225dc6487e6650"></a><!-- doxytag: member="tesseract::IntFeatureMap::FindNZFeatureMapping" ref="aa04a441902ce2cc53b225dc6487e6650" args="(SampleIterator *it)" -->
@@ -311,6 +369,12 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intfeaturemap_8h_source.html#l00104">104</a> of file <a class="el" href="intfeaturemap_8h_source.html">intfeaturemap.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                       {
+    feature_space_.IndexAndSortFeatures(features, num_features,
+                                        sorted_features);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a39cd610b08359c77cbb9cce314d74d10"></a><!-- doxytag: member="tesseract::IntFeatureMap::IndexFeature" ref="a39cd610b08359c77cbb9cce314d74d10" args="(const INT_FEATURE_STRUCT &amp;f) const " -->
@@ -328,6 +392,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intfeaturemap_8cpp_source.html#l00048">48</a> of file <a class="el" href="intfeaturemap_8cpp_source.html">intfeaturemap.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                 {
+  <span class="keywordflow">return</span> feature_space_.Index(f);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa2a41837ff48a80829cf8c7d5ca4917d"></a><!-- doxytag: member="tesseract::IntFeatureMap::Init" ref="aa2a41837ff48a80829cf8c7d5ca4917d" args="(const IntFeatureSpace &amp;feature_space)" -->
@@ -345,6 +414,35 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intfeaturemap_8cpp_source.html#l00074">74</a> of file <a class="el" href="intfeaturemap_8cpp_source.html">intfeaturemap.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                             {
+  feature_space_ = <a class="code" href="classtesseract_1_1_int_feature_map.html#ad9eca6f10e8740cc82c239b6c7dfdb90">feature_space</a>;
+  mapping_changed_ = <span class="keyword">false</span>;
+  <span class="keywordtype">int</span> <a class="code" href="classtesseract_1_1_int_feature_map.html#a4b8c11f257a4325f1caf5df974e514f6">sparse_size</a> = feature_space_.Size();
+  feature_map_.Init(sparse_size, <span class="keyword">true</span>);
+  feature_map_.Setup();
+  compact_size_ = feature_map_.CompactSize();
+  <span class="comment">// Initialize look-up tables if needed.</span>
+  <a class="code" href="class_f_c_o_o_r_d.html">FCOORD</a> dir = <a class="code" href="intfx_8cpp.html#a31bfe591242811378902d7342621a59b">FeatureDirection</a>(0);
+  <span class="keywordflow">if</span> (dir.<a class="code" href="class_f_c_o_o_r_d.html#a9edadbfc357c730f62fa3c92677b0d58">x</a>() == 0.0f &amp;&amp; dir.<a class="code" href="class_f_c_o_o_r_d.html#a397f7ce997b246df18e7bd5a20cc422e">y</a>() == 0.0f)
+    <a class="code" href="intfx_8cpp.html#a1281b17b87e56c99d53fe6bb1f7c2d55">InitIntegerFX</a>();
+  <span class="comment">// Compute look-up tables to generate offset features.</span>
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> dir = 0; dir &lt; kNumOffsetMaps; ++dir) {
+    <span class="keyword">delete</span> [] offset_plus_[dir];
+    <span class="keyword">delete</span> [] offset_minus_[dir];
+    offset_plus_[dir] = <span class="keyword">new</span> <span class="keywordtype">int</span>[<a class="code" href="classtesseract_1_1_int_feature_map.html#a4b8c11f257a4325f1caf5df974e514f6">sparse_size</a>];
+    offset_minus_[dir] = <span class="keyword">new</span> <span class="keywordtype">int</span>[<a class="code" href="classtesseract_1_1_int_feature_map.html#a4b8c11f257a4325f1caf5df974e514f6">sparse_size</a>];
+  }
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> dir = 1; dir &lt;= kNumOffsetMaps; ++dir) {
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="classtesseract_1_1_int_feature_map.html#a4b8c11f257a4325f1caf5df974e514f6">sparse_size</a>; ++i) {
+      <span class="keywordtype">int</span> offset_index = ComputeOffsetFeature(i, dir);
+      offset_plus_[dir - 1][i] = offset_index;
+      offset_index = ComputeOffsetFeature(i, -dir);
+      offset_minus_[dir - 1][i] = offset_index;
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aec31c0d13a466e3957a42fe70511d47f"></a><!-- doxytag: member="tesseract::IntFeatureMap::InverseIndexFeature" ref="aec31c0d13a466e3957a42fe70511d47f" args="(int index_feature) const " -->
@@ -362,6 +460,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intfeaturemap_8cpp_source.html#l00057">57</a> of file <a class="el" href="intfeaturemap_8cpp_source.html">intfeaturemap.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                             {
+  <span class="keywordflow">return</span> feature_space_.PositionFromIndex(index_feature);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a53738bef24bcebaaac0c6b4298eedb6f"></a><!-- doxytag: member="tesseract::IntFeatureMap::InverseMapFeature" ref="a53738bef24bcebaaac0c6b4298eedb6f" args="(int map_feature) const " -->
@@ -379,6 +482,12 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intfeaturemap_8cpp_source.html#l00060">60</a> of file <a class="el" href="intfeaturemap_8cpp_source.html">intfeaturemap.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                         {
+  <span class="keywordtype">int</span> index = feature_map_.CompactToSparse(map_feature);
+  <span class="keywordflow">return</span> feature_space_.PositionFromIndex(index);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad8bb4fca93cf4ca2de3716f28ee982b5"></a><!-- doxytag: member="tesseract::IntFeatureMap::IsMapFeatureDeleted" ref="ad8bb4fca93cf4ca2de3716f28ee982b5" args="(int map_feature) const " -->
@@ -396,6 +505,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intfeaturemap_8cpp_source.html#l00068">68</a> of file <a class="el" href="intfeaturemap_8cpp_source.html">intfeaturemap.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                             {
+  <span class="keywordflow">return</span> feature_map_.IsCompactDeleted(map_feature);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3690350765e201ac4d65cc6818bee4cf"></a><!-- doxytag: member="tesseract::IntFeatureMap::MapFeature" ref="a3690350765e201ac4d65cc6818bee4cf" args="(const INT_FEATURE_STRUCT &amp;f) const " -->
@@ -413,6 +527,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intfeaturemap_8cpp_source.html#l00051">51</a> of file <a class="el" href="intfeaturemap_8cpp_source.html">intfeaturemap.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                               {
+  <span class="keywordflow">return</span> feature_map_.SparseToCompact(feature_space_.Index(f));
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a18fa91458f954396cb4f56932818402d"></a><!-- doxytag: member="tesseract::IntFeatureMap::MapIndexedFeatures" ref="a18fa91458f954396cb4f56932818402d" args="(const GenericVector&lt; int &gt; &amp;index_features, GenericVector&lt; int &gt; *map_features) const " -->
@@ -440,6 +559,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intfeaturemap_8h_source.html#l00115">115</a> of file <a class="el" href="intfeaturemap_8h_source.html">intfeaturemap.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                 {
+    <span class="keywordflow">return</span> feature_map_.MapFeatures(index_features, map_features);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="acc5af5a18d8315076f1b9bee55cb2ea8"></a><!-- doxytag: member="tesseract::IntFeatureMap::MapIndexFeature" ref="acc5af5a18d8315076f1b9bee55cb2ea8" args="(int index_feature) const " -->
@@ -457,6 +581,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intfeaturemap_8cpp_source.html#l00054">54</a> of file <a class="el" href="intfeaturemap_8cpp_source.html">intfeaturemap.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                          {
+  <span class="keywordflow">return</span> feature_map_.SparseToCompact(index_feature);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a125a91be52f2dc6622587a81a25256f9"></a><!-- doxytag: member="tesseract::IntFeatureMap::OffsetFeature" ref="a125a91be52f2dc6622587a81a25256f9" args="(int index_feature, int dir) const " -->
@@ -484,6 +613,18 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intfeaturemap_8cpp_source.html#l00114">114</a> of file <a class="el" href="intfeaturemap_8cpp_source.html">intfeaturemap.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                 {
+  <span class="keywordflow">if</span> (dir &gt; 0 &amp;&amp; dir &lt;= kNumOffsetMaps)
+    <span class="keywordflow">return</span> offset_plus_[dir - 1][index_feature];
+  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (dir &lt; 0 &amp;&amp; -dir &lt;= kNumOffsetMaps)
+    <span class="keywordflow">return</span> offset_minus_[-dir - 1][index_feature];
+  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (dir == 0)
+    <span class="keywordflow">return</span> index_feature;
+  <span class="keywordflow">else</span>
+    <span class="keywordflow">return</span> -1;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4b8c11f257a4325f1caf5df974e514f6"></a><!-- doxytag: member="tesseract::IntFeatureMap::sparse_size" ref="a4b8c11f257a4325f1caf5df974e514f6" args="() const " -->
@@ -500,11 +641,16 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intfeaturemap_8h_source.html#l00054">54</a> of file <a class="el" href="intfeaturemap_8h_source.html">intfeaturemap.h</a>.</p>
+<div class="fragment"><pre class="fragment">                          {
+    <span class="keywordflow">return</span> feature_space_.Size();
+  }
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/classify/<a class="el" href="intfeaturemap_8h_source.html">intfeaturemap.h</a></li>
-<li>tesseract-ocr/classify/<a class="el" href="intfeaturemap_8cpp.html">intfeaturemap.cpp</a></li>
+<li>tesseract-ocr/classify/<a class="el" href="intfeaturemap_8cpp_source.html">intfeaturemap.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -527,7 +673,7 @@ Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:15 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:50 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

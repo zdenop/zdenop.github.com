@@ -115,7 +115,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <code>#include &quot;<a class="el" href="secname_8h_source.html">secname.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="globals_8h_source.html">globals.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="tesseractclass_8h_source.html">tesseractclass.h</a>&quot;</code><br/>
-</div><table class="memberdecls">
+</div>
+<p><a href="fixspace_8cpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr><td colspan="2"><h2><a name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetesseract.html">tesseract</a></td></tr>
@@ -146,6 +148,8 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="fixspace_8cpp_source.html#l00036">36</a> of file <a class="el" href="fixspace_8cpp_source.html">fixspace.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a943a2c8946e26cd62fd7a455b7e53c04"></a><!-- doxytag: member="fixspace.cpp::PERFECT_WERDS" ref="a943a2c8946e26cd62fd7a455b7e53c04" args="" -->
@@ -158,6 +162,8 @@ Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="fixspace_8cpp_source.html#l00035">35</a> of file <a class="el" href="fixspace_8cpp_source.html">fixspace.cpp</a>.</p>
 
 </div>
 </div>
@@ -177,6 +183,32 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="fixspace_8cpp_source.html#l00879">879</a> of file <a class="el" href="fixspace_8cpp_source.html">fixspace.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                  {
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> box = word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a>-&gt;<a class="code" href="class_w_e_r_d.html#a151bbfb39ecdef93ab1a14b0f9e4ac74">bounding_box</a>();
+  <a class="code" href="host_8h.html#a7712a7e28433d0ade59219a129549b6f">BOOL8</a> show_map_detail = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> i;
+
+  box.<a class="code" href="class_t_b_o_x.html#a2e753aa9943276301d68e9f9cad99620">print</a>();
+  <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot; \&quot;%s\&quot; &quot;</span>, word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a41d740f0accccdfb245d34d554122116">unichar_string</a>().<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a>());
+  <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Blob count: %d (word); %d/%d (rebuild word)\n&quot;</span>,
+          word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a>-&gt;<a class="code" href="class_w_e_r_d.html#a174baefaa99afbfdbf444e4199f3b529">cblob_list</a>()-&gt;length(),
+          word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a211ab5c5a13123ee7bdc7459d3363f9d">rebuild_word</a>-&gt;<a class="code" href="struct_t_w_e_r_d.html#adfdef9868e61650e076775011382ec70">NumBlobs</a>(),
+          word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3a92c8c9750d78631d75998f008f366a">box_word</a>-&gt;<a class="code" href="classtesseract_1_1_box_word.html#afe001fe8fb7f2d3725b2ac2f542e9878">length</a>());
+  word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#ae24eb58be06cf275aee411d947fd31ef">reject_map</a>.<a class="code" href="class_r_e_j_m_a_p.html#a124889539460b8c200b3186da4a692e0">print</a>(<a class="code" href="tessvars_8cpp.html#adff672a9cdb59d57a0d142954a6a3899">debug_fp</a>);
+  <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;\n&quot;</span>);
+  <span class="keywordflow">if</span> (show_map_detail) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;\&quot;%s\&quot;\n&quot;</span>, word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a41d740f0accccdfb245d34d554122116">unichar_string</a>().<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a>());
+    <span class="keywordflow">for</span> (i = 0; word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a41d740f0accccdfb245d34d554122116">unichar_string</a>()[i] != <span class="charliteral">&#39;\0&#39;</span>; i++) {
+      <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;**** \&quot;%c\&quot; ****\n&quot;</span>, word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a41d740f0accccdfb245d34d554122116">unichar_string</a>()[i]);
+      word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#ae24eb58be06cf275aee411d947fd31ef">reject_map</a>[i].<a class="code" href="class_r_e_j_m_a_p.html#a476689acf6a0c07a0f09452ef5ff79e8">full_print</a>(<a class="code" href="tessvars_8cpp.html#adff672a9cdb59d57a0d142954a6a3899">debug_fp</a>);
+    }
+  }
+
+  <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Tess Accepted: %s\n&quot;</span>, word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#aa5509c182ff49d19cd95cd720ddf4d1a">tess_accepted</a> ? <span class="stringliteral">&quot;TRUE&quot;</span> : <span class="stringliteral">&quot;FALSE&quot;</span>);
+  <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Done flag: %s\n\n&quot;</span>, word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a0920859a03bd9b0da26b8a0657d5440d">done</a> ? <span class="stringliteral">&quot;TRUE&quot;</span> : <span class="stringliteral">&quot;FALSE&quot;</span>);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa9c4bc6127388800d066093c261667ea"></a><!-- doxytag: member="fixspace.cpp::initialise_search" ref="aa9c4bc6127388800d066093c261667ea" args="(WERD_RES_LIST &amp;src_list, WERD_RES_LIST &amp;new_list)" -->
@@ -204,6 +236,24 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="fixspace_8cpp_source.html#l00178">178</a> of file <a class="el" href="fixspace_8cpp_source.html">fixspace.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                         {
+  WERD_RES_IT src_it(&amp;src_list);
+  WERD_RES_IT new_it(&amp;new_list);
+  <a class="code" href="class_w_e_r_d___r_e_s.html">WERD_RES</a> *src_wd;
+  <a class="code" href="class_w_e_r_d___r_e_s.html">WERD_RES</a> *new_wd;
+
+  <span class="keywordflow">for</span> (src_it.mark_cycle_pt(); !src_it.cycled_list(); src_it.forward()) {
+    src_wd = src_it.data();
+    <span class="keywordflow">if</span> (!src_wd-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#aa93c58a60bedb04c73e3fbb586f72875">combination</a>) {
+      new_wd = <span class="keyword">new</span> <a class="code" href="class_w_e_r_d___r_e_s.html">WERD_RES</a>(*src_wd);
+      new_wd-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#aa93c58a60bedb04c73e3fbb586f72875">combination</a> = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+      new_wd-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a475b98b66ae6678e6cf618ead08d5d02">part_of_combo</a> = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+      new_it.add_after_then_move(new_wd);
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7373a91e50199f38d52143e22c269f92"></a><!-- doxytag: member="fixspace.cpp::transform_to_next_perm" ref="a7373a91e50199f38d52143e22c269f92" args="(WERD_RES_LIST &amp;words)" -->
@@ -221,6 +271,83 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="fixspace_8cpp_source.html#l00373">373</a> of file <a class="el" href="fixspace_8cpp_source.html">fixspace.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                  {
+  WERD_RES_IT word_it(&amp;words);
+  WERD_RES_IT prev_word_it(&amp;words);
+  <a class="code" href="class_w_e_r_d___r_e_s.html">WERD_RES</a> *word;
+  <a class="code" href="class_w_e_r_d___r_e_s.html">WERD_RES</a> *prev_word;
+  <a class="code" href="class_w_e_r_d___r_e_s.html">WERD_RES</a> *combo;
+  <a class="code" href="class_w_e_r_d.html">WERD</a> *copy_word;
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> prev_right = -<a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a>;
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> box;
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> gap;
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> min_gap = <a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a>;
+
+  <span class="keywordflow">for</span> (word_it.mark_cycle_pt(); !word_it.cycled_list(); word_it.forward()) {
+    word = word_it.data();
+    <span class="keywordflow">if</span> (!word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a475b98b66ae6678e6cf618ead08d5d02">part_of_combo</a>) {
+      box = word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a>-&gt;<a class="code" href="class_w_e_r_d.html#a151bbfb39ecdef93ab1a14b0f9e4ac74">bounding_box</a>();
+      <span class="keywordflow">if</span> (prev_right &gt; -<a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a>) {
+        gap = box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>() - prev_right;
+        <span class="keywordflow">if</span> (gap &lt; min_gap)
+          min_gap = gap;
+      }
+      prev_right = box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>();
+    }
+  }
+  <span class="keywordflow">if</span> (min_gap &lt; <a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a>) {
+    prev_right = -<a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a>;        <span class="comment">// back to start</span>
+    word_it.set_to_list(&amp;words);
+    <span class="comment">// Note: we can&#39;t use cycle_pt due to inserted combos at start of list.</span>
+    <span class="keywordflow">for</span> (; (prev_right == -<a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a>) || !word_it.at_first();
+         word_it.forward()) {
+      word = word_it.data();
+      <span class="keywordflow">if</span> (!word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a475b98b66ae6678e6cf618ead08d5d02">part_of_combo</a>) {
+        box = word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a>-&gt;<a class="code" href="class_w_e_r_d.html#a151bbfb39ecdef93ab1a14b0f9e4ac74">bounding_box</a>();
+        <span class="keywordflow">if</span> (prev_right &gt; -<a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a>) {
+          gap = box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>() - prev_right;
+          <span class="keywordflow">if</span> (gap &lt;= min_gap) {
+            prev_word = prev_word_it.data();
+            <span class="keywordflow">if</span> (prev_word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#aa93c58a60bedb04c73e3fbb586f72875">combination</a>) {
+              combo = prev_word;
+            } <span class="keywordflow">else</span> {
+              <span class="comment">/* Make a new combination and insert before</span>
+<span class="comment">               * the first word being joined. */</span>
+              copy_word = <span class="keyword">new</span> <a class="code" href="class_w_e_r_d.html">WERD</a>;
+              *copy_word = *(prev_word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a>);
+              <span class="comment">// deep copy</span>
+              combo = <span class="keyword">new</span> <a class="code" href="class_w_e_r_d___r_e_s.html">WERD_RES</a>(copy_word);
+              combo-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#aa93c58a60bedb04c73e3fbb586f72875">combination</a> = <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+              combo-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a42ec9dbb998f7da714ace13ee30cb86e">x_height</a> = prev_word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a42ec9dbb998f7da714ace13ee30cb86e">x_height</a>;
+              prev_word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a475b98b66ae6678e6cf618ead08d5d02">part_of_combo</a> = <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+              prev_word_it.add_before_then_move(combo);
+            }
+            combo-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a>-&gt;<a class="code" href="class_w_e_r_d.html#aa42c9f53794ab51c95503cd277e89c60">set_flag</a>(<a class="code" href="werd_8h.html#ad6968adbf8f2cc44adf333ec96efb0bea62efb985a62d85e014ee5ab039dd50ce">W_EOL</a>, word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a>-&gt;<a class="code" href="class_w_e_r_d.html#a81edde8597a3d9fd8a664d703d332c41">flag</a>(<a class="code" href="werd_8h.html#ad6968adbf8f2cc44adf333ec96efb0bea62efb985a62d85e014ee5ab039dd50ce">W_EOL</a>));
+            <span class="keywordflow">if</span> (word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#aa93c58a60bedb04c73e3fbb586f72875">combination</a>) {
+              combo-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a>-&gt;<a class="code" href="class_w_e_r_d.html#ad856eb3b9230d14fe8f013bfd03d8828">join_on</a>(word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a>);
+              <span class="comment">// Move blobs to combo</span>
+              <span class="comment">// old combo no longer needed</span>
+              <span class="keyword">delete</span> word_it.extract();
+            } <span class="keywordflow">else</span> {
+              <span class="comment">// Copy current wd to combo</span>
+              combo-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3badcd252947547aadeb3d2bfe2f980b">copy_on</a>(word);
+              word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a475b98b66ae6678e6cf618ead08d5d02">part_of_combo</a> = <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+            }
+            combo-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a0920859a03bd9b0da26b8a0657d5440d">done</a> = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+            combo-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a6ef9853bc0dca7249a30c897bcba4aba">ClearResults</a>();
+          } <span class="keywordflow">else</span> {
+            prev_word_it = word_it;  <span class="comment">// catch up</span>
+          }
+        }
+        prev_right = box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>();
+      }
+    }
+  } <span class="keywordflow">else</span> {
+    words.clear();  <span class="comment">// signal termination</span>
+  }
+}
+</pre></div>
 </div>
 </div>
 </div>
@@ -243,7 +370,7 @@ Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:08 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:40 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

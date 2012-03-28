@@ -111,7 +111,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <code>#include &quot;<a class="el" href="normalis_8h_source.html">normalis.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="params_8h_source.html">params.h</a>&quot;</code><br/>
 <code>#include &lt;math.h&gt;</code><br/>
-</div><table class="memberdecls">
+</div>
+<p><a href="mfx_8cpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr><td colspan="2"><h2><a name="define-members"></a>
 Defines</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mfx_8cpp.html#a5418ed129c949071820a8d0c28093de1">NormalizeAngle</a>(A)&#160;&#160;&#160;( (((A)&lt;0)?((A)+2*PI):(A)) / (2*PI) )</td></tr>
@@ -143,6 +145,8 @@ Variables</h2></td></tr>
 <div class="memdoc">
 <p>---------------------------------------------------------------------------- Macros ---------------------------------------------------------------------------- </p>
 
+<p>Definition at line <a class="el" href="mfx_8cpp_source.html#l00045">45</a> of file <a class="el" href="mfx_8cpp_source.html">mfx.cpp</a>.</p>
+
 </div>
 </div>
 <hr/><h2>Function Documentation</h2>
@@ -172,6 +176,57 @@ Variables</h2></td></tr>
 <div class="memdoc">
 <p>---------------------------------------------------------------------------- Public Code ---------------------------------------------------------------------------- </p>
 
+<p>Definition at line <a class="el" href="mfx_8cpp_source.html#l00062">62</a> of file <a class="el" href="mfx_8cpp_source.html">mfx.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                   {
+<span class="comment">/*</span>
+<span class="comment"> **      Parameters:</span>
+<span class="comment"> **              Blob            blob to extract micro-features from</span>
+<span class="comment"> **              denorm          control parameter to feature extractor</span>
+<span class="comment"> **      Operation:</span>
+<span class="comment"> **              This routine extracts micro-features from the specified</span>
+<span class="comment"> **              blob and returns a list of the micro-features.  All</span>
+<span class="comment"> **              micro-features are normalized according to the specified</span>
+<span class="comment"> **              line statistics.</span>
+<span class="comment"> **      Return: List of micro-features extracted from the blob.</span>
+<span class="comment"> **      Exceptions: none</span>
+<span class="comment"> **      History: 7/21/89, DSJ, Created.</span>
+<span class="comment"> */</span>
+  <a class="code" href="structlist__rec.html">MICROFEATURES</a> MicroFeatures = <a class="code" href="oldlist_8h.html#ae212530ca629c67513698e988c705a5a">NIL_LIST</a>;
+  <a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a> XScale, YScale;
+  <a class="code" href="structlist__rec.html">LIST</a> Outlines;
+  <a class="code" href="structlist__rec.html">LIST</a> RemainingOutlines;
+  <a class="code" href="structlist__rec.html">MFOUTLINE</a> Outline;
+  <a class="code" href="baseapi_8h.html#a544a6c7d78d215e9a4da202daecfeb52">INT_FEATURE_ARRAY</a> blfeatures;
+  <a class="code" href="baseapi_8h.html#a544a6c7d78d215e9a4da202daecfeb52">INT_FEATURE_ARRAY</a> cnfeatures;
+  <a class="code" href="struct_i_n_t___f_x___r_e_s_u_l_t___s_t_r_u_c_t.html">INT_FX_RESULT_STRUCT</a> results;
+
+  <span class="keywordflow">if</span> (Blob != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    Outlines = <a class="code" href="mfoutline_8cpp.html#a4acb6328d74e385e88c02c45e1306b97">ConvertBlob</a> (Blob);
+    <span class="keywordflow">if</span> (!<a class="code" href="intfx_8cpp.html#a508a06732c67c00efc9db362bd8b970e">ExtractIntFeat</a>(Blob, denorm, blfeatures, cnfeatures, &amp;results))
+      <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    XScale = 0.2f / results.<a class="code" href="struct_i_n_t___f_x___r_e_s_u_l_t___s_t_r_u_c_t.html#a5bc44d7c44209bf894b7c806839cb62d">Ry</a>;
+    YScale = 0.2f / results.<a class="code" href="struct_i_n_t___f_x___r_e_s_u_l_t___s_t_r_u_c_t.html#a761357b2a8e539be5dd5be9ab6427535">Rx</a>;
+
+    RemainingOutlines = Outlines;
+    <a class="code" href="oldlist_8h.html#a2cf19ba78be6b54f66823d58f34f2a53">iterate</a>(RemainingOutlines) {
+      Outline = (<a class="code" href="mfoutline_8h.html#a7ccab0cdf14413921e017ad0af14e1de">MFOUTLINE</a>) <a class="code" href="oldlist_8h.html#a69547be764424f18b0be535400747978">first_node</a> (RemainingOutlines);
+      <a class="code" href="mfoutline_8cpp.html#a5918c653f568c2a6e5aa43569c01f346">CharNormalizeOutline</a> (Outline,
+        results.<a class="code" href="struct_i_n_t___f_x___r_e_s_u_l_t___s_t_r_u_c_t.html#a4248f47c8d5d20a3849164df3fdcf9bc">Xmean</a>, results.<a class="code" href="struct_i_n_t___f_x___r_e_s_u_l_t___s_t_r_u_c_t.html#a7acb1b39e74035eb698d8ab2ca8f689e">Ymean</a>,
+        XScale, YScale);
+    }
+
+    RemainingOutlines = Outlines;
+    <a class="code" href="oldlist_8h.html#a2cf19ba78be6b54f66823d58f34f2a53">iterate</a>(RemainingOutlines) {
+      Outline = (<a class="code" href="mfoutline_8h.html#a7ccab0cdf14413921e017ad0af14e1de">MFOUTLINE</a>) <a class="code" href="oldlist_8h.html#a69547be764424f18b0be535400747978">first_node</a> (RemainingOutlines);
+      <a class="code" href="mfoutline_8cpp.html#ac2b870343576dd24d1c4871f5988d556">FindDirectionChanges</a>(Outline, <a class="code" href="mfx_8cpp.html#afc77a0a04110e77db4b31bb16800a207">classify_min_slope</a>, <a class="code" href="mfx_8cpp.html#a7a76f272add43800ab97ff8aeb0184a9">classify_max_slope</a>);
+      <a class="code" href="mfoutline_8cpp.html#afa2531f8656ba496465bc23ff1a2f99c">MarkDirectionChanges</a>(Outline);
+      MicroFeatures = <a class="code" href="mfx_8cpp.html#ae9693813f30b3c834f46191be843b750">ConvertToMicroFeatures</a> (Outline, MicroFeatures);
+    }
+    <a class="code" href="mfoutline_8cpp.html#a553352ad44661adad2a80a24ac78aeaf">FreeOutlines</a>(Outlines);
+  }
+  <span class="keywordflow">return</span> ((<a class="code" href="ocrfeatures_8h.html#a4e78d165adc7a1b8c5bf790563265d97">CHAR_FEATURES</a>) MicroFeatures);
+}                                <span class="comment">/* BlobMicroFeatures */</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a06bc324f94765ef7be45570e5b419131"></a><!-- doxytag: member="mfx.cpp::ComputeOrientation" ref="a06bc324f94765ef7be45570e5b419131" args="(MFEDGEPT *Start, MFEDGEPT *End)" -->
@@ -199,6 +254,36 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mfx_8cpp_source.html#l00118">118</a> of file <a class="el" href="mfx_8cpp_source.html">mfx.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                           {
+<span class="comment">/*</span>
+<span class="comment"> **      Parameters:</span>
+<span class="comment"> **              Start           starting edge point of micro-feature</span>
+<span class="comment"> **              End             ending edge point of micro-feature</span>
+<span class="comment"> **      Globals: none</span>
+<span class="comment"> **      Operation:</span>
+<span class="comment"> **              This routine computes the orientation parameter of the</span>
+<span class="comment"> **              specified micro-feature.  The orientation is the angle of</span>
+<span class="comment"> **              the vector from Start to End.  It is normalized to a number</span>
+<span class="comment"> **              between 0 and 1 where 0 corresponds to 0 degrees and 1</span>
+<span class="comment"> **              corresponds to 360 degrees.  The actual range is [0,1), i.e.</span>
+<span class="comment"> **              1 is excluded from the range (since it is actual the</span>
+<span class="comment"> **              same orientation as 0).  This routine assumes that Start</span>
+<span class="comment"> **              and End are not the same point.</span>
+<span class="comment"> **      Return: Orientation parameter for the specified micro-feature.</span>
+<span class="comment"> **      Exceptions: none</span>
+<span class="comment"> **      History: 7/27/89, DSJ, Created.</span>
+<span class="comment"> */</span>
+  <a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a> <a class="code" href="namespacetesseract.html#a76ce0248fd3ba576ca053e9bb82e492f">Orientation</a>;
+
+  Orientation = <a class="code" href="mfx_8cpp.html#a5418ed129c949071820a8d0c28093de1">NormalizeAngle</a> (<a class="code" href="fpoint_8h.html#ab2882d6616a94607705192ca8c484764">AngleFrom</a> (Start-&gt;<a class="code" href="struct_m_f_e_d_g_e_p_t.html#a2b633b56b9a1a71a23551e387b7c8af4">Point</a>, End-&gt;<a class="code" href="struct_m_f_e_d_g_e_p_t.html#a2b633b56b9a1a71a23551e387b7c8af4">Point</a>));
+
+  <span class="comment">/* ensure that round-off errors do not put circular param out of range */</span>
+  <span class="keywordflow">if</span> ((Orientation &lt; 0) || (Orientation &gt;= 1))
+    Orientation = 0;
+  <span class="keywordflow">return</span> (Orientation);
+}                                <span class="comment">/* ComputeOrientation */</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae9693813f30b3c834f46191be843b750"></a><!-- doxytag: member="mfx.cpp::ConvertToMicroFeatures" ref="ae9693813f30b3c834f46191be843b750" args="(MFOUTLINE Outline, MICROFEATURES MicroFeatures)" -->
@@ -226,6 +311,43 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mfx_8cpp_source.html#l00149">149</a> of file <a class="el" href="mfx_8cpp_source.html">mfx.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                  {
+<span class="comment">/*</span>
+<span class="comment"> **      Parameters:</span>
+<span class="comment"> **              Outline         outline to extract micro-features from</span>
+<span class="comment"> **              MicroFeatures   list of micro-features to add to</span>
+<span class="comment"> **      Globals: none</span>
+<span class="comment"> **      Operation:</span>
+<span class="comment"> **              This routine</span>
+<span class="comment"> **      Return: List of micro-features with new features added to front.</span>
+<span class="comment"> **      Exceptions: none</span>
+<span class="comment"> **      History: 7/26/89, DSJ, Created.</span>
+<span class="comment"> */</span>
+  <a class="code" href="structlist__rec.html">MFOUTLINE</a> Current;
+  <a class="code" href="structlist__rec.html">MFOUTLINE</a> Last;
+  <a class="code" href="structlist__rec.html">MFOUTLINE</a> First;
+  <a class="code" href="mfdefs_8h.html#acf6b2e47a8872409e85b7bfeee9961dc">MICROFEATURE</a> <a class="code" href="ocrfeatures_8cpp.html#a32a08c42617c8dd6a156c1c8d7fb2cbb">NewFeature</a>;
+
+  <span class="keywordflow">if</span> (<a class="code" href="mfoutline_8h.html#ac8e258367e719e5a22e83af1c2b33e53">DegenerateOutline</a> (Outline))
+    <span class="keywordflow">return</span> (MicroFeatures);
+
+  First = <a class="code" href="mfoutline_8cpp.html#af520bd5bba313216d0b6fb9e58041266">NextExtremity</a> (Outline);
+  Last = First;
+  <span class="keywordflow">do</span> {
+    Current = <a class="code" href="mfoutline_8cpp.html#af520bd5bba313216d0b6fb9e58041266">NextExtremity</a> (Last);
+    <span class="keywordflow">if</span> (!<a class="code" href="mfoutline_8h.html#aabb22902a8c1b9a830cb6347a474feea">PointAt</a>(Current)-&gt;Hidden) {
+      NewFeature = <a class="code" href="mfx_8cpp.html#aff6e1b00e3fdbcf73ecee608c906f6f8">ExtractMicroFeature</a> (Last, Current);
+      <span class="keywordflow">if</span> (NewFeature != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+        MicroFeatures = <a class="code" href="oldlist_8cpp.html#a9c4294375af81ab4c133b6b5a3679a16">push</a> (MicroFeatures, NewFeature);
+    }
+    Last = Current;
+  }
+  <span class="keywordflow">while</span> (Last != First);
+
+  <span class="keywordflow">return</span> (MicroFeatures);
+}                                <span class="comment">/* ConvertToMicroFeatures */</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aff6e1b00e3fdbcf73ecee608c906f6f8"></a><!-- doxytag: member="mfx.cpp::ExtractMicroFeature" ref="aff6e1b00e3fdbcf73ecee608c906f6f8" args="(MFOUTLINE Start, MFOUTLINE End)" -->
@@ -253,6 +375,43 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mfx_8cpp_source.html#l00188">188</a> of file <a class="el" href="mfx_8cpp_source.html">mfx.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                 {
+<span class="comment">/*</span>
+<span class="comment"> **      Parameters:</span>
+<span class="comment"> **              Start           starting point of micro-feature</span>
+<span class="comment"> **              End             ending point of micro-feature</span>
+<span class="comment"> **      Globals: none</span>
+<span class="comment"> **      Operation:</span>
+<span class="comment"> **              This routine computes the feature parameters which describe</span>
+<span class="comment"> **              the micro-feature that starts and Start and ends at End.</span>
+<span class="comment"> **              A new micro-feature is allocated, filled with the feature</span>
+<span class="comment"> **              parameters, and returned.  The routine assumes that</span>
+<span class="comment"> **              Start and End are not the same point.  If they are the</span>
+<span class="comment"> **              same point, NULL is returned, a warning message is</span>
+<span class="comment"> **              printed, and the current outline is dumped to stdout.</span>
+<span class="comment"> **      Return: New micro-feature or NULL if the feature was rejected.</span>
+<span class="comment"> **      Exceptions: none</span>
+<span class="comment"> **      History: 7/26/89, DSJ, Created.</span>
+<span class="comment"> **              11/17/89, DSJ, Added handling for Start and End same point.</span>
+<span class="comment"> */</span>
+  <a class="code" href="mfdefs_8h.html#acf6b2e47a8872409e85b7bfeee9961dc">MICROFEATURE</a> <a class="code" href="ocrfeatures_8cpp.html#a32a08c42617c8dd6a156c1c8d7fb2cbb">NewFeature</a>;
+  <a class="code" href="struct_m_f_e_d_g_e_p_t.html">MFEDGEPT</a> *P1, *P2;
+
+  P1 = <a class="code" href="mfoutline_8h.html#aabb22902a8c1b9a830cb6347a474feea">PointAt</a>(Start);
+  P2 = <a class="code" href="mfoutline_8h.html#aabb22902a8c1b9a830cb6347a474feea">PointAt</a>(End);
+
+  NewFeature = <a class="code" href="mfdefs_8cpp.html#a10606897d42fff8ca71fb36795bd581e">NewMicroFeature</a> ();
+  NewFeature[<a class="code" href="mfdefs_8h.html#aa14d8a5c035963734f527261a209c402">XPOSITION</a>] = <a class="code" href="mfoutline_8h.html#a3bebacc8131f75b46dc7a107d22fcae2">AverageOf</a>(P1-&gt;<a class="code" href="struct_m_f_e_d_g_e_p_t.html#a2b633b56b9a1a71a23551e387b7c8af4">Point</a>.<a class="code" href="struct_f_p_o_i_n_t.html#a96c1f94ff16244b06cb59b79152dc8ae">x</a>, P2-&gt;<a class="code" href="struct_m_f_e_d_g_e_p_t.html#a2b633b56b9a1a71a23551e387b7c8af4">Point</a>.<a class="code" href="struct_f_p_o_i_n_t.html#a96c1f94ff16244b06cb59b79152dc8ae">x</a>);
+  NewFeature[<a class="code" href="mfdefs_8h.html#ab4a43f7e9f215f0fb311fdb0f54fe1bf">YPOSITION</a>] = <a class="code" href="mfoutline_8h.html#a3bebacc8131f75b46dc7a107d22fcae2">AverageOf</a>(P1-&gt;<a class="code" href="struct_m_f_e_d_g_e_p_t.html#a2b633b56b9a1a71a23551e387b7c8af4">Point</a>.<a class="code" href="struct_f_p_o_i_n_t.html#a119bd5a9f0b29cabb3987fd94c5d4ca8">y</a>, P2-&gt;<a class="code" href="struct_m_f_e_d_g_e_p_t.html#a2b633b56b9a1a71a23551e387b7c8af4">Point</a>.<a class="code" href="struct_f_p_o_i_n_t.html#a119bd5a9f0b29cabb3987fd94c5d4ca8">y</a>);
+  NewFeature[<a class="code" href="mfdefs_8h.html#aab9af949da5ae4ae116df014c0d22d1e">MFLENGTH</a>] = <a class="code" href="fpoint_8cpp.html#a415c805f668844bd4e652968a7978c41">DistanceBetween</a>(P1-&gt;<a class="code" href="struct_m_f_e_d_g_e_p_t.html#a2b633b56b9a1a71a23551e387b7c8af4">Point</a>, P2-&gt;<a class="code" href="struct_m_f_e_d_g_e_p_t.html#a2b633b56b9a1a71a23551e387b7c8af4">Point</a>);
+  NewFeature[<a class="code" href="mfdefs_8h.html#ac815b03ec48abf99301f44140ff0b0a9">ORIENTATION</a>] = <a class="code" href="fpoint_8cpp.html#a64d002c6db7589a73c3fcc0f2e80ad80">NormalizedAngleFrom</a>(&amp;P1-&gt;<a class="code" href="struct_m_f_e_d_g_e_p_t.html#a2b633b56b9a1a71a23551e387b7c8af4">Point</a>, &amp;P2-&gt;<a class="code" href="struct_m_f_e_d_g_e_p_t.html#a2b633b56b9a1a71a23551e387b7c8af4">Point</a>, 1.0);
+  NewFeature[<a class="code" href="mfdefs_8h.html#ad1464eb110ea01416a6590990ef70292">FIRSTBULGE</a>] = 0.0f;  <span class="comment">// deprecated</span>
+  NewFeature[<a class="code" href="mfdefs_8h.html#af4886ef7009ef75f6e3a13ff562feb27">SECONDBULGE</a>] = 0.0f;  <span class="comment">// deprecated</span>
+
+  <span class="keywordflow">return</span> <a class="code" href="ocrfeatures_8cpp.html#a32a08c42617c8dd6a156c1c8d7fb2cbb">NewFeature</a>;
+}                                <span class="comment">/* ExtractMicroFeature */</span>
+</pre></div>
 </div>
 </div>
 <hr/><h2>Variable Documentation</h2>
@@ -268,6 +427,8 @@ Variables</h2></td></tr>
 <div class="memdoc">
 <p>"Slope above which lines are called vertical" </p>
 
+<p>Definition at line <a class="el" href="mfx_8cpp_source.html#l00039">39</a> of file <a class="el" href="mfx_8cpp_source.html">mfx.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="afc77a0a04110e77db4b31bb16800a207"></a><!-- doxytag: member="mfx.cpp::classify_min_slope" ref="afc77a0a04110e77db4b31bb16800a207" args="" -->
@@ -281,6 +442,8 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>---------------------------------------------------------------------------- Include Files and Type Defines ---------------------------------------------------------------------------- ---------------------------------------------------------------------------- Variables ---------------------------------------------------------------------------- "Slope below which lines are called horizontal" </p>
+
+<p>Definition at line <a class="el" href="mfx_8cpp_source.html#l00037">37</a> of file <a class="el" href="mfx_8cpp_source.html">mfx.cpp</a>.</p>
 
 </div>
 </div>
@@ -304,7 +467,7 @@ Variables</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:09 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:41 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

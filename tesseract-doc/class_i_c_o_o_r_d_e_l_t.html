@@ -129,7 +129,10 @@ Public Member Functions</h2></td></tr>
 Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_i_c_o_o_r_d_e_l_t.html">ICOORDELT</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_i_c_o_o_r_d_e_l_t.html#a36ea9c054f12a5f047b48a93878d6ccc">deep_copy</a> (const <a class="el" href="class_i_c_o_o_r_d_e_l_t.html">ICOORDELT</a> *src)</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="points_8h_source.html#l00161">161</a> of file <a class="el" href="points_8h_source.html">points.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="ac58bcdc2960bf47dfc0c608d8dfa263b"></a><!-- doxytag: member="ICOORDELT::ICOORDELT" ref="ac58bcdc2960bf47dfc0c608d8dfa263b" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -146,6 +149,10 @@ Static Public Member Functions</h2></td></tr>
 
 <p>empty constructor </p>
 
+<p>Definition at line <a class="el" href="points_8h_source.html#l00166">166</a> of file <a class="el" href="points_8h_source.html">points.h</a>.</p>
+<div class="fragment"><pre class="fragment">                {  
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a5048a14baa95b668e52f965fa912437b"></a><!-- doxytag: member="ICOORDELT::ICOORDELT" ref="a5048a14baa95b668e52f965fa912437b" args="(ICOORD icoord)" -->
@@ -165,6 +172,10 @@ Static Public Member Functions</h2></td></tr>
 
 <p>constructor from <a class="el" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> </p>
 
+<p>Definition at line <a class="el" href="points_8h_source.html#l00169">169</a> of file <a class="el" href="points_8h_source.html">points.h</a>.</p>
+<div class="fragment"><pre class="fragment">                             :<a class="code" href="class_i_c_o_o_r_d.html#af3b30f804139a9b9bc33970139f7975e" title="empty constructor">ICOORD</a> (icoord) {
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3b916c23da5954fdf4fad4cb5b9f071d"></a><!-- doxytag: member="ICOORDELT::ICOORDELT" ref="a3b916c23da5954fdf4fad4cb5b9f071d" args="(inT16 xin, inT16 yin)" -->
@@ -200,6 +211,12 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="points_8h_source.html#l00174">174</a> of file <a class="el" href="points_8h_source.html">points.h</a>.</p>
+<div class="fragment"><pre class="fragment">                         {
+      <a class="code" href="class_i_c_o_o_r_d.html#a0bba3892d33e49115748480b986fdae8">xcoord</a> = xin;
+      <a class="code" href="class_i_c_o_o_r_d.html#a80ea51273376c5a171c6d0dcb5193b12">ycoord</a> = yin;
+    }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -218,6 +235,13 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="points_8h_source.html#l00180">180</a> of file <a class="el" href="points_8h_source.html">points.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                      {
+      <a class="code" href="class_i_c_o_o_r_d_e_l_t.html">ICOORDELT</a>* elt = <span class="keyword">new</span> <a class="code" href="class_i_c_o_o_r_d_e_l_t.html#ac58bcdc2960bf47dfc0c608d8dfa263b" title="empty constructor">ICOORDELT</a>;
+      *elt = *src;
+      <span class="keywordflow">return</span> elt;
+    }
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
@@ -243,7 +267,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:12 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:46 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

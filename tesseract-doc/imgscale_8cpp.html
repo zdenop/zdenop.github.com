@@ -106,7 +106,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <code>#include &lt;stdio.h&gt;</code><br/>
 <code>#include &lt;stdlib.h&gt;</code><br/>
 <code>#include &quot;<a class="el" href="errcode_8h_source.html">errcode.h</a>&quot;</code><br/>
-</div><table class="memberdecls">
+</div>
+<p><a href="imgscale_8cpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr><td colspan="2"><h2><a name="define-members"></a>
 Defines</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>(xc, yc)&#160;&#160;&#160;((xc - factor*yc)*(xc - factor*yc))</td></tr>
@@ -141,6 +143,8 @@ Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="imgscale_8cpp_source.html#l00039">39</a> of file <a class="el" href="imgscale_8cpp_source.html">imgscale.cpp</a>.</p>
 
 </div>
 </div>
@@ -181,6 +185,8 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="imgscale_8cpp_source.html#l00041">41</a> of file <a class="el" href="imgscale_8cpp_source.html">imgscale.cpp</a>.</p>
+
 </div>
 </div>
 <hr/><h2>Function Documentation</h2>
@@ -199,6 +205,12 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="imgscale_8cpp_source.html#l00044">44</a> of file <a class="el" href="imgscale_8cpp_source.html">imgscale.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                          {
+  fprintf (stderr, <span class="stringliteral">&quot;%s&quot;</span>, s);
+  <a class="code" href="errcode_8h.html#a7da97df8ad833cd9bbae484fa4fc4f9a">err_exit</a>(); 
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="abeb0f81f9bb30510a52213f487917d89"></a><!-- doxytag: member="imgscale.cpp::dyn_prog" ref="abeb0f81f9bb30510a52213f487917d89" args="(int n, int *x, int *y, int ymax, int *oldx, int *oldy, int oldn, float factor)" -->
@@ -262,6 +274,109 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="imgscale_8cpp_source.html#l00050">50</a> of file <a class="el" href="imgscale_8cpp_source.html">imgscale.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                            {
+  <span class="keywordtype">int</span> i, z, j, matchflag;
+  <span class="keywordtype">int</span> **ymin;
+  <span class="keywordtype">float</span> **F, fz;
+
+  <span class="comment">/* F[i][z] gives minimum over y &lt;= z */</span>
+
+  F = (<span class="keywordtype">float</span> **) calloc (n, <span class="keyword">sizeof</span> (<span class="keywordtype">float</span> *));
+  ymin = (<span class="keywordtype">int</span> **) calloc (n, <span class="keyword">sizeof</span> (<span class="keywordtype">int</span> *));
+  <span class="keywordflow">if</span> ((F == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) || (ymin == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>))
+    <a class="code" href="imgscale_8cpp.html#a9ad49baacb444ee42a87a95dc31d3826">dyn_exit</a> (<span class="stringliteral">&quot;Error in calloc\n&quot;</span>);
+
+  <span class="keywordflow">for</span> (i = 0; i &lt; n; i++) {
+    F[i] = (<span class="keywordtype">float</span> *) calloc (ymax - n + i + 1, <span class="keyword">sizeof</span> (<span class="keywordtype">float</span>));
+    ymin[i] = (<span class="keywordtype">int</span> *) calloc (ymax - n + i + 1, <span class="keyword">sizeof</span> (<span class="keywordtype">int</span>));
+    <span class="keywordflow">if</span> ((F[i] == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) || (ymin[i] == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>))
+      <a class="code" href="imgscale_8cpp.html#a9ad49baacb444ee42a87a95dc31d3826">dyn_exit</a> (<span class="stringliteral">&quot;Error in calloc\n&quot;</span>);
+  }
+
+  F[0][0] = <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> (x[0], 0);
+  <span class="comment">/* find nearest transition of same sign (white to black) */</span>
+  j = 0;
+  <span class="keywordflow">while</span> ((j &lt; oldn) &amp;&amp; (oldx[j] &lt; x[0]))
+    j += 2;
+  <span class="keywordflow">if</span> (j &gt;= oldn)
+    j -= 2;
+  <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((j - 2 &gt;= 0) &amp;&amp; ((x[0] - oldx[j - 2]) &lt; (oldx[j] - x[0])))
+    j -= 2;
+  <span class="keywordflow">if</span> (abs (oldx[j] - x[0]) &lt; factor) {
+    matchflag = 1;
+    F[0][0] += <a class="code" href="imgscale_8cpp.html#a903837bbd632ce4c73eebe5852874a71">g</a> (oldy[j], 0, oldx[j], x[0]);
+  }
+  <span class="keywordflow">else</span>
+    matchflag = 0;
+  ymin[0][0] = 0;
+
+  <span class="keywordflow">for</span> (z = 1; z &lt; ymax - n + 1; z++) {
+    fz = <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> (x[0], z);
+    <span class="comment">/* add penalty for deviating from previous row if necessary */</span>
+
+    <span class="keywordflow">if</span> (matchflag)
+      fz += <a class="code" href="imgscale_8cpp.html#a903837bbd632ce4c73eebe5852874a71">g</a> (oldy[j], z, oldx[j], x[0]);
+    <span class="keywordflow">if</span> (fz &lt; F[0][z - 1]) {
+      F[0][z] = fz;
+      ymin[0][z] = z;
+    }
+    <span class="keywordflow">else</span> {
+      F[0][z] = F[0][z - 1];
+      ymin[0][z] = ymin[0][z - 1];
+    }
+  }
+
+  <span class="keywordflow">for</span> (i = 1; i &lt; n; i++) {
+    F[i][i] = <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> (x[i], i) + F[i - 1][i - 1];
+    <span class="comment">/* add penalty for deviating from previous row if necessary */</span>
+    <span class="keywordflow">if</span> (j &gt; 0)
+      j--;
+    <span class="keywordflow">else</span>
+      j++;
+    <span class="keywordflow">while</span> ((j &lt; oldn) &amp;&amp; (oldx[j] &lt; x[i]))
+      j += 2;
+    <span class="keywordflow">if</span> (j &gt;= oldn)
+      j -= 2;
+    <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((j - 2 &gt;= 0) &amp;&amp; ((x[i] - oldx[j - 2]) &lt; (oldx[j] - x[i])))
+      j -= 2;
+    <span class="keywordflow">if</span> (abs (oldx[j] - x[i]) &lt; factor) {
+      matchflag = 1;
+      F[i][i] += <a class="code" href="imgscale_8cpp.html#a903837bbd632ce4c73eebe5852874a71">g</a> (oldy[j], i, oldx[j], x[i]);
+    }
+    <span class="keywordflow">else</span>
+      matchflag = 0;
+    ymin[i][i] = i;
+    <span class="keywordflow">for</span> (z = i + 1; z &lt; ymax - n + i + 1; z++) {
+      fz = <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> (x[i], z) + F[i - 1][z - 1];
+      <span class="comment">/* add penalty for deviating from previous row if necessary */</span>
+      <span class="keywordflow">if</span> (matchflag)
+        fz += <a class="code" href="imgscale_8cpp.html#a903837bbd632ce4c73eebe5852874a71">g</a> (oldy[j], z, oldx[j], x[i]);
+      <span class="keywordflow">if</span> (fz &lt; F[i][z - 1]) {
+        F[i][z] = fz;
+        ymin[i][z] = z;
+      }
+      <span class="keywordflow">else</span> {
+        F[i][z] = F[i][z - 1];
+        ymin[i][z] = ymin[i][z - 1];
+      }
+    }
+  }
+
+  y[n - 1] = ymin[n - 1][ymax - 1];
+  <span class="keywordflow">for</span> (i = n - 2; i &gt;= 0; i--)
+    y[i] = ymin[i][y[i + 1] - 1];
+
+  <span class="keywordflow">for</span> (i = 0; i &lt; n; i++) {
+    free (F[i]);
+    free (ymin[i]);
+  }
+  free(F); 
+  free(ymin); 
+
+  <span class="keywordflow">return</span>;
+}
+</pre></div>
 </div>
 </div>
 </div>
@@ -284,7 +399,7 @@ Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:08 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:40 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

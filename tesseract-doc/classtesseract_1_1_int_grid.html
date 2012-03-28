@@ -131,7 +131,10 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_int_grid.html#aa73c52b6333d511c72d77fb167b799f1">AnyZeroInRect</a> (const <a class="el" href="class_t_b_o_x.html">TBOX</a> &amp;rect) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">Pix *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_int_grid.html#a576f01a677601b22dbc56c47267a8ee7">ThresholdToPix</a> (int threshold) const </td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="bbgrid_8h_source.html#l00102">102</a> of file <a class="el" href="bbgrid_8h_source.html">bbgrid.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="ad035d5cf48ebae7e0befe040cd5581ff"></a><!-- doxytag: member="tesseract::IntGrid::IntGrid" ref="ad035d5cf48ebae7e0befe040cd5581ff" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -146,6 +149,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bbgrid_8cpp_source.html#l00066">66</a> of file <a class="el" href="bbgrid_8cpp_source.html">bbgrid.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                 {
+  grid_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a93d4b4775fa833798b14d7a17968ec76"></a><!-- doxytag: member="tesseract::IntGrid::IntGrid" ref="a93d4b4775fa833798b14d7a17968ec76" args="(int gridsize, const ICOORD &amp;bleft, const ICOORD &amp;tright)" -->
@@ -179,6 +187,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bbgrid_8cpp_source.html#l00070">70</a> of file <a class="el" href="bbgrid_8cpp_source.html">bbgrid.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">  : grid_(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+  <a class="code" href="classtesseract_1_1_int_grid.html#a5f8aae7fd3be5e1f041e499906dd057f">Init</a>(<a class="code" href="classtesseract_1_1_grid_base.html#afff2cee730084711205977b5fcb4901e">gridsize</a>, bleft, tright);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3d9a594271d2056482c0a12cedcda3d0"></a><!-- doxytag: member="tesseract::IntGrid::~IntGrid" ref="a3d9a594271d2056482c0a12cedcda3d0" args="()" -->
@@ -195,6 +208,12 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bbgrid_8cpp_source.html#l00075">75</a> of file <a class="el" href="bbgrid_8cpp_source.html">bbgrid.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                  {
+  <span class="keywordflow">if</span> (grid_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <span class="keyword">delete</span> [] grid_;
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -213,6 +232,20 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bbgrid_8cpp_source.html#l00178">178</a> of file <a class="el" href="bbgrid_8cpp_source.html">bbgrid.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                  {
+  <span class="keywordtype">int</span> min_x, min_y, max_x, max_y;
+  <a class="code" href="classtesseract_1_1_grid_base.html#a9cb158bba184d657c51257b98eea9f8f">GridCoords</a>(rect.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>(), rect.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>(), &amp;min_x, &amp;min_y);
+  <a class="code" href="classtesseract_1_1_grid_base.html#a9cb158bba184d657c51257b98eea9f8f">GridCoords</a>(rect.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>(), rect.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>(), &amp;max_x, &amp;max_y);
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> y = min_y; y &lt;= max_y; ++y) {
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> x = min_x; x &lt;= max_x; ++x) {
+      <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_int_grid.html#a993a05924433985cb3084e691679bb84">GridCellValue</a>(x, y) == 0)
+        <span class="keywordflow">return</span> <span class="keyword">true</span>;
+    }
+  }
+  <span class="keywordflow">return</span> <span class="keyword">false</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a46dc23ed91af648648515010a1b1c988"></a><!-- doxytag: member="tesseract::IntGrid::Clear" ref="a46dc23ed91af648648515010a1b1c988" args="()" -->
@@ -229,6 +262,13 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bbgrid_8cpp_source.html#l00091">91</a> of file <a class="el" href="bbgrid_8cpp_source.html">bbgrid.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                    {
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="classtesseract_1_1_grid_base.html#adcda3a0efeed2a95fc777fc7127898a6">gridbuckets_</a>; ++i) {
+    grid_[i] = 0;
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a993a05924433985cb3084e691679bb84"></a><!-- doxytag: member="tesseract::IntGrid::GridCellValue" ref="a993a05924433985cb3084e691679bb84" args="(int grid_x, int grid_y) const " -->
@@ -256,6 +296,12 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bbgrid_8h_source.html#l00125">125</a> of file <a class="el" href="bbgrid_8h_source.html">bbgrid.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                  {
+    <a class="code" href="classtesseract_1_1_grid_base.html#a6349387c9d98fae34cf247b12cdc5a00">ClipGridCoords</a>(&amp;grid_x, &amp;grid_y);
+    <span class="keywordflow">return</span> grid_[grid_y * <a class="code" href="classtesseract_1_1_grid_base.html#a429c00f7b3ea66cfd63a75cfa2c1b43d">gridwidth_</a> + grid_x];
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a5f8aae7fd3be5e1f041e499906dd057f"></a><!-- doxytag: member="tesseract::IntGrid::Init" ref="a5f8aae7fd3be5e1f041e499906dd057f" args="(int gridsize, const ICOORD &amp;bleft, const ICOORD &amp;tright)" -->
@@ -291,6 +337,15 @@ Public Member Functions</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classtesseract_1_1_grid_base.html#a9e23ba0f9d310510c9a2b3a38f11e683">tesseract::GridBase</a>.</p>
 
+<p>Definition at line <a class="el" href="bbgrid_8cpp_source.html#l00082">82</a> of file <a class="el" href="bbgrid_8cpp_source.html">bbgrid.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                          {
+  <a class="code" href="classtesseract_1_1_int_grid.html#a5f8aae7fd3be5e1f041e499906dd057f">GridBase::Init</a>(<a class="code" href="classtesseract_1_1_grid_base.html#afff2cee730084711205977b5fcb4901e">gridsize</a>, bleft, tright);
+  <span class="keywordflow">if</span> (grid_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <span class="keyword">delete</span> [] grid_;
+  grid_ = <span class="keyword">new</span> <span class="keywordtype">int</span>[<a class="code" href="classtesseract_1_1_grid_base.html#adcda3a0efeed2a95fc777fc7127898a6">gridbuckets_</a>];
+  <a class="code" href="classtesseract_1_1_int_grid.html#a46dc23ed91af648648515010a1b1c988">Clear</a>();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2412b6a04f710d91a050d8f92d3e3c25"></a><!-- doxytag: member="tesseract::IntGrid::NeighbourhoodSum" ref="a2412b6a04f710d91a050d8f92d3e3c25" args="() const " -->
@@ -307,6 +362,27 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bbgrid_8cpp_source.html#l00136">136</a> of file <a class="el" href="bbgrid_8cpp_source.html">bbgrid.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                         {
+  <a class="code" href="classtesseract_1_1_int_grid.html#ad035d5cf48ebae7e0befe040cd5581ff">IntGrid</a>* sumgrid = <span class="keyword">new</span> <a class="code" href="classtesseract_1_1_int_grid.html#ad035d5cf48ebae7e0befe040cd5581ff">IntGrid</a>(<a class="code" href="classtesseract_1_1_grid_base.html#afff2cee730084711205977b5fcb4901e">gridsize</a>(), <a class="code" href="classtesseract_1_1_grid_base.html#ad20b2cb8eb2bf52871d5260c04949cce">bleft</a>(), <a class="code" href="classtesseract_1_1_grid_base.html#aa94e147841b6a4fae0b28e7e872685a5">tright</a>());
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> y = 0; y &lt; <a class="code" href="classtesseract_1_1_grid_base.html#a07e6b230c150180d009ef1f317e642f2">gridheight</a>(); ++y) {
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> x = 0; x &lt; <a class="code" href="classtesseract_1_1_grid_base.html#a0a38ea995b9d65f8b67d66d5501a5b80">gridwidth</a>(); ++x) {
+      <span class="keywordtype">int</span> cell_count = 0;
+      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> yoffset = -1; yoffset &lt;= 1; ++yoffset) {
+        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> xoffset = -1; xoffset &lt;= 1; ++xoffset) {
+          <span class="keywordtype">int</span> grid_x = x + xoffset;
+          <span class="keywordtype">int</span> grid_y = y + yoffset;
+          <a class="code" href="classtesseract_1_1_grid_base.html#a6349387c9d98fae34cf247b12cdc5a00">ClipGridCoords</a>(&amp;grid_x, &amp;grid_y);
+          cell_count += <a class="code" href="classtesseract_1_1_int_grid.html#a993a05924433985cb3084e691679bb84">GridCellValue</a>(grid_x, grid_y);
+        }
+      }
+      <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_int_grid.html#a993a05924433985cb3084e691679bb84">GridCellValue</a>(x, y) &gt; 1)
+        sumgrid-&gt;SetGridCell(x, y, cell_count);
+    }
+  }
+  <span class="keywordflow">return</span> sumgrid;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="af48643ce60c1d55c1ddc7cc42d84cc79"></a><!-- doxytag: member="tesseract::IntGrid::RectMostlyOverThreshold" ref="af48643ce60c1d55c1ddc7cc42d84cc79" args="(const TBOX &amp;rect, int threshold) const " -->
@@ -334,6 +410,26 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bbgrid_8cpp_source.html#l00158">158</a> of file <a class="el" href="bbgrid_8cpp_source.html">bbgrid.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                           {
+  <span class="keywordtype">int</span> min_x, min_y, max_x, max_y;
+  <a class="code" href="classtesseract_1_1_grid_base.html#a9cb158bba184d657c51257b98eea9f8f">GridCoords</a>(rect.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>(), rect.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>(), &amp;min_x, &amp;min_y);
+  <a class="code" href="classtesseract_1_1_grid_base.html#a9cb158bba184d657c51257b98eea9f8f">GridCoords</a>(rect.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>(), rect.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>(), &amp;max_x, &amp;max_y);
+  <span class="keywordtype">int</span> total_area = 0;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> y = min_y; y &lt;= max_y; ++y) {
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> x = min_x; x &lt;= max_x; ++x) {
+      <span class="keywordtype">int</span> value = <a class="code" href="classtesseract_1_1_int_grid.html#a993a05924433985cb3084e691679bb84">GridCellValue</a>(x, y);
+      <span class="keywordflow">if</span> (value &gt; threshold) {
+        <a class="code" href="class_t_b_o_x.html">TBOX</a> cell_box(x * <a class="code" href="classtesseract_1_1_grid_base.html#a0758dd90d5ce47e504a4148f4cda33f3">gridsize_</a>, y * gridsize_,
+                      (x + 1) * gridsize_, (y + 1) * gridsize_);
+        cell_box &amp;= rect;  <span class="comment">// This is in-place box intersection.</span>
+        total_area += cell_box.<a class="code" href="class_t_b_o_x.html#a46fca3df91dc271b30b69531e9d8178a">area</a>();
+      }
+    }
+  }
+  <span class="keywordflow">return</span> total_area * 2 &gt; rect.<a class="code" href="class_t_b_o_x.html#a46fca3df91dc271b30b69531e9d8178a">area</a>();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad1389d68ae52483114b995117280db18"></a><!-- doxytag: member="tesseract::IntGrid::Rotate" ref="ad1389d68ae52483114b995117280db18" args="(const FCOORD &amp;rotation)" -->
@@ -351,6 +447,36 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bbgrid_8cpp_source.html#l00103">103</a> of file <a class="el" href="bbgrid_8cpp_source.html">bbgrid.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                           {
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(rotation.<a class="code" href="class_f_c_o_o_r_d.html#a9edadbfc357c730f62fa3c92677b0d58">x</a>() == 0.0f || rotation.<a class="code" href="class_f_c_o_o_r_d.html#a397f7ce997b246df18e7bd5a20cc422e">y</a>() == 0.0f);
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> old_bleft(<a class="code" href="classtesseract_1_1_grid_base.html#ad20b2cb8eb2bf52871d5260c04949cce">bleft</a>());
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> old_tright(<a class="code" href="classtesseract_1_1_grid_base.html#aa94e147841b6a4fae0b28e7e872685a5">tright</a>());
+  <span class="keywordtype">int</span> old_width = <a class="code" href="classtesseract_1_1_grid_base.html#a0a38ea995b9d65f8b67d66d5501a5b80">gridwidth</a>();
+  <span class="keywordtype">int</span> old_height = <a class="code" href="classtesseract_1_1_grid_base.html#a07e6b230c150180d009ef1f317e642f2">gridheight</a>();
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> box(<a class="code" href="classtesseract_1_1_grid_base.html#ad20b2cb8eb2bf52871d5260c04949cce">bleft</a>(), <a class="code" href="classtesseract_1_1_grid_base.html#aa94e147841b6a4fae0b28e7e872685a5">tright</a>());
+  box.rotate(rotation);
+  <span class="keywordtype">int</span>* old_grid = grid_;
+  grid_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <a class="code" href="classtesseract_1_1_int_grid.html#a5f8aae7fd3be5e1f041e499906dd057f">Init</a>(<a class="code" href="classtesseract_1_1_grid_base.html#afff2cee730084711205977b5fcb4901e">gridsize</a>(), box.botleft(), box.topright());
+  <span class="comment">// Iterate over the old grid, copying data to the rotated position in the new.</span>
+  <span class="keywordtype">int</span> oldi = 0;
+  <a class="code" href="class_f_c_o_o_r_d.html">FCOORD</a> x_step(rotation);
+  x_step *= <a class="code" href="classtesseract_1_1_grid_base.html#afff2cee730084711205977b5fcb4901e">gridsize</a>();
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> oldy = 0; oldy &lt; old_height; ++oldy) {
+    <a class="code" href="class_f_c_o_o_r_d.html">FCOORD</a> line_pos(old_bleft.x(), old_bleft.y() + <a class="code" href="classtesseract_1_1_grid_base.html#afff2cee730084711205977b5fcb4901e">gridsize</a>() * oldy);
+    line_pos.<a class="code" href="class_f_c_o_o_r_d.html#a81ca9ea0cac4cd8c1bca0314e29bb28d">rotate</a>(rotation);
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> oldx = 0; oldx &lt; old_width; ++oldx, line_pos += x_step, ++oldi) {
+      <span class="keywordtype">int</span> grid_x, grid_y;
+      <a class="code" href="classtesseract_1_1_grid_base.html#a9cb158bba184d657c51257b98eea9f8f">GridCoords</a>(static_cast&lt;int&gt;(line_pos.x() + 0.5),
+                 <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(line_pos.y() + 0.5),
+                 &amp;grid_x, &amp;grid_y);
+      grid_[grid_y * <a class="code" href="classtesseract_1_1_grid_base.html#a0a38ea995b9d65f8b67d66d5501a5b80">gridwidth</a>() + grid_x] = old_grid[oldi];
+    }
+  }
+  <span class="keyword">delete</span> [] old_grid;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa02baa9ac4108665b5f33a9bbf3c4546"></a><!-- doxytag: member="tesseract::IntGrid::SetGridCell" ref="aa02baa9ac4108665b5f33a9bbf3c4546" args="(int grid_x, int grid_y, int value)" -->
@@ -384,6 +510,13 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bbgrid_8h_source.html#l00129">129</a> of file <a class="el" href="bbgrid_8h_source.html">bbgrid.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                      {
+    <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(grid_x &gt;= 0 &amp;&amp; grid_x &lt; <a class="code" href="classtesseract_1_1_grid_base.html#a0a38ea995b9d65f8b67d66d5501a5b80">gridwidth</a>());
+    <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(grid_y &gt;= 0 &amp;&amp; grid_y &lt; <a class="code" href="classtesseract_1_1_grid_base.html#a07e6b230c150180d009ef1f317e642f2">gridheight</a>());
+    grid_[grid_y * <a class="code" href="classtesseract_1_1_grid_base.html#a429c00f7b3ea66cfd63a75cfa2c1b43d">gridwidth_</a> + grid_x] = value;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a576f01a677601b22dbc56c47267a8ee7"></a><!-- doxytag: member="tesseract::IntGrid::ThresholdToPix" ref="a576f01a677601b22dbc56c47267a8ee7" args="(int threshold) const " -->
@@ -401,11 +534,29 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bbgrid_8cpp_source.html#l00194">194</a> of file <a class="el" href="bbgrid_8cpp_source.html">bbgrid.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                {
+  Pix* pix = pixCreate(<a class="code" href="classtesseract_1_1_grid_base.html#aa94e147841b6a4fae0b28e7e872685a5">tright</a>().x() - <a class="code" href="classtesseract_1_1_grid_base.html#ad20b2cb8eb2bf52871d5260c04949cce">bleft</a>().x(),
+                       <a class="code" href="classtesseract_1_1_grid_base.html#aa94e147841b6a4fae0b28e7e872685a5">tright</a>().y() - <a class="code" href="classtesseract_1_1_grid_base.html#ad20b2cb8eb2bf52871d5260c04949cce">bleft</a>().y(), 1);
+  <span class="keywordtype">int</span> cellsize = <a class="code" href="classtesseract_1_1_grid_base.html#afff2cee730084711205977b5fcb4901e">gridsize</a>();
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> y = 0; y &lt; <a class="code" href="classtesseract_1_1_grid_base.html#a07e6b230c150180d009ef1f317e642f2">gridheight</a>(); ++y) {
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> x = 0; x &lt; <a class="code" href="classtesseract_1_1_grid_base.html#a0a38ea995b9d65f8b67d66d5501a5b80">gridwidth</a>(); ++x) {
+      <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_int_grid.html#a993a05924433985cb3084e691679bb84">GridCellValue</a>(x, y) &gt; threshold &amp;&amp;
+          <a class="code" href="classtesseract_1_1_int_grid.html#a993a05924433985cb3084e691679bb84">GridCellValue</a>(x - 1, y) &gt; 0 &amp;&amp; <a class="code" href="classtesseract_1_1_int_grid.html#a993a05924433985cb3084e691679bb84">GridCellValue</a>(x + 1, y) &gt; 0 &amp;&amp;
+              <a class="code" href="classtesseract_1_1_int_grid.html#a993a05924433985cb3084e691679bb84">GridCellValue</a>(x, y - 1) &gt; 0 &amp;&amp; <a class="code" href="classtesseract_1_1_int_grid.html#a993a05924433985cb3084e691679bb84">GridCellValue</a>(x, y + 1) &gt; 0) {
+        pixRasterop(pix, x * cellsize, <a class="code" href="classtesseract_1_1_grid_base.html#aa94e147841b6a4fae0b28e7e872685a5">tright</a>().y() - ((y + 1) * cellsize),
+                    cellsize, cellsize, PIX_SET, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, 0, 0);
+      }
+    }
+  }
+  <span class="keywordflow">return</span> pix;
+}
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/textord/<a class="el" href="bbgrid_8h_source.html">bbgrid.h</a></li>
-<li>tesseract-ocr/textord/<a class="el" href="bbgrid_8cpp.html">bbgrid.cpp</a></li>
+<li>tesseract-ocr/textord/<a class="el" href="bbgrid_8cpp_source.html">bbgrid.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -428,7 +579,7 @@ Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:16 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:52 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

@@ -113,7 +113,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <code>#include &quot;<a class="el" href="tprintf_8h_source.html">tprintf.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="host_8h_source.html">host.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="unichar_8h_source.html">unichar.h</a>&quot;</code><br/>
-</div><table class="memberdecls">
+</div>
+<p><a href="callcpp_8cpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="callcpp_8cpp.html#a21679e7fec2d69db23107348fa13c153">cprintf</a> (const char *format,...)</td></tr>
@@ -143,6 +145,12 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="callcpp_8cpp_source.html#l00105">105</a> of file <a class="el" href="callcpp_8cpp_source.html">callcpp.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                               {
+  <a class="code" href="class_scroll_view.html">ScrollView</a>* window = (<a class="code" href="class_scroll_view.html">ScrollView</a>*) win;
+  window-&gt;<a class="code" href="class_scroll_view.html#a5386b0da16d7cbdd33044e53b95313ac">Clear</a>();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a34ec4ea9e8e6a9d755e3c7e5e6820583"></a><!-- doxytag: member="callcpp.cpp::c_create_window" ref="a34ec4ea9e8e6a9d755e3c7e5e6820583" args="(const char *name, inT16 xpos, inT16 ypos, inT16 xsize, inT16 ysize, double xmin, double xmax, double ymin, double ymax)" -->
@@ -212,6 +220,11 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="callcpp_8cpp_source.html#l00056">56</a> of file <a class="el" href="callcpp_8cpp_source.html">callcpp.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                       {
+   <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code" href="class_scroll_view.html">ScrollView</a>(name, xpos, ypos, xsize, ysize, xmax - xmin, ymax - ymin, <span class="keyword">true</span>);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a1985867f80140c430e3fa0d8d7430a44"></a><!-- doxytag: member="callcpp.cpp::c_draw" ref="a1985867f80140c430e3fa0d8d7430a44" args="(void *win, double x, double y)" -->
@@ -245,6 +258,12 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="callcpp_8cpp_source.html#l00089">89</a> of file <a class="el" href="callcpp_8cpp_source.html">callcpp.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                      {
+  <a class="code" href="class_scroll_view.html">ScrollView</a>* window = (<a class="code" href="class_scroll_view.html">ScrollView</a>*) win;
+  window-&gt;<a class="code" href="class_scroll_view.html#a101de80a4722fe821969f61f6e7303a6">DrawTo</a>((<span class="keywordtype">int</span>) x, (<span class="keywordtype">int</span>) y);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a48077e4a1f221a9febc643bdb5b4e8fe"></a><!-- doxytag: member="callcpp.cpp::c_line_color_index" ref="a48077e4a1f221a9febc643bdb5b4e8fe" args="(void *win, C_COL index)" -->
@@ -272,6 +291,13 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="callcpp_8cpp_source.html#l00071">71</a> of file <a class="el" href="callcpp_8cpp_source.html">callcpp.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                     {
+ <span class="comment">// The colors are the same as the SV ones except that SV has COLOR:NONE --&gt; offset of 1</span>
+ <a class="code" href="class_scroll_view.html">ScrollView</a>* window = (<a class="code" href="class_scroll_view.html">ScrollView</a>*) win;
+ window-&gt;<a class="code" href="class_scroll_view.html#a79855c525ec660b452382e9813d2edb5">Pen</a>((<a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8">ScrollView::Color</a>) (index + 1));
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac91d916a53eb48572d9937d0d93b558c"></a><!-- doxytag: member="callcpp.cpp::c_make_current" ref="ac91d916a53eb48572d9937d0d93b558c" args="(void *win)" -->
@@ -289,6 +315,12 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="callcpp_8cpp_source.html#l00098">98</a> of file <a class="el" href="callcpp_8cpp_source.html">callcpp.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                               {
+  <a class="code" href="class_scroll_view.html">ScrollView</a>* window = (<a class="code" href="class_scroll_view.html">ScrollView</a>*) win;
+  window-&gt;<a class="code" href="class_scroll_view.html#a0830a51981a20c8700b5ec49137e46e9">Update</a>();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a411da919a36d0da4caf6a6775a66cea4"></a><!-- doxytag: member="callcpp.cpp::c_move" ref="a411da919a36d0da4caf6a6775a66cea4" args="(void *win, double x, double y)" -->
@@ -322,6 +354,12 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="callcpp_8cpp_source.html#l00080">80</a> of file <a class="el" href="callcpp_8cpp_source.html">callcpp.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                      {
+  <a class="code" href="class_scroll_view.html">ScrollView</a>* window = (<a class="code" href="class_scroll_view.html">ScrollView</a>*) win;
+  window-&gt;<a class="code" href="class_scroll_view.html#a730b182e350dfe37b0986d7f0591fee5">SetCursor</a>((<span class="keywordtype">int</span>) x, (<span class="keywordtype">int</span>) y);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a21679e7fec2d69db23107348fa13c153"></a><!-- doxytag: member="callcpp.cpp::cprintf" ref="a21679e7fec2d69db23107348fa13c153" args="(const char *format,...)" -->
@@ -349,6 +387,18 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="callcpp_8cpp_source.html#l00041">41</a> of file <a class="el" href="callcpp_8cpp_source.html">callcpp.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">  {
+  va_list args;                  <span class="comment">//variable args</span>
+  <span class="keywordtype">char</span> msg[1000];
+
+  va_start(args, format);  <span class="comment">//variable list</span>
+  vsprintf(msg, format, args);  <span class="comment">//Format into msg</span>
+  va_end(args);
+
+  <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a> (<span class="stringliteral">&quot;%s&quot;</span>, msg);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="adf36cd9c9d2510b97c231987f0c3c344"></a><!-- doxytag: member="callcpp.cpp::reverse16" ref="adf36cd9c9d2510b97c231987f0c3c344" args="(void *ptr)" -->
@@ -366,6 +416,16 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="callcpp_8cpp_source.html#l00141">141</a> of file <a class="el" href="callcpp_8cpp_source.html">callcpp.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                          {
+  <span class="keywordtype">char</span> tmp;
+  <span class="keywordtype">char</span> *cptr = (<span class="keywordtype">char</span> *) ptr;
+
+  tmp = *cptr;
+  *cptr = *(cptr + 1);
+  *(cptr + 1) = tmp;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a95354c25cd275636280a1dc4af21bc0b"></a><!-- doxytag: member="callcpp.cpp::reverse32" ref="a95354c25cd275636280a1dc4af21bc0b" args="(void *ptr)" -->
@@ -383,6 +443,19 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="callcpp_8cpp_source.html#l00128">128</a> of file <a class="el" href="callcpp_8cpp_source.html">callcpp.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                          {
+  <span class="keywordtype">char</span> tmp;
+  <span class="keywordtype">char</span> *cptr = (<span class="keywordtype">char</span> *) ptr;
+
+  tmp = *cptr;
+  *cptr = *(cptr + 3);
+  *(cptr + 3) = tmp;
+  tmp = *(cptr + 1);
+  *(cptr + 1) = *(cptr + 2);
+  *(cptr + 2) = tmp;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a51dc37eb580fe7f758275685e5ce0d59"></a><!-- doxytag: member="callcpp.cpp::window_wait" ref="a51dc37eb580fe7f758275685e5ce0d59" args="(ScrollView *win)" -->
@@ -400,6 +473,22 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="callcpp_8cpp_source.html#l00112">112</a> of file <a class="el" href="callcpp_8cpp_source.html">callcpp.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                  {
+  <a class="code" href="struct_s_v_event.html">SVEvent</a>* ev;
+  <span class="comment">// Wait till an input or click event (all others are thrown away)</span>
+  <span class="keywordtype">char</span> ret = <span class="charliteral">&#39;\0&#39;</span>;
+  <a class="code" href="scrollview_8h.html#a3688a0cf2f95d10a57e095222ccfe9a0">SVEventType</a> ev_type = <a class="code" href="scrollview_8h.html#a3688a0cf2f95d10a57e095222ccfe9a0a6eec81ed585bda7ff47ec38918cb2a0e">SVET_ANY</a>;
+  <span class="keywordflow">do</span> {
+    ev = win-&gt;<a class="code" href="class_scroll_view.html#a0b820b3fe7a2ce083da0784e9339a1ad">AwaitEvent</a>(<a class="code" href="scrollview_8h.html#a3688a0cf2f95d10a57e095222ccfe9a0a6eec81ed585bda7ff47ec38918cb2a0e">SVET_ANY</a>);
+    ev_type = ev-&gt;<a class="code" href="struct_s_v_event.html#a5bf8585bd1901b9103eb2783f8afe508">type</a>;
+    <span class="keywordflow">if</span> (ev_type == <a class="code" href="scrollview_8h.html#a3688a0cf2f95d10a57e095222ccfe9a0aee5f6202613f111d11fc310ccba2fa25">SVET_INPUT</a>)
+      ret = ev-&gt;<a class="code" href="struct_s_v_event.html#a6e0de466c57df117c731bfb4db68fc79">parameter</a>[0];
+    <span class="keyword">delete</span> ev;
+  } <span class="keywordflow">while</span> (ev_type != <a class="code" href="scrollview_8h.html#a3688a0cf2f95d10a57e095222ccfe9a0aee5f6202613f111d11fc310ccba2fa25">SVET_INPUT</a> &amp;&amp; ev_type != <a class="code" href="scrollview_8h.html#a3688a0cf2f95d10a57e095222ccfe9a0a2afe407abe8c055c45765b85d20e7946">SVET_CLICK</a>);
+  <span class="keywordflow">return</span> ret;
+}
+</pre></div>
 </div>
 </div>
 </div>
@@ -422,7 +511,7 @@ Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:09 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:42 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

@@ -140,7 +140,10 @@ Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_table_recognizer.html#a99ef7bab6b09c69357a69f440235d83c">min_width_</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_table_recognizer.html#a2d6b6326270fc127b50a497e4d0c6c7c">max_text_height_</a></td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="tablerecog_8h_source.html#l00257">257</a> of file <a class="el" href="tablerecog_8h_source.html">tablerecog.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="af82ad8abb0e3f94edb554594b9e41b55"></a><!-- doxytag: member="tesseract::TableRecognizer::TableRecognizer" ref="af82ad8abb0e3f94edb554594b9e41b55" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -155,6 +158,14 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8cpp_source.html#l00698">698</a> of file <a class="el" href="tablerecog_8cpp_source.html">tablerecog.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">    : <a class="code" href="classtesseract_1_1_table_recognizer.html#a1ec03b4d8e7b7cd1361d23be47d5d81a">text_grid_</a>(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>),
+      <a class="code" href="classtesseract_1_1_table_recognizer.html#acef775b055806466bf907b9008a9f705">line_grid_</a>(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>),
+      <a class="code" href="classtesseract_1_1_table_recognizer.html#a4a0cb917deb38c9cd761390e2e89967b">min_height_</a>(0),
+      <a class="code" href="classtesseract_1_1_table_recognizer.html#a99ef7bab6b09c69357a69f440235d83c">min_width_</a>(0),
+      <a class="code" href="classtesseract_1_1_table_recognizer.html#a2d6b6326270fc127b50a497e4d0c6c7c">max_text_height_</a>(<a class="code" href="host_8h.html#aac62d87844689a18b6f5339a89ed6e7f">MAX_INT32</a>) {
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a5a661cb9168813a34fe23af441958bb2"></a><!-- doxytag: member="tesseract::TableRecognizer::~TableRecognizer" ref="a5a661cb9168813a34fe23af441958bb2" args="()" -->
@@ -171,6 +182,10 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8cpp_source.html#l00706">706</a> of file <a class="el" href="tablerecog_8cpp_source.html">tablerecog.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                  {
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -189,6 +204,29 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8cpp_source.html#l00807">807</a> of file <a class="el" href="tablerecog_8cpp_source.html">tablerecog.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                             {
+  <span class="comment">// The first iteration will tell us if there are lines</span>
+  <span class="comment">// present and shrink the box to a minimal iterative size.</span>
+  <span class="keywordflow">if</span> (!<a class="code" href="classtesseract_1_1_table_recognizer.html#a0e3b073b746ba18778b10413fe16f4e0">FindLinesBoundingBoxIteration</a>(bounding_box))
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+
+  <span class="comment">// Keep growing until the area of the table stabilizes.</span>
+  <span class="comment">// The box can only get bigger, increasing area.</span>
+  <span class="keywordtype">bool</span> changed = <span class="keyword">true</span>;
+  <span class="keywordflow">while</span> (changed) {
+    changed = <span class="keyword">false</span>;
+    <span class="keywordtype">int</span> old_area = bounding_box-&gt;<a class="code" href="class_t_b_o_x.html#a46fca3df91dc271b30b69531e9d8178a">area</a>();
+    <span class="keywordtype">bool</span> check = <a class="code" href="classtesseract_1_1_table_recognizer.html#a0e3b073b746ba18778b10413fe16f4e0">FindLinesBoundingBoxIteration</a>(bounding_box);
+    <span class="comment">// At this point, the function will return true.</span>
+    <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(check);
+    <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(bounding_box-&gt;<a class="code" href="class_t_b_o_x.html#a46fca3df91dc271b30b69531e9d8178a">area</a>() &gt;= old_area);
+    changed = (bounding_box-&gt;<a class="code" href="class_t_b_o_x.html#a46fca3df91dc271b30b69531e9d8178a">area</a>() &gt; old_area);
+  }
+
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a0e3b073b746ba18778b10413fe16f4e0"></a><!-- doxytag: member="tesseract::TableRecognizer::FindLinesBoundingBoxIteration" ref="a0e3b073b746ba18778b10413fe16f4e0" args="(TBOX *bounding_box)" -->
@@ -206,6 +244,29 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8cpp_source.html#l00829">829</a> of file <a class="el" href="tablerecog_8cpp_source.html">tablerecog.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                      {
+  <span class="comment">// Search for all of the lines in the current box, keeping track of extents.</span>
+  <a class="code" href="namespacetesseract.html#a990e3f25988f7d70c40a13225e645492">ColPartitionGridSearch</a> box_search(<a class="code" href="classtesseract_1_1_table_recognizer.html#acef775b055806466bf907b9008a9f705">line_grid_</a>);
+  box_search.SetUniqueMode(<span class="keyword">true</span>);
+  box_search.StartRectSearch(*bounding_box);
+  ColPartition* line = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordtype">bool</span> first_line = <span class="keyword">true</span>;
+
+  <span class="keywordflow">while</span> ((line = box_search.NextRectSearch()) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">if</span> (line-&gt;IsLineType()) {
+      <span class="keywordflow">if</span> (first_line) {
+        <span class="comment">// The first iteration can shrink the box.</span>
+        *bounding_box = line-&gt;bounding_box();
+        first_line = <span class="keyword">false</span>;
+      } <span class="keywordflow">else</span> {
+        *bounding_box += line-&gt;bounding_box();
+      }
+    }
+  }
+  <span class="keywordflow">return</span> !first_line;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9d994f1b39135c0a95e558e8bc0489ec"></a><!-- doxytag: member="tesseract::TableRecognizer::HasSignificantLines" ref="a9d994f1b39135c0a95e558e8bc0489ec" args="(const TBOX &amp;guess)" -->
@@ -223,6 +284,26 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8cpp_source.html#l00768">768</a> of file <a class="el" href="tablerecog_8cpp_source.html">tablerecog.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                           {
+  <a class="code" href="namespacetesseract.html#a990e3f25988f7d70c40a13225e645492">ColPartitionGridSearch</a> box_search(<a class="code" href="classtesseract_1_1_table_recognizer.html#acef775b055806466bf907b9008a9f705">line_grid_</a>);
+  box_search.SetUniqueMode(<span class="keyword">true</span>);
+  box_search.StartRectSearch(guess);
+  ColPartition* line = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordtype">int</span> vertical_count = 0;
+  <span class="keywordtype">int</span> horizontal_count = 0;
+
+  <span class="keywordflow">while</span> ((line = box_search.NextRectSearch()) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">if</span> (line-&gt;IsHorizontalLine())
+      ++horizontal_count;
+    <span class="keywordflow">if</span> (line-&gt;IsVerticalLine())
+      ++vertical_count;
+  }
+
+  <span class="keywordflow">return</span> vertical_count &gt;= <a class="code" href="namespacetesseract.html#acc82e2db65c1e3234222f38f46ab42d3">kLinedTableMinVerticalLines</a> &amp;&amp;
+         horizontal_count &gt;= <a class="code" href="namespacetesseract.html#a230bf7e7a8fb6b2c2b5501baf6291743">kLinedTableMinHorizontalLines</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aca159b4dcd53ac99591aff44ce50a015"></a><!-- doxytag: member="tesseract::TableRecognizer::Init" ref="aca159b4dcd53ac99591aff44ce50a015" args="()" -->
@@ -239,6 +320,10 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8cpp_source.html#l00709">709</a> of file <a class="el" href="tablerecog_8cpp_source.html">tablerecog.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                           {
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3fb9b12226218c00102c77c2a9e2ca6f"></a><!-- doxytag: member="tesseract::TableRecognizer::IsWeakTableRow" ref="a3fb9b12226218c00102c77c2a9e2ca6f" args="(StructuredTable *table, int row)" -->
@@ -266,6 +351,20 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8cpp_source.html#l01045">1045</a> of file <a class="el" href="tablerecog_8cpp_source.html">tablerecog.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                    {
+  <span class="keywordflow">if</span> (!table-&gt;VerifyRowFilled(row))
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+
+  <span class="keywordtype">double</span> threshold = 0.0;
+  <span class="keywordflow">if</span> (table-&gt;column_count() &gt; <a class="code" href="namespacetesseract.html#a7e35b09657599e52f423ee1e9de41b33">kGoodRowNumberOfColumnsSmallSize</a>)
+    threshold = table-&gt;column_count() * <a class="code" href="namespacetesseract.html#a043f4bae458f1871a3a49b10917b60ad">kGoodRowNumberOfColumnsLarge</a>;
+  <span class="keywordflow">else</span>
+    threshold = <a class="code" href="namespacetesseract.html#a68558ee989aac7883a39814a36f1f592">kGoodRowNumberOfColumnsSmall</a>[table-&gt;column_count()];
+
+  <span class="keywordflow">return</span> table-&gt;CountFilledCellsInRow(row) &lt; threshold;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6852b6aaf9df0c7085a644b7696ff881"></a><!-- doxytag: member="tesseract::TableRecognizer::NextHorizontalSplit" ref="a6852b6aaf9df0c7085a644b7696ff881" args="(int left, int right, int y, bool top_to_bottom)" -->
@@ -305,6 +404,36 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8cpp_source.html#l01011">1011</a> of file <a class="el" href="tablerecog_8cpp_source.html">tablerecog.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                             {
+  <a class="code" href="namespacetesseract.html#a990e3f25988f7d70c40a13225e645492">ColPartitionGridSearch</a> gsearch(<a class="code" href="classtesseract_1_1_table_recognizer.html#a1ec03b4d8e7b7cd1361d23be47d5d81a">text_grid_</a>);
+  gsearch.SetUniqueMode(<span class="keyword">true</span>);
+  gsearch.StartVerticalSearch(left, right, y);
+  ColPartition* text = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordtype">int</span> last_y = y;
+  <span class="keywordflow">while</span> ((text = gsearch.NextVerticalSearch(top_to_bottom)) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">if</span> (!text-&gt;IsTextType() || !text-&gt;IsHorizontalType())
+      <span class="keywordflow">continue</span>;
+    <span class="keywordflow">if</span> (text-&gt;bounding_box().height() &gt; <a class="code" href="classtesseract_1_1_table_recognizer.html#a2d6b6326270fc127b50a497e4d0c6c7c">max_text_height_</a>)
+      <span class="keywordflow">continue</span>;
+
+    <span class="keyword">const</span> <a class="code" href="class_t_b_o_x.html">TBOX</a>&amp; text_box = text-&gt;bounding_box();
+    <span class="keywordflow">if</span> (top_to_bottom &amp;&amp; (last_y &gt;= y || last_y &lt;= text_box.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>())) {
+      last_y = <a class="code" href="ndminx_8h.html#a74e75242132eaabbc1c512488a135926">MIN</a>(last_y, text_box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>());
+      <span class="keywordflow">continue</span>;
+    }
+    <span class="keywordflow">if</span> (!top_to_bottom &amp;&amp; (last_y &lt;= y || last_y &gt;= text_box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>())) {
+      last_y = <a class="code" href="ndminx_8h.html#aacc3ee1a7f283f8ef65cea31f4436a95">MAX</a>(last_y, text_box.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>());
+      <span class="keywordflow">continue</span>;
+    }
+
+    <span class="keywordflow">return</span> last_y;
+  }
+  <span class="comment">// If none is found, we at least want to preserve the min/max,</span>
+  <span class="comment">// which defines the overlap of y with the last partition in the grid.</span>
+  <span class="keywordflow">return</span> last_y;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a09c44b26f6ef2bf6308b669031cc00f1"></a><!-- doxytag: member="tesseract::TableRecognizer::RecognizeLinedTable" ref="a09c44b26f6ef2bf6308b669031cc00f1" args="(const TBOX &amp;guess_box, StructuredTable *table)" -->
@@ -332,6 +461,17 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8cpp_source.html#l00751">751</a> of file <a class="el" href="tablerecog_8cpp_source.html">tablerecog.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                  {
+  <span class="keywordflow">if</span> (!<a class="code" href="classtesseract_1_1_table_recognizer.html#a9d994f1b39135c0a95e558e8bc0489ec">HasSignificantLines</a>(guess_box))
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> line_bound = guess_box;
+  <span class="keywordflow">if</span> (!<a class="code" href="classtesseract_1_1_table_recognizer.html#a1976dd404a086faf445085759cc3024c">FindLinesBoundingBox</a>(&amp;line_bound))
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  table-&gt;set_bounding_box(line_bound);
+  <span class="keywordflow">return</span> table-&gt;FindLinedStructure();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="adc08877ea279ece9d88e2e69cd00b2b4"></a><!-- doxytag: member="tesseract::TableRecognizer::RecognizeTable" ref="adc08877ea279ece9d88e2e69cd00b2b4" args="(const TBOX &amp;guess_box)" -->
@@ -349,6 +489,30 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8cpp_source.html#l00728">728</a> of file <a class="el" href="tablerecog_8cpp_source.html">tablerecog.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                  {
+  StructuredTable* table = <span class="keyword">new</span> StructuredTable();
+  table-&gt;Init();
+  table-&gt;set_text_grid(<a class="code" href="classtesseract_1_1_table_recognizer.html#a1ec03b4d8e7b7cd1361d23be47d5d81a">text_grid_</a>);
+  table-&gt;set_line_grid(<a class="code" href="classtesseract_1_1_table_recognizer.html#acef775b055806466bf907b9008a9f705">line_grid_</a>);
+  table-&gt;set_max_text_height(<a class="code" href="classtesseract_1_1_table_recognizer.html#a2d6b6326270fc127b50a497e4d0c6c7c">max_text_height_</a>);
+
+  <span class="comment">// Try to solve ths simple case, a table with *both*</span>
+  <span class="comment">// vertical and horizontal lines.</span>
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_table_recognizer.html#a09c44b26f6ef2bf6308b669031cc00f1">RecognizeLinedTable</a>(guess, table))
+    <span class="keywordflow">return</span> table;
+
+  <span class="comment">// Fallback to whitespace if that failed.</span>
+  <span class="comment">// TODO(nbeato): Break this apart to take advantage of horizontal</span>
+  <span class="comment">// lines or vertical lines when present.</span>
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_table_recognizer.html#ad40e89784fedeaa63f2b8e6088e9b270">RecognizeWhitespacedTable</a>(guess, table))
+    <span class="keywordflow">return</span> table;
+
+  <span class="comment">// No table found...</span>
+  <span class="keyword">delete</span> table;
+  <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad40e89784fedeaa63f2b8e6088e9b270"></a><!-- doxytag: member="tesseract::TableRecognizer::RecognizeWhitespacedTable" ref="ad40e89784fedeaa63f2b8e6088e9b270" args="(const TBOX &amp;guess_box, StructuredTable *table)" -->
@@ -376,6 +540,144 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8cpp_source.html#l00867">867</a> of file <a class="el" href="tablerecog_8cpp_source.html">tablerecog.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                        {
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> best_box = guess_box;  <span class="comment">// Best borders known.</span>
+  <span class="keywordtype">int</span> best_below = 0;         <span class="comment">// Margin size above best table.</span>
+  <span class="keywordtype">int</span> best_above = 0;         <span class="comment">// Margin size below best table.</span>
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> adjusted = guess_box;  <span class="comment">// The search box.</span>
+
+  <span class="comment">// We assume that the guess box is somewhat accurate, so we don&#39;t allow</span>
+  <span class="comment">// the adjusted border to pass half of the guessed area. This prevents</span>
+  <span class="comment">// &quot;negative&quot; tables from forming.</span>
+  <span class="keyword">const</span> <span class="keywordtype">int</span> kMidGuessY = (guess_box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>() + guess_box.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>()) / 2;
+  <span class="comment">// Keeps track of the most columns in an accepted table. The resulting table</span>
+  <span class="comment">// may be less than the max, but we don&#39;t want to stray too far.</span>
+  <span class="keywordtype">int</span> best_cols = 0;
+  <span class="comment">// Make sure we find a good border.</span>
+  <span class="keywordtype">bool</span> found_good_border = <span class="keyword">false</span>;
+
+  <span class="comment">// Find the bottom of the table by trying a few different locations. For</span>
+  <span class="comment">// each location, the top, left, and right are fixed. We start the search</span>
+  <span class="comment">// in a smaller table to favor best_cols getting a good estimate sooner.</span>
+  <span class="keywordtype">int</span> last_bottom = <a class="code" href="host_8h.html#aac62d87844689a18b6f5339a89ed6e7f">MAX_INT32</a>;
+  <span class="keywordtype">int</span> bottom = <a class="code" href="classtesseract_1_1_table_recognizer.html#a6852b6aaf9df0c7085a644b7696ff881">NextHorizontalSplit</a>(guess_box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>(), guess_box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>(),
+                                   kMidGuessY - <a class="code" href="classtesseract_1_1_table_recognizer.html#a4a0cb917deb38c9cd761390e2e89967b">min_height_</a> / 2, <span class="keyword">true</span>);
+  <span class="keywordtype">int</span> top = <a class="code" href="classtesseract_1_1_table_recognizer.html#a6852b6aaf9df0c7085a644b7696ff881">NextHorizontalSplit</a>(guess_box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>(), guess_box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>(),
+                                kMidGuessY + <a class="code" href="classtesseract_1_1_table_recognizer.html#a4a0cb917deb38c9cd761390e2e89967b">min_height_</a> / 2, <span class="keyword">false</span>);
+  adjusted.<a class="code" href="class_t_b_o_x.html#a7f40dfd290a907200bdc98c196f63f45">set_top</a>(top);
+
+  <span class="comment">// Headers/footers can be spaced far from everything.</span>
+  <span class="comment">// Make sure that the space below is greater than the space above</span>
+  <span class="comment">// the lowest row.</span>
+  <span class="keywordtype">int</span> previous_below = 0;
+  <span class="keyword">const</span> <span class="keywordtype">int</span> kMaxChances = 10;
+  <span class="keywordtype">int</span> chances = kMaxChances;
+  <span class="keywordflow">while</span> (bottom != last_bottom) {
+    adjusted.<a class="code" href="class_t_b_o_x.html#a6f803b24b046883cb0f3882dc3d92302">set_bottom</a>(bottom);
+
+    <span class="keywordflow">if</span> (adjusted.<a class="code" href="class_t_b_o_x.html#a8379d4bbc72bdbb1f069fc14790e632d">height</a>() &gt;= <a class="code" href="classtesseract_1_1_table_recognizer.html#a4a0cb917deb38c9cd761390e2e89967b">min_height_</a>) {
+      <span class="comment">// Try to fit the grid on the current box. We give it a chance</span>
+      <span class="comment">// if the number of columns didn&#39;t significantly drop.</span>
+      table-&gt;set_bounding_box(adjusted);
+      <span class="keywordflow">if</span> (table-&gt;FindWhitespacedStructure() &amp;&amp;
+          table-&gt;column_count() &gt;= best_cols * <a class="code" href="namespacetesseract.html#a59250c62639c9045e10bd2e0ca53148b">kRequiredColumns</a>) {
+        <span class="keywordflow">if</span> (<span class="keyword">false</span> &amp;&amp; <a class="code" href="classtesseract_1_1_table_recognizer.html#a3fb9b12226218c00102c77c2a9e2ca6f">IsWeakTableRow</a>(table, 0)) {
+          <span class="comment">// Currently buggy, but was looking promising so disabled.</span>
+          --chances;
+        } <span class="keywordflow">else</span> {
+          <span class="comment">// We favor 2 things,</span>
+          <span class="comment">//   1- Adding rows that have partitioned data.</span>
+          <span class="comment">//   2- Better margins (to find header/footer).</span>
+          <span class="comment">// For better tables, we just look for multiple cells in the</span>
+          <span class="comment">// bottom row with data in them.</span>
+          <span class="comment">// For margins, the space below the last row should</span>
+          <span class="comment">// be better than a table with the last row removed.</span>
+          chances = kMaxChances;
+          <span class="keywordtype">double</span> max_row_height = <a class="code" href="namespacetesseract.html#a81a11e8f02c3fb3a0bbbec62de19e1ad">kMaxRowSize</a> * table-&gt;median_cell_height();
+          <span class="keywordflow">if</span> ((table-&gt;space_below() * <a class="code" href="namespacetesseract.html#ab11424363f4f0ea43a9395a314790f90">kMarginFactor</a> &gt;= best_below &amp;&amp;
+               table-&gt;space_below() &gt;= previous_below) ||
+              (table-&gt;CountFilledCellsInRow(0) &gt; 1 &amp;&amp;
+               table-&gt;row_height(0) &lt; max_row_height)) {
+            best_box.<a class="code" href="class_t_b_o_x.html#a6f803b24b046883cb0f3882dc3d92302">set_bottom</a>(bottom);
+            best_below = table-&gt;space_below();
+            best_cols = <a class="code" href="ndminx_8h.html#aacc3ee1a7f283f8ef65cea31f4436a95">MAX</a>(table-&gt;column_count(), best_cols);
+            found_good_border = <span class="keyword">true</span>;
+          }
+        }
+        previous_below = table-&gt;space_below();
+      } <span class="keywordflow">else</span> {
+       --chances;
+      }
+    }
+    <span class="keywordflow">if</span> (chances &lt;= 0)
+      <span class="keywordflow">break</span>;
+
+    last_bottom = bottom;
+    bottom = <a class="code" href="classtesseract_1_1_table_recognizer.html#a6852b6aaf9df0c7085a644b7696ff881">NextHorizontalSplit</a>(guess_box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>(), guess_box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>(),
+                                 last_bottom, <span class="keyword">true</span>);
+  }
+  <span class="keywordflow">if</span> (!found_good_border)
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+
+  <span class="comment">// TODO(nbeato) comments: follow modified code above... put it in a function!</span>
+  found_good_border = <span class="keyword">false</span>;
+  <span class="keywordtype">int</span> last_top = <a class="code" href="host_8h.html#ae6f88d5bb15e97510f484289f2fc89fd">MIN_INT32</a>;
+  top = <a class="code" href="classtesseract_1_1_table_recognizer.html#a6852b6aaf9df0c7085a644b7696ff881">NextHorizontalSplit</a>(guess_box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>(), guess_box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>(),
+                            kMidGuessY + <a class="code" href="classtesseract_1_1_table_recognizer.html#a4a0cb917deb38c9cd761390e2e89967b">min_height_</a> / 2, <span class="keyword">false</span>);
+  <span class="keywordtype">int</span> previous_above = 0;
+  chances = kMaxChances;
+
+  adjusted.<a class="code" href="class_t_b_o_x.html#a6f803b24b046883cb0f3882dc3d92302">set_bottom</a>(best_box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>());
+  <span class="keywordflow">while</span> (last_top != top) {
+    adjusted.<a class="code" href="class_t_b_o_x.html#a7f40dfd290a907200bdc98c196f63f45">set_top</a>(top);
+    <span class="keywordflow">if</span> (adjusted.<a class="code" href="class_t_b_o_x.html#a8379d4bbc72bdbb1f069fc14790e632d">height</a>() &gt;= <a class="code" href="classtesseract_1_1_table_recognizer.html#a4a0cb917deb38c9cd761390e2e89967b">min_height_</a>) {
+      table-&gt;set_bounding_box(adjusted);
+      <span class="keywordflow">if</span> (table-&gt;FindWhitespacedStructure() &amp;&amp;
+          table-&gt;column_count() &gt;= best_cols * <a class="code" href="namespacetesseract.html#a59250c62639c9045e10bd2e0ca53148b">kRequiredColumns</a>) {
+        <span class="keywordtype">int</span> last_row = table-&gt;row_count() - 1;
+        <span class="keywordflow">if</span> (<span class="keyword">false</span> &amp;&amp; <a class="code" href="classtesseract_1_1_table_recognizer.html#a3fb9b12226218c00102c77c2a9e2ca6f">IsWeakTableRow</a>(table, last_row)) {
+          <span class="comment">// Currently buggy, but was looking promising so disabled.</span>
+          --chances;
+        } <span class="keywordflow">else</span> {
+          chances = kMaxChances;
+          <span class="keywordtype">double</span> max_row_height = <a class="code" href="namespacetesseract.html#a81a11e8f02c3fb3a0bbbec62de19e1ad">kMaxRowSize</a> * table-&gt;median_cell_height();
+          <span class="keywordflow">if</span> ((table-&gt;space_above() * <a class="code" href="namespacetesseract.html#ab11424363f4f0ea43a9395a314790f90">kMarginFactor</a> &gt;= best_above &amp;&amp;
+               table-&gt;space_above() &gt;= previous_above) ||
+              (table-&gt;CountFilledCellsInRow(last_row) &gt; 1 &amp;&amp;
+               table-&gt;row_height(last_row) &lt; max_row_height)) {
+            best_box.<a class="code" href="class_t_b_o_x.html#a7f40dfd290a907200bdc98c196f63f45">set_top</a>(top);
+            best_above = table-&gt;space_above();
+            best_cols = <a class="code" href="ndminx_8h.html#aacc3ee1a7f283f8ef65cea31f4436a95">MAX</a>(table-&gt;column_count(), best_cols);
+            found_good_border = <span class="keyword">true</span>;
+          }
+        }
+        previous_above = table-&gt;space_above();
+      } <span class="keywordflow">else</span> {
+       --chances;
+      }
+    }
+    <span class="keywordflow">if</span> (chances &lt;= 0)
+      <span class="keywordflow">break</span>;
+
+    last_top = top;
+    top = <a class="code" href="classtesseract_1_1_table_recognizer.html#a6852b6aaf9df0c7085a644b7696ff881">NextHorizontalSplit</a>(guess_box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>(), guess_box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>(),
+                              last_top, <span class="keyword">false</span>);
+  }
+
+  <span class="keywordflow">if</span> (!found_good_border)
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+
+  <span class="comment">// If we get here, this shouldn&#39;t happen. It can be an assert, but</span>
+  <span class="comment">// I haven&#39;t tested it enough to make it crash things.</span>
+  <span class="keywordflow">if</span> (best_box.<a class="code" href="class_t_b_o_x.html#a7c6996aea1eb6be07b1d6634bf36cfd6">null_box</a>())
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+
+  <span class="comment">// Given the best locations, fit the box to those locations.</span>
+  table-&gt;set_bounding_box(best_box);
+  <span class="keywordflow">return</span> table-&gt;FindWhitespacedStructure();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a969a85b74ae52c0fc72da54e66ed93a6"></a><!-- doxytag: member="tesseract::TableRecognizer::set_line_grid" ref="a969a85b74ae52c0fc72da54e66ed93a6" args="(ColPartitionGrid *lines)" -->
@@ -393,6 +695,11 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8cpp_source.html#l00715">715</a> of file <a class="el" href="tablerecog_8cpp_source.html">tablerecog.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                               {
+  <a class="code" href="classtesseract_1_1_table_recognizer.html#acef775b055806466bf907b9008a9f705">line_grid_</a> = line_grid;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a5c4fca3ea6f9452c7ec5a76f2e085a0c"></a><!-- doxytag: member="tesseract::TableRecognizer::set_max_text_height" ref="a5c4fca3ea6f9452c7ec5a76f2e085a0c" args="(int height)" -->
@@ -410,6 +717,11 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8cpp_source.html#l00724">724</a> of file <a class="el" href="tablerecog_8cpp_source.html">tablerecog.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                    {
+  <a class="code" href="classtesseract_1_1_table_recognizer.html#a2d6b6326270fc127b50a497e4d0c6c7c">max_text_height_</a> = height;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad24b027f3a4261cf7cb25f03646e58de"></a><!-- doxytag: member="tesseract::TableRecognizer::set_min_height" ref="ad24b027f3a4261cf7cb25f03646e58de" args="(int height)" -->
@@ -427,6 +739,11 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8cpp_source.html#l00718">718</a> of file <a class="el" href="tablerecog_8cpp_source.html">tablerecog.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                               {
+  <a class="code" href="classtesseract_1_1_table_recognizer.html#a4a0cb917deb38c9cd761390e2e89967b">min_height_</a> = height;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a394e60c5a4a61f8572ae33d2fade3ee3"></a><!-- doxytag: member="tesseract::TableRecognizer::set_min_width" ref="a394e60c5a4a61f8572ae33d2fade3ee3" args="(int width)" -->
@@ -444,6 +761,11 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8cpp_source.html#l00721">721</a> of file <a class="el" href="tablerecog_8cpp_source.html">tablerecog.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                             {
+  <a class="code" href="classtesseract_1_1_table_recognizer.html#a99ef7bab6b09c69357a69f440235d83c">min_width_</a> = width;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="abdb2fec4ac7970b190ceaaf4bfb4368f"></a><!-- doxytag: member="tesseract::TableRecognizer::set_text_grid" ref="abdb2fec4ac7970b190ceaaf4bfb4368f" args="(ColPartitionGrid *text)" -->
@@ -461,6 +783,11 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8cpp_source.html#l00712">712</a> of file <a class="el" href="tablerecog_8cpp_source.html">tablerecog.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                               {
+  <a class="code" href="classtesseract_1_1_table_recognizer.html#a1ec03b4d8e7b7cd1361d23be47d5d81a">text_grid_</a> = text_grid;
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
@@ -475,6 +802,8 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8h_source.html#l00368">368</a> of file <a class="el" href="tablerecog_8h_source.html">tablerecog.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a2d6b6326270fc127b50a497e4d0c6c7c"></a><!-- doxytag: member="tesseract::TableRecognizer::max_text_height_" ref="a2d6b6326270fc127b50a497e4d0c6c7c" args="" -->
@@ -487,6 +816,8 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="tablerecog_8h_source.html#l00373">373</a> of file <a class="el" href="tablerecog_8h_source.html">tablerecog.h</a>.</p>
 
 </div>
 </div>
@@ -501,6 +832,8 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8h_source.html#l00370">370</a> of file <a class="el" href="tablerecog_8h_source.html">tablerecog.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a99ef7bab6b09c69357a69f440235d83c"></a><!-- doxytag: member="tesseract::TableRecognizer::min_width_" ref="a99ef7bab6b09c69357a69f440235d83c" args="" -->
@@ -513,6 +846,8 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="tablerecog_8h_source.html#l00371">371</a> of file <a class="el" href="tablerecog_8h_source.html">tablerecog.h</a>.</p>
 
 </div>
 </div>
@@ -527,11 +862,13 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablerecog_8h_source.html#l00367">367</a> of file <a class="el" href="tablerecog_8h_source.html">tablerecog.h</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/textord/<a class="el" href="tablerecog_8h_source.html">tablerecog.h</a></li>
-<li>tesseract-ocr/textord/<a class="el" href="tablerecog_8cpp.html">tablerecog.cpp</a></li>
+<li>tesseract-ocr/textord/<a class="el" href="tablerecog_8cpp_source.html">tablerecog.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -554,7 +891,7 @@ Protected Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:17 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:53 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

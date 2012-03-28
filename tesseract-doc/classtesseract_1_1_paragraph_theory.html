@@ -119,7 +119,10 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const <a class="el" href="class_paragraph_model.html">ParagraphModel</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_paragraph_theory.html#a6686340f77a669565d345995ac171a0d">Fits</a> (const <a class="el" href="class_generic_vector.html">GenericVector</a>&lt; <a class="el" href="classtesseract_1_1_row_scratch_registers.html">RowScratchRegisters</a> &gt; *rows, int start, int end) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_paragraph_theory.html#a6824d3c12724d31d2eef0b514cbba192">IndexOf</a> (const <a class="el" href="class_paragraph_model.html">ParagraphModel</a> *model) const </td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="paragraphs__internal_8h_source.html#l00189">189</a> of file <a class="el" href="paragraphs__internal_8h_source.html">paragraphs_internal.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a29153455785e1ee8d290a3f9217bc9c9"></a><!-- doxytag: member="tesseract::ParagraphTheory::ParagraphTheory" ref="a29153455785e1ee8d290a3f9217bc9c9" args="(GenericVector&lt; ParagraphModel * &gt; *models)" -->
 <div class="memitem">
 <div class="memproto">
@@ -135,6 +138,9 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="paragraphs__internal_8h_source.html#l00193">193</a> of file <a class="el" href="paragraphs__internal_8h_source.html">paragraphs_internal.h</a>.</p>
+<div class="fragment"><pre class="fragment">      : models_(models) {}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -153,6 +159,18 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="paragraphs_8cpp_source.html#l01163">1163</a> of file <a class="el" href="paragraphs_8cpp_source.html">paragraphs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                           {
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; models_-&gt;<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>(); i++) {
+    <span class="keywordflow">if</span> ((*models_)[i]-&gt;Comparable(model))
+      <span class="keywordflow">return</span> (*models_)[i];
+  }
+  <a class="code" href="class_paragraph_model.html">ParagraphModel</a> *m = <span class="keyword">new</span> <a class="code" href="class_paragraph_model.html">ParagraphModel</a>(model);
+  models_-&gt;<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(m);
+  models_we_added_.<a class="code" href="class_generic_vector.html#a393f9f8dcc55ad759a5c7fbdc4840a89">push_back_new</a>(m);
+  <span class="keywordflow">return</span> m;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac945b8be877a405dd556cf830e8d1c7e"></a><!-- doxytag: member="tesseract::ParagraphTheory::DiscardUnusedModels" ref="ac945b8be877a405dd556cf830e8d1c7e" args="(const SetOfModels &amp;used_models)" -->
@@ -170,6 +188,18 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="paragraphs_8cpp_source.html#l01174">1174</a> of file <a class="el" href="paragraphs_8cpp_source.html">paragraphs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                        {
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = models_-&gt;<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>() - 1; i &gt;= 0; i--) {
+    <a class="code" href="class_paragraph_model.html">ParagraphModel</a> *m = (*models_)[i];
+    <span class="keywordflow">if</span> (!used_models.contains(m) &amp;&amp; models_we_added_.<a class="code" href="class_generic_vector.html#a135efb0c3d9bb58fa7538f137567c9c5">contains</a>(m)) {
+      <span class="keyword">delete</span> m;
+      models_-&gt;<a class="code" href="class_generic_vector.html#a3fd37a240a42f1c3052e8d28614d3702">remove</a>(i);
+      models_we_added_.<a class="code" href="class_generic_vector.html#a3fd37a240a42f1c3052e8d28614d3702">remove</a>(models_we_added_.<a class="code" href="class_generic_vector.html#a0a62e2c80254bad72fb8aa37fed3af33">get_index</a>(m));
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6686340f77a669565d345995ac171a0d"></a><!-- doxytag: member="tesseract::ParagraphTheory::Fits" ref="a6686340f77a669565d345995ac171a0d" args="(const GenericVector&lt; RowScratchRegisters &gt; *rows, int start, int end) const " -->
@@ -203,6 +233,17 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="paragraphs_8cpp_source.html#l01188">1188</a> of file <a class="el" href="paragraphs_8cpp_source.html">paragraphs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                              {
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> m = 0; m &lt; models_-&gt;<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>(); m++) {
+    <span class="keyword">const</span> <a class="code" href="class_paragraph_model.html">ParagraphModel</a> *model = (*models_)[m];
+    <span class="keywordflow">if</span> (model-&gt;<a class="code" href="class_paragraph_model.html#ad5c1367f22a798e616c64248ed50509e">justification</a>() != <a class="code" href="namespacetesseract.html#a550970d1662b3ac5830c6a28dba676b1aa9a39d3bca308f650f8c75b0c14f6838">JUSTIFICATION_CENTER</a> &amp;&amp;
+        <a class="code" href="namespacetesseract.html#ac1812316831faad241ffadb840e9a21e">RowsFitModel</a>(rows, start, end, model))
+      <span class="keywordflow">return</span> model;
+  }
+  <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6824d3c12724d31d2eef0b514cbba192"></a><!-- doxytag: member="tesseract::ParagraphTheory::IndexOf" ref="a6824d3c12724d31d2eef0b514cbba192" args="(const ParagraphModel *model) const " -->
@@ -220,6 +261,15 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="paragraphs_8cpp_source.html#l01207">1207</a> of file <a class="el" href="paragraphs_8cpp_source.html">paragraphs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                              {
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; models_-&gt;<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>(); i++) {
+    <span class="keywordflow">if</span> ((*models_)[i] == model)
+      <span class="keywordflow">return</span> i;
+  }
+  <span class="keywordflow">return</span> -1;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a15ae7e55f888813fe2b72f74ea11c23a"></a><!-- doxytag: member="tesseract::ParagraphTheory::models" ref="a15ae7e55f888813fe2b72f74ea11c23a" args="()" -->
@@ -236,6 +286,9 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="paragraphs__internal_8h_source.html#l00195">195</a> of file <a class="el" href="paragraphs__internal_8h_source.html">paragraphs_internal.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> *models_; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa44ab1d539807b2d4e78aaad876eaa66"></a><!-- doxytag: member="tesseract::ParagraphTheory::models" ref="aa44ab1d539807b2d4e78aaad876eaa66" args="() const " -->
@@ -252,6 +305,9 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="paragraphs__internal_8h_source.html#l00196">196</a> of file <a class="el" href="paragraphs__internal_8h_source.html">paragraphs_internal.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> *models_; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a33e212251fa9eb84dd8270c7f238ff61"></a><!-- doxytag: member="tesseract::ParagraphTheory::NonCenteredModels" ref="a33e212251fa9eb84dd8270c7f238ff61" args="(SetOfModels *models)" -->
@@ -269,11 +325,20 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="paragraphs_8cpp_source.html#l01199">1199</a> of file <a class="el" href="paragraphs_8cpp_source.html">paragraphs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                           {
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> m = 0; m &lt; models_-&gt;<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>(); m++) {
+    <span class="keyword">const</span> <a class="code" href="class_paragraph_model.html">ParagraphModel</a> *model = (*models_)[m];
+    <span class="keywordflow">if</span> (model-&gt;<a class="code" href="class_paragraph_model.html#ad5c1367f22a798e616c64248ed50509e">justification</a>() != <a class="code" href="namespacetesseract.html#a550970d1662b3ac5830c6a28dba676b1aa9a39d3bca308f650f8c75b0c14f6838">JUSTIFICATION_CENTER</a>)
+      <a class="code" href="classtesseract_1_1_paragraph_theory.html#a15ae7e55f888813fe2b72f74ea11c23a">models</a>-&gt;<a class="code" href="class_generic_vector.html#a393f9f8dcc55ad759a5c7fbdc4840a89">push_back_new</a>(model);
+  }
+}
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/ccmain/<a class="el" href="paragraphs__internal_8h_source.html">paragraphs_internal.h</a></li>
-<li>tesseract-ocr/ccmain/<a class="el" href="paragraphs_8cpp.html">paragraphs.cpp</a></li>
+<li>tesseract-ocr/ccmain/<a class="el" href="paragraphs_8cpp_source.html">paragraphs.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -296,7 +361,7 @@ Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:14 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:49 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

@@ -140,7 +140,10 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_shape_table.html#a2c23ee547c7157870d3be58a431b7033">NumMasterShapes</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_shape_table.html#a27ddf900a8b1463aeb5db4e3128e6636">MasterDestinationIndex</a> (int shape_id) const </td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="shapetable_8h_source.html#l00126">126</a> of file <a class="el" href="shapetable_8h_source.html">shapetable.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a281dee38659ef559b59964bfb9f35582"></a><!-- doxytag: member="tesseract::ShapeTable::ShapeTable" ref="a281dee38659ef559b59964bfb9f35582" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -155,6 +158,10 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="shapetable_8cpp_source.html#l00175">175</a> of file <a class="el" href="shapetable_8cpp_source.html">shapetable.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                       : unicharset_(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7cc7a91a08b546373b085e4ae6913f01"></a><!-- doxytag: member="tesseract::ShapeTable::ShapeTable" ref="a7cc7a91a08b546373b085e4ae6913f01" args="(const UNICHARSET &amp;unicharset)" -->
@@ -172,6 +179,10 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="shapetable_8cpp_source.html#l00177">177</a> of file <a class="el" href="shapetable_8cpp_source.html">shapetable.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">  : unicharset_(&amp;unicharset) {
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -200,6 +211,15 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="shapetable_8cpp_source.html#l00237">237</a> of file <a class="el" href="shapetable_8cpp_source.html">shapetable.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                    {
+  <span class="keywordtype">int</span> index = shape_table_.size();
+  Shape* shape = <span class="keyword">new</span> Shape;
+  shape-&gt;AddToShape(unichar_id, font_id);
+  shape_table_.push_back(shape);
+  <span class="keywordflow">return</span> index;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a56e0d9ef97ea479e77ac745969cd6255"></a><!-- doxytag: member="tesseract::ShapeTable::AddShape" ref="a56e0d9ef97ea479e77ac745969cd6255" args="(const Shape &amp;other)" -->
@@ -217,6 +237,14 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="shapetable_8cpp_source.html#l00247">247</a> of file <a class="el" href="shapetable_8cpp_source.html">shapetable.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                           {
+  <span class="keywordtype">int</span> index = shape_table_.size();
+  Shape* shape = <span class="keyword">new</span> Shape(other);
+  shape_table_.push_back(shape);
+  <span class="keywordflow">return</span> index;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="abf52fa86adb98bedc1e2677ec35b1a9c"></a><!-- doxytag: member="tesseract::ShapeTable::AddShapeToShape" ref="abf52fa86adb98bedc1e2677ec35b1a9c" args="(int shape_id, const Shape &amp;other)" -->
@@ -244,6 +272,12 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="shapetable_8cpp_source.html#l00269">269</a> of file <a class="el" href="shapetable_8cpp_source.html">shapetable.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                 {
+  Shape&amp; shape = *shape_table_[shape_id];
+  shape.AddShape(other);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac8c09a4d3aefed5026a4837f514a3c14"></a><!-- doxytag: member="tesseract::ShapeTable::AddToShape" ref="ac8c09a4d3aefed5026a4837f514a3c14" args="(int shape_id, int unichar_id, int font_id)" -->
@@ -277,6 +311,12 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="shapetable_8cpp_source.html#l00263">263</a> of file <a class="el" href="shapetable_8cpp_source.html">shapetable.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                     {
+  Shape&amp; shape = *shape_table_[shape_id];
+  shape.AddToShape(unichar_id, font_id);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3e3a2943608d2528dbab5add57b3a41d"></a><!-- doxytag: member="tesseract::ShapeTable::AlreadyMerged" ref="a3e3a2943608d2528dbab5add57b3a41d" args="(int shape_id1, int shape_id2)" -->
@@ -304,6 +344,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="shapetable_8cpp_source.html#l00330">330</a> of file <a class="el" href="shapetable_8cpp_source.html">shapetable.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                           {
+  <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_shape_table.html#a27ddf900a8b1463aeb5db4e3128e6636">MasterDestinationIndex</a>(shape_id1) == <a class="code" href="classtesseract_1_1_shape_table.html#a27ddf900a8b1463aeb5db4e3128e6636">MasterDestinationIndex</a>(shape_id2);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a70437624fbbaf954fcd7b247f42c253d"></a><!-- doxytag: member="tesseract::ShapeTable::AnyMultipleUnichars" ref="a70437624fbbaf954fcd7b247f42c253d" args="()" -->
@@ -320,6 +365,17 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="shapetable_8cpp_source.html#l00335">335</a> of file <a class="el" href="shapetable_8cpp_source.html">shapetable.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                     {
+  <span class="keywordtype">int</span> num_shapes = <a class="code" href="classtesseract_1_1_shape_table.html#a924919daeadb48539e3d68c65013c173">NumShapes</a>();
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> s1 = 0; s1 &lt; num_shapes; ++s1) {
+    <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_shape_table.html#a27ddf900a8b1463aeb5db4e3128e6636">MasterDestinationIndex</a>(s1) != s1) <span class="keywordflow">continue</span>;
+    <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_shape_table.html#a9334161c64756c591ff7d4fca22277f5">GetShape</a>(s1).size() &gt; 1)
+      <span class="keywordflow">return</span> <span class="keyword">true</span>;
+  }
+  <span class="keywordflow">return</span> <span class="keyword">false</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae8a8a15df8f549f59e729eab865d6e66"></a><!-- doxytag: member="tesseract::ShapeTable::AppendMasterShapes" ref="ae8a8a15df8f549f59e729eab865d6e66" args="(const ShapeTable &amp;other)" -->
@@ -337,6 +393,15 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="shapetable_8cpp_source.html#l00431">431</a> of file <a class="el" href="shapetable_8cpp_source.html">shapetable.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                           {
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> s = 0; s &lt; other.shape_table_.size(); ++s) {
+    <span class="keywordflow">if</span> (other.shape_table_[s]-&gt;destination_index() &lt; 0) {
+      <a class="code" href="classtesseract_1_1_shape_table.html#a4560e30f0df9126da3462e4858e6a2db">AddShape</a>(*other.shape_table_[s]);
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac2bd77883160f685122f6fa87f8e9c52"></a><!-- doxytag: member="tesseract::ShapeTable::BuildFromShape" ref="ac2bd77883160f685122f6fa87f8e9c52" args="(const Shape &amp;shape, const ShapeTable &amp;master_shapes)" -->
@@ -364,6 +429,30 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="shapetable_8cpp_source.html#l00305">305</a> of file <a class="el" href="shapetable_8cpp_source.html">shapetable.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                {
+  <span class="keywordtype">int</span> num_masters = 0;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> u_ind = 0; u_ind &lt; shape.size(); ++u_ind) {
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> f_ind = 0; f_ind &lt; shape[u_ind].font_ids.size(); ++f_ind) {
+      <span class="keywordtype">int</span> c = shape[u_ind].unichar_id;
+      <span class="keywordtype">int</span> <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> = shape[u_ind].font_ids[f_ind];
+      <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_shape_table.html#a6bd8104b89a7c7ffeb8c4bc8996fff6c">FindShape</a>(c, f) &lt; 0) {
+        <span class="keywordtype">int</span> shape_id = <a class="code" href="classtesseract_1_1_shape_table.html#a4560e30f0df9126da3462e4858e6a2db">AddShape</a>(c, f);
+        <span class="keywordtype">int</span> master_id = master_shapes.FindShape(c, f);
+        <span class="keywordflow">if</span> (master_id &gt;= 0 &amp;&amp; shape.size() &gt; 1) {
+          <span class="keyword">const</span> Shape&amp; master = master_shapes.GetShape(master_id);
+          <span class="keywordflow">if</span> (master.IsSubsetOf(shape) &amp;&amp; !shape.IsSubsetOf(master)) {
+            <span class="comment">// Add everything else from the master shape.</span>
+            shape_table_[shape_id]-&gt;AddShape(master);
+            ++num_masters;
+          }
+        }
+      }
+    }
+  }
+  <span class="keywordflow">return</span> num_masters;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a87937c115d25036a961833c8b8ab79dd"></a><!-- doxytag: member="tesseract::ShapeTable::DebugStr" ref="a87937c115d25036a961833c8b8ab79dd" args="(int shape_id) const " -->
@@ -381,6 +470,26 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="shapetable_8cpp_source.html#l00194">194</a> of file <a class="el" href="shapetable_8cpp_source.html">shapetable.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                              {
+  <span class="keywordflow">if</span> (shape_id &lt; 0 || shape_id &gt;= shape_table_.size())
+    <span class="keywordflow">return</span> <a class="code" href="class_s_t_r_i_n_g.html">STRING</a>(<span class="stringliteral">&quot;INVALID_UNICHAR_ID&quot;</span>);
+  <span class="keyword">const</span> Shape&amp; shape = <a class="code" href="classtesseract_1_1_shape_table.html#a9334161c64756c591ff7d4fca22277f5">GetShape</a>(shape_id);
+  <a class="code" href="class_s_t_r_i_n_g.html">STRING</a> result;
+  result.<a class="code" href="class_s_t_r_i_n_g.html#a779cd637dd42d58d5500a3a657077e84">add_str_int</a>(<span class="stringliteral">&quot;Shape&quot;</span>, shape_id);
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> c = 0; c &lt; shape.size(); ++c) {
+    result.<a class="code" href="class_s_t_r_i_n_g.html#a779cd637dd42d58d5500a3a657077e84">add_str_int</a>(<span class="stringliteral">&quot; c_id=&quot;</span>, shape[c].unichar_id);
+    result += <span class="stringliteral">&quot;=&quot;</span>;
+    result += unicharset_-&gt;<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a421c0b6ebcbbe7547490252fb688c961">id_to_unichar</a>(shape[c].unichar_id);
+    result.<a class="code" href="class_s_t_r_i_n_g.html#a779cd637dd42d58d5500a3a657077e84">add_str_int</a>(<span class="stringliteral">&quot;, &quot;</span>, shape[c].font_ids.size());
+    result += <span class="stringliteral">&quot; fonts =&quot;</span>;
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> = 0; <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> &lt; shape[c].font_ids.size(); ++<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>) {
+      result.<a class="code" href="class_s_t_r_i_n_g.html#a779cd637dd42d58d5500a3a657077e84">add_str_int</a>(<span class="stringliteral">&quot; &quot;</span>, shape[c].font_ids[<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>]);
+    }
+  }
+  <span class="keywordflow">return</span> result;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa50746fbf2f1676290ab5e372b228167"></a><!-- doxytag: member="tesseract::ShapeTable::DeleteShape" ref="aa50746fbf2f1676290ab5e372b228167" args="(int shape_id)" -->
@@ -398,6 +507,13 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="shapetable_8cpp_source.html#l00255">255</a> of file <a class="el" href="shapetable_8cpp_source.html">shapetable.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                         {
+  <span class="keyword">delete</span> shape_table_[shape_id];
+  shape_table_[shape_id] = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  shape_table_.remove(shape_id);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="adfba8cbf1c85a12b6b826d332614072f"></a><!-- doxytag: member="tesseract::ShapeTable::DeSerialize" ref="adfba8cbf1c85a12b6b826d332614072f" args="(bool swap, FILE *fp)" -->
@@ -425,6 +541,12 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="shapetable_8cpp_source.html#l00188">188</a> of file <a class="el" href="shapetable_8cpp_source.html">shapetable.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                {
+  <span class="keywordflow">if</span> (!shape_table_.DeSerialize(swap, fp)) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6bd8104b89a7c7ffeb8c4bc8996fff6c"></a><!-- doxytag: member="tesseract::ShapeTable::FindShape" ref="a6bd8104b89a7c7ffeb8c4bc8996fff6c" args="(int unichar_id, int font_id) const " -->
@@ -452,6 +574,24 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="shapetable_8cpp_source.html#l00278">278</a> of file <a class="el" href="shapetable_8cpp_source.html">shapetable.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                           {
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> s = 0; s &lt; shape_table_.size(); ++s) {
+    <span class="keyword">const</span> Shape&amp; shape = <a class="code" href="classtesseract_1_1_shape_table.html#a9334161c64756c591ff7d4fca22277f5">GetShape</a>(s);
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> c = 0; c &lt; shape.size(); ++c) {
+      <span class="keywordflow">if</span> (shape[c].unichar_id == unichar_id) {
+        <span class="keywordflow">if</span> (font_id &lt; 0)
+          <span class="keywordflow">return</span> s;  <span class="comment">// We don&#39;t care about the font.</span>
+        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> = 0; <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> &lt; shape[c].font_ids.size(); ++<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>) {
+          <span class="keywordflow">if</span> (shape[c].font_ids[<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>] == font_id)
+            <span class="keywordflow">return</span> s;
+        }
+      }
+    }
+  }
+  <span class="keywordflow">return</span> -1;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae6c7d40a14971256995d61405c899a0a"></a><!-- doxytag: member="tesseract::ShapeTable::ForceFontMerges" ref="ae6c7d40a14971256995d61405c899a0a" args="(int start, int end)" -->
@@ -479,6 +619,24 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="shapetable_8cpp_source.html#l00359">359</a> of file <a class="el" href="shapetable_8cpp_source.html">shapetable.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                   {
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> s1 = start; s1 &lt; end; ++s1) {
+    <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_shape_table.html#a27ddf900a8b1463aeb5db4e3128e6636">MasterDestinationIndex</a>(s1) == s1 &amp;&amp; <a class="code" href="classtesseract_1_1_shape_table.html#a9334161c64756c591ff7d4fca22277f5">GetShape</a>(s1).size() == 1) {
+      <span class="keywordtype">int</span> unichar_id = <a class="code" href="classtesseract_1_1_shape_table.html#a9334161c64756c591ff7d4fca22277f5">GetShape</a>(s1)[0].unichar_id;
+      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> s2 = s1 + 1; s2 &lt; end; ++s2) {
+        <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_shape_table.html#a27ddf900a8b1463aeb5db4e3128e6636">MasterDestinationIndex</a>(s2) == s2 &amp;&amp; <a class="code" href="classtesseract_1_1_shape_table.html#a9334161c64756c591ff7d4fca22277f5">GetShape</a>(s2).size() == 1 &amp;&amp;
+            unichar_id == <a class="code" href="classtesseract_1_1_shape_table.html#a9334161c64756c591ff7d4fca22277f5">GetShape</a>(s2)[0].unichar_id) {
+          <a class="code" href="classtesseract_1_1_shape_table.html#a894d3a172873cbfb9def40cc2d02fbae">MergeShapes</a>(s1, s2);
+        }
+      }
+    }
+  }
+  <a class="code" href="classtesseract_1_1_shape_table.html#a281dee38659ef559b59964bfb9f35582">ShapeTable</a> compacted(*unicharset_);
+  compacted.AppendMasterShapes(*<span class="keyword">this</span>);
+  *<span class="keyword">this</span> = compacted;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ade3f46eb910d83302b04f9f530277290"></a><!-- doxytag: member="tesseract::ShapeTable::GetFirstUnicharAndFont" ref="ade3f46eb910d83302b04f9f530277290" args="(int shape_id, int *unichar_id, int *font_id) const " -->
@@ -512,6 +670,13 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="shapetable_8cpp_source.html#l00296">296</a> of file <a class="el" href="shapetable_8cpp_source.html">shapetable.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                             {
+  <span class="keyword">const</span> UnicharAndFonts&amp; unichar_and_fonts = (*shape_table_[shape_id])[0];
+  *unichar_id = unichar_and_fonts.unichar_id;
+  *font_id = unichar_and_fonts.font_ids[0];
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9334161c64756c591ff7d4fca22277f5"></a><!-- doxytag: member="tesseract::ShapeTable::GetShape" ref="a9334161c64756c591ff7d4fca22277f5" args="(int shape_id) const " -->
@@ -529,6 +694,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="shapetable_8h_source.html#l00179">179</a> of file <a class="el" href="shapetable_8h_source.html">shapetable.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                            {
+    <span class="keywordflow">return</span> *shape_table_[shape_id];
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a27ddf900a8b1463aeb5db4e3128e6636"></a><!-- doxytag: member="tesseract::ShapeTable::MasterDestinationIndex" ref="a27ddf900a8b1463aeb5db4e3128e6636" args="(int shape_id) const " -->
@@ -546,6 +716,18 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="shapetable_8cpp_source.html#l00419">419</a> of file <a class="el" href="shapetable_8cpp_source.html">shapetable.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                         {
+  <span class="keywordtype">int</span> dest_id = shape_table_[shape_id]-&gt;destination_index();
+  <span class="keywordflow">if</span> (dest_id == shape_id || dest_id &lt; 0)
+    <span class="keywordflow">return</span> shape_id;  <span class="comment">// Is master already.</span>
+  <span class="keywordtype">int</span> master_id = shape_table_[dest_id]-&gt;destination_index();
+  <span class="keywordflow">if</span> (master_id == dest_id || master_id &lt; 0)
+    <span class="keywordflow">return</span> dest_id;  <span class="comment">// Dest is the master and shape_id points to it.</span>
+  master_id = <a class="code" href="classtesseract_1_1_shape_table.html#a27ddf900a8b1463aeb5db4e3128e6636">MasterDestinationIndex</a>(master_id);
+  <span class="keywordflow">return</span> master_id;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a25fa21bfc400b72a334e3e2fd474cb53"></a><!-- doxytag: member="tesseract::ShapeTable::MasterFontCount" ref="a25fa21bfc400b72a334e3e2fd474cb53" args="(int shape_id) const " -->
@@ -563,6 +745,17 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="shapetable_8cpp_source.html#l00383">383</a> of file <a class="el" href="shapetable_8cpp_source.html">shapetable.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                  {
+  <span class="keywordtype">int</span> master_id = <a class="code" href="classtesseract_1_1_shape_table.html#a27ddf900a8b1463aeb5db4e3128e6636">MasterDestinationIndex</a>(shape_id);
+  <span class="keyword">const</span> Shape&amp; shape = <a class="code" href="classtesseract_1_1_shape_table.html#a9334161c64756c591ff7d4fca22277f5">GetShape</a>(master_id);
+  <span class="keywordtype">int</span> font_count = 0;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> c = 0; c &lt; shape.size(); ++c) {
+    font_count += shape[c].font_ids.size();
+  }
+  <span class="keywordflow">return</span> font_count;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a0d9f69c9ee9d5bcb6d8658925a881831"></a><!-- doxytag: member="tesseract::ShapeTable::MasterUnicharCount" ref="a0d9f69c9ee9d5bcb6d8658925a881831" args="(int shape_id) const " -->
@@ -580,6 +773,12 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="shapetable_8cpp_source.html#l00377">377</a> of file <a class="el" href="shapetable_8cpp_source.html">shapetable.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                     {
+  <span class="keywordtype">int</span> master_id = <a class="code" href="classtesseract_1_1_shape_table.html#a27ddf900a8b1463aeb5db4e3128e6636">MasterDestinationIndex</a>(shape_id);
+  <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_shape_table.html#a9334161c64756c591ff7d4fca22277f5">GetShape</a>(master_id).size();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad130bbb0f12679804c93bbaa10bec04e"></a><!-- doxytag: member="tesseract::ShapeTable::MaxNumUnichars" ref="ad130bbb0f12679804c93bbaa10bec04e" args="() const " -->
@@ -596,6 +795,17 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="shapetable_8cpp_source.html#l00346">346</a> of file <a class="el" href="shapetable_8cpp_source.html">shapetable.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                     {
+  <span class="keywordtype">int</span> max_num_unichars = 0;
+  <span class="keywordtype">int</span> num_shapes = <a class="code" href="classtesseract_1_1_shape_table.html#a924919daeadb48539e3d68c65013c173">NumShapes</a>();
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> s = 0; s &lt; num_shapes; ++s) {
+    <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_shape_table.html#a9334161c64756c591ff7d4fca22277f5">GetShape</a>(s).size() &gt; max_num_unichars)
+      max_num_unichars = <a class="code" href="classtesseract_1_1_shape_table.html#a9334161c64756c591ff7d4fca22277f5">GetShape</a>(s).size();
+  }
+  <span class="keywordflow">return</span> max_num_unichars;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7a76eef56cbc9fe1a959b8988faef0fb"></a><!-- doxytag: member="tesseract::ShapeTable::MergedUnicharCount" ref="a7a76eef56cbc9fe1a959b8988faef0fb" args="(int shape_id1, int shape_id2) const " -->
@@ -623,6 +833,16 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="shapetable_8cpp_source.html#l00394">394</a> of file <a class="el" href="shapetable_8cpp_source.html">shapetable.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                     {
+  <span class="comment">// Do it the easy way for now.</span>
+  <span class="keywordtype">int</span> master_id1 = <a class="code" href="classtesseract_1_1_shape_table.html#a27ddf900a8b1463aeb5db4e3128e6636">MasterDestinationIndex</a>(shape_id1);
+  <span class="keywordtype">int</span> master_id2 = <a class="code" href="classtesseract_1_1_shape_table.html#a27ddf900a8b1463aeb5db4e3128e6636">MasterDestinationIndex</a>(shape_id2);
+  Shape combined_shape(*shape_table_[master_id1]);
+  combined_shape.AddShape(*shape_table_[master_id2]);
+  <span class="keywordflow">return</span> combined_shape.size();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a894d3a172873cbfb9def40cc2d02fbae"></a><!-- doxytag: member="tesseract::ShapeTable::MergeShapes" ref="a894d3a172873cbfb9def40cc2d02fbae" args="(int shape_id1, int shape_id2)" -->
@@ -650,6 +870,20 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="shapetable_8cpp_source.html#l00404">404</a> of file <a class="el" href="shapetable_8cpp_source.html">shapetable.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                         {
+  <span class="keywordtype">int</span> master_id1 = <a class="code" href="classtesseract_1_1_shape_table.html#a27ddf900a8b1463aeb5db4e3128e6636">MasterDestinationIndex</a>(shape_id1);
+  <span class="keywordtype">int</span> master_id2 = <a class="code" href="classtesseract_1_1_shape_table.html#a27ddf900a8b1463aeb5db4e3128e6636">MasterDestinationIndex</a>(shape_id2);
+  <span class="comment">// Point master_id2 (and all merged shapes) to master_id1.</span>
+  shape_table_[master_id2]-&gt;set_destination_index(master_id1);
+  <span class="comment">// Add all the shapes of master_id2 to master_id1.</span>
+  shape_table_[master_id1]-&gt;AddShape(*shape_table_[master_id2]);
+  <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Merged shape %d-&gt;%d, %d-&gt;%d, now with %d unichars: %s\n&quot;</span>,
+          shape_id1, master_id1, shape_id2, master_id2,
+          shape_table_[master_id1]-&gt;size(),
+          <a class="code" href="classtesseract_1_1_shape_table.html#a87937c115d25036a961833c8b8ab79dd">DebugStr</a>(master_id1).<span class="keywordtype">string</span>());
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa14fea6bc3cfbcb528f709c99d75a0e3"></a><!-- doxytag: member="tesseract::ShapeTable::MutableShape" ref="aa14fea6bc3cfbcb528f709c99d75a0e3" args="(int shape_id)" -->
@@ -667,6 +901,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="shapetable_8h_source.html#l00182">182</a> of file <a class="el" href="shapetable_8h_source.html">shapetable.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                    {
+    <span class="keywordflow">return</span> shape_table_[shape_id];
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2c23ee547c7157870d3be58a431b7033"></a><!-- doxytag: member="tesseract::ShapeTable::NumMasterShapes" ref="a2c23ee547c7157870d3be58a431b7033" args="() const " -->
@@ -683,6 +922,16 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="shapetable_8cpp_source.html#l00440">440</a> of file <a class="el" href="shapetable_8cpp_source.html">shapetable.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                      {
+  <span class="keywordtype">int</span> num_shapes = 0;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> s = 0; s &lt; shape_table_.size(); ++s) {
+    <span class="keywordflow">if</span> (shape_table_[s]-&gt;destination_index() &lt; 0)
+      ++num_shapes;
+  }
+  <span class="keywordflow">return</span> num_shapes;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a924919daeadb48539e3d68c65013c173"></a><!-- doxytag: member="tesseract::ShapeTable::NumShapes" ref="a924919daeadb48539e3d68c65013c173" args="() const " -->
@@ -699,6 +948,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="shapetable_8h_source.html#l00140">140</a> of file <a class="el" href="shapetable_8h_source.html">shapetable.h</a>.</p>
+<div class="fragment"><pre class="fragment">                        {
+    <span class="keywordflow">return</span> shape_table_.size();
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="afba3bb1970bb5e5fe626d3259955a8d3"></a><!-- doxytag: member="tesseract::ShapeTable::Serialize" ref="afba3bb1970bb5e5fe626d3259955a8d3" args="(FILE *fp) const " -->
@@ -716,6 +970,12 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="shapetable_8cpp_source.html#l00182">182</a> of file <a class="el" href="shapetable_8cpp_source.html">shapetable.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                         {
+  <span class="keywordflow">if</span> (!shape_table_.Serialize(fp)) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9f5e464a789541736e9b422640dcdedb"></a><!-- doxytag: member="tesseract::ShapeTable::set_unicharset" ref="a9f5e464a789541736e9b422640dcdedb" args="(const UNICHARSET &amp;unicharset)" -->
@@ -733,6 +993,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="shapetable_8h_source.html#l00148">148</a> of file <a class="el" href="shapetable_8h_source.html">shapetable.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                    {
+    unicharset_ = &amp;<a class="code" href="classtesseract_1_1_shape_table.html#af72db112512667caacdc79bbdef5e86e">unicharset</a>;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aeaa348185383beb3f14daf445919b30c"></a><!-- doxytag: member="tesseract::ShapeTable::SummaryStr" ref="aeaa348185383beb3f14daf445919b30c" args="() const " -->
@@ -749,6 +1014,27 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="shapetable_8cpp_source.html#l00214">214</a> of file <a class="el" href="shapetable_8cpp_source.html">shapetable.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                    {
+  <span class="keywordtype">int</span> max_unichars = 0;
+  <span class="keywordtype">int</span> num_multi_shapes = 0;
+  <span class="keywordtype">int</span> num_master_shapes = 0;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> s = 0; s &lt; shape_table_.size(); ++s) {
+    <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_shape_table.html#a27ddf900a8b1463aeb5db4e3128e6636">MasterDestinationIndex</a>(s) != s) <span class="keywordflow">continue</span>;
+    ++num_master_shapes;
+    <span class="keywordtype">int</span> shape_size = <a class="code" href="classtesseract_1_1_shape_table.html#a9334161c64756c591ff7d4fca22277f5">GetShape</a>(s).size();
+    <span class="keywordflow">if</span> (shape_size &gt; 1)
+      ++num_multi_shapes;
+    <span class="keywordflow">if</span> (shape_size &gt; max_unichars)
+      max_unichars = shape_size;
+  }
+  <a class="code" href="class_s_t_r_i_n_g.html">STRING</a> result;
+  result.<a class="code" href="class_s_t_r_i_n_g.html#a779cd637dd42d58d5500a3a657077e84">add_str_int</a>(<span class="stringliteral">&quot;Number of shapes = &quot;</span>, num_master_shapes);
+  result.<a class="code" href="class_s_t_r_i_n_g.html#a779cd637dd42d58d5500a3a657077e84">add_str_int</a>(<span class="stringliteral">&quot; max unichars = &quot;</span>, max_unichars);
+  result.<a class="code" href="class_s_t_r_i_n_g.html#a779cd637dd42d58d5500a3a657077e84">add_str_int</a>(<span class="stringliteral">&quot; number with multiple unichars = &quot;</span>, num_multi_shapes);
+  <span class="keywordflow">return</span> result;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="af72db112512667caacdc79bbdef5e86e"></a><!-- doxytag: member="tesseract::ShapeTable::unicharset" ref="af72db112512667caacdc79bbdef5e86e" args="() const " -->
@@ -765,11 +1051,16 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="shapetable_8h_source.html#l00143">143</a> of file <a class="el" href="shapetable_8h_source.html">shapetable.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                       {
+    <span class="keywordflow">return</span> *unicharset_;
+  }
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/classify/<a class="el" href="shapetable_8h_source.html">shapetable.h</a></li>
-<li>tesseract-ocr/classify/<a class="el" href="shapetable_8cpp.html">shapetable.cpp</a></li>
+<li>tesseract-ocr/classify/<a class="el" href="shapetable_8cpp_source.html">shapetable.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -792,7 +1083,7 @@ Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:15 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:50 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

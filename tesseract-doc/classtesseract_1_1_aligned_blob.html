@@ -133,7 +133,10 @@ Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_aligned_blob.html#a08f8b8760c2809ce385cfded3d9cabb6">IncrementDebugPix</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static const <a class="el" href="class_s_t_r_i_n_g.html">STRING</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_aligned_blob.html#a03ba43124d00badef61e1da6b06ffc2a">textord_debug_pix</a> ()</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="alignedblob_8h_source.html#l00083">83</a> of file <a class="el" href="alignedblob_8h_source.html">alignedblob.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a055f4537191b2fbbd69c8f1629237372"></a><!-- doxytag: member="tesseract::AlignedBlob::AlignedBlob" ref="a055f4537191b2fbbd69c8f1629237372" args="(int gridsize, const ICOORD &amp;bleft, const ICOORD &amp;tright)" -->
 <div class="memitem">
 <div class="memproto">
@@ -165,6 +168,10 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="alignedblob_8cpp_source.html#l00164">164</a> of file <a class="el" href="alignedblob_8cpp_source.html">alignedblob.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">  : <a class="code" href="classtesseract_1_1_blob_grid.html#a86754acb30620ac8308d7e178f7618bd">BlobGrid</a>(<a class="code" href="classtesseract_1_1_grid_base.html#afff2cee730084711205977b5fcb4901e">gridsize</a>, bleft, tright) {
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa695efbfce803437711ca69c165588c9"></a><!-- doxytag: member="tesseract::AlignedBlob::~AlignedBlob" ref="aa695efbfce803437711ca69c165588c9" args="()" -->
@@ -181,6 +188,10 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="alignedblob_8cpp_source.html#l00169">169</a> of file <a class="el" href="alignedblob_8cpp_source.html">alignedblob.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                          {
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -209,6 +220,51 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="alignedblob_8cpp_source.html#l00182">182</a> of file <a class="el" href="alignedblob_8cpp_source.html">alignedblob.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                          {
+<span class="preprocessor">#ifndef GRAPHICS_DISABLED</span>
+<span class="preprocessor"></span>  <span class="keywordflow">if</span> (tab_win == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    tab_win = <a class="code" href="classtesseract_1_1_b_b_grid.html#aa716f76c7f04f7112abfc10a3f8c63e0">MakeWindow</a>(0, 50, window_name);
+  <span class="comment">// For every tab in the grid, display it.</span>
+  GridSearch&lt;BLOBNBOX, BLOBNBOX_CLIST, BLOBNBOX_C_IT&gt; gsearch(<span class="keyword">this</span>);
+  gsearch.StartFullSearch();
+  <a class="code" href="class_b_l_o_b_n_b_o_x.html">BLOBNBOX</a>* bbox;
+  <span class="keywordflow">while</span> ((bbox = gsearch.NextFullSearch()) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="class_t_b_o_x.html">TBOX</a> box = bbox-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a7b97b8bc16b1473a28f9c44011522f4e">bounding_box</a>();
+    <span class="keywordtype">int</span> left_x = box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>();
+    <span class="keywordtype">int</span> right_x = box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>();
+    <span class="keywordtype">int</span> top_y = box.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>();
+    <span class="keywordtype">int</span> bottom_y = box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>();
+    <a class="code" href="blobbox_8h.html#a6d0b33e703e1291d0b60d4fe5a5e12cc">TabType</a> tabtype = bbox-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a8b16d77deb75ed8aa2ff9d6be9462ec1">left_tab_type</a>();
+    <span class="keywordflow">if</span> (tabtype != <a class="code" href="blobbox_8h.html#a6d0b33e703e1291d0b60d4fe5a5e12ccaddba1c39549497adfc655e5e9a817dec">TT_NONE</a>) {
+      <span class="keywordflow">if</span> (tabtype == <a class="code" href="blobbox_8h.html#a6d0b33e703e1291d0b60d4fe5a5e12ccad0945333210420da84a7617b5788f246">TT_MAYBE_ALIGNED</a>)
+        tab_win-&gt;<a class="code" href="class_scroll_view.html#a79855c525ec660b452382e9813d2edb5">Pen</a>(<a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8a66e5117e4930fdd9a43bdb674d57a719">ScrollView::BLUE</a>);
+      <span class="keywordflow">else</span> <span class="keywordflow">if</span> (tabtype == <a class="code" href="blobbox_8h.html#a6d0b33e703e1291d0b60d4fe5a5e12cca0d571d70d55bfdb99070e2ee2d6e1c7f">TT_MAYBE_RAGGED</a>)
+        tab_win-&gt;<a class="code" href="class_scroll_view.html#a79855c525ec660b452382e9813d2edb5">Pen</a>(<a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8a61dec9bc0aaf1d527a731b2a6ce055c8">ScrollView::YELLOW</a>);
+      <span class="keywordflow">else</span> <span class="keywordflow">if</span> (tabtype == <a class="code" href="blobbox_8h.html#a6d0b33e703e1291d0b60d4fe5a5e12cca9f2414540c7d6e051206f486a70f5d2e">TT_CONFIRMED</a>)
+        tab_win-&gt;<a class="code" href="class_scroll_view.html#a79855c525ec660b452382e9813d2edb5">Pen</a>(<a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8a9d8c87be486dead41d198d6b97a22174">ScrollView::GREEN</a>);
+      <span class="keywordflow">else</span>
+        tab_win-&gt;<a class="code" href="class_scroll_view.html#a79855c525ec660b452382e9813d2edb5">Pen</a>(<a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8a7bba33cbbab6aaa71dce1aad46ecc3a5">ScrollView::GREY</a>);
+      tab_win-&gt;<a class="code" href="class_scroll_view.html#a2ba16f17fc401bb28be1a08160207e45">Line</a>(left_x, top_y, left_x, bottom_y);
+    }
+    tabtype = bbox-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a13607f52743a9ef3ec1f9d452aca0df5">right_tab_type</a>();
+    <span class="keywordflow">if</span> (tabtype != <a class="code" href="blobbox_8h.html#a6d0b33e703e1291d0b60d4fe5a5e12ccaddba1c39549497adfc655e5e9a817dec">TT_NONE</a>) {
+      <span class="keywordflow">if</span> (tabtype == <a class="code" href="blobbox_8h.html#a6d0b33e703e1291d0b60d4fe5a5e12ccad0945333210420da84a7617b5788f246">TT_MAYBE_ALIGNED</a>)
+        tab_win-&gt;<a class="code" href="class_scroll_view.html#a79855c525ec660b452382e9813d2edb5">Pen</a>(<a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8aebeaaeee353c6f04b4498b1fef94bbb3">ScrollView::MAGENTA</a>);
+      <span class="keywordflow">else</span> <span class="keywordflow">if</span> (tabtype == <a class="code" href="blobbox_8h.html#a6d0b33e703e1291d0b60d4fe5a5e12cca0d571d70d55bfdb99070e2ee2d6e1c7f">TT_MAYBE_RAGGED</a>)
+        tab_win-&gt;<a class="code" href="class_scroll_view.html#a79855c525ec660b452382e9813d2edb5">Pen</a>(<a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8a0691e22f5da865103a497f9503269a61">ScrollView::ORANGE</a>);
+      <span class="keywordflow">else</span> <span class="keywordflow">if</span> (tabtype == <a class="code" href="blobbox_8h.html#a6d0b33e703e1291d0b60d4fe5a5e12cca9f2414540c7d6e051206f486a70f5d2e">TT_CONFIRMED</a>)
+        tab_win-&gt;<a class="code" href="class_scroll_view.html#a79855c525ec660b452382e9813d2edb5">Pen</a>(<a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8a0959f7470b08ae1a38aa7e38fba29402">ScrollView::RED</a>);
+      <span class="keywordflow">else</span>
+        tab_win-&gt;<a class="code" href="class_scroll_view.html#a79855c525ec660b452382e9813d2edb5">Pen</a>(<a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8a7bba33cbbab6aaa71dce1aad46ecc3a5">ScrollView::GREY</a>);
+      tab_win-&gt;<a class="code" href="class_scroll_view.html#a2ba16f17fc401bb28be1a08160207e45">Line</a>(right_x, top_y, right_x, bottom_y);
+    }
+  }
+  tab_win-&gt;<a class="code" href="class_scroll_view.html#a0830a51981a20c8700b5ec49137e46e9">Update</a>();
+<span class="preprocessor">#endif</span>
+<span class="preprocessor"></span>  <span class="keywordflow">return</span> tab_win;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae8acdd97fe77a8af9b71a9078e324e3c"></a><!-- doxytag: member="tesseract::AlignedBlob::FindVerticalAlignment" ref="ae8acdd97fe77a8af9b71a9078e324e3c" args="(AlignedBlobParams align_params, BLOBNBOX *bbox, int *vertical_x, int *vertical_y)" -->
@@ -248,6 +304,92 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="alignedblob_8cpp_source.html#l00244">244</a> of file <a class="el" href="alignedblob_8cpp_source.html">alignedblob.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                               {
+  <span class="keywordtype">int</span> ext_start_y, ext_end_y;
+  BLOBNBOX_CLIST good_points;
+  <span class="comment">// Search up and then down from the starting bbox.</span>
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> box = bbox-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a7b97b8bc16b1473a28f9c44011522f4e">bounding_box</a>();
+  <span class="keywordtype">bool</span> debug = <a class="code" href="classtesseract_1_1_aligned_blob.html#a357ff9e1d9bac2b1d88fb0d335fa7f3e">WithinTestRegion</a>(2, box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>(), box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>());
+  <span class="keywordtype">int</span> pt_count = AlignTabs(align_params, <span class="keyword">false</span>, bbox, &amp;good_points, &amp;ext_end_y);
+  pt_count += AlignTabs(align_params, <span class="keyword">true</span>, bbox, &amp;good_points, &amp;ext_start_y);
+  BLOBNBOX_C_IT it(&amp;good_points);
+  it.move_to_last();
+  box = it.data()-&gt;bounding_box();
+  <span class="keywordtype">int</span> end_y = box.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>();
+  <span class="keywordtype">int</span> end_x = align_params.right_tab ? box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>() : box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>();
+  it.move_to_first();
+  box = it.data()-&gt;bounding_box();
+  <span class="keywordtype">int</span> start_x = align_params.right_tab ? box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>() : box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>();
+  <span class="keywordtype">int</span> start_y = box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>();
+  <span class="comment">// Acceptable tab vectors must have a mininum number of points,</span>
+  <span class="comment">// have a minimum acceptable length, and have a minimum gradient.</span>
+  <span class="comment">// The gradient corresponds to the skew angle.</span>
+  <span class="comment">// Ragged tabs don&#39;t need to satisfy the gradient condition, as they</span>
+  <span class="comment">// will always end up parallel to the vertical direction.</span>
+  <span class="keywordtype">bool</span> at_least_2_crossings = AtLeast2LineCrossings(&amp;good_points);
+  <span class="keywordflow">if</span> ((pt_count &gt;= align_params.min_points &amp;&amp;
+      end_y - start_y &gt;= align_params.min_length &amp;&amp;
+      (align_params.ragged ||
+          end_y - start_y &gt;= abs(end_x - start_x) * <a class="code" href="namespacetesseract.html#ad8fd17f5ba82834b8c2f95e94f5a9129">kMinTabGradient</a>)) ||
+      at_least_2_crossings) {
+    <span class="keywordtype">int</span> confirmed_points = 0;
+    <span class="comment">// Count existing confirmed points to see if vector is acceptable.</span>
+    <span class="keywordflow">for</span> (it.mark_cycle_pt(); !it.cycled_list(); it.forward()) {
+      bbox = it.data();
+      <span class="keywordflow">if</span> (align_params.right_tab) {
+        <span class="keywordflow">if</span> (bbox-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a13607f52743a9ef3ec1f9d452aca0df5">right_tab_type</a>() == align_params.confirmed_type)
+          ++confirmed_points;
+      } <span class="keywordflow">else</span> {
+        <span class="keywordflow">if</span> (bbox-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a8b16d77deb75ed8aa2ff9d6be9462ec1">left_tab_type</a>() == align_params.confirmed_type)
+          ++confirmed_points;
+      }
+    }
+    <span class="comment">// Ragged vectors are not allowed to use too many already used points.</span>
+    <span class="keywordflow">if</span> (!align_params.ragged ||
+        confirmed_points + confirmed_points &lt; pt_count) {
+      <span class="keyword">const</span> <a class="code" href="class_t_b_o_x.html">TBOX</a>&amp; box = bbox-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a7b97b8bc16b1473a28f9c44011522f4e">bounding_box</a>();
+      <span class="keywordflow">if</span> (debug) {
+        <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Confirming tab vector of %d pts starting at %d,%d\n&quot;</span>,
+                pt_count, box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>(), box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>());
+      }
+      <span class="comment">// Flag all the aligned neighbours as confirmed .</span>
+      <span class="keywordflow">for</span> (it.mark_cycle_pt(); !it.cycled_list(); it.forward()) {
+        bbox = it.data();
+        <span class="keywordflow">if</span> (align_params.right_tab) {
+          bbox-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a2a26da567144a5131817df4a23e9ec31">set_right_tab_type</a>(align_params.confirmed_type);
+        } <span class="keywordflow">else</span> {
+          bbox-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a098a0c7864a31569db4c32e32f54504c">set_left_tab_type</a>(align_params.confirmed_type);
+        }
+        <span class="keywordflow">if</span> (debug) {
+          bbox-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a7b97b8bc16b1473a28f9c44011522f4e">bounding_box</a>().<a class="code" href="class_t_b_o_x.html#a2e753aa9943276301d68e9f9cad99620">print</a>();
+        }
+      }
+      <span class="comment">// Now make the vector and return it.</span>
+      TabVector* result = <a class="code" href="classtesseract_1_1_tab_vector.html#a66c3cdb82a3378aba8c0838d4fb64805">TabVector::FitVector</a>(align_params.alignment,
+                                               align_params.vertical,
+                                               ext_start_y, ext_end_y,
+                                               &amp;good_points,
+                                               vertical_x, vertical_y);
+      result-&gt;set_intersects_other_lines(at_least_2_crossings);
+      <span class="keywordflow">if</span> (debug) {
+        <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Box was %d, %d\n&quot;</span>, box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>(), box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>());
+        result-&gt;Print(<span class="stringliteral">&quot;After fitting&quot;</span>);
+      }
+      <span class="keywordflow">return</span> result;
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (debug) {
+      <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Ragged tab used too many used points: %d out of %d\n&quot;</span>,
+              confirmed_points, pt_count);
+    }
+  } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (debug) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Tab vector failed basic tests: pt count %d vs min %d, &quot;</span>
+            <span class="stringliteral">&quot;length %d vs min %d, min grad %g\n&quot;</span>,
+            pt_count, align_params.min_points, end_y - start_y,
+            align_params.min_length, abs(end_x - start_x) * kMinTabGradient);
+  }
+  <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a08f8b8760c2809ce385cfded3d9cabb6"></a><!-- doxytag: member="tesseract::AlignedBlob::IncrementDebugPix" ref="a08f8b8760c2809ce385cfded3d9cabb6" args="()" -->
@@ -264,6 +406,16 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="alignedblob_8cpp_source.html#l00078">78</a> of file <a class="el" href="alignedblob_8cpp_source.html">alignedblob.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                    {
+  ++debug_pix_index_;
+  textord_debug_pix_ = <a class="code" href="namespacetesseract.html#ad3740a681ee2fe5c705d28e5cd2645ee">kTextordDebugPix</a>;
+  <span class="keywordtype">char</span> numbuf[32];
+  snprintf(numbuf, <span class="keyword">sizeof</span>(numbuf), <span class="stringliteral">&quot;%d&quot;</span>, debug_pix_index_);
+  textord_debug_pix_ += numbuf;
+  textord_debug_pix_ += <span class="stringliteral">&quot;.pix&quot;</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a03ba43124d00badef61e1da6b06ffc2a"></a><!-- doxytag: member="tesseract::AlignedBlob::textord_debug_pix" ref="a03ba43124d00badef61e1da6b06ffc2a" args="()" -->
@@ -280,6 +432,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="alignedblob_8h_source.html#l00112">112</a> of file <a class="el" href="alignedblob_8h_source.html">alignedblob.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                           {
+    <span class="keywordflow">return</span> textord_debug_pix_;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a357ff9e1d9bac2b1d88fb0d335fa7f3e"></a><!-- doxytag: member="tesseract::AlignedBlob::WithinTestRegion" ref="a357ff9e1d9bac2b1d88fb0d335fa7f3e" args="(int detail_level, int x, int y)" -->
@@ -313,11 +470,19 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="alignedblob_8cpp_source.html#l00174">174</a> of file <a class="el" href="alignedblob_8cpp_source.html">alignedblob.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                 {
+  <span class="keywordflow">if</span> (<a class="code" href="alignedblob_8cpp.html#ace3f88c2ebef0843236018cd170eea14">textord_debug_tabfind</a> &lt; detail_level)
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">return</span> x &gt;= <a class="code" href="alignedblob_8cpp.html#af5f4738c5e7585a8f7d3511ae7d9f277">textord_testregion_left</a> &amp;&amp; x &lt;= <a class="code" href="alignedblob_8cpp.html#a09c9036932fe1fc41df347e0d16dc45d">textord_testregion_right</a> &amp;&amp;
+         y &lt;= textord_testregion_top &amp;&amp; y &gt;= <a class="code" href="alignedblob_8cpp.html#a46b543b2d10eebfb42aa59bbb6c68ae8">textord_testregion_bottom</a>;
+}
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/textord/<a class="el" href="alignedblob_8h_source.html">alignedblob.h</a></li>
-<li>tesseract-ocr/textord/<a class="el" href="alignedblob_8cpp.html">alignedblob.cpp</a></li>
+<li>tesseract-ocr/textord/<a class="el" href="alignedblob_8cpp_source.html">alignedblob.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -340,7 +505,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:16 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:52 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

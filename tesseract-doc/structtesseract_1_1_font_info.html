@@ -128,7 +128,10 @@ Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtesseract_1_1_font_info.html#ad2cae2ec3808b77f313acc0c07c8ead2">universal_id</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_generic_vector.html">GenericVector</a>&lt; <a class="el" href="structtesseract_1_1_font_spacing_info.html">FontSpacingInfo</a> * &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtesseract_1_1_font_info.html#ade637da68278d3bff4bae5eba7634169">spacing_vec</a></td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="fontinfo_8h_source.html#l00042">42</a> of file <a class="el" href="fontinfo_8h_source.html">fontinfo.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a04ac0bbebc24ad11f94bff510d83d70e"></a><!-- doxytag: member="tesseract::FontInfo::FontInfo" ref="a04ac0bbebc24ad11f94bff510d83d70e" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -143,6 +146,9 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="fontinfo_8h_source.html#l00043">43</a> of file <a class="el" href="fontinfo_8h_source.html">fontinfo.h</a>.</p>
+<div class="fragment"><pre class="fragment">: <a class="code" href="structtesseract_1_1_font_info.html#a948c9f88952c8c48ca5fa37fb33085d8">name</a>(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>), <a class="code" href="structtesseract_1_1_font_info.html#ade637da68278d3bff4bae5eba7634169">spacing_vec</a>(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a37c684f0a523a8864735bd1d8af16586"></a><!-- doxytag: member="tesseract::FontInfo::~FontInfo" ref="a37c684f0a523a8864735bd1d8af16586" args="()" -->
@@ -159,6 +165,9 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="fontinfo_8h_source.html#l00044">44</a> of file <a class="el" href="fontinfo_8h_source.html">fontinfo.h</a>.</p>
+<div class="fragment"><pre class="fragment">{}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -187,6 +196,12 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="fontinfo_8h_source.html#l00053">53</a> of file <a class="el" href="fontinfo_8h_source.html">fontinfo.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                     {
+    <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(<a class="code" href="structtesseract_1_1_font_info.html#ade637da68278d3bff4bae5eba7634169">spacing_vec</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp; <a class="code" href="structtesseract_1_1_font_info.html#ade637da68278d3bff4bae5eba7634169">spacing_vec</a>-&gt;<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>() &gt; uch_id);
+    (*spacing_vec)[uch_id] = spacing_info;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7fea2dfa872acd10c9a5040d80c6be09"></a><!-- doxytag: member="tesseract::FontInfo::get_spacing" ref="a7fea2dfa872acd10c9a5040d80c6be09" args="(UNICHAR_ID uch_id) const " -->
@@ -204,6 +219,12 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="fontinfo_8h_source.html#l00059">59</a> of file <a class="el" href="fontinfo_8h_source.html">fontinfo.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                              {
+    <span class="keywordflow">return</span> (<a class="code" href="structtesseract_1_1_font_info.html#ade637da68278d3bff4bae5eba7634169">spacing_vec</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> || <a class="code" href="structtesseract_1_1_font_info.html#ade637da68278d3bff4bae5eba7634169">spacing_vec</a>-&gt;<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>() &lt;= uch_id) ?
+        <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> : (*<a class="code" href="structtesseract_1_1_font_info.html#ade637da68278d3bff4bae5eba7634169">spacing_vec</a>)[uch_id];
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a1ef4ce96afce52c838ab855c82f840f7"></a><!-- doxytag: member="tesseract::FontInfo::get_spacing" ref="a1ef4ce96afce52c838ab855c82f840f7" args="(UNICHAR_ID prev_uch_id, UNICHAR_ID uch_id, int *spacing) const " -->
@@ -237,6 +258,23 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="fontinfo_8h_source.html#l00066">66</a> of file <a class="el" href="fontinfo_8h_source.html">fontinfo.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                       {
+    <span class="keyword">const</span> FontSpacingInfo *prev_fsi = this-&gt;<a class="code" href="structtesseract_1_1_font_info.html#a7fea2dfa872acd10c9a5040d80c6be09">get_spacing</a>(prev_uch_id);
+    <span class="keyword">const</span> FontSpacingInfo *fsi = this-&gt;<a class="code" href="structtesseract_1_1_font_info.html#a7fea2dfa872acd10c9a5040d80c6be09">get_spacing</a>(uch_id);
+    <span class="keywordflow">if</span> (prev_fsi == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> || fsi == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+    <span class="keywordtype">int</span> i = 0;
+    <span class="keywordflow">for</span> (; i &lt; prev_fsi-&gt;kerned_unichar_ids.size(); ++i) {
+      <span class="keywordflow">if</span> (prev_fsi-&gt;kerned_unichar_ids[i] == uch_id) <span class="keywordflow">break</span>;
+    }
+    <span class="keywordflow">if</span> (i &lt; prev_fsi-&gt;kerned_unichar_ids.size()) {
+      *spacing = prev_fsi-&gt;kerned_x_gaps[i];
+    } <span class="keywordflow">else</span> {
+      *spacing = prev_fsi-&gt;x_gap_after + fsi-&gt;x_gap_before;
+    }
+    <span class="keywordflow">return</span> <span class="keyword">true</span>;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad0ccee327267f6e0c7f643c24fcaaaee"></a><!-- doxytag: member="tesseract::FontInfo::init_spacing" ref="ad0ccee327267f6e0c7f643c24fcaaaee" args="(int unicharset_size)" -->
@@ -254,6 +292,12 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="fontinfo_8h_source.html#l00046">46</a> of file <a class="el" href="fontinfo_8h_source.html">fontinfo.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                         {
+    <a class="code" href="structtesseract_1_1_font_info.html#ade637da68278d3bff4bae5eba7634169">spacing_vec</a> = <span class="keyword">new</span> <a class="code" href="class_generic_vector.html">GenericVector&lt;FontSpacingInfo *&gt;</a>();
+    <a class="code" href="structtesseract_1_1_font_info.html#ade637da68278d3bff4bae5eba7634169">spacing_vec</a>-&gt;<a class="code" href="class_generic_vector.html#a6751521fd3eb461d81fc83ef93a0def3">init_to_size</a>(unicharset_size, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac953f06427e6cb04c0cd5eef950b002a"></a><!-- doxytag: member="tesseract::FontInfo::is_bold" ref="ac953f06427e6cb04c0cd5eef950b002a" args="() const " -->
@@ -270,6 +314,9 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="fontinfo_8h_source.html#l00085">85</a> of file <a class="el" href="fontinfo_8h_source.html">fontinfo.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> (<a class="code" href="structtesseract_1_1_font_info.html#ae1f1c4908453abf4e4a445111b0ba4f4">properties</a> &amp; 2) != 0; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab73d313cb84a7c8ffbfcd6099f18eef3"></a><!-- doxytag: member="tesseract::FontInfo::is_fixed_pitch" ref="ab73d313cb84a7c8ffbfcd6099f18eef3" args="() const " -->
@@ -286,6 +333,9 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="fontinfo_8h_source.html#l00086">86</a> of file <a class="el" href="fontinfo_8h_source.html">fontinfo.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> (<a class="code" href="structtesseract_1_1_font_info.html#ae1f1c4908453abf4e4a445111b0ba4f4">properties</a> &amp; 4) != 0; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a5a918bad85fde70770f60853355c1716"></a><!-- doxytag: member="tesseract::FontInfo::is_fraktur" ref="a5a918bad85fde70770f60853355c1716" args="() const " -->
@@ -302,6 +352,9 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="fontinfo_8h_source.html#l00088">88</a> of file <a class="el" href="fontinfo_8h_source.html">fontinfo.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> (<a class="code" href="structtesseract_1_1_font_info.html#ae1f1c4908453abf4e4a445111b0ba4f4">properties</a> &amp; 16) != 0; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4385ef175a3b6674ec3a1e869bb49daa"></a><!-- doxytag: member="tesseract::FontInfo::is_italic" ref="a4385ef175a3b6674ec3a1e869bb49daa" args="() const " -->
@@ -318,6 +371,9 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="fontinfo_8h_source.html#l00084">84</a> of file <a class="el" href="fontinfo_8h_source.html">fontinfo.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> <a class="code" href="structtesseract_1_1_font_info.html#ae1f1c4908453abf4e4a445111b0ba4f4">properties</a> &amp; 1; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4557816118c3ac3082a34752ecbc2c6d"></a><!-- doxytag: member="tesseract::FontInfo::is_serif" ref="a4557816118c3ac3082a34752ecbc2c6d" args="() const " -->
@@ -334,6 +390,9 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="fontinfo_8h_source.html#l00087">87</a> of file <a class="el" href="fontinfo_8h_source.html">fontinfo.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> (<a class="code" href="structtesseract_1_1_font_info.html#ae1f1c4908453abf4e4a445111b0ba4f4">properties</a> &amp; 8) != 0; }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
@@ -348,6 +407,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="fontinfo_8h_source.html#l00090">90</a> of file <a class="el" href="fontinfo_8h_source.html">fontinfo.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ae1f1c4908453abf4e4a445111b0ba4f4"></a><!-- doxytag: member="tesseract::FontInfo::properties" ref="ae1f1c4908453abf4e4a445111b0ba4f4" args="" -->
@@ -360,6 +421,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="fontinfo_8h_source.html#l00091">91</a> of file <a class="el" href="fontinfo_8h_source.html">fontinfo.h</a>.</p>
 
 </div>
 </div>
@@ -374,6 +437,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="fontinfo_8h_source.html#l00098">98</a> of file <a class="el" href="fontinfo_8h_source.html">fontinfo.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ad2cae2ec3808b77f313acc0c07c8ead2"></a><!-- doxytag: member="tesseract::FontInfo::universal_id" ref="ad2cae2ec3808b77f313acc0c07c8ead2" args="" -->
@@ -386,6 +451,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="fontinfo_8h_source.html#l00096">96</a> of file <a class="el" href="fontinfo_8h_source.html">fontinfo.h</a>.</p>
 
 </div>
 </div>
@@ -413,7 +480,7 @@ Public Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:14 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:49 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

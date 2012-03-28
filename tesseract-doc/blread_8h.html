@@ -143,6 +143,13 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blread_8cpp_source.html#l00069">69</a> of file <a class="el" href="blread_8cpp_source.html">blread.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                              {
+  BLOCK_IT block_it(blocks);
+  <a class="code" href="class_b_l_o_c_k.html">BLOCK</a>* block = <span class="keyword">new</span> <a class="code" href="class_b_l_o_c_k.html">BLOCK</a>(<span class="stringliteral">&quot;&quot;</span>, <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>, 0, 0, 0, 0, width, height);
+  block_it.add_to_end(block);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab65373023a95c3043ea26b7906e29907"></a><!-- doxytag: member="blread.h::read_unlv_file" ref="ab65373023a95c3043ea26b7906e29907" args="(STRING name, inT32 xsize, inT32 ysize, BLOCK_LIST *blocks)" -->
@@ -182,6 +189,34 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blread_8cpp_source.html#l00037">37</a> of file <a class="el" href="blread_8cpp_source.html">blread.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                      {
+  FILE *pdfp;                    <span class="comment">//file pointer</span>
+  <a class="code" href="class_b_l_o_c_k.html">BLOCK</a> *block;                  <span class="comment">//current block</span>
+  <span class="keywordtype">int</span> x;                         <span class="comment">//current top-down coords</span>
+  <span class="keywordtype">int</span> y;
+  <span class="keywordtype">int</span> width;                     <span class="comment">//of current block</span>
+  <span class="keywordtype">int</span> height;
+  BLOCK_IT block_it = blocks;    <span class="comment">//block iterator</span>
+
+  name += <a class="code" href="blread_8cpp.html#aa14fc11aa7528cfededa3d19c18901f1">UNLV_EXT</a>;              <span class="comment">//add extension</span>
+  <span class="keywordflow">if</span> ((pdfp = fopen (name.<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a> (), <span class="stringliteral">&quot;rb&quot;</span>)) == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;                <span class="comment">//didn&#39;t read one</span>
+  }
+  <span class="keywordflow">else</span> {
+    <span class="keywordflow">while</span> (fscanf (pdfp, <span class="stringliteral">&quot;%d %d %d %d %*s&quot;</span>, &amp;x, &amp;y, &amp;width, &amp;height) &gt;= 4) {
+                                 <span class="comment">//make rect block</span>
+      block = <span class="keyword">new</span> <a class="code" href="class_b_l_o_c_k.html">BLOCK</a> (name.<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a> (), <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>, 0, 0,
+                         (<a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>) x, (<a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>) (ysize - y - height),
+                         (<a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>) (x + width), (<a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>) (ysize - y));
+                                 <span class="comment">//on end of list</span>
+      block_it.add_to_end (block);
+    }
+    fclose(pdfp);
+  }
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 </div>
@@ -204,7 +239,7 @@ Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:08 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:40 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

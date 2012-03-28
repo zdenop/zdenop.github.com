@@ -121,6 +121,8 @@ Static Public Member Functions</h2></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="class_s_v_sync.html" title="The SVSync class provides functionality for Thread &amp; Process Creation.">SVSync</a> class provides functionality for Thread &amp; Process Creation. </p>
+
+<p>Definition at line <a class="el" href="svutil_8h_source.html#l00055">55</a> of file <a class="el" href="svutil_8h_source.html">svutil.h</a>.</p>
 </div><hr/><h2>Member Function Documentation</h2>
 <a class="anchor" id="a2d48b893c4ed83873d7975be888f8b00"></a><!-- doxytag: member="SVSync::ExitThread" ref="a2d48b893c4ed83873d7975be888f8b00" args="()" -->
 <div class="memitem">
@@ -138,6 +140,15 @@ Static Public Member Functions</h2></td></tr>
 
 <p>Signals a thread to exit. </p>
 
+<p>Definition at line <a class="el" href="svutil_8cpp_source.html#l00066">66</a> of file <a class="el" href="svutil_8cpp_source.html">svutil.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                        {
+<span class="preprocessor">#ifdef _WIN32</span>
+<span class="preprocessor"></span>  <span class="comment">// ExitThread(0);</span>
+<span class="preprocessor">#else</span>
+<span class="preprocessor"></span>  pthread_exit(0);
+<span class="preprocessor">#endif</span>
+<span class="preprocessor"></span>}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aea4f2c7847c7c165fba1a60aadec3e05"></a><!-- doxytag: member="SVSync::StartProcess" ref="aea4f2c7847c7c165fba1a60aadec3e05" args="(const char *executable, const char *args)" -->
@@ -167,6 +178,57 @@ Static Public Member Functions</h2></td></tr>
 
 <p>Starts a new process. </p>
 
+<p>Definition at line <a class="el" href="svutil_8cpp_source.html#l00075">75</a> of file <a class="el" href="svutil_8cpp_source.html">svutil.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                  {
+<span class="preprocessor">#ifdef _WIN32</span>
+<span class="preprocessor"></span>  std::string proc;
+  proc.append(executable);
+  proc.append(<span class="stringliteral">&quot; &quot;</span>);
+  proc.append(args);
+  std::cout &lt;&lt; <span class="stringliteral">&quot;Starting &quot;</span> &lt;&lt; proc &lt;&lt; std::endl;
+  STARTUPINFO start_info;
+  PROCESS_INFORMATION proc_info;
+  GetStartupInfo(&amp;start_info);
+  <span class="keywordflow">if</span> (!CreateProcess(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, const_cast&lt;char*&gt;(proc.c_str()), <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>,
+                CREATE_NO_WINDOW | DETACHED_PROCESS, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>,
+                &amp;start_info, &amp;proc_info))
+    <span class="keywordflow">return</span>;
+<span class="preprocessor">#else</span>
+<span class="preprocessor"></span>  <span class="keywordtype">int</span> pid = fork();
+  <span class="keywordflow">if</span> (pid != 0) {   <span class="comment">// The father process returns</span>
+  } <span class="keywordflow">else</span> {
+<span class="preprocessor">#ifdef __linux__</span>
+<span class="preprocessor"></span>    <span class="comment">// Make sure the java process terminates on exit, since its</span>
+    <span class="comment">// broken socket detection seems to be useless.</span>
+    prctl(PR_SET_PDEATHSIG, 2, 0, 0, 0);
+<span class="preprocessor">#endif</span>
+<span class="preprocessor"></span>    <span class="keywordtype">char</span>* mutable_args = strdup(args);
+    <span class="keywordtype">int</span> argc = 1;
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; mutable_args[i]; ++i) {
+      <span class="keywordflow">if</span> (mutable_args[i] == <span class="charliteral">&#39; &#39;</span>) {
+        ++argc;
+      }
+    }
+    <span class="keywordtype">char</span>** argv = <span class="keyword">new</span> <span class="keywordtype">char</span>*[argc + 2];
+    argv[0] = strdup(executable);
+    argv[1] = mutable_args;
+    argc = 2;
+    <span class="keywordtype">bool</span> inquote = <span class="keyword">false</span>;
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; mutable_args[i]; ++i) {
+      <span class="keywordflow">if</span> (!inquote &amp;&amp; mutable_args[i] == <span class="charliteral">&#39; &#39;</span>) {
+        mutable_args[i] = <span class="charliteral">&#39;\0&#39;</span>;
+        argv[argc++] = mutable_args + i + 1;
+      } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (mutable_args[i] == <span class="charliteral">&#39;&quot;&#39;</span>) {
+        inquote = !inquote;
+        mutable_args[i] = <span class="charliteral">&#39; &#39;</span>;
+      }
+    }
+    argv[argc] = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    execvp(executable, argv);
+  }
+<span class="preprocessor">#endif</span>
+<span class="preprocessor"></span>}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a125c68e610da736499500f145601799a"></a><!-- doxytag: member="SVSync::StartThread" ref="a125c68e610da736499500f145601799a" args="(void *(*func)(void *), void *arg)" -->
@@ -196,11 +258,29 @@ Static Public Member Functions</h2></td></tr>
 
 <p>Create new thread. </p>
 
+<p>Definition at line <a class="el" href="svutil_8cpp_source.html#l00175">175</a> of file <a class="el" href="svutil_8cpp_source.html">svutil.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                        {
+<span class="preprocessor">#ifdef _WIN32</span>
+<span class="preprocessor"></span>  LPTHREAD_START_ROUTINE <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> = (LPTHREAD_START_ROUTINE) func;
+  DWORD threadid;
+  HANDLE newthread = CreateThread(
+  <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>,          <span class="comment">// default security attributes</span>
+  0,             <span class="comment">// use default stack size</span>
+  f,             <span class="comment">// thread function</span>
+  arg,           <span class="comment">// argument to thread function</span>
+  0,             <span class="comment">// use default creation flags</span>
+  &amp;threadid);    <span class="comment">// returns the thread identifier</span>
+<span class="preprocessor">#else</span>
+<span class="preprocessor"></span>  pthread_t helper;
+  pthread_create(&amp;helper, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, func, arg);
+<span class="preprocessor">#endif</span>
+<span class="preprocessor"></span>}
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/viewer/<a class="el" href="svutil_8h_source.html">svutil.h</a></li>
-<li>tesseract-ocr/viewer/<a class="el" href="svutil_8cpp.html">svutil.cpp</a></li>
+<li>tesseract-ocr/viewer/<a class="el" href="svutil_8cpp_source.html">svutil.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -222,7 +302,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:13 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:47 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

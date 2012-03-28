@@ -118,6 +118,8 @@ Public Member Functions</h2></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>A mutex which encapsulates the main locking and unlocking abilites of mutexes for windows and unix. </p>
+
+<p>Definition at line <a class="el" href="svutil_8h_source.html#l00085">85</a> of file <a class="el" href="svutil_8h_source.html">svutil.h</a>.</p>
 </div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a89972af36deeecb0eef35ce4b27a8a0d"></a><!-- doxytag: member="SVMutex::SVMutex" ref="a89972af36deeecb0eef35ce4b27a8a0d" args="()" -->
 <div class="memitem">
@@ -135,6 +137,15 @@ Public Member Functions</h2></td></tr>
 
 <p>Sets up a new mutex. </p>
 
+<p>Definition at line <a class="el" href="svutil_8cpp_source.html#l00149">149</a> of file <a class="el" href="svutil_8cpp_source.html">svutil.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                 {
+<span class="preprocessor">#ifdef _WIN32</span>
+<span class="preprocessor"></span>  mutex_ = CreateMutex(0, <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>, 0);
+<span class="preprocessor">#else</span>
+<span class="preprocessor"></span>  pthread_mutex_init(&amp;mutex_, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+<span class="preprocessor">#endif</span>
+<span class="preprocessor"></span>}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -154,6 +165,15 @@ Public Member Functions</h2></td></tr>
 
 <p>Locks on a mutex. </p>
 
+<p>Definition at line <a class="el" href="svutil_8cpp_source.html#l00157">157</a> of file <a class="el" href="svutil_8cpp_source.html">svutil.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                   {
+<span class="preprocessor">#ifdef _WIN32</span>
+<span class="preprocessor"></span>  WaitForSingleObject(mutex_, INFINITE);
+<span class="preprocessor">#else</span>
+<span class="preprocessor"></span>  pthread_mutex_lock(&amp;mutex_);
+<span class="preprocessor">#endif</span>
+<span class="preprocessor"></span>}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa70f2446491c0de56b69eba6dd877f31"></a><!-- doxytag: member="SVMutex::Unlock" ref="aa70f2446491c0de56b69eba6dd877f31" args="()" -->
@@ -172,11 +192,20 @@ Public Member Functions</h2></td></tr>
 
 <p>Unlocks on a mutex. </p>
 
+<p>Definition at line <a class="el" href="svutil_8cpp_source.html#l00165">165</a> of file <a class="el" href="svutil_8cpp_source.html">svutil.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                     {
+<span class="preprocessor">#ifdef _WIN32</span>
+<span class="preprocessor"></span>  ReleaseMutex(mutex_);
+<span class="preprocessor">#else</span>
+<span class="preprocessor"></span>  pthread_mutex_unlock(&amp;mutex_);
+<span class="preprocessor">#endif</span>
+<span class="preprocessor"></span>}
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/viewer/<a class="el" href="svutil_8h_source.html">svutil.h</a></li>
-<li>tesseract-ocr/viewer/<a class="el" href="svutil_8cpp.html">svutil.cpp</a></li>
+<li>tesseract-ocr/viewer/<a class="el" href="svutil_8cpp_source.html">svutil.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -198,7 +227,7 @@ Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:13 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:47 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

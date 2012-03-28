@@ -134,10 +134,13 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">T *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_g_e_n_e_r_i_c__2_d___a_r_r_a_y.html#a30d53a962fe305255854b1539a41bfe7">operator[]</a> (int column)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_g_e_n_e_r_i_c__2_d___a_r_r_a_y.html#a165f54b8c3cbafeaecac991f315be843">delete_matrix_pointers</a> ()</td></tr>
 </table>
-<h3>template&lt;class T&gt;<br/>
- class GENERIC_2D_ARRAY&lt; T &gt;</h3>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock"><h3>template&lt;class T&gt;<br/>
+class GENERIC_2D_ARRAY&lt; T &gt;</h3>
 
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+
+<p>Definition at line <a class="el" href="matrix_8h_source.html#l00035">35</a> of file <a class="el" href="matrix_8h_source.html">matrix.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a018da59ab9f6409bb8264daefb784096"></a><!-- doxytag: member="GENERIC_2D_ARRAY::GENERIC_2D_ARRAY" ref="a018da59ab9f6409bb8264daefb784096" args="(int dim1, int dim2, const T &amp;empty)" -->
 <div class="memitem">
 <div class="memproto">
@@ -171,6 +174,14 @@ template&lt;class T&gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="matrix_8h_source.html#l00040">40</a> of file <a class="el" href="matrix_8h_source.html">matrix.h</a>.</p>
+<div class="fragment"><pre class="fragment">    : empty_(empty), dim1_(<a class="code" href="class_g_e_n_e_r_i_c__2_d___a_r_r_a_y.html#a3581cd6bb5ebe166dc69c7bcfc847c25">dim1</a>), dim2_(<a class="code" href="class_g_e_n_e_r_i_c__2_d___a_r_r_a_y.html#aa74a8eed7a2450e735c06eb8b0a17a70">dim2</a>)  {
+    array_ = <span class="keyword">new</span> T[dim1_ * dim2_];
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> x = 0; x &lt; dim1_; x++)
+      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> y = 0; y &lt; dim2_; y++)
+        this-&gt;<a class="code" href="class_g_e_n_e_r_i_c__2_d___a_r_r_a_y.html#a610f90d717d1a774cefa8736714f1cc2">put</a>(x, y, empty_);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a14836492928bf7a308b13dae1c2f184f"></a><!-- doxytag: member="GENERIC_2D_ARRAY::~GENERIC_2D_ARRAY" ref="a14836492928bf7a308b13dae1c2f184f" args="()" -->
@@ -189,6 +200,9 @@ template&lt;class T&gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="matrix_8h_source.html#l00047">47</a> of file <a class="el" href="matrix_8h_source.html">matrix.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keyword">delete</span>[] array_; }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -208,6 +222,17 @@ template&lt;class T&gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="matrix_8h_source.html#l00134">134</a> of file <a class="el" href="matrix_8h_source.html">matrix.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                {
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> x = 0; x &lt; dim1_; x++) {
+      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> y = 0; y &lt; dim2_; y++) {
+        T matrix_cell = this-&gt;<span class="keyword">get</span>(x, y);
+        <span class="keywordflow">if</span> (matrix_cell != empty_)
+          <span class="keyword">delete</span> matrix_cell;
+      }
+    }
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a5ebe8b7767d2b459fd8cbf9995d910f6"></a><!-- doxytag: member="GENERIC_2D_ARRAY::DeSerialize" ref="a5ebe8b7767d2b459fd8cbf9995d910f6" args="(bool swap, FILE *fp)" -->
@@ -237,6 +262,20 @@ template&lt;class T&gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="matrix_8h_source.html#l00062">62</a> of file <a class="el" href="matrix_8h_source.html">matrix.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                        {
+    <span class="keywordflow">if</span> (!DeSerializeSize(swap, fp)) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+    <span class="keywordflow">if</span> (fread(&amp;empty_, <span class="keyword">sizeof</span>(empty_), 1, fp) != 1) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+    <span class="keywordflow">if</span> (swap) <a class="code" href="helpers_8h.html#ae7eeeca49954d4b13d269729f2fecd5a">ReverseN</a>(&amp;empty_, <span class="keyword">sizeof</span>(empty_));
+    <span class="keywordtype">int</span> size = dim1_ * dim2_;
+    <span class="keywordflow">if</span> (fread(array_, <span class="keyword">sizeof</span>(*array_), size, fp) != size) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+    <span class="keywordflow">if</span> (swap) {
+      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; size; ++i)
+        <a class="code" href="helpers_8h.html#ae7eeeca49954d4b13d269729f2fecd5a">ReverseN</a>(&amp;array_[i], <span class="keyword">sizeof</span>(array_[i]));
+    }
+    <span class="keywordflow">return</span> <span class="keyword">true</span>;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a34b8abb019eceb7baf3a6848ff0c02c3"></a><!-- doxytag: member="GENERIC_2D_ARRAY::DeSerializeClasses" ref="a34b8abb019eceb7baf3a6848ff0c02c3" args="(bool swap, FILE *fp)" -->
@@ -266,6 +305,17 @@ template&lt;class T&gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="matrix_8h_source.html#l00090">90</a> of file <a class="el" href="matrix_8h_source.html">matrix.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                               {
+    <span class="keywordflow">if</span> (!DeSerializeSize(swap, fp)) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+    <span class="keywordflow">if</span> (!empty_.DeSerialize(swap, fp)) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+    <span class="keywordtype">int</span> size = dim1_ * dim2_;
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; size; ++i) {
+      <span class="keywordflow">if</span> (!array_[i].<a class="code" href="class_g_e_n_e_r_i_c__2_d___a_r_r_a_y.html#a5ebe8b7767d2b459fd8cbf9995d910f6">DeSerialize</a>(swap, fp)) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+    }
+    <span class="keywordflow">return</span> <span class="keyword">true</span>;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3581cd6bb5ebe166dc69c7bcfc847c25"></a><!-- doxytag: member="GENERIC_2D_ARRAY::dim1" ref="a3581cd6bb5ebe166dc69c7bcfc847c25" args="() const " -->
@@ -284,6 +334,9 @@ template&lt;class T&gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="matrix_8h_source.html#l00101">101</a> of file <a class="el" href="matrix_8h_source.html">matrix.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> dim1_; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa74a8eed7a2450e735c06eb8b0a17a70"></a><!-- doxytag: member="GENERIC_2D_ARRAY::dim2" ref="aa74a8eed7a2450e735c06eb8b0a17a70" args="() const " -->
@@ -302,6 +355,9 @@ template&lt;class T&gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="matrix_8h_source.html#l00102">102</a> of file <a class="el" href="matrix_8h_source.html">matrix.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> dim2_; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac2361d09d80314d64330578d8e162566"></a><!-- doxytag: member="GENERIC_2D_ARRAY::get" ref="ac2361d09d80314d64330578d8e162566" args="(int column, int row) const " -->
@@ -331,6 +387,11 @@ template&lt;class T&gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="matrix_8h_source.html#l00117">117</a> of file <a class="el" href="matrix_8h_source.html">matrix.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                   {
+    <span class="keywordflow">return</span> array_[this-&gt;<a class="code" href="class_g_e_n_e_r_i_c__2_d___a_r_r_a_y.html#a34ade4d36445e9deeceae05bfb5e152d">index</a>(column, row)];
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a34ade4d36445e9deeceae05bfb5e152d"></a><!-- doxytag: member="GENERIC_2D_ARRAY::index" ref="a34ade4d36445e9deeceae05bfb5e152d" args="(int column, int row) const " -->
@@ -360,6 +421,11 @@ template&lt;class T&gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="matrix_8h_source.html#l00107">107</a> of file <a class="el" href="matrix_8h_source.html">matrix.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                       {
+    <span class="keywordflow">return</span> (column * dim2_ + row);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aaf10fe18e67179509cf14fb6d4f7a454"></a><!-- doxytag: member="GENERIC_2D_ARRAY::operator()" ref="aaf10fe18e67179509cf14fb6d4f7a454" args="(int column, int row) const " -->
@@ -389,6 +455,11 @@ template&lt;class T&gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="matrix_8h_source.html#l00121">121</a> of file <a class="el" href="matrix_8h_source.html">matrix.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                 {
+    <span class="keywordflow">return</span> array_[this-&gt;<a class="code" href="class_g_e_n_e_r_i_c__2_d___a_r_r_a_y.html#a34ade4d36445e9deeceae05bfb5e152d">index</a>(column, row)];
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a41ae328b6e1f1fe75ac1ed9ac6c6f4f2"></a><!-- doxytag: member="GENERIC_2D_ARRAY::operator()" ref="a41ae328b6e1f1fe75ac1ed9ac6c6f4f2" args="(int column, int row)" -->
@@ -418,6 +489,11 @@ template&lt;class T&gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="matrix_8h_source.html#l00124">124</a> of file <a class="el" href="matrix_8h_source.html">matrix.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                     {
+    <span class="keywordflow">return</span> array_[this-&gt;<a class="code" href="class_g_e_n_e_r_i_c__2_d___a_r_r_a_y.html#a34ade4d36445e9deeceae05bfb5e152d">index</a>(column, row)];
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a30d53a962fe305255854b1539a41bfe7"></a><!-- doxytag: member="GENERIC_2D_ARRAY::operator[]" ref="a30d53a962fe305255854b1539a41bfe7" args="(int column)" -->
@@ -437,6 +513,11 @@ template&lt;class T&gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="matrix_8h_source.html#l00129">129</a> of file <a class="el" href="matrix_8h_source.html">matrix.h</a>.</p>
+<div class="fragment"><pre class="fragment">                            {
+    <span class="keywordflow">return</span> &amp;array_[this-&gt;<a class="code" href="class_g_e_n_e_r_i_c__2_d___a_r_r_a_y.html#a34ade4d36445e9deeceae05bfb5e152d">index</a>(column, 0)];
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a610f90d717d1a774cefa8736714f1cc2"></a><!-- doxytag: member="GENERIC_2D_ARRAY::put" ref="a610f90d717d1a774cefa8736714f1cc2" args="(int column, int row, const T &amp;thing)" -->
@@ -472,6 +553,11 @@ template&lt;class T&gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="matrix_8h_source.html#l00112">112</a> of file <a class="el" href="matrix_8h_source.html">matrix.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                {
+    array_[this-&gt;<a class="code" href="class_g_e_n_e_r_i_c__2_d___a_r_r_a_y.html#a34ade4d36445e9deeceae05bfb5e152d">index</a>(column, row)] = thing;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3a358d879c89d50e8cac37cbac91d0bd"></a><!-- doxytag: member="GENERIC_2D_ARRAY::Serialize" ref="a3a358d879c89d50e8cac37cbac91d0bd" args="(FILE *fp) const " -->
@@ -491,6 +577,15 @@ template&lt;class T&gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="matrix_8h_source.html#l00051">51</a> of file <a class="el" href="matrix_8h_source.html">matrix.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                 {
+    <span class="keywordflow">if</span> (!SerializeSize(fp)) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+    <span class="keywordflow">if</span> (fwrite(&amp;empty_, <span class="keyword">sizeof</span>(empty_), 1, fp) != 1) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+    <span class="keywordtype">int</span> size = dim1_ * dim2_;
+    <span class="keywordflow">if</span> (fwrite(array_, <span class="keyword">sizeof</span>(*array_), size, fp) != size) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+    <span class="keywordflow">return</span> <span class="keyword">true</span>;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a79342ffa17a841cd11eec223dfffbc57"></a><!-- doxytag: member="GENERIC_2D_ARRAY::SerializeClasses" ref="a79342ffa17a841cd11eec223dfffbc57" args="(FILE *fp) const " -->
@@ -510,6 +605,17 @@ template&lt;class T&gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="matrix_8h_source.html#l00077">77</a> of file <a class="el" href="matrix_8h_source.html">matrix.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                        {
+    <span class="keywordflow">if</span> (!SerializeSize(fp)) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+    <span class="keywordflow">if</span> (!empty_.Serialize(fp)) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+    <span class="keywordtype">int</span> size = dim1_ * dim2_;
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; size; ++i) {
+      <span class="keywordflow">if</span> (!array_[i].<a class="code" href="class_g_e_n_e_r_i_c__2_d___a_r_r_a_y.html#a3a358d879c89d50e8cac37cbac91d0bd">Serialize</a>(fp)) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+    }
+    <span class="keywordflow">return</span> <span class="keyword">true</span>;
+  }
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
@@ -535,7 +641,7 @@ template&lt;class T&gt; </div>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:12 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:46 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

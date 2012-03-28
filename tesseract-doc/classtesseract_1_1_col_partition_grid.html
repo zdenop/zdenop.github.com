@@ -148,7 +148,10 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_col_partition_grid.html#a14732f02e00e801e979f0b51daa3f34b">FindVPartitionPartners</a> (bool to_the_left, <a class="el" href="classtesseract_1_1_col_partition.html">ColPartition</a> *part)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_col_partition_grid.html#a4781167f958ee8cc47549d8b39b9f1b5">RefinePartitionPartners</a> (bool get_desperate)</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="colpartitiongrid_8h_source.html#l00033">33</a> of file <a class="el" href="colpartitiongrid_8h_source.html">colpartitiongrid.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="af3cb4db916111aede6f4afde7fed8dca"></a><!-- doxytag: member="tesseract::ColPartitionGrid::ColPartitionGrid" ref="af3cb4db916111aede6f4afde7fed8dca" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -163,6 +166,10 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="colpartitiongrid_8cpp_source.html#l00071">71</a> of file <a class="el" href="colpartitiongrid_8cpp_source.html">colpartitiongrid.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                   {
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a29878383f06cd732816107b672efa42f"></a><!-- doxytag: member="tesseract::ColPartitionGrid::ColPartitionGrid" ref="a29878383f06cd732816107b672efa42f" args="(int gridsize, const ICOORD &amp;bleft, const ICOORD &amp;tright)" -->
@@ -196,6 +203,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="colpartitiongrid_8cpp_source.html#l00073">73</a> of file <a class="el" href="colpartitiongrid_8cpp_source.html">colpartitiongrid.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">  : BBGrid&lt;ColPartition, ColPartition_CLIST, ColPartition_C_IT&gt;(<a class="code" href="classtesseract_1_1_grid_base.html#afff2cee730084711205977b5fcb4901e">gridsize</a>,
+                                                                <a class="code" href="classtesseract_1_1_grid_base.html#ad20b2cb8eb2bf52871d5260c04949cce">bleft</a>, <a class="code" href="classtesseract_1_1_grid_base.html#aa94e147841b6a4fae0b28e7e872685a5">tright</a>) {
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac05ecda9fea55d1456474fe368681c43"></a><!-- doxytag: member="tesseract::ColPartitionGrid::~ColPartitionGrid" ref="ac05ecda9fea55d1456474fe368681c43" args="()" -->
@@ -212,6 +224,10 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="colpartitiongrid_8cpp_source.html#l00079">79</a> of file <a class="el" href="colpartitiongrid_8cpp_source.html">colpartitiongrid.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                    {
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -258,6 +274,98 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="colpartitiongrid_8cpp_source.html#l00379">379</a> of file <a class="el" href="colpartitiongrid_8cpp_source.html">colpartitiongrid.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                           {
+  <span class="keywordflow">if</span> (overlap_increase != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    *overlap_increase = 0;
+  <span class="keywordflow">if</span> (candidates-&gt;empty())
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordtype">int</span> ok_overlap =
+      <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(<a class="code" href="namespacetesseract.html#a1fa28613a5db6fb9d0c7fdef0f151872">kTinyEnoughTextlineOverlapFraction</a> * <a class="code" href="classtesseract_1_1_grid_base.html#afff2cee730084711205977b5fcb4901e">gridsize</a>() + 0.5);
+  <span class="comment">// The best neighbour to merge with is the one that causes least</span>
+  <span class="comment">// total pairwise overlap among all the neighbours.</span>
+  <span class="comment">// If more than one offers the same total overlap, choose the one</span>
+  <span class="comment">// with the least total area.</span>
+  <span class="keyword">const</span> <a class="code" href="class_t_b_o_x.html">TBOX</a>&amp; part_box = part-&gt;bounding_box();
+  ColPartition_C_IT it(candidates);
+  ColPartition* best_candidate = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="comment">// Find the total combined box of all candidates and the original.</span>
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> full_box(part_box);
+  <span class="keywordflow">for</span> (it.mark_cycle_pt(); !it.cycled_list(); it.forward()) {
+    ColPartition* candidate = it.data();
+    full_box += candidate-&gt;bounding_box();
+  }
+  <span class="comment">// Keep valid neighbours in a list.</span>
+  ColPartition_CLIST neighbours;
+  <span class="comment">// Now run a rect search of the merged box for overlapping neighbours, as</span>
+  <span class="comment">// we need anything that might be overlapped by the merged box.</span>
+  <a class="code" href="classtesseract_1_1_col_partition_grid.html#ad5beb0b5d583b9160299ccd5262359dd">FindOverlappingPartitions</a>(full_box, part, &amp;neighbours);
+  <span class="keywordflow">if</span> (debug) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Finding best merge candidate from %d, %d neighbours for box:&quot;</span>,
+            candidates-&gt;length(), neighbours.length());
+    part_box.<a class="code" href="class_t_b_o_x.html#a2e753aa9943276301d68e9f9cad99620">print</a>();
+  }
+  <span class="comment">// If the best increase in overlap is positive, then we also check the</span>
+  <span class="comment">// worst non-candidate overlap. This catches the case of multiple good</span>
+  <span class="comment">// candidates that overlap each other when merged. If the worst</span>
+  <span class="comment">// non-candidate overlap is better than the best overlap, then return</span>
+  <span class="comment">// the worst non-candidate overlap instead.</span>
+  ColPartition_CLIST non_candidate_neighbours;
+  non_candidate_neighbours.set_subtract(SortByBoxLeft&lt;ColPartition&gt;, <span class="keyword">true</span>,
+                                        &amp;neighbours, candidates);
+  <span class="keywordtype">int</span> worst_nc_increase = 0;
+  <span class="keywordtype">int</span> best_increase = <a class="code" href="host_8h.html#aac62d87844689a18b6f5339a89ed6e7f">MAX_INT32</a>;
+  <span class="keywordtype">int</span> best_area = 0;
+  <span class="keywordflow">for</span> (it.mark_cycle_pt(); !it.cycled_list(); it.forward()) {
+    ColPartition* candidate = it.data();
+    <span class="keywordflow">if</span> (confirm_cb != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp; !confirm_cb-&gt;<a class="code" href="class_tess_result_callback2.html#a61bd799697bce338fc064326a7b764e3">Run</a>(part, candidate)) {
+      <span class="keywordflow">if</span> (debug) {
+        <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Candidate not confirmed:&quot;</span>);
+        candidate-&gt;bounding_box().print();
+      }
+      <span class="keywordflow">continue</span>;
+    }
+    <span class="keywordtype">int</span> increase = IncreaseInOverlap(part, candidate, ok_overlap, &amp;neighbours);
+    <span class="keyword">const</span> <a class="code" href="class_t_b_o_x.html">TBOX</a>&amp; cand_box = candidate-&gt;bounding_box();
+    <span class="keywordflow">if</span> (best_candidate == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> || increase &lt; best_increase) {
+      best_candidate = candidate;
+      best_increase = increase;
+      best_area = cand_box.<a class="code" href="class_t_b_o_x.html#ab8ae7b66782fa1802f78ff034da16089">bounding_union</a>(part_box).<a class="code" href="class_t_b_o_x.html#a46fca3df91dc271b30b69531e9d8178a">area</a>() - cand_box.<a class="code" href="class_t_b_o_x.html#a46fca3df91dc271b30b69531e9d8178a">area</a>();
+      <span class="keywordflow">if</span> (debug) {
+        <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;New best merge candidate has increase %d, area %d, over box:&quot;</span>,
+                increase, best_area);
+        full_box.print();
+        candidate-&gt;Print();
+      }
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (increase == best_increase) {
+      <span class="keywordtype">int</span> area = cand_box.<a class="code" href="class_t_b_o_x.html#ab8ae7b66782fa1802f78ff034da16089">bounding_union</a>(part_box).<a class="code" href="class_t_b_o_x.html#a46fca3df91dc271b30b69531e9d8178a">area</a>() - cand_box.<a class="code" href="class_t_b_o_x.html#a46fca3df91dc271b30b69531e9d8178a">area</a>();
+      <span class="keywordflow">if</span> (area &lt; best_area) {
+        best_area = area;
+        best_candidate = candidate;
+      }
+    }
+    increase = IncreaseInOverlap(part, candidate, ok_overlap,
+                                 &amp;non_candidate_neighbours);
+    <span class="keywordflow">if</span> (increase &gt; worst_nc_increase)
+      worst_nc_increase = increase;
+  }
+  <span class="keywordflow">if</span> (best_increase &gt; 0) {
+    <span class="comment">// If the worst non-candidate increase is less than the best increase</span>
+    <span class="comment">// including the candidates, then all the candidates can merge together</span>
+    <span class="comment">// and the increase in outside overlap would be less, so use that result,</span>
+    <span class="comment">// but only if each candidate is either a good diacritic merge with part,</span>
+    <span class="comment">// or an ok merge candidate with all the others.</span>
+    <span class="comment">// See TestCompatibleCandidates for more explanation and a picture.</span>
+    <span class="keywordflow">if</span> (worst_nc_increase &lt; best_increase &amp;&amp;
+        TestCompatibleCandidates(*part, debug, candidates)) {
+      best_increase = worst_nc_increase;
+    }
+  }
+  <span class="keywordflow">if</span> (overlap_increase != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    *overlap_increase = best_increase;
+  <span class="keywordflow">return</span> best_candidate;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aed47e56ca1a0b658811e4cf287582f04"></a><!-- doxytag: member="tesseract::ColPartitionGrid::ClaimBoxes" ref="aed47e56ca1a0b658811e4cf287582f04" args="()" -->
@@ -274,6 +382,17 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="colpartitiongrid_8cpp_source.html#l00812">812</a> of file <a class="el" href="colpartitiongrid_8cpp_source.html">colpartitiongrid.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                  {
+  <span class="comment">// Iterate the ColPartitions in the grid.</span>
+  <a class="code" href="namespacetesseract.html#a990e3f25988f7d70c40a13225e645492">ColPartitionGridSearch</a> gsearch(<span class="keyword">this</span>);
+  gsearch.StartFullSearch();
+  ColPartition* part;
+  <span class="keywordflow">while</span> ((part = gsearch.NextFullSearch()) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    part-&gt;ClaimBoxes();
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac83fa786cb4ce07219f64a8db367dcdd"></a><!-- doxytag: member="tesseract::ColPartitionGrid::ComputePartitionColors" ref="ac83fa786cb4ce07219f64a8db367dcdd" args="(Pix *scaled_color, int scaled_factor, const FCOORD &amp;rerotation)" -->
@@ -307,6 +426,43 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="colpartitiongrid_8cpp_source.html#l00620">620</a> of file <a class="el" href="colpartitiongrid_8cpp_source.html">colpartitiongrid.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                        {
+  <span class="keywordflow">if</span> (scaled_color == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <span class="keywordflow">return</span>;
+  Pix* color_map1 = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  Pix* color_map2 = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  Pix* rms_map = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordflow">if</span> (<a class="code" href="namespacetesseract.html#a93b5f759bbf4ffd7d98bca6a31391235">textord_tabfind_show_color_fit</a>) {
+    <span class="keywordtype">int</span> width = pixGetWidth(scaled_color);
+    <span class="keywordtype">int</span> height = pixGetHeight(scaled_color);
+    color_map1 = pixCreate(width, height, 32);
+    color_map2 = pixCreate(width, height, 32);
+    rms_map = pixCreate(width, height, 8);
+  }
+  <span class="comment">// Iterate the ColPartitions in the grid.</span>
+  <a class="code" href="namespacetesseract.html#a990e3f25988f7d70c40a13225e645492">ColPartitionGridSearch</a> gsearch(<span class="keyword">this</span>);
+  gsearch.StartFullSearch();
+  ColPartition* part;
+  <span class="keywordflow">while</span> ((part = gsearch.NextFullSearch()) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="class_t_b_o_x.html">TBOX</a> part_box = part-&gt;bounding_box();
+    part_box.<a class="code" href="class_t_b_o_x.html#a56b4e1cc91e8abcb9f97622da7468e98">rotate_large</a>(rerotation);
+    <a class="code" href="classtesseract_1_1_image_find.html#a642f61eaa3639dfe013615737ea02c41">ImageFind::ComputeRectangleColors</a>(part_box, scaled_color,
+                                      scaled_factor,
+                                      color_map1, color_map2, rms_map,
+                                      part-&gt;color1(), part-&gt;color2());
+  }
+  <span class="keywordflow">if</span> (color_map1 != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    pixWrite(<span class="stringliteral">&quot;swcolorinput.png&quot;</span>, scaled_color, IFF_PNG);
+    pixWrite(<span class="stringliteral">&quot;swcolor1.png&quot;</span>, color_map1, IFF_PNG);
+    pixWrite(<span class="stringliteral">&quot;swcolor2.png&quot;</span>, color_map2, IFF_PNG);
+    pixWrite(<span class="stringliteral">&quot;swrms.png&quot;</span>, rms_map, IFF_PNG);
+    pixDestroy(&amp;color_map1);
+    pixDestroy(&amp;color_map2);
+    pixDestroy(&amp;rms_map);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a274c6b7670b91545b63dd8f44c79782e"></a><!-- doxytag: member="tesseract::ColPartitionGrid::DeleteParts" ref="a274c6b7670b91545b63dd8f44c79782e" args="()" -->
@@ -323,6 +479,20 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="colpartitiongrid_8cpp_source.html#l00950">950</a> of file <a class="el" href="colpartitiongrid_8cpp_source.html">colpartitiongrid.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                   {
+  ColPartition_LIST dead_parts;
+  ColPartition_IT dead_it(&amp;dead_parts);
+  <a class="code" href="namespacetesseract.html#a990e3f25988f7d70c40a13225e645492">ColPartitionGridSearch</a> gsearch(<span class="keyword">this</span>);
+  gsearch.StartFullSearch();
+  ColPartition* part;
+  <span class="keywordflow">while</span> ((part = gsearch.NextFullSearch()) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    part-&gt;DisownBoxes();
+    dead_it.add_to_end(part);  <span class="comment">// Parts will be deleted on return.</span>
+  }
+  <a class="code" href="classtesseract_1_1_b_b_grid.html#a0b373075bdfda41719d6fb9a64bcfee0">Clear</a>();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab4756f20467daf31de174d0da440a279"></a><!-- doxytag: member="tesseract::ColPartitionGrid::DeleteUnknownParts" ref="ab4756f20467daf31de174d0da440a279" args="(TO_BLOCK *block)" -->
@@ -340,6 +510,25 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="colpartitiongrid_8cpp_source.html#l00965">965</a> of file <a class="el" href="colpartitiongrid_8cpp_source.html">colpartitiongrid.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                         {
+  <a class="code" href="namespacetesseract.html#a990e3f25988f7d70c40a13225e645492">ColPartitionGridSearch</a> gsearch(<span class="keyword">this</span>);
+  gsearch.StartFullSearch();
+  ColPartition* part;
+  <span class="keywordflow">while</span> ((part = gsearch.NextFullSearch()) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">if</span> (part-&gt;blob_type() == <a class="code" href="blobbox_8h.html#aebfaf711760a99b60c297d1d619df575a8a98863f18016aa4ccfd2d07dbb092a4">BRT_UNKNOWN</a>) {
+      gsearch.RemoveBBox();
+      <span class="comment">// Once marked, the blobs will be swept up by DeleteUnownedNoise.</span>
+      part-&gt;set_flow(<a class="code" href="blobbox_8h.html#aa72f1499398e9694bf46752e1cc895e1af99f0c54b98b6c7a0dd5d5f0b5dc635d">BTFT_NONTEXT</a>);
+      part-&gt;set_blob_type(<a class="code" href="blobbox_8h.html#aebfaf711760a99b60c297d1d619df575ae09c6f7e99c3a3885c3469d52d0292d2">BRT_NOISE</a>);
+      part-&gt;SetBlobTypes();
+      part-&gt;DisownBoxes();
+      <span class="keyword">delete</span> part;
+    }
+  }
+  block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#a9ce3c22594b44b4faad5c331ad0265ea">DeleteUnownedNoise</a>();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae184cea03e3195e505140c200c70b335"></a><!-- doxytag: member="tesseract::ColPartitionGrid::Deskew" ref="ae184cea03e3195e505140c200c70b335" args="(const FCOORD &amp;deskew)" -->
@@ -357,6 +546,30 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="colpartitiongrid_8cpp_source.html#l00684">684</a> of file <a class="el" href="colpartitiongrid_8cpp_source.html">colpartitiongrid.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                  {
+  ColPartition_LIST parts;
+  ColPartition_IT part_it(&amp;parts);
+  <span class="comment">// Iterate the ColPartitions in the grid to extract them.</span>
+  <a class="code" href="namespacetesseract.html#a990e3f25988f7d70c40a13225e645492">ColPartitionGridSearch</a> gsearch(<span class="keyword">this</span>);
+  gsearch.StartFullSearch();
+  ColPartition* part;
+  <span class="keywordflow">while</span> ((part = gsearch.NextFullSearch()) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    part_it.add_after_then_move(part);
+  }
+  <span class="comment">// Rebuild the grid to the new size.</span>
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> grid_box(<a class="code" href="classtesseract_1_1_grid_base.html#a5f09e93ec22c3f7a245eb6611309d8d6">bleft_</a>, <a class="code" href="classtesseract_1_1_grid_base.html#ac348165d112922b3d956f924405012cd">tright_</a>);
+  grid_box.rotate_large(deskew);
+  <a class="code" href="classtesseract_1_1_b_b_grid.html#a1d2990adf323d7910fbf87b6fc3a7415">Init</a>(<a class="code" href="classtesseract_1_1_grid_base.html#afff2cee730084711205977b5fcb4901e">gridsize</a>(), grid_box.botleft(), grid_box.topright());
+  <span class="comment">// Reinitializing the grid with rotated coords also clears all the</span>
+  <span class="comment">// pointers, so parts will now own the ColPartitions. (Briefly).</span>
+  <span class="keywordflow">for</span> (part_it.move_to_first(); !part_it.empty(); part_it.forward()) {
+    part = part_it.extract();
+    part-&gt;ComputeLimits();
+    <a class="code" href="classtesseract_1_1_b_b_grid.html#a7b379525e3d60c68e583352ae4b8a750">InsertBBox</a>(<span class="keyword">true</span>, <span class="keyword">true</span>, part);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae99dfe01a80478cc1ef370aa74b79773"></a><!-- doxytag: member="tesseract::ColPartitionGrid::FindFigureCaptions" ref="ae99dfe01a80478cc1ef370aa74b79773" args="()" -->
@@ -373,6 +586,128 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="colpartitiongrid_8cpp_source.html#l00984">984</a> of file <a class="el" href="colpartitiongrid_8cpp_source.html">colpartitiongrid.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                          {
+  <span class="comment">// For each image region find its best candidate text caption region,</span>
+  <span class="comment">// if any and mark it as such.</span>
+  <a class="code" href="namespacetesseract.html#a990e3f25988f7d70c40a13225e645492">ColPartitionGridSearch</a> gsearch(<span class="keyword">this</span>);
+  gsearch.StartFullSearch();
+  ColPartition* part;
+  <span class="keywordflow">while</span> ((part = gsearch.NextFullSearch()) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">if</span> (part-&gt;IsImageType()) {
+      <span class="keyword">const</span> <a class="code" href="class_t_b_o_x.html">TBOX</a>&amp; part_box = part-&gt;bounding_box();
+      <span class="keywordtype">bool</span> debug = <a class="code" href="classtesseract_1_1_aligned_blob.html#a357ff9e1d9bac2b1d88fb0d335fa7f3e">AlignedBlob::WithinTestRegion</a>(2, part_box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>(),
+                                                 part_box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>());
+      ColPartition* best_caption = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+      <span class="keywordtype">int</span> best_dist = 0;   <span class="comment">// Distance to best_caption.</span>
+      <span class="keywordtype">int</span> best_upper = 0;  <span class="comment">// Direction of best_caption.</span>
+      <span class="comment">// Handle both lower and upper directions.</span>
+      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> upper = 0; upper &lt; 2; ++upper) {
+        ColPartition_C_IT partner_it(upper ? part-&gt;upper_partners()
+                                           : part-&gt;lower_partners());
+        <span class="comment">// If there are no image partners, then this direction is ok.</span>
+        <span class="keywordflow">for</span> (partner_it.mark_cycle_pt(); !partner_it.cycled_list();
+             partner_it.forward()) {
+          ColPartition* partner = partner_it.data();
+          <span class="keywordflow">if</span> (partner-&gt;IsImageType()) {
+            <span class="keywordflow">break</span>;
+          }
+        }
+        <span class="keywordflow">if</span> (!partner_it.cycled_list()) <span class="keywordflow">continue</span>;
+        <span class="comment">// Find the nearest totally overlapping text partner.</span>
+        <span class="keywordflow">for</span> (partner_it.mark_cycle_pt(); !partner_it.cycled_list();
+             partner_it.forward()) {
+          ColPartition* partner = partner_it.data();
+          <span class="keywordflow">if</span> (!partner-&gt;IsTextType()) <span class="keywordflow">continue</span>;
+          <span class="keyword">const</span> <a class="code" href="class_t_b_o_x.html">TBOX</a>&amp; partner_box = partner-&gt;bounding_box();
+          <span class="keywordflow">if</span> (debug) {
+            <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Finding figure captions for image part:&quot;</span>);
+            part_box.<a class="code" href="class_t_b_o_x.html#a2e753aa9943276301d68e9f9cad99620">print</a>();
+            <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Considering partner:&quot;</span>);
+            partner_box.<a class="code" href="class_t_b_o_x.html#a2e753aa9943276301d68e9f9cad99620">print</a>();
+          }
+          <span class="keywordflow">if</span> (partner_box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>() &gt;= part_box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>() &amp;&amp;
+              partner_box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>() &lt;= part_box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>()) {
+            <span class="keywordtype">int</span> dist = partner_box.<a class="code" href="class_t_b_o_x.html#a98e0f9a8622eec475ee93b260c57c7ab">y_gap</a>(part_box);
+            <span class="keywordflow">if</span> (best_caption == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> || dist &lt; best_dist) {
+              best_dist = dist;
+              best_caption = partner;
+              best_upper = upper;
+            }
+          }
+        }
+      }
+      <span class="keywordflow">if</span> (best_caption != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+        <span class="keywordflow">if</span> (debug) {
+          <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Best caption candidate:&quot;</span>);
+          best_caption-&gt;bounding_box().print();
+        }
+        <span class="comment">// We have a candidate caption. Qualify it as being separable from</span>
+        <span class="comment">// any body text. We are looking for either a small number of lines</span>
+        <span class="comment">// or a big gap that indicates a separation from the body text.</span>
+        <span class="keywordtype">int</span> line_count = 0;
+        <span class="keywordtype">int</span> biggest_gap = 0;
+        <span class="keywordtype">int</span> smallest_gap = <a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a>;
+        <span class="keywordtype">int</span> total_height = 0;
+        <span class="keywordtype">int</span> mean_height = 0;
+        ColPartition* end_partner = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+        ColPartition* next_partner = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+        <span class="keywordflow">for</span> (ColPartition* partner = best_caption; partner != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp;
+             line_count &lt;= <a class="code" href="namespacetesseract.html#a0c0112882a0fd4d5db231341b276748f">kMaxCaptionLines</a>;
+             partner = next_partner) {
+          <span class="keywordflow">if</span> (!partner-&gt;IsTextType()) {
+            end_partner = partner;
+            <span class="keywordflow">break</span>;
+          }
+          ++line_count;
+          total_height += partner-&gt;bounding_box().height();
+          next_partner = partner-&gt;SingletonPartner(best_upper);
+          <span class="keywordflow">if</span> (next_partner != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+            <span class="keywordtype">int</span> gap = partner-&gt;bounding_box().y_gap(
+                next_partner-&gt;bounding_box());
+            <span class="keywordflow">if</span> (gap &gt; biggest_gap) {
+              biggest_gap = gap;
+              end_partner = next_partner;
+              mean_height = total_height / line_count;
+            } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (gap &lt; smallest_gap) {
+              smallest_gap = gap;
+            }
+            <span class="comment">// If the gap looks big compared to the text size and the smallest</span>
+            <span class="comment">// gap seen so far, then we can stop.</span>
+            <span class="keywordflow">if</span> (biggest_gap &gt; mean_height * <a class="code" href="namespacetesseract.html#a3edae94975001932766025af12aa9615">kMinCaptionGapHeightRatio</a> &amp;&amp;
+                biggest_gap &gt; smallest_gap * <a class="code" href="namespacetesseract.html#aede50c5fa6fdad612c08e73757501178">kMinCaptionGapRatio</a>)
+              <span class="keywordflow">break</span>;
+          }
+        }
+        <span class="keywordflow">if</span> (debug) {
+          <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Line count=%d, biggest gap %d, smallest%d, mean height %d\n&quot;</span>,
+                  line_count, biggest_gap, smallest_gap, mean_height);
+          <span class="keywordflow">if</span> (end_partner != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+            <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;End partner:&quot;</span>);
+            end_partner-&gt;bounding_box().print();
+          }
+        }
+        <span class="keywordflow">if</span> (next_partner == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp; line_count &lt;= <a class="code" href="namespacetesseract.html#a0c0112882a0fd4d5db231341b276748f">kMaxCaptionLines</a>)
+          end_partner = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;  <span class="comment">// No gap, but line count is small.</span>
+        <span class="keywordflow">if</span> (line_count &lt;= <a class="code" href="namespacetesseract.html#a0c0112882a0fd4d5db231341b276748f">kMaxCaptionLines</a>) {
+          <span class="comment">// This is a qualified caption. Mark the text as caption.</span>
+          <span class="keywordflow">for</span> (ColPartition* partner = best_caption; partner != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp;
+               partner != end_partner;
+               partner = next_partner) {
+            partner-&gt;set_type(<a class="code" href="publictypes_8h.html#a03566528a98c079dafeebf00502f2b60af25906cdd91c91c56489f5878b89b99b">PT_CAPTION_TEXT</a>);
+            partner-&gt;SetBlobTypes();
+            <span class="keywordflow">if</span> (debug) {
+              <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Set caption type for partition:&quot;</span>);
+              partner-&gt;bounding_box().print();
+            }
+            next_partner = partner-&gt;SingletonPartner(best_upper);
+          }
+        }
+      }
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad5beb0b5d583b9160299ccd5262359dd"></a><!-- doxytag: member="tesseract::ColPartitionGrid::FindOverlappingPartitions" ref="ad5beb0b5d583b9160299ccd5262359dd" args="(const TBOX &amp;box, const ColPartition *not_this, ColPartition_CLIST *parts)" -->
@@ -406,6 +741,17 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="colpartitiongrid_8cpp_source.html#l00326">326</a> of file <a class="el" href="colpartitiongrid_8cpp_source.html">colpartitiongrid.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                            {
+  <a class="code" href="namespacetesseract.html#a990e3f25988f7d70c40a13225e645492">ColPartitionGridSearch</a> rsearch(<span class="keyword">this</span>);
+  rsearch.StartRectSearch(box);
+  ColPartition* part;
+  <span class="keywordflow">while</span> ((part = rsearch.NextRectSearch()) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">if</span> (part != not_this)
+      parts-&gt;add_sorted(SortByBoxLeft&lt;ColPartition&gt;, <span class="keyword">true</span>, part);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7ed32c7b4717fc000dd55796f6bf86d7"></a><!-- doxytag: member="tesseract::ColPartitionGrid::FindPartitionPartners" ref="a7ed32c7b4717fc000dd55796f6bf86d7" args="()" -->
@@ -422,6 +768,22 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="colpartitiongrid_8cpp_source.html#l01109">1109</a> of file <a class="el" href="colpartitiongrid_8cpp_source.html">colpartitiongrid.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                             {
+  <a class="code" href="namespacetesseract.html#a990e3f25988f7d70c40a13225e645492">ColPartitionGridSearch</a> gsearch(<span class="keyword">this</span>);
+  gsearch.StartFullSearch();
+  ColPartition* part;
+  <span class="keywordflow">while</span> ((part = gsearch.NextFullSearch()) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">if</span> (part-&gt;IsVerticalType()) {
+      <a class="code" href="classtesseract_1_1_col_partition_grid.html#a14732f02e00e801e979f0b51daa3f34b">FindVPartitionPartners</a>(<span class="keyword">true</span>, part);
+      <a class="code" href="classtesseract_1_1_col_partition_grid.html#a14732f02e00e801e979f0b51daa3f34b">FindVPartitionPartners</a>(<span class="keyword">false</span>, part);
+    } <span class="keywordflow">else</span> {
+      <a class="code" href="classtesseract_1_1_col_partition_grid.html#a7ed32c7b4717fc000dd55796f6bf86d7">FindPartitionPartners</a>(<span class="keyword">true</span>, part);
+      <a class="code" href="classtesseract_1_1_col_partition_grid.html#a7ed32c7b4717fc000dd55796f6bf86d7">FindPartitionPartners</a>(<span class="keyword">false</span>, part);
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aaef9daa17449a94a02bf984759b30029"></a><!-- doxytag: member="tesseract::ColPartitionGrid::FindPartitionPartners" ref="aaef9daa17449a94a02bf984759b30029" args="(bool upper, ColPartition *part)" -->
@@ -449,6 +811,50 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="colpartitiongrid_8cpp_source.html#l01126">1126</a> of file <a class="el" href="colpartitiongrid_8cpp_source.html">colpartitiongrid.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                           {
+  <span class="keywordflow">if</span> (part-&gt;type() == <a class="code" href="publictypes_8h.html#a03566528a98c079dafeebf00502f2b60a639c79458d7bb60c9d6f26f661dee484">PT_NOISE</a>)
+    <span class="keywordflow">return</span>;  <span class="comment">// Noise is not allowed to partner anything.</span>
+  <span class="keyword">const</span> <a class="code" href="class_t_b_o_x.html">TBOX</a>&amp; box = part-&gt;bounding_box();
+  <span class="keywordtype">int</span> top = part-&gt;median_top();
+  <span class="keywordtype">int</span> bottom = part-&gt;median_bottom();
+  <span class="keywordtype">int</span> height = top - bottom;
+  <span class="keywordtype">int</span> mid_y = (bottom + top) / 2;
+  <a class="code" href="namespacetesseract.html#a990e3f25988f7d70c40a13225e645492">ColPartitionGridSearch</a> vsearch(<span class="keyword">this</span>);
+  <span class="comment">// Search down for neighbour below</span>
+  vsearch.StartVerticalSearch(box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>(), box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>(), part-&gt;MidY());
+  ColPartition* neighbour;
+  ColPartition* best_neighbour = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordtype">int</span> best_dist = <a class="code" href="host_8h.html#aac62d87844689a18b6f5339a89ed6e7f">MAX_INT32</a>;
+  <span class="keywordflow">while</span> ((neighbour = vsearch.NextVerticalSearch(!upper)) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">if</span> (neighbour == part || neighbour-&gt;type() == <a class="code" href="publictypes_8h.html#a03566528a98c079dafeebf00502f2b60a639c79458d7bb60c9d6f26f661dee484">PT_NOISE</a>)
+      <span class="keywordflow">continue</span>;  <span class="comment">// Noise is not allowed to partner anything.</span>
+    <span class="keywordtype">int</span> neighbour_bottom = neighbour-&gt;median_bottom();
+    <span class="keywordtype">int</span> neighbour_top = neighbour-&gt;median_top();
+    <span class="keywordtype">int</span> neighbour_y = (neighbour_bottom + neighbour_top) / 2;
+    <span class="keywordflow">if</span> (upper != (neighbour_y &gt; mid_y))
+      <span class="keywordflow">continue</span>;
+    <span class="keywordflow">if</span> (!part-&gt;HOverlaps(*neighbour) &amp;&amp; !part-&gt;WithinSameMargins(*neighbour))
+      <span class="keywordflow">continue</span>;
+    <span class="keywordflow">if</span> (!part-&gt;TypesMatch(*neighbour)) {
+      <span class="keywordflow">if</span> (best_neighbour == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+        best_neighbour = neighbour;
+      <span class="keywordflow">continue</span>;
+    }
+    <span class="keywordtype">int</span> dist = upper ? neighbour_bottom - top : bottom - neighbour_top;
+    <span class="keywordflow">if</span> (dist &lt;= <a class="code" href="namespacetesseract.html#a03ac774c4cfbfe5f2b611e59b1e3f74b">kMaxPartitionSpacing</a> * height) {
+      <span class="keywordflow">if</span> (dist &lt; best_dist) {
+        best_dist = dist;
+        best_neighbour = neighbour;
+      }
+    } <span class="keywordflow">else</span> {
+      <span class="keywordflow">break</span>;
+    }
+  }
+  <span class="keywordflow">if</span> (best_neighbour != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    part-&gt;AddPartner(upper, best_neighbour);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a14732f02e00e801e979f0b51daa3f34b"></a><!-- doxytag: member="tesseract::ColPartitionGrid::FindVPartitionPartners" ref="a14732f02e00e801e979f0b51daa3f34b" args="(bool to_the_left, ColPartition *part)" -->
@@ -476,6 +882,49 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="colpartitiongrid_8cpp_source.html#l01171">1171</a> of file <a class="el" href="colpartitiongrid_8cpp_source.html">colpartitiongrid.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                  {
+  <span class="keywordflow">if</span> (part-&gt;type() == <a class="code" href="publictypes_8h.html#a03566528a98c079dafeebf00502f2b60a639c79458d7bb60c9d6f26f661dee484">PT_NOISE</a>)
+    <span class="keywordflow">return</span>;  <span class="comment">// Noise is not allowed to partner anything.</span>
+  <span class="keyword">const</span> <a class="code" href="class_t_b_o_x.html">TBOX</a>&amp; box = part-&gt;bounding_box();
+  <span class="keywordtype">int</span> left = part-&gt;median_left();
+  <span class="keywordtype">int</span> right = part-&gt;median_right();
+  <span class="keywordtype">int</span> width = right - left;
+  <span class="keywordtype">int</span> mid_x = (left + right) / 2;
+  <a class="code" href="namespacetesseract.html#a990e3f25988f7d70c40a13225e645492">ColPartitionGridSearch</a> hsearch(<span class="keyword">this</span>);
+  <span class="comment">// Search left for neighbour to_the_left</span>
+  hsearch.StartSideSearch(mid_x, box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>(), box.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>());
+  ColPartition* neighbour;
+  ColPartition* best_neighbour = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordtype">int</span> best_dist = <a class="code" href="host_8h.html#aac62d87844689a18b6f5339a89ed6e7f">MAX_INT32</a>;
+  <span class="keywordflow">while</span> ((neighbour = hsearch.NextSideSearch(to_the_left)) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">if</span> (neighbour == part || neighbour-&gt;type() == <a class="code" href="publictypes_8h.html#a03566528a98c079dafeebf00502f2b60a639c79458d7bb60c9d6f26f661dee484">PT_NOISE</a>)
+      <span class="keywordflow">continue</span>;  <span class="comment">// Noise is not allowed to partner anything.</span>
+    <span class="keywordtype">int</span> neighbour_left = neighbour-&gt;median_left();
+    <span class="keywordtype">int</span> neighbour_right = neighbour-&gt;median_right();
+    <span class="keywordtype">int</span> neighbour_x = (neighbour_left + neighbour_right) / 2;
+    <span class="keywordflow">if</span> (to_the_left != (neighbour_x &lt; mid_x))
+      <span class="keywordflow">continue</span>;
+    <span class="keywordflow">if</span> (!part-&gt;VOverlaps(*neighbour))
+      <span class="keywordflow">continue</span>;
+    <span class="keywordflow">if</span> (!part-&gt;TypesMatch(*neighbour))
+      <span class="keywordflow">continue</span>;  <span class="comment">// Only match to other vertical text.</span>
+    <span class="keywordtype">int</span> dist = to_the_left ? left - neighbour_right : neighbour_left - right;
+    <span class="keywordflow">if</span> (dist &lt;= <a class="code" href="namespacetesseract.html#a03ac774c4cfbfe5f2b611e59b1e3f74b">kMaxPartitionSpacing</a> * width) {
+      <span class="keywordflow">if</span> (dist &lt; best_dist || best_neighbour == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+        best_dist = dist;
+        best_neighbour = neighbour;
+      }
+    } <span class="keywordflow">else</span> {
+      <span class="keywordflow">break</span>;
+    }
+  }
+  <span class="comment">// For vertical partitions, the upper partner is to the left, and lower is</span>
+  <span class="comment">// to the right.</span>
+  <span class="keywordflow">if</span> (best_neighbour != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    part-&gt;AddPartner(to_the_left, best_neighbour);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6840942249ec02a7c24c051a6f51f14c"></a><!-- doxytag: member="tesseract::ColPartitionGrid::GridFindMargins" ref="a6840942249ec02a7c24c051a6f51f14c" args="(ColPartitionSet **best_columns)" -->
@@ -493,6 +942,26 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="colpartitiongrid_8cpp_source.html#l00908">908</a> of file <a class="el" href="colpartitiongrid_8cpp_source.html">colpartitiongrid.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                     {
+  <span class="comment">// Iterate the ColPartitions in the grid.</span>
+  <a class="code" href="namespacetesseract.html#a990e3f25988f7d70c40a13225e645492">ColPartitionGridSearch</a> gsearch(<span class="keyword">this</span>);
+  gsearch.StartFullSearch();
+  ColPartition* part;
+  <span class="keywordflow">while</span> ((part = gsearch.NextFullSearch()) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="comment">// Set up a rectangle search x-bounded by the column and y by the part.</span>
+    ColPartitionSet* columns = best_columns != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>
+                             ? best_columns[gsearch.GridY()]
+                             : <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    FindPartitionMargins(columns, part);
+    <span class="keyword">const</span> <a class="code" href="class_t_b_o_x.html">TBOX</a>&amp; box = part-&gt;bounding_box();
+    <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_aligned_blob.html#a357ff9e1d9bac2b1d88fb0d335fa7f3e">AlignedBlob::WithinTestRegion</a>(2, box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>(), box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>())) {
+      <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Computed margins for part:&quot;</span>);
+      part-&gt;Print();
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a88a22ddb5578787c2819536b9152ca15"></a><!-- doxytag: member="tesseract::ColPartitionGrid::GridSmoothNeighbours" ref="a88a22ddb5578787c2819536b9152ca15" args="(BlobTextFlowType source_type, Pix *nontext_map, const TBOX &amp;im_box, const FCOORD &amp;rerotation)" -->
@@ -532,6 +1001,24 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="colpartitiongrid_8cpp_source.html#l00598">598</a> of file <a class="el" href="colpartitiongrid_8cpp_source.html">colpartitiongrid.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                    {
+  <span class="comment">// Iterate the ColPartitions in the grid.</span>
+  <a class="code" href="namespacetesseract.html#a990e3f25988f7d70c40a13225e645492">ColPartitionGridSearch</a> gsearch(<span class="keyword">this</span>);
+  gsearch.StartFullSearch();
+  ColPartition* part;
+  <span class="keywordtype">bool</span> any_changed = <span class="keyword">false</span>;
+  <span class="keywordflow">while</span> ((part = gsearch.NextFullSearch()) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">if</span> (part-&gt;flow() != source_type || <a class="code" href="class_b_l_o_b_n_b_o_x.html#a86decfe35457329f062098901d56015f">BLOBNBOX::IsLineType</a>(part-&gt;blob_type()))
+      <span class="keywordflow">continue</span>;
+    <span class="keyword">const</span> <a class="code" href="class_t_b_o_x.html">TBOX</a>&amp; box = part-&gt;bounding_box();
+    <span class="keywordtype">bool</span> debug = <a class="code" href="classtesseract_1_1_aligned_blob.html#a357ff9e1d9bac2b1d88fb0d335fa7f3e">AlignedBlob::WithinTestRegion</a>(2, box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>(), box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>());
+    <span class="keywordflow">if</span> (SmoothRegionType(nontext_map, im_box, rotation, debug, part))
+      any_changed = <span class="keyword">true</span>;
+  }
+  <span class="keywordflow">return</span> any_changed;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ace404c79d8fae1a884f15ea234a5a1a1"></a><!-- doxytag: member="tesseract::ColPartitionGrid::HandleClick" ref="ace404c79d8fae1a884f15ea234a5a1a1" args="(int x, int y)" -->
@@ -561,6 +1048,26 @@ Public Member Functions</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classtesseract_1_1_b_b_grid.html#aa3c72e54651cbf20ee185f8623a60335">tesseract::BBGrid&lt; ColPartition, ColPartition_CLIST, ColPartition_C_IT &gt;</a>.</p>
 
+<p>Definition at line <a class="el" href="colpartitiongrid_8cpp_source.html#l00083">83</a> of file <a class="el" href="colpartitiongrid_8cpp_source.html">colpartitiongrid.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                               {
+  <a class="code" href="classtesseract_1_1_b_b_grid.html#a433d978224467a5842ab3126dd0ba903">BBGrid</a>&lt;ColPartition,
+         ColPartition_CLIST, ColPartition_C_IT&gt;<a class="code" href="classtesseract_1_1_col_partition_grid.html#ace404c79d8fae1a884f15ea234a5a1a1">::HandleClick</a>(x, y);
+  <span class="comment">// Run a radial search for partitions that overlap.</span>
+  <a class="code" href="namespacetesseract.html#a990e3f25988f7d70c40a13225e645492">ColPartitionGridSearch</a> radsearch(<span class="keyword">this</span>);
+  radsearch.SetUniqueMode(<span class="keyword">true</span>);
+  radsearch.StartRadSearch(x, y, 1);
+  ColPartition* neighbour;
+  <a class="code" href="class_f_c_o_o_r_d.html">FCOORD</a> click(x, y);
+  <span class="keywordflow">while</span> ((neighbour = radsearch.NextRadSearch()) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="class_t_b_o_x.html">TBOX</a> nbox = neighbour-&gt;bounding_box();
+    <span class="keywordflow">if</span> (nbox.<a class="code" href="class_t_b_o_x.html#a5d4e2c5f91b791e94d4c94e513180632">contains</a>(click)) {
+      <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Block box:&quot;</span>);
+      neighbour-&gt;bounding_box().print();
+      neighbour-&gt;Print();
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="af60361b4951944acc282c87f9d2dfd88"></a><!-- doxytag: member="tesseract::ColPartitionGrid::ListFindMargins" ref="af60361b4951944acc282c87f9d2dfd88" args="(ColPartitionSet **best_columns, ColPartition_LIST *parts)" -->
@@ -588,6 +1095,23 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="colpartitiongrid_8cpp_source.html#l00932">932</a> of file <a class="el" href="colpartitiongrid_8cpp_source.html">colpartitiongrid.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                 {
+  ColPartition_IT part_it(parts);
+  <span class="keywordflow">for</span> (part_it.mark_cycle_pt(); !part_it.cycled_list(); part_it.forward()) {
+    ColPartition* part = part_it.data();
+    ColPartitionSet* columns = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    <span class="keywordflow">if</span> (best_columns != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      <a class="code" href="class_t_b_o_x.html">TBOX</a> part_box = part-&gt;bounding_box();
+      <span class="comment">// Get the columns from the y grid coord.</span>
+      <span class="keywordtype">int</span> grid_x, grid_y;
+      <a class="code" href="classtesseract_1_1_grid_base.html#a9cb158bba184d657c51257b98eea9f8f">GridCoords</a>(part_box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>(), part_box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>(), &amp;grid_x, &amp;grid_y);
+      columns = best_columns[grid_y];
+    }
+    FindPartitionMargins(columns, part);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6dbb1d12ebe468f00e2b63265fdda569"></a><!-- doxytag: member="tesseract::ColPartitionGrid::MakeColPartSets" ref="a6dbb1d12ebe468f00e2b63265fdda569" args="(PartSetVector *part_sets)" -->
@@ -605,6 +1129,41 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="colpartitiongrid_8cpp_source.html#l00732">732</a> of file <a class="el" href="colpartitiongrid_8cpp_source.html">colpartitiongrid.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                               {
+  ColPartition_LIST* part_lists = <span class="keyword">new</span> ColPartition_LIST[<a class="code" href="classtesseract_1_1_grid_base.html#a07e6b230c150180d009ef1f317e642f2">gridheight</a>()];
+  part_sets-&gt;reserve(<a class="code" href="classtesseract_1_1_grid_base.html#a07e6b230c150180d009ef1f317e642f2">gridheight</a>());
+  <span class="comment">// Iterate the ColPartitions in the grid to get parts onto lists for the</span>
+  <span class="comment">// y bottom of each.</span>
+  <a class="code" href="namespacetesseract.html#a990e3f25988f7d70c40a13225e645492">ColPartitionGridSearch</a> gsearch(<span class="keyword">this</span>);
+  gsearch.StartFullSearch();
+  ColPartition* part;
+  <span class="keywordtype">bool</span> any_parts_found = <span class="keyword">false</span>;
+  <span class="keywordflow">while</span> ((part = gsearch.NextFullSearch()) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="blobbox_8h.html#aebfaf711760a99b60c297d1d619df575">BlobRegionType</a> blob_type = part-&gt;blob_type();
+    <span class="keywordflow">if</span> (blob_type != <a class="code" href="blobbox_8h.html#aebfaf711760a99b60c297d1d619df575ae09c6f7e99c3a3885c3469d52d0292d2">BRT_NOISE</a> &amp;&amp;
+        (blob_type != <a class="code" href="blobbox_8h.html#aebfaf711760a99b60c297d1d619df575a8a98863f18016aa4ccfd2d07dbb092a4">BRT_UNKNOWN</a> || !part-&gt;boxes()-&gt;singleton())) {
+      <span class="keywordtype">int</span> grid_x, grid_y;
+      <span class="keyword">const</span> <a class="code" href="class_t_b_o_x.html">TBOX</a>&amp; part_box = part-&gt;bounding_box();
+      <a class="code" href="classtesseract_1_1_grid_base.html#a9cb158bba184d657c51257b98eea9f8f">GridCoords</a>(part_box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>(), part_box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>(), &amp;grid_x, &amp;grid_y);
+      ColPartition_IT part_it(&amp;part_lists[grid_y]);
+      part_it.add_to_end(part);
+      any_parts_found = <span class="keyword">true</span>;
+    }
+  }
+  <span class="keywordflow">if</span> (any_parts_found) {
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> grid_y = 0; grid_y &lt; <a class="code" href="classtesseract_1_1_grid_base.html#a07e6b230c150180d009ef1f317e642f2">gridheight</a>(); ++grid_y) {
+      ColPartitionSet* line_set = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+      <span class="keywordflow">if</span> (!part_lists[grid_y].empty()) {
+        line_set = <span class="keyword">new</span> ColPartitionSet(&amp;part_lists[grid_y]);
+      }
+      part_sets-&gt;push_back(line_set);
+    }
+  }
+  <span class="keyword">delete</span> [] part_lists;
+  <span class="keywordflow">return</span> any_parts_found;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a804a04162511d6952635ba8713a751a8"></a><!-- doxytag: member="tesseract::ColPartitionGrid::MakeSingleColumnSet" ref="a804a04162511d6952635ba8713a751a8" args="(WidthCallback *cb)" -->
@@ -622,6 +1181,48 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="colpartitiongrid_8cpp_source.html#l00770">770</a> of file <a class="el" href="colpartitiongrid_8cpp_source.html">colpartitiongrid.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                        {
+  ColPartition* single_column_part = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="comment">// Iterate the ColPartitions in the grid to get parts onto lists for the</span>
+  <span class="comment">// y bottom of each.</span>
+  <a class="code" href="namespacetesseract.html#a990e3f25988f7d70c40a13225e645492">ColPartitionGridSearch</a> gsearch(<span class="keyword">this</span>);
+  gsearch.StartFullSearch();
+  ColPartition* part;
+  <span class="keywordflow">while</span> ((part = gsearch.NextFullSearch()) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="blobbox_8h.html#aebfaf711760a99b60c297d1d619df575">BlobRegionType</a> blob_type = part-&gt;blob_type();
+    <span class="keywordflow">if</span> (blob_type != <a class="code" href="blobbox_8h.html#aebfaf711760a99b60c297d1d619df575ae09c6f7e99c3a3885c3469d52d0292d2">BRT_NOISE</a> &amp;&amp;
+        (blob_type != <a class="code" href="blobbox_8h.html#aebfaf711760a99b60c297d1d619df575a8a98863f18016aa4ccfd2d07dbb092a4">BRT_UNKNOWN</a> || !part-&gt;boxes()-&gt;singleton())) {
+      <span class="comment">// Consider for single column.</span>
+      <a class="code" href="blobbox_8h.html#aa72f1499398e9694bf46752e1cc895e1">BlobTextFlowType</a> flow = part-&gt;flow();
+      <span class="keywordflow">if</span> ((blob_type == <a class="code" href="blobbox_8h.html#aebfaf711760a99b60c297d1d619df575a4f0b1431532d0e838187df32f2e822d7">BRT_TEXT</a> &amp;&amp;
+          (flow == <a class="code" href="blobbox_8h.html#aa72f1499398e9694bf46752e1cc895e1ac6822a7999424340562c785a3fd95daa">BTFT_STRONG_CHAIN</a> || flow == <a class="code" href="blobbox_8h.html#aa72f1499398e9694bf46752e1cc895e1a8fa903eb3c633ef681659563769a8007">BTFT_CHAIN</a> ||
+           flow == <a class="code" href="blobbox_8h.html#aa72f1499398e9694bf46752e1cc895e1a64e3e70c4fac4d4e3facdb4638307d7f">BTFT_LEADER</a> || flow == <a class="code" href="blobbox_8h.html#aa72f1499398e9694bf46752e1cc895e1a1936f281ab87277e7ef0ba576920dc10">BTFT_TEXT_ON_IMAGE</a>)) ||
+          blob_type == <a class="code" href="blobbox_8h.html#aebfaf711760a99b60c297d1d619df575a15e526e8dd226bd4d7678da6dcddb49b">BRT_RECTIMAGE</a> || blob_type == <a class="code" href="blobbox_8h.html#aebfaf711760a99b60c297d1d619df575a3b72528ad70da88719f0479bc8c5a190">BRT_POLYIMAGE</a>) {
+        <span class="keywordflow">if</span> (single_column_part == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+          single_column_part = part-&gt;ShallowCopy();
+          single_column_part-&gt;set_blob_type(<a class="code" href="blobbox_8h.html#aebfaf711760a99b60c297d1d619df575a4f0b1431532d0e838187df32f2e822d7">BRT_TEXT</a>);
+          <span class="comment">// Copy the tabs from itself to properly setup the margins.</span>
+          single_column_part-&gt;CopyLeftTab(*single_column_part, <span class="keyword">false</span>);
+          single_column_part-&gt;CopyRightTab(*single_column_part, <span class="keyword">false</span>);
+        } <span class="keywordflow">else</span> {
+          <span class="keywordflow">if</span> (part-&gt;left_key() &lt; single_column_part-&gt;left_key())
+            single_column_part-&gt;CopyLeftTab(*part, <span class="keyword">false</span>);
+          <span class="keywordflow">if</span> (part-&gt;right_key() &gt; single_column_part-&gt;right_key())
+            single_column_part-&gt;CopyRightTab(*part, <span class="keyword">false</span>);
+        }
+      }
+    }
+  }
+  <span class="keywordflow">if</span> (single_column_part != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="comment">// Make a ColPartitionSet out of the single_column_part as a candidate</span>
+    <span class="comment">// for the single column case.</span>
+    single_column_part-&gt;SetColumnGoodness(cb);
+    <span class="keywordflow">return</span> <span class="keyword">new</span> ColPartitionSet(single_column_part);
+  }
+  <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9e8324dcf738819305dfec86b504f27c"></a><!-- doxytag: member="tesseract::ColPartitionGrid::MergePart" ref="a9e8324dcf738819305dfec86b504f27c" args="(TessResultCallback2&lt; bool, ColPartition *, TBOX * &gt; *box_cb, TessResultCallback2&lt; bool, const ColPartition *, const ColPartition * &gt; *confirm_cb, ColPartition *part)" -->
@@ -655,6 +1256,59 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="colpartitiongrid_8cpp_source.html#l00130">130</a> of file <a class="el" href="colpartitiongrid_8cpp_source.html">colpartitiongrid.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                        {
+  <span class="keywordflow">if</span> (part-&gt;IsUnMergeableType())
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordtype">bool</span> any_done = <span class="keyword">false</span>;
+  <span class="comment">// Repeatedly merge part while we find a best merge candidate that works.</span>
+  <span class="keywordtype">bool</span> merge_done = <span class="keyword">false</span>;
+  <span class="keywordflow">do</span> {
+    merge_done = <span class="keyword">false</span>;
+    <a class="code" href="class_t_b_o_x.html">TBOX</a> box = part-&gt;bounding_box();
+    <span class="keywordtype">bool</span> debug = <a class="code" href="classtesseract_1_1_aligned_blob.html#a357ff9e1d9bac2b1d88fb0d335fa7f3e">AlignedBlob::WithinTestRegion</a>(2, box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>(), box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>());
+    <span class="keywordflow">if</span> (debug) {
+      <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Merge candidate:&quot;</span>);
+      box.<a class="code" href="class_t_b_o_x.html#a2e753aa9943276301d68e9f9cad99620">print</a>();
+    }
+    <span class="comment">// Set up a rectangle search bounded by the part.</span>
+    <span class="keywordflow">if</span> (!box_cb-&gt;<a class="code" href="class_tess_result_callback2.html#a61bd799697bce338fc064326a7b764e3">Run</a>(part, &amp;box))
+      <span class="keywordflow">continue</span>;
+    <span class="comment">// Create a list of merge candidates.</span>
+    ColPartition_CLIST merge_candidates;
+    FindMergeCandidates(part, box, debug, &amp;merge_candidates);
+    <span class="comment">// Find the best merge candidate based on minimal overlap increase.</span>
+    <span class="keywordtype">int</span> overlap_increase;
+    ColPartition* neighbour = <a class="code" href="classtesseract_1_1_col_partition_grid.html#a2d5a64ce0293feaa94880ee1397bd65a">BestMergeCandidate</a>(part, &amp;merge_candidates, debug,
+                                                 confirm_cb,
+                                                 &amp;overlap_increase);
+    <span class="keywordflow">if</span> (neighbour != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp; overlap_increase &lt;= 0) {
+      <span class="keywordflow">if</span> (debug) {
+        <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Merging:hoverlap=%d, voverlap=%d, OLI=%d\n&quot;</span>,
+                part-&gt;HCoreOverlap(*neighbour), part-&gt;VCoreOverlap(*neighbour),
+                overlap_increase);
+      }
+      <span class="comment">// Looks like a good candidate so merge it.</span>
+      <a class="code" href="classtesseract_1_1_b_b_grid.html#adc713153c1282d8727f85ee6d38d7d31">RemoveBBox</a>(neighbour);
+      <span class="comment">// We will modify the box of part, so remove it from the grid, merge</span>
+      <span class="comment">// it and then re-insert it into the grid.</span>
+      <a class="code" href="classtesseract_1_1_b_b_grid.html#adc713153c1282d8727f85ee6d38d7d31">RemoveBBox</a>(part);
+      part-&gt;Absorb(neighbour, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+      <a class="code" href="classtesseract_1_1_b_b_grid.html#a7b379525e3d60c68e583352ae4b8a750">InsertBBox</a>(<span class="keyword">true</span>, <span class="keyword">true</span>, part);
+      merge_done = <span class="keyword">true</span>;
+      any_done = <span class="keyword">true</span>;
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (neighbour != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      <span class="keywordflow">if</span> (debug) {
+        <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Overlapped when merged with increase %d: &quot;</span>, overlap_increase);
+        neighbour-&gt;bounding_box().print();
+      }
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (debug) {
+      <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;No candidate neighbour returned\n&quot;</span>);
+    }
+  } <span class="keywordflow">while</span> (merge_done);
+  <span class="keywordflow">return</span> any_done;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a5a2c2f6ef0b1b5a0febab87ffb0f764d"></a><!-- doxytag: member="tesseract::ColPartitionGrid::Merges" ref="a5a2c2f6ef0b1b5a0febab87ffb0f764d" args="(TessResultCallback2&lt; bool, ColPartition *, TBOX * &gt; *box_cb, TessResultCallback2&lt; bool, const ColPartition *, const ColPartition * &gt; *confirm_cb)" -->
@@ -682,6 +1336,20 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="colpartitiongrid_8cpp_source.html#l00109">109</a> of file <a class="el" href="colpartitiongrid_8cpp_source.html">colpartitiongrid.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                          {
+  <span class="comment">// Iterate the ColPartitions in the grid.</span>
+  <a class="code" href="namespacetesseract.html#a990e3f25988f7d70c40a13225e645492">ColPartitionGridSearch</a> gsearch(<span class="keyword">this</span>);
+  gsearch.StartFullSearch();
+  ColPartition* part;
+  <span class="keywordflow">while</span> ((part = gsearch.NextFullSearch()) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_col_partition_grid.html#a9e8324dcf738819305dfec86b504f27c">MergePart</a>(box_cb, confirm_cb, part))
+      gsearch.RepositionIterator();
+  }
+  <span class="keyword">delete</span> box_cb;
+  <span class="keyword">delete</span> confirm_cb;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4f9c81b3be7d951e96338488d66fbdcd"></a><!-- doxytag: member="tesseract::ColPartitionGrid::RecomputeBounds" ref="a4f9c81b3be7d951e96338488d66fbdcd" args="(int gridsize, const ICOORD &amp;bleft, const ICOORD &amp;tright, const ICOORD &amp;vertical)" -->
@@ -721,6 +1389,28 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="colpartitiongrid_8cpp_source.html#l00879">879</a> of file <a class="el" href="colpartitiongrid_8cpp_source.html">colpartitiongrid.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                               {
+  ColPartition_LIST saved_parts;
+  ColPartition_IT part_it(&amp;saved_parts);
+  <span class="comment">// Iterate the ColPartitions in the grid to get parts onto a list.</span>
+  <a class="code" href="namespacetesseract.html#a990e3f25988f7d70c40a13225e645492">ColPartitionGridSearch</a> gsearch(<span class="keyword">this</span>);
+  gsearch.StartFullSearch();
+  ColPartition* part;
+  <span class="keywordflow">while</span> ((part = gsearch.NextFullSearch()) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    part_it.add_to_end(part);
+  }
+  <span class="comment">// Reinitialize grid to the new size.</span>
+  <a class="code" href="classtesseract_1_1_b_b_grid.html#a1d2990adf323d7910fbf87b6fc3a7415">Init</a>(<a class="code" href="classtesseract_1_1_grid_base.html#afff2cee730084711205977b5fcb4901e">gridsize</a>, bleft, tright);
+  <span class="comment">// Recompute the bounds of the parts and put them back in the new grid.</span>
+  <span class="keywordflow">for</span> (part_it.move_to_first(); !part_it.empty(); part_it.forward()) {
+    part = part_it.extract();
+    part-&gt;set_vertical(vertical);
+    part-&gt;ComputeLimits();
+    <a class="code" href="classtesseract_1_1_b_b_grid.html#a7b379525e3d60c68e583352ae4b8a750">InsertBBox</a>(<span class="keyword">true</span>, <span class="keyword">true</span>, part);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4781167f958ee8cc47549d8b39b9f1b5"></a><!-- doxytag: member="tesseract::ColPartitionGrid::RefinePartitionPartners" ref="a4781167f958ee8cc47549d8b39b9f1b5" args="(bool get_desperate)" -->
@@ -738,6 +1428,24 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="colpartitiongrid_8cpp_source.html#l01217">1217</a> of file <a class="el" href="colpartitiongrid_8cpp_source.html">colpartitiongrid.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                 {
+  <a class="code" href="namespacetesseract.html#a990e3f25988f7d70c40a13225e645492">ColPartitionGridSearch</a> gsearch(<span class="keyword">this</span>);
+  <span class="comment">// Refine in type order so that chasing multiple partners can be done</span>
+  <span class="comment">// before eliminating type mis-matching partners.</span>
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> type = <a class="code" href="publictypes_8h.html#a03566528a98c079dafeebf00502f2b60ac0b3cd1b4592e1a3c609ff4273fb505b">PT_UNKNOWN</a> + 1; type &lt;= <a class="code" href="publictypes_8h.html#a03566528a98c079dafeebf00502f2b60a1cfce41c30bf1aefe403aaa66d271da1">PT_COUNT</a>; type++) {
+    <span class="comment">// Iterate the ColPartitions in the grid.</span>
+    gsearch.StartFullSearch();
+    ColPartition* part;
+    <span class="keywordflow">while</span> ((part = gsearch.NextFullSearch()) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      part-&gt;RefinePartners(static_cast&lt;PolyBlockType&gt;(type),
+                           get_desperate, <span class="keyword">this</span>);
+      <span class="comment">// Iterator may have been messed up by a merge.</span>
+      gsearch.RepositionIterator();
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a423a93040be0e2075dce35597ab30d3a"></a><!-- doxytag: member="tesseract::ColPartitionGrid::ReflectInYAxis" ref="a423a93040be0e2075dce35597ab30d3a" args="()" -->
@@ -754,6 +1462,29 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="colpartitiongrid_8cpp_source.html#l00660">660</a> of file <a class="el" href="colpartitiongrid_8cpp_source.html">colpartitiongrid.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                      {
+  ColPartition_LIST parts;
+  ColPartition_IT part_it(&amp;parts);
+  <span class="comment">// Iterate the ColPartitions in the grid to extract them.</span>
+  <a class="code" href="namespacetesseract.html#a990e3f25988f7d70c40a13225e645492">ColPartitionGridSearch</a> gsearch(<span class="keyword">this</span>);
+  gsearch.StartFullSearch();
+  ColPartition* part;
+  <span class="keywordflow">while</span> ((part = gsearch.NextFullSearch()) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    part_it.add_after_then_move(part);
+  }
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> bot_left(-<a class="code" href="classtesseract_1_1_grid_base.html#aa94e147841b6a4fae0b28e7e872685a5">tright</a>().x(), <a class="code" href="classtesseract_1_1_grid_base.html#ad20b2cb8eb2bf52871d5260c04949cce">bleft</a>().y());
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> top_right(-<a class="code" href="classtesseract_1_1_grid_base.html#ad20b2cb8eb2bf52871d5260c04949cce">bleft</a>().x(), <a class="code" href="classtesseract_1_1_grid_base.html#aa94e147841b6a4fae0b28e7e872685a5">tright</a>().y());
+  <span class="comment">// Reinitializing the grid with reflected coords also clears all the</span>
+  <span class="comment">// pointers, so parts will now own the ColPartitions. (Briefly).</span>
+  <a class="code" href="classtesseract_1_1_b_b_grid.html#a1d2990adf323d7910fbf87b6fc3a7415">Init</a>(<a class="code" href="classtesseract_1_1_grid_base.html#afff2cee730084711205977b5fcb4901e">gridsize</a>(), bot_left, top_right);
+  <span class="keywordflow">for</span> (part_it.move_to_first(); !part_it.empty(); part_it.forward()) {
+    part = part_it.extract();
+    part-&gt;ReflectInYAxis();
+    <a class="code" href="classtesseract_1_1_b_b_grid.html#a7b379525e3d60c68e583352ae4b8a750">InsertBBox</a>(<span class="keyword">true</span>, <span class="keyword">true</span>, part);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aecd8e56c6111338a9f7a42ce00d3636f"></a><!-- doxytag: member="tesseract::ColPartitionGrid::ReTypeBlobs" ref="aecd8e56c6111338a9f7a42ce00d3636f" args="(BLOBNBOX_LIST *im_blobs)" -->
@@ -771,6 +1502,59 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="colpartitiongrid_8cpp_source.html#l00825">825</a> of file <a class="el" href="colpartitiongrid_8cpp_source.html">colpartitiongrid.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                          {
+  BLOBNBOX_IT im_blob_it(im_blobs);
+  ColPartition_LIST dead_parts;
+  ColPartition_IT dead_part_it(&amp;dead_parts);
+  <span class="comment">// Iterate the ColPartitions in the grid.</span>
+  <a class="code" href="namespacetesseract.html#a990e3f25988f7d70c40a13225e645492">ColPartitionGridSearch</a> gsearch(<span class="keyword">this</span>);
+  gsearch.StartFullSearch();
+  ColPartition* part;
+  <span class="keywordflow">while</span> ((part = gsearch.NextFullSearch()) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="blobbox_8h.html#aebfaf711760a99b60c297d1d619df575">BlobRegionType</a> blob_type = part-&gt;blob_type();
+    <a class="code" href="blobbox_8h.html#aa72f1499398e9694bf46752e1cc895e1">BlobTextFlowType</a> flow = part-&gt;flow();
+    <span class="keywordflow">if</span> (blob_type == <a class="code" href="blobbox_8h.html#aebfaf711760a99b60c297d1d619df575a3b72528ad70da88719f0479bc8c5a190">BRT_POLYIMAGE</a> || blob_type == <a class="code" href="blobbox_8h.html#aebfaf711760a99b60c297d1d619df575a15e526e8dd226bd4d7678da6dcddb49b">BRT_RECTIMAGE</a>) {
+      BLOBNBOX_C_IT blob_it(part-&gt;boxes());
+      <span class="keywordflow">for</span> (blob_it.mark_cycle_pt(); !blob_it.cycled_list(); blob_it.forward()) {
+        <a class="code" href="class_b_l_o_b_n_b_o_x.html">BLOBNBOX</a>* blob = blob_it.data();
+        im_blob_it.add_after_then_move(blob);
+      }
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (blob_type != <a class="code" href="blobbox_8h.html#aebfaf711760a99b60c297d1d619df575ae09c6f7e99c3a3885c3469d52d0292d2">BRT_NOISE</a>) {
+      <span class="comment">// Make sure the blobs are marked with the correct type and flow.</span>
+      BLOBNBOX_C_IT blob_it(part-&gt;boxes());
+      <span class="keywordflow">for</span> (blob_it.mark_cycle_pt(); !blob_it.cycled_list(); blob_it.forward()) {
+        <a class="code" href="class_b_l_o_b_n_b_o_x.html">BLOBNBOX</a>* blob = blob_it.data();
+        <span class="keywordflow">if</span> (blob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a9e7100e6d08c78cca5f9c0453e11565d">region_type</a>() == <a class="code" href="blobbox_8h.html#aebfaf711760a99b60c297d1d619df575ae09c6f7e99c3a3885c3469d52d0292d2">BRT_NOISE</a>) {
+          <span class="comment">// TODO(rays) Deprecated. Change this section to an assert to verify</span>
+          <span class="comment">// and then delete.</span>
+          <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(blob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a483f44541a4dd818f02225c92f030e07">cblob</a>()-&gt;<a class="code" href="class_c___b_l_o_b.html#af8d6cc72e454c97c5e14d7ccd12925e3">area</a>() != 0);
+          blob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#ad573c3bea7351dd2cbdaaffa2ff11c58">set_owner</a>(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+          blob_it.extract();
+        } <span class="keywordflow">else</span> {
+          blob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a9b58644d9ad4f0d01193f47f55dd884f">set_region_type</a>(blob_type);
+          <span class="keywordflow">if</span> (blob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#afafe7113396a8cc27b882d622db46f05">flow</a>() != <a class="code" href="blobbox_8h.html#aa72f1499398e9694bf46752e1cc895e1a64e3e70c4fac4d4e3facdb4638307d7f">BTFT_LEADER</a>)
+            blob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a75340334988feba52ce36ba596750a35">set_flow</a>(flow);
+        }
+      }
+    }
+    <span class="keywordflow">if</span> (blob_type == <a class="code" href="blobbox_8h.html#aebfaf711760a99b60c297d1d619df575ae09c6f7e99c3a3885c3469d52d0292d2">BRT_NOISE</a> || part-&gt;boxes()-&gt;empty()) {
+      BLOBNBOX_C_IT blob_it(part-&gt;boxes());
+      part-&gt;DisownBoxes();
+      dead_part_it.add_to_end(part);
+      gsearch.RemoveBBox();
+      <span class="keywordflow">for</span> (blob_it.mark_cycle_pt(); !blob_it.cycled_list(); blob_it.forward()) {
+        <a class="code" href="class_b_l_o_b_n_b_o_x.html">BLOBNBOX</a>* blob = blob_it.data();
+        <span class="keywordflow">if</span> (blob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a483f44541a4dd818f02225c92f030e07">cblob</a>()-&gt;<a class="code" href="class_c___b_l_o_b.html#af8d6cc72e454c97c5e14d7ccd12925e3">area</a>() == 0) {
+          <span class="comment">// Any blob with zero area is a fake image blob and should be deleted.</span>
+          <span class="keyword">delete</span> blob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a483f44541a4dd818f02225c92f030e07">cblob</a>();
+          <span class="keyword">delete</span> blob;
+        }
+      }
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a40b0e4db617400d53951521ab11b5b8a"></a><!-- doxytag: member="tesseract::ColPartitionGrid::SetTabStops" ref="a40b0e4db617400d53951521ab11b5b8a" args="(TabFind *tabgrid)" -->
@@ -788,6 +1572,29 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="colpartitiongrid_8cpp_source.html#l00708">708</a> of file <a class="el" href="colpartitiongrid_8cpp_source.html">colpartitiongrid.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                   {
+  <span class="comment">// Iterate the ColPartitions in the grid.</span>
+  <a class="code" href="namespacetesseract.html#a990e3f25988f7d70c40a13225e645492">ColPartitionGridSearch</a> gsearch(<span class="keyword">this</span>);
+  gsearch.StartFullSearch();
+  ColPartition* part;
+  <span class="keywordflow">while</span> ((part = gsearch.NextFullSearch()) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keyword">const</span> <a class="code" href="class_t_b_o_x.html">TBOX</a>&amp; part_box = part-&gt;bounding_box();
+    TabVector* left_line = tabgrid-&gt;LeftTabForBox(part_box, <span class="keyword">true</span>, <span class="keyword">false</span>);
+    <span class="comment">// If the overlapping line is not a left tab, try for non-overlapping.</span>
+    <span class="keywordflow">if</span> (left_line != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp; !left_line-&gt;IsLeftTab())
+      left_line = tabgrid-&gt;LeftTabForBox(part_box, <span class="keyword">false</span>, <span class="keyword">false</span>);
+    <span class="keywordflow">if</span> (left_line != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp; left_line-&gt;IsLeftTab())
+      part-&gt;SetLeftTab(left_line);
+    TabVector* right_line = tabgrid-&gt;RightTabForBox(part_box, <span class="keyword">true</span>, <span class="keyword">false</span>);
+    <span class="keywordflow">if</span> (right_line != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp; !right_line-&gt;IsRightTab())
+      right_line = tabgrid-&gt;RightTabForBox(part_box, <span class="keyword">false</span>, <span class="keyword">false</span>);
+    <span class="keywordflow">if</span> (right_line != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp; right_line-&gt;IsRightTab())
+      part-&gt;SetRightTab(right_line);
+    part-&gt;SetColumnGoodness(tabgrid-&gt;WidthCB());
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a82e8b8c81fca51c36744a859831154e7"></a><!-- doxytag: member="tesseract::ColPartitionGrid::SplitOverlappingPartitions" ref="a82e8b8c81fca51c36744a859831154e7" args="(ColPartition_LIST *big_parts)" -->
@@ -805,11 +1612,112 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="colpartitiongrid_8cpp_source.html#l00488">488</a> of file <a class="el" href="colpartitiongrid_8cpp_source.html">colpartitiongrid.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                  {
+  <span class="keywordtype">int</span> ok_overlap =
+      <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(<a class="code" href="namespacetesseract.html#a1fa28613a5db6fb9d0c7fdef0f151872">kTinyEnoughTextlineOverlapFraction</a> * <a class="code" href="classtesseract_1_1_grid_base.html#afff2cee730084711205977b5fcb4901e">gridsize</a>() + 0.5);
+  <span class="comment">// Iterate the ColPartitions in the grid.</span>
+  <a class="code" href="namespacetesseract.html#a990e3f25988f7d70c40a13225e645492">ColPartitionGridSearch</a> gsearch(<span class="keyword">this</span>);
+  gsearch.StartFullSearch();
+  ColPartition* part;
+  <span class="keywordflow">while</span> ((part = gsearch.NextFullSearch()) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="comment">// Set up a rectangle search bounded by the part.</span>
+    <span class="keyword">const</span> <a class="code" href="class_t_b_o_x.html">TBOX</a>&amp; box = part-&gt;bounding_box();
+    <a class="code" href="namespacetesseract.html#a990e3f25988f7d70c40a13225e645492">ColPartitionGridSearch</a> rsearch(<span class="keyword">this</span>);
+    rsearch.SetUniqueMode(<span class="keyword">true</span>);
+    rsearch.StartRectSearch(box);
+    <span class="keywordtype">int</span> unresolved_overlaps = 0;
+
+    ColPartition* neighbour;
+    <span class="keywordflow">while</span> ((neighbour = rsearch.NextRectSearch()) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      <span class="keywordflow">if</span> (neighbour == part)
+        <span class="keywordflow">continue</span>;
+      <span class="keyword">const</span> <a class="code" href="class_t_b_o_x.html">TBOX</a>&amp; neighbour_box = neighbour-&gt;bounding_box();
+      <span class="keywordflow">if</span> (neighbour-&gt;OKMergeOverlap(*part, *part, ok_overlap, <span class="keyword">false</span>) &amp;&amp;
+          part-&gt;OKMergeOverlap(*neighbour, *neighbour, ok_overlap, <span class="keyword">false</span>))
+        <span class="keywordflow">continue</span>;  <span class="comment">// The overlap is OK both ways.</span>
+
+      <span class="comment">// If removal of the biggest box from either partition eliminates the</span>
+      <span class="comment">// overlap, and it is much bigger than the box left behind, then</span>
+      <span class="comment">// it is either a drop-cap, an inter-line join, or some junk that</span>
+      <span class="comment">// we don&#39;t want anyway, so put it in the big_parts list.</span>
+      <span class="keywordflow">if</span> (!part-&gt;IsSingleton()) {
+        <a class="code" href="class_b_l_o_b_n_b_o_x.html">BLOBNBOX</a>* excluded = part-&gt;BiggestBox();
+        <a class="code" href="class_t_b_o_x.html">TBOX</a> shrunken = part-&gt;BoundsWithoutBox(excluded);
+        <span class="keywordflow">if</span> (!shrunken.<a class="code" href="class_t_b_o_x.html#adcc7d2858ccb61cd715dbcff32bd5582">overlap</a>(neighbour_box) &amp;&amp;
+            excluded-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a7b97b8bc16b1473a28f9c44011522f4e">bounding_box</a>().<a class="code" href="class_t_b_o_x.html#a8379d4bbc72bdbb1f069fc14790e632d">height</a>() &gt;
+              <a class="code" href="namespacetesseract.html#a45530b4b5280b8d2f185a531cab4169b">kBigPartSizeRatio</a> * shrunken.<a class="code" href="class_t_b_o_x.html#a8379d4bbc72bdbb1f069fc14790e632d">height</a>()) {
+          <span class="comment">// Removing the biggest box fixes the overlap, so do it!</span>
+          gsearch.RemoveBBox();
+          RemoveBadBox(excluded, part, big_parts);
+          <a class="code" href="classtesseract_1_1_b_b_grid.html#a7b379525e3d60c68e583352ae4b8a750">InsertBBox</a>(<span class="keyword">true</span>, <span class="keyword">true</span>, part);
+          gsearch.RepositionIterator();
+          <span class="keywordflow">break</span>;
+        }
+      } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (box.<a class="code" href="class_t_b_o_x.html#a5d4e2c5f91b791e94d4c94e513180632">contains</a>(neighbour_box)) {
+        ++unresolved_overlaps;
+        <span class="keywordflow">continue</span>;  <span class="comment">// No amount of splitting will fix it.</span>
+      }
+      <span class="keywordflow">if</span> (!neighbour-&gt;IsSingleton()) {
+        <a class="code" href="class_b_l_o_b_n_b_o_x.html">BLOBNBOX</a>* excluded = neighbour-&gt;BiggestBox();
+        <a class="code" href="class_t_b_o_x.html">TBOX</a> shrunken = neighbour-&gt;BoundsWithoutBox(excluded);
+        <span class="keywordflow">if</span> (!shrunken.<a class="code" href="class_t_b_o_x.html#adcc7d2858ccb61cd715dbcff32bd5582">overlap</a>(box) &amp;&amp;
+            excluded-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a7b97b8bc16b1473a28f9c44011522f4e">bounding_box</a>().<a class="code" href="class_t_b_o_x.html#a8379d4bbc72bdbb1f069fc14790e632d">height</a>() &gt;
+              <a class="code" href="namespacetesseract.html#a45530b4b5280b8d2f185a531cab4169b">kBigPartSizeRatio</a> * shrunken.<a class="code" href="class_t_b_o_x.html#a8379d4bbc72bdbb1f069fc14790e632d">height</a>()) {
+          <span class="comment">// Removing the biggest box fixes the overlap, so do it!</span>
+          rsearch.RemoveBBox();
+          RemoveBadBox(excluded, neighbour, big_parts);
+          <a class="code" href="classtesseract_1_1_b_b_grid.html#a7b379525e3d60c68e583352ae4b8a750">InsertBBox</a>(<span class="keyword">true</span>, <span class="keyword">true</span>, neighbour);
+          gsearch.RepositionIterator();
+          <span class="keywordflow">break</span>;
+        }
+      }
+      <span class="keywordtype">int</span> part_overlap_count = part-&gt;CountOverlappingBoxes(neighbour_box);
+      <span class="keywordtype">int</span> neighbour_overlap_count = neighbour-&gt;CountOverlappingBoxes(box);
+      ColPartition* right_part = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+      <span class="keywordflow">if</span> (neighbour_overlap_count &lt;= part_overlap_count ||
+          part-&gt;IsSingleton()) {
+        <span class="comment">// Try to split the neighbour to reduce overlap.</span>
+        <a class="code" href="class_b_l_o_b_n_b_o_x.html">BLOBNBOX</a>* split_blob = neighbour-&gt;OverlapSplitBlob(box);
+        <span class="keywordflow">if</span> (split_blob != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+          rsearch.RemoveBBox();
+          right_part = neighbour-&gt;SplitAtBlob(split_blob);
+          <a class="code" href="classtesseract_1_1_b_b_grid.html#a7b379525e3d60c68e583352ae4b8a750">InsertBBox</a>(<span class="keyword">true</span>, <span class="keyword">true</span>, neighbour);
+          <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(right_part != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+        }
+      } <span class="keywordflow">else</span> {
+        <span class="comment">// Try to split part to reduce overlap.</span>
+        <a class="code" href="class_b_l_o_b_n_b_o_x.html">BLOBNBOX</a>* split_blob = part-&gt;OverlapSplitBlob(neighbour_box);
+        <span class="keywordflow">if</span> (split_blob != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+          gsearch.RemoveBBox();
+          right_part = part-&gt;SplitAtBlob(split_blob);
+          <a class="code" href="classtesseract_1_1_b_b_grid.html#a7b379525e3d60c68e583352ae4b8a750">InsertBBox</a>(<span class="keyword">true</span>, <span class="keyword">true</span>, part);
+          <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(right_part != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+        }
+      }
+      <span class="keywordflow">if</span> (right_part != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+        <a class="code" href="classtesseract_1_1_b_b_grid.html#a7b379525e3d60c68e583352ae4b8a750">InsertBBox</a>(<span class="keyword">true</span>, <span class="keyword">true</span>, right_part);
+        gsearch.RepositionIterator();
+        rsearch.RepositionIterator();
+        <span class="keywordflow">break</span>;
+      }
+    }
+    <span class="keywordflow">if</span> (unresolved_overlaps &gt; 2 &amp;&amp; part-&gt;IsSingleton()) {
+      <span class="comment">// This part is no good so just add to big_parts.</span>
+      <a class="code" href="classtesseract_1_1_b_b_grid.html#adc713153c1282d8727f85ee6d38d7d31">RemoveBBox</a>(part);
+      ColPartition_IT big_it(big_parts);
+      part-&gt;set_block_owned(<span class="keyword">true</span>);
+      big_it.add_to_end(part);
+      gsearch.RepositionIterator();
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/textord/<a class="el" href="colpartitiongrid_8h_source.html">colpartitiongrid.h</a></li>
-<li>tesseract-ocr/textord/<a class="el" href="colpartitiongrid_8cpp.html">colpartitiongrid.cpp</a></li>
+<li>tesseract-ocr/textord/<a class="el" href="colpartitiongrid_8cpp_source.html">colpartitiongrid.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -832,7 +1740,7 @@ Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:17 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:53 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

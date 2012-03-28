@@ -155,7 +155,10 @@ Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_t_o___b_l_o_c_k.html#a21f28449a45963c01186652c0e3b09c8">pr_nonsp</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_t_o___r_o_w.html">TO_ROW</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_t_o___b_l_o_c_k.html#a6a76a4282791ee8f215c0e8b8dd7db16">key_row</a></td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00667">667</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="afe49bb2123dae935745e2887fedc1fac"></a><!-- doxytag: member="TO_BLOCK::TO_BLOCK" ref="afe49bb2123dae935745e2887fedc1fac" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -170,6 +173,11 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00670">670</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">               : <a class="code" href="class_t_o___b_l_o_c_k.html#a034647e00f39451c75edb83da6e4578d">pitch_decision</a>(<a class="code" href="blobbox_8h.html#a4c698e96e1ebeb67e13f584c524fd154a10ae5c0248c64ac97f5b982caff993bc">PITCH_DUNNO</a>) {
+      <a class="code" href="class_t_o___b_l_o_c_k.html#a0b8a9f074a97502acfc54421749474c4">clear</a>();
+    }                            <span class="comment">//empty</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae9881f223c997dbd8e53303b90807b61"></a><!-- doxytag: member="TO_BLOCK::TO_BLOCK" ref="ae9881f223c997dbd8e53303b90807b61" args="(BLOCK *src_block)" -->
@@ -187,6 +195,12 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8cpp_source.html#l00850">850</a> of file <a class="el" href="blobbox_8cpp_source.html">blobbox.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                    {
+  <a class="code" href="class_t_o___b_l_o_c_k.html#a0b8a9f074a97502acfc54421749474c4">clear</a>();
+  <a class="code" href="class_t_o___b_l_o_c_k.html#a16e698664028b0d6d2193db64560c16b">block</a> = src_block;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a0e19df5ab7240daef380fd20d6c7e13f"></a><!-- doxytag: member="TO_BLOCK::~TO_BLOCK" ref="a0e19df5ab7240daef380fd20d6c7e13f" args="()" -->
@@ -203,6 +217,16 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8cpp_source.html#l00894">894</a> of file <a class="el" href="blobbox_8cpp_source.html">blobbox.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                    {
+  <span class="comment">// Any residual BLOBNBOXes at this stage own their blobs, so delete them.</span>
+  clear_blobnboxes(&amp;<a class="code" href="class_t_o___b_l_o_c_k.html#a5dd67c54162a6b60b0fd11500d4a3025">blobs</a>);
+  clear_blobnboxes(&amp;<a class="code" href="class_t_o___b_l_o_c_k.html#abe8092e46729fbddf38f16ad7ca07318">underlines</a>);
+  clear_blobnboxes(&amp;<a class="code" href="class_t_o___b_l_o_c_k.html#aa6a3757d385e79ab76f34afb6e8fc684">noise_blobs</a>);
+  clear_blobnboxes(&amp;<a class="code" href="class_t_o___b_l_o_c_k.html#ad16b1c18225b44c50674ca46841b0f5f">small_blobs</a>);
+  clear_blobnboxes(&amp;<a class="code" href="class_t_o___b_l_o_c_k.html#aafe2a9baa69300ee71da42e6dc18cfee">large_blobs</a>);
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -220,6 +244,27 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8cpp_source.html#l00873">873</a> of file <a class="el" href="blobbox_8cpp_source.html">blobbox.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                     {
+  <a class="code" href="class_t_o___b_l_o_c_k.html#a16e698664028b0d6d2193db64560c16b">block</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <a class="code" href="class_t_o___b_l_o_c_k.html#a034647e00f39451c75edb83da6e4578d">pitch_decision</a> = <a class="code" href="blobbox_8h.html#a4c698e96e1ebeb67e13f584c524fd154a10ae5c0248c64ac97f5b982caff993bc">PITCH_DUNNO</a>;
+  <a class="code" href="class_t_o___b_l_o_c_k.html#ac17b9c95641b2eebee9d972338c2e5f6">line_spacing</a> = 0.0;
+  <a class="code" href="class_t_o___b_l_o_c_k.html#ab106233da0599f3e1595c1c765acadec">line_size</a> = 0.0;
+  <a class="code" href="class_t_o___b_l_o_c_k.html#abda136ff240577928343ca37453aca7a">max_blob_size</a> = 0.0;
+  <a class="code" href="class_t_o___b_l_o_c_k.html#abb8334b4a0c2b2625516a1c4b54cbf1f">baseline_offset</a> = 0.0;
+  <a class="code" href="class_t_o___b_l_o_c_k.html#a4d0f99a557a4950af5123a31a157749f">xheight</a> = 0.0;
+  <a class="code" href="class_t_o___b_l_o_c_k.html#ad071c3c26e269d6dc2a76d9841dcb7e3">fixed_pitch</a> = 0.0;
+  <a class="code" href="class_t_o___b_l_o_c_k.html#abdfeba3292b69b3c61fc048491554aa4">kern_size</a> = 0.0;
+  <a class="code" href="class_t_o___b_l_o_c_k.html#ab2dbae642d172fae61f5adba3a4dc480">space_size</a> = 0.0;
+  <a class="code" href="class_t_o___b_l_o_c_k.html#a7f1bc695845395a79f8f9ae0fcf04f0f">min_space</a> = 0;
+  <a class="code" href="class_t_o___b_l_o_c_k.html#aeee5dfdcb4be66993fd6fc9f51678b1a">max_nonspace</a> = 0;
+  <a class="code" href="class_t_o___b_l_o_c_k.html#afe4168e76dcae8cb672a6aea41be7ed6">fp_space</a> = 0.0;
+  <a class="code" href="class_t_o___b_l_o_c_k.html#a5f7c0a0860af80920d5dea02debfb75b">fp_nonsp</a> = 0.0;
+  <a class="code" href="class_t_o___b_l_o_c_k.html#ac44a3329ef87feb53f417773b8ec753d">pr_space</a> = 0.0;
+  <a class="code" href="class_t_o___b_l_o_c_k.html#a21f28449a45963c01186652c0e3b09c8">pr_nonsp</a> = 0.0;
+  <a class="code" href="class_t_o___b_l_o_c_k.html#a6a76a4282791ee8f215c0e8b8dd7db16">key_row</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9ce3c22594b44b4faad5c331ad0265ea"></a><!-- doxytag: member="TO_BLOCK::DeleteUnownedNoise" ref="a9ce3c22594b44b4faad5c331ad0265ea" args="()" -->
@@ -236,6 +281,18 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8cpp_source.html#l00966">966</a> of file <a class="el" href="blobbox_8cpp_source.html">blobbox.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                  {
+  <a class="code" href="class_b_l_o_b_n_b_o_x.html#ae27906ce7e33b0714e87ecda31dcc825">BLOBNBOX::CleanNeighbours</a>(&amp;<a class="code" href="class_t_o___b_l_o_c_k.html#a5dd67c54162a6b60b0fd11500d4a3025">blobs</a>);
+  <a class="code" href="class_b_l_o_b_n_b_o_x.html#ae27906ce7e33b0714e87ecda31dcc825">BLOBNBOX::CleanNeighbours</a>(&amp;<a class="code" href="class_t_o___b_l_o_c_k.html#ad16b1c18225b44c50674ca46841b0f5f">small_blobs</a>);
+  <a class="code" href="class_b_l_o_b_n_b_o_x.html#ae27906ce7e33b0714e87ecda31dcc825">BLOBNBOX::CleanNeighbours</a>(&amp;<a class="code" href="class_t_o___b_l_o_c_k.html#aa6a3757d385e79ab76f34afb6e8fc684">noise_blobs</a>);
+  <a class="code" href="class_b_l_o_b_n_b_o_x.html#ae27906ce7e33b0714e87ecda31dcc825">BLOBNBOX::CleanNeighbours</a>(&amp;<a class="code" href="class_t_o___b_l_o_c_k.html#aafe2a9baa69300ee71da42e6dc18cfee">large_blobs</a>);
+  <a class="code" href="class_b_l_o_b_n_b_o_x.html#a08e197e85c158f4bb9cbe388b980598e">BLOBNBOX::DeleteNoiseBlobs</a>(&amp;<a class="code" href="class_t_o___b_l_o_c_k.html#a5dd67c54162a6b60b0fd11500d4a3025">blobs</a>);
+  <a class="code" href="class_b_l_o_b_n_b_o_x.html#a08e197e85c158f4bb9cbe388b980598e">BLOBNBOX::DeleteNoiseBlobs</a>(&amp;<a class="code" href="class_t_o___b_l_o_c_k.html#ad16b1c18225b44c50674ca46841b0f5f">small_blobs</a>);
+  <a class="code" href="class_b_l_o_b_n_b_o_x.html#a08e197e85c158f4bb9cbe388b980598e">BLOBNBOX::DeleteNoiseBlobs</a>(&amp;<a class="code" href="class_t_o___b_l_o_c_k.html#aa6a3757d385e79ab76f34afb6e8fc684">noise_blobs</a>);
+  <a class="code" href="class_b_l_o_b_n_b_o_x.html#a08e197e85c158f4bb9cbe388b980598e">BLOBNBOX::DeleteNoiseBlobs</a>(&amp;<a class="code" href="class_t_o___b_l_o_c_k.html#aafe2a9baa69300ee71da42e6dc18cfee">large_blobs</a>);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4846ebdcc832b4b0a762d87c0d83a056"></a><!-- doxytag: member="TO_BLOCK::get_rows" ref="a4846ebdcc832b4b0a762d87c0d83a056" args="()" -->
@@ -252,6 +309,11 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00679">679</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                            {  <span class="comment">//access function</span>
+      <span class="keywordflow">return</span> &amp;row_list;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="afd0504ca5c8fa605fbea3dbca2d8ee2e"></a><!-- doxytag: member="TO_BLOCK::plot_graded_blobs" ref="afd0504ca5c8fa605fbea3dbca2d8ee2e" args="(ScrollView *to_win)" -->
@@ -269,6 +331,16 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8cpp_source.html#l00987">987</a> of file <a class="el" href="blobbox_8cpp_source.html">blobbox.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                {
+  <a class="code" href="class_b_l_o_b_n_b_o_x.html#a4390090c077b282cb4bc814633cb8e27">BLOBNBOX::PlotBlobs</a>(&amp;<a class="code" href="class_t_o___b_l_o_c_k.html#aa6a3757d385e79ab76f34afb6e8fc684">noise_blobs</a>, <a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8a9a954d0f0149ee883cbcc5e0a379b460">ScrollView::CORAL</a>, <a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8a66e5117e4930fdd9a43bdb674d57a719">ScrollView::BLUE</a>, win);
+  <a class="code" href="class_b_l_o_b_n_b_o_x.html#a4390090c077b282cb4bc814633cb8e27">BLOBNBOX::PlotBlobs</a>(&amp;<a class="code" href="class_t_o___b_l_o_c_k.html#ad16b1c18225b44c50674ca46841b0f5f">small_blobs</a>, <a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8a8c6bd80ef295f1fcdb8e79549a0b9385">ScrollView::GOLDENROD</a>, <a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8a61dec9bc0aaf1d527a731b2a6ce055c8">ScrollView::YELLOW</a>,
+                      win);
+  <a class="code" href="class_b_l_o_b_n_b_o_x.html#a4390090c077b282cb4bc814633cb8e27">BLOBNBOX::PlotBlobs</a>(&amp;<a class="code" href="class_t_o___b_l_o_c_k.html#aafe2a9baa69300ee71da42e6dc18cfee">large_blobs</a>, <a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8acf8b3fe79bd99f51b05b218a8b0c5ee5">ScrollView::DARK_GREEN</a>, <a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8a61dec9bc0aaf1d527a731b2a6ce055c8">ScrollView::YELLOW</a>,
+                      win);
+  <a class="code" href="class_b_l_o_b_n_b_o_x.html#a4390090c077b282cb4bc814633cb8e27">BLOBNBOX::PlotBlobs</a>(&amp;<a class="code" href="class_t_o___b_l_o_c_k.html#a5dd67c54162a6b60b0fd11500d4a3025">blobs</a>, <a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8a0eab2b208fc9a5e2774f92cf3e768982">ScrollView::WHITE</a>, <a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8a3147083bcb68eb690858099c736e6857">ScrollView::BROWN</a>, win);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae1af42d3d5b1cc342627c6e3be93a1d4"></a><!-- doxytag: member="TO_BLOCK::plot_noise_blobs" ref="ae1af42d3d5b1cc342627c6e3be93a1d4" args="(ScrollView *to_win)" -->
@@ -286,6 +358,14 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8cpp_source.html#l00979">979</a> of file <a class="el" href="blobbox_8cpp_source.html">blobbox.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                               {
+  <a class="code" href="class_b_l_o_b_n_b_o_x.html#a64e7f32e8eb4319767dfb632db3867bf">BLOBNBOX::PlotNoiseBlobs</a>(&amp;<a class="code" href="class_t_o___b_l_o_c_k.html#aa6a3757d385e79ab76f34afb6e8fc684">noise_blobs</a>, <a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8a0959f7470b08ae1a38aa7e38fba29402">ScrollView::RED</a>, <a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8a0959f7470b08ae1a38aa7e38fba29402">ScrollView::RED</a>, win);
+  <a class="code" href="class_b_l_o_b_n_b_o_x.html#a64e7f32e8eb4319767dfb632db3867bf">BLOBNBOX::PlotNoiseBlobs</a>(&amp;<a class="code" href="class_t_o___b_l_o_c_k.html#ad16b1c18225b44c50674ca46841b0f5f">small_blobs</a>, <a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8a0959f7470b08ae1a38aa7e38fba29402">ScrollView::RED</a>, <a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8a0959f7470b08ae1a38aa7e38fba29402">ScrollView::RED</a>, win);
+  <a class="code" href="class_b_l_o_b_n_b_o_x.html#a64e7f32e8eb4319767dfb632db3867bf">BLOBNBOX::PlotNoiseBlobs</a>(&amp;<a class="code" href="class_t_o___b_l_o_c_k.html#aafe2a9baa69300ee71da42e6dc18cfee">large_blobs</a>, <a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8a0959f7470b08ae1a38aa7e38fba29402">ScrollView::RED</a>, <a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8a0959f7470b08ae1a38aa7e38fba29402">ScrollView::RED</a>, win);
+  <a class="code" href="class_b_l_o_b_n_b_o_x.html#a64e7f32e8eb4319767dfb632db3867bf">BLOBNBOX::PlotNoiseBlobs</a>(&amp;<a class="code" href="class_t_o___b_l_o_c_k.html#a5dd67c54162a6b60b0fd11500d4a3025">blobs</a>, <a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8a0959f7470b08ae1a38aa7e38fba29402">ScrollView::RED</a>, <a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8a0959f7470b08ae1a38aa7e38fba29402">ScrollView::RED</a>, win);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2c7cbdd280f7965433e685ac0ba6ae97"></a><!-- doxytag: member="TO_BLOCK::print_rows" ref="a2c7cbdd280f7965433e685ac0ba6ae97" args="()" -->
@@ -302,6 +382,20 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00709">709</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                      {  <span class="comment">//debug info</span>
+      TO_ROW_IT row_it = &amp;row_list;
+      <a class="code" href="class_t_o___r_o_w.html">TO_ROW</a> *row;
+
+      <span class="keywordflow">for</span> (row_it.mark_cycle_pt (); !row_it.cycled_list ();
+      row_it.forward ()) {
+        row = row_it.data ();
+        printf (<span class="stringliteral">&quot;Row range (%g,%g), para_c=%g, blobcount=&quot;</span> <a class="code" href="host_8h.html#abe22434564efd658acebe9e8cf6235bc">INT32FORMAT</a>
+          <span class="stringliteral">&quot;\n&quot;</span>, row-&gt;<a class="code" href="class_t_o___r_o_w.html#ad00c86bd684bd454b57bc3bf2b9d0680">min_y</a> (), row-&gt;<a class="code" href="class_t_o___r_o_w.html#a99b13776064db8791dd9d9f8cd9749ee">max_y</a> (), row-&gt;<a class="code" href="class_t_o___r_o_w.html#a81a46c8d6026c157c152778aa9d1ab58">parallel_c</a> (),
+          row-&gt;<a class="code" href="class_t_o___r_o_w.html#a39cee94572e70d35179c27cdf21a3022">blob_list</a> ()-&gt;length ());
+      }
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9b17e51cab6a0a8b6d8220443a2e9aa7"></a><!-- doxytag: member="TO_BLOCK::ReSetAndReFilterBlobs" ref="a9b17e51cab6a0a8b6d8220443a2e9aa7" args="()" -->
@@ -318,6 +412,32 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8cpp_source.html#l00940">940</a> of file <a class="el" href="blobbox_8cpp_source.html">blobbox.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                     {
+  <span class="keywordtype">int</span> min_height = <a class="code" href="helpers_8h.html#ab60e4f82956a1f5fdb54d0d8303e95b7">IntCastRounded</a>(<a class="code" href="blobbox_8cpp.html#ac288f4cd6831a635cc0c279f9f9aaf7b">kMinMediumSizeRatio</a> * <a class="code" href="class_t_o___b_l_o_c_k.html#ab106233da0599f3e1595c1c765acadec">line_size</a>);
+  <span class="keywordtype">int</span> max_height = <a class="code" href="helpers_8h.html#ab60e4f82956a1f5fdb54d0d8303e95b7">IntCastRounded</a>(<a class="code" href="blobbox_8cpp.html#a0d87f01e29a3f7760d6423d98fd8fa34">kMaxMediumSizeRatio</a> * <a class="code" href="class_t_o___b_l_o_c_k.html#ab106233da0599f3e1595c1c765acadec">line_size</a>);
+  BLOBNBOX_LIST noise_list;
+  BLOBNBOX_LIST small_list;
+  BLOBNBOX_LIST medium_list;
+  BLOBNBOX_LIST large_list;
+  SizeFilterBlobs(min_height, max_height, &amp;<a class="code" href="class_t_o___b_l_o_c_k.html#a5dd67c54162a6b60b0fd11500d4a3025">blobs</a>,
+                  &amp;noise_list, &amp;small_list, &amp;medium_list, &amp;large_list);
+  SizeFilterBlobs(min_height, max_height, &amp;<a class="code" href="class_t_o___b_l_o_c_k.html#aafe2a9baa69300ee71da42e6dc18cfee">large_blobs</a>,
+                  &amp;noise_list, &amp;small_list, &amp;medium_list, &amp;large_list);
+  SizeFilterBlobs(min_height, max_height, &amp;<a class="code" href="class_t_o___b_l_o_c_k.html#ad16b1c18225b44c50674ca46841b0f5f">small_blobs</a>,
+                  &amp;noise_list, &amp;small_list, &amp;medium_list, &amp;large_list);
+  SizeFilterBlobs(min_height, max_height, &amp;<a class="code" href="class_t_o___b_l_o_c_k.html#aa6a3757d385e79ab76f34afb6e8fc684">noise_blobs</a>,
+                  &amp;noise_list, &amp;small_list, &amp;medium_list, &amp;large_list);
+  BLOBNBOX_IT blob_it(&amp;<a class="code" href="class_t_o___b_l_o_c_k.html#a5dd67c54162a6b60b0fd11500d4a3025">blobs</a>);
+  blob_it.add_list_after(&amp;medium_list);
+  blob_it.set_to_list(&amp;<a class="code" href="class_t_o___b_l_o_c_k.html#aafe2a9baa69300ee71da42e6dc18cfee">large_blobs</a>);
+  blob_it.add_list_after(&amp;large_list);
+  blob_it.set_to_list(&amp;<a class="code" href="class_t_o___b_l_o_c_k.html#ad16b1c18225b44c50674ca46841b0f5f">small_blobs</a>);
+  blob_it.add_list_after(&amp;small_list);
+  blob_it.set_to_list(&amp;<a class="code" href="class_t_o___b_l_o_c_k.html#aa6a3757d385e79ab76f34afb6e8fc684">noise_blobs</a>);
+  blob_it.add_list_after(&amp;noise_list);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac0b7a4a071c9800f762554152dd395b2"></a><!-- doxytag: member="TO_BLOCK::rotate" ref="ac0b7a4a071c9800f762554152dd395b2" args="(const FCOORD &amp;rotation)" -->
@@ -335,6 +455,31 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00685">685</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                        {
+      BLOBNBOX_LIST* blobnbox_list[] = {&amp;<a class="code" href="class_t_o___b_l_o_c_k.html#a5dd67c54162a6b60b0fd11500d4a3025">blobs</a>, &amp;<a class="code" href="class_t_o___b_l_o_c_k.html#abe8092e46729fbddf38f16ad7ca07318">underlines</a>, &amp;<a class="code" href="class_t_o___b_l_o_c_k.html#aa6a3757d385e79ab76f34afb6e8fc684">noise_blobs</a>,
+                                        &amp;<a class="code" href="class_t_o___b_l_o_c_k.html#ad16b1c18225b44c50674ca46841b0f5f">small_blobs</a>, &amp;<a class="code" href="class_t_o___b_l_o_c_k.html#aafe2a9baa69300ee71da42e6dc18cfee">large_blobs</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>};
+      <span class="keywordflow">for</span> (BLOBNBOX_LIST** list = blobnbox_list; *list != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>; ++list) {
+        BLOBNBOX_IT it(*list);
+        <span class="keywordflow">for</span> (it.mark_cycle_pt(); !it.cycled_list(); it.forward()) {
+          it.data()-&gt;rotate(rotation);
+        }
+      }
+      <span class="comment">// Rotate the block</span>
+      <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(<a class="code" href="class_t_o___b_l_o_c_k.html#a16e698664028b0d6d2193db64560c16b">block</a>-&gt;<a class="code" href="class_p_d_b_l_k.html#a6670779c69aca2d574e4a0590d9b3939">poly_block</a>() != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+      <a class="code" href="class_t_o___b_l_o_c_k.html#a16e698664028b0d6d2193db64560c16b">block</a>-&gt;<a class="code" href="class_b_l_o_c_k.html#a70bff81f89d9bf771cfd09952f043b03">rotate</a>(rotation);
+      <span class="comment">// Update the median size statistic from the blobs list.</span>
+      <a class="code" href="class_s_t_a_t_s.html">STATS</a> widths(0, <a class="code" href="class_t_o___b_l_o_c_k.html#a16e698664028b0d6d2193db64560c16b">block</a>-&gt;<a class="code" href="class_p_d_b_l_k.html#a91950a96127b4a0bb9b237e1f5f889a4" title="get box">bounding_box</a>().width());
+      <a class="code" href="class_s_t_a_t_s.html">STATS</a> heights(0, <a class="code" href="class_t_o___b_l_o_c_k.html#a16e698664028b0d6d2193db64560c16b">block</a>-&gt;<a class="code" href="class_p_d_b_l_k.html#a91950a96127b4a0bb9b237e1f5f889a4" title="get box">bounding_box</a>().height());
+      BLOBNBOX_IT blob_it(&amp;<a class="code" href="class_t_o___b_l_o_c_k.html#a5dd67c54162a6b60b0fd11500d4a3025">blobs</a>);
+      <span class="keywordflow">for</span> (blob_it.mark_cycle_pt(); !blob_it.cycled_list(); blob_it.forward()) {
+        widths.add(blob_it.data()-&gt;bounding_box().width(), 1);
+        heights.add(blob_it.data()-&gt;bounding_box().height(), 1);
+      }
+      <a class="code" href="class_t_o___b_l_o_c_k.html#a16e698664028b0d6d2193db64560c16b">block</a>-&gt;<a class="code" href="class_b_l_o_c_k.html#a9ebbb6f7072ddf986d32a93b19fe5d44">set_median_size</a>(static_cast&lt;int&gt;(widths.median() + 0.5),
+                             <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(heights.median() + 0.5));
+    }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
@@ -349,6 +494,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00753">753</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a5dd67c54162a6b60b0fd11500d4a3025"></a><!-- doxytag: member="TO_BLOCK::blobs" ref="a5dd67c54162a6b60b0fd11500d4a3025" args="" -->
@@ -361,6 +508,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00738">738</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
 
 </div>
 </div>
@@ -375,6 +524,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00743">743</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ad071c3c26e269d6dc2a76d9841dcb7e3"></a><!-- doxytag: member="TO_BLOCK::fixed_pitch" ref="ad071c3c26e269d6dc2a76d9841dcb7e3" args="" -->
@@ -387,6 +538,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00755">755</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
 
 </div>
 </div>
@@ -401,6 +554,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00761">761</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="afe4168e76dcae8cb672a6aea41be7ed6"></a><!-- doxytag: member="TO_BLOCK::fp_space" ref="afe4168e76dcae8cb672a6aea41be7ed6" args="" -->
@@ -413,6 +568,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00760">760</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
 
 </div>
 </div>
@@ -427,6 +584,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00756">756</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a6a76a4282791ee8f215c0e8b8dd7db16"></a><!-- doxytag: member="TO_BLOCK::key_row" ref="a6a76a4282791ee8f215c0e8b8dd7db16" args="" -->
@@ -439,6 +598,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00764">764</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
 
 </div>
 </div>
@@ -453,6 +614,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00742">742</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ab106233da0599f3e1595c1c765acadec"></a><!-- doxytag: member="TO_BLOCK::line_size" ref="ab106233da0599f3e1595c1c765acadec" args="" -->
@@ -465,6 +628,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00751">751</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
 
 </div>
 </div>
@@ -479,6 +644,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00745">745</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="abda136ff240577928343ca37453aca7a"></a><!-- doxytag: member="TO_BLOCK::max_blob_size" ref="abda136ff240577928343ca37453aca7a" args="" -->
@@ -491,6 +658,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00752">752</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
 
 </div>
 </div>
@@ -505,6 +674,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00759">759</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a7f1bc695845395a79f8f9ae0fcf04f0f"></a><!-- doxytag: member="TO_BLOCK::min_space" ref="a7f1bc695845395a79f8f9ae0fcf04f0f" args="" -->
@@ -517,6 +688,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00758">758</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
 
 </div>
 </div>
@@ -531,6 +704,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00740">740</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a034647e00f39451c75edb83da6e4578d"></a><!-- doxytag: member="TO_BLOCK::pitch_decision" ref="a034647e00f39451c75edb83da6e4578d" args="" -->
@@ -543,6 +718,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00744">744</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
 
 </div>
 </div>
@@ -557,6 +734,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00763">763</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ac44a3329ef87feb53f417773b8ec753d"></a><!-- doxytag: member="TO_BLOCK::pr_space" ref="ac44a3329ef87feb53f417773b8ec753d" args="" -->
@@ -569,6 +748,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00762">762</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
 
 </div>
 </div>
@@ -583,6 +764,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00741">741</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ab2dbae642d172fae61f5adba3a4dc480"></a><!-- doxytag: member="TO_BLOCK::space_size" ref="ab2dbae642d172fae61f5adba3a4dc480" args="" -->
@@ -595,6 +778,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00757">757</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
 
 </div>
 </div>
@@ -609,6 +794,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00739">739</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a4d0f99a557a4950af5123a31a157749f"></a><!-- doxytag: member="TO_BLOCK::xheight" ref="a4d0f99a557a4950af5123a31a157749f" args="" -->
@@ -622,11 +809,13 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobbox_8h_source.html#l00754">754</a> of file <a class="el" href="blobbox_8h_source.html">blobbox.h</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/ccstruct/<a class="el" href="blobbox_8h_source.html">blobbox.h</a></li>
-<li>tesseract-ocr/ccstruct/<a class="el" href="blobbox_8cpp.html">blobbox.cpp</a></li>
+<li>tesseract-ocr/ccstruct/<a class="el" href="blobbox_8cpp_source.html">blobbox.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -648,7 +837,7 @@ Public Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:14 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:47 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

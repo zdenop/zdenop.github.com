@@ -130,7 +130,10 @@ Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">BLOB_CHOICE_LIST *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_s_e_g___s_e_a_r_c_h___p_e_n_d_i_n_g.html#aa392a894841d0ca0e37d1ef324778364">parent</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacetesseract.html#a87cc64ed462a40c9c210a8bab7cb9b87">tesseract::LanguageModelFlagsType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_s_e_g___s_e_a_r_c_h___p_e_n_d_i_n_g.html#a24b162a87d559d04dbe998ab1da571f9">changed</a></td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="wordrec_8h_source.html#l00042">42</a> of file <a class="el" href="wordrec_8h_source.html">wordrec.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a032fccf55a36d4b0f37e633851c225c3"></a><!-- doxytag: member="SEG_SEARCH_PENDING::SEG_SEARCH_PENDING" ref="a032fccf55a36d4b0f37e633851c225c3" args="(int child_row_arg, BLOB_CHOICE_LIST *parent_arg, tesseract::LanguageModelFlagsType changed_arg)" -->
 <div class="memitem">
 <div class="memproto">
@@ -162,6 +165,10 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="wordrec_8h_source.html#l00043">43</a> of file <a class="el" href="wordrec_8h_source.html">wordrec.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                  :
+    <a class="code" href="struct_s_e_g___s_e_a_r_c_h___p_e_n_d_i_n_g.html#a23c23673b30de59bbea85026226c0574">child_row</a>(child_row_arg), <a class="code" href="struct_s_e_g___s_e_a_r_c_h___p_e_n_d_i_n_g.html#aa392a894841d0ca0e37d1ef324778364">parent</a>(parent_arg), <a class="code" href="struct_s_e_g___s_e_a_r_c_h___p_e_n_d_i_n_g.html#a24b162a87d559d04dbe998ab1da571f9">changed</a>(changed_arg) {}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -190,6 +197,17 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="wordrec_8h_source.html#l00049">49</a> of file <a class="el" href="wordrec_8h_source.html">wordrec.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                     {
+    <span class="keyword">const</span> <a class="code" href="struct_s_e_g___s_e_a_r_c_h___p_e_n_d_i_n_g.html">SEG_SEARCH_PENDING</a> *e1 = *<span class="keyword">reinterpret_cast&lt;</span>
+      <span class="keyword">const </span><a class="code" href="struct_s_e_g___s_e_a_r_c_h___p_e_n_d_i_n_g.html">SEG_SEARCH_PENDING</a> * <span class="keyword">const </span>*<span class="keyword">&gt;</span>(p1);
+    <span class="keyword">const</span> <a class="code" href="struct_s_e_g___s_e_a_r_c_h___p_e_n_d_i_n_g.html">SEG_SEARCH_PENDING</a> *e2 = *<span class="keyword">reinterpret_cast&lt;</span>
+      <span class="keyword">const </span><a class="code" href="struct_s_e_g___s_e_a_r_c_h___p_e_n_d_i_n_g.html">SEG_SEARCH_PENDING</a> * <span class="keyword">const </span>*<span class="keyword">&gt;</span>(p2);
+    <span class="keywordflow">if</span> (e1-&gt;<a class="code" href="struct_s_e_g___s_e_a_r_c_h___p_e_n_d_i_n_g.html#a23c23673b30de59bbea85026226c0574">child_row</a> == e2-&gt;<a class="code" href="struct_s_e_g___s_e_a_r_c_h___p_e_n_d_i_n_g.html#a23c23673b30de59bbea85026226c0574">child_row</a> &amp;&amp;
+        e1-&gt;<a class="code" href="struct_s_e_g___s_e_a_r_c_h___p_e_n_d_i_n_g.html#aa392a894841d0ca0e37d1ef324778364">parent</a> == e2-&gt;<a class="code" href="struct_s_e_g___s_e_a_r_c_h___p_e_n_d_i_n_g.html#aa392a894841d0ca0e37d1ef324778364">parent</a>) <span class="keywordflow">return</span> 0;
+    <span class="keywordflow">return</span> (e1-&gt;<a class="code" href="struct_s_e_g___s_e_a_r_c_h___p_e_n_d_i_n_g.html#a23c23673b30de59bbea85026226c0574">child_row</a> &lt; e2-&gt;<a class="code" href="struct_s_e_g___s_e_a_r_c_h___p_e_n_d_i_n_g.html#a23c23673b30de59bbea85026226c0574">child_row</a>) ? -1 : 1;
+  }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
@@ -204,6 +222,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="wordrec_8h_source.html#l00066">66</a> of file <a class="el" href="wordrec_8h_source.html">wordrec.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a23c23673b30de59bbea85026226c0574"></a><!-- doxytag: member="SEG_SEARCH_PENDING::child_row" ref="a23c23673b30de59bbea85026226c0574" args="" -->
@@ -217,6 +237,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="wordrec_8h_source.html#l00059">59</a> of file <a class="el" href="wordrec_8h_source.html">wordrec.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="aa392a894841d0ca0e37d1ef324778364"></a><!-- doxytag: member="SEG_SEARCH_PENDING::parent" ref="aa392a894841d0ca0e37d1ef324778364" args="" -->
@@ -229,6 +251,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="wordrec_8h_source.html#l00060">60</a> of file <a class="el" href="wordrec_8h_source.html">wordrec.h</a>.</p>
 
 </div>
 </div>
@@ -255,7 +279,7 @@ Public Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:13 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:46 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

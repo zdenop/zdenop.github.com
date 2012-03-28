@@ -156,6 +156,16 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="boxread_8cpp_source.html#l00155">155</a> of file <a class="el" href="boxread_8cpp_source.html">boxread.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                     {
+  *box_str = unichar_str;
+  box_str-&gt;<a class="code" href="class_s_t_r_i_n_g.html#a779cd637dd42d58d5500a3a657077e84">add_str_int</a>(<span class="stringliteral">&quot; &quot;</span>, box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>());
+  box_str-&gt;<a class="code" href="class_s_t_r_i_n_g.html#a779cd637dd42d58d5500a3a657077e84">add_str_int</a>(<span class="stringliteral">&quot; &quot;</span>, box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>());
+  box_str-&gt;<a class="code" href="class_s_t_r_i_n_g.html#a779cd637dd42d58d5500a3a657077e84">add_str_int</a>(<span class="stringliteral">&quot; &quot;</span>, box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>());
+  box_str-&gt;<a class="code" href="class_s_t_r_i_n_g.html#a779cd637dd42d58d5500a3a657077e84">add_str_int</a>(<span class="stringliteral">&quot; &quot;</span>, box.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>());
+  box_str-&gt;<a class="code" href="class_s_t_r_i_n_g.html#a779cd637dd42d58d5500a3a657077e84">add_str_int</a>(<span class="stringliteral">&quot; &quot;</span>, page_num);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="af8f00c0aa1951fff65cff5802879a91d"></a><!-- doxytag: member="boxread.h::OpenBoxFile" ref="af8f00c0aa1951fff65cff5802879a91d" args="(const STRING &amp;fname)" -->
@@ -173,6 +183,23 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="boxread_8cpp_source.html#l00033">33</a> of file <a class="el" href="boxread_8cpp_source.html">boxread.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                       {
+  <a class="code" href="class_s_t_r_i_n_g.html">STRING</a> filename = fname;
+  <span class="keyword">const</span> <span class="keywordtype">char</span> *lastdot = strrchr(filename.<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a>(), <span class="charliteral">&#39;.&#39;</span>);
+  <span class="keywordflow">if</span> (lastdot != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    filename[lastdot - filename.<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a>()] = <span class="charliteral">&#39;\0&#39;</span>;
+
+  filename += <span class="stringliteral">&quot;.box&quot;</span>;
+  FILE* box_file = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordflow">if</span> (!(box_file = fopen(filename.<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a>(), <span class="stringliteral">&quot;rb&quot;</span>))) {
+    <a class="code" href="fileerr_8h.html#a33ffba120713106d14f1e425559ac571">CANTOPENFILE</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a>(<span class="stringliteral">&quot;read_next_box&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a5e74e236a50519c41cbbcecea29add63">TESSEXIT</a>,
+                       <span class="stringliteral">&quot;Cant open box file %s&quot;</span>,
+                       filename.<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a>());
+  }
+  <span class="keywordflow">return</span> box_file;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="acd464bb54397318c2f6fb8db9e644fd0"></a><!-- doxytag: member="boxread.h::ParseBoxFileStr" ref="acd464bb54397318c2f6fb8db9e644fd0" args="(const char *boxfile_str, int *page_number, STRING *utf8_str, TBOX *bounding_box)" -->
@@ -212,6 +239,55 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="boxread_8cpp_source.html#l00105">105</a> of file <a class="el" href="boxread_8cpp_source.html">boxread.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                           {
+  *bounding_box = <a class="code" href="class_t_b_o_x.html">TBOX</a>();       <span class="comment">// Initialize it to empty.</span>
+  *utf8_str = <span class="stringliteral">&quot;&quot;</span>;
+  <span class="keywordtype">char</span> uch[<a class="code" href="boxread_8h.html#a6a24b858ccf4e9eb9e163b5bcc04b682">kBoxReadBufSize</a>];
+  <span class="keyword">const</span> <span class="keywordtype">char</span> *buffptr = boxfile_str;
+  <span class="comment">// Read the unichar without messing up on Tibetan.</span>
+  <span class="comment">// According to issue 253 the utf-8 surrogates 85 and A0 are treated</span>
+  <span class="comment">// as whitespace by sscanf, so it is more reliable to just find</span>
+  <span class="comment">// ascii space and tab.</span>
+  <span class="keywordtype">int</span> uch_len = 0;
+  <span class="keywordflow">while</span> (*buffptr != <span class="charliteral">&#39;\0&#39;</span> &amp;&amp; *buffptr != <span class="charliteral">&#39; &#39;</span> &amp;&amp; *buffptr != <span class="charliteral">&#39;\t&#39;</span> &amp;&amp;
+         uch_len &lt; <a class="code" href="boxread_8h.html#a6a24b858ccf4e9eb9e163b5bcc04b682">kBoxReadBufSize</a> - 1) {
+    uch[uch_len++] = *buffptr++;
+  }
+  uch[uch_len] = <span class="charliteral">&#39;\0&#39;</span>;
+  <span class="keywordflow">if</span> (*buffptr != <span class="charliteral">&#39;\0&#39;</span>) ++buffptr;
+  <span class="keywordtype">int</span> x_min, y_min, x_max, y_max;
+  *page_number = 0;
+  <span class="keywordtype">int</span> <a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a> = sscanf(buffptr, <span class="stringliteral">&quot;%d %d %d %d %d&quot;</span>,
+                 &amp;x_min, &amp;y_min, &amp;x_max, &amp;y_max, page_number);
+  <span class="keywordflow">if</span> (count != 5 &amp;&amp; count != 4) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Bad box coordinates in boxfile string!\n&quot;</span>);
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+  <span class="comment">// Test for long space-delimited string label.</span>
+  <span class="keywordflow">if</span> (strcmp(uch, kMultiBlobLabelCode) == 0 &amp;&amp;
+      (buffptr = strchr(buffptr, <span class="charliteral">&#39;#&#39;</span>)) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    strncpy(uch, buffptr + 1, <a class="code" href="boxread_8h.html#a6a24b858ccf4e9eb9e163b5bcc04b682">kBoxReadBufSize</a>);
+    <a class="code" href="helpers_8h.html#a31bec0ef73dd383e256fa462e9fa7e1f">chomp_string</a>(uch);
+    uch_len = strlen(uch);
+  }
+  <span class="comment">// Validate UTF8 by making unichars with it.</span>
+  <span class="keywordtype">int</span> used = 0;
+  <span class="keywordflow">while</span> (used &lt; uch_len) {
+    <a class="code" href="class_u_n_i_c_h_a_r.html">UNICHAR</a> ch(uch + used, uch_len - used);
+    <span class="keywordtype">int</span> new_used = ch.utf8_len();
+    <span class="keywordflow">if</span> (new_used == 0) {
+      <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Bad UTF-8 str %s starts with 0x%02x at col %d\n&quot;</span>,
+              uch + used, uch[used], used + 1);
+      <span class="keywordflow">return</span> <span class="keyword">false</span>;
+    }
+    used += new_used;
+  }
+  *utf8_str = uch;
+  bounding_box-&gt;<a class="code" href="class_t_b_o_x.html#ad61db4030d2a99fb107bb9679a055bed">set_to_given_coords</a>(x_min, y_min, x_max, y_max);
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;  <span class="comment">// Successfully read a box.</span>
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a8236e051549f8174e263196602edadc5"></a><!-- doxytag: member="boxread.h::ReadNextBox" ref="a8236e051549f8174e263196602edadc5" args="(int *line_number, FILE *box_file, STRING *utf8_str, TBOX *bounding_box)" -->
@@ -251,6 +327,11 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="boxread_8cpp_source.html#l00059">59</a> of file <a class="el" href="boxread_8cpp_source.html">boxread.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                       {
+  <span class="keywordflow">return</span> <a class="code" href="boxread_8cpp.html#a8236e051549f8174e263196602edadc5">ReadNextBox</a>(-1, line_number, box_file, utf8_str, bounding_box);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a566c682100d2b5f0a20f39bf99ad2d30"></a><!-- doxytag: member="boxread.h::ReadNextBox" ref="a566c682100d2b5f0a20f39bf99ad2d30" args="(int target_page, int *line_number, FILE *box_file, STRING *utf8_str, TBOX *bounding_box)" -->
@@ -296,6 +377,36 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="boxread_8cpp_source.html#l00067">67</a> of file <a class="el" href="boxread_8cpp_source.html">boxread.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                       {
+  <span class="keywordtype">int</span> page = 0;
+  <span class="keywordtype">char</span> buff[<a class="code" href="boxread_8h.html#a6a24b858ccf4e9eb9e163b5bcc04b682">kBoxReadBufSize</a>];   <span class="comment">// boxfile read buffer</span>
+  <span class="keywordtype">char</span> *buffptr = buff;
+
+  <span class="keywordflow">while</span> (fgets(buff, <span class="keyword">sizeof</span>(buff) - 1, box_file)) {
+    (*line_number)++;
+
+    buffptr = buff;
+    <span class="keyword">const</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *ubuf = <span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>*<span class="keyword">&gt;</span>(buffptr);
+    <span class="keywordflow">if</span> (ubuf[0] == 0xef &amp;&amp; ubuf[1] == 0xbb &amp;&amp; ubuf[2] == 0xbf)
+      buffptr += 3;  <span class="comment">// Skip unicode file designation.</span>
+    <span class="comment">// Check for blank lines in box file</span>
+    <span class="keywordflow">while</span> (*buffptr == <span class="charliteral">&#39; &#39;</span> || *buffptr == <span class="charliteral">&#39;\t&#39;</span>)
+      buffptr++;
+    <span class="keywordflow">if</span> (*buffptr != <span class="charliteral">&#39;\0&#39;</span>) {
+      <span class="keywordflow">if</span> (!<a class="code" href="boxread_8cpp.html#acd464bb54397318c2f6fb8db9e644fd0">ParseBoxFileStr</a>(buffptr, &amp;page, utf8_str, bounding_box)) {
+        <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Box file format error on line %i; ignored\n&quot;</span>, *line_number);
+        <span class="keywordflow">continue</span>;
+      }
+      <span class="keywordflow">if</span> (target_page &gt;= 0 &amp;&amp; target_page != page)
+        <span class="keywordflow">continue</span>;  <span class="comment">// Not on the appropriate page.</span>
+      <span class="keywordflow">return</span> <span class="keyword">true</span>;  <span class="comment">// Successfully read a box.</span>
+    }
+  }
+  fclose(box_file);
+  <span class="keywordflow">return</span> <span class="keyword">false</span>;  <span class="comment">// EOF</span>
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Variable Documentation</h2>
@@ -309,6 +420,8 @@ Variables</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="boxread_8h_source.html#l00030">30</a> of file <a class="el" href="boxread_8h_source.html">boxread.h</a>.</p>
 
 </div>
 </div>
@@ -332,7 +445,7 @@ Variables</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:08 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:40 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

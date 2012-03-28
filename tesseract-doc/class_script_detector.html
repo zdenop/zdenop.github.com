@@ -114,7 +114,10 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_script_detector.html#a69b1a013d54d64a619f399b23dd9058f">get_script</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_script_detector.html#a951bd4d3f5b14ee234d20afc91d44585">must_stop</a> (int orientation)</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="osdetect_8h_source.html#l00091">91</a> of file <a class="el" href="osdetect_8h_source.html">osdetect.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="ac44d1acf5214aecb8437e160e30db1d4"></a><!-- doxytag: member="ScriptDetector::ScriptDetector" ref="ac44d1acf5214aecb8437e160e30db1d4" args="(OSResults *, tesseract::Tesseract *tess)" -->
 <div class="memitem">
 <div class="memproto">
@@ -140,6 +143,20 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="osdetect_8cpp_source.html#l00419">419</a> of file <a class="el" href="osdetect_8cpp_source.html">osdetect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                       {
+  osr_ = osr;
+  tess_ = tess;
+  katakana_id_ = tess_-&gt;<a class="code" href="classtesseract_1_1_c_c_util.html#a69c5179ac5f10a24f3f97e16ca09460f">unicharset</a>.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a7cbfd800fe71082f0e7d58b7c25330bb">add_script</a>(katakana_script);
+  hiragana_id_ = tess_-&gt;<a class="code" href="classtesseract_1_1_c_c_util.html#a69c5179ac5f10a24f3f97e16ca09460f">unicharset</a>.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a7cbfd800fe71082f0e7d58b7c25330bb">add_script</a>(hiragana_script);
+  han_id_ = tess_-&gt;<a class="code" href="classtesseract_1_1_c_c_util.html#a69c5179ac5f10a24f3f97e16ca09460f">unicharset</a>.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a7cbfd800fe71082f0e7d58b7c25330bb">add_script</a>(han_script);
+  hangul_id_ = tess_-&gt;<a class="code" href="classtesseract_1_1_c_c_util.html#a69c5179ac5f10a24f3f97e16ca09460f">unicharset</a>.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a7cbfd800fe71082f0e7d58b7c25330bb">add_script</a>(hangul_script);
+  japanese_id_ = tess_-&gt;<a class="code" href="classtesseract_1_1_c_c_util.html#a69c5179ac5f10a24f3f97e16ca09460f">unicharset</a>.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a7cbfd800fe71082f0e7d58b7c25330bb">add_script</a>(japanese_script_);
+  korean_id_ = tess_-&gt;<a class="code" href="classtesseract_1_1_c_c_util.html#a69c5179ac5f10a24f3f97e16ca09460f">unicharset</a>.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a7cbfd800fe71082f0e7d58b7c25330bb">add_script</a>(korean_script_);
+  latin_id_ = tess_-&gt;<a class="code" href="classtesseract_1_1_c_c_util.html#a69c5179ac5f10a24f3f97e16ca09460f">unicharset</a>.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a7cbfd800fe71082f0e7d58b7c25330bb">add_script</a>(latin_script);
+  fraktur_id_ = tess_-&gt;<a class="code" href="classtesseract_1_1_c_c_util.html#a69c5179ac5f10a24f3f97e16ca09460f">unicharset</a>.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a7cbfd800fe71082f0e7d58b7c25330bb">add_script</a>(fraktur_script_);
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -158,6 +175,98 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="osdetect_8cpp_source.html#l00435">435</a> of file <a class="el" href="osdetect_8cpp_source.html">osdetect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                         {
+  <span class="keywordtype">bool</span> done[<a class="code" href="osdetect_8h.html#ab52d878a730b63bcf57d7bb3113882a1">kMaxNumberOfScripts</a>];
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 4; ++i) {
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; <a class="code" href="osdetect_8h.html#ab52d878a730b63bcf57d7bb3113882a1">kMaxNumberOfScripts</a>; ++j)
+      done[j] = <span class="keyword">false</span>;
+
+    BLOB_CHOICE_IT choice_it;
+    choice_it.set_to_list(scores + i);
+
+    <span class="keywordtype">float</span> prev_score = -1;
+    <span class="keywordtype">int</span> script_count = 0;
+    <span class="keywordtype">int</span> prev_id = -1;
+    <span class="keywordtype">int</span> prev_script;
+    <span class="keywordtype">int</span> prev_class_id = -1;
+    <span class="keywordtype">int</span> prev_fontinfo_id = -1;
+    <span class="keyword">const</span> <span class="keywordtype">char</span>* prev_unichar = <span class="stringliteral">&quot;&quot;</span>;
+    <span class="keyword">const</span> <span class="keywordtype">char</span>* unichar = <span class="stringliteral">&quot;&quot;</span>;
+    <span class="keywordtype">float</span> next_best_score = -1.0;
+    <span class="keywordtype">int</span> next_best_script_id = -1;
+    <span class="keyword">const</span> <span class="keywordtype">char</span>* next_best_unichar = <span class="stringliteral">&quot;&quot;</span>;
+
+    <span class="keywordflow">for</span> (choice_it.mark_cycle_pt(); !choice_it.cycled_list();
+         choice_it.forward()) {
+      <a class="code" href="class_b_l_o_b___c_h_o_i_c_e.html">BLOB_CHOICE</a>* choice = choice_it.data();
+      <span class="keywordtype">int</span> <span class="keywordtype">id</span> = choice-&gt;<a class="code" href="class_b_l_o_b___c_h_o_i_c_e.html#a746d149d149ec75e4bea96f338b48433">script_id</a>();
+      <span class="comment">// Script already processed before.</span>
+      <span class="keywordflow">if</span> (done[<span class="keywordtype">id</span>]) <span class="keywordflow">continue</span>;
+      done[id] = <span class="keyword">true</span>;
+
+      unichar = tess_-&gt;<a class="code" href="classtesseract_1_1_c_c_util.html#a69c5179ac5f10a24f3f97e16ca09460f">unicharset</a>.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a421c0b6ebcbbe7547490252fb688c961">id_to_unichar</a>(choice-&gt;<a class="code" href="class_b_l_o_b___c_h_o_i_c_e.html#aaba6190b77c5f3dc21905fc4118afa94">unichar_id</a>());
+      <span class="comment">// Save data from the first match</span>
+      <span class="keywordflow">if</span> (prev_score &lt; 0) {
+        prev_score = -choice-&gt;<a class="code" href="class_b_l_o_b___c_h_o_i_c_e.html#af53d45b718c562ea7209b583c77ac14e">certainty</a>();
+        script_count = 1;
+        prev_id = id;
+        prev_script = choice-&gt;<a class="code" href="class_b_l_o_b___c_h_o_i_c_e.html#a746d149d149ec75e4bea96f338b48433">script_id</a>();
+        prev_unichar = unichar;
+        prev_class_id = choice-&gt;<a class="code" href="class_b_l_o_b___c_h_o_i_c_e.html#aaba6190b77c5f3dc21905fc4118afa94">unichar_id</a>();
+        prev_fontinfo_id = choice-&gt;<a class="code" href="class_b_l_o_b___c_h_o_i_c_e.html#a3594e34861be86d775724f5f91fba3be">fontinfo_id</a>();
+      } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (-choice-&gt;<a class="code" href="class_b_l_o_b___c_h_o_i_c_e.html#af53d45b718c562ea7209b583c77ac14e">certainty</a>() &lt; prev_score + <a class="code" href="osdetect_8cpp.html#a14c7913eafbd3237afbdd7c6b498b2d8">kNonAmbiguousMargin</a>) {
+        ++script_count;
+        next_best_score = -choice-&gt;<a class="code" href="class_b_l_o_b___c_h_o_i_c_e.html#af53d45b718c562ea7209b583c77ac14e">certainty</a>();
+        next_best_script_id = choice-&gt;<a class="code" href="class_b_l_o_b___c_h_o_i_c_e.html#a746d149d149ec75e4bea96f338b48433">script_id</a>();
+        next_best_unichar = tess_-&gt;<a class="code" href="classtesseract_1_1_c_c_util.html#a69c5179ac5f10a24f3f97e16ca09460f">unicharset</a>.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a421c0b6ebcbbe7547490252fb688c961">id_to_unichar</a>(choice-&gt;<a class="code" href="class_b_l_o_b___c_h_o_i_c_e.html#aaba6190b77c5f3dc21905fc4118afa94">unichar_id</a>());
+      }
+
+      <span class="keywordflow">if</span> (strlen(prev_unichar) == 1)
+        <span class="keywordflow">if</span> (unichar[0] &gt;= <span class="charliteral">&#39;0&#39;</span> &amp;&amp; unichar[0] &lt;= <span class="charliteral">&#39;9&#39;</span>)
+          <span class="keywordflow">break</span>;
+
+      <span class="comment">// if script_count is &gt;= 2, character is ambiguous, skip other matches</span>
+      <span class="comment">// since they are useless.</span>
+      <span class="keywordflow">if</span> (script_count &gt;= 2)
+        <span class="keywordflow">break</span>;
+    }
+    <span class="comment">// Character is non ambiguous</span>
+    <span class="keywordflow">if</span> (script_count == 1) {
+      <span class="comment">// Update the score of the winning script</span>
+      osr_-&gt;<a class="code" href="struct_o_s_results.html#af612cc25d8432678d5b87a5911544792">scripts_na</a>[i][prev_id] += 1.0;
+
+      <span class="comment">// Workaround for Fraktur</span>
+      <span class="keywordflow">if</span> (prev_id == latin_id_) {
+        <span class="keywordflow">if</span> (prev_fontinfo_id &gt;= 0) {
+          <span class="keyword">const</span> <a class="code" href="structtesseract_1_1_font_info.html">tesseract::FontInfo</a> &amp;fi =
+              tess_-&gt;<a class="code" href="classtesseract_1_1_classify.html#a62597f182a5e23c3b8a030c06e699e99">get_fontinfo_table</a>().<a class="code" href="class_unicity_table.html#a3b3107bc72d9edfe501eaba7404de7eb" title="Return the object from an id.">get</a>(prev_fontinfo_id);
+          <span class="comment">//printf(&quot;Font: %s i:%i b:%i f:%i s:%i k:%i (%s)\n&quot;, fi.name,</span>
+          <span class="comment">//       fi.is_italic(), fi.is_bold(), fi.is_fixed_pitch(),</span>
+          <span class="comment">//       fi.is_serif(), fi.is_fraktur(),</span>
+          <span class="comment">//       prev_unichar);</span>
+          <span class="keywordflow">if</span> (fi.<a class="code" href="structtesseract_1_1_font_info.html#a5a918bad85fde70770f60853355c1716">is_fraktur</a>()) {
+            osr_-&gt;<a class="code" href="struct_o_s_results.html#af612cc25d8432678d5b87a5911544792">scripts_na</a>[i][prev_id] -= 1.0;
+            osr_-&gt;<a class="code" href="struct_o_s_results.html#af612cc25d8432678d5b87a5911544792">scripts_na</a>[i][fraktur_id_] += 1.0;
+          }
+        }
+      }
+
+      <span class="comment">// Update Japanese / Korean pseudo-scripts</span>
+      <span class="keywordflow">if</span> (prev_id == katakana_id_)
+        osr_-&gt;<a class="code" href="struct_o_s_results.html#af612cc25d8432678d5b87a5911544792">scripts_na</a>[i][japanese_id_] += 1.0;
+      <span class="keywordflow">if</span> (prev_id == hiragana_id_)
+        osr_-&gt;<a class="code" href="struct_o_s_results.html#af612cc25d8432678d5b87a5911544792">scripts_na</a>[i][japanese_id_] += 1.0;
+      <span class="keywordflow">if</span> (prev_id == hangul_id_)
+        osr_-&gt;<a class="code" href="struct_o_s_results.html#af612cc25d8432678d5b87a5911544792">scripts_na</a>[i][korean_id_] += 1.0;
+      <span class="keywordflow">if</span> (prev_id == han_id_)
+        osr_-&gt;<a class="code" href="struct_o_s_results.html#af612cc25d8432678d5b87a5911544792">scripts_na</a>[i][korean_id_] += <a class="code" href="osdetect_8cpp.html#ae3f12edb58f6ed0a11daea2cbf8dc547">kHanRatioInKorean</a>;
+      <span class="keywordflow">if</span> (prev_id == han_id_)
+        osr_-&gt;<a class="code" href="struct_o_s_results.html#af612cc25d8432678d5b87a5911544792">scripts_na</a>[i][japanese_id_] += <a class="code" href="osdetect_8cpp.html#aab3b7e76eea520b1e4b9d68165e3a094">kHanRatioInJapanese</a>;
+    }
+  }  <span class="comment">// iterate over each orientation</span>
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a69b1a013d54d64a619f399b23dd9058f"></a><!-- doxytag: member="ScriptDetector::get_script" ref="a69b1a013d54d64a619f399b23dd9058f" args="()" -->
@@ -191,11 +300,17 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="osdetect_8cpp_source.html#l00526">526</a> of file <a class="el" href="osdetect_8cpp_source.html">osdetect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                              {
+  osr_-&gt;<a class="code" href="struct_o_s_results.html#ab796da60cc16d39f464c03fe4047c358">update_best_script</a>(orientation);
+  <span class="keywordflow">return</span> osr_-&gt;<a class="code" href="struct_o_s_results.html#a25f64011ea65c038c1ef1a6cedd10f1c">best_result</a>.<a class="code" href="struct_o_s_best_result.html#ae39a2c718b010ed27eb7f820546da6d6">sconfidence</a> &gt; 1;
+}
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/ccmain/<a class="el" href="osdetect_8h_source.html">osdetect.h</a></li>
-<li>tesseract-ocr/ccmain/<a class="el" href="osdetect_8cpp.html">osdetect.cpp</a></li>
+<li>tesseract-ocr/ccmain/<a class="el" href="osdetect_8cpp_source.html">osdetect.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -217,7 +332,7 @@ Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:13 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:46 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

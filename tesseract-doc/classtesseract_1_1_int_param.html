@@ -123,7 +123,10 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_int_param.html#aad2337b5e4227af23fcb9ddc554faa15">operator inT32</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_int_param.html#a0e01c6f94727a60ccebd322637b7f883">set_value</a> (<a class="el" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> value)</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="params_8h_source.html#l00140">140</a> of file <a class="el" href="params_8h_source.html">params.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a592336f7308bece05ace46b6c791637c"></a><!-- doxytag: member="tesseract::IntParam::IntParam" ref="a592336f7308bece05ace46b6c791637c" args="(inT32 value, const char *name, const char *comment, bool init, ParamsVectors *vec)" -->
 <div class="memitem">
 <div class="memproto">
@@ -167,6 +170,13 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="params_8h_source.html#l00142">142</a> of file <a class="el" href="params_8h_source.html">params.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                : <a class="code" href="classtesseract_1_1_param.html#a7d2b3a9b8108f1c1b973f4f498114482">Param</a>(name, comment, init) {
+    value_ = value;
+    params_vec_ = &amp;(vec-&gt;int_params);
+    vec-&gt;int_params.<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(<span class="keyword">this</span>);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a0f4f9aac376c17d43c2656558e4168af"></a><!-- doxytag: member="tesseract::IntParam::~IntParam" ref="a0f4f9aac376c17d43c2656558e4168af" args="()" -->
@@ -183,6 +193,9 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="params_8h_source.html#l00148">148</a> of file <a class="el" href="params_8h_source.html">params.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ ParamUtils::RemoveParam&lt;IntParam&gt;(<span class="keyword">this</span>, params_vec_); }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -200,6 +213,9 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="params_8h_source.html#l00149">149</a> of file <a class="el" href="params_8h_source.html">params.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> value_; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a0e01c6f94727a60ccebd322637b7f883"></a><!-- doxytag: member="tesseract::IntParam::set_value" ref="a0e01c6f94727a60ccebd322637b7f883" args="(inT32 value)" -->
@@ -217,6 +233,9 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="params_8h_source.html#l00150">150</a> of file <a class="el" href="params_8h_source.html">params.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ value_ = value; }
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
@@ -243,7 +262,7 @@ Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:15 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:50 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

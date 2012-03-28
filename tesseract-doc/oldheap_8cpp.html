@@ -107,7 +107,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <code>#include &quot;<a class="el" href="danerror_8h_source.html">danerror.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="emalloc_8h_source.html">emalloc.h</a>&quot;</code><br/>
 <code>#include &lt;stdio.h&gt;</code><br/>
-</div><table class="memberdecls">
+</div>
+<p><a href="oldheap_8cpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr><td colspan="2"><h2><a name="define-members"></a>
 Defines</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="oldheap_8cpp.html#a703930540e0a773b74297490ca88316b">FATHER</a>(N)&#160;&#160;&#160;((N)&gt;&gt;1)</td></tr>
@@ -140,6 +142,8 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="oldheap_8cpp_source.html#l00027">27</a> of file <a class="el" href="oldheap_8cpp_source.html">oldheap.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a6a30628fa9cd3c38b5b7decf4afc7dea"></a><!-- doxytag: member="oldheap.cpp::LEFTSON" ref="a6a30628fa9cd3c38b5b7decf4afc7dea" args="(N)" -->
@@ -157,6 +161,8 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="oldheap_8cpp_source.html#l00028">28</a> of file <a class="el" href="oldheap_8cpp_source.html">oldheap.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a1b0e9a91308e0359a7367736527698c5"></a><!-- doxytag: member="oldheap.cpp::RIGHTSON" ref="a1b0e9a91308e0359a7367736527698c5" args="(N)" -->
@@ -173,6 +179,8 @@ Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="oldheap_8cpp_source.html#l00029">29</a> of file <a class="el" href="oldheap_8cpp_source.html">oldheap.cpp</a>.</p>
 
 </div>
 </div>
@@ -217,6 +225,16 @@ Functions</h2></td></tr>
 <dd>
 History: Tue May 15 08:52:04 1990, DSJ, Created. </dd></dl>
 
+<p>Definition at line <a class="el" href="oldheap_8cpp_source.html#l00327">327</a> of file <a class="el" href="oldheap_8cpp_source.html">oldheap.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                    {
+  <a class="code" href="struct_h_e_a_p_e_n_t_r_y.html">HEAPENTRY</a> Entry;
+
+  <span class="keywordflow">while</span> (<a class="code" href="oldheap_8cpp.html#aad11f18baf53c82e65a054ff7552d0d1">GetTopOfHeap</a> (Heap, &amp;Entry) != <a class="code" href="oldheap_8h.html#a2b7cf2a3641be7b89138615764d60ba3">EMPTY</a>)
+    destructor (Entry.<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html#ab04a38c2cfaa44594782f052cbe7414d">Data</a>);
+
+  <a class="code" href="oldheap_8h.html#a8631cc3f443c4ea3e99195df1ca1dd8d">FreeHeap</a>(Heap);
+}                                <span class="comment">/* FreeHeapData */</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aad11f18baf53c82e65a054ff7552d0d1"></a><!-- doxytag: member="oldheap.cpp::GetTopOfHeap" ref="aad11f18baf53c82e65a054ff7552d0d1" args="(HEAP *Heap, HEAPENTRY *Entry)" -->
@@ -260,6 +278,44 @@ History: Tue May 15 08:52:04 1990, DSJ, Created. </dd></dl>
 <dd>
 History: 3/13/89, DSJ, Created. </dd></dl>
 
+<p>Definition at line <a class="el" href="oldheap_8cpp_source.html#l00273">273</a> of file <a class="el" href="oldheap_8cpp_source.html">oldheap.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                               {
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> Hole;
+  <a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a> HoleKey;
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> Son;
+
+  <span class="keywordflow">if</span> (Heap-&gt;<a class="code" href="struct_h_e_a_p.html#ab6f67f42d4fc122780b88fdcd08a8839">FirstFree</a> &lt;= 1)
+    <span class="keywordflow">return</span> (<a class="code" href="oldheap_8h.html#a2b7cf2a3641be7b89138615764d60ba3">EMPTY</a>);
+
+  Entry-&gt;<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html#aa80cabd8128f5fa5a64e00b2e41e9c54">Key</a> = Heap-&gt;<a class="code" href="struct_h_e_a_p.html#a4eb91fc02a92104ca8c81dbdd2c8a055">Entry</a>[1].<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html#aa80cabd8128f5fa5a64e00b2e41e9c54">Key</a>;
+  Entry-&gt;<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html#ab04a38c2cfaa44594782f052cbe7414d">Data</a> = Heap-&gt;<a class="code" href="struct_h_e_a_p.html#a4eb91fc02a92104ca8c81dbdd2c8a055">Entry</a>[1].<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html#ab04a38c2cfaa44594782f052cbe7414d">Data</a>;
+
+  Heap-&gt;<a class="code" href="struct_h_e_a_p.html#ab6f67f42d4fc122780b88fdcd08a8839">FirstFree</a>--;
+
+  <span class="comment">/* imagine the hole at the root is filled with the last entry in the heap */</span>
+  HoleKey = Heap-&gt;<a class="code" href="struct_h_e_a_p.html#a4eb91fc02a92104ca8c81dbdd2c8a055">Entry</a>[Heap-&gt;<a class="code" href="struct_h_e_a_p.html#ab6f67f42d4fc122780b88fdcd08a8839">FirstFree</a>].<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html#aa80cabd8128f5fa5a64e00b2e41e9c54">Key</a>;
+  Hole = 1;
+
+                                 <span class="comment">/* while hole has 2 sons */</span>
+  <span class="keywordflow">while</span> ((Son = <a class="code" href="oldheap_8cpp.html#a6a30628fa9cd3c38b5b7decf4afc7dea">LEFTSON</a> (Hole)) &lt; Heap-&gt;<a class="code" href="struct_h_e_a_p.html#ab6f67f42d4fc122780b88fdcd08a8839">FirstFree</a>) {
+    <span class="comment">/* find the son with the smallest key */</span>
+    <span class="keywordflow">if</span> (Heap-&gt;<a class="code" href="struct_h_e_a_p.html#a4eb91fc02a92104ca8c81dbdd2c8a055">Entry</a>[Son].<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html#aa80cabd8128f5fa5a64e00b2e41e9c54">Key</a> &gt; Heap-&gt;<a class="code" href="struct_h_e_a_p.html#a4eb91fc02a92104ca8c81dbdd2c8a055">Entry</a>[Son + 1].<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html#aa80cabd8128f5fa5a64e00b2e41e9c54">Key</a>)
+      Son++;
+
+    <span class="comment">/* if key for hole is greater than key for son, sift hole down */</span>
+    <span class="keywordflow">if</span> (HoleKey &gt; Heap-&gt;<a class="code" href="struct_h_e_a_p.html#a4eb91fc02a92104ca8c81dbdd2c8a055">Entry</a>[Son].<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html#aa80cabd8128f5fa5a64e00b2e41e9c54">Key</a>) {
+      Heap-&gt;<a class="code" href="struct_h_e_a_p.html#a4eb91fc02a92104ca8c81dbdd2c8a055">Entry</a>[Hole].<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html#aa80cabd8128f5fa5a64e00b2e41e9c54">Key</a> = Heap-&gt;<a class="code" href="struct_h_e_a_p.html#a4eb91fc02a92104ca8c81dbdd2c8a055">Entry</a>[Son].<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html#aa80cabd8128f5fa5a64e00b2e41e9c54">Key</a>;
+      Heap-&gt;<a class="code" href="struct_h_e_a_p.html#a4eb91fc02a92104ca8c81dbdd2c8a055">Entry</a>[Hole].<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html#ab04a38c2cfaa44594782f052cbe7414d">Data</a> = Heap-&gt;<a class="code" href="struct_h_e_a_p.html#a4eb91fc02a92104ca8c81dbdd2c8a055">Entry</a>[Son].<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html#ab04a38c2cfaa44594782f052cbe7414d">Data</a>;
+      Hole = Son;
+    }
+    <span class="keywordflow">else</span>
+      <span class="keywordflow">break</span>;
+  }
+  Heap-&gt;<a class="code" href="struct_h_e_a_p.html#a4eb91fc02a92104ca8c81dbdd2c8a055">Entry</a>[Hole].<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html#aa80cabd8128f5fa5a64e00b2e41e9c54">Key</a> = HoleKey;
+  Heap-&gt;<a class="code" href="struct_h_e_a_p.html#a4eb91fc02a92104ca8c81dbdd2c8a055">Entry</a>[Hole].<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html#ab04a38c2cfaa44594782f052cbe7414d">Data</a> = Heap-&gt;<a class="code" href="struct_h_e_a_p.html#a4eb91fc02a92104ca8c81dbdd2c8a055">Entry</a>[Heap-&gt;<a class="code" href="struct_h_e_a_p.html#ab6f67f42d4fc122780b88fdcd08a8839">FirstFree</a>].<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html#ab04a38c2cfaa44594782f052cbe7414d">Data</a>;
+  <span class="keywordflow">return</span> (<a class="code" href="oldheap_8h.html#ae14e7ed9f6b99e7bcf6f27a73f741870">TESS_HEAP_OK</a>);
+}                                <span class="comment">/* GetTopOfHeap */</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a133a020354d84309c10dfea471f213f4"></a><!-- doxytag: member="oldheap.cpp::HeapPop" ref="a133a020354d84309c10dfea471f213f4" args="(HEAP *Heap, FLOAT32 *Key, void *out_ptr)" -->
@@ -310,6 +366,45 @@ History: 3/13/89, DSJ, Created. </dd></dl>
 <dd>
 History: 5/10/91, DSJ, Created (Modified from GetTopOfHeap). </dd></dl>
 
+<p>Definition at line <a class="el" href="oldheap_8cpp_source.html#l00076">76</a> of file <a class="el" href="oldheap_8cpp_source.html">oldheap.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                     {
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> Hole;
+  <a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a> HoleKey;
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> Son;
+  <span class="keywordtype">void</span> **Data = (<span class="keywordtype">void</span> **) out_ptr;
+
+  <span class="keywordflow">if</span> (Heap-&gt;<a class="code" href="struct_h_e_a_p.html#ab6f67f42d4fc122780b88fdcd08a8839">FirstFree</a> &lt;= 1)
+    <span class="keywordflow">return</span> (<a class="code" href="oldheap_8h.html#a2b7cf2a3641be7b89138615764d60ba3">EMPTY</a>);
+
+  *Key = Heap-&gt;<a class="code" href="struct_h_e_a_p.html#a4eb91fc02a92104ca8c81dbdd2c8a055">Entry</a>[1].<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html#aa80cabd8128f5fa5a64e00b2e41e9c54">Key</a>;
+  *Data = Heap-&gt;<a class="code" href="struct_h_e_a_p.html#a4eb91fc02a92104ca8c81dbdd2c8a055">Entry</a>[1].<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html#ab04a38c2cfaa44594782f052cbe7414d">Data</a>;
+
+  Heap-&gt;<a class="code" href="struct_h_e_a_p.html#ab6f67f42d4fc122780b88fdcd08a8839">FirstFree</a>--;
+
+  <span class="comment">/* imagine the hole at the root is filled with the last entry in the heap */</span>
+  HoleKey = Heap-&gt;<a class="code" href="struct_h_e_a_p.html#a4eb91fc02a92104ca8c81dbdd2c8a055">Entry</a>[Heap-&gt;<a class="code" href="struct_h_e_a_p.html#ab6f67f42d4fc122780b88fdcd08a8839">FirstFree</a>].<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html#aa80cabd8128f5fa5a64e00b2e41e9c54">Key</a>;
+  Hole = 1;
+
+                                 <span class="comment">/* while hole has 2 sons */</span>
+  <span class="keywordflow">while</span> ((Son = <a class="code" href="oldheap_8cpp.html#a6a30628fa9cd3c38b5b7decf4afc7dea">LEFTSON</a> (Hole)) &lt; Heap-&gt;<a class="code" href="struct_h_e_a_p.html#ab6f67f42d4fc122780b88fdcd08a8839">FirstFree</a>) {
+    <span class="comment">/* find the son with the smallest key */</span>
+    <span class="keywordflow">if</span> (Heap-&gt;<a class="code" href="struct_h_e_a_p.html#a4eb91fc02a92104ca8c81dbdd2c8a055">Entry</a>[Son].<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html#aa80cabd8128f5fa5a64e00b2e41e9c54">Key</a> &gt; Heap-&gt;<a class="code" href="struct_h_e_a_p.html#a4eb91fc02a92104ca8c81dbdd2c8a055">Entry</a>[Son + 1].<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html#aa80cabd8128f5fa5a64e00b2e41e9c54">Key</a>)
+      Son++;
+
+    <span class="comment">/* if key for hole is greater than key for son, sift hole down */</span>
+    <span class="keywordflow">if</span> (HoleKey &gt; Heap-&gt;<a class="code" href="struct_h_e_a_p.html#a4eb91fc02a92104ca8c81dbdd2c8a055">Entry</a>[Son].<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html#aa80cabd8128f5fa5a64e00b2e41e9c54">Key</a>) {
+      Heap-&gt;<a class="code" href="struct_h_e_a_p.html#a4eb91fc02a92104ca8c81dbdd2c8a055">Entry</a>[Hole].<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html#aa80cabd8128f5fa5a64e00b2e41e9c54">Key</a> = Heap-&gt;<a class="code" href="struct_h_e_a_p.html#a4eb91fc02a92104ca8c81dbdd2c8a055">Entry</a>[Son].<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html#aa80cabd8128f5fa5a64e00b2e41e9c54">Key</a>;
+      Heap-&gt;<a class="code" href="struct_h_e_a_p.html#a4eb91fc02a92104ca8c81dbdd2c8a055">Entry</a>[Hole].<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html#ab04a38c2cfaa44594782f052cbe7414d">Data</a> = Heap-&gt;<a class="code" href="struct_h_e_a_p.html#a4eb91fc02a92104ca8c81dbdd2c8a055">Entry</a>[Son].<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html#ab04a38c2cfaa44594782f052cbe7414d">Data</a>;
+      Hole = Son;
+    }
+    <span class="keywordflow">else</span>
+      <span class="keywordflow">break</span>;
+  }
+  Heap-&gt;<a class="code" href="struct_h_e_a_p.html#a4eb91fc02a92104ca8c81dbdd2c8a055">Entry</a>[Hole].<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html#aa80cabd8128f5fa5a64e00b2e41e9c54">Key</a> = HoleKey;
+  Heap-&gt;<a class="code" href="struct_h_e_a_p.html#a4eb91fc02a92104ca8c81dbdd2c8a055">Entry</a>[Hole].<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html#ab04a38c2cfaa44594782f052cbe7414d">Data</a> = Heap-&gt;<a class="code" href="struct_h_e_a_p.html#a4eb91fc02a92104ca8c81dbdd2c8a055">Entry</a>[Heap-&gt;<a class="code" href="struct_h_e_a_p.html#ab6f67f42d4fc122780b88fdcd08a8839">FirstFree</a>].<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html#ab04a38c2cfaa44594782f052cbe7414d">Data</a>;
+  <span class="keywordflow">return</span> (<a class="code" href="oldheap_8h.html#ae14e7ed9f6b99e7bcf6f27a73f741870">TESS_HEAP_OK</a>);
+}                                <span class="comment">/* HeapPop */</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3ce0caf83478a579d919e1a510a23d92"></a><!-- doxytag: member="oldheap.cpp::HeapPopWorst" ref="a3ce0caf83478a579d919e1a510a23d92" args="(HEAP *Heap, FLOAT32 *Key, void *out_ptr)" -->
@@ -353,6 +448,50 @@ History: 5/10/91, DSJ, Created (Modified from GetTopOfHeap). </dd></dl>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="oldheap_8cpp_source.html#l00124">124</a> of file <a class="el" href="oldheap_8cpp_source.html">oldheap.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                          {
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> Index;                   <span class="comment">/*current index */</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> Hole;
+  <a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a> HoleKey;
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> Father;
+  <span class="keywordtype">void</span> *HoleData;
+  <span class="keywordtype">void</span> **Data = (<span class="keywordtype">void</span> **) out_ptr;
+
+  <span class="keywordflow">if</span> (Heap-&gt;<a class="code" href="struct_h_e_a_p.html#ab6f67f42d4fc122780b88fdcd08a8839">FirstFree</a> &lt;= 1)
+    <span class="keywordflow">return</span> (<a class="code" href="oldheap_8h.html#a2b7cf2a3641be7b89138615764d60ba3">EMPTY</a>);
+
+  HoleKey = Heap-&gt;<a class="code" href="struct_h_e_a_p.html#a4eb91fc02a92104ca8c81dbdd2c8a055">Entry</a>[1].<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html#aa80cabd8128f5fa5a64e00b2e41e9c54">Key</a>;
+  Hole = 1;
+  Heap-&gt;<a class="code" href="struct_h_e_a_p.html#ab6f67f42d4fc122780b88fdcd08a8839">FirstFree</a>--;
+  <span class="keywordflow">for</span> (Index = Heap-&gt;<a class="code" href="struct_h_e_a_p.html#ab6f67f42d4fc122780b88fdcd08a8839">FirstFree</a>, Father = <a class="code" href="oldheap_8cpp.html#a703930540e0a773b74297490ca88316b">FATHER</a> (Index); Index &gt; Father;
+    Index--)
+  <span class="keywordflow">if</span> (Heap-&gt;<a class="code" href="struct_h_e_a_p.html#a4eb91fc02a92104ca8c81dbdd2c8a055">Entry</a>[Index].<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html#aa80cabd8128f5fa5a64e00b2e41e9c54">Key</a> &gt; HoleKey) {
+                                 <span class="comment">/*find biggest */</span>
+    HoleKey = Heap-&gt;<a class="code" href="struct_h_e_a_p.html#a4eb91fc02a92104ca8c81dbdd2c8a055">Entry</a>[Index].<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html#aa80cabd8128f5fa5a64e00b2e41e9c54">Key</a>;
+    Hole = Index;
+  }
+  *Key = HoleKey;
+  *Data = Heap-&gt;<a class="code" href="struct_h_e_a_p.html#a4eb91fc02a92104ca8c81dbdd2c8a055">Entry</a>[Hole].<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html#ab04a38c2cfaa44594782f052cbe7414d">Data</a>;
+
+  HoleKey = Heap-&gt;<a class="code" href="struct_h_e_a_p.html#a4eb91fc02a92104ca8c81dbdd2c8a055">Entry</a>[Heap-&gt;<a class="code" href="struct_h_e_a_p.html#ab6f67f42d4fc122780b88fdcd08a8839">FirstFree</a>].<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html#aa80cabd8128f5fa5a64e00b2e41e9c54">Key</a>;
+  Heap-&gt;<a class="code" href="struct_h_e_a_p.html#a4eb91fc02a92104ca8c81dbdd2c8a055">Entry</a>[Hole].<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html#aa80cabd8128f5fa5a64e00b2e41e9c54">Key</a> = HoleKey;
+  HoleData = Heap-&gt;<a class="code" href="struct_h_e_a_p.html#a4eb91fc02a92104ca8c81dbdd2c8a055">Entry</a>[Heap-&gt;<a class="code" href="struct_h_e_a_p.html#ab6f67f42d4fc122780b88fdcd08a8839">FirstFree</a>].<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html#ab04a38c2cfaa44594782f052cbe7414d">Data</a>;
+  Heap-&gt;<a class="code" href="struct_h_e_a_p.html#a4eb91fc02a92104ca8c81dbdd2c8a055">Entry</a>[Hole].<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html#ab04a38c2cfaa44594782f052cbe7414d">Data</a> = HoleData;
+
+  <span class="comment">/* now sift last entry to its rightful place */</span>
+  Father = <a class="code" href="oldheap_8cpp.html#a703930540e0a773b74297490ca88316b">FATHER</a> (Hole);        <span class="comment">/*father of hole */</span>
+  <span class="keywordflow">while</span> (Hole &gt; 1 &amp;&amp; Heap-&gt;<a class="code" href="struct_h_e_a_p.html#a4eb91fc02a92104ca8c81dbdd2c8a055">Entry</a>[Father].<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html#aa80cabd8128f5fa5a64e00b2e41e9c54">Key</a> &gt; HoleKey) {
+                                 <span class="comment">/*swap entries */</span>
+    Heap-&gt;<a class="code" href="struct_h_e_a_p.html#a4eb91fc02a92104ca8c81dbdd2c8a055">Entry</a>[Hole].<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html#aa80cabd8128f5fa5a64e00b2e41e9c54">Key</a> = Heap-&gt;<a class="code" href="struct_h_e_a_p.html#a4eb91fc02a92104ca8c81dbdd2c8a055">Entry</a>[Father].<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html#aa80cabd8128f5fa5a64e00b2e41e9c54">Key</a>;
+    Heap-&gt;<a class="code" href="struct_h_e_a_p.html#a4eb91fc02a92104ca8c81dbdd2c8a055">Entry</a>[Hole].<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html#ab04a38c2cfaa44594782f052cbe7414d">Data</a> = Heap-&gt;<a class="code" href="struct_h_e_a_p.html#a4eb91fc02a92104ca8c81dbdd2c8a055">Entry</a>[Father].<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html#ab04a38c2cfaa44594782f052cbe7414d">Data</a>;
+    Heap-&gt;<a class="code" href="struct_h_e_a_p.html#a4eb91fc02a92104ca8c81dbdd2c8a055">Entry</a>[Father].<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html#ab04a38c2cfaa44594782f052cbe7414d">Data</a> = HoleData;
+    Heap-&gt;<a class="code" href="struct_h_e_a_p.html#a4eb91fc02a92104ca8c81dbdd2c8a055">Entry</a>[Father].<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html#aa80cabd8128f5fa5a64e00b2e41e9c54">Key</a> = HoleKey;
+    Hole = Father;
+    Father = <a class="code" href="oldheap_8cpp.html#a703930540e0a773b74297490ca88316b">FATHER</a> (Hole);
+  }
+  <span class="keywordflow">return</span> (<a class="code" href="oldheap_8h.html#ae14e7ed9f6b99e7bcf6f27a73f741870">TESS_HEAP_OK</a>);
+}                                <span class="comment">/* HeapPop */</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad66e9a2d1419e6b12501a783fda5d7c3"></a><!-- doxytag: member="oldheap.cpp::HeapPush" ref="ad66e9a2d1419e6b12501a783fda5d7c3" args="(HEAP *Heap, FLOAT32 Key, void *Data)" -->
@@ -405,6 +544,30 @@ History: 5/10/91, DSJ, Created (Modified from GetTopOfHeap). </dd></dl>
 <dd>
 History: 5/10/91, DSJ, Created (Modified version of HeapStore). </dd></dl>
 
+<p>Definition at line <a class="el" href="oldheap_8cpp_source.html#l00195">195</a> of file <a class="el" href="oldheap_8cpp_source.html">oldheap.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                   {
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> Item;
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> Father;
+
+  <span class="keywordflow">if</span> (Heap-&gt;<a class="code" href="struct_h_e_a_p.html#ab6f67f42d4fc122780b88fdcd08a8839">FirstFree</a> &gt; Heap-&gt;<a class="code" href="struct_h_e_a_p.html#ac3df0bda023b1ac82fa5e8f163f9f567">Size</a>)
+    <a class="code" href="danerror_8cpp.html#a480942fa88232bda23e9809e5afa9f25">DoError</a> (<a class="code" href="oldheap_8h.html#a3c47feb3b0f0ff2776f40483ae95d84b">HEAPFULL</a>, <span class="stringliteral">&quot;Heap size exceeded&quot;</span>);
+
+  Item = Heap-&gt;<a class="code" href="struct_h_e_a_p.html#ab6f67f42d4fc122780b88fdcd08a8839">FirstFree</a>;
+  Heap-&gt;<a class="code" href="struct_h_e_a_p.html#ab6f67f42d4fc122780b88fdcd08a8839">FirstFree</a>++;
+  <span class="keywordflow">while</span> (Item != 1) {
+    Father = <a class="code" href="oldheap_8cpp.html#a703930540e0a773b74297490ca88316b">FATHER</a> (Item);
+    <span class="keywordflow">if</span> (Heap-&gt;<a class="code" href="struct_h_e_a_p.html#a4eb91fc02a92104ca8c81dbdd2c8a055">Entry</a>[Father].<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html#aa80cabd8128f5fa5a64e00b2e41e9c54">Key</a> &gt; Key) {
+      Heap-&gt;<a class="code" href="struct_h_e_a_p.html#a4eb91fc02a92104ca8c81dbdd2c8a055">Entry</a>[Item].<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html#aa80cabd8128f5fa5a64e00b2e41e9c54">Key</a> = Heap-&gt;<a class="code" href="struct_h_e_a_p.html#a4eb91fc02a92104ca8c81dbdd2c8a055">Entry</a>[Father].<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html#aa80cabd8128f5fa5a64e00b2e41e9c54">Key</a>;
+      Heap-&gt;<a class="code" href="struct_h_e_a_p.html#a4eb91fc02a92104ca8c81dbdd2c8a055">Entry</a>[Item].<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html#ab04a38c2cfaa44594782f052cbe7414d">Data</a> = Heap-&gt;<a class="code" href="struct_h_e_a_p.html#a4eb91fc02a92104ca8c81dbdd2c8a055">Entry</a>[Father].<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html#ab04a38c2cfaa44594782f052cbe7414d">Data</a>;
+      Item = Father;
+    }
+    <span class="keywordflow">else</span>
+      <span class="keywordflow">break</span>;
+  }
+  Heap-&gt;<a class="code" href="struct_h_e_a_p.html#a4eb91fc02a92104ca8c81dbdd2c8a055">Entry</a>[Item].<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html#aa80cabd8128f5fa5a64e00b2e41e9c54">Key</a> = Key;
+  Heap-&gt;<a class="code" href="struct_h_e_a_p.html#a4eb91fc02a92104ca8c81dbdd2c8a055">Entry</a>[Item].<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html#ab04a38c2cfaa44594782f052cbe7414d">Data</a> = Data;
+}                                <span class="comment">/* HeapPush */</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a21d28375a456d5c0238134a101e0236a"></a><!-- doxytag: member="oldheap.cpp::HeapPushCheckSize" ref="a21d28375a456d5c0238134a101e0236a" args="(HEAP *Heap, FLOAT32 Key, void *Data)" -->
@@ -438,6 +601,13 @@ History: 5/10/91, DSJ, Created (Modified version of HeapStore). </dd></dl>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="oldheap_8cpp_source.html#l00170">170</a> of file <a class="el" href="oldheap_8cpp_source.html">oldheap.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                            {
+  <span class="keywordflow">if</span> (Heap-&gt;<a class="code" href="struct_h_e_a_p.html#ab6f67f42d4fc122780b88fdcd08a8839">FirstFree</a> &gt; Heap-&gt;<a class="code" href="struct_h_e_a_p.html#ac3df0bda023b1ac82fa5e8f163f9f567">Size</a>) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <a class="code" href="oldheap_8cpp.html#ad66e9a2d1419e6b12501a783fda5d7c3">HeapPush</a>(Heap, Key, Data);
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a21a037334c93e1d0e7ae2059203a9cf3"></a><!-- doxytag: member="oldheap.cpp::HeapStore" ref="a21a037334c93e1d0e7ae2059203a9cf3" args="(HEAP *Heap, HEAPENTRY *Entry)" -->
@@ -483,6 +653,30 @@ History: 5/10/91, DSJ, Created (Modified version of HeapStore). </dd></dl>
 <dd>
 History: 3/13/89, DSJ, Created. </dd></dl>
 
+<p>Definition at line <a class="el" href="oldheap_8cpp_source.html#l00234">234</a> of file <a class="el" href="oldheap_8cpp_source.html">oldheap.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                             {
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> Item;
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> Father;
+
+  <span class="keywordflow">if</span> (Heap-&gt;<a class="code" href="struct_h_e_a_p.html#ab6f67f42d4fc122780b88fdcd08a8839">FirstFree</a> &gt; Heap-&gt;<a class="code" href="struct_h_e_a_p.html#ac3df0bda023b1ac82fa5e8f163f9f567">Size</a>)
+    <a class="code" href="danerror_8cpp.html#a480942fa88232bda23e9809e5afa9f25">DoError</a> (<a class="code" href="oldheap_8h.html#a3c47feb3b0f0ff2776f40483ae95d84b">HEAPFULL</a>, <span class="stringliteral">&quot;Heap size exceeded&quot;</span>);
+
+  Item = Heap-&gt;<a class="code" href="struct_h_e_a_p.html#ab6f67f42d4fc122780b88fdcd08a8839">FirstFree</a>;
+  Heap-&gt;<a class="code" href="struct_h_e_a_p.html#ab6f67f42d4fc122780b88fdcd08a8839">FirstFree</a>++;
+  <span class="keywordflow">while</span> (Item != 1) {
+    Father = <a class="code" href="oldheap_8cpp.html#a703930540e0a773b74297490ca88316b">FATHER</a> (Item);
+    <span class="keywordflow">if</span> (Heap-&gt;<a class="code" href="struct_h_e_a_p.html#a4eb91fc02a92104ca8c81dbdd2c8a055">Entry</a>[Father].<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html#aa80cabd8128f5fa5a64e00b2e41e9c54">Key</a> &gt; Entry-&gt;<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html#aa80cabd8128f5fa5a64e00b2e41e9c54">Key</a>) {
+      Heap-&gt;<a class="code" href="struct_h_e_a_p.html#a4eb91fc02a92104ca8c81dbdd2c8a055">Entry</a>[Item].<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html#aa80cabd8128f5fa5a64e00b2e41e9c54">Key</a> = Heap-&gt;<a class="code" href="struct_h_e_a_p.html#a4eb91fc02a92104ca8c81dbdd2c8a055">Entry</a>[Father].<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html#aa80cabd8128f5fa5a64e00b2e41e9c54">Key</a>;
+      Heap-&gt;<a class="code" href="struct_h_e_a_p.html#a4eb91fc02a92104ca8c81dbdd2c8a055">Entry</a>[Item].<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html#ab04a38c2cfaa44594782f052cbe7414d">Data</a> = Heap-&gt;<a class="code" href="struct_h_e_a_p.html#a4eb91fc02a92104ca8c81dbdd2c8a055">Entry</a>[Father].<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html#ab04a38c2cfaa44594782f052cbe7414d">Data</a>;
+      Item = Father;
+    }
+    <span class="keywordflow">else</span>
+      <span class="keywordflow">break</span>;
+  }
+  Heap-&gt;<a class="code" href="struct_h_e_a_p.html#a4eb91fc02a92104ca8c81dbdd2c8a055">Entry</a>[Item].<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html#aa80cabd8128f5fa5a64e00b2e41e9c54">Key</a> = Entry-&gt;<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html#aa80cabd8128f5fa5a64e00b2e41e9c54">Key</a>;
+  Heap-&gt;<a class="code" href="struct_h_e_a_p.html#a4eb91fc02a92104ca8c81dbdd2c8a055">Entry</a>[Item].<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html#ab04a38c2cfaa44594782f052cbe7414d">Data</a> = Entry-&gt;<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html#ab04a38c2cfaa44594782f052cbe7414d">Data</a>;
+}                                <span class="comment">/* HeapStore */</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a101bee15b825fee78f29c8679cc00595"></a><!-- doxytag: member="oldheap.cpp::MakeHeap" ref="a101bee15b825fee78f29c8679cc00595" args="(int Size)" -->
@@ -515,6 +709,17 @@ History: 3/13/89, DSJ, Created. </dd></dl>
 <dd>
 History: 3/13/89, DSJ, Created. </dd></dl>
 
+<p>Definition at line <a class="el" href="oldheap_8cpp_source.html#l00049">49</a> of file <a class="el" href="oldheap_8cpp_source.html">oldheap.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                         {
+  <a class="code" href="struct_h_e_a_p.html">HEAP</a> *NewHeap;
+
+  NewHeap = (<a class="code" href="struct_h_e_a_p.html">HEAP</a> *) <a class="code" href="emalloc_8cpp.html#a55f2088f1a7b3333bb5c7275ab726bba">Emalloc</a> (<span class="keyword">sizeof</span> (<a class="code" href="struct_h_e_a_p.html">HEAP</a>) + Size * <span class="keyword">sizeof</span> (<a class="code" href="struct_h_e_a_p_e_n_t_r_y.html">HEAPENTRY</a>));
+
+  NewHeap-&gt;<a class="code" href="struct_h_e_a_p.html#ac3df0bda023b1ac82fa5e8f163f9f567">Size</a> = Size;
+  NewHeap-&gt;<a class="code" href="struct_h_e_a_p.html#ab6f67f42d4fc122780b88fdcd08a8839">FirstFree</a> = 1;
+  <span class="keywordflow">return</span> (NewHeap);
+}                                <span class="comment">/* MakeHeap */</span>
+</pre></div>
 </div>
 </div>
 </div>
@@ -537,7 +742,7 @@ History: 3/13/89, DSJ, Created. </dd></dl>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:09 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:42 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

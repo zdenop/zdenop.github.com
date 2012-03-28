@@ -109,7 +109,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <code>#include &quot;<a class="el" href="tessopt_8h_source.html">tessopt.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="unichar_8h_source.html">unichar.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="unicharset_8h_source.html">unicharset.h</a>&quot;</code><br/>
-</div><table class="memberdecls">
+</div>
+<p><a href="unicharset__extractor_8cpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="unichar_8h.html#a8578b19fa1ff5ca75080db1a18ecc32e">UNICHAR_ID</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="unicharset__extractor_8cpp.html#aaac7331cd26b1b0a5de3a5c5cbf507b7">wc_to_unichar_id</a> (const <a class="el" href="class_u_n_i_c_h_a_r_s_e_t.html">UNICHARSET</a> &amp;unicharset, int wc)</td></tr>
@@ -143,6 +145,69 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>---------------------------------------------------------------------------- Public Function Prototypes ---------------------------------------------------------------------------- </p>
 
+<p>Definition at line <a class="el" href="unicharset__extractor_8cpp_source.html#l00102">102</a> of file <a class="el" href="unicharset__extractor_8cpp_source.html">unicharset_extractor.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                {
+  <span class="keywordtype">int</span> option;
+  <span class="keyword">const</span> <span class="keywordtype">char</span>* output_directory = <span class="stringliteral">&quot;.&quot;</span>;
+  <a class="code" href="class_s_t_r_i_n_g.html">STRING</a> unicharset_file_name;
+  <a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html">UNICHARSET</a> unicharset;
+
+  setlocale(LC_ALL, <span class="stringliteral">&quot;&quot;</span>);
+  <span class="comment">// Space character needed to represent NIL classification</span>
+  unicharset.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#ab5198816dde686850da3530a1f8261fe">unichar_insert</a>(<span class="stringliteral">&quot; &quot;</span>);
+
+  <span class="comment">// Print usage</span>
+  <span class="keywordflow">if</span> (argc &lt;= 1) {
+    printf(<span class="stringliteral">&quot;Usage: %s [-D DIRECTORY] FILE...\n&quot;</span>, argv[0]);
+    exit(1);
+
+  }
+
+  <span class="comment">// Parse arguments</span>
+  <span class="keywordflow">while</span> ((option = <a class="code" href="tessopt_8cpp.html#a810b696d632429d99dd1a92fbcfed32d">tessopt</a>(argc, argv, <span class="stringliteral">&quot;D&quot;</span> )) != EOF) {
+    <span class="keywordflow">switch</span> (option) {
+      <span class="keywordflow">case</span> <span class="charliteral">&#39;D&#39;</span>:
+        output_directory = <a class="code" href="tessopt_8cpp.html#ae2c7e7835346e9460d1534ecc3ba3f2f">tessoptarg</a>;
+        ++<a class="code" href="tessopt_8cpp.html#aef382bc42a86adef688f3b7901cc9593">tessoptind</a>;
+        <span class="keywordflow">break</span>;
+    }
+  }
+
+  <span class="comment">// Save file name</span>
+  unicharset_file_name = output_directory;
+  unicharset_file_name += <span class="stringliteral">&quot;/&quot;</span>;
+  unicharset_file_name += kUnicharsetFileName;
+
+  <span class="comment">// Load box files</span>
+  <span class="keywordflow">for</span> (; <a class="code" href="tessopt_8cpp.html#aef382bc42a86adef688f3b7901cc9593">tessoptind</a> &lt; argc; ++<a class="code" href="tessopt_8cpp.html#aef382bc42a86adef688f3b7901cc9593">tessoptind</a>) {
+    printf(<span class="stringliteral">&quot;Extracting unicharset from %s\n&quot;</span>, argv[<a class="code" href="tessopt_8cpp.html#aef382bc42a86adef688f3b7901cc9593">tessoptind</a>]);
+
+    FILE* box_file = fopen(argv[<a class="code" href="tessopt_8cpp.html#aef382bc42a86adef688f3b7901cc9593">tessoptind</a>], <span class="stringliteral">&quot;rb&quot;</span>);
+    <span class="keywordflow">if</span> (box_file == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      printf(<span class="stringliteral">&quot;Cannot open box file %s\n&quot;</span>, argv[<a class="code" href="tessopt_8cpp.html#aef382bc42a86adef688f3b7901cc9593">tessoptind</a>]);
+      <span class="keywordflow">return</span> -1;
+    }
+
+    <a class="code" href="class_t_b_o_x.html">TBOX</a> box;
+    <a class="code" href="class_s_t_r_i_n_g.html">STRING</a> unichar_string;
+    <span class="keywordtype">int</span> line_number = 0;
+    <span class="keywordflow">while</span> (<a class="code" href="boxread_8cpp.html#a8236e051549f8174e263196602edadc5">ReadNextBox</a>(&amp;line_number, box_file, &amp;unichar_string, &amp;box)) {
+      unicharset.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#ab5198816dde686850da3530a1f8261fe">unichar_insert</a>(unichar_string.<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a>());
+      <a class="code" href="unicharset__extractor_8cpp.html#ad36022bdde1b95df7c9794a4adf186b6">set_properties</a>(&amp;unicharset, unichar_string.<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a>());
+    }
+  }
+
+  <span class="comment">// Write unicharset file</span>
+  <span class="keywordflow">if</span> (unicharset.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a1f82a51ad2d63d499a625b97ec806811">save_to_file</a>(unicharset_file_name.<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a>())) {
+    printf(<span class="stringliteral">&quot;Wrote unicharset file %s.\n&quot;</span>, unicharset_file_name.<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a>());
+  }
+  <span class="keywordflow">else</span> {
+    printf(<span class="stringliteral">&quot;Cannot save unicharset file %s.\n&quot;</span>, unicharset_file_name.<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a>());
+    <span class="keywordflow">return</span> -1;
+  }
+  <span class="keywordflow">return</span> 0;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad36022bdde1b95df7c9794a4adf186b6"></a><!-- doxytag: member="unicharset_extractor.cpp::set_properties" ref="ad36022bdde1b95df7c9794a4adf186b6" args="(UNICHARSET *unicharset, const char *const c_string)" -->
@@ -170,6 +235,48 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="unicharset__extractor_8cpp_source.html#l00061">61</a> of file <a class="el" href="unicharset__extractor_8cpp_source.html">unicharset_extractor.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                        {
+<span class="preprocessor">#ifdef USING_WCTYPE</span>
+<span class="preprocessor"></span>  <a class="code" href="unichar_8h.html#a8578b19fa1ff5ca75080db1a18ecc32e">UNICHAR_ID</a> id;
+  <span class="keywordtype">int</span> wc;
+
+  <span class="comment">// Convert the string to a unichar id.</span>
+  <span class="keywordtype">id</span> = unicharset-&gt;<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#ae786fa834962ef4d6dbf8300c6c5d456">unichar_to_id</a>(c_string);
+
+  <span class="comment">// Set the other_case property to be this unichar id by default.</span>
+  unicharset-&gt;<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a71f4bab94d9bc56d828c67fb64364c41">set_other_case</a>(<span class="keywordtype">id</span>, <span class="keywordtype">id</span>);
+
+  <span class="keywordtype">int</span> step = <a class="code" href="class_u_n_i_c_h_a_r.html#a8182a4663f6c1df9f097700f1009ab22">UNICHAR::utf8_step</a>(c_string);
+  <span class="keywordflow">if</span> (step == 0)
+    <span class="keywordflow">return</span>; <span class="comment">// Invalid utf-8.</span>
+
+  <span class="comment">// Get the next Unicode code point in the string.</span>
+  <a class="code" href="class_u_n_i_c_h_a_r.html">UNICHAR</a> ch(c_string, step);
+  wc = ch.first_uni();
+
+  <span class="comment">/* Copy the properties. */</span>
+  <span class="keywordflow">if</span> (iswalpha(wc)) {
+    unicharset-&gt;<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a345a8e1c310d76ab054693a615e01df1">set_isalpha</a>(<span class="keywordtype">id</span>, 1);
+    <span class="keywordflow">if</span> (iswlower(wc)) {
+      unicharset-&gt;<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a9fbe72d0f7a00e1145a663b9e8b8a297">set_islower</a>(<span class="keywordtype">id</span>, 1);
+      unicharset-&gt;<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a71f4bab94d9bc56d828c67fb64364c41">set_other_case</a>(<span class="keywordtype">id</span>, <a class="code" href="unicharset__extractor_8cpp.html#aaac7331cd26b1b0a5de3a5c5cbf507b7">wc_to_unichar_id</a>(*unicharset,
+                                                      towupper(wc)));
+    }
+    <span class="keywordflow">if</span> (iswupper(wc)) {
+      unicharset-&gt;<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a8fc89717f817046f011380fcbd59566d">set_isupper</a>(<span class="keywordtype">id</span>, 1);
+      unicharset-&gt;<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a71f4bab94d9bc56d828c67fb64364c41">set_other_case</a>(<span class="keywordtype">id</span>, <a class="code" href="unicharset__extractor_8cpp.html#aaac7331cd26b1b0a5de3a5c5cbf507b7">wc_to_unichar_id</a>(*unicharset,
+                                                      towlower(wc)));
+    }
+  }
+  <span class="keywordflow">if</span> (iswdigit(wc))
+    unicharset-&gt;<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a7137b0679c03e0c5ac2c350470f7c443">set_isdigit</a>(<span class="keywordtype">id</span>, 1);
+  <span class="keywordflow">if</span>(iswpunct(wc))
+    unicharset-&gt;<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a288ea711359f8c5bd0e7c7369a63b27b">set_ispunctuation</a>(<span class="keywordtype">id</span>, 1);
+
+<span class="preprocessor">#endif</span>
+<span class="preprocessor"></span>}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aaac7331cd26b1b0a5de3a5c5cbf507b7"></a><!-- doxytag: member="unicharset_extractor.cpp::wc_to_unichar_id" ref="aaac7331cd26b1b0a5de3a5c5cbf507b7" args="(const UNICHARSET &amp;unicharset, int wc)" -->
@@ -197,6 +304,15 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="unicharset__extractor_8cpp_source.html#l00049">49</a> of file <a class="el" href="unicharset__extractor_8cpp_source.html">unicharset_extractor.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                  {
+  <a class="code" href="class_u_n_i_c_h_a_r.html">UNICHAR</a> uch(wc);
+  <span class="keywordtype">char</span> *unichar = uch.utf8_str();
+  <a class="code" href="unichar_8h.html#a8578b19fa1ff5ca75080db1a18ecc32e">UNICHAR_ID</a> unichar_id = unicharset.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#ae786fa834962ef4d6dbf8300c6c5d456">unichar_to_id</a>(unichar);
+  <span class="keyword">delete</span>[] unichar;
+  <span class="keywordflow">return</span> unichar_id;
+}
+</pre></div>
 </div>
 </div>
 </div>
@@ -219,7 +335,7 @@ Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:10 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:43 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

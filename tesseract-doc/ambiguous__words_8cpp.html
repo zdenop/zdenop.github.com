@@ -107,7 +107,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <code>#include &quot;<a class="el" href="strngs_8h_source.html">strngs.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="dict_8h_source.html">dict.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="tesseractclass_8h_source.html">tesseractclass.h</a>&quot;</code><br/>
-</div><table class="memberdecls">
+</div>
+<p><a href="ambiguous__words_8cpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="ambiguous__words_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a> (int argc, char **argv)</td></tr>
@@ -139,6 +141,54 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>---------------------------------------------------------------------------- Public Function Prototypes ---------------------------------------------------------------------------- </p>
 
+<p>Definition at line <a class="el" href="ambiguous__words_8cpp_source.html#l00032">32</a> of file <a class="el" href="ambiguous__words_8cpp_source.html">ambiguous_words.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                {
+
+  <span class="comment">// Parse input arguments.</span>
+  <span class="keywordflow">if</span> (argc != 4 &amp;&amp; (argc != 6 || strcmp(argv[1], <span class="stringliteral">&quot;-l&quot;</span>) != 0)) {
+    printf(<span class="stringliteral">&quot;Usage: %s [-l lang] tessdata_dir wordlist_file&quot;</span>
+           <span class="stringliteral">&quot; output_ambiguious_wordlist_file\n&quot;</span>, argv[0]);
+    <span class="keywordflow">return</span> 1;
+  }
+  <span class="keywordtype">int</span> argv_offset = 0;
+  <a class="code" href="class_s_t_r_i_n_g.html">STRING</a> lang;
+  <span class="keywordflow">if</span> (argc == 6) {
+    lang = argv[2];
+    argv_offset = 2;
+  } <span class="keywordflow">else</span> {
+    lang = <span class="stringliteral">&quot;eng&quot;</span>;
+  }
+  <span class="keyword">const</span> <span class="keywordtype">char</span> *tessdata_dir = argv[++argv_offset];
+  <span class="keyword">const</span> <span class="keywordtype">char</span> *input_file_str = argv[++argv_offset];
+  <span class="keyword">const</span> <span class="keywordtype">char</span> *output_file_str = argv[++argv_offset];
+
+  <span class="comment">// Initialize Tesseract.</span>
+  <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html">tesseract::TessBaseAPI</a> api;
+  <a class="code" href="class_generic_vector.html">GenericVector&lt;STRING&gt;</a> vars_vec;
+  <a class="code" href="class_generic_vector.html">GenericVector&lt;STRING&gt;</a> vars_values;
+  vars_vec.<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(<span class="stringliteral">&quot;output_ambig_words_file&quot;</span>);
+  vars_values.<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(output_file_str);
+  api.<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a96899e8e5358d96752ab1cfc3bc09f3e">Init</a>(tessdata_dir, lang.<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a>(), <a class="code" href="namespacetesseract.html#a04550a0ed1279562027bf2fc92c421aeaea8028f61e76a0f4def7cbe7905206cf">tesseract::OEM_TESSERACT_ONLY</a>,
+           <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, &amp;vars_vec, &amp;vars_values, <span class="keyword">false</span>);
+  <a class="code" href="classtesseract_1_1_dict.html">tesseract::Dict</a> &amp;dict = api.<a class="code" href="group___advanced_a_p_i.html#ga7b46dfdb521a2a575ab914ece8a40e6c">tesseract</a>()-&gt;getDict();
+  FILE *input_file = fopen(input_file_str, <span class="stringliteral">&quot;rb&quot;</span>);
+  <span class="keywordflow">if</span> (input_file == NULL) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Failed to open input wordlist file %s\n&quot;</span>, input_file_str);
+    exit(1);
+  }
+  <span class="keywordtype">char</span> str[<a class="code" href="cutil_8h.html#accaf8215779c8836f3f25f722e77550e">CHARS_PER_LINE</a>];
+
+  <span class="comment">// Read word list and call Dict::NoDangerousAmbig() for each word</span>
+  <span class="comment">// to record ambiguities in the output file.</span>
+  <span class="keywordflow">while</span> (fgets(str, <a class="code" href="cutil_8h.html#accaf8215779c8836f3f25f722e77550e">CHARS_PER_LINE</a>, input_file) != NULL) {
+    <a class="code" href="helpers_8h.html#a31bec0ef73dd383e256fa462e9fa7e1f">chomp_string</a>(str);  <span class="comment">// remove newline</span>
+    <a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html">WERD_CHOICE</a> word(str, dict.<a class="code" href="classtesseract_1_1_dict.html#a635ce00ba9aa24247563d26ae26da631">getUnicharset</a>());
+    dict.<a class="code" href="classtesseract_1_1_dict.html#aef746918c09040cf417f831d07c97072">NoDangerousAmbig</a>(&amp;word, NULL, <span class="keyword">false</span>, NULL, NULL);
+  }
+  <span class="comment">// Clean up.</span>
+  fclose(input_file);
+}
+</pre></div>
 </div>
 </div>
 </div>
@@ -161,7 +211,7 @@ Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:10 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:43 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

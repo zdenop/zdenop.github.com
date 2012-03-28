@@ -130,6 +130,8 @@ Package Functions</h2></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>Constructs a new menulistitem which also has a value and a description. For these, we will not have to ask the server what the value is when the user wants to change it, but can just call the client with the new value. </p>
+
+<p>Definition at line <a class="el" href="_s_v_menu_item_8java_source.html#l00031">31</a> of file <a class="el" href="_s_v_menu_item_8java_source.html">SVMenuItem.java</a>.</p>
 </div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="ae15ef6f5abf0ceafd38b1d96cf0bea55"></a><!-- doxytag: member="com::google::scrollview::ui::SVMenuItem::SVMenuItem" ref="ae15ef6f5abf0ceafd38b1d96cf0bea55" args="(int id, String name, String v, String d)" -->
 <div class="memitem">
@@ -168,6 +170,13 @@ Package Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="_s_v_menu_item_8java_source.html#l00035">35</a> of file <a class="el" href="_s_v_menu_item_8java_source.html">SVMenuItem.java</a>.</p>
+<div class="fragment"><pre class="fragment">                                                      {
+    super(<span class="keywordtype">id</span>, <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_abstract_menu_item.html#acff73744423ec2a92eb8dc83f2cb1797">name</a>, <span class="keyword">new</span> JMenuItem(<a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_abstract_menu_item.html#acff73744423ec2a92eb8dc83f2cb1797">name</a>));
+    <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_menu_item.html#aacf3f345b46da01787359cd3c4d5c2e8">value</a> = v;
+    <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_menu_item.html#a0c74381472865a563f0cc4451d1ff3fb">desc</a> = d;
+  }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -188,6 +197,11 @@ Package Functions</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_abstract_menu_item.html#af45002f791ea5df98eb08845905dc08d">com.google.scrollview.ui.SVAbstractMenuItem</a>.</p>
 
+<p>Definition at line <a class="el" href="_s_v_menu_item_8java_source.html#l00057">57</a> of file <a class="el" href="_s_v_menu_item_8java_source.html">SVMenuItem.java</a>.</p>
+<div class="fragment"><pre class="fragment">                           {
+    <span class="keywordflow">return</span> <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_menu_item.html#aacf3f345b46da01787359cd3c4d5c2e8">value</a>;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa6374a857acc0a0e1c5d54676d7bb62c"></a><!-- doxytag: member="com::google::scrollview::ui::SVMenuItem::performAction" ref="aa6374a857acc0a0e1c5d54676d7bb62c" args="(SVWindow window, SVEventType eventType)" -->
@@ -218,6 +232,15 @@ Package Functions</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_abstract_menu_item.html#a88eee480ee60a2e501de7a55710fb3f1">com.google.scrollview.ui.SVAbstractMenuItem</a>.</p>
 
+<p>Definition at line <a class="el" href="_s_v_menu_item_8java_source.html#l00047">47</a> of file <a class="el" href="_s_v_menu_item_8java_source.html">SVMenuItem.java</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                    {
+    <span class="keywordflow">if</span> (<a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_menu_item.html#a0c74381472865a563f0cc4451d1ff3fb">desc</a> != null) {
+      window.showInputDialog(<a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_menu_item.html#a0c74381472865a563f0cc4451d1ff3fb">desc</a>, <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_menu_item.html#aacf3f345b46da01787359cd3c4d5c2e8">value</a>, <span class="keywordtype">id</span>, eventType);
+    } <span class="keywordflow">else</span> {
+      window.showInputDialog(<a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_abstract_menu_item.html#acff73744423ec2a92eb8dc83f2cb1797">name</a>, <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_menu_item.html#aacf3f345b46da01787359cd3c4d5c2e8">value</a>, <span class="keywordtype">id</span>, eventType);
+    }
+  }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
@@ -232,6 +255,8 @@ Package Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="_s_v_menu_item_8java_source.html#l00033">33</a> of file <a class="el" href="_s_v_menu_item_8java_source.html">SVMenuItem.java</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="aacf3f345b46da01787359cd3c4d5c2e8"></a><!-- doxytag: member="com::google::scrollview::ui::SVMenuItem::value" ref="aacf3f345b46da01787359cd3c4d5c2e8" args="" -->
@@ -245,10 +270,12 @@ Package Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="_s_v_menu_item_8java_source.html#l00032">32</a> of file <a class="el" href="_s_v_menu_item_8java_source.html">SVMenuItem.java</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>tesseract-ocr/java/com/google/scrollview/ui/<a class="el" href="_s_v_menu_item_8java.html">SVMenuItem.java</a></li>
+<li>tesseract-ocr/java/com/google/scrollview/ui/<a class="el" href="_s_v_menu_item_8java_source.html">SVMenuItem.java</a></li>
 </ul>
 </div>
 </div>
@@ -274,7 +301,7 @@ Package Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:14 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:48 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

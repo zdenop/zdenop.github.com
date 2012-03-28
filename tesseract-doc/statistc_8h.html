@@ -149,6 +149,68 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="statistc_8cpp_source.html#l00550">550</a> of file <a class="el" href="statistc_8cpp_source.html">statistc.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                              {
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> next_sample;             <span class="comment">// next one to do</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> next_lesser;             <span class="comment">// space for new</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> prev_greater;            <span class="comment">// last one saved</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> equal_count;             <span class="comment">// no of equal ones</span>
+  <span class="keywordtype">float</span> pivot;                   <span class="comment">// proposed median</span>
+  <span class="keywordtype">float</span> <a class="code" href="structsample.html">sample</a>;                  <span class="comment">// current sample</span>
+
+  <span class="keywordflow">if</span> (<a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a> &lt;= 1)
+    <span class="keywordflow">return</span> 0;
+  <span class="keywordflow">if</span> (<a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a> == 2) {
+    <span class="keywordflow">if</span> (array[0] &lt; array[1]) {
+      <span class="keywordflow">return</span> index &gt;= 1 ? 1 : 0;
+    }
+    <span class="keywordflow">else</span> {
+      <span class="keywordflow">return</span> index &gt;= 1 ? 0 : 1;
+    }
+  }
+  <span class="keywordflow">else</span> {
+    <span class="keywordflow">if</span> (index &lt; 0)
+      index = 0;                 <span class="comment">// ensure legal</span>
+    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (index &gt;= <a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a>)
+      index = <a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a> - 1;
+    equal_count = (<a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a>) (rand() % <a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a>);
+    pivot = array[equal_count];
+                                 <span class="comment">// fill gap</span>
+    array[equal_count] = array[0];
+    next_lesser = 0;
+    prev_greater = <a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a>;
+    equal_count = 1;
+    <span class="keywordflow">for</span> (next_sample = 1; next_sample &lt; prev_greater;) {
+      sample = array[next_sample];
+      <span class="keywordflow">if</span> (sample &lt; pivot) {
+                                 <span class="comment">// shuffle</span>
+        array[next_lesser++] = sample;
+        next_sample++;
+      }
+      <span class="keywordflow">else</span> <span class="keywordflow">if</span> (sample &gt; pivot) {
+        prev_greater--;
+                                 <span class="comment">// juggle</span>
+        array[next_sample] = array[prev_greater];
+        array[prev_greater] = sample;
+      }
+      <span class="keywordflow">else</span> {
+        equal_count++;
+        next_sample++;
+      }
+    }
+    <span class="keywordflow">for</span> (next_sample = next_lesser; next_sample &lt; prev_greater;)
+      array[next_sample++] = pivot;
+    <span class="keywordflow">if</span> (index &lt; next_lesser)
+      <span class="keywordflow">return</span> <a class="code" href="statistc_8cpp.html#ab531cf8bc727a6e03af3a6cc10b4cd7a">choose_nth_item</a> (index, array, next_lesser);
+    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (index &lt; prev_greater)
+      <span class="keywordflow">return</span> next_lesser;        <span class="comment">// in equal bracket</span>
+    <span class="keywordflow">else</span>
+      <span class="keywordflow">return</span> <a class="code" href="statistc_8cpp.html#ab531cf8bc727a6e03af3a6cc10b4cd7a">choose_nth_item</a> (index - prev_greater,
+        array + prev_greater,
+        <a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a> - prev_greater) + prev_greater;
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a71a0ba1133f24e41c7123bc460798744"></a><!-- doxytag: member="statistc.h::choose_nth_item" ref="a71a0ba1133f24e41c7123bc460798744" args="(inT32 index, void *array, inT32 count, size_t size, int(*compar)(const void *, const void *))" -->
@@ -194,6 +256,62 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="statistc_8cpp_source.html#l00617">617</a> of file <a class="el" href="statistc_8cpp_source.html">statistc.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                               {
+  <span class="keywordtype">int</span> result;                    <span class="comment">// of compar</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> next_sample;             <span class="comment">// next one to do</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> next_lesser;             <span class="comment">// space for new</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> prev_greater;            <span class="comment">// last one saved</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> equal_count;             <span class="comment">// no of equal ones</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> pivot;                   <span class="comment">// proposed median</span>
+
+  <span class="keywordflow">if</span> (<a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a> &lt;= 1)
+    <span class="keywordflow">return</span> 0;
+  <span class="keywordflow">if</span> (<a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a> == 2) {
+    <span class="keywordflow">if</span> (compar (array, (<span class="keywordtype">char</span> *) array + size) &lt; 0) {
+      <span class="keywordflow">return</span> index &gt;= 1 ? 1 : 0;
+    }
+    <span class="keywordflow">else</span> {
+      <span class="keywordflow">return</span> index &gt;= 1 ? 0 : 1;
+    }
+  }
+  <span class="keywordflow">if</span> (index &lt; 0)
+    index = 0;                   <span class="comment">// ensure legal</span>
+  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (index &gt;= <a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a>)
+    index = <a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a> - 1;
+  pivot = (<a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a>) (rand () % <a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a>);
+  <a class="code" href="statistc_8cpp.html#ab483724220813ab89951f7c264dcdd26">swap_entries</a> (array, size, pivot, 0);
+  next_lesser = 0;
+  prev_greater = <a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a>;
+  equal_count = 1;
+  <span class="keywordflow">for</span> (next_sample = 1; next_sample &lt; prev_greater;) {
+    result =
+      compar ((<span class="keywordtype">char</span> *) array + size * next_sample,
+      (<span class="keywordtype">char</span> *) array + size * next_lesser);
+    <span class="keywordflow">if</span> (result &lt; 0) {
+      <a class="code" href="statistc_8cpp.html#ab483724220813ab89951f7c264dcdd26">swap_entries</a> (array, size, next_lesser++, next_sample++);
+      <span class="comment">// shuffle</span>
+    }
+    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (result &gt; 0) {
+      prev_greater--;
+      <a class="code" href="statistc_8cpp.html#ab483724220813ab89951f7c264dcdd26">swap_entries</a>(array, size, prev_greater, next_sample);
+    }
+    <span class="keywordflow">else</span> {
+      equal_count++;
+      next_sample++;
+    }
+  }
+  <span class="keywordflow">if</span> (index &lt; next_lesser)
+    <span class="keywordflow">return</span> <a class="code" href="statistc_8cpp.html#ab531cf8bc727a6e03af3a6cc10b4cd7a">choose_nth_item</a> (index, array, next_lesser, size, compar);
+  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (index &lt; prev_greater)
+    <span class="keywordflow">return</span> next_lesser;          <span class="comment">// in equal bracket</span>
+  <span class="keywordflow">else</span>
+    <span class="keywordflow">return</span> <a class="code" href="statistc_8cpp.html#ab531cf8bc727a6e03af3a6cc10b4cd7a">choose_nth_item</a> (index - prev_greater,
+      (<span class="keywordtype">char</span> *) array + size * prev_greater,
+      <a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a> - prev_greater, size,
+      compar) + prev_greater;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab483724220813ab89951f7c264dcdd26"></a><!-- doxytag: member="statistc.h::swap_entries" ref="ab483724220813ab89951f7c264dcdd26" args="(void *array, size_t size, inT32 index1, inT32 index2)" -->
@@ -233,6 +351,22 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="statistc_8cpp_source.html#l00678">678</a> of file <a class="el" href="statistc_8cpp_source.html">statistc.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                {
+  <span class="keywordtype">char</span> tmp;
+  <span class="keywordtype">char</span> *ptr1;                    <span class="comment">// to entries</span>
+  <span class="keywordtype">char</span> *ptr2;
+  <span class="keywordtype">size_t</span> <a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a>;                  <span class="comment">// of bytes</span>
+
+  ptr1 = <span class="keyword">reinterpret_cast&lt;</span><span class="keywordtype">char</span>*<span class="keyword">&gt;</span>(array) + index1 * size;
+  ptr2 = <span class="keyword">reinterpret_cast&lt;</span><span class="keywordtype">char</span>*<span class="keyword">&gt;</span>(array) + index2 * size;
+  <span class="keywordflow">for</span> (count = 0; count &lt; size; count++) {
+    tmp = *ptr1;
+    *ptr1++ = *ptr2;
+    *ptr2++ = tmp;               <span class="comment">// tedious!</span>
+  }
+}
+</pre></div>
 </div>
 </div>
 </div>
@@ -255,7 +389,7 @@ Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:09 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:40 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

@@ -137,7 +137,10 @@ Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_con_comp.html#a3e14bdb2d1e77560f0bc62e31bee05b4">Left2RightComparer</a> (const void *comp1, const void *comp2)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_con_comp.html#ac85689fc81acd62cad011973ffb1d814">Right2LeftComparer</a> (const void *comp1, const void *comp2)</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="con__comp_8h_source.html#l00059">59</a> of file <a class="el" href="con__comp_8h_source.html">con_comp.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a9c1a56e98d961c0897204ddc3dc34dcc"></a><!-- doxytag: member="tesseract::ConComp::ConComp" ref="a9c1a56e98d961c0897204ddc3dc34dcc" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -152,6 +155,20 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="con__comp_8cpp_source.html#l00027">27</a> of file <a class="el" href="con__comp_8cpp_source.html">con_comp.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                 {
+  head_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  tail_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  left_ = 0;
+  top_ = 0;
+  right_ = 0;
+  bottom_ = 0;
+  left_most_ = <span class="keyword">false</span>;
+  right_most_ = <span class="keyword">false</span>;
+  id_ = -1;
+  pt_cnt_ = 0;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="afdd2ae13689464919d6b8518ac96bf4f"></a><!-- doxytag: member="tesseract::ConComp::~ConComp" ref="afdd2ae13689464919d6b8518ac96bf4f" args="()" -->
@@ -168,6 +185,19 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="con__comp_8cpp_source.html#l00040">40</a> of file <a class="el" href="con__comp_8cpp_source.html">con_comp.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                  {
+  <span class="keywordflow">if</span> (head_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    ConCompPt *pt_ptr = head_;
+    <span class="keywordflow">while</span> (pt_ptr != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      ConCompPt *pptNext = pt_ptr-&gt;Next();
+      <span class="keyword">delete</span> pt_ptr;
+      pt_ptr = pptNext;
+    }
+    head_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -196,6 +226,36 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="con__comp_8cpp_source.html#l00053">53</a> of file <a class="el" href="con__comp_8cpp_source.html">con_comp.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                              {
+  ConCompPt *pt_ptr = <span class="keyword">new</span> ConCompPt(x, y);
+  <span class="keywordflow">if</span> (pt_ptr == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+
+  <span class="keywordflow">if</span> (head_ == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    left_ = x;
+    right_ = x;
+    top_ = y;
+    bottom_ = y;
+
+    head_ = pt_ptr;
+  } <span class="keywordflow">else</span> {
+    left_ = left_ &lt;= x ? left_ : x;
+    top_ = top_ &lt;= y ? top_ : y;
+    right_ = right_ &gt;= x ? right_ : x;
+    bottom_ = bottom_ &gt;= y ? bottom_ : y;
+  }
+
+  <span class="keywordflow">if</span> (tail_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    tail_-&gt;SetNext(pt_ptr);
+  }
+
+  tail_ = pt_ptr;
+  pt_cnt_++;
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6bbf3bbe48cd0a2be7075738585bf173"></a><!-- doxytag: member="tesseract::ConComp::Bottom" ref="a6bbf3bbe48cd0a2be7075738585bf173" args="() const " -->
@@ -212,6 +272,9 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="con__comp_8h_source.html#l00068">68</a> of file <a class="el" href="con__comp_8h_source.html">con_comp.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> bottom_; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="addc1f8cbe0d67f961bb956125daa96bc"></a><!-- doxytag: member="tesseract::ConComp::CreateHistogram" ref="addc1f8cbe0d67f961bb956125daa96bc" args="(int max_hist_wnd)" -->
@@ -229,6 +292,43 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="con__comp_8cpp_source.html#l00106">106</a> of file <a class="el" href="con__comp_8cpp_source.html">con_comp.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                              {
+  <span class="keywordtype">int</span> wid = right_ - left_ + 1,
+    hgt = bottom_ - top_ + 1,
+    hist_wnd = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(hgt * <a class="code" href="cube__const_8h.html#aec189a023f988ece297cca8b0d492631">HIST_WND_RATIO</a>);
+
+  <span class="keywordflow">if</span> (hist_wnd &gt; max_hist_wnd) {
+      hist_wnd = max_hist_wnd;
+  }
+
+  <span class="comment">// alloc memo for histogram</span>
+  <span class="keywordtype">int</span> *hist_array = <span class="keyword">new</span> <span class="keywordtype">int</span>[wid];
+  <span class="keywordflow">if</span> (hist_array == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  memset(hist_array, 0, wid * <span class="keyword">sizeof</span>(*hist_array));
+
+  <span class="comment">// compute windowed histogram</span>
+  ConCompPt *pt_ptr = head_;
+
+  <span class="keywordflow">while</span> (pt_ptr != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordtype">int</span> x = pt_ptr-&gt;x() - left_,
+      xw = x - hist_wnd;
+
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> xdel = -hist_wnd; xdel &lt;= hist_wnd; xdel++, xw++) {
+      <span class="keywordflow">if</span> (xw &gt;= 0 &amp;&amp; xw &lt; wid) {
+        hist_array[xw]++;
+      }
+    }
+
+    pt_ptr = pt_ptr-&gt;Next();
+  }
+
+  <span class="keywordflow">return</span> hist_array;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aeca7dc90be5534cea4d22eda6f643481"></a><!-- doxytag: member="tesseract::ConComp::Head" ref="aeca7dc90be5534cea4d22eda6f643481" args="()" -->
@@ -245,6 +345,9 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="con__comp_8h_source.html#l00064">64</a> of file <a class="el" href="con__comp_8h_source.html">con_comp.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> head_; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a24e27b9624cfdac2ac9778394ec475ad"></a><!-- doxytag: member="tesseract::ConComp::Height" ref="a24e27b9624cfdac2ac9778394ec475ad" args="() const " -->
@@ -261,6 +364,9 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="con__comp_8h_source.html#l00070">70</a> of file <a class="el" href="con__comp_8h_source.html">con_comp.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> bottom_ - top_ + 1; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aaa79a54da0de040fdc964e53baa4a60f"></a><!-- doxytag: member="tesseract::ConComp::ID" ref="aaa79a54da0de040fdc964e53baa4a60f" args="() const " -->
@@ -277,6 +383,9 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="con__comp_8h_source.html#l00094">94</a> of file <a class="el" href="con__comp_8h_source.html">con_comp.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> id_; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a52d9ba9805fb4eea0d0866a8801d6175"></a><!-- doxytag: member="tesseract::ConComp::Left" ref="a52d9ba9805fb4eea0d0866a8801d6175" args="() const " -->
@@ -293,6 +402,9 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="con__comp_8h_source.html#l00065">65</a> of file <a class="el" href="con__comp_8h_source.html">con_comp.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> left_; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3e14bdb2d1e77560f0bc62e31bee05b4"></a><!-- doxytag: member="tesseract::ConComp::Left2RightComparer" ref="a3e14bdb2d1e77560f0bc62e31bee05b4" args="(const void *comp1, const void *comp2)" -->
@@ -320,6 +432,14 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="con__comp_8h_source.html#l00073">73</a> of file <a class="el" href="con__comp_8h_source.html">con_comp.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                            {
+      <span class="keywordflow">return</span> (*(reinterpret_cast&lt;ConComp * const *&gt;(comp1)))-&gt;left_ +
+          (*(<span class="keyword">reinterpret_cast&lt;</span><a class="code" href="classtesseract_1_1_con_comp.html#a9c1a56e98d961c0897204ddc3dc34dcc">ConComp</a> * <span class="keyword">const </span>*<span class="keyword">&gt;</span>(comp1)))-&gt;right_ -
+          (*(reinterpret_cast&lt;ConComp * const *&gt;(comp2)))-&gt;left_ -
+          (*(<span class="keyword">reinterpret_cast&lt;</span><a class="code" href="classtesseract_1_1_con_comp.html#a9c1a56e98d961c0897204ddc3dc34dcc">ConComp</a> * <span class="keyword">const </span>*<span class="keyword">&gt;</span>(comp2)))-&gt;right_;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a46f077f3c407b57ed726fadd96515c51"></a><!-- doxytag: member="tesseract::ConComp::LeftMost" ref="a46f077f3c407b57ed726fadd96515c51" args="() const " -->
@@ -336,6 +456,9 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="con__comp_8h_source.html#l00089">89</a> of file <a class="el" href="con__comp_8h_source.html">con_comp.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> left_most_; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a95f33b8db94faa8c5688f2f7d2c0854f"></a><!-- doxytag: member="tesseract::ConComp::Merge" ref="a95f33b8db94faa8c5688f2f7d2c0854f" args="(ConComp *con_comp)" -->
@@ -353,6 +476,27 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="con__comp_8cpp_source.html#l00083">83</a> of file <a class="el" href="con__comp_8cpp_source.html">con_comp.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                    {
+  <span class="keywordflow">if</span> (head_ == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> || tail_ == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> ||
+      concomp-&gt;head_ == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> || concomp-&gt;tail_ == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+
+  tail_-&gt;SetNext(concomp-&gt;head_);
+  tail_ = concomp-&gt;tail_;
+  left_ = left_ &lt;= concomp-&gt;left_ ? left_ : concomp-&gt;left_;
+  top_ = top_ &lt;= concomp-&gt;top_ ? top_ : concomp-&gt;top_;
+  right_ = right_ &gt;= concomp-&gt;right_ ? right_ : concomp-&gt;right_;
+  bottom_ = bottom_ &gt;= concomp-&gt;bottom_ ? bottom_ : concomp-&gt;bottom_;
+  pt_cnt_ += concomp-&gt;pt_cnt_;
+
+  concomp-&gt;head_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  concomp-&gt;tail_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3bed553a12ef1454a64927f995727bf2"></a><!-- doxytag: member="tesseract::ConComp::PtCnt" ref="a3bed553a12ef1454a64927f995727bf2" args="() const " -->
@@ -369,6 +513,9 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="con__comp_8h_source.html#l00096">96</a> of file <a class="el" href="con__comp_8h_source.html">con_comp.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> pt_cnt_; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aed1472695ac78f7a9907de8668d6e112"></a><!-- doxytag: member="tesseract::ConComp::Right" ref="aed1472695ac78f7a9907de8668d6e112" args="() const " -->
@@ -385,6 +532,9 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="con__comp_8h_source.html#l00067">67</a> of file <a class="el" href="con__comp_8h_source.html">con_comp.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> right_; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac85689fc81acd62cad011973ffb1d814"></a><!-- doxytag: member="tesseract::ConComp::Right2LeftComparer" ref="ac85689fc81acd62cad011973ffb1d814" args="(const void *comp1, const void *comp2)" -->
@@ -412,6 +562,12 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="con__comp_8h_source.html#l00082">82</a> of file <a class="el" href="con__comp_8h_source.html">con_comp.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                            {
+      <span class="keywordflow">return</span> (*(reinterpret_cast&lt;ConComp * const *&gt;(comp2)))-&gt;right_ -
+          (*(<span class="keyword">reinterpret_cast&lt;</span><a class="code" href="classtesseract_1_1_con_comp.html#a9c1a56e98d961c0897204ddc3dc34dcc">ConComp</a> * <span class="keyword">const </span>*<span class="keyword">&gt;</span>(comp1)))-&gt;right_;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a51a07d273432b98bd1ff45d25bbbb319"></a><!-- doxytag: member="tesseract::ConComp::RightMost" ref="a51a07d273432b98bd1ff45d25bbbb319" args="() const " -->
@@ -428,6 +584,9 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="con__comp_8h_source.html#l00090">90</a> of file <a class="el" href="con__comp_8h_source.html">con_comp.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> right_most_; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a5c8c4ae10cf9097aea4093d9f581088b"></a><!-- doxytag: member="tesseract::ConComp::Segment" ref="a5c8c4ae10cf9097aea4093d9f581088b" args="(int max_hist_wnd, int *concomp_cnt)" -->
@@ -455,6 +614,88 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="con__comp_8cpp_source.html#l00189">189</a> of file <a class="el" href="con__comp_8cpp_source.html">con_comp.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                             {
+  <span class="comment">// init</span>
+  (*concomp_cnt) = 0;
+
+  <span class="comment">// No pts</span>
+  <span class="keywordflow">if</span> (head_ == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="keywordtype">int</span> seg_pt_cnt = 0;
+
+  <span class="comment">// create the histogram</span>
+  <span class="keywordtype">int</span> *hist_array = <a class="code" href="classtesseract_1_1_con_comp.html#addc1f8cbe0d67f961bb956125daa96bc">CreateHistogram</a>(max_hist_wnd);
+  <span class="keywordflow">if</span> (hist_array == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="keywordtype">int</span> *x_seg_pt = <a class="code" href="classtesseract_1_1_con_comp.html#ab26e47851c734f02c049e590b9678cee">SegmentHistogram</a>(hist_array, &amp;seg_pt_cnt);
+
+  <span class="comment">// free histogram</span>
+  <span class="keyword">delete</span> []hist_array;
+
+  <span class="comment">// no segments, nothing to do</span>
+  <span class="keywordflow">if</span> (seg_pt_cnt == 0) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="comment">// create concomp array</span>
+  <a class="code" href="classtesseract_1_1_con_comp.html#a9c1a56e98d961c0897204ddc3dc34dcc">ConComp</a> **concomp_array = <span class="keyword">new</span> <a class="code" href="classtesseract_1_1_con_comp.html#a9c1a56e98d961c0897204ddc3dc34dcc">ConComp</a> *[seg_pt_cnt + 1];
+  <span class="keywordflow">if</span> (concomp_array == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keyword">delete</span> []x_seg_pt;
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> concomp = 0; concomp &lt;= seg_pt_cnt; concomp++) {
+    concomp_array[concomp] = <span class="keyword">new</span> <a class="code" href="classtesseract_1_1_con_comp.html#a9c1a56e98d961c0897204ddc3dc34dcc">ConComp</a>();
+    <span class="keywordflow">if</span> (concomp_array[concomp] == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      <span class="keyword">delete</span> []x_seg_pt;
+      <span class="keyword">delete</span> []concomp_array;
+      <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    }
+
+    <span class="comment">// split concomps inherit the ID this concomp</span>
+    concomp_array[concomp]-&gt;SetID(id_);
+  }
+
+  <span class="comment">// set the left and right most attributes of the</span>
+  <span class="comment">// appropriate concomps</span>
+  concomp_array[0]-&gt;left_most_ = <span class="keyword">true</span>;
+  concomp_array[seg_pt_cnt]-&gt;right_most_ = <span class="keyword">true</span>;
+
+  <span class="comment">// assign pts to concomps</span>
+  ConCompPt *pt_ptr = head_;
+  <span class="keywordflow">while</span> (pt_ptr != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordtype">int</span> seg_pt;
+
+    <span class="comment">// find the first seg-pt that exceeds the x value</span>
+    <span class="comment">// of the pt</span>
+    <span class="keywordflow">for</span> (seg_pt = 0; seg_pt &lt; seg_pt_cnt; seg_pt++) {
+      <span class="keywordflow">if</span> ((x_seg_pt[seg_pt] + left_) &gt; pt_ptr-&gt;x()) {
+        <span class="keywordflow">break</span>;
+      }
+    }
+
+    <span class="comment">// add the pt to the proper concomp</span>
+    <span class="keywordflow">if</span> (concomp_array[seg_pt]-&gt;<a class="code" href="classtesseract_1_1_con_comp.html#a52603a07411f89ea2858d7dc458c69ec">Add</a>(pt_ptr-&gt;x(), pt_ptr-&gt;y()) == <span class="keyword">false</span>) {
+      <span class="keyword">delete</span> []x_seg_pt;
+      <span class="keyword">delete</span> []concomp_array;
+      <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    }
+
+    pt_ptr = pt_ptr-&gt;Next();
+  }
+
+  <span class="keyword">delete</span> []x_seg_pt;
+
+  (*concomp_cnt) = (seg_pt_cnt + 1);
+
+  <span class="keywordflow">return</span> concomp_array;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab26e47851c734f02c049e590b9678cee"></a><!-- doxytag: member="tesseract::ConComp::SegmentHistogram" ref="ab26e47851c734f02c049e590b9678cee" args="(int *hist_array, int *seg_pt_cnt)" -->
@@ -482,6 +723,50 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="con__comp_8cpp_source.html#l00143">143</a> of file <a class="el" href="con__comp_8cpp_source.html">con_comp.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                               {
+  <span class="comment">// init</span>
+  (*seg_pt_cnt) = 0;
+
+  <span class="keywordtype">int</span> wid = right_ - left_ + 1,
+    hgt = bottom_ - top_ + 1;
+
+  <span class="keywordtype">int</span> *x_seg_pt = <span class="keyword">new</span> <span class="keywordtype">int</span>[wid];
+  <span class="keywordflow">if</span> (x_seg_pt == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="keywordtype">int</span> seg_pt_wnd = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(hgt * <a class="code" href="cube__const_8h.html#a2f63172fc6a5989d5934e7154ac0612e">SEG_PT_WND_RATIO</a>);
+
+  <span class="keywordflow">if</span> (seg_pt_wnd &gt; 1) {
+    seg_pt_wnd = 1;
+  }
+
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> x = 2; x &lt; (wid - 2); x++) {
+    <span class="keywordflow">if</span> (hist_array[x] &lt; hist_array[x - 1] &amp;&amp;
+        hist_array[x] &lt; hist_array[x - 2] &amp;&amp;
+        hist_array[x] &lt;= hist_array[x + 1] &amp;&amp;
+        hist_array[x] &lt;= hist_array[x + 2]) {
+      x_seg_pt[(*seg_pt_cnt)++] = x;
+      x += seg_pt_wnd;
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (hist_array[x] &lt;= hist_array[x - 1] &amp;&amp;
+               hist_array[x] &lt;= hist_array[x - 2] &amp;&amp;
+               hist_array[x] &lt; hist_array[x + 1] &amp;&amp;
+               hist_array[x] &lt; hist_array[x + 2]) {
+      x_seg_pt[(*seg_pt_cnt)++] = x;
+      x += seg_pt_wnd;
+    }
+  }
+
+  <span class="comment">// no segments, nothing to do</span>
+  <span class="keywordflow">if</span> ((*seg_pt_cnt) == 0) {
+    <span class="keyword">delete</span> []x_seg_pt;
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="keywordflow">return</span> x_seg_pt;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a10dfd3b6b7011094779219ef2b11e6e9"></a><!-- doxytag: member="tesseract::ConComp::SetID" ref="a10dfd3b6b7011094779219ef2b11e6e9" args="(int id)" -->
@@ -499,6 +784,9 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="con__comp_8h_source.html#l00095">95</a> of file <a class="el" href="con__comp_8h_source.html">con_comp.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ id_ = id; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa2c94d10759c56bb207bdf726e18508c"></a><!-- doxytag: member="tesseract::ConComp::SetLeftMost" ref="aa2c94d10759c56bb207bdf726e18508c" args="(bool left_most)" -->
@@ -516,6 +804,9 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="con__comp_8h_source.html#l00091">91</a> of file <a class="el" href="con__comp_8h_source.html">con_comp.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ left_most_ = left_most; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad92358ae9e5e4bd12246650f5e029733"></a><!-- doxytag: member="tesseract::ConComp::SetRightMost" ref="ad92358ae9e5e4bd12246650f5e029733" args="(bool right_most)" -->
@@ -533,6 +824,10 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="con__comp_8h_source.html#l00092">92</a> of file <a class="el" href="con__comp_8h_source.html">con_comp.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                              { right_most_ = right_most;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a1e7da8edaf81efc49ea20c48e3f8c668"></a><!-- doxytag: member="tesseract::ConComp::Shift" ref="a1e7da8edaf81efc49ea20c48e3f8c668" args="(int dx, int dy)" -->
@@ -560,6 +855,21 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="con__comp_8cpp_source.html#l00271">271</a> of file <a class="el" href="con__comp_8cpp_source.html">con_comp.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                  {
+  ConCompPt *pt_ptr = head_;
+
+  <span class="keywordflow">while</span> (pt_ptr != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    pt_ptr-&gt;Shift(dx, dy);
+    pt_ptr = pt_ptr-&gt;Next();
+  }
+
+  left_ += dx;
+  right_ += dx;
+  top_ += dy;
+  bottom_ += dy;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="add8e1515b3a56436a5ebc1eadba00666"></a><!-- doxytag: member="tesseract::ConComp::Top" ref="add8e1515b3a56436a5ebc1eadba00666" args="() const " -->
@@ -576,6 +886,9 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="con__comp_8h_source.html#l00066">66</a> of file <a class="el" href="con__comp_8h_source.html">con_comp.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> top_; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a777b3c1b3a4a082759bf969f4d686c2b"></a><!-- doxytag: member="tesseract::ConComp::Width" ref="a777b3c1b3a4a082759bf969f4d686c2b" args="() const " -->
@@ -592,11 +905,14 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="con__comp_8h_source.html#l00069">69</a> of file <a class="el" href="con__comp_8h_source.html">con_comp.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> right_ - left_ + 1; }
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/cube/<a class="el" href="con__comp_8h_source.html">con_comp.h</a></li>
-<li>tesseract-ocr/cube/<a class="el" href="con__comp_8cpp.html">con_comp.cpp</a></li>
+<li>tesseract-ocr/cube/<a class="el" href="con__comp_8cpp_source.html">con_comp.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -619,7 +935,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:15 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:51 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

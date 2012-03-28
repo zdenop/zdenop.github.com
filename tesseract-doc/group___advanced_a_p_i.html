@@ -181,6 +181,65 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>Applies the given word to the adaptive classifier if possible. The word must be SPACE-DELIMITED UTF-8 - l i k e t h i s , so it can tell the boundaries of the graphemes. Assumes that SetImage/SetRectangle have been used to set the image to the given word. The mode arg should be PSM_SINGLE_WORD or PSM_CIRCLE_WORD, as that will be used to control layout analysis. The currently set PageSegMode is preserved. Returns false if adaption was not possible for some reason. </p>
 
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01265">1265</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                      {
+  <span class="keywordtype">int</span> debug = 0;
+  <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a5923cccbe20988f0f99072844d1af573">GetIntVariable</a>(<span class="stringliteral">&quot;applybox_debug&quot;</span>, &amp;debug);
+  <span class="keywordtype">bool</span> success = <span class="keyword">true</span>;
+  <a class="code" href="namespacetesseract.html#a338d4c8b5d497b5ec3e6e4269d8ac66a">PageSegMode</a> current_psm = <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a943206e3548bfb517c67354ee50661f3">GetPageSegMode</a>();
+  <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a15a7a9c1afbba3078a55b4566de891ab">SetPageSegMode</a>(<a class="code" href="pgedit_8cpp.html#afc03cf3e39248c2e339fee4d31f5f750">mode</a>);
+  <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a2e09259c558c6d8e0f7e523cbaf5adf5">SetVariable</a>(<span class="stringliteral">&quot;classify_enable_learning&quot;</span>, <span class="stringliteral">&quot;0&quot;</span>);
+  <span class="keywordtype">char</span>* text = <a class="code" href="group___advanced_a_p_i.html#ga115ef656f83352ba608b4f0bf9cfa2c4">GetUTF8Text</a>();
+  <span class="keywordflow">if</span> (debug) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Trying to adapt \&quot;%s\&quot; to \&quot;%s\&quot;\n&quot;</span>, text, wordstr);
+  }
+  <span class="keywordflow">if</span> (text != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="class_p_a_g_e___r_e_s___i_t.html">PAGE_RES_IT</a> it(<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a12dda612630eba40e15f9d0b9955a04c" title="The page-level data.">page_res_</a>);
+    <a class="code" href="class_w_e_r_d___r_e_s.html">WERD_RES</a>* word_res = it.<a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a>();
+    <span class="keywordflow">if</span> (word_res != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      word_res-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a>-&gt;<a class="code" href="class_w_e_r_d.html#a5decd0b33533bf908c26ad4b10336fb0">set_text</a>(wordstr);
+    } <span class="keywordflow">else</span> {
+      success = <span class="keyword">false</span>;
+    }
+    <span class="comment">// Check to see if text matches wordstr.</span>
+    <span class="keywordtype">int</span> w = 0;
+    <span class="keywordtype">int</span> t = 0;
+    <span class="keywordflow">for</span> (t = 0; text[t] != <span class="charliteral">&#39;\0&#39;</span>; ++t) {
+      <span class="keywordflow">if</span> (text[t] == <span class="charliteral">&#39;\n&#39;</span> || text[t] == <span class="charliteral">&#39; &#39;</span>)
+        <span class="keywordflow">continue</span>;
+      <span class="keywordflow">while</span> (wordstr[w] != <span class="charliteral">&#39;\0&#39;</span> &amp;&amp; wordstr[w] == <span class="charliteral">&#39; &#39;</span>)
+        ++w;
+      <span class="keywordflow">if</span> (text[t] != wordstr[w])
+        <span class="keywordflow">break</span>;
+      ++w;
+    }
+    <span class="keywordflow">if</span> (text[t] != <span class="charliteral">&#39;\0&#39;</span> || wordstr[w] != <span class="charliteral">&#39;\0&#39;</span>) {
+      <span class="comment">// No match.</span>
+      <span class="keyword">delete</span> <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a12dda612630eba40e15f9d0b9955a04c" title="The page-level data.">page_res_</a>;
+      <a class="code" href="class_generic_vector.html">GenericVector&lt;TBOX&gt;</a> boxes;
+      <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a12dda612630eba40e15f9d0b9955a04c" title="The page-level data.">page_res_</a> = <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;SetupApplyBoxes(boxes, <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#ac22c36258b0cd727188505a9a1dbc7e1" title="The page layout.">block_list_</a>);
+      <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;ReSegmentByClassification(<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a12dda612630eba40e15f9d0b9955a04c" title="The page-level data.">page_res_</a>);
+      <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;TidyUp(<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a12dda612630eba40e15f9d0b9955a04c" title="The page-level data.">page_res_</a>);
+      <a class="code" href="class_p_a_g_e___r_e_s___i_t.html">PAGE_RES_IT</a> pr_it(<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a12dda612630eba40e15f9d0b9955a04c" title="The page-level data.">page_res_</a>);
+      <span class="keywordflow">if</span> (pr_it.word() == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+        success = <span class="keyword">false</span>;
+      <span class="keywordflow">else</span>
+        word_res = pr_it.<a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a>();
+    } <span class="keywordflow">else</span> {
+      word_res-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a8d4f5c6ed2c60b756a5c63e091cd331c">BestChoiceToCorrectText</a>();
+    }
+    <span class="keywordflow">if</span> (success) {
+      <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;EnableLearning = <span class="keyword">true</span>;
+      <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;LearnWord(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, word_res);
+    }
+    <span class="keyword">delete</span> [] text;
+  } <span class="keywordflow">else</span> {
+    success = <span class="keyword">false</span>;
+  }
+  <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a15a7a9c1afbba3078a55b4566de891ab">SetPageSegMode</a>(current_psm);
+  <span class="keywordflow">return</span> success;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ga4a67a12db21b3569b2b50ad05b9e146a"></a><!-- doxytag: member="tesseract::TessBaseAPI::AllWordConfidences" ref="ga4a67a12db21b3569b2b50ad05b9e146a" args="()" -->
@@ -198,6 +257,31 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>Returns all word confidences (between 0 and 100) in an array, terminated by -1. The calling function must delete [] after use. The number of confidences should correspond to the number of space- delimited words in GetUTF8Text. </p>
 
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01231">1231</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                     {
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> ||
+      (!<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a7d4627f300b1096d43a3e7d54d8aa5df" title="page_res_ contains recognition data.">recognition_done_</a> &amp;&amp; <a class="code" href="group___advanced_a_p_i.html#ga0e4065c20b142d69a2324ee0c74ae0b0">Recognize</a>(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) &lt; 0))
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordtype">int</span> n_word = 0;
+  <a class="code" href="class_p_a_g_e___r_e_s___i_t.html">PAGE_RES_IT</a> res_it(<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a12dda612630eba40e15f9d0b9955a04c" title="The page-level data.">page_res_</a>);
+  <span class="keywordflow">for</span> (res_it.restart_page(); res_it.word() != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>; res_it.forward())
+    n_word++;
+
+  <span class="keywordtype">int</span>* conf = <span class="keyword">new</span> <span class="keywordtype">int</span>[n_word+1];
+  n_word = 0;
+  <span class="keywordflow">for</span> (res_it.restart_page(); res_it.word() != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>; res_it.forward()) {
+    <a class="code" href="class_w_e_r_d___r_e_s.html">WERD_RES</a> *word = res_it.<a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a>();
+    <a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html">WERD_CHOICE</a>* choice = word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>;
+    <span class="keywordtype">int</span> w_conf = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(100 + 5 * choice-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a1b25ef2b44d21a7204483a7ca804f293">certainty</a>());
+                 <span class="comment">// This is the eq for converting Tesseract confidence to 1..100</span>
+    <span class="keywordflow">if</span> (w_conf &lt; 0) w_conf = 0;
+    <span class="keywordflow">if</span> (w_conf &gt; 100) w_conf = 100;
+    conf[n_word++] = w_conf;
+  }
+  conf[n_word] = -1;
+  <span class="keywordflow">return</span> conf;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="gaaac2abf8505c89afb8466dc3cff2c666"></a><!-- doxytag: member="tesseract::TessBaseAPI::AnalyseLayout" ref="gaaac2abf8505c89afb8466dc3cff2c666" args="()" -->
@@ -214,6 +298,20 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00581">581</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                         {
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a86899716a1adde396be4efd57b547d27">FindLines</a>() == 0) {
+    <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#ac22c36258b0cd727188505a9a1dbc7e1" title="The page layout.">block_list_</a>-&gt;empty())
+      <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;  <span class="comment">// The page was empty.</span>
+    <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a12dda612630eba40e15f9d0b9955a04c" title="The page-level data.">page_res_</a> = <span class="keyword">new</span> <a class="code" href="class_p_a_g_e___r_e_s.html">PAGE_RES</a>(<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#ac22c36258b0cd727188505a9a1dbc7e1" title="The page layout.">block_list_</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+    <span class="keywordflow">return</span> <span class="keyword">new</span> PageIterator(<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a12dda612630eba40e15f9d0b9955a04c" title="The page-level data.">page_res_</a>, <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>,
+                            <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a9d93e1d92ca230ae02b81d44bc88a55c" title="Image thresholding module.">thresholder_</a>-&gt;GetScaleFactor(),
+                            <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a9d93e1d92ca230ae02b81d44bc88a55c" title="Image thresholding module.">thresholder_</a>-&gt;GetScaledYResolution(),
+                            <a class="code" href="group___thresholder_params.html#gab3c90d43a3628dc7abeb93e9ca01bc97">rect_left_</a>, <a class="code" href="group___thresholder_params.html#gac71648cd860510ca65b94d87d7d9bb1f">rect_top_</a>, <a class="code" href="group___thresholder_params.html#ga31dbaec91a5dd8ee7d399786a4bd5ef8">rect_width_</a>, <a class="code" href="group___thresholder_params.html#ga978edc537da096ec07d4bb8e4ae5332d">rect_height_</a>);
+  }
+  <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ga953b401286da174e609f09c5f275734e"></a><!-- doxytag: member="tesseract::TessBaseAPI::Clear" ref="ga953b401286da174e609f09c5f275734e" args="()" -->
@@ -231,6 +329,13 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>Free up recognition results and any stored image data, without actually freeing any recognition data that would be time-consuming to reload. Afterwards, you must call SetImage or TesseractRect before doing any Recognize or Get* operation. </p>
 
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01327">1327</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                        {
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a9d93e1d92ca230ae02b81d44bc88a55c" title="Image thresholding module.">thresholder_</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a9d93e1d92ca230ae02b81d44bc88a55c" title="Image thresholding module.">thresholder_</a>-&gt;Clear();
+  <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a83ca325b5e521416b1edcd020b169be0">ClearResults</a>();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ga8f69791ff9730a032068c87bd7b92ca1"></a><!-- doxytag: member="tesseract::TessBaseAPI::DeleteBlockList" ref="ga8f69791ff9730a032068c87bd7b92ca1" args="(BLOCK_LIST *block_list)" -->
@@ -249,6 +354,11 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>Delete a block list. This is to keep BLOCK_LIST pointer opaque and let go of including the other headers. </p>
 
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01695">1695</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                        {
+  <span class="keyword">delete</span> block_list;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ga5ed6e495e7f1c269588a8b85e4e19ca8"></a><!-- doxytag: member="tesseract::TessBaseAPI::DetectOS" ref="ga5ed6e495e7f1c269588a8b85e4e19ca8" args="(OSResults *)" -->
@@ -268,6 +378,18 @@ Functions</h2></td></tr>
 <p>Estimates the Orientation And Script of the image. </p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>true if the image was processed successfully. </dd></dl>
 
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01610">1610</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                         {
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a83ca325b5e521416b1edcd020b169be0">ClearResults</a>();
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;pix_binary() == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a8c8a3b050d6c356c4846345a3818f79e">Threshold</a>(<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;mutable_pix_binary());
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a4690919aa9d4eabda36bdefdaadf7ac9" title="Name used by training code.">input_file_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a4690919aa9d4eabda36bdefdaadf7ac9" title="Name used by training code.">input_file_</a> = <span class="keyword">new</span> <a class="code" href="class_s_t_r_i_n_g.html">STRING</a>(<a class="code" href="namespacetesseract.html#a3ba7b8d4b2132f72118c62fba346ffd0">kInputFile</a>);
+  <span class="keywordflow">return</span> <a class="code" href="osdetect_8cpp.html#aec0e2284de8927ea9f29b61ff30d052a">orientation_and_script_detection</a>(*<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a4690919aa9d4eabda36bdefdaadf7ac9" title="Name used by training code.">input_file_</a>, osr, <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ga4e4a8dbd25ac8816155481bfb53f011a"></a><!-- doxytag: member="tesseract::TessBaseAPI::DumpPGM" ref="ga4e4a8dbd25ac8816155481bfb53f011a" args="(const char *filename)" -->
@@ -287,6 +409,25 @@ Functions</h2></td></tr>
 <p>Dump the internal binary image to a PGM file. </p>
 <dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000001">Deprecated:</a></b></dt><dd>Use GetThresholdedImage and write the image using pixWrite instead if possible. </dd></dl>
 
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00511">511</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                              {
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <span class="keywordflow">return</span>;
+  FILE *fp = fopen(filename, <span class="stringliteral">&quot;wb&quot;</span>);
+  Pix* pix = <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;pix_binary();
+  <span class="keywordtype">int</span> width = pixGetWidth(pix);
+  <span class="keywordtype">int</span> height = pixGetHeight(pix);
+  l_uint32* data = pixGetData(pix);
+  fprintf(fp, <span class="stringliteral">&quot;P5 %d %d 255\n&quot;</span>, width, height);
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> y = 0; y &lt; height; ++y, data += pixGetWpl(pix)) {
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> x = 0; x &lt; width; ++x) {
+      <a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a> b = GET_DATA_BIT(data, x) ? 0 : 255;
+      fwrite(&amp;b, 1, 1, fp);
+    }
+  }
+  fclose(fp);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ga38027513ee9c0348de1790bddcdc3391"></a><!-- doxytag: member="tesseract::TessBaseAPI::End" ref="ga38027513ee9c0348de1790bddcdc3391" args="()" -->
@@ -304,6 +445,57 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>Close down tesseract and free up all memory. <a class="el" href="group___advanced_a_p_i.html#ga38027513ee9c0348de1790bddcdc3391">End()</a> is equivalent to destructing and reconstructing your <a class="el" href="classtesseract_1_1_tess_base_a_p_i.html">TessBaseAPI</a>. Once <a class="el" href="group___advanced_a_p_i.html#ga38027513ee9c0348de1790bddcdc3391">End()</a> has been used, none of the other API functions may be used other than Init and anything declared above it in the class definition. </p>
 
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01337">1337</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                      {
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a9d93e1d92ca230ae02b81d44bc88a55c" title="Image thresholding module.">thresholder_</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keyword">delete</span> <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a9d93e1d92ca230ae02b81d44bc88a55c" title="Image thresholding module.">thresholder_</a>;
+    <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a9d93e1d92ca230ae02b81d44bc88a55c" title="Image thresholding module.">thresholder_</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a12dda612630eba40e15f9d0b9955a04c" title="The page-level data.">page_res_</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keyword">delete</span> <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a12dda612630eba40e15f9d0b9955a04c" title="The page-level data.">page_res_</a>;
+    <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a12dda612630eba40e15f9d0b9955a04c" title="The page-level data.">page_res_</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#ac22c36258b0cd727188505a9a1dbc7e1" title="The page layout.">block_list_</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keyword">delete</span> <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#ac22c36258b0cd727188505a9a1dbc7e1" title="The page layout.">block_list_</a>;
+    <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#ac22c36258b0cd727188505a9a1dbc7e1" title="The page layout.">block_list_</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a06084d66b830a388515663761d842041">paragraph_models_</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a06084d66b830a388515663761d842041">paragraph_models_</a>-&gt;<a class="code" href="class_generic_vector.html#a98f62dccd75224a60437c2761bd215cd">delete_data_pointers</a>();
+    <span class="keyword">delete</span> <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a06084d66b830a388515663761d842041">paragraph_models_</a>;
+    <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a06084d66b830a388515663761d842041">paragraph_models_</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keyword">delete</span> <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>;
+    <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#ad7b44f5b470c9e04289c348d82726b27" title="For orientation &amp; script detection.">osd_tesseract_</a> == <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>)
+      <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#ad7b44f5b470c9e04289c348d82726b27" title="For orientation &amp; script detection.">osd_tesseract_</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#ad7b44f5b470c9e04289c348d82726b27" title="For orientation &amp; script detection.">osd_tesseract_</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keyword">delete</span> <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#ad7b44f5b470c9e04289c348d82726b27" title="For orientation &amp; script detection.">osd_tesseract_</a>;
+    <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#ad7b44f5b470c9e04289c348d82726b27" title="For orientation &amp; script detection.">osd_tesseract_</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a0222d0f645909860d13f71c078008133" title="The equation detector.">equ_detect_</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keyword">delete</span> <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a0222d0f645909860d13f71c078008133" title="The equation detector.">equ_detect_</a>;
+    <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a0222d0f645909860d13f71c078008133" title="The equation detector.">equ_detect_</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a4690919aa9d4eabda36bdefdaadf7ac9" title="Name used by training code.">input_file_</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keyword">delete</span> <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a4690919aa9d4eabda36bdefdaadf7ac9" title="Name used by training code.">input_file_</a>;
+    <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a4690919aa9d4eabda36bdefdaadf7ac9" title="Name used by training code.">input_file_</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a22a0c520bc88e2d80fb8b6a10b7caba1" title="Name used by debug code.">output_file_</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keyword">delete</span> <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a22a0c520bc88e2d80fb8b6a10b7caba1" title="Name used by debug code.">output_file_</a>;
+    <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a22a0c520bc88e2d80fb8b6a10b7caba1" title="Name used by debug code.">output_file_</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#ad7c3d4ead7b9c8e27e45e710e5407913" title="Current location of tessdata.">datapath_</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keyword">delete</span> <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#ad7c3d4ead7b9c8e27e45e710e5407913" title="Current location of tessdata.">datapath_</a>;
+    <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#ad7c3d4ead7b9c8e27e45e710e5407913" title="Current location of tessdata.">datapath_</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a74a291190aa0bbf90b57f678b1fb0a5c" title="Last initialized language.">language_</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keyword">delete</span> <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a74a291190aa0bbf90b57f678b1fb0a5c" title="Last initialized language.">language_</a>;
+    <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a74a291190aa0bbf90b57f678b1fb0a5c" title="Last initialized language.">language_</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ga12273df6a36cd7b618029c21d0c53cfa"></a><!-- doxytag: member="tesseract::TessBaseAPI::FindLinesCreateBlockList" ref="ga12273df6a36cd7b618029c21d0c53cfa" args="()" -->
@@ -321,6 +513,14 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>Find lines from the image making the BLOCK_LIST. </p>
 
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01685">1685</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                  {
+  <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a86899716a1adde396be4efd57b547d27">FindLines</a>();
+  BLOCK_LIST* result = <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#ac22c36258b0cd727188505a9a1dbc7e1" title="The page layout.">block_list_</a>;
+  <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#ac22c36258b0cd727188505a9a1dbc7e1" title="The page layout.">block_list_</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordflow">return</span> result;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="gab73311ecd1bf8f7e6f98585a76328740"></a><!-- doxytag: member="tesseract::TessBaseAPI::FindRowForBox" ref="gab73311ecd1bf8f7e6f98585a76328740" args="(BLOCK_LIST *blocks, int left, int top, int right, int bottom)" -->
@@ -366,6 +566,30 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01976">1976</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                          {
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> box(left, bottom, right, <a class="code" href="structarray__record.html#ac669bc877615327b853410a841f48f4b">top</a>);
+  BLOCK_IT b_it(blocks);
+  <span class="keywordflow">for</span> (b_it.mark_cycle_pt(); !b_it.cycled_list(); b_it.forward()) {
+    <a class="code" href="class_b_l_o_c_k.html">BLOCK</a>* block = b_it.data();
+    <span class="keywordflow">if</span> (!box.major_overlap(block-&gt;<a class="code" href="class_p_d_b_l_k.html#a91950a96127b4a0bb9b237e1f5f889a4" title="get box">bounding_box</a>()))
+      <span class="keywordflow">continue</span>;
+    ROW_IT r_it(block-&gt;<a class="code" href="class_b_l_o_c_k.html#ae9826e422b0bf17a7592dee8db3fe058" title="get rows">row_list</a>());
+    <span class="keywordflow">for</span> (r_it.mark_cycle_pt(); !r_it.cycled_list(); r_it.forward()) {
+      <a class="code" href="class_r_o_w.html">ROW</a>* row = r_it.data();
+      <span class="keywordflow">if</span> (!box.major_overlap(row-&gt;<a class="code" href="class_r_o_w.html#a7bb838e55056e39e15d7e2cea8ebebb0">bounding_box</a>()))
+        <span class="keywordflow">continue</span>;
+      WERD_IT w_it(row-&gt;<a class="code" href="class_r_o_w.html#ac9d07f978420b3564bf5508ad294fb70">word_list</a>());
+      <span class="keywordflow">for</span> (w_it.mark_cycle_pt(); !w_it.cycled_list(); w_it.forward()) {
+        <a class="code" href="class_w_e_r_d.html">WERD</a>* word = w_it.data();
+        <span class="keywordflow">if</span> (box.major_overlap(word-&gt;<a class="code" href="class_w_e_r_d.html#a151bbfb39ecdef93ab1a14b0f9e4ac74">bounding_box</a>()))
+          <span class="keywordflow">return</span> row;
+      }
+    }
+  }
+  <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ga16c4b28cadc2160bf18b84c3f897a2d2"></a><!-- doxytag: member="tesseract::TessBaseAPI::GetBlockTextOrientations" ref="ga16c4b28cadc2160bf18b84c3f897a2d2" args="(int **block_orientation, bool **vertical_writing)" -->
@@ -393,6 +617,50 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01637">1637</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                    {
+  <span class="keyword">delete</span>[] *block_orientation;
+  *block_orientation = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keyword">delete</span>[] *vertical_writing;
+  *vertical_writing = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  BLOCK_IT block_it(<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#ac22c36258b0cd727188505a9a1dbc7e1" title="The page layout.">block_list_</a>);
+
+  block_it.move_to_first();
+  <span class="keywordtype">int</span> num_blocks = 0;
+  <span class="keywordflow">for</span> (block_it.mark_cycle_pt(); !block_it.cycled_list(); block_it.forward()) {
+    <span class="keywordflow">if</span> (!block_it.data()-&gt;poly_block()-&gt;IsText()) {
+      <span class="keywordflow">continue</span>;
+    }
+    ++num_blocks;
+  }
+  <span class="keywordflow">if</span> (!num_blocks) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;WARNING: Found no blocks\n&quot;</span>);
+    <span class="keywordflow">return</span>;
+  }
+  *block_orientation = <span class="keyword">new</span> <span class="keywordtype">int</span>[num_blocks];
+  *vertical_writing = <span class="keyword">new</span> <span class="keywordtype">bool</span>[num_blocks];
+  block_it.move_to_first();
+  <span class="keywordtype">int</span> i = 0;
+  <span class="keywordflow">for</span> (block_it.mark_cycle_pt(); !block_it.cycled_list();
+       block_it.forward()) {
+    <span class="keywordflow">if</span> (!block_it.data()-&gt;poly_block()-&gt;IsText()) {
+      <span class="keywordflow">continue</span>;
+    }
+    <a class="code" href="class_f_c_o_o_r_d.html">FCOORD</a> re_rotation = block_it.data()-&gt;re_rotation();
+    <span class="keywordtype">float</span> re_theta = re_rotation.<a class="code" href="class_f_c_o_o_r_d.html#a4ab61cbf07eeb3473ae0ba6558fe9fb6" title="find angle">angle</a>();
+    <a class="code" href="class_f_c_o_o_r_d.html">FCOORD</a> classify_rotation = block_it.data()-&gt;classify_rotation();
+    <span class="keywordtype">float</span> classify_theta = classify_rotation.<a class="code" href="class_f_c_o_o_r_d.html#a4ab61cbf07eeb3473ae0ba6558fe9fb6" title="find angle">angle</a>();
+    <span class="keywordtype">double</span> rot_theta = - (re_theta - classify_theta) * 2.0 / <a class="code" href="const_8h.html#a598a3330b3c21701223ee0ca14316eca">PI</a>;
+    <span class="keywordflow">if</span> (rot_theta &lt; 0) rot_theta += 4;
+    <span class="keywordtype">int</span> num_rotations = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(rot_theta + 0.5);
+    (*block_orientation)[i] = num_rotations;
+    <span class="comment">// The classify_rotation is non-zero only if the text has vertical</span>
+    <span class="comment">// writing direction.</span>
+    (*vertical_writing)[i] = classify_rotation.<a class="code" href="class_f_c_o_o_r_d.html#a397f7ce997b246df18e7bd5a20cc422e">y</a>() != 0.0f;
+    ++i;
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="gaadda8cd6abe770d2f6a70a18329b1973"></a><!-- doxytag: member="tesseract::TessBaseAPI::GetBoxText" ref="gaadda8cd6abe770d2f6a70a18329b1973" args="(int page_number)" -->
@@ -411,6 +679,43 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>The recognized text is returned as a char* which is coded in the same format as a box file used in training. Returned string must be freed with the delete [] operator. Constructs coordinates in the original image - not just the rectangle. page_number is a 0-based page index that will appear in the box file. </p>
 
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01067">1067</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                             {
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> ||
+      (!<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a7d4627f300b1096d43a3e7d54d8aa5df" title="page_res_ contains recognition data.">recognition_done_</a> &amp;&amp; <a class="code" href="group___advanced_a_p_i.html#ga0e4065c20b142d69a2324ee0c74ae0b0">Recognize</a>(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) &lt; 0))
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordtype">int</span> blob_count;
+  <span class="keywordtype">int</span> utf8_length = <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#aed3d481fc0c7dffad24572bd1f449598">TextLength</a>(&amp;blob_count);
+  <span class="keywordtype">int</span> total_length = blob_count * <a class="code" href="namespacetesseract.html#a294e870871cf3fb0928cbd5686346b3d">kBytesPerBoxFileLine</a> + utf8_length +
+      <a class="code" href="namespacetesseract.html#a688dc51b653c642009af87c6d9b9dea2">kMaxBytesPerLine</a>;
+  <span class="keywordtype">char</span>* result = <span class="keyword">new</span> <span class="keywordtype">char</span>[total_length];
+  <span class="keywordtype">int</span> output_length = 0;
+  LTRResultIterator* it = <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#ad7a9b7f45f94801d7891035bf38d4861">GetLTRIterator</a>();
+  <span class="keywordflow">do</span> {
+    <span class="keywordtype">int</span> left, <a class="code" href="structarray__record.html#ac669bc877615327b853410a841f48f4b">top</a>, right, bottom;
+    <span class="keywordflow">if</span> (it-&gt;BoundingBox(<a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7adbd62c7f34a9ebdd6e3b813a34cd812d">RIL_SYMBOL</a>, &amp;left, &amp;top, &amp;right, &amp;bottom)) {
+      <span class="keywordtype">char</span>* text = it-&gt;GetUTF8Text(<a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7adbd62c7f34a9ebdd6e3b813a34cd812d">RIL_SYMBOL</a>);
+      <span class="comment">// Tesseract uses space for recognition failure. Fix to a reject</span>
+      <span class="comment">// character, kTesseractReject so we don&#39;t create illegal box files.</span>
+      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; text[i] != <span class="charliteral">&#39;\0&#39;</span>; ++i) {
+        <span class="keywordflow">if</span> (text[i] == <span class="charliteral">&#39; &#39;</span>)
+          text[i] = <a class="code" href="namespacetesseract.html#a1083ed81b6adbb6930e87d0c58671e26">kTesseractReject</a>;
+      }
+      snprintf(result + output_length, total_length - output_length,
+               <span class="stringliteral">&quot;%s %d %d %d %d %d\n&quot;</span>,
+               text, left, <a class="code" href="group___thresholder_params.html#gab7d24a78f3565c5bfb42b2592b9e8df0">image_height_</a> - bottom,
+               right, <a class="code" href="group___thresholder_params.html#gab7d24a78f3565c5bfb42b2592b9e8df0">image_height_</a> - top, page_number);
+      output_length += strlen(result + output_length);
+      <span class="keyword">delete</span> [] text;
+      <span class="comment">// Just in case...</span>
+      <span class="keywordflow">if</span> (output_length + kMaxBytesPerLine &gt; total_length)
+        <span class="keywordflow">break</span>;
+    }
+  } <span class="keywordflow">while</span> (it-&gt;Next(<a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7adbd62c7f34a9ebdd6e3b813a34cd812d">RIL_SYMBOL</a>));
+  <span class="keyword">delete</span> it;
+  <span class="keywordflow">return</span> result;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ga56369b1654400ef97e581bb65749ec3d"></a><!-- doxytag: member="tesseract::TessBaseAPI::GetComponentImages" ref="ga56369b1654400ef97e581bb65749ec3d" args="(PageIteratorLevel level, bool text_only, Pixa **pixa, int **blockids)" -->
@@ -450,6 +755,54 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00454">454</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                   {
+  PageIterator* page_it = <a class="code" href="group___advanced_a_p_i.html#ga52eee8b9a4f147c26e4b64c16b46bc04">GetIterator</a>();
+  <span class="keywordflow">if</span> (page_it == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    page_it = <a class="code" href="group___advanced_a_p_i.html#gaaac2abf8505c89afb8466dc3cff2c666">AnalyseLayout</a>();
+  <span class="keywordflow">if</span> (page_it == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;  <span class="comment">// Failed.</span>
+
+  <span class="comment">// Count the components to get a size for the arrays.</span>
+  <span class="keywordtype">int</span> component_count = 0;
+  <span class="keywordtype">int</span> left, <a class="code" href="structarray__record.html#ac669bc877615327b853410a841f48f4b">top</a>, right, bottom;
+  <span class="keywordflow">do</span> {
+    <span class="keywordflow">if</span> (page_it-&gt;BoundingBoxInternal(level, &amp;left, &amp;top, &amp;right, &amp;bottom) &amp;&amp;
+        (!text_only || <a class="code" href="publictypes_8h.html#a49b7c03fb4e55b82a8fd22b7c6094082">PTIsTextType</a>(page_it-&gt;BlockType())))
+      ++component_count;
+  } <span class="keywordflow">while</span> (page_it-&gt;Next(level));
+
+  Boxa* boxa = boxaCreate(component_count);
+  <span class="keywordflow">if</span> (pixa != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    *pixa = pixaCreate(component_count);
+  <span class="keywordflow">if</span> (blockids != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    *blockids = <span class="keyword">new</span> <span class="keywordtype">int</span>[component_count];
+
+  <span class="keywordtype">int</span> blockid = 0;
+  <span class="keywordtype">int</span> component_index = 0;
+  page_it-&gt;Begin();
+  <span class="keywordflow">do</span> {
+    <span class="keywordflow">if</span> (page_it-&gt;BoundingBoxInternal(level, &amp;left, &amp;top, &amp;right, &amp;bottom) &amp;&amp;
+        (!text_only || <a class="code" href="publictypes_8h.html#a49b7c03fb4e55b82a8fd22b7c6094082">PTIsTextType</a>(page_it-&gt;BlockType()))) {
+      Box* lbox = boxCreate(left, top, right - left, bottom - top);
+      boxaAddBox(boxa, lbox, L_INSERT);
+      <span class="keywordflow">if</span> (pixa != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+        Pix* pix = page_it-&gt;GetBinaryImage(level);
+        pixaAddPix(*pixa, pix, L_INSERT);
+        pixaAddBox(*pixa, lbox, L_CLONE);
+      }
+      <span class="keywordflow">if</span> (blockids != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+        (*blockids)[component_index] = blockid;
+        <span class="keywordflow">if</span> (page_it-&gt;IsAtFinalElement(<a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7a2dcea8d4208c16055353029d26f9bf49">RIL_BLOCK</a>, level))
+          ++blockid;
+      }
+      ++component_index;
+    }
+  } <span class="keywordflow">while</span> (page_it-&gt;Next(level));
+  <span class="keyword">delete</span> page_it;
+  <span class="keywordflow">return</span> boxa;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="gaf2b4f88c53457fa5153dc80f5a60e152"></a><!-- doxytag: member="tesseract::TessBaseAPI::GetConnectedComponents" ref="gaf2b4f88c53457fa5153dc80f5a60e152" args="(Pixa **cc)" -->
@@ -467,6 +820,11 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00444">444</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                     {
+  <span class="keywordflow">return</span> <a class="code" href="group___advanced_a_p_i.html#ga56369b1654400ef97e581bb65749ec3d">GetComponentImages</a>(<a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7adbd62c7f34a9ebdd6e3b813a34cd812d">RIL_SYMBOL</a>, <span class="keyword">true</span>, pixa, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ga4b21b3a15434987381804258d79651fc"></a><!-- doxytag: member="tesseract::TessBaseAPI::GetCubeRecoContext" ref="ga4b21b3a15434987381804258d79651fc" args="() const " -->
@@ -483,6 +841,11 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l02040">2040</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                       {
+  <span class="keywordflow">return</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) ? <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> : <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;GetCubeRecoContext();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ga01fc04b1c673045ed8736c02c5943eaf"></a><!-- doxytag: member="tesseract::TessBaseAPI::GetDawg" ref="ga01fc04b1c673045ed8736c02c5943eaf" args="(int i) const " -->
@@ -501,6 +864,12 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>Return the pointer to the i-th dawg loaded into tesseract_ object. </p>
 
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l02029">2029</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                            {
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> || i &gt;= <a class="code" href="group___advanced_a_p_i.html#gac0a13108ccd514cab99badcb014d2f43">NumDawgs</a>()) <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;getDict().GetDawg(i);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ga7e60370845b53aefa2e58d0e639435e2"></a><!-- doxytag: member="tesseract::TessBaseAPI::GetFeaturesForBlob" ref="ga7e60370845b53aefa2e58d0e639435e2" args="(TBLOB *blob, const DENORM &amp;denorm, INT_FEATURE_ARRAY int_features, int *num_features, int *FeatureOutlineIndex)" -->
@@ -547,6 +916,19 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>This method returns the features associated with the input image. </p>
 
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01959">1959</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                               {
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>) {
+    <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;ResetFeaturesHaveBeenExtracted();
+  }
+  <a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a>* norm_array = <span class="keyword">new</span> <a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a>[<a class="code" href="matchdefs_8h.html#adcc52d7d059a8ca452172df64faa231c">MAX_NUM_CLASSES</a>];
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> len;
+  *num_features = <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;GetCharNormFeatures(
+      blob, denorm, <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;PreTrainedTemplates,
+      int_features, norm_array, norm_array, &amp;len, FeatureOutlineIndex);
+  <span class="keyword">delete</span> [] norm_array;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ga655f906bbf64dcd6f33ce633ecce997d"></a><!-- doxytag: member="tesseract::TessBaseAPI::GetHOCRText" ref="ga655f906bbf64dcd6f33ce633ecce997d" args="(int page_number)" -->
@@ -565,6 +947,114 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>Make a HTML-formatted string with hOCR markup from the internal data structures. page_number is 0-based but will appear in the output as 1-based. </p>
 
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00938">938</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                              {
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> ||
+      (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a12dda612630eba40e15f9d0b9955a04c" title="The page-level data.">page_res_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp; <a class="code" href="group___advanced_a_p_i.html#ga0e4065c20b142d69a2324ee0c74ae0b0">Recognize</a>(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) &lt; 0))
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+
+  <span class="keywordtype">int</span> lcnt = 1, bcnt = 1, pcnt = 1, wcnt = 1;
+  <span class="keywordtype">int</span> page_id = page_number + 1;  <span class="comment">// hOCR uses 1-based page numbers.</span>
+
+  <a class="code" href="class_s_t_r_i_n_g.html">STRING</a> hocr_str(<span class="stringliteral">&quot;&quot;</span>);
+
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a4690919aa9d4eabda36bdefdaadf7ac9" title="Name used by training code.">input_file_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+      <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a896312e68d246b58e704a8f5576e6917">SetInputName</a>(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+
+  hocr_str.add_str_int(<span class="stringliteral">&quot;&lt;div class=&#39;ocr_page&#39; id=&#39;page_&quot;</span>, page_id);
+  hocr_str += <span class="stringliteral">&quot;&#39; title=&#39;image \&quot;&quot;</span>;
+  hocr_str += <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a4690919aa9d4eabda36bdefdaadf7ac9" title="Name used by training code.">input_file_</a> ? *<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a4690919aa9d4eabda36bdefdaadf7ac9" title="Name used by training code.">input_file_</a> : <span class="stringliteral">&quot;unknown&quot;</span>;
+  hocr_str.<a class="code" href="class_s_t_r_i_n_g.html#a779cd637dd42d58d5500a3a657077e84">add_str_int</a>(<span class="stringliteral">&quot;\&quot;; bbox &quot;</span>, <a class="code" href="group___thresholder_params.html#gab3c90d43a3628dc7abeb93e9ca01bc97">rect_left_</a>);
+  hocr_str.add_str_int(<span class="stringliteral">&quot; &quot;</span>, <a class="code" href="group___thresholder_params.html#gac71648cd860510ca65b94d87d7d9bb1f">rect_top_</a>);
+  hocr_str.add_str_int(<span class="stringliteral">&quot; &quot;</span>, <a class="code" href="group___thresholder_params.html#ga31dbaec91a5dd8ee7d399786a4bd5ef8">rect_width_</a>);
+  hocr_str.add_str_int(<span class="stringliteral">&quot; &quot;</span>, <a class="code" href="group___thresholder_params.html#ga978edc537da096ec07d4bb8e4ae5332d">rect_height_</a>);
+  hocr_str += <span class="stringliteral">&quot;&#39;&gt;\n&quot;</span>;
+
+  ResultIterator *res_it = <a class="code" href="group___advanced_a_p_i.html#ga52eee8b9a4f147c26e4b64c16b46bc04">GetIterator</a>();
+  <span class="keywordflow">for</span> (; !res_it-&gt;Empty(<a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7a2dcea8d4208c16055353029d26f9bf49">RIL_BLOCK</a>); wcnt++) {
+    <span class="keywordflow">if</span> (res_it-&gt;Empty(<a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7afd466aec253e5daa6f0c112b0f0e0610">RIL_WORD</a>)) {
+      res_it-&gt;Next(<a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7afd466aec253e5daa6f0c112b0f0e0610">RIL_WORD</a>);
+      <span class="keywordflow">continue</span>;
+    }
+
+    <span class="comment">// Open any new block/paragraph/textline.</span>
+    <span class="keywordflow">if</span> (res_it-&gt;IsAtBeginningOf(<a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7a2dcea8d4208c16055353029d26f9bf49">RIL_BLOCK</a>)) {
+      hocr_str.add_str_int(<span class="stringliteral">&quot;&lt;div class=&#39;ocr_carea&#39; id=&#39;block_&quot;</span>, bcnt);
+      hocr_str.add_str_int(<span class="stringliteral">&quot;_&quot;</span>, bcnt);
+      AddBoxTohOCR(res_it, <a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7a2dcea8d4208c16055353029d26f9bf49">RIL_BLOCK</a>, &amp;hocr_str);
+    }
+    <span class="keywordflow">if</span> (res_it-&gt;IsAtBeginningOf(<a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7a3e63980691bf64801c704f59bd795bd9">RIL_PARA</a>)) {
+      <span class="keywordflow">if</span> (res_it-&gt;ParagraphIsLtr()) {
+        hocr_str.add_str_int(<span class="stringliteral">&quot;\n&lt;p class=&#39;ocr_par&#39; dir=&#39;ltr&#39; id=&#39;par_&quot;</span>, pcnt);
+      } <span class="keywordflow">else</span> {
+        hocr_str.add_str_int(<span class="stringliteral">&quot;\n&lt;p class=&#39;ocr_par&#39; dir=&#39;rtl&#39; id=&#39;par_&quot;</span>, pcnt);
+      }
+      AddBoxTohOCR(res_it, <a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7a3e63980691bf64801c704f59bd795bd9">RIL_PARA</a>, &amp;hocr_str);
+    }
+    <span class="keywordflow">if</span> (res_it-&gt;IsAtBeginningOf(<a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7a5e87a35f16de644593c353159ede11d1">RIL_TEXTLINE</a>)) {
+      hocr_str.add_str_int(<span class="stringliteral">&quot;&lt;span class=&#39;ocr_line&#39; id=&#39;line_&quot;</span>, lcnt);
+      AddBoxTohOCR(res_it, <a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7a5e87a35f16de644593c353159ede11d1">RIL_TEXTLINE</a>, &amp;hocr_str);
+    }
+
+    <span class="comment">// Now, process the word...</span>
+    hocr_str.add_str_int(<span class="stringliteral">&quot;&lt;span class=&#39;ocr_word&#39; id=&#39;word_&quot;</span>, wcnt);
+    AddBoxTohOCR(res_it, <a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7afd466aec253e5daa6f0c112b0f0e0610">RIL_WORD</a>, &amp;hocr_str);
+    <span class="keyword">const</span> <span class="keywordtype">char</span> *font_name;
+    <span class="keywordtype">bool</span> bold, italic, underlined, monospace, serif, smallcaps;
+    <span class="keywordtype">int</span> pointsize, font_id;
+    font_name = res_it-&gt;WordFontAttributes(&amp;bold, &amp;italic, &amp;underlined,
+                                           &amp;monospace, &amp;serif, &amp;smallcaps,
+                                           &amp;pointsize, &amp;font_id);
+    <span class="keywordtype">bool</span> last_word_in_line = res_it-&gt;IsAtFinalElement(<a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7a5e87a35f16de644593c353159ede11d1">RIL_TEXTLINE</a>, <a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7afd466aec253e5daa6f0c112b0f0e0610">RIL_WORD</a>);
+    <span class="keywordtype">bool</span> last_word_in_para = res_it-&gt;IsAtFinalElement(<a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7a3e63980691bf64801c704f59bd795bd9">RIL_PARA</a>, <a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7afd466aec253e5daa6f0c112b0f0e0610">RIL_WORD</a>);
+    <span class="keywordtype">bool</span> last_word_in_block = res_it-&gt;IsAtFinalElement(<a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7a2dcea8d4208c16055353029d26f9bf49">RIL_BLOCK</a>, <a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7afd466aec253e5daa6f0c112b0f0e0610">RIL_WORD</a>);
+    <span class="keywordflow">if</span> (bold) hocr_str += <span class="stringliteral">&quot;&lt;strong&gt;&quot;</span>;
+    <span class="keywordflow">if</span> (italic) hocr_str += <span class="stringliteral">&quot;&lt;em&gt;&quot;</span>;
+    <span class="keywordflow">do</span> {
+      <span class="keyword">const</span> <span class="keywordtype">char</span> *grapheme = res_it-&gt;GetUTF8Text(<a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7adbd62c7f34a9ebdd6e3b813a34cd812d">RIL_SYMBOL</a>);
+      <span class="keywordflow">if</span> (grapheme &amp;&amp; grapheme[0] != 0) {
+        <span class="keywordflow">if</span> (grapheme[1] == 0) {
+          <span class="keywordflow">switch</span> (grapheme[0]) {
+            <span class="keywordflow">case</span> <span class="charliteral">&#39;&lt;&#39;</span>: hocr_str += <span class="stringliteral">&quot;&amp;lt;&quot;</span>; <span class="keywordflow">break</span>;
+            <span class="keywordflow">case</span> <span class="charliteral">&#39;&gt;&#39;</span>: hocr_str += <span class="stringliteral">&quot;&amp;gt;&quot;</span>; <span class="keywordflow">break</span>;
+            <span class="keywordflow">case</span> <span class="charliteral">&#39;&amp;&#39;</span>: hocr_str += <span class="stringliteral">&quot;&amp;amp;&quot;</span>; <span class="keywordflow">break</span>;
+            <span class="keywordflow">case</span> <span class="charliteral">&#39;&quot;&#39;</span>: hocr_str += <span class="stringliteral">&quot;&amp;quot;&quot;</span>; <span class="keywordflow">break</span>;
+            <span class="keywordflow">case</span> <span class="charliteral">&#39;\&#39;&#39;</span>: hocr_str += <span class="stringliteral">&quot;&amp;#39;&quot;</span>; <span class="keywordflow">break</span>;
+            <span class="keywordflow">default</span>: hocr_str += grapheme;
+          }
+        } <span class="keywordflow">else</span> {
+          hocr_str += grapheme;
+        }
+      }
+      <span class="keyword">delete</span> []grapheme;
+      res_it-&gt;Next(<a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7adbd62c7f34a9ebdd6e3b813a34cd812d">RIL_SYMBOL</a>);
+    } <span class="keywordflow">while</span> (!res_it-&gt;Empty(<a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7a2dcea8d4208c16055353029d26f9bf49">RIL_BLOCK</a>) &amp;&amp; !res_it-&gt;IsAtBeginningOf(<a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7afd466aec253e5daa6f0c112b0f0e0610">RIL_WORD</a>));
+    <span class="keywordflow">if</span> (italic) hocr_str += <span class="stringliteral">&quot;&lt;/em&gt;&quot;</span>;
+    <span class="keywordflow">if</span> (bold) hocr_str += <span class="stringliteral">&quot;&lt;/strong&gt;&quot;</span>;
+    hocr_str += <span class="stringliteral">&quot;&lt;/span&gt; &quot;</span>;
+    wcnt++;
+    <span class="comment">// Close any ending block/paragraph/textline.</span>
+    <span class="keywordflow">if</span> (last_word_in_line) {
+      hocr_str += <span class="stringliteral">&quot;&lt;/span&gt;\n&quot;</span>;
+      lcnt++;
+    }
+    <span class="keywordflow">if</span> (last_word_in_para) {
+      hocr_str += <span class="stringliteral">&quot;&lt;/p&gt;\n&quot;</span>;
+      pcnt++;
+    }
+    <span class="keywordflow">if</span> (last_word_in_block) {
+      hocr_str += <span class="stringliteral">&quot;&lt;/div&gt;\n&quot;</span>;
+      bcnt++;
+    }
+  }
+  hocr_str += <span class="stringliteral">&quot;&lt;/div&gt;\n&quot;</span>;
+
+  <span class="keywordtype">char</span> *ret = <span class="keyword">new</span> <span class="keywordtype">char</span>[hocr_str.length() + 1];
+  strcpy(ret, hocr_str.string());
+  <span class="keyword">delete</span> res_it;
+  <span class="keywordflow">return</span> ret;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ga52eee8b9a4f147c26e4b64c16b46bc04"></a><!-- doxytag: member="tesseract::TessBaseAPI::GetIterator" ref="ga52eee8b9a4f147c26e4b64c16b46bc04" args="()" -->
@@ -581,6 +1071,16 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00877">877</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                         {
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> || <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a12dda612630eba40e15f9d0b9955a04c" title="The page-level data.">page_res_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_result_iterator.html#a961e7ee57edae85e855332a301cccacf">ResultIterator::StartOfParagraph</a>(LTRResultIterator(
+      <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a12dda612630eba40e15f9d0b9955a04c" title="The page-level data.">page_res_</a>, <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>,
+      <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a9d93e1d92ca230ae02b81d44bc88a55c" title="Image thresholding module.">thresholder_</a>-&gt;GetScaleFactor(), <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a9d93e1d92ca230ae02b81d44bc88a55c" title="Image thresholding module.">thresholder_</a>-&gt;GetScaledYResolution(),
+      <a class="code" href="group___thresholder_params.html#gab3c90d43a3628dc7abeb93e9ca01bc97">rect_left_</a>, <a class="code" href="group___thresholder_params.html#gac71648cd860510ca65b94d87d7d9bb1f">rect_top_</a>, <a class="code" href="group___thresholder_params.html#ga31dbaec91a5dd8ee7d399786a4bd5ef8">rect_width_</a>, <a class="code" href="group___thresholder_params.html#ga978edc537da096ec07d4bb8e4ae5332d">rect_height_</a>));
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ga29906219f78adc7fd76a83bde37e09eb"></a><!-- doxytag: member="tesseract::TessBaseAPI::GetMutableIterator" ref="ga29906219f78adc7fd76a83bde37e09eb" args="()" -->
@@ -597,6 +1097,16 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00892">892</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                 {
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> || <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a12dda612630eba40e15f9d0b9955a04c" title="The page-level data.">page_res_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordflow">return</span> <span class="keyword">new</span> MutableIterator(<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a12dda612630eba40e15f9d0b9955a04c" title="The page-level data.">page_res_</a>, <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>,
+                             <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a9d93e1d92ca230ae02b81d44bc88a55c" title="Image thresholding module.">thresholder_</a>-&gt;GetScaleFactor(),
+                             <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a9d93e1d92ca230ae02b81d44bc88a55c" title="Image thresholding module.">thresholder_</a>-&gt;GetScaledYResolution(),
+                             <a class="code" href="group___thresholder_params.html#gab3c90d43a3628dc7abeb93e9ca01bc97">rect_left_</a>, <a class="code" href="group___thresholder_params.html#gac71648cd860510ca65b94d87d7d9bb1f">rect_top_</a>, <a class="code" href="group___thresholder_params.html#ga31dbaec91a5dd8ee7d399786a4bd5ef8">rect_width_</a>, <a class="code" href="group___thresholder_params.html#ga978edc537da096ec07d4bb8e4ae5332d">rect_height_</a>);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="gafdd23f73100c54cff18ecfa14efa0379"></a><!-- doxytag: member="tesseract::TessBaseAPI::GetRegions" ref="gafdd23f73100c54cff18ecfa14efa0379" args="(Pixa **pixa)" -->
@@ -615,6 +1125,11 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>Get the result of page layout analysis as a leptonica-style Boxa, Pixa pair, in reading order. Can be called before or after Recognize. </p>
 
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00411">411</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                         {
+  <span class="keywordflow">return</span> <a class="code" href="group___advanced_a_p_i.html#ga56369b1654400ef97e581bb65749ec3d">GetComponentImages</a>(<a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7a2dcea8d4208c16055353029d26f9bf49">RIL_BLOCK</a>, <span class="keyword">false</span>, pixa, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="gac7c249f9f7e11eadc557d4b3cab123a1"></a><!-- doxytag: member="tesseract::TessBaseAPI::GetStrips" ref="gac7c249f9f7e11eadc557d4b3cab123a1" args="(Pixa **pixa, int **blockids)" -->
@@ -643,6 +1158,11 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>Get textlines and strips of image regions as a leptonica-style Boxa, Pixa pair, in reading order. Enables downstream handling of non-rectangular regions. Can be called before or after Recognize. If blockids is not NULL, the block-id of each line is also returned as an array of one element per line. delete [] after use. </p>
 
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00429">429</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                        {
+  <span class="keywordflow">return</span> <a class="code" href="group___advanced_a_p_i.html#ga56369b1654400ef97e581bb65749ec3d">GetComponentImages</a>(<a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7a5e87a35f16de644593c353159ede11d1">RIL_TEXTLINE</a>, <span class="keyword">false</span>, pixa, blockids);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ga535728aa13f5f5eb66cbece59a7737e5"></a><!-- doxytag: member="tesseract::TessBaseAPI::GetTextDirection" ref="ga535728aa13f5f5eb66cbece59a7737e5" args="(int *out_offset, float *out_slope)" -->
@@ -670,6 +1190,34 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01394">1394</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                    {
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a12dda612630eba40e15f9d0b9955a04c" title="The page-level data.">page_res_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a86899716a1adde396be4efd57b547d27">FindLines</a>();
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#ac22c36258b0cd727188505a9a1dbc7e1" title="The page layout.">block_list_</a>-&gt;length() &lt; 1) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+
+  <span class="comment">// Get first block</span>
+  BLOCK_IT block_it(<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#ac22c36258b0cd727188505a9a1dbc7e1" title="The page layout.">block_list_</a>);
+  block_it.move_to_first();
+  ROW_LIST* rows = block_it.data()-&gt;row_list();
+  <span class="keywordflow">if</span> (rows-&gt;length() &lt; 1) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+
+  <span class="comment">// Get first line of block</span>
+  ROW_IT row_it(rows);
+  row_it.move_to_first();
+  <a class="code" href="class_r_o_w.html">ROW</a>* row = row_it.data();
+
+  <span class="comment">// Calculate offset and slope (NOTE: Kind of ugly)</span>
+  *out_offset = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(row-&gt;<a class="code" href="class_r_o_w.html#a097b3543fa3ca5768eb50033d4c4db9c">base_line</a>(0.0));
+  *out_slope = row-&gt;<a class="code" href="class_r_o_w.html#a097b3543fa3ca5768eb50033d4c4db9c">base_line</a>(1.0) - row-&gt;<a class="code" href="class_r_o_w.html#a097b3543fa3ca5768eb50033d4c4db9c">base_line</a>(0.0);
+
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ga337bd007c5fff9336bba8dfade1924ce"></a><!-- doxytag: member="tesseract::TessBaseAPI::GetTextlines" ref="ga337bd007c5fff9336bba8dfade1924ce" args="(Pixa **pixa, int **blockids)" -->
@@ -698,6 +1246,11 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>Get the textlines as a leptonica-style Boxa, Pixa pair, in reading order. Can be called before or after Recognize. If blockids is not NULL, the block-id of each line is also returned as an array of one element per line. delete [] after use. </p>
 
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00419">419</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                           {
+  <span class="keywordflow">return</span> <a class="code" href="group___advanced_a_p_i.html#ga56369b1654400ef97e581bb65749ec3d">GetComponentImages</a>(<a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7a5e87a35f16de644593c353159ede11d1">RIL_TEXTLINE</a>, <span class="keyword">true</span>, pixa, blockids);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="gaee19c9ea78a647420bbe99a447569995"></a><!-- doxytag: member="tesseract::TessBaseAPI::GetThresholdedImage" ref="gaee19c9ea78a647420bbe99a447569995" args="()" -->
@@ -715,6 +1268,15 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>Get a copy of the internal thresholded image from <a class="el" href="classtesseract_1_1_tesseract.html">Tesseract</a>. Caller takes ownership of the Pix and must pixDestroy it. May be called any time after SetImage, or after TesseractRect. </p>
 
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00400">400</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                      {
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;pix_binary() == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a8c8a3b050d6c356c4846345a3818f79e">Threshold</a>(<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;mutable_pix_binary());
+  <span class="keywordflow">return</span> pixClone(<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;pix_binary());
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ga6b1c8cac1ba7da32dfd32cf708eea8b4"></a><!-- doxytag: member="tesseract::TessBaseAPI::GetThresholdedImageScaleFactor" ref="ga6b1c8cac1ba7da32dfd32cf708eea8b4" args="() const " -->
@@ -731,6 +1293,14 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00503">503</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                      {
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a9d93e1d92ca230ae02b81d44bc88a55c" title="Image thresholding module.">thresholder_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">return</span> 0;
+  }
+  <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a9d93e1d92ca230ae02b81d44bc88a55c" title="Image thresholding module.">thresholder_</a>-&gt;GetScaleFactor();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ga34314bb3635a6e0d171e33d4b4181db2"></a><!-- doxytag: member="tesseract::TessBaseAPI::GetUnichar" ref="ga34314bb3635a6e0d171e33d4b4181db2" args="(int unichar_id)" -->
@@ -748,6 +1318,11 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l02024">2024</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                  {
+  <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;unicharset.id_to_unichar(unichar_id);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ga173b4289191b6c2faf2a4a4b7c94affc"></a><!-- doxytag: member="tesseract::TessBaseAPI::GetUNLVText" ref="ga173b4289191b6c2faf2a4a4b7c94affc" args="()" -->
@@ -765,6 +1340,108 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>The recognized text is returned as a char* which is coded as UNLV format Latin-1 with specific reject and suspect codes and must be freed with the delete [] operator. </p>
 
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01117">1117</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                               {
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> ||
+      (!<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a7d4627f300b1096d43a3e7d54d8aa5df" title="page_res_ contains recognition data.">recognition_done_</a> &amp;&amp; <a class="code" href="group___advanced_a_p_i.html#ga0e4065c20b142d69a2324ee0c74ae0b0">Recognize</a>(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) &lt; 0))
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordtype">bool</span> tilde_crunch_written = <span class="keyword">false</span>;
+  <span class="keywordtype">bool</span> last_char_was_newline = <span class="keyword">true</span>;
+  <span class="keywordtype">bool</span> last_char_was_tilde = <span class="keyword">false</span>;
+
+  <span class="keywordtype">int</span> total_length = <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#aed3d481fc0c7dffad24572bd1f449598">TextLength</a>(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <a class="code" href="class_p_a_g_e___r_e_s___i_t.html">PAGE_RES_IT</a>   page_res_it(<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a12dda612630eba40e15f9d0b9955a04c" title="The page-level data.">page_res_</a>);
+  <span class="keywordtype">char</span>* result = <span class="keyword">new</span> <span class="keywordtype">char</span>[total_length];
+  <span class="keywordtype">char</span>* ptr = result;
+  <span class="keywordflow">for</span> (page_res_it.restart_page(); page_res_it.word () != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+       page_res_it.forward()) {
+    <a class="code" href="class_w_e_r_d___r_e_s.html">WERD_RES</a> *word = page_res_it.<a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a>();
+    <span class="comment">// Process the current word.</span>
+    <span class="keywordflow">if</span> (word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a82d32a9f59bc1c08da9537303c56615b">unlv_crunch_mode</a> != <a class="code" href="pageres_8h.html#affc9a96d31e23e645355e534f11c40e9a1eac25752f2c55f1809d11d4ef917ff9">CR_NONE</a>) {
+      <span class="keywordflow">if</span> (word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a82d32a9f59bc1c08da9537303c56615b">unlv_crunch_mode</a> != <a class="code" href="pageres_8h.html#affc9a96d31e23e645355e534f11c40e9a1799c83261446306e1d1527f1779d6a4">CR_DELETE</a> &amp;&amp;
+          (!tilde_crunch_written ||
+           (word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a82d32a9f59bc1c08da9537303c56615b">unlv_crunch_mode</a> == <a class="code" href="pageres_8h.html#affc9a96d31e23e645355e534f11c40e9ad0198ebd5b9e3299dd94f0c5f4d3e003">CR_KEEP_SPACE</a> &amp;&amp;
+            word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a>-&gt;<a class="code" href="class_w_e_r_d.html#ab2979974cf23f5c66f4e77cc51f2e189">space</a>() &gt; 0 &amp;&amp;
+            !word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a>-&gt;<a class="code" href="class_w_e_r_d.html#a81edde8597a3d9fd8a664d703d332c41">flag</a>(<a class="code" href="werd_8h.html#ad6968adbf8f2cc44adf333ec96efb0bea675eadd051ea82d1f288751799bfa31c">W_FUZZY_NON</a>) &amp;&amp;
+            !word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a>-&gt;<a class="code" href="class_w_e_r_d.html#a81edde8597a3d9fd8a664d703d332c41">flag</a>(<a class="code" href="werd_8h.html#ad6968adbf8f2cc44adf333ec96efb0bea3580884b5b0335502fb928db4a0a2024">W_FUZZY_SP</a>)))) {
+        <span class="keywordflow">if</span> (!word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a>-&gt;<a class="code" href="class_w_e_r_d.html#a81edde8597a3d9fd8a664d703d332c41">flag</a>(<a class="code" href="werd_8h.html#ad6968adbf8f2cc44adf333ec96efb0beaff21d7c8c8992120fff35942408a00d2">W_BOL</a>) &amp;&amp;
+            word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a>-&gt;<a class="code" href="class_w_e_r_d.html#ab2979974cf23f5c66f4e77cc51f2e189">space</a>() &gt; 0 &amp;&amp;
+            !word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a>-&gt;<a class="code" href="class_w_e_r_d.html#a81edde8597a3d9fd8a664d703d332c41">flag</a>(<a class="code" href="werd_8h.html#ad6968adbf8f2cc44adf333ec96efb0bea675eadd051ea82d1f288751799bfa31c">W_FUZZY_NON</a>) &amp;&amp;
+            !word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a>-&gt;<a class="code" href="class_w_e_r_d.html#a81edde8597a3d9fd8a664d703d332c41">flag</a>(<a class="code" href="werd_8h.html#ad6968adbf8f2cc44adf333ec96efb0bea3580884b5b0335502fb928db4a0a2024">W_FUZZY_SP</a>)) {
+          <span class="comment">/* Write a space to separate from preceeding good text */</span>
+          *ptr++ = <span class="charliteral">&#39; &#39;</span>;
+          last_char_was_tilde = <span class="keyword">false</span>;
+        }
+        <span class="keywordflow">if</span> (!last_char_was_tilde) {
+          <span class="comment">// Write a reject char.</span>
+          last_char_was_tilde = <span class="keyword">true</span>;
+          *ptr++ = <a class="code" href="namespacetesseract.html#a99bec48b41ccb504c28851dbe5b1f106">kUNLVReject</a>;
+          tilde_crunch_written = <span class="keyword">true</span>;
+          last_char_was_newline = <span class="keyword">false</span>;
+        }
+      }
+    } <span class="keywordflow">else</span> {
+      <span class="comment">// NORMAL PROCESSING of non tilde crunched words.</span>
+      tilde_crunch_written = <span class="keyword">false</span>;
+      <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;set_unlv_suspects(word);
+      <span class="keyword">const</span> <span class="keywordtype">char</span>* wordstr = word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a41d740f0accccdfb245d34d554122116">unichar_string</a>().<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a>();
+      <span class="keyword">const</span> <a class="code" href="class_s_t_r_i_n_g.html">STRING</a>&amp; lengths = word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a93ab94b6fa6d5c0469fb52d66c62968c">unichar_lengths</a>();
+      <span class="keywordtype">int</span> length = lengths.<a class="code" href="class_s_t_r_i_n_g.html#a168505a533eda60219c93e25adf4cdc5">length</a>();
+      <span class="keywordtype">int</span> i = 0;
+      <span class="keywordtype">int</span> offset = 0;
+
+      <span class="keywordflow">if</span> (last_char_was_tilde &amp;&amp;
+          word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a>-&gt;<a class="code" href="class_w_e_r_d.html#ab2979974cf23f5c66f4e77cc51f2e189">space</a>() == 0 &amp;&amp; wordstr[offset] == <span class="charliteral">&#39; &#39;</span>) {
+        <span class="comment">// Prevent adjacent tilde across words - we know that adjacent tildes</span>
+        <span class="comment">// within words have been removed.</span>
+        <span class="comment">// Skip the first character.</span>
+        offset = lengths[i++];
+      }
+      <span class="keywordflow">if</span> (i &lt; length &amp;&amp; wordstr[offset] != 0) {
+        <span class="keywordflow">if</span> (!last_char_was_newline)
+          *ptr++ = <span class="charliteral">&#39; &#39;</span>;
+        <span class="keywordflow">else</span>
+          last_char_was_newline = <span class="keyword">false</span>;
+        <span class="keywordflow">for</span> (; i &lt; length; offset += lengths[i++]) {
+          <span class="keywordflow">if</span> (wordstr[offset] == <span class="charliteral">&#39; &#39;</span> ||
+              wordstr[offset] == <a class="code" href="namespacetesseract.html#a1083ed81b6adbb6930e87d0c58671e26">kTesseractReject</a>) {
+            *ptr++ = <a class="code" href="namespacetesseract.html#a99bec48b41ccb504c28851dbe5b1f106">kUNLVReject</a>;
+            last_char_was_tilde = <span class="keyword">true</span>;
+          } <span class="keywordflow">else</span> {
+            <span class="keywordflow">if</span> (word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#ae24eb58be06cf275aee411d947fd31ef">reject_map</a>[i].rejected())
+              *ptr++ = <a class="code" href="namespacetesseract.html#af7e73b761f145b66ffcc7585ed69d940">kUNLVSuspect</a>;
+            <a class="code" href="class_u_n_i_c_h_a_r.html">UNICHAR</a> ch(wordstr + offset, lengths[i]);
+            <span class="keywordtype">int</span> uni_ch = ch.first_uni();
+            <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; <a class="code" href="namespacetesseract.html#afa62cc25480d6eee8b1bb2ef4a1f8fc3">kUniChs</a>[j] != 0; ++j) {
+              <span class="keywordflow">if</span> (<a class="code" href="namespacetesseract.html#afa62cc25480d6eee8b1bb2ef4a1f8fc3">kUniChs</a>[j] == uni_ch) {
+                uni_ch = <a class="code" href="namespacetesseract.html#a7e0c7c50e2e05e503a51b8c33d35ade6">kLatinChs</a>[j];
+                <span class="keywordflow">break</span>;
+              }
+            }
+            <span class="keywordflow">if</span> (uni_ch &lt;= 0xff) {
+              *ptr++ = <span class="keyword">static_cast&lt;</span><span class="keywordtype">char</span><span class="keyword">&gt;</span>(uni_ch);
+              last_char_was_tilde = <span class="keyword">false</span>;
+            } <span class="keywordflow">else</span> {
+              *ptr++ = <a class="code" href="namespacetesseract.html#a99bec48b41ccb504c28851dbe5b1f106">kUNLVReject</a>;
+              last_char_was_tilde = <span class="keyword">true</span>;
+            }
+          }
+        }
+      }
+    }
+    <span class="keywordflow">if</span> (word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a>-&gt;<a class="code" href="class_w_e_r_d.html#a81edde8597a3d9fd8a664d703d332c41">flag</a>(<a class="code" href="werd_8h.html#ad6968adbf8f2cc44adf333ec96efb0bea62efb985a62d85e014ee5ab039dd50ce">W_EOL</a>) &amp;&amp; !last_char_was_newline) {
+      <span class="comment">/* Add a new line output */</span>
+      *ptr++ = <span class="charliteral">&#39;\n&#39;</span>;
+      tilde_crunch_written = <span class="keyword">false</span>;
+      last_char_was_newline = <span class="keyword">true</span>;
+      last_char_was_tilde = <span class="keyword">false</span>;
+    }
+  }
+  *ptr++ = <span class="charliteral">&#39;\n&#39;</span>;
+  *ptr = <span class="charliteral">&#39;\0&#39;</span>;
+  <span class="keywordflow">return</span> result;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ga115ef656f83352ba608b4f0bf9cfa2c4"></a><!-- doxytag: member="tesseract::TessBaseAPI::GetUTF8Text" ref="ga115ef656f83352ba608b4f0bf9cfa2c4" args="()" -->
@@ -782,6 +1459,25 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>The recognized text is returned as a char* which is coded as UTF8 and must be freed with the delete [] operator. </p>
 
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00902">902</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                               {
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> ||
+      (!<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a7d4627f300b1096d43a3e7d54d8aa5df" title="page_res_ contains recognition data.">recognition_done_</a> &amp;&amp; <a class="code" href="group___advanced_a_p_i.html#ga0e4065c20b142d69a2324ee0c74ae0b0">Recognize</a>(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) &lt; 0))
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <a class="code" href="class_s_t_r_i_n_g.html">STRING</a> text(<span class="stringliteral">&quot;&quot;</span>);
+  ResultIterator *it = <a class="code" href="group___advanced_a_p_i.html#ga52eee8b9a4f147c26e4b64c16b46bc04">GetIterator</a>();
+  <span class="keywordflow">do</span> {
+    <span class="keywordflow">if</span> (it-&gt;Empty(<a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7a3e63980691bf64801c704f59bd795bd9">RIL_PARA</a>)) <span class="keywordflow">continue</span>;
+    <span class="keywordtype">char</span> *para_text = it-&gt;GetUTF8Text(<a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7a3e63980691bf64801c704f59bd795bd9">RIL_PARA</a>);
+    text += para_text;
+    <span class="keyword">delete</span> []para_text;
+  } <span class="keywordflow">while</span> (it-&gt;Next(<a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7a3e63980691bf64801c704f59bd795bd9">RIL_PARA</a>));
+  <span class="keywordtype">char</span>* result = <span class="keyword">new</span> <span class="keywordtype">char</span>[text.length() + 1];
+  strncpy(result, text.string(), text.length() + 1);
+  <span class="keyword">delete</span> it;
+  <span class="keywordflow">return</span> result;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ga4133bcbe38dca1173db2882ef0727703"></a><!-- doxytag: member="tesseract::TessBaseAPI::GetWords" ref="ga4133bcbe38dca1173db2882ef0727703" args="(Pixa **pixa)" -->
@@ -800,6 +1496,11 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>Get the words as a leptonica-style Boxa, Pixa pair, in reading order. Can be called before or after Recognize. </p>
 
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00436">436</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                       {
+  <span class="keywordflow">return</span> <a class="code" href="group___advanced_a_p_i.html#ga56369b1654400ef97e581bb65749ec3d">GetComponentImages</a>(<a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7afd466aec253e5daa6f0c112b0f0e0610">RIL_WORD</a>, <span class="keyword">true</span>, pixa, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ga43810a084b5482d0731611513c0a9e16"></a><!-- doxytag: member="tesseract::TessBaseAPI::InitTruthCallback" ref="ga43810a084b5482d0731611513c0a9e16" args="(TruthCallback *cb)" -->
@@ -817,6 +1518,9 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="baseapi_8h_source.html#l00621">621</a> of file <a class="el" href="baseapi_8h_source.html">baseapi.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#ac7eaed7f3fedb15212eb39b747de0102">truth_cb_</a> = cb; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ga2c06caf08c9a8aa97a08a2de2f6200df"></a><!-- doxytag: member="tesseract::TessBaseAPI::IsValidWord" ref="ga2c06caf08c9a8aa97a08a2de2f6200df" args="(const char *word)" -->
@@ -837,6 +1541,11 @@ Functions</h2></td></tr>
 <dl class="return"><dt><b>Returns:</b></dt><dd>0 if the word is invalid, non-zero if valid. </dd></dl>
 <dl class="warning"><dt><b>Warning:</b></dt><dd>temporary! This function will be removed from here and placed in a separate API at some future time. </dd></dl>
 
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01389">1389</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                             {
+  <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;getDict().valid_word(word);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ga0306bec5d154260922c203d8022832ca"></a><!-- doxytag: member="tesseract::TessBaseAPI::MakeTBLOB" ref="ga0306bec5d154260922c203d8022832ca" args="(Pix *pix)" -->
@@ -854,6 +1563,32 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01717">1717</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                      {
+  <span class="keywordtype">int</span> width = pixGetWidth(pix);
+  <span class="keywordtype">int</span> height = pixGetHeight(pix);
+  <a class="code" href="class_b_l_o_c_k.html">BLOCK</a> block(<span class="stringliteral">&quot;a character&quot;</span>, <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>, 0, 0, 0, 0, width, height);
+
+  <span class="comment">// Create C_BLOBs from the page</span>
+  <a class="code" href="edgblob_8cpp.html#a16ca13da58e65267e7e34355091ca891">extract_edges</a>(pix, &amp;block);
+
+  <span class="comment">// Merge all C_BLOBs</span>
+  C_BLOB_LIST *list = block.blob_list();
+  C_BLOB_IT c_blob_it(list);
+  <span class="keywordflow">if</span> (c_blob_it.empty())
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="comment">// Move all the outlines to the first blob.</span>
+  C_OUTLINE_IT ol_it(c_blob_it.data()-&gt;out_list());
+  <span class="keywordflow">for</span> (c_blob_it.forward();
+       !c_blob_it.at_first();
+       c_blob_it.forward()) {
+      <a class="code" href="class_c___b_l_o_b.html">C_BLOB</a> *c_blob = c_blob_it.data();
+      ol_it.add_list_after(c_blob-&gt;<a class="code" href="class_c___b_l_o_b.html#ae510f3d0e7398fbb46608082429eac89">out_list</a>());
+  }
+  <span class="comment">// Convert the first blob to the output TBLOB.</span>
+  <span class="keywordflow">return</span> <a class="code" href="struct_t_b_l_o_b.html#a49b1279a5ff4e05d6dd0beacd2d99395">TBLOB::PolygonalCopy</a>(c_blob_it.data());
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ga6188cb0fdcf944408db772131c545429"></a><!-- doxytag: member="tesseract::TessBaseAPI::MakeTessOCRRow" ref="ga6188cb0fdcf944408db772131c545429" args="(float baseline, float xheight, float descender, float ascender)" -->
@@ -893,6 +1628,20 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01700">1700</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                 {
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> xstarts[] = {-32000};
+  <span class="keywordtype">double</span> quad_coeffs[] = {0, 0, <a class="code" href="mfoutline_8h.html#a2a4b69f9a2827dc98bc4cbc233118865a83297de004f4e58b9be2108c6cd08a23">baseline</a>};
+  <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code" href="class_r_o_w.html">ROW</a>(1,
+                 xstarts,
+                 quad_coeffs,
+                 xheight,
+                 ascender - (<a class="code" href="mfoutline_8h.html#a2a4b69f9a2827dc98bc4cbc233118865a83297de004f4e58b9be2108c6cd08a23">baseline</a> + xheight),
+                 descender - <a class="code" href="mfoutline_8h.html#a2a4b69f9a2827dc98bc4cbc233118865a83297de004f4e58b9be2108c6cd08a23">baseline</a>,
+                 0,
+                 0);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ga027054e6176889ff49a7108e174fce0f"></a><!-- doxytag: member="tesseract::TessBaseAPI::MeanTextConf" ref="ga027054e6176889ff49a7108e174fce0f" args="()" -->
@@ -910,6 +1659,18 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>Returns the (average) confidence value between 0 and 100. </p>
 
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01219">1219</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                              {
+  <span class="keywordtype">int</span>* conf = <a class="code" href="group___advanced_a_p_i.html#ga4a67a12db21b3569b2b50ad05b9e146a">AllWordConfidences</a>();
+  <span class="keywordflow">if</span> (!conf) <span class="keywordflow">return</span> 0;
+  <span class="keywordtype">int</span> sum = 0;
+  <span class="keywordtype">int</span> *pt = conf;
+  <span class="keywordflow">while</span> (*pt &gt;= 0) sum += *pt++;
+  <span class="keywordflow">if</span> (pt != conf) sum /= pt - conf;
+  <span class="keyword">delete</span> [] conf;
+  <span class="keywordflow">return</span> sum;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ga52efb13dbc0127d903cb3ecc5734ec7c"></a><!-- doxytag: member="tesseract::TessBaseAPI::NormalizeTBLOB" ref="ga52efb13dbc0127d903cb3ecc5734ec7c" args="(TBLOB *tblob, ROW *row, bool numeric_mode, DENORM *denorm)" -->
@@ -949,6 +1710,21 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01745">1745</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                    {
+  <a class="code" href="struct_t_w_e_r_d.html">TWERD</a> word;
+  word.<a class="code" href="struct_t_w_e_r_d.html#aeec31d57df04c8dac1cf3e6990d358a7">blobs</a> = tblob;
+  <span class="keywordflow">if</span> (denorm != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    word.<a class="code" href="struct_t_w_e_r_d.html#afbd0a7b21dd6c9fcbc265fb4b5117265">SetupBLNormalize</a>(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, row, row-&gt;<a class="code" href="class_r_o_w.html#a2954f94ec4eefe1e3729912e5b8ea779">x_height</a>(), numeric_mode, denorm);
+    word.<a class="code" href="struct_t_w_e_r_d.html#a830ae54d262e8348e098b5bab2aa4985">Normalize</a>(*denorm);
+  } <span class="keywordflow">else</span> {
+    <a class="code" href="class_d_e_n_o_r_m.html">DENORM</a> normer;
+    word.<a class="code" href="struct_t_w_e_r_d.html#afbd0a7b21dd6c9fcbc265fb4b5117265">SetupBLNormalize</a>(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, row, row-&gt;<a class="code" href="class_r_o_w.html#a2954f94ec4eefe1e3729912e5b8ea779">x_height</a>(), numeric_mode, &amp;normer);
+    word.<a class="code" href="struct_t_w_e_r_d.html#a830ae54d262e8348e098b5bab2aa4985">Normalize</a>(normer);
+  }
+  word.<a class="code" href="struct_t_w_e_r_d.html#aeec31d57df04c8dac1cf3e6990d358a7">blobs</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="gac0a13108ccd514cab99badcb014d2f43"></a><!-- doxytag: member="tesseract::TessBaseAPI::NumDawgs" ref="gac0a13108ccd514cab99badcb014d2f43" args="() const " -->
@@ -966,6 +1742,11 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>Return the number of dawgs loaded into tesseract_ object. </p>
 
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l02035">2035</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                {
+  <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> ? 0 : <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;getDict().NumDawgs();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="gaf810a9dc1e6d74132796c298445ea06d"></a><!-- doxytag: member="tesseract::TessBaseAPI::oem" ref="gaf810a9dc1e6d74132796c298445ea06d" args="() const " -->
@@ -982,6 +1763,11 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="baseapi_8h_source.html#l00617">617</a> of file <a class="el" href="baseapi_8h_source.html">baseapi.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                  {
+    <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#af9d4095a569fbf8687cefc005d2f58ee" title="Last ocr language mode requested.">last_oem_requested_</a>;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ga09be3b61fd89f7803fe37cc420b92b30"></a><!-- doxytag: member="tesseract::TessBaseAPI::ProcessPage" ref="ga09be3b61fd89f7803fe37cc420b92b30" args="(Pix *pix, int page_index, const char *filename, const char *retry_config, int timeout_millisec, STRING *text_out)" -->
@@ -1034,6 +1820,69 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>Recognizes a single page for ProcessPages, appending the text to text_out. The pix is the image processed - filename and page_index are metadata used by side-effect processes, such as reading a box file or formatting as hOCR. If non-zero timeout_millisec terminates processing after the timeout. If non-NULL and non-empty, and some page fails for some reason, the page is reprocessed with the retry_config config file. Useful for interactively debugging a bad page. The text is returned in text_out. Returns false on error. </p>
 
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00796">796</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                {
+  <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a896312e68d246b58e704a8f5576e6917">SetInputName</a>(filename);
+  <a class="code" href="group___advanced_a_p_i.html#gaa463622111f3b11d8fca5863709cc699">SetImage</a>(pix);
+  <span class="keywordtype">bool</span> failed = <span class="keyword">false</span>;
+  <span class="keywordflow">if</span> (timeout_millisec &gt; 0) {
+    <span class="comment">// Running with a timeout.</span>
+    <a class="code" href="class_e_t_e_x_t___d_e_s_c.html">ETEXT_DESC</a> monitor;
+    monitor.<a class="code" href="class_e_t_e_x_t___d_e_s_c.html#afcea4319ceed9b37f3c43eec9ec5d55a">cancel</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    monitor.<a class="code" href="class_e_t_e_x_t___d_e_s_c.html#a4844a3e9868a0fde7ad2fcaa37f5c5f1">cancel_this</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    monitor.<a class="code" href="class_e_t_e_x_t___d_e_s_c.html#acbbc24327ecc909b78274d339c27236e">set_deadline_msecs</a>(timeout_millisec);
+    <span class="comment">// Now run the main recognition.</span>
+    failed = <a class="code" href="group___advanced_a_p_i.html#ga0e4065c20b142d69a2324ee0c74ae0b0">Recognize</a>(&amp;monitor) &lt; 0;
+  } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;tessedit_pageseg_mode == <a class="code" href="namespacetesseract.html#a338d4c8b5d497b5ec3e6e4269d8ac66aa319d6168eaa4b2002ac84c0558ba947d" title="Orientation and script detection only.">PSM_OSD_ONLY</a> ||
+             <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;tessedit_pageseg_mode == <a class="code" href="namespacetesseract.html#a338d4c8b5d497b5ec3e6e4269d8ac66aa6c70374f53473ba410723e32b12f3f01" title="Automatic page segmentation, but no OSD, or OCR.">PSM_AUTO_ONLY</a>) {
+    <span class="comment">// Disabled character recognition.</span>
+    PageIterator* it = <a class="code" href="group___advanced_a_p_i.html#gaaac2abf8505c89afb8466dc3cff2c666">AnalyseLayout</a>();
+    <span class="keywordflow">if</span> (it == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      failed = <span class="keyword">true</span>;
+    } <span class="keywordflow">else</span> {
+      <span class="keyword">delete</span> it;
+      <span class="keywordflow">return</span> <span class="keyword">true</span>;
+    }
+  } <span class="keywordflow">else</span> {
+    <span class="comment">// Normal layout and character recognition with no timeout.</span>
+    failed = <a class="code" href="group___advanced_a_p_i.html#ga0e4065c20b142d69a2324ee0c74ae0b0">Recognize</a>(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) &lt; 0;
+  }
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;tessedit_write_images) {
+    Pix* page_pix = <a class="code" href="group___advanced_a_p_i.html#gaee19c9ea78a647420bbe99a447569995">GetThresholdedImage</a>();
+    pixWrite(<span class="stringliteral">&quot;tessinput.tif&quot;</span>, page_pix, IFF_TIFF_G4);
+  }
+  <span class="keywordflow">if</span> (failed &amp;&amp; retry_config != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp; retry_config[0] != <span class="charliteral">&#39;\0&#39;</span>) {
+    <span class="comment">// Save current config variables before switching modes.</span>
+    FILE* fp = fopen(<a class="code" href="namespacetesseract.html#a46ecbfaef9e549b16cd97fee9d4614d2">kOldVarsFile</a>, <span class="stringliteral">&quot;wb&quot;</span>);
+    <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#aa00be783b6ce3c3178fc86afdf1cba7d">PrintVariables</a>(fp);
+    fclose(fp);
+    <span class="comment">// Switch to alternate mode for retry.</span>
+    <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#ab3bd61f8ccb7c4e1c41801ea708d2181">ReadConfigFile</a>(retry_config);
+    <a class="code" href="group___advanced_a_p_i.html#gaa463622111f3b11d8fca5863709cc699">SetImage</a>(pix);
+    <a class="code" href="group___advanced_a_p_i.html#ga0e4065c20b142d69a2324ee0c74ae0b0">Recognize</a>(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+    <span class="comment">// Restore saved config variables.</span>
+    <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#ab3bd61f8ccb7c4e1c41801ea708d2181">ReadConfigFile</a>(<a class="code" href="namespacetesseract.html#a46ecbfaef9e549b16cd97fee9d4614d2">kOldVarsFile</a>);
+  }
+  <span class="comment">// Get text only if successful.</span>
+  <span class="keywordflow">if</span> (!failed) {
+    <span class="keywordtype">char</span>* text;
+    <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;tessedit_create_boxfile ||
+        <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;tessedit_make_boxes_from_boxes) {
+      text = <a class="code" href="group___advanced_a_p_i.html#gaadda8cd6abe770d2f6a70a18329b1973">GetBoxText</a>(page_index);
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;tessedit_write_unlv) {
+      text = <a class="code" href="group___advanced_a_p_i.html#ga173b4289191b6c2faf2a4a4b7c94affc">GetUNLVText</a>();
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;tessedit_create_hocr) {
+      text = <a class="code" href="group___advanced_a_p_i.html#ga655f906bbf64dcd6f33ce633ecce997d">GetHOCRText</a>(page_index);
+    } <span class="keywordflow">else</span> {
+      text = <a class="code" href="group___advanced_a_p_i.html#ga115ef656f83352ba608b4f0bf9cfa2c4">GetUTF8Text</a>();
+    }
+    *text_out += text;
+    <span class="keyword">delete</span> [] text;
+    <span class="keywordflow">return</span> <span class="keyword">true</span>;
+  }
+  <span class="keywordflow">return</span> <span class="keyword">false</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="gaf89df932c29b0abe4fb4ca3ae852506b"></a><!-- doxytag: member="tesseract::TessBaseAPI::ProcessPages" ref="gaf89df932c29b0abe4fb4ca3ae852506b" args="(const char *filename, const char *retry_config, int timeout_millisec, STRING *text_out)" -->
@@ -1074,6 +1923,91 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>Recognizes all the pages in the named file, as a multi-page tiff or list of filenames, or single image, and gets the appropriate kind of text according to parameters: tessedit_create_boxfile, tessedit_make_boxes_from_boxes, tessedit_write_unlv, tessedit_create_hocr. Calls ProcessPage on each page in the input file, which may be a multi-page tiff, single-page other file format, or a plain text list of images to read. If tessedit_page_number is non-negative, processing begins at that page of a multi-page tiff file, or filelist. The text is returned in text_out. Returns false on error. If non-zero timeout_millisec terminates processing after the timeout on a single page. If non-NULL and non-empty, and some page fails for some reason, the page is reprocessed with the retry_config config file. Useful for interactively debugging a bad page. </p>
 
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00700">700</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                 {
+  <span class="keywordtype">int</span> page = <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;tessedit_page_number;
+  <span class="keywordflow">if</span> (page &lt; 0)
+    page = 0;
+  FILE* fp = fopen(filename, <span class="stringliteral">&quot;rb&quot;</span>);
+  <span class="keywordflow">if</span> (fp == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<a class="code" href="baseapi_8cpp.html#af20b8d139279b360b0fdeae71f8f43bc">_</a>(<span class="stringliteral">&quot;Image file %s cannot be opened!\n&quot;</span>), filename);
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+  <span class="comment">// Find the number of pages if a tiff file, or zero otherwise.</span>
+  <span class="keywordtype">int</span> npages = <a class="code" href="imgtiff_8cpp.html#a9a7b4b88acbe06eecfea0c8e28797849">CountTiffPages</a>(fp);
+  fclose(fp);
+
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;tessedit_create_hocr) {
+    *text_out =
+        <span class="stringliteral">&quot;&lt;!DOCTYPE html PUBLIC \&quot;-//W3C//DTD HTML 4.01 Transitional//EN\&quot;&quot;</span>
+        <span class="stringliteral">&quot; \&quot;http://www.w3.org/TR/html4/loose.dtd\&quot;&gt;\n&quot;</span>
+        <span class="stringliteral">&quot;&lt;html&gt;\n&lt;head&gt;\n&lt;title&gt;&lt;/title&gt;\n&quot;</span>
+        <span class="stringliteral">&quot;&lt;meta http-equiv=\&quot;Content-Type\&quot; content=\&quot;text/html;&quot;</span>
+        <span class="stringliteral">&quot;charset=utf-8\&quot; /&gt;\n&lt;meta name=&#39;ocr-system&#39; content=&#39;tesseract&#39;/&gt;\n&quot;</span>
+        <span class="stringliteral">&quot;&lt;/head&gt;\n&lt;body&gt;\n&quot;</span>;
+  } <span class="keywordflow">else</span> {
+    *text_out = <span class="stringliteral">&quot;&quot;</span>;
+  }
+
+  <span class="keywordtype">bool</span> success = <span class="keyword">true</span>;
+  Pix *pix;
+  <span class="keywordflow">if</span> (npages &gt; 0) {
+    <span class="keywordflow">for</span> (; page &lt; npages &amp;&amp; (pix = pixReadTiff(filename, page)) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+         ++page) {
+      <span class="keywordflow">if</span> ((page &gt;= 0) &amp;&amp; (npages &gt; 1))
+        <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<a class="code" href="baseapi_8cpp.html#af20b8d139279b360b0fdeae71f8f43bc">_</a>(<span class="stringliteral">&quot;Page %d of %d\n&quot;</span>), page + 1, npages);
+      <span class="keywordtype">char</span> page_str[<a class="code" href="namespacetesseract.html#a3e35711780f8c0254a2dd64071ef2b6b">kMaxIntSize</a>];
+      snprintf(page_str, <a class="code" href="namespacetesseract.html#a3e35711780f8c0254a2dd64071ef2b6b">kMaxIntSize</a> - 1, <span class="stringliteral">&quot;%d&quot;</span>, page);
+      <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a2e09259c558c6d8e0f7e523cbaf5adf5">SetVariable</a>(<span class="stringliteral">&quot;applybox_page&quot;</span>, page_str);
+      success &amp;= <a class="code" href="group___advanced_a_p_i.html#ga09be3b61fd89f7803fe37cc420b92b30">ProcessPage</a>(pix, page, filename, retry_config,
+                             timeout_millisec, text_out);
+      pixDestroy(&amp;pix);
+      <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;tessedit_page_number &gt;= 0 || npages == 1) {
+        <span class="keywordflow">break</span>;
+      }
+    }
+  } <span class="keywordflow">else</span> {
+    <span class="comment">// The file is not a tiff file, so use the general pixRead function.</span>
+    pix = pixRead(filename);
+    <span class="keywordflow">if</span> (pix != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      success &amp;= <a class="code" href="group___advanced_a_p_i.html#ga09be3b61fd89f7803fe37cc420b92b30">ProcessPage</a>(pix, 0, filename, retry_config,
+                             timeout_millisec, text_out);
+      pixDestroy(&amp;pix);
+    } <span class="keywordflow">else</span> {
+      <span class="comment">// The file is not an image file, so try it as a list of filenames.</span>
+      FILE* fimg = fopen(filename, <span class="stringliteral">&quot;rb&quot;</span>);
+      <span class="keywordflow">if</span> (fimg == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+        <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<a class="code" href="baseapi_8cpp.html#af20b8d139279b360b0fdeae71f8f43bc">_</a>(<span class="stringliteral">&quot;File %s cannot be opened!\n&quot;</span>), filename);
+        <span class="keywordflow">return</span> <span class="keyword">false</span>;
+      }
+      <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<a class="code" href="baseapi_8cpp.html#af20b8d139279b360b0fdeae71f8f43bc">_</a>(<span class="stringliteral">&quot;Reading %s as a list of filenames...\n&quot;</span>), filename);
+      <span class="keywordtype">char</span> pagename[<a class="code" href="platform_8h.html#ab99ded389af74001a6298fc9e44e74e5">MAX_PATH</a>];
+      <span class="comment">// Skip to the requested page number.</span>
+      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; page &amp;&amp;
+           fgets(pagename, <span class="keyword">sizeof</span>(pagename), fimg) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+           ++i);
+      <span class="keywordflow">while</span> (fgets(pagename, <span class="keyword">sizeof</span>(pagename), fimg) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+        <a class="code" href="helpers_8h.html#a31bec0ef73dd383e256fa462e9fa7e1f">chomp_string</a>(pagename);
+        pix = pixRead(pagename);
+        <span class="keywordflow">if</span> (pix == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+          <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<a class="code" href="baseapi_8cpp.html#af20b8d139279b360b0fdeae71f8f43bc">_</a>(<span class="stringliteral">&quot;Image file %s cannot be read!\n&quot;</span>), pagename);
+          fclose(fimg);
+          <span class="keywordflow">return</span> <span class="keyword">false</span>;
+        }
+        <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<a class="code" href="baseapi_8cpp.html#af20b8d139279b360b0fdeae71f8f43bc">_</a>(<span class="stringliteral">&quot;Page %d : %s\n&quot;</span>), page, pagename);
+        success &amp;= <a class="code" href="group___advanced_a_p_i.html#ga09be3b61fd89f7803fe37cc420b92b30">ProcessPage</a>(pix, page, pagename, retry_config,
+                               timeout_millisec, text_out);
+        pixDestroy(&amp;pix);
+        ++page;
+      }
+      fclose(fimg);
+    }
+  }
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;tessedit_create_hocr)
+    *text_out += <span class="stringliteral">&quot;&lt;/body&gt;\n&lt;/html&gt;\n&quot;</span>;
+  <span class="keywordflow">return</span> success;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ga0e4065c20b142d69a2324ee0c74ae0b0"></a><!-- doxytag: member="tesseract::TessBaseAPI::Recognize" ref="ga0e4065c20b142d69a2324ee0c74ae0b0" args="(ETEXT_DESC *monitor)" -->
@@ -1092,6 +2026,65 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>Recognize the image from SetAndThresholdImage, generating <a class="el" href="classtesseract_1_1_tesseract.html">Tesseract</a> internal structures. Returns 0 on success. Optional. The Get*Text functions below will call Recognize if needed. After Recognize, the output is kept internally until the next SetImage. </p>
 
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00596">596</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                              {
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <span class="keywordflow">return</span> -1;
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a86899716a1adde396be4efd57b547d27">FindLines</a>() != 0)
+    <span class="keywordflow">return</span> -1;
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a12dda612630eba40e15f9d0b9955a04c" title="The page-level data.">page_res_</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <span class="keyword">delete</span> <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a12dda612630eba40e15f9d0b9955a04c" title="The page-level data.">page_res_</a>;
+
+  <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;SetBlackAndWhitelist();
+  <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a7d4627f300b1096d43a3e7d54d8aa5df" title="page_res_ contains recognition data.">recognition_done_</a> = <span class="keyword">true</span>;
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;tessedit_resegment_from_line_boxes)
+    <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a12dda612630eba40e15f9d0b9955a04c" title="The page-level data.">page_res_</a> = <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;ApplyBoxes(*<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a4690919aa9d4eabda36bdefdaadf7ac9" title="Name used by training code.">input_file_</a>, <span class="keyword">true</span>, <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#ac22c36258b0cd727188505a9a1dbc7e1" title="The page layout.">block_list_</a>);
+  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;tessedit_resegment_from_boxes)
+    <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a12dda612630eba40e15f9d0b9955a04c" title="The page-level data.">page_res_</a> = <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;ApplyBoxes(*<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a4690919aa9d4eabda36bdefdaadf7ac9" title="Name used by training code.">input_file_</a>, <span class="keyword">false</span>, <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#ac22c36258b0cd727188505a9a1dbc7e1" title="The page layout.">block_list_</a>);
+  <span class="keywordflow">else</span>
+    <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a12dda612630eba40e15f9d0b9955a04c" title="The page-level data.">page_res_</a> = <span class="keyword">new</span> <a class="code" href="class_p_a_g_e___r_e_s.html">PAGE_RES</a>(<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#ac22c36258b0cd727188505a9a1dbc7e1" title="The page layout.">block_list_</a>, &amp;<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;prev_word_best_choice_);
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;tessedit_make_boxes_from_boxes) {
+    <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;CorrectClassifyWords(<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a12dda612630eba40e15f9d0b9955a04c" title="The page-level data.">page_res_</a>);
+    <span class="keywordflow">return</span> 0;
+  }
+
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#ac7eaed7f3fedb15212eb39b747de0102">truth_cb_</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;wordrec_run_blamer.set_value(<span class="keyword">true</span>);
+    <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#ac7eaed7f3fedb15212eb39b747de0102">truth_cb_</a>-&gt;Run(<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;getDict().getUnicharset(),
+                   <a class="code" href="group___thresholder_params.html#gab7d24a78f3565c5bfb42b2592b9e8df0">image_height_</a>, <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a12dda612630eba40e15f9d0b9955a04c" title="The page-level data.">page_res_</a>);
+  }
+
+  <span class="keywordtype">int</span> result = 0;
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;interactive_display_mode) {
+<span class="preprocessor">    #ifndef GRAPHICS_DISABLED</span>
+<span class="preprocessor"></span>    <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;pgeditor_main(<a class="code" href="group___thresholder_params.html#ga31dbaec91a5dd8ee7d399786a4bd5ef8">rect_width_</a>, <a class="code" href="group___thresholder_params.html#ga978edc537da096ec07d4bb8e4ae5332d">rect_height_</a>, <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a12dda612630eba40e15f9d0b9955a04c" title="The page-level data.">page_res_</a>);
+<span class="preprocessor">    #endif  // GRAPHICS_DISABLED</span>
+<span class="preprocessor"></span>    <span class="comment">// The page_res is invalid after an interactive session, so cleanup</span>
+    <span class="comment">// in a way that lets us continue to the next page without crashing.</span>
+    <span class="keyword">delete</span> <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a12dda612630eba40e15f9d0b9955a04c" title="The page-level data.">page_res_</a>;
+    <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a12dda612630eba40e15f9d0b9955a04c" title="The page-level data.">page_res_</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    <span class="keywordflow">return</span> -1;
+  } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;tessedit_train_from_boxes) {
+    <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;ApplyBoxTraining(*<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a22a0c520bc88e2d80fb8b6a10b7caba1" title="Name used by debug code.">output_file_</a>, <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a12dda612630eba40e15f9d0b9955a04c" title="The page-level data.">page_res_</a>);
+  } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;tessedit_ambigs_training) {
+    FILE *training_output_file = <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;init_recog_training(*<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a4690919aa9d4eabda36bdefdaadf7ac9" title="Name used by training code.">input_file_</a>);
+    <span class="comment">// OCR the page segmented into words by tesseract.</span>
+    <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;recog_training_segmented(
+        *<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a4690919aa9d4eabda36bdefdaadf7ac9" title="Name used by training code.">input_file_</a>, <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a12dda612630eba40e15f9d0b9955a04c" title="The page-level data.">page_res_</a>, monitor, training_output_file);
+    fclose(training_output_file);
+  } <span class="keywordflow">else</span> {
+    <span class="comment">// Now run the main recognition.</span>
+    <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;recog_all_words(<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a12dda612630eba40e15f9d0b9955a04c" title="The page-level data.">page_res_</a>, monitor, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, 0)) {
+      <span class="keywordtype">int</span> paragraph_debug_level = 0;
+      <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a5923cccbe20988f0f99072844d1af573">GetIntVariable</a>(<span class="stringliteral">&quot;paragraph_debug_level&quot;</span>, &amp;paragraph_debug_level);
+      <a class="code" href="group__ocropus_add_ons.html#ga97bb9808a0759d47e056ef516e8df47e">DetectParagraphs</a>(paragraph_debug_level);
+    } <span class="keywordflow">else</span> {
+      result = -1;
+    }
+  }
+  <span class="keywordflow">return</span> result;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="gaec56194587e149ae38a08eccd2e0d96a"></a><!-- doxytag: member="tesseract::TessBaseAPI::RecognizeForChopTest" ref="gaec56194587e149ae38a08eccd2e0d96a" args="(ETEXT_DESC *monitor)" -->
@@ -1110,6 +2103,37 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>Methods to retrieve information after SetAndThresholdImage(), <a class="el" href="group___advanced_a_p_i.html#ga0e4065c20b142d69a2324ee0c74ae0b0">Recognize()</a> or <a class="el" href="classtesseract_1_1_tess_base_a_p_i.html#ad34c56e08d999ece9972f4c9a9301f93">TesseractRect()</a>. (Recognize is called implicitly if needed.) Variant on Recognize used for testing chopper. </p>
 
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00655">655</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                         {
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <span class="keywordflow">return</span> -1;
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a9d93e1d92ca230ae02b81d44bc88a55c" title="Image thresholding module.">thresholder_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> || <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a9d93e1d92ca230ae02b81d44bc88a55c" title="Image thresholding module.">thresholder_</a>-&gt;IsEmpty()) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Please call SetImage before attempting recognition.&quot;</span>);
+    <span class="keywordflow">return</span> -1;
+  }
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a12dda612630eba40e15f9d0b9955a04c" title="The page-level data.">page_res_</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a83ca325b5e521416b1edcd020b169be0">ClearResults</a>();
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a86899716a1adde396be4efd57b547d27">FindLines</a>() != 0)
+    <span class="keywordflow">return</span> -1;
+  <span class="comment">// Additional conditions under which chopper test cannot be run</span>
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;interactive_display_mode) <span class="keywordflow">return</span> -1;
+
+  <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a7d4627f300b1096d43a3e7d54d8aa5df" title="page_res_ contains recognition data.">recognition_done_</a> = <span class="keyword">true</span>;
+
+  <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a12dda612630eba40e15f9d0b9955a04c" title="The page-level data.">page_res_</a> = <span class="keyword">new</span> <a class="code" href="class_p_a_g_e___r_e_s.html">PAGE_RES</a>(<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#ac22c36258b0cd727188505a9a1dbc7e1" title="The page layout.">block_list_</a>, &amp;(<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;prev_word_best_choice_));
+
+  <a class="code" href="class_p_a_g_e___r_e_s___i_t.html">PAGE_RES_IT</a> page_res_it(<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a12dda612630eba40e15f9d0b9955a04c" title="The page-level data.">page_res_</a>);
+
+  <span class="keywordflow">while</span> (page_res_it.word() != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="class_w_e_r_d___r_e_s.html">WERD_RES</a> *word_res = page_res_it.<a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a>();
+    <a class="code" href="class_generic_vector.html">GenericVector&lt;TBOX&gt;</a> boxes;
+    <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;MaximallyChopWord(boxes, page_res_it.block()-&gt;block,
+                                  page_res_it.row()-&gt;row, word_res);
+    page_res_it.forward();
+  }
+  <span class="keywordflow">return</span> 0;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ga34a1c103414dd0293ff4d40c275a5971"></a><!-- doxytag: member="tesseract::TessBaseAPI::RunAdaptiveClassifier" ref="ga34a1c103414dd0293ff4d40c275a5971" args="(TBLOB *blob, const DENORM &amp;denorm, int num_max_matches, int *unichar_ids, float *ratings, int *num_matches_returned)" -->
@@ -1161,6 +2185,25 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l02001">2001</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                   {
+  BLOB_CHOICE_LIST* choices = <span class="keyword">new</span> BLOB_CHOICE_LIST;
+  <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;AdaptiveClassifier(blob, denorm, choices, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  BLOB_CHOICE_IT choices_it(choices);
+  <span class="keywordtype">int</span>&amp; index = *num_matches_returned;
+  index = 0;
+  <span class="keywordflow">for</span> (choices_it.mark_cycle_pt();
+       !choices_it.cycled_list() &amp;&amp; index &lt; num_max_matches;
+       choices_it.forward()) {
+    <a class="code" href="class_b_l_o_b___c_h_o_i_c_e.html">BLOB_CHOICE</a>* choice = choices_it.data();
+    unichar_ids[index] = choice-&gt;<a class="code" href="class_b_l_o_b___c_h_o_i_c_e.html#aaba6190b77c5f3dc21905fc4118afa94">unichar_id</a>();
+    ratings[index] = choice-&gt;<a class="code" href="class_b_l_o_b___c_h_o_i_c_e.html#a7fbd2d505bf5b55beee424096fb1e9bc">rating</a>();
+    ++index;
+  }
+  *num_matches_returned = index;
+  <span class="keyword">delete</span> choices;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="gac4a301ee35d57b0a7572d4434cae284c"></a><!-- doxytag: member="tesseract::TessBaseAPI::set_min_orientation_margin" ref="gac4a301ee35d57b0a7572d4434cae284c" args="(double margin)" -->
@@ -1178,6 +2221,11 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01621">1621</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                          {
+  <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;min_orientation_margin.set_value(margin);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ga7a7b2870798363811c011cec2bfbf22c"></a><!-- doxytag: member="tesseract::TessBaseAPI::SetDictFunc" ref="ga7a7b2870798363811c011cec2bfbf22c" args="(DictFunc f)" -->
@@ -1196,6 +2244,13 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>Sets <a class="el" href="classtesseract_1_1_dict.html#a802de385e07531ace182d16653e35f71">Dict::letter_is_okay_</a> function to point to the given function. </p>
 
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01422">1422</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                        {
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;getDict().letter_is_okay_ = <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>;
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ga36a739bd0dc23a819170ca40f35c4b58"></a><!-- doxytag: member="tesseract::TessBaseAPI::SetFillLatticeFunc" ref="ga36a739bd0dc23a819170ca40f35c4b58" args="(FillLatticeFunc f)" -->
@@ -1214,6 +2269,11 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>Sets <a class="el" href="classtesseract_1_1_wordrec.html#a7a4f5e2cb7957a5decbc91eb2d31f87c">Wordrec::fill_lattice_</a> function to point to the given function. </p>
 
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01441">1441</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                      {
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;fill_lattice_ = <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="gaa463622111f3b11d8fca5863709cc699"></a><!-- doxytag: member="tesseract::TessBaseAPI::SetImage" ref="gaa463622111f3b11d8fca5863709cc699" args="(const unsigned char *imagedata, int width, int height, int bytes_per_pixel, int bytes_per_line)" -->
@@ -1260,6 +2320,13 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>Provide an image for <a class="el" href="classtesseract_1_1_tesseract.html">Tesseract</a> to recognize. Format is as TesseractRect above. Does not copy the image buffer, or take ownership. The source image may be destroyed after Recognize is called, either explicitly or implicitly via one of the Get*Text functions. SetImage clears all recognition results, and sets the rectangle to the full image, so it may be followed immediately by a GetUTF8Text, and it will automatically perform recognition. </p>
 
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00360">360</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                    {
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a17820a43c31b66c3a12eda59e0b51bba">InternalSetImage</a>())
+    <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a9d93e1d92ca230ae02b81d44bc88a55c" title="Image thresholding module.">thresholder_</a>-&gt;SetImage(imagedata, width, height,
+                           bytes_per_pixel, bytes_per_line);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ga89aa20dee8b772168b2d18150984bd2f"></a><!-- doxytag: member="tesseract::TessBaseAPI::SetImage" ref="ga89aa20dee8b772168b2d18150984bd2f" args="(const Pix *pix)" -->
@@ -1278,6 +2345,12 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>Provide an image for <a class="el" href="classtesseract_1_1_tesseract.html">Tesseract</a> to recognize. As with SetImage above, <a class="el" href="classtesseract_1_1_tesseract.html">Tesseract</a> doesn't take a copy or ownership or pixDestroy the image, so it must persist until after Recognize. Pix vs raw, which to use? Use Pix where possible. A future version of <a class="el" href="classtesseract_1_1_tesseract.html">Tesseract</a> may choose to use Pix as its internal representation and discard <a class="el" href="class_i_m_a_g_e.html">IMAGE</a> altogether. Because of that, an implementation that sources and targets Pix may end up with less copies than an implementation that does not. </p>
 
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00383">383</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                         {
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a17820a43c31b66c3a12eda59e0b51bba">InternalSetImage</a>())
+    <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a9d93e1d92ca230ae02b81d44bc88a55c" title="Image thresholding module.">thresholder_</a>-&gt;SetImage(pix);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="gad7a52133fe0ebab22e97166c5e5cab67"></a><!-- doxytag: member="tesseract::TessBaseAPI::SetProbabilityInContextFunc" ref="gad7a52133fe0ebab22e97166c5e5cab67" args="(ProbabilityInContextFunc f)" -->
@@ -1296,6 +2369,18 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>Sets <a class="el" href="classtesseract_1_1_dict.html#a7ac1496aaae5e9977a31a2781e7866f0" title="Probability in context function used by the ngram permuter.">Dict::probability_in_context_</a> function to point to the given function. </p>
 
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01429">1429</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                        {
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;getDict().probability_in_context_ = <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>;
+    <span class="comment">// Set it for the sublangs too.</span>
+    <span class="keywordtype">int</span> num_subs = <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;num_sub_langs();
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; num_subs; ++i) {
+      <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;get_sub_lang(i)-&gt;getDict().probability_in_context_ = <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>;
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ga284228c7e9d18bbbd3984d44e252d625"></a><!-- doxytag: member="tesseract::TessBaseAPI::SetRectangle" ref="ga284228c7e9d18bbbd3984d44e252d625" args="(int left, int top, int width, int height)" -->
@@ -1336,6 +2421,14 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>Restrict recognition to a sub-rectangle of the image. Call after SetImage. Each SetRectangle clears the recogntion results so multiple rectangles can be recognized with the same image. </p>
 
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00391">391</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                       {
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a9d93e1d92ca230ae02b81d44bc88a55c" title="Image thresholding module.">thresholder_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <span class="keywordflow">return</span>;
+  <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a9d93e1d92ca230ae02b81d44bc88a55c" title="Image thresholding module.">thresholder_</a>-&gt;SetRectangle(left, <a class="code" href="structarray__record.html#ac669bc877615327b853410a841f48f4b">top</a>, width, height);
+  <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a83ca325b5e521416b1edcd020b169be0">ClearResults</a>();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ga4ded6137507a4e8eb6ed4bea0b9648f4"></a><!-- doxytag: member="tesseract::TessBaseAPI::SetSourceResolution" ref="ga4ded6137507a4e8eb6ed4bea0b9648f4" args="(int ppi)" -->
@@ -1354,6 +2447,14 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>Set the resolution of the source image in pixels per inch so font size information can be calculated in results. Call this after <a class="el" href="group___advanced_a_p_i.html#gaa463622111f3b11d8fca5863709cc699">SetImage()</a>. </p>
 
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00368">368</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                             {
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a9d93e1d92ca230ae02b81d44bc88a55c" title="Image thresholding module.">thresholder_</a>)
+    <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a9d93e1d92ca230ae02b81d44bc88a55c" title="Image thresholding module.">thresholder_</a>-&gt;SetSourceYResolution(ppi);
+  <span class="keywordflow">else</span>
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Please call SetImage before SetSourceResolution.\n&quot;</span>);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ga73e6a99f5f09aaf26dc23f623a813143"></a><!-- doxytag: member="tesseract::TessBaseAPI::SetThresholder" ref="ga73e6a99f5f09aaf26dc23f623a813143" args="(ImageThresholder *thresholder)" -->
@@ -1372,6 +2473,14 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>In extreme cases only, usually with a subclass of Thresholder, it is possible to provide a different Thresholder. The Thresholder may be preloaded with an image, settings etc, or they may be set after. Note that <a class="el" href="classtesseract_1_1_tesseract.html">Tesseract</a> takes ownership of the Thresholder and will delete it when it it is replaced or the API is destructed. </p>
 
+<p>Definition at line <a class="el" href="baseapi_8h_source.html#l00327">327</a> of file <a class="el" href="baseapi_8h_source.html">baseapi.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                     {
+    <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a9d93e1d92ca230ae02b81d44bc88a55c" title="Image thresholding module.">thresholder_</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+      <span class="keyword">delete</span> <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a9d93e1d92ca230ae02b81d44bc88a55c" title="Image thresholding module.">thresholder_</a>;
+    <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a9d93e1d92ca230ae02b81d44bc88a55c" title="Image thresholding module.">thresholder_</a> = thresholder;
+    <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a83ca325b5e521416b1edcd020b169be0">ClearResults</a>();
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ga7b46dfdb521a2a575ab914ece8a40e6c"></a><!-- doxytag: member="tesseract::TessBaseAPI::tesseract" ref="ga7b46dfdb521a2a575ab914ece8a40e6c" args="() const " -->
@@ -1388,6 +2497,11 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="baseapi_8h_source.html#l00614">614</a> of file <a class="el" href="baseapi_8h_source.html">baseapi.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                     {
+    <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>;
+  }
+</pre></div>
 </div>
 </div>
 </div>
@@ -1409,7 +2523,7 @@ Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:10 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:43 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

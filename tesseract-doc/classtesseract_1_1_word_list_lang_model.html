@@ -133,7 +133,10 @@ Public Member Functions</h2></td></tr>
 Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_word_list_lang_model.html#adbcf8c78ef7738a6ec26521a7057a5e6">WordVariants</a> (const <a class="el" href="classtesseract_1_1_char_set.html">CharSet</a> &amp;char_set, const <a class="el" href="class_u_n_i_c_h_a_r_s_e_t.html">UNICHARSET</a> *uchset, <a class="el" href="namespacetesseract.html#a5e51e225e3ac13c918ed9f77715fa041">string_32</a> str32, vector&lt; <a class="el" href="class_w_e_r_d___c_h_o_i_c_e.html">WERD_CHOICE</a> * &gt; *word_variants)</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="word__list__lang__model_8h_source.html#l00039">39</a> of file <a class="el" href="word__list__lang__model_8h_source.html">word_list_lang_model.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a555aa61eb20325586260257dce8605ed"></a><!-- doxytag: member="tesseract::WordListLangModel::WordListLangModel" ref="a555aa61eb20325586260257dce8605ed" args="(CubeRecoContext *cntxt)" -->
 <div class="memitem">
 <div class="memproto">
@@ -149,6 +152,13 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="word__list__lang__model_8cpp_source.html#l00029">29</a> of file <a class="el" href="word__list__lang__model_8cpp_source.html">word_list_lang_model.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                           {
+  cntxt_ = cntxt;
+  dawg_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  init_ = <span class="keyword">false</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac844e1a86d6899330c722dc6983f5cd8"></a><!-- doxytag: member="tesseract::WordListLangModel::~WordListLangModel" ref="ac844e1a86d6899330c722dc6983f5cd8" args="()" -->
@@ -165,6 +175,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="word__list__lang__model_8cpp_source.html#l00035">35</a> of file <a class="el" href="word__list__lang__model_8cpp_source.html">word_list_lang_model.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                      {
+  Cleanup();
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -183,6 +198,20 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="word__list__lang__model_8cpp_source.html#l00167">167</a> of file <a class="el" href="word__list__lang__model_8cpp_source.html">word_list_lang_model.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                      {
+  <span class="keywordflow">if</span> (!init_ &amp;&amp; !Init()) {  <span class="comment">// initialize if necessary</span>
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+
+  <a class="code" href="namespacetesseract.html#a5e51e225e3ac13c918ed9f77715fa041">string_32</a> str32;
+  <a class="code" href="classtesseract_1_1_cube_utils.html#a911ee12931d18c46e7db79c6758a91cc">CubeUtils::UTF8ToUTF32</a>(char_ptr, &amp;str32);
+  <span class="keywordflow">if</span> (str32.length() &lt; 1) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+  <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_word_list_lang_model.html#a377a15d1f95c5766bc1af48180491d66">AddString32</a>(str32.c_str());
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a377a15d1f95c5766bc1af48180491d66"></a><!-- doxytag: member="tesseract::WordListLangModel::AddString32" ref="a377a15d1f95c5766bc1af48180491d66" args="(const char_32 *char_32_ptr)" -->
@@ -200,6 +229,32 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="word__list__lang__model_8cpp_source.html#l00181">181</a> of file <a class="el" href="word__list__lang__model_8cpp_source.html">word_list_lang_model.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                              {
+  <span class="keywordflow">if</span> (char_32_ptr == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+  <span class="comment">// get all the word variants</span>
+  vector&lt;WERD_CHOICE *&gt; word_variants;
+  <a class="code" href="classtesseract_1_1_word_list_lang_model.html#adbcf8c78ef7738a6ec26521a7057a5e6">WordVariants</a>(*(cntxt_-&gt;CharacterSet()), cntxt_-&gt;TessUnicharset(),
+               char_32_ptr, &amp;word_variants);
+
+  <span class="keywordflow">if</span> (word_variants.size() &gt; 0) {
+    <span class="comment">// find the shortest variant</span>
+    <span class="keywordtype">int</span> shortest_word = 0;
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> word = 1; word &lt; word_variants.size(); word++) {
+      <span class="keywordflow">if</span> (word_variants[shortest_word]-&gt;length() &gt;
+          word_variants[word]-&gt;length()) {
+        shortest_word = word;
+      }
+    }
+    <span class="comment">// only add the shortest grapheme interpretation of string to the word list</span>
+    dawg_-&gt;add_word_to_dawg(*word_variants[shortest_word]);
+  }
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; word_variants.size(); i++) { <span class="keyword">delete</span> word_variants[i]; }
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="abe363ed3ef497bbbbf7a985d8f07be2f"></a><!-- doxytag: member="tesseract::WordListLangModel::GetEdges" ref="abe363ed3ef497bbbbf7a985d8f07be2f" args="(CharAltList *alt_list, LangModEdge *edge, int *edge_cnt)" -->
@@ -235,6 +290,46 @@ Static Public Member Functions</h2></td></tr>
 
 <p>Implements <a class="el" href="classtesseract_1_1_lang_model.html#a61071a0736427f808d7134aeeb456701">tesseract::LangModel</a>.</p>
 
+<p>Definition at line <a class="el" href="word__list__lang__model_8cpp_source.html#l00071">71</a> of file <a class="el" href="word__list__lang__model_8cpp_source.html">word_list_lang_model.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                         {
+  <span class="comment">// initialize if necessary</span>
+  <span class="keywordflow">if</span> (init_ == <span class="keyword">false</span>) {
+    <span class="keywordflow">if</span> (Init() == <span class="keyword">false</span>) {
+      <span class="keywordflow">return</span> <span class="keyword">false</span>;
+    }
+  }
+
+  (*edge_cnt) = 0;
+
+  <a class="code" href="dawg_8h.html#a178eb445f9820b58d062f0c988a6f54f">EDGE_REF</a> edge_ref;
+
+  TessLangModEdge *tess_lm_edge = <span class="keyword">reinterpret_cast&lt;</span>TessLangModEdge *<span class="keyword">&gt;</span>(edge);
+
+  <span class="keywordflow">if</span> (tess_lm_edge == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    edge_ref = 0;
+  } <span class="keywordflow">else</span> {
+    edge_ref = tess_lm_edge-&gt;EndEdge();
+
+    <span class="comment">// advance node</span>
+    edge_ref = dawg_-&gt;next_node(edge_ref);
+    <span class="keywordflow">if</span> (edge_ref == 0) {
+      <span class="keywordflow">return</span> 0;
+    }
+  }
+
+  <span class="comment">// allocate memory for edges</span>
+  LangModEdge **edge_array = <span class="keyword">new</span> LangModEdge *[kMaxEdge];
+  <span class="keywordflow">if</span> (edge_array == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="comment">// now get all the emerging edges</span>
+  (*edge_cnt) += <a class="code" href="classtesseract_1_1_tess_lang_mod_edge.html#ae25d25a5c98f6d0a040cd6e04f623c56">TessLangModEdge::CreateChildren</a>(cntxt_, dawg_, edge_ref,
+                                                 edge_array + (*edge_cnt));
+
+  <span class="keywordflow">return</span> edge_array;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a43bb8e1972be27eac8870df64720b77b"></a><!-- doxytag: member="tesseract::WordListLangModel::IsDigit" ref="a43bb8e1972be27eac8870df64720b77b" args="(char_32 ch)" -->
@@ -254,6 +349,9 @@ Static Public Member Functions</h2></td></tr>
 
 <p>Implements <a class="el" href="classtesseract_1_1_lang_model.html#aae119709c73d00d731c65588be763a1d">tesseract::LangModel</a>.</p>
 
+<p>Definition at line <a class="el" href="word__list__lang__model_8h_source.html#l00058">58</a> of file <a class="el" href="word__list__lang__model_8h_source.html">word_list_lang_model.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> <span class="keyword">false</span>; }  <span class="comment">// not yet implemented</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="abc0adc44077a4e1ed691bcd8b478cfb6"></a><!-- doxytag: member="tesseract::WordListLangModel::IsLeadingPunc" ref="abc0adc44077a4e1ed691bcd8b478cfb6" args="(char_32 ch)" -->
@@ -273,6 +371,9 @@ Static Public Member Functions</h2></td></tr>
 
 <p>Implements <a class="el" href="classtesseract_1_1_lang_model.html#ade13ad9a3c3f6bb19a1071aa20bffb4b">tesseract::LangModel</a>.</p>
 
+<p>Definition at line <a class="el" href="word__list__lang__model_8h_source.html#l00056">56</a> of file <a class="el" href="word__list__lang__model_8h_source.html">word_list_lang_model.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> <span class="keyword">false</span>; }  <span class="comment">// not yet implemented</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a5afdc764c2aeca6646beb04a1a511bf5"></a><!-- doxytag: member="tesseract::WordListLangModel::IsTrailingPunc" ref="a5afdc764c2aeca6646beb04a1a511bf5" args="(char_32 ch)" -->
@@ -292,6 +393,9 @@ Static Public Member Functions</h2></td></tr>
 
 <p>Implements <a class="el" href="classtesseract_1_1_lang_model.html#a0235bd607e1d0cd00082661e0b71d495">tesseract::LangModel</a>.</p>
 
+<p>Definition at line <a class="el" href="word__list__lang__model_8h_source.html#l00057">57</a> of file <a class="el" href="word__list__lang__model_8h_source.html">word_list_lang_model.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> <span class="keyword">false</span>; }  <span class="comment">// not yet implemented</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3466190b26c1ecf2c0ddaf5cc39fe203"></a><!-- doxytag: member="tesseract::WordListLangModel::IsValidSequence" ref="a3466190b26c1ecf2c0ddaf5cc39fe203" args="(const char_32 *sequence, bool eow_flag, LangModEdge **edges)" -->
@@ -327,6 +431,11 @@ Static Public Member Functions</h2></td></tr>
 
 <p>Implements <a class="el" href="classtesseract_1_1_lang_model.html#a8b2edb01fa6b82d7a0eba6fb28717494">tesseract::LangModel</a>.</p>
 
+<p>Definition at line <a class="el" href="word__list__lang__model_8cpp_source.html#l00114">114</a> of file <a class="el" href="word__list__lang__model_8cpp_source.html">word_list_lang_model.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                            {
+  <span class="keywordflow">return</span> <span class="keyword">false</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a773e0620380b5416098db0b86dce5ad8"></a><!-- doxytag: member="tesseract::WordListLangModel::Root" ref="a773e0620380b5416098db0b86dce5ad8" args="()" -->
@@ -345,6 +454,11 @@ Static Public Member Functions</h2></td></tr>
 
 <p>Implements <a class="el" href="classtesseract_1_1_lang_model.html#a46178bf09d08aa9c8048adb0a8561b75">tesseract::LangModel</a>.</p>
 
+<p>Definition at line <a class="el" href="word__list__lang__model_8cpp_source.html#l00066">66</a> of file <a class="el" href="word__list__lang__model_8cpp_source.html">word_list_lang_model.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                      {
+  <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="adbcf8c78ef7738a6ec26521a7057a5e6"></a><!-- doxytag: member="tesseract::WordListLangModel::WordVariants" ref="adbcf8c78ef7738a6ec26521a7057a5e6" args="(const CharSet &amp;char_set, const UNICHARSET *uchset, string_32 str32, vector&lt; WERD_CHOICE * &gt; *word_variants)" -->
@@ -384,11 +498,22 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="word__list__lang__model_8cpp_source.html#l00154">154</a> of file <a class="el" href="word__list__lang__model_8cpp_source.html">word_list_lang_model.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                           {
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; word_variants-&gt;size(); i++) {
+    <span class="keyword">delete</span> (*word_variants)[i];
+  }
+  word_variants-&gt;clear();
+  <a class="code" href="namespacetesseract.html#a5e51e225e3ac13c918ed9f77715fa041">string_32</a> prefix_str32;
+  <a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html">WERD_CHOICE</a> word_so_far(uchset);
+  <a class="code" href="classtesseract_1_1_word_list_lang_model.html#adbcf8c78ef7738a6ec26521a7057a5e6">WordVariants</a>(char_set, prefix_str32, &amp;word_so_far, str32, word_variants);
+}
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/cube/<a class="el" href="word__list__lang__model_8h_source.html">word_list_lang_model.h</a></li>
-<li>tesseract-ocr/cube/<a class="el" href="word__list__lang__model_8cpp.html">word_list_lang_model.cpp</a></li>
+<li>tesseract-ocr/cube/<a class="el" href="word__list__lang__model_8cpp_source.html">word_list_lang_model.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -411,7 +536,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:15 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:51 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

@@ -122,7 +122,10 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtesseract_1_1_search_column.html">SearchColumn</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_beam_search.html#aaca2dc4ddb2857ffbbb84e69f8a0f789">Column</a> (int col_idx) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_beam_search.html#a02c434058eeab3e63d825af28ea57dc4">BestPresortedNodeIndex</a> () const </td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="beam__search_8h_source.html#l00044">44</a> of file <a class="el" href="beam__search_8h_source.html">beam_search.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a990eb3dcc8f14f2a17639caf93f840c1"></a><!-- doxytag: member="tesseract::BeamSearch::BeamSearch" ref="a990eb3dcc8f14f2a17639caf93f840c1" args="(CubeRecoContext *cntxt, bool word_mode=true)" -->
 <div class="memitem">
 <div class="memproto">
@@ -148,6 +151,15 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="beam__search_8cpp_source.html#l00027">27</a> of file <a class="el" href="beam__search_8cpp_source.html">beam_search.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                             {
+  cntxt_ = cntxt;
+  seg_pt_cnt_ = 0;
+  col_cnt_ = 1;
+  col_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  word_mode_ = word_mode;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a1ad5f964a4b335929d99ab5596595428"></a><!-- doxytag: member="tesseract::BeamSearch::~BeamSearch" ref="a1ad5f964a4b335929d99ab5596595428" args="()" -->
@@ -164,6 +176,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="beam__search_8cpp_source.html#l00047">47</a> of file <a class="el" href="beam__search_8cpp_source.html">beam_search.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                        {
+  Cleanup();
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -182,6 +199,33 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="beam__search_8cpp_source.html#l00298">298</a> of file <a class="el" href="beam__search_8cpp_source.html">beam_search.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                      {
+  <span class="comment">// get the last column of the lattice</span>
+  <span class="keywordflow">if</span> (col_cnt_ &lt;= 0)
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+
+  SearchColumn *srch_col = col_[col_cnt_ - 1];
+  <span class="keywordflow">if</span> (!srch_col)
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+
+  <span class="comment">// point to the last node in the selected path</span>
+  <span class="keywordflow">if</span> (alt &gt;= srch_col-&gt;NodeCount() || srch_col-&gt;Nodes() == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  SearchNode *srch_node = srch_col-&gt;Nodes()[alt];
+  <span class="keywordflow">if</span> (!srch_node)
+    <span class="keywordflow">return</span>  <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+
+  <span class="comment">// get string</span>
+  <a class="code" href="namespacetesseract.html#aea2c6172b0ca77907e29cd018595b425">char_32</a> *str32 = srch_node-&gt;PathString();
+  <span class="keywordflow">if</span> (!str32)
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+
+  <span class="keywordflow">return</span> str32;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae3c9e6077238c37acd5ec27c6bf4fdc9"></a><!-- doxytag: member="tesseract::BeamSearch::BackTrack" ref="ae3c9e6077238c37acd5ec27c6bf4fdc9" args="(SearchObject *srch_obj, int node_index, int *char_cnt, char_32 **str32, Boxa **char_boxes) const " -->
@@ -227,6 +271,25 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="beam__search_8cpp_source.html#l00328">328</a> of file <a class="el" href="beam__search_8cpp_source.html">beam_search.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                          {
+  <span class="comment">// get the last column of the lattice</span>
+  <span class="keywordflow">if</span> (col_cnt_ &lt;= 0)
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  SearchColumn *srch_col = col_[col_cnt_ - 1];
+  <span class="keywordflow">if</span> (!srch_col)
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+
+  <span class="comment">// point to the last node in the selected path</span>
+  <span class="keywordflow">if</span> (node_index &gt;= srch_col-&gt;NodeCount() || !srch_col-&gt;Nodes())
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+
+  SearchNode *srch_node = srch_col-&gt;Nodes()[node_index];
+  <span class="keywordflow">if</span> (!srch_node)
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_beam_search.html#ae3c9e6077238c37acd5ec27c6bf4fdc9">BackTrack</a>(srch_obj, srch_node, char_cnt, str32, char_boxes);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad80c824db2987b972d3742fd40d664c5"></a><!-- doxytag: member="tesseract::BeamSearch::BackTrack" ref="ad80c824db2987b972d3742fd40d664c5" args="(SearchObject *srch_obj, SearchNode *node, int *char_cnt, char_32 **str32, Boxa **char_boxes) const " -->
@@ -272,6 +335,30 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="beam__search_8cpp_source.html#l00352">352</a> of file <a class="el" href="beam__search_8cpp_source.html">beam_search.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                          {
+  <span class="keywordflow">if</span> (!srch_node)
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+
+  <span class="keywordflow">if</span> (str32) {
+    <span class="keywordflow">if</span> (*str32)
+      <span class="keyword">delete</span> [](*str32);  <span class="comment">// clear existing value</span>
+    *str32 = srch_node-&gt;PathString();
+    <span class="keywordflow">if</span> (!*str32)
+      <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="keywordflow">if</span> (char_boxes &amp;&amp; *char_boxes) {
+    boxaDestroy(char_boxes);  <span class="comment">// clear existing value</span>
+  }
+
+  CharSamp **chars;
+  chars = SplitByNode(srch_obj, srch_node, char_cnt, char_boxes);
+  <span class="keywordflow">if</span> (!chars &amp;&amp; str32)
+    <span class="keyword">delete</span> []*str32;
+  <span class="keywordflow">return</span> chars;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a57eea92e9a652a61a734f357104144d6"></a><!-- doxytag: member="tesseract::BeamSearch::BestNode" ref="a57eea92e9a652a61a734f357104144d6" args="() const " -->
@@ -288,6 +375,18 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="beam__search_8cpp_source.html#l00286">286</a> of file <a class="el" href="beam__search_8cpp_source.html">beam_search.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                       {
+  <span class="keywordflow">if</span> (col_cnt_ &lt; 1 || !col_ || !col_[col_cnt_ - 1])
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+
+  <span class="keywordtype">int</span> node_cnt = col_[col_cnt_ - 1]-&gt;NodeCount();
+  SearchNode **srch_nodes = col_[col_cnt_ - 1]-&gt;Nodes();
+  <span class="keywordflow">if</span> (node_cnt &lt; 1 || !srch_nodes || !srch_nodes[0])
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordflow">return</span> srch_nodes[0];
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a02c434058eeab3e63d825af28ea57dc4"></a><!-- doxytag: member="tesseract::BeamSearch::BestPresortedNodeIndex" ref="a02c434058eeab3e63d825af28ea57dc4" args="() const " -->
@@ -304,6 +403,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="beam__search_8h_source.html#l00081">81</a> of file <a class="el" href="beam__search_8h_source.html">beam_search.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                            {
+    <span class="keywordflow">return</span> best_presorted_node_idx_;
+  };
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="acb55bf11ed4d685593c189f0ffac8f79"></a><!-- doxytag: member="tesseract::BeamSearch::ColCnt" ref="acb55bf11ed4d685593c189f0ffac8f79" args="() const " -->
@@ -320,6 +424,9 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="beam__search_8h_source.html#l00076">76</a> of file <a class="el" href="beam__search_8h_source.html">beam_search.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> col_cnt_; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aaca2dc4ddb2857ffbbb84e69f8a0f789"></a><!-- doxytag: member="tesseract::BeamSearch::Column" ref="aaca2dc4ddb2857ffbbb84e69f8a0f789" args="(int col_idx) const " -->
@@ -337,6 +444,13 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="beam__search_8cpp_source.html#l00279">279</a> of file <a class="el" href="beam__search_8cpp_source.html">beam_search.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                              {
+  <span class="keywordflow">if</span> (col &lt; 0 || col &gt;= col_cnt_ || !col_)
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordflow">return</span> col_[col];
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="adce6622c6d74ecae947f11aeac486ca0"></a><!-- doxytag: member="tesseract::BeamSearch::Search" ref="adce6622c6d74ecae947f11aeac486ca0" args="(SearchObject *srch_obj, LangModel *lang_mod=NULL)" -->
@@ -364,6 +478,128 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="beam__search_8cpp_source.html#l00098">98</a> of file <a class="el" href="beam__search_8cpp_source.html">beam_search.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                            {
+  <span class="comment">// verifications</span>
+  <span class="keywordflow">if</span> (!lang_mod)
+    lang_mod = cntxt_-&gt;LangMod();
+  <span class="keywordflow">if</span> (!lang_mod) {
+    fprintf(stderr, <span class="stringliteral">&quot;Cube ERROR (BeamSearch::Search): could not construct &quot;</span>
+            <span class="stringliteral">&quot;LangModel\n&quot;</span>);
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="comment">// free existing state</span>
+  Cleanup();
+
+  <span class="comment">// get seg pt count</span>
+  seg_pt_cnt_ = srch_obj-&gt;SegPtCnt();
+  <span class="keywordflow">if</span> (seg_pt_cnt_ &lt; 0) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  col_cnt_ = seg_pt_cnt_ + 1;
+
+  <span class="comment">// disregard suspicious cases</span>
+  <span class="keywordflow">if</span> (seg_pt_cnt_ &gt; 128) {
+    fprintf(stderr, <span class="stringliteral">&quot;Cube ERROR (BeamSearch::Search): segment point count is &quot;</span>
+            <span class="stringliteral">&quot;suspiciously high; bailing out\n&quot;</span>);
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="comment">// alloc memory for columns</span>
+  col_ = <span class="keyword">new</span> SearchColumn *[col_cnt_];
+  <span class="keywordflow">if</span> (!col_) {
+    fprintf(stderr, <span class="stringliteral">&quot;Cube ERROR (BeamSearch::Search): could not construct &quot;</span>
+            <span class="stringliteral">&quot;SearchColumn array\n&quot;</span>);
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  memset(col_, 0, col_cnt_ * <span class="keyword">sizeof</span>(*col_));
+
+  <span class="comment">// for all possible segments</span>
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> end_seg = 1; end_seg &lt;= (seg_pt_cnt_ + 1); end_seg++) {
+    <span class="comment">// create a search column</span>
+    col_[end_seg - 1] = <span class="keyword">new</span> SearchColumn(end_seg - 1,
+                                         cntxt_-&gt;Params()-&gt;BeamWidth());
+    <span class="keywordflow">if</span> (!col_[end_seg - 1]) {
+      fprintf(stderr, <span class="stringliteral">&quot;Cube ERROR (BeamSearch::Search): could not construct &quot;</span>
+              <span class="stringliteral">&quot;SearchColumn for column %d\n&quot;</span>, end_seg - 1);
+      <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    }
+
+    <span class="comment">// for all possible start segments</span>
+    <span class="keywordtype">int</span> init_seg = <a class="code" href="ndminx_8h.html#aacc3ee1a7f283f8ef65cea31f4436a95">MAX</a>(0, end_seg - cntxt_-&gt;Params()-&gt;MaxSegPerChar());
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> strt_seg = init_seg; strt_seg &lt; end_seg; strt_seg++) {
+      <span class="keywordtype">int</span> parent_nodes_cnt;
+      SearchNode **parent_nodes;
+
+      <span class="comment">// for the root segment, we do not have a parent</span>
+      <span class="keywordflow">if</span> (strt_seg == 0) {
+        parent_nodes_cnt = 1;
+        parent_nodes = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+      } <span class="keywordflow">else</span> {
+        <span class="comment">// for all the existing nodes in the starting column</span>
+        parent_nodes_cnt = col_[strt_seg - 1]-&gt;NodeCount();
+        parent_nodes = col_[strt_seg - 1]-&gt;Nodes();
+      }
+
+      <span class="comment">// run the shape recognizer</span>
+      CharAltList *char_alt_list = srch_obj-&gt;RecognizeSegment(strt_seg - 1,
+                                                              end_seg - 1);
+      <span class="comment">// for all the possible parents</span>
+      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> parent_idx = 0; parent_idx &lt; parent_nodes_cnt; parent_idx++) {
+        <span class="comment">// point to the parent node</span>
+        SearchNode *parent_node = !parent_nodes ? <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>
+            : parent_nodes[parent_idx];
+        LangModEdge *lm_parent_edge = !parent_node ? lang_mod-&gt;Root()
+            : parent_node-&gt;LangModelEdge();
+
+        <span class="comment">// compute the cost of not having spaces within the segment range</span>
+        <span class="keywordtype">int</span> contig_cost = srch_obj-&gt;NoSpaceCost(strt_seg - 1, end_seg - 1);
+
+        <span class="comment">// In phrase mode, compute the cost of not having a space before</span>
+        <span class="comment">// this character</span>
+        <span class="keywordtype">int</span> no_space_cost = 0;
+        <span class="keywordflow">if</span> (!word_mode_ &amp;&amp; strt_seg &gt; 0) {
+          no_space_cost = srch_obj-&gt;NoSpaceCost(strt_seg - 1);
+        }
+
+        <span class="comment">// if the no space cost is low enough</span>
+        <span class="keywordflow">if</span> ((contig_cost + no_space_cost) &lt; <a class="code" href="cube__const_8h.html#a7d98e096ee6e9bda7836df456b6b25e6">MIN_PROB_COST</a>) {
+          <span class="comment">// Add the children nodes</span>
+          CreateChildren(col_[end_seg - 1], lang_mod, parent_node,
+                         lm_parent_edge, char_alt_list,
+                         contig_cost + no_space_cost);
+        }
+
+        <span class="comment">// In phrase mode and if not starting at the root</span>
+        <span class="keywordflow">if</span> (!word_mode_ &amp;&amp; strt_seg &gt; 0) {  <span class="comment">// parent_node must be non-NULL</span>
+          <span class="comment">// consider starting a new word for nodes that are valid EOW</span>
+          <span class="keywordflow">if</span> (parent_node-&gt;LangModelEdge()-&gt;IsEOW()) {
+            <span class="comment">// get the space cost</span>
+            <span class="keywordtype">int</span> space_cost = srch_obj-&gt;SpaceCost(strt_seg - 1);
+            <span class="comment">// if the space cost is low enough</span>
+            <span class="keywordflow">if</span> ((contig_cost + space_cost) &lt; <a class="code" href="cube__const_8h.html#a7d98e096ee6e9bda7836df456b6b25e6">MIN_PROB_COST</a>) {
+              <span class="comment">// Restart the language model and add nodes as children to the</span>
+              <span class="comment">// space node.</span>
+              CreateChildren(col_[end_seg - 1], lang_mod, parent_node, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>,
+                             char_alt_list, contig_cost + space_cost);
+            }
+          }
+        }
+      }  <span class="comment">// parent</span>
+    }  <span class="comment">// strt_seg</span>
+
+    <span class="comment">// prune the column nodes</span>
+    col_[end_seg - 1]-&gt;Prune();
+
+    <span class="comment">// Free the column hash table. No longer needed</span>
+    col_[end_seg - 1]-&gt;FreeHashTable();
+  }  <span class="comment">// end_seg</span>
+
+  WordAltList *alt_list = CreateWordAltList(srch_obj);
+  <span class="keywordflow">return</span> alt_list;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a8db9d114117e35964e67e2dedfaae253"></a><!-- doxytag: member="tesseract::BeamSearch::SizeCost" ref="a8db9d114117e35964e67e2dedfaae253" args="(SearchObject *srch_obj, SearchNode *node, char_32 **str32=NULL) const " -->
@@ -397,6 +633,22 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="beam__search_8cpp_source.html#l00472">472</a> of file <a class="el" href="beam__search_8cpp_source.html">beam_search.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                {
+  CharSamp **chars = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordtype">int</span> char_cnt = 0;
+  <span class="keywordflow">if</span> (!node)
+    <span class="keywordflow">return</span> 0;
+  <span class="comment">// Backtrack to get string and character segmentation</span>
+  chars = <a class="code" href="classtesseract_1_1_beam_search.html#ae3c9e6077238c37acd5ec27c6bf4fdc9">BackTrack</a>(srch_obj, node, &amp;char_cnt, str32, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <span class="keywordflow">if</span> (!chars)
+    <span class="keywordflow">return</span> <a class="code" href="cube__const_8h.html#ab15bac3baa4fd3e56ba19eefebe4065f">WORST_COST</a>;
+  <span class="keywordtype">int</span> size_cost = (cntxt_-&gt;SizeModel() == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) ? 0 :
+      cntxt_-&gt;SizeModel()-&gt;Cost(chars, char_cnt);
+  <span class="keyword">delete</span> []chars;
+  <span class="keywordflow">return</span> size_cost;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2d635a7c06465225c22392d5a2f82ffc"></a><!-- doxytag: member="tesseract::BeamSearch::WordUnigramCost" ref="a2d635a7c06465225c22392d5a2f82ffc" args="(char_32 *str32, WordUnigrams *word_unigrams) const " -->
@@ -428,7 +680,7 @@ Public Member Functions</h2></td></tr>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/cube/<a class="el" href="beam__search_8h_source.html">beam_search.h</a></li>
-<li>tesseract-ocr/cube/<a class="el" href="beam__search_8cpp.html">beam_search.cpp</a></li>
+<li>tesseract-ocr/cube/<a class="el" href="beam__search_8cpp_source.html">beam_search.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -451,7 +703,7 @@ Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:15 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:50 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

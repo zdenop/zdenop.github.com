@@ -115,7 +115,10 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_choice_iterator.html#adb4d081d8aaf0363287f4252a5449bc4">GetUTF8Text</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_choice_iterator.html#a26c25cb189289e7156904d746a9bb6b3">Confidence</a> () const </td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="ltrresultiterator_8h_source.html#l00170">170</a> of file <a class="el" href="ltrresultiterator_8h_source.html">ltrresultiterator.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a47a2f2fdad78720b4c1a0ccf09e802c1"></a><!-- doxytag: member="tesseract::ChoiceIterator::ChoiceIterator" ref="a47a2f2fdad78720b4c1a0ccf09e802c1" args="(const LTRResultIterator &amp;result_it)" -->
 <div class="memitem">
 <div class="memproto">
@@ -131,6 +134,24 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ltrresultiterator_8cpp_source.html#l00318">318</a> of file <a class="el" href="ltrresultiterator_8cpp_source.html">ltrresultiterator.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                 {
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(result_it.it_-&gt;word() != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  word_res_ = result_it.it_-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a>();
+  <a class="code" href="class_p_a_g_e___r_e_s___i_t.html">PAGE_RES_IT</a> res_it(*result_it.it_);
+  <a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html">WERD_CHOICE</a>* best_choice = word_res_-&gt;best_choice;
+  BLOB_CHOICE_LIST_CLIST* choices = best_choice-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a4c443d01fbb5fcf092f002091d6f78c2">blob_choices</a>();
+  <span class="keywordflow">if</span> (choices != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    BLOB_CHOICE_LIST_C_IT blob_choices_it(choices);
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> blob = 0; blob &lt; result_it.blob_index_; ++blob)
+      blob_choices_it.forward();
+    choice_it_ = <span class="keyword">new</span> BLOB_CHOICE_IT(blob_choices_it.data());
+    choice_it_-&gt;mark_cycle_pt();
+  } <span class="keywordflow">else</span> {
+    choice_it_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a67e30da1e05da880234e347787181898"></a><!-- doxytag: member="tesseract::ChoiceIterator::~ChoiceIterator" ref="a67e30da1e05da880234e347787181898" args="()" -->
@@ -147,6 +168,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ltrresultiterator_8cpp_source.html#l00335">335</a> of file <a class="el" href="ltrresultiterator_8cpp_source.html">ltrresultiterator.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                {
+  <span class="keyword">delete</span> choice_it_;
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -164,6 +190,16 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ltrresultiterator_8cpp_source.html#l00359">359</a> of file <a class="el" href="ltrresultiterator_8cpp_source.html">ltrresultiterator.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                       {
+  <span class="keywordflow">if</span> (choice_it_ == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <span class="keywordflow">return</span> 0.0f;
+  <span class="keywordtype">float</span> confidence = 100 + 5 * choice_it_-&gt;data()-&gt;certainty();
+  <span class="keywordflow">if</span> (confidence &lt; 0.0<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>) confidence = 0.0f;
+  <span class="keywordflow">if</span> (confidence &gt; 100.0<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>) confidence = 100.0f;
+  <span class="keywordflow">return</span> confidence;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="adb4d081d8aaf0363287f4252a5449bc4"></a><!-- doxytag: member="tesseract::ChoiceIterator::GetUTF8Text" ref="adb4d081d8aaf0363287f4252a5449bc4" args="() const " -->
@@ -180,6 +216,14 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ltrresultiterator_8cpp_source.html#l00350">350</a> of file <a class="el" href="ltrresultiterator_8cpp_source.html">ltrresultiterator.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                              {
+  <span class="keywordflow">if</span> (choice_it_ == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <a class="code" href="unichar_8h.html#a8578b19fa1ff5ca75080db1a18ecc32e">UNICHAR_ID</a> <span class="keywordtype">id</span> = choice_it_-&gt;data()-&gt;unichar_id();
+  <span class="keywordflow">return</span> word_res_-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a39f033674a1414f031662a9f8af16ee1">BestUTF8</a>(<span class="keywordtype">id</span>, <span class="keyword">false</span>);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a1038c9116c30e5dc1c85fa2e93d45259"></a><!-- doxytag: member="tesseract::ChoiceIterator::Next" ref="a1038c9116c30e5dc1c85fa2e93d45259" args="()" -->
@@ -196,11 +240,19 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ltrresultiterator_8cpp_source.html#l00341">341</a> of file <a class="el" href="ltrresultiterator_8cpp_source.html">ltrresultiterator.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                          {
+  <span class="keywordflow">if</span> (choice_it_ == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  choice_it_-&gt;forward();
+  <span class="keywordflow">return</span> !choice_it_-&gt;cycled_list();
+}
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/ccmain/<a class="el" href="ltrresultiterator_8h_source.html">ltrresultiterator.h</a></li>
-<li>tesseract-ocr/ccmain/<a class="el" href="ltrresultiterator_8cpp.html">ltrresultiterator.cpp</a></li>
+<li>tesseract-ocr/ccmain/<a class="el" href="ltrresultiterator_8cpp_source.html">ltrresultiterator.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -223,7 +275,7 @@ Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:14 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:49 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

@@ -127,6 +127,15 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="drawedg_8cpp_source.html#l00045">45</a> of file <a class="el" href="drawedg_8cpp_source.html">drawedg.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                {
+  <a class="code" href="class_scroll_view.html">ScrollView</a>* <a class="code" href="pgedit_8cpp.html#a730c30366e543cdef27b905ec2895aca">image_win</a>;              <span class="comment">//image window</span>
+
+                                 <span class="comment">//create the window</span>
+  image_win = <span class="keyword">new</span> <a class="code" href="class_scroll_view.html">ScrollView</a> (<a class="code" href="drawedg_8cpp.html#a7b5f2b5b9b1b1478a6f5fb9023dc8b70">IMAGE_WIN_NAME</a>, <a class="code" href="drawedg_8cpp.html#aeea7f900b4a1f399ebb9eab80a50bf6e">IMAGE_XPOS</a>, <a class="code" href="drawedg_8cpp.html#a7440cf700084d356d42ddbc650f5d479">IMAGE_YPOS</a>, 0, 0, page_tr.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> (),  page_tr.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ());
+  <span class="keywordflow">return</span> <a class="code" href="pgedit_8cpp.html#a730c30366e543cdef27b905ec2895aca">image_win</a>;              <span class="comment">//window</span>
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad9f6bfa06fa02b79185604744debbaeb"></a><!-- doxytag: member="drawedg.h::draw_raw_edge" ref="ad9f6bfa06fa02b79185604744debbaeb" args="(ScrollView *fd, CRACKEDGE *start, ScrollView::Color colour)" -->
@@ -160,6 +169,25 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="drawedg_8cpp_source.html#l00063">63</a> of file <a class="el" href="drawedg_8cpp_source.html">drawedg.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                           {
+  <a class="code" href="class_c_r_a_c_k_e_d_g_e.html">CRACKEDGE</a> *edgept;             <span class="comment">//current point</span>
+
+  fd-&gt;<a class="code" href="class_scroll_view.html#a79855c525ec660b452382e9813d2edb5">Pen</a>(colour);
+  edgept = start;
+  fd-&gt;<a class="code" href="class_scroll_view.html#a730b182e350dfe37b0986d7f0591fee5">SetCursor</a>(edgept-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#ae7bcdb1f6f28f612a0ff4ace03b38165">pos</a>.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> (), edgept-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#ae7bcdb1f6f28f612a0ff4ace03b38165">pos</a>.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ());
+  <span class="keywordflow">do</span> {
+    <span class="keywordflow">do</span>
+    edgept = edgept-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a65662bdae2f4b5a3b670791fa6d6d44a">next</a>;
+                                 <span class="comment">//merge straight lines</span>
+    <span class="keywordflow">while</span> (edgept != start &amp;&amp; edgept-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a22411a30eb2b7529ccb755dc3971b0d1">prev</a>-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a907cb1dc30d54151b7bd96a8ab90f207">stepx</a> == edgept-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a907cb1dc30d54151b7bd96a8ab90f207">stepx</a> &amp;&amp; edgept-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a22411a30eb2b7529ccb755dc3971b0d1">prev</a>-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a25eed9381f5de431869fd4d61fdbd15d">stepy</a> == edgept-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a25eed9381f5de431869fd4d61fdbd15d">stepy</a>);
+
+                                 <span class="comment">//draw lines</span>
+  fd-&gt;<a class="code" href="class_scroll_view.html#a101de80a4722fe821969f61f6e7303a6">DrawTo</a>(edgept-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#ae7bcdb1f6f28f612a0ff4ace03b38165">pos</a>.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> (), edgept-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#ae7bcdb1f6f28f612a0ff4ace03b38165">pos</a>.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ());
+  }
+  <span class="keywordflow">while</span> (edgept != start);
+}
+</pre></div>
 </div>
 </div>
 </div>
@@ -182,7 +210,7 @@ Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:10 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:42 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

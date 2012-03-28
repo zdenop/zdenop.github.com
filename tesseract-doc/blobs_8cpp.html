@@ -117,7 +117,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <code>#include &quot;<a class="el" href="polyaprx_8h_source.html">polyaprx.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="structures_8h_source.html">structures.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="werd_8h_source.html">werd.h</a>&quot;</code><br/>
-</div><table class="memberdecls">
+</div>
+<p><a href="blobs_8cpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="blobs_8cpp.html#a86c2c9fb0d486d81debb51af2a19c955">CLISTIZE</a> (<a class="el" href="struct_e_d_g_e_p_t.html">EDGEPT</a>)</td></tr>
@@ -157,6 +159,12 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8cpp_source.html#l00528">528</a> of file <a class="el" href="blobs_8cpp_source.html">blobs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                 {  <span class="comment">/*return value */</span>
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> bbox = blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a8f1f8f110170fe12cf8147d504cd0ea2">bounding_box</a>();
+  *origin = (bbox.<a class="code" href="class_t_b_o_x.html#ad6f19fe78e5fcc3a824310d3f75ad358">topleft</a>() + bbox.<a class="code" href="class_t_b_o_x.html#a24d69d48b18162bf1c8e9e62ec00ecfe">botright</a>()) / 2;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac62acb187b8e5401eb56032b3eebef09"></a><!-- doxytag: member="blobs.cpp::blobs_widths" ref="ac62acb187b8e5401eb56032b3eebef09" args="(TBLOB *blobs)" -->
@@ -174,6 +182,33 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8cpp_source.html#l00540">540</a> of file <a class="el" href="blobs_8cpp_source.html">blobs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                         {  <span class="comment">/*blob to compute on */</span>
+  <a class="code" href="struct_w_i_d_t_h___r_e_c_o_r_d.html">WIDTH_RECORD</a> *width_record;
+  <a class="code" href="struct_t_p_o_i_n_t.html">TPOINT</a> topleft;                <span class="comment">/*bounding box */</span>
+  <a class="code" href="struct_t_p_o_i_n_t.html">TPOINT</a> botright;
+  <span class="keywordtype">int</span> i = 0;
+  <span class="keywordtype">int</span> blob_end;
+  <span class="keywordtype">int</span> num_blobs = <a class="code" href="blobs_8cpp.html#aa8048f4c65af2775452ad5d4dfbca053">count_blobs</a> (blobs);
+
+  <span class="comment">/* Get memory */</span>
+  width_record = (<a class="code" href="struct_w_i_d_t_h___r_e_c_o_r_d.html">WIDTH_RECORD</a> *) <a class="code" href="freelist_8cpp.html#a5898fbe61f6ffe4c1be71a107193cdfd">memalloc</a> (<span class="keyword">sizeof</span> (<span class="keywordtype">int</span>) * num_blobs * 2);
+  width_record-&gt;<a class="code" href="struct_w_i_d_t_h___r_e_c_o_r_d.html#ab6a41176580d08b8e2389aa9ce6e26ad">num_chars</a> = num_blobs;
+
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> bbox = blobs-&gt;<a class="code" href="struct_t_b_l_o_b.html#a8f1f8f110170fe12cf8147d504cd0ea2">bounding_box</a>();
+  width_record-&gt;<a class="code" href="struct_w_i_d_t_h___r_e_c_o_r_d.html#a3d7464eb423f5e10dbb3bb2d7b4b26f1">widths</a>[i++] = bbox.<a class="code" href="class_t_b_o_x.html#af95494a2ccacc70cc2b83820b2948619">width</a>();
+  <span class="comment">/* First width */</span>
+  blob_end = bbox.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>();
+
+  <span class="keywordflow">for</span> (<a class="code" href="struct_t_b_l_o_b.html">TBLOB</a>* blob = blobs-&gt;<a class="code" href="struct_t_b_l_o_b.html#a88a541f55c8bfd63a9f0c419189499bb">next</a>; blob != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>; blob = blob-&gt;next) {
+    <a class="code" href="class_t_b_o_x.html">TBOX</a> curbox = blob-&gt;bounding_box();
+    width_record-&gt;<a class="code" href="struct_w_i_d_t_h___r_e_c_o_r_d.html#a3d7464eb423f5e10dbb3bb2d7b4b26f1">widths</a>[i++] = curbox.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>() - blob_end;
+    width_record-&gt;<a class="code" href="struct_w_i_d_t_h___r_e_c_o_r_d.html#a3d7464eb423f5e10dbb3bb2d7b4b26f1">widths</a>[i++] = curbox.<a class="code" href="class_t_b_o_x.html#af95494a2ccacc70cc2b83820b2948619">width</a>();
+    blob_end = curbox.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>();
+  }
+  <span class="keywordflow">return</span> width_record;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a86c2c9fb0d486d81debb51af2a19c955"></a><!-- doxytag: member="blobs.cpp::CLISTIZE" ref="a86c2c9fb0d486d81debb51af2a19c955" args="(EDGEPT)" -->
@@ -208,6 +243,15 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8cpp_source.html#l00572">572</a> of file <a class="el" href="blobs_8cpp_source.html">blobs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                              { 
+  <span class="keywordtype">int</span> x = 0;
+
+  <span class="keywordflow">for</span> (<a class="code" href="struct_t_b_l_o_b.html">TBLOB</a>* b = blobs; b != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>; b = b-&gt;next)
+    x++;
+  <span class="keywordflow">return</span> x;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2ab5e3b619507b26900a73919b165970"></a><!-- doxytag: member="blobs.cpp::divide_blobs" ref="a2ab5e3b619507b26900a73919b165970" args="(TBLOB *blob, TBLOB *other_blob, bool italic_blob, const TPOINT &amp;location)" -->
@@ -247,6 +291,46 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8cpp_source.html#l00636">636</a> of file <a class="el" href="blobs_8cpp_source.html">blobs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                          {
+  <a class="code" href="struct_t_p_o_i_n_t.html">TPOINT</a> vertical = italic_blob ? <a class="code" href="blobs_8cpp.html#a0ce92f82149c2659d55bdb1d2687c8da">kDivisibleVerticalItalic</a>
+                                : <a class="code" href="blobs_8cpp.html#a08e47d4b90d71096bdc2508f601ed5d0">kDivisibleVerticalUpright</a>;
+  <a class="code" href="struct_t_e_s_s_l_i_n_e.html">TESSLINE</a> *outline1 = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <a class="code" href="struct_t_e_s_s_l_i_n_e.html">TESSLINE</a> *outline2 = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+
+  <a class="code" href="struct_t_e_s_s_l_i_n_e.html">TESSLINE</a> *outline = blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a>;
+  blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordtype">int</span> location_prod = <a class="code" href="vecfuncs_8h.html#aec4dedcf89534ed10f6107bf9c6418f3">CROSS</a>(location, vertical);
+
+  <span class="keywordflow">while</span> (outline != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="struct_t_p_o_i_n_t.html">TPOINT</a> mid_pt(
+      static_cast&lt;inT16&gt;((outline-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a1cc50129500062a2d984e459f89d7a5b">topleft</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> + outline-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a7abcd2efd1cd8cdc820e304cf8ae1f0c">botright</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a>) / 2),
+      static_cast&lt;inT16&gt;((outline-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a1cc50129500062a2d984e459f89d7a5b">topleft</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a> + outline-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a7abcd2efd1cd8cdc820e304cf8ae1f0c">botright</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a>) / 2));
+    <span class="keywordtype">int</span> mid_prod = <a class="code" href="vecfuncs_8h.html#aec4dedcf89534ed10f6107bf9c6418f3">CROSS</a>(mid_pt, vertical);
+    <span class="keywordflow">if</span> (mid_prod &lt; location_prod) {
+      <span class="comment">// Outline is in left blob.</span>
+      <span class="keywordflow">if</span> (outline1)
+        outline1-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0fb224d43ea53a791f0957fa92793bef">next</a> = outline;
+      <span class="keywordflow">else</span>
+        blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a> = outline;
+      outline1 = outline;
+    } <span class="keywordflow">else</span> {
+      <span class="comment">// Outline is in right blob.</span>
+      <span class="keywordflow">if</span> (outline2)
+        outline2-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0fb224d43ea53a791f0957fa92793bef">next</a> = outline;
+      <span class="keywordflow">else</span>
+        other_blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a> = outline;
+      outline2 = outline;
+    }
+    outline = outline-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0fb224d43ea53a791f0957fa92793bef">next</a>;
+  }
+
+  <span class="keywordflow">if</span> (outline1)
+    outline1-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0fb224d43ea53a791f0957fa92793bef">next</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordflow">if</span> (outline2)
+    outline2-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0fb224d43ea53a791f0957fa92793bef">next</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa87284f5696fb5dd745dafa85539d760"></a><!-- doxytag: member="blobs.cpp::divisible_blob" ref="aa87284f5696fb5dd745dafa85539d760" args="(TBLOB *blob, bool italic_blob, TPOINT *location)" -->
@@ -280,6 +364,48 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8cpp_source.html#l00587">587</a> of file <a class="el" href="blobs_8cpp_source.html">blobs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                     {
+  <span class="keywordflow">if</span> (blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> || blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a>-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0fb224d43ea53a791f0957fa92793bef">next</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;  <span class="comment">// Need at least 2 outlines for it to be possible.</span>
+  <span class="keywordtype">int</span> max_gap = 0;
+  <a class="code" href="struct_t_p_o_i_n_t.html">TPOINT</a> vertical = italic_blob ? <a class="code" href="blobs_8cpp.html#a0ce92f82149c2659d55bdb1d2687c8da">kDivisibleVerticalItalic</a>
+                                : <a class="code" href="blobs_8cpp.html#a08e47d4b90d71096bdc2508f601ed5d0">kDivisibleVerticalUpright</a>;
+  <span class="keywordflow">for</span> (<a class="code" href="struct_t_e_s_s_l_i_n_e.html">TESSLINE</a>* outline1 = blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a>; outline1 != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+       outline1 = outline1-&gt;next) {
+    <span class="keywordflow">if</span> (outline1-&gt;is_hole)
+      <span class="keywordflow">continue</span>;  <span class="comment">// Holes do not count as separable.</span>
+    <a class="code" href="struct_t_p_o_i_n_t.html">TPOINT</a> mid_pt1(
+      static_cast&lt;inT16&gt;((outline1-&gt;topleft.x + outline1-&gt;botright.x) / 2),
+      static_cast&lt;inT16&gt;((outline1-&gt;topleft.y + outline1-&gt;botright.y) / 2));
+    <span class="keywordtype">int</span> mid_prod1 = <a class="code" href="vecfuncs_8h.html#aec4dedcf89534ed10f6107bf9c6418f3">CROSS</a>(mid_pt1, vertical);
+    <span class="keywordtype">int</span> min_prod1, max_prod1;
+    outline1-&gt;MinMaxCrossProduct(vertical, &amp;min_prod1, &amp;max_prod1);
+    <span class="keywordflow">for</span> (<a class="code" href="struct_t_e_s_s_l_i_n_e.html">TESSLINE</a>* outline2 = outline1-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0fb224d43ea53a791f0957fa92793bef">next</a>; outline2 != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+         outline2 = outline2-&gt;next) {
+      <span class="keywordflow">if</span> (outline2-&gt;is_hole)
+        <span class="keywordflow">continue</span>;  <span class="comment">// Holes do not count as separable.</span>
+      <a class="code" href="struct_t_p_o_i_n_t.html">TPOINT</a> mid_pt2(
+        static_cast&lt;inT16&gt;((outline2-&gt;topleft.x + outline2-&gt;botright.x) / 2),
+        static_cast&lt;inT16&gt;((outline2-&gt;topleft.y + outline2-&gt;botright.y) / 2));
+      <span class="keywordtype">int</span> mid_prod2 = <a class="code" href="vecfuncs_8h.html#aec4dedcf89534ed10f6107bf9c6418f3">CROSS</a>(mid_pt2, vertical);
+      <span class="keywordtype">int</span> min_prod2, max_prod2;
+      outline2-&gt;MinMaxCrossProduct(vertical, &amp;min_prod2, &amp;max_prod2);
+      <span class="keywordtype">int</span> mid_gap = abs(mid_prod2 - mid_prod1);
+      <span class="keywordtype">int</span> overlap = <a class="code" href="ndminx_8h.html#a74e75242132eaabbc1c512488a135926">MIN</a>(max_prod1, max_prod2) - <a class="code" href="ndminx_8h.html#aacc3ee1a7f283f8ef65cea31f4436a95">MAX</a>(min_prod1, min_prod2);
+      <span class="keywordflow">if</span> (mid_gap - overlap / 4 &gt; max_gap) {
+        max_gap = mid_gap - overlap / 4;
+        *location = mid_pt1;
+        *location += mid_pt2;
+        *location /= 2;
+      }
+    }
+  }
+  <span class="comment">// Use the y component of the vertical vector as an approximation to its</span>
+  <span class="comment">// length.</span>
+  <span class="keywordflow">return</span> max_gap &gt; vertical.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a>;
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Variable Documentation</h2>
@@ -329,7 +455,7 @@ Variables</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:08 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:40 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

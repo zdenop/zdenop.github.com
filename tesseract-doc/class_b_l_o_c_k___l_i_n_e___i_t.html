@@ -118,6 +118,8 @@ Public Member Functions</h2></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>rectangle iterator </p>
+
+<p>Definition at line <a class="el" href="pdblock_8h_source.html#l00164">164</a> of file <a class="el" href="pdblock_8h_source.html">pdblock.h</a>.</p>
 </div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a3314287e5dfe49ed7087a4a59a5bd3d1"></a><!-- doxytag: member="BLOCK_LINE_IT::BLOCK_LINE_IT" ref="a3314287e5dfe49ed7087a4a59a5bd3d1" args="(PDBLK *blkptr)" -->
 <div class="memitem">
@@ -141,6 +143,11 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="pdblock_8h_source.html#l00169">169</a> of file <a class="el" href="pdblock_8h_source.html">pdblock.h</a>.</p>
+<div class="fragment"><pre class="fragment">    :rect_it (blkptr) {
+      block = blkptr;            <span class="comment">//remember block</span>
+    }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -177,6 +184,40 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="pdblock_8cpp_source.html#l00375">375</a> of file <a class="el" href="pdblock_8cpp_source.html">pdblock.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                               {
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> bleft;                  <span class="comment">//bounding box</span>
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> tright;                 <span class="comment">//of block &amp; rect</span>
+
+                                 <span class="comment">//get block box</span>
+  block-&gt;<a class="code" href="class_p_d_b_l_k.html#a91950a96127b4a0bb9b237e1f5f889a4" title="get box">bounding_box</a> (bleft, tright);
+  <span class="keywordflow">if</span> (y &lt; bleft.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () || y &gt;= tright.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ()) {
+    <span class="comment">//              block-&gt;print(stderr,FALSE);</span>
+    <a class="code" href="blckerr_8h.html#af0318512b6dce070a646cc45be3a827c">BADBLOCKLINE</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;BLOCK_LINE_IT::get_line&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <span class="stringliteral">&quot;Y=%d&quot;</span>, y);
+  }
+
+                                 <span class="comment">//get rectangle box</span>
+  rect_it.<a class="code" href="class_b_l_o_c_k___r_e_c_t___i_t.html#a1e3195249b6b6934be9060f1d5ee60c2">bounding_box</a> (bleft, tright);
+                                 <span class="comment">//inside rectangle</span>
+  <span class="keywordflow">if</span> (y &gt;= bleft.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () &amp;&amp; y &lt; tright.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ()) {
+                                 <span class="comment">//width of line</span>
+    xext = tright.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () - bleft.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ();
+    <span class="keywordflow">return</span> bleft.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ();           <span class="comment">//start of line</span>
+  }
+  <span class="keywordflow">for</span> (rect_it.<a class="code" href="class_b_l_o_c_k___r_e_c_t___i_t.html#a74b1d75085d9f1ba313439ddbd9bc320" title="start iteration">start_block</a> (); !rect_it.<a class="code" href="class_b_l_o_c_k___r_e_c_t___i_t.html#af8914c72cc93eeb96ed231db37ab5043" title="test end">cycled_rects</a> (); rect_it.<a class="code" href="class_b_l_o_c_k___r_e_c_t___i_t.html#ab56b686d27e5eea704424470024456f4" title="next rectangle">forward</a> ()) {
+                                 <span class="comment">//get rectangle box</span>
+    rect_it.<a class="code" href="class_b_l_o_c_k___r_e_c_t___i_t.html#a1e3195249b6b6934be9060f1d5ee60c2">bounding_box</a> (bleft, tright);
+                                 <span class="comment">//inside rectangle</span>
+    <span class="keywordflow">if</span> (y &gt;= bleft.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () &amp;&amp; y &lt; tright.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ()) {
+                                 <span class="comment">//width of line</span>
+      xext = tright.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () - bleft.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ();
+      <span class="keywordflow">return</span> bleft.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ();         <span class="comment">//start of line</span>
+    }
+  }
+  <a class="code" href="blckerr_8h.html#a4809e98d93f9af08fa256aa6dabaa03b">LOSTBLOCKLINE</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;BLOCK_LINE_IT::get_line&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <span class="stringliteral">&quot;Y=%d&quot;</span>, y);
+  <span class="keywordflow">return</span> 0;                      <span class="comment">//dummy to stop warning</span>
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab2f0345eb6609b6a2c429342ca6ac60c"></a><!-- doxytag: member="BLOCK_LINE_IT::set_to_block" ref="ab2f0345eb6609b6a2c429342ca6ac60c" args="(PDBLK *blkptr)" -->
@@ -201,11 +242,18 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="pdblock_8h_source.html#l00176">176</a> of file <a class="el" href="pdblock_8h_source.html">pdblock.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                       {
+      block = blkptr;            <span class="comment">//remember block</span>
+                                 <span class="comment">//set iterator</span>
+      rect_it.<a class="code" href="class_b_l_o_c_k___r_e_c_t___i_t.html#a67e8a119f8c28be404bd1770fa22ce7f" title="start (new) block">set_to_block</a> (blkptr);
+    }
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/ccstruct/<a class="el" href="pdblock_8h_source.html">pdblock.h</a></li>
-<li>tesseract-ocr/ccstruct/<a class="el" href="pdblock_8cpp.html">pdblock.cpp</a></li>
+<li>tesseract-ocr/ccstruct/<a class="el" href="pdblock_8cpp_source.html">pdblock.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -227,7 +275,7 @@ Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:11 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:45 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

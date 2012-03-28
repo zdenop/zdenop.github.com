@@ -148,6 +148,36 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="werdit_8cpp_source.html#l00030">30</a> of file <a class="el" href="werdit_8cpp_source.html">werdit.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                         {      <span class="comment">// Row of selection.</span>
+  <a class="code" href="class_p_a_g_e___r_e_s___i_t.html">PAGE_RES_IT</a> pr_it(page_res);
+  C_BLOB_LIST new_blobs;               <span class="comment">// list of gathered blobs</span>
+  C_BLOB_IT new_blob_it = &amp;new_blobs;  <span class="comment">// iterator</span>
+  <a class="code" href="class_w_e_r_d.html">WERD</a> *pseudo_word;                   <span class="comment">// fabricated word</span>
+
+  <span class="keywordflow">for</span> (<a class="code" href="class_w_e_r_d___r_e_s.html">WERD_RES</a>* word_res = pr_it.<a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a>(); word_res != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+       word_res = pr_it.forward()) {
+    <a class="code" href="class_w_e_r_d.html">WERD</a>* word = word_res-&gt;word;
+    <span class="keywordflow">if</span> (word-&gt;<a class="code" href="class_w_e_r_d.html#a151bbfb39ecdef93ab1a14b0f9e4ac74">bounding_box</a>().<a class="code" href="class_t_b_o_x.html#adcc7d2858ccb61cd715dbcff32bd5582">overlap</a>(selection_box)) {
+      C_BLOB_IT blob_it(word-&gt;<a class="code" href="class_w_e_r_d.html#a174baefaa99afbfdbf444e4199f3b529">cblob_list</a>());
+      <span class="keywordflow">for</span> (blob_it.mark_cycle_pt();
+           !blob_it.cycled_list(); blob_it.forward()) {
+        <a class="code" href="class_c___b_l_o_b.html">C_BLOB</a>* blob = blob_it.data();
+        <span class="keywordflow">if</span> (blob-&gt;<a class="code" href="class_c___b_l_o_b.html#a77e52e29e2c622a3a63bb7edb110f6ab">bounding_box</a>().<a class="code" href="class_t_b_o_x.html#adcc7d2858ccb61cd715dbcff32bd5582">overlap</a>(selection_box)) {
+          new_blob_it.add_after_then_move(<a class="code" href="class_c___b_l_o_b.html#abe4a0174938ec7e4d968382e8274c237">C_BLOB::deep_copy</a>(blob));
+          pseudo_row = pr_it.row()-&gt;row;
+          pseudo_block = pr_it.block()-&gt;block;
+        }
+      }
+    }
+  }
+  <span class="keywordflow">if</span> (!new_blobs.empty())
+    pseudo_word = <span class="keyword">new</span> <a class="code" href="class_w_e_r_d.html">WERD</a>(&amp;new_blobs, 1, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <span class="keywordflow">else</span>
+    pseudo_word = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordflow">return</span> pseudo_word;
+}
+</pre></div>
 </div>
 </div>
 </div>
@@ -170,7 +200,7 @@ Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:08 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:40 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

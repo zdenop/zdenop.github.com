@@ -90,19 +90,12 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div id="doc-content">
 <div class="header">
   <div class="summary">
-<a href="#groups">Modules</a> &#124;
-<a href="#func-members">Functions</a> &#124;
-<a href="#var-members">Variables</a>  </div>
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">ocropus add-ons</div>  </div>
 </div>
 <div class="contents">
 <table class="memberdecls">
-<tr><td colspan="2"><h2><a name="groups"></a>
-Modules</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group___thresholder_params.html">ThresholderParams</a></td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><p>fxn for setting truth_* in <a class="el" href="class_w_e_r_d___r_e_s.html">WERD_RES</a> </p>
-<br/></td></tr>
 <tr><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">TESS_LOCAL void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ocropus_add_ons.html#gaf62a3be9f3b8ca4f8260ec2cc1628ecc">tesseract::TessBaseAPI::AdaptToCharacter</a> (const char *unichar_repr, int length, float baseline, float xheight, float descender, float ascender)</td></tr>
@@ -111,34 +104,6 @@ Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">TESS_LOCAL void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ocropus_add_ons.html#ga97bb9808a0759d47e056ef516e8df47e">tesseract::TessBaseAPI::DetectParagraphs</a> (int debug_level)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static TESS_LOCAL int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ocropus_add_ons.html#ga554e33b4a8fa10ccd2200698ded6753d">tesseract::TessBaseAPI::TesseractExtractResult</a> (char **text, int **lengths, float **costs, int **x0, int **y0, int **x1, int **y1, <a class="el" href="class_p_a_g_e___r_e_s.html">PAGE_RES</a> *page_res)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">TESS_LOCAL const <a class="el" href="class_p_a_g_e___r_e_s.html">PAGE_RES</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ocropus_add_ons.html#ga4bf81423a0eff353a6bf5d7cc098e2d2">tesseract::TessBaseAPI::GetPageRes</a> () const </td></tr>
-<tr><td colspan="2"><h2><a name="var-members"></a>
-Variables</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">Tesseract *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ocropus_add_ons.html#ga247f50792f581df05afe336a2aeda402">tesseract::TessBaseAPI::tesseract_</a></td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The underlying data object.  <a href="#ga247f50792f581df05afe336a2aeda402"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">Tesseract *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ocropus_add_ons.html#gad7b44f5b470c9e04289c348d82726b27">tesseract::TessBaseAPI::osd_tesseract_</a></td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">For orientation &amp; script detection.  <a href="#gad7b44f5b470c9e04289c348d82726b27"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">EquationDetect *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ocropus_add_ons.html#ga0222d0f645909860d13f71c078008133">tesseract::TessBaseAPI::equ_detect_</a></td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The equation detector.  <a href="#ga0222d0f645909860d13f71c078008133"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">ImageThresholder *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ocropus_add_ons.html#ga9d93e1d92ca230ae02b81d44bc88a55c">tesseract::TessBaseAPI::thresholder_</a></td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classtesseract_1_1_image.html">Image</a> thresholding module.  <a href="#ga9d93e1d92ca230ae02b81d44bc88a55c"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_generic_vector.html">GenericVector</a>&lt; <a class="el" href="class_paragraph_model.html">ParagraphModel</a> * &gt; *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ocropus_add_ons.html#ga06084d66b830a388515663761d842041">tesseract::TessBaseAPI::paragraph_models_</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">BLOCK_LIST *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ocropus_add_ons.html#gac22c36258b0cd727188505a9a1dbc7e1">tesseract::TessBaseAPI::block_list_</a></td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The page layout.  <a href="#gac22c36258b0cd727188505a9a1dbc7e1"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_p_a_g_e___r_e_s.html">PAGE_RES</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ocropus_add_ons.html#ga12dda612630eba40e15f9d0b9955a04c">tesseract::TessBaseAPI::page_res_</a></td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">The page-level data.  <a href="#ga12dda612630eba40e15f9d0b9955a04c"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_s_t_r_i_n_g.html">STRING</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ocropus_add_ons.html#ga4690919aa9d4eabda36bdefdaadf7ac9">tesseract::TessBaseAPI::input_file_</a></td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Name used by training code.  <a href="#ga4690919aa9d4eabda36bdefdaadf7ac9"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_s_t_r_i_n_g.html">STRING</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ocropus_add_ons.html#ga22a0c520bc88e2d80fb8b6a10b7caba1">tesseract::TessBaseAPI::output_file_</a></td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Name used by debug code.  <a href="#ga22a0c520bc88e2d80fb8b6a10b7caba1"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_s_t_r_i_n_g.html">STRING</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ocropus_add_ons.html#gad7c3d4ead7b9c8e27e45e710e5407913">tesseract::TessBaseAPI::datapath_</a></td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Current location of tessdata.  <a href="#gad7c3d4ead7b9c8e27e45e710e5407913"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_s_t_r_i_n_g.html">STRING</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ocropus_add_ons.html#ga74a291190aa0bbf90b57f678b1fb0a5c">tesseract::TessBaseAPI::language_</a></td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Last initialized language.  <a href="#ga74a291190aa0bbf90b57f678b1fb0a5c"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">OcrEngineMode&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ocropus_add_ons.html#gaf9d4095a569fbf8687cefc005d2f58ee">tesseract::TessBaseAPI::last_oem_requested_</a></td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">Last ocr language mode requested.  <a href="#gaf9d4095a569fbf8687cefc005d2f58ee"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ocropus_add_ons.html#ga7d4627f300b1096d43a3e7d54d8aa5df">tesseract::TessBaseAPI::recognition_done_</a></td></tr>
-<tr><td class="mdescLeft">&#160;</td><td class="mdescRight">page_res_ contains recognition data.  <a href="#ga7d4627f300b1096d43a3e7d54d8aa5df"></a><br/></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">TruthCallback *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__ocropus_add_ons.html#gac7eaed7f3fedb15212eb39b747de0102">tesseract::TessBaseAPI::truth_cb_</a></td></tr>
 </table>
 <hr/><h2>Function Documentation</h2>
 <a class="anchor" id="gaf62a3be9f3b8ca4f8260ec2cc1628ecc"></a><!-- doxytag: member="tesseract::TessBaseAPI::AdaptToCharacter" ref="gaf62a3be9f3b8ca4f8260ec2cc1628ecc" args="(const char *unichar_repr, int length, float baseline, float xheight, float descender, float ascender)" -->
@@ -191,6 +156,38 @@ Variables</h2></td></tr>
 <div class="memdoc">
 <p>Adapt to recognize the current image as the given character. The image must be preloaded and be just an image of a single character. </p>
 
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01779">1779</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                   {
+  <a class="code" href="unichar_8h.html#a8578b19fa1ff5ca75080db1a18ecc32e">UNICHAR_ID</a> <span class="keywordtype">id</span> = <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;unicharset.unichar_to_id(unichar_repr, length);
+  <a class="code" href="struct_t_b_l_o_b.html">TBLOB</a> *blob = <a class="code" href="namespacetesseract.html#a920259f2171a834a4e379e8a6a8460c5">make_tesseract_blob</a>(<a class="code" href="mfoutline_8h.html#a2a4b69f9a2827dc98bc4cbc233118865a83297de004f4e58b9be2108c6cd08a23">baseline</a>, xheight, descender, ascender,
+                                    <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;classify_bln_numeric_mode,
+                                    <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;pix_binary());
+  <span class="keywordtype">float</span> threshold;
+  <a class="code" href="unichar_8h.html#a8578b19fa1ff5ca75080db1a18ecc32e">UNICHAR_ID</a> best_class = 0;
+  <span class="keywordtype">float</span> best_rating = -100;
+
+
+  <span class="comment">// Classify to get a raw choice.</span>
+  BLOB_CHOICE_LIST choices;
+  <a class="code" href="class_d_e_n_o_r_m.html">DENORM</a> denorm;
+  <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;AdaptiveClassifier(blob, denorm, &amp;choices, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  BLOB_CHOICE_IT choice_it;
+  choice_it.set_to_list(&amp;choices);
+  <span class="keywordflow">for</span> (choice_it.mark_cycle_pt(); !choice_it.cycled_list();
+       choice_it.forward()) {
+    <span class="keywordflow">if</span> (choice_it.data()-&gt;rating() &gt; best_rating) {
+      best_rating = choice_it.data()-&gt;rating();
+      best_class = choice_it.data()-&gt;unichar_id();
+    }
+  }
+
+  threshold = <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;matcher_good_threshold;
+
+  <span class="keywordflow">if</span> (blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a>)
+    <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;AdaptToChar(blob, denorm, <span class="keywordtype">id</span>, kUnknownFontinfoId, threshold);
+  <span class="keyword">delete</span> blob;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ga97bb9808a0759d47e056ef516e8df47e"></a><!-- doxytag: member="tesseract::TessBaseAPI::DetectParagraphs" ref="ga97bb9808a0759d47e056ef516e8df47e" args="(int debug_level)" -->
@@ -209,6 +206,19 @@ Variables</h2></td></tr>
 <div class="memdoc">
 <p>After text is recognized, break each paragraph into blocks. </p>
 
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01832">1832</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                  {
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a06084d66b830a388515663761d842041">paragraph_models_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a06084d66b830a388515663761d842041">paragraph_models_</a> = <span class="keyword">new</span> <a class="code" href="class_generic_vector.html">GenericVector&lt;ParagraphModel*&gt;</a>;
+  MutableIterator *result_it = <a class="code" href="group___advanced_a_p_i.html#ga29906219f78adc7fd76a83bde37e09eb">GetMutableIterator</a>();
+  <span class="keywordflow">do</span> {  <span class="comment">// Detect paragraphs for this block</span>
+    <a class="code" href="class_generic_vector.html">GenericVector&lt;ParagraphModel *&gt;</a> models;
+    <a class="code" href="group__ocropus_add_ons.html#ga97bb9808a0759d47e056ef516e8df47e">::tesseract::DetectParagraphs</a>(debug_level, result_it, &amp;models);
+    *<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a06084d66b830a388515663761d842041">paragraph_models_</a> += models;
+  } <span class="keywordflow">while</span> (result_it-&gt;Next(<a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7a2dcea8d4208c16055353029d26f9bf49">RIL_BLOCK</a>));
+  <span class="keyword">delete</span> result_it;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ga4bf81423a0eff353a6bf5d7cc098e2d2"></a><!-- doxytag: member="tesseract::TessBaseAPI::GetPageRes" ref="ga4bf81423a0eff353a6bf5d7cc098e2d2" args="() const " -->
@@ -225,6 +235,11 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="baseapi_8h_source.html#l00712">712</a> of file <a class="el" href="baseapi_8h_source.html">baseapi.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                {
+    <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a12dda612630eba40e15f9d0b9955a04c" title="The page-level data.">page_res_</a>;
+  };
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ga0384f67e497ea3e81436d09da0ad7270"></a><!-- doxytag: member="tesseract::TessBaseAPI::RecognitionPass1" ref="ga0384f67e497ea3e81436d09da0ad7270" args="(BLOCK_LIST *block_list)" -->
@@ -243,6 +258,14 @@ Variables</h2></td></tr>
 <div class="memdoc">
 <p>Recognize text doing one pass only, using settings for a given pass. </p>
 
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01816">1816</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                              {
+  <a class="code" href="class_p_a_g_e___r_e_s.html">PAGE_RES</a> *page_res = <span class="keyword">new</span> <a class="code" href="class_p_a_g_e___r_e_s.html">PAGE_RES</a>(block_list,
+                                    &amp;(<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;prev_word_best_choice_));
+  <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;recog_all_words(page_res, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, 1);
+  <span class="keywordflow">return</span> page_res;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ga158cc2af7170f3efa8cb140f2745d9b8"></a><!-- doxytag: member="tesseract::TessBaseAPI::RecognitionPass2" ref="ga158cc2af7170f3efa8cb140f2745d9b8" args="(BLOCK_LIST *block_list, PAGE_RES *pass1_result)" -->
@@ -270,6 +293,15 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01823">1823</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                {
+  <span class="keywordflow">if</span> (!pass1_result)
+    pass1_result = <span class="keyword">new</span> <a class="code" href="class_p_a_g_e___r_e_s.html">PAGE_RES</a>(block_list,
+                                &amp;(<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;prev_word_best_choice_));
+  <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;recog_all_words(pass1_result, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, 2);
+  <span class="keywordflow">return</span> pass1_result;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ga554e33b4a8fa10ccd2200698ded6753d"></a><!-- doxytag: member="tesseract::TessBaseAPI::TesseractExtractResult" ref="ga554e33b4a8fa10ccd2200698ded6753d" args="(char **text, int **lengths, float **costs, int **x0, int **y0, int **x1, int **y1, PAGE_RES *page_res)" -->
@@ -334,213 +366,45 @@ Variables</h2></td></tr>
 <div class="memdoc">
 <p>Extract the OCR results, costs (penalty points for uncertainty), and the bounding boxes of the characters. </p>
 
-</div>
-</div>
-<hr/><h2>Variable Documentation</h2>
-<a class="anchor" id="gac22c36258b0cd727188505a9a1dbc7e1"></a><!-- doxytag: member="tesseract::TessBaseAPI::block_list_" ref="gac22c36258b0cd727188505a9a1dbc7e1" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">BLOCK_LIST* <a class="el" href="group__ocropus_add_ons.html#gac22c36258b0cd727188505a9a1dbc7e1">tesseract::TessBaseAPI::block_list_</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01913">1913</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                            {
+  TESS_CHAR_LIST tess_chars;
+  TESS_CHAR_IT tess_chars_it(&amp;tess_chars);
+  extract_result(&amp;tess_chars_it, page_res);
+  tess_chars_it.move_to_first();
+  <span class="keywordtype">int</span> n = tess_chars.length();
+  <span class="keywordtype">int</span> text_len = 0;
+  *lengths = <span class="keyword">new</span> <span class="keywordtype">int</span>[n];
+  *costs = <span class="keyword">new</span> <span class="keywordtype">float</span>[n];
+  *x0 = <span class="keyword">new</span> <span class="keywordtype">int</span>[n];
+  *y0 = <span class="keyword">new</span> <span class="keywordtype">int</span>[n];
+  *x1 = <span class="keyword">new</span> <span class="keywordtype">int</span>[n];
+  *y1 = <span class="keyword">new</span> <span class="keywordtype">int</span>[n];
+  <span class="keywordtype">int</span> i = 0;
+  <span class="keywordflow">for</span> (tess_chars_it.mark_cycle_pt();
+       !tess_chars_it.cycled_list();
+       tess_chars_it.forward(), i++) {
+    TESS_CHAR *tc = tess_chars_it.data();
+    text_len += (*lengths)[i] = tc-&gt;length;
+    (*costs)[i] = tc-&gt;cost;
+    (*x0)[i] = tc-&gt;box.left();
+    (*y0)[i] = tc-&gt;box.bottom();
+    (*x1)[i] = tc-&gt;box.right();
+    (*y1)[i] = tc-&gt;box.top();
+  }
+  <span class="keywordtype">char</span> *p = *text = <span class="keyword">new</span> <span class="keywordtype">char</span>[text_len];
 
-<p>The page layout. </p>
-
-</div>
-</div>
-<a class="anchor" id="gad7c3d4ead7b9c8e27e45e710e5407913"></a><!-- doxytag: member="tesseract::TessBaseAPI::datapath_" ref="gad7c3d4ead7b9c8e27e45e710e5407913" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_s_t_r_i_n_g.html">STRING</a>* <a class="el" href="group__ocropus_add_ons.html#gad7c3d4ead7b9c8e27e45e710e5407913">tesseract::TessBaseAPI::datapath_</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Current location of tessdata. </p>
-
-</div>
-</div>
-<a class="anchor" id="ga0222d0f645909860d13f71c078008133"></a><!-- doxytag: member="tesseract::TessBaseAPI::equ_detect_" ref="ga0222d0f645909860d13f71c078008133" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">EquationDetect* <a class="el" href="group__ocropus_add_ons.html#ga0222d0f645909860d13f71c078008133">tesseract::TessBaseAPI::equ_detect_</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>The equation detector. </p>
-
-</div>
-</div>
-<a class="anchor" id="ga4690919aa9d4eabda36bdefdaadf7ac9"></a><!-- doxytag: member="tesseract::TessBaseAPI::input_file_" ref="ga4690919aa9d4eabda36bdefdaadf7ac9" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_s_t_r_i_n_g.html">STRING</a>* <a class="el" href="group__ocropus_add_ons.html#ga4690919aa9d4eabda36bdefdaadf7ac9">tesseract::TessBaseAPI::input_file_</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Name used by training code. </p>
-
-</div>
-</div>
-<a class="anchor" id="ga74a291190aa0bbf90b57f678b1fb0a5c"></a><!-- doxytag: member="tesseract::TessBaseAPI::language_" ref="ga74a291190aa0bbf90b57f678b1fb0a5c" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_s_t_r_i_n_g.html">STRING</a>* <a class="el" href="group__ocropus_add_ons.html#ga74a291190aa0bbf90b57f678b1fb0a5c">tesseract::TessBaseAPI::language_</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Last initialized language. </p>
-
-</div>
-</div>
-<a class="anchor" id="gaf9d4095a569fbf8687cefc005d2f58ee"></a><!-- doxytag: member="tesseract::TessBaseAPI::last_oem_requested_" ref="gaf9d4095a569fbf8687cefc005d2f58ee" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">OcrEngineMode <a class="el" href="group__ocropus_add_ons.html#gaf9d4095a569fbf8687cefc005d2f58ee">tesseract::TessBaseAPI::last_oem_requested_</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Last ocr language mode requested. </p>
-
-</div>
-</div>
-<a class="anchor" id="gad7b44f5b470c9e04289c348d82726b27"></a><!-- doxytag: member="tesseract::TessBaseAPI::osd_tesseract_" ref="gad7b44f5b470c9e04289c348d82726b27" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">Tesseract* <a class="el" href="group__ocropus_add_ons.html#gad7b44f5b470c9e04289c348d82726b27">tesseract::TessBaseAPI::osd_tesseract_</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>For orientation &amp; script detection. </p>
-
-</div>
-</div>
-<a class="anchor" id="ga22a0c520bc88e2d80fb8b6a10b7caba1"></a><!-- doxytag: member="tesseract::TessBaseAPI::output_file_" ref="ga22a0c520bc88e2d80fb8b6a10b7caba1" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_s_t_r_i_n_g.html">STRING</a>* <a class="el" href="group__ocropus_add_ons.html#ga22a0c520bc88e2d80fb8b6a10b7caba1">tesseract::TessBaseAPI::output_file_</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Name used by debug code. </p>
-
-</div>
-</div>
-<a class="anchor" id="ga12dda612630eba40e15f9d0b9955a04c"></a><!-- doxytag: member="tesseract::TessBaseAPI::page_res_" ref="ga12dda612630eba40e15f9d0b9955a04c" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_p_a_g_e___r_e_s.html">PAGE_RES</a>* <a class="el" href="group__ocropus_add_ons.html#ga12dda612630eba40e15f9d0b9955a04c">tesseract::TessBaseAPI::page_res_</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>The page-level data. </p>
-
-</div>
-</div>
-<a class="anchor" id="ga06084d66b830a388515663761d842041"></a><!-- doxytag: member="tesseract::TessBaseAPI::paragraph_models_" ref="ga06084d66b830a388515663761d842041" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="class_generic_vector.html">GenericVector</a>&lt;<a class="el" href="class_paragraph_model.html">ParagraphModel</a> *&gt;* <a class="el" href="group__ocropus_add_ons.html#ga06084d66b830a388515663761d842041">tesseract::TessBaseAPI::paragraph_models_</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-</div>
-</div>
-<a class="anchor" id="ga7d4627f300b1096d43a3e7d54d8aa5df"></a><!-- doxytag: member="tesseract::TessBaseAPI::recognition_done_" ref="ga7d4627f300b1096d43a3e7d54d8aa5df" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">bool <a class="el" href="group__ocropus_add_ons.html#ga7d4627f300b1096d43a3e7d54d8aa5df">tesseract::TessBaseAPI::recognition_done_</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>page_res_ contains recognition data. </p>
-
-</div>
-</div>
-<a class="anchor" id="ga247f50792f581df05afe336a2aeda402"></a><!-- doxytag: member="tesseract::TessBaseAPI::tesseract_" ref="ga247f50792f581df05afe336a2aeda402" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">Tesseract* <a class="el" href="group__ocropus_add_ons.html#ga247f50792f581df05afe336a2aeda402">tesseract::TessBaseAPI::tesseract_</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>The underlying data object. </p>
-
-</div>
-</div>
-<a class="anchor" id="ga9d93e1d92ca230ae02b81d44bc88a55c"></a><!-- doxytag: member="tesseract::TessBaseAPI::thresholder_" ref="ga9d93e1d92ca230ae02b81d44bc88a55c" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">ImageThresholder* <a class="el" href="group__ocropus_add_ons.html#ga9d93e1d92ca230ae02b81d44bc88a55c">tesseract::TessBaseAPI::thresholder_</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p><a class="el" href="classtesseract_1_1_image.html">Image</a> thresholding module. </p>
-
-</div>
-</div>
-<a class="anchor" id="gac7eaed7f3fedb15212eb39b747de0102"></a><!-- doxytag: member="tesseract::TessBaseAPI::truth_cb_" ref="gac7eaed7f3fedb15212eb39b747de0102" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">TruthCallback* <a class="el" href="group__ocropus_add_ons.html#gac7eaed7f3fedb15212eb39b747de0102">tesseract::TessBaseAPI::truth_cb_</a><code> [protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
+  tess_chars_it.move_to_first();
+  <span class="keywordflow">for</span> (tess_chars_it.mark_cycle_pt();
+        !tess_chars_it.cycled_list();
+       tess_chars_it.forward()) {
+    TESS_CHAR *tc = tess_chars_it.data();
+    strncpy(p, tc-&gt;unicode_repr, tc-&gt;length);
+    p += tc-&gt;length;
+  }
+  <span class="keywordflow">return</span> n;
+}
+</pre></div>
 </div>
 </div>
 </div>
@@ -562,7 +426,7 @@ Variables</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:10 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:43 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

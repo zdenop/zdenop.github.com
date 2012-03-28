@@ -126,10 +126,13 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class___tess_member_result_callback__0__0.html#a4c972946337ec459dcadcb4271529771">_TessMemberResultCallback_0_0</a> (T *object, <a class="el" href="class___tess_member_result_callback__0__0.html#a2325f1f3474e47d409215e4a3feb6f11">MemberSignature</a> member)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual R&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class___tess_member_result_callback__0__0.html#a4f6bec67ee02f2e63fb675f1550b5c1b">Run</a> ()</td></tr>
 </table>
-<h3>template&lt;bool del, class R, class T&gt;<br/>
- class _TessMemberResultCallback_0_0&lt; del, R, T &gt;</h3>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock"><h3>template&lt;bool del, class R, class T&gt;<br/>
+class _TessMemberResultCallback_0_0&lt; del, R, T &gt;</h3>
 
-<hr/><h2>Member Typedef Documentation</h2>
+
+<p>Definition at line <a class="el" href="tesscallback_8h_source.html#l00124">124</a> of file <a class="el" href="tesscallback_8h_source.html">tesscallback.h</a>.</p>
+</div><hr/><h2>Member Typedef Documentation</h2>
 <a class="anchor" id="a193f302b4c54626ce301db9acfbe30d3"></a><!-- doxytag: member="_TessMemberResultCallback_0_0::base" ref="a193f302b4c54626ce301db9acfbe30d3" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -142,6 +145,8 @@ template&lt;bool del, class R, class T&gt; </div>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="tesscallback_8h_source.html#l00126">126</a> of file <a class="el" href="tesscallback_8h_source.html">tesscallback.h</a>.</p>
 
 </div>
 </div>
@@ -157,6 +162,8 @@ template&lt;bool del, class R, class T&gt; </div>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="tesscallback_8h_source.html#l00127">127</a> of file <a class="el" href="tesscallback_8h_source.html">tesscallback.h</a>.</p>
 
 </div>
 </div>
@@ -188,6 +195,11 @@ template&lt;bool del, class R, class T&gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tesscallback_8h_source.html#l00134">134</a> of file <a class="el" href="tesscallback_8h_source.html">tesscallback.h</a>.</p>
+<div class="fragment"><pre class="fragment">    : object_(<span class="keywordtype">object</span>),
+      member_(member) {
+  }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -209,6 +221,20 @@ template&lt;bool del, class R, class T&gt; </div>
 
 <p>Implements <a class="el" href="class_tess_result_callback.html#a39d8dd30710ee089410c230aa79fd333">TessResultCallback&lt; R &gt;</a>.</p>
 
+<p>Definition at line <a class="el" href="tesscallback_8h_source.html#l00140">140</a> of file <a class="el" href="tesscallback_8h_source.html">tesscallback.h</a>.</p>
+<div class="fragment"><pre class="fragment">                  {
+    <span class="keywordflow">if</span> (!del) {
+      R result = (object_-&gt;*member_)();
+      <span class="keywordflow">return</span> result;
+    } <span class="keywordflow">else</span> {
+      R result = (object_-&gt;*member_)();
+      <span class="comment">//  zero out the pointer to ensure segfault if used again</span>
+      member_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+      <span class="keyword">delete</span> <span class="keyword">this</span>;
+      <span class="keywordflow">return</span> result;
+    }
+  }
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
@@ -234,7 +260,7 @@ template&lt;bool del, class R, class T&gt; </div>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:11 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:44 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

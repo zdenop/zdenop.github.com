@@ -118,7 +118,10 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_v_menu_node.html#a307b3d7c9c7fb6eb79a575211bcac4e6">AddChild</a> (const char *txt, int command_event, const char *val, const char *desc)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_s_v_menu_node.html#a693800de6b590b47e81213fef7de180a">BuildMenu</a> (<a class="el" href="class_scroll_view.html">ScrollView</a> *sv, bool menu_bar=true)</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="svmnode_8h_source.html#l00033">33</a> of file <a class="el" href="svmnode_8h_source.html">svmnode.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="aa1ed336650e32dff50e1e14d8d4ea44b"></a><!-- doxytag: member="SVMenuNode::SVMenuNode" ref="aa1ed336650e32dff50e1e14d8d4ea44b" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -133,6 +136,19 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="svmnode_8cpp_source.html#l00045">45</a> of file <a class="el" href="svmnode_8cpp_source.html">svmnode.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                       {
+  cmd_event_ = -1;
+  text_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  child_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  next_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  parent_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  toggle_value_ = <span class="keyword">false</span>;
+  is_check_box_entry_ = <span class="keyword">false</span>;
+  value_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  description_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a020fc873b1d90e024fcb41bb7a075ba6"></a><!-- doxytag: member="SVMenuNode::~SVMenuNode" ref="a020fc873b1d90e024fcb41bb7a075ba6" args="()" -->
@@ -149,6 +165,12 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="svmnode_8cpp_source.html#l00057">57</a> of file <a class="el" href="svmnode_8cpp_source.html">svmnode.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                        {
+  <span class="keyword">delete</span>[] text_;
+<span class="comment">//  delete[] description_;</span>
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -167,6 +189,13 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="svmnode_8cpp_source.html#l00064">64</a> of file <a class="el" href="svmnode_8cpp_source.html">svmnode.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                {
+  <a class="code" href="class_s_v_menu_node.html">SVMenuNode</a>* s = <span class="keyword">new</span> <a class="code" href="class_s_v_menu_node.html#aa1ed336650e32dff50e1e14d8d4ea44b">SVMenuNode</a>(-1, txt, <span class="keyword">false</span>, <span class="keyword">false</span>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  this-&gt;<a class="code" href="class_s_v_menu_node.html#a2d119f4867dcb3015103eabb6cd7386d">AddChild</a>(s);
+  <span class="keywordflow">return</span> s;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7681b809607fd95cb7ad5af87db77a89"></a><!-- doxytag: member="SVMenuNode::AddChild" ref="a7681b809607fd95cb7ad5af87db77a89" args="(const char *txt, int command_event)" -->
@@ -194,6 +223,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="svmnode_8cpp_source.html#l00071">71</a> of file <a class="el" href="svmnode_8cpp_source.html">svmnode.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                            {
+  this-&gt;<a class="code" href="class_s_v_menu_node.html#a2d119f4867dcb3015103eabb6cd7386d">AddChild</a>(<span class="keyword">new</span> <a class="code" href="class_s_v_menu_node.html#aa1ed336650e32dff50e1e14d8d4ea44b">SVMenuNode</a>(command_event, txt, <span class="keyword">false</span>, <span class="keyword">false</span>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>));
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ade5becffb9eb4c16603257bf706c02b8"></a><!-- doxytag: member="SVMenuNode::AddChild" ref="ade5becffb9eb4c16603257bf706c02b8" args="(const char *txt, int command_event, int tv)" -->
@@ -227,6 +261,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="svmnode_8cpp_source.html#l00089">89</a> of file <a class="el" href="svmnode_8cpp_source.html">svmnode.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                    {
+  this-&gt;<a class="code" href="class_s_v_menu_node.html#a2d119f4867dcb3015103eabb6cd7386d">AddChild</a>(<span class="keyword">new</span> <a class="code" href="class_s_v_menu_node.html#aa1ed336650e32dff50e1e14d8d4ea44b">SVMenuNode</a>(command_event, txt, tv, <span class="keyword">true</span>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>));
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a71e53d882c048499ae7f19a3defde5ba"></a><!-- doxytag: member="SVMenuNode::AddChild" ref="a71e53d882c048499ae7f19a3defde5ba" args="(const char *txt, int command_event, const char *val)" -->
@@ -260,6 +299,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="svmnode_8cpp_source.html#l00077">77</a> of file <a class="el" href="svmnode_8cpp_source.html">svmnode.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                           {
+  this-&gt;<a class="code" href="class_s_v_menu_node.html#a2d119f4867dcb3015103eabb6cd7386d">AddChild</a>(<span class="keyword">new</span> <a class="code" href="class_s_v_menu_node.html#aa1ed336650e32dff50e1e14d8d4ea44b">SVMenuNode</a>(command_event, txt, <span class="keyword">false</span>, <span class="keyword">false</span>, val, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>));
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a307b3d7c9c7fb6eb79a575211bcac4e6"></a><!-- doxytag: member="SVMenuNode::AddChild" ref="a307b3d7c9c7fb6eb79a575211bcac4e6" args="(const char *txt, int command_event, const char *val, const char *desc)" -->
@@ -299,6 +343,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="svmnode_8cpp_source.html#l00083">83</a> of file <a class="el" href="svmnode_8cpp_source.html">svmnode.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                            {
+  this-&gt;<a class="code" href="class_s_v_menu_node.html#a2d119f4867dcb3015103eabb6cd7386d">AddChild</a>(<span class="keyword">new</span> <a class="code" href="class_s_v_menu_node.html#aa1ed336650e32dff50e1e14d8d4ea44b">SVMenuNode</a>(command_event, txt, <span class="keyword">false</span>, <span class="keyword">false</span>, val, desc));
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a693800de6b590b47e81213fef7de180a"></a><!-- doxytag: member="SVMenuNode::BuildMenu" ref="a693800de6b590b47e81213fef7de180a" args="(ScrollView *sv, bool menu_bar=true)" -->
@@ -326,11 +375,26 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="svmnode_8cpp_source.html#l00132">132</a> of file <a class="el" href="svmnode_8cpp_source.html">svmnode.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                        {
+  <span class="keywordflow">if</span> ((parent_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) &amp;&amp; (menu_bar)) {
+    <span class="keywordflow">if</span> (is_check_box_entry_) {
+      sv-&gt;<a class="code" href="class_scroll_view.html#a08a6a071e1c7705a87664c8a8af70e5f">MenuItem</a>(parent_-&gt;text_, text_, cmd_event_, toggle_value_);
+    } <span class="keywordflow">else</span> { sv-&gt;<a class="code" href="class_scroll_view.html#a08a6a071e1c7705a87664c8a8af70e5f">MenuItem</a>(parent_-&gt;text_, text_, cmd_event_); }
+  } <span class="keywordflow">else</span> <span class="keywordflow">if</span> ((parent_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) &amp;&amp; (!menu_bar)) {
+    <span class="keywordflow">if</span> (description_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) { sv-&gt;<a class="code" href="class_scroll_view.html#a245a24cbd1ad39085e450765980113e1">PopupItem</a>(parent_-&gt;text_, text_,
+                                             cmd_event_, value_, description_);
+      } <span class="keywordflow">else</span> { sv-&gt;<a class="code" href="class_scroll_view.html#a245a24cbd1ad39085e450765980113e1">PopupItem</a>(parent_-&gt;text_, text_); }
+  }
+  <span class="keywordflow">if</span> (child_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) { child_-&gt;<a class="code" href="class_s_v_menu_node.html#a693800de6b590b47e81213fef7de180a">BuildMenu</a>(sv, menu_bar); <span class="keyword">delete</span> child_; }
+  <span class="keywordflow">if</span> (next_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) { next_-&gt;<a class="code" href="class_s_v_menu_node.html#a693800de6b590b47e81213fef7de180a">BuildMenu</a>(sv, menu_bar); <span class="keyword">delete</span> next_; }
+}
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/viewer/<a class="el" href="svmnode_8h_source.html">svmnode.h</a></li>
-<li>tesseract-ocr/viewer/<a class="el" href="svmnode_8cpp.html">svmnode.cpp</a></li>
+<li>tesseract-ocr/viewer/<a class="el" href="svmnode_8cpp_source.html">svmnode.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -352,7 +416,7 @@ Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:13 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:47 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

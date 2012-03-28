@@ -133,6 +133,8 @@ Public Member Functions</h2></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="classtesseract_1_1_stroke_width.html">StrokeWidth</a> class holds all the normal and large blobs. It is used to find good large blobs and move them to the normal blobs by virtue of having a reasonable strokewidth compatible neighbour. </p>
+
+<p>Definition at line <a class="el" href="strokewidth_8h_source.html#l00049">49</a> of file <a class="el" href="strokewidth_8h_source.html">strokewidth.h</a>.</p>
 </div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a4551a10f256b1df74832b53b8f0e33b2"></a><!-- doxytag: member="tesseract::StrokeWidth::StrokeWidth" ref="a4551a10f256b1df74832b53b8f0e33b2" args="(int gridsize, const ICOORD &amp;bleft, const ICOORD &amp;tright)" -->
 <div class="memitem">
@@ -165,6 +167,18 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="strokewidth_8cpp_source.html#l00121">121</a> of file <a class="el" href="strokewidth_8cpp_source.html">strokewidth.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">  : <a class="code" href="classtesseract_1_1_blob_grid.html#a86754acb30620ac8308d7e178f7618bd">BlobGrid</a>(<a class="code" href="classtesseract_1_1_grid_base.html#afff2cee730084711205977b5fcb4901e">gridsize</a>, bleft, tright), nontext_map_(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>), projection_(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>),
+    denorm_(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>), grid_box_(bleft, tright), rerotation_(1.0<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>, 0.0<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>) {
+  leaders_win_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  widths_win_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  initial_widths_win_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  chains_win_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  diacritics_win_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  textlines_win_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  smoothed_win_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a86277000549e608335b9fcbb042d165b"></a><!-- doxytag: member="tesseract::StrokeWidth::~StrokeWidth" ref="a86277000549e608335b9fcbb042d165b" args="()" -->
@@ -181,6 +195,24 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="strokewidth_8cpp_source.html#l00134">134</a> of file <a class="el" href="strokewidth_8cpp_source.html">strokewidth.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                          {
+  <span class="keywordflow">if</span> (widths_win_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+<span class="preprocessor">    #ifndef GRAPHICS_DISABLED</span>
+<span class="preprocessor"></span>    <span class="keyword">delete</span> widths_win_-&gt;<a class="code" href="class_scroll_view.html#a0b820b3fe7a2ce083da0784e9339a1ad">AwaitEvent</a>(<a class="code" href="scrollview_8h.html#a3688a0cf2f95d10a57e095222ccfe9a0adbe9fb2ca110dbf1b838d845d32a89e7">SVET_DESTROY</a>);
+<span class="preprocessor">    #endif  // GRAPHICS_DISABLED</span>
+<span class="preprocessor"></span>    <span class="keywordflow">if</span> (<a class="code" href="namespacetesseract.html#a5822b437edf16b39ca18cec5515d8bcf">textord_tabfind_only_strokewidths</a>)
+      exit(0);
+    <span class="keyword">delete</span> widths_win_;
+  }
+  <span class="keyword">delete</span> leaders_win_;
+  <span class="keyword">delete</span> initial_widths_win_;
+  <span class="keyword">delete</span> chains_win_;
+  <span class="keyword">delete</span> textlines_win_;
+  <span class="keyword">delete</span> smoothed_win_;
+  <span class="keyword">delete</span> diacritics_win_;
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -209,6 +241,14 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="strokewidth_8cpp_source.html#l00263">263</a> of file <a class="el" href="strokewidth_8cpp_source.html">strokewidth.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                  {
+  <a class="code" href="classtesseract_1_1_b_b_grid.html#a1d2990adf323d7910fbf87b6fc3a7415">Init</a>(part_grid-&gt;gridsize(), part_grid-&gt;bleft(), part_grid-&gt;tright());
+  grid_box_ = <a class="code" href="class_t_b_o_x.html">TBOX</a>(<a class="code" href="classtesseract_1_1_grid_base.html#ad20b2cb8eb2bf52871d5260c04949cce">bleft</a>(), <a class="code" href="classtesseract_1_1_grid_base.html#aa94e147841b6a4fae0b28e7e872685a5">tright</a>());
+  rerotation_.<a class="code" href="class_f_c_o_o_r_d.html#ae2b7e41fa5e065a9ccbf7358b4911920" title="rewrite function">set_x</a>(rotation.x());
+  rerotation_.<a class="code" href="class_f_c_o_o_r_d.html#ad1e9f0d2a1f054f70b6f3036db6afcc0" title="rewrite function">set_y</a>(-rotation.y());
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a8418b53298a0a6b71b8d4c804d48980e"></a><!-- doxytag: member="tesseract::StrokeWidth::FindLeaderPartitions" ref="a8418b53298a0a6b71b8d4c804d48980e" args="(TO_BLOCK *block, ColPartitionGrid *part_grid)" -->
@@ -236,6 +276,24 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="strokewidth_8cpp_source.html#l00272">272</a> of file <a class="el" href="strokewidth_8cpp_source.html">strokewidth.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                    {
+  <a class="code" href="classtesseract_1_1_b_b_grid.html#a0b373075bdfda41719d6fb9a64bcfee0">Clear</a>();
+  <span class="comment">// Find and isolate leaders in the noise list.</span>
+  ColPartition_LIST leader_parts;
+  FindLeadersAndMarkNoise(block, &amp;leader_parts);
+  <span class="comment">// Setup the strokewidth grid with the block&#39;s remaining (non-noise) blobs.</span>
+  <a class="code" href="classtesseract_1_1_blob_grid.html#ae3e2254b403947fc9628221aa3cb5b26">InsertBlobList</a>(&amp;block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#a5dd67c54162a6b60b0fd11500d4a3025">blobs</a>);
+  <span class="comment">// Mark blobs that have leader neighbours.</span>
+  <span class="keywordflow">for</span> (ColPartition_IT it(&amp;leader_parts); !it.empty(); it.forward()) {
+    ColPartition* part = it.extract();
+    part-&gt;ClaimBoxes();
+    MarkLeaderNeighbours(part, <a class="code" href="namespacetesseract.html#acd121b57d321ca8511db069f603d071fa83d27ea7b63eb91b9feed005a2f46ec9">LR_LEFT</a>);
+    MarkLeaderNeighbours(part, <a class="code" href="namespacetesseract.html#acd121b57d321ca8511db069f603d071facb1914d58c6a7acb6ddb9563a46a1046">LR_RIGHT</a>);
+    part_grid-&gt;InsertBBox(<span class="keyword">true</span>, <span class="keyword">true</span>, part);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aadfc985b5ed12df5ac545b344a304326"></a><!-- doxytag: member="tesseract::StrokeWidth::FindTextlineDirectionAndFixBrokenCJK" ref="aadfc985b5ed12df5ac545b344a304326" args="(bool cjk_merge, TO_BLOCK *input_block)" -->
@@ -263,6 +321,18 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="strokewidth_8cpp_source.html#l00168">168</a> of file <a class="el" href="strokewidth_8cpp_source.html">strokewidth.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                              {
+  <span class="comment">// Setup the grid with the remaining (non-noise) blobs.</span>
+  InsertBlobs(input_block);
+  <span class="comment">// Repair broken CJK characters if needed.</span>
+  <span class="keywordflow">while</span> (cjk_merge &amp;&amp; FixBrokenCJK(input_block));
+  <span class="comment">// Grade blobs by inspection of neighbours.</span>
+  FindTextlineFlowDirection(<span class="keyword">false</span>);
+  <span class="comment">// Clear the grid ready for rotation or leader finding.</span>
+  <a class="code" href="classtesseract_1_1_b_b_grid.html#a0b373075bdfda41719d6fb9a64bcfee0">Clear</a>();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a64cc6e7ab7c16c2181dd1fa09d6c765e"></a><!-- doxytag: member="tesseract::StrokeWidth::GradeBlobsIntoPartitions" ref="a64cc6e7ab7c16c2181dd1fa09d6c765e" args="(const FCOORD &amp;rerotation, TO_BLOCK *block, Pix *nontext_pix, const DENORM *denorm, TextlineProjection *projection, ColPartitionGrid *part_grid, ColPartition_LIST *big_parts)" -->
@@ -320,6 +390,40 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="strokewidth_8cpp_source.html#l00356">356</a> of file <a class="el" href="strokewidth_8cpp_source.html">strokewidth.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                         {
+  nontext_map_ = nontext_pix;
+  projection_ = projection;
+  denorm_ = denorm;
+  <span class="comment">// Clear and re Insert to take advantage of the tab stops in the blobs.</span>
+  <a class="code" href="classtesseract_1_1_b_b_grid.html#a0b373075bdfda41719d6fb9a64bcfee0">Clear</a>();
+  <span class="comment">// Setup the strokewidth grid with the remaining non-noise, non-leader blobs.</span>
+  InsertBlobs(block);
+
+  <span class="comment">// Run FixBrokenCJK() again if the page is rotated and the blobs</span>
+  <span class="comment">// lists are reset and re-flitered, because we may have some new</span>
+  <span class="comment">// blobs in the medium blob list.</span>
+  <span class="keywordflow">if</span> (rerotation_.<a class="code" href="class_f_c_o_o_r_d.html#a9edadbfc357c730f62fa3c92677b0d58">x</a>() != 1.0f || rerotation_.<a class="code" href="class_f_c_o_o_r_d.html#a397f7ce997b246df18e7bd5a20cc422e">y</a>() != 0.0f) {
+    FixBrokenCJK(block);
+  }
+  FindTextlineFlowDirection(<span class="keyword">true</span>);
+  projection_-&gt;ConstructProjection(block, rerotation, nontext_map_);
+  <span class="keywordflow">if</span> (<a class="code" href="namespacetesseract.html#a69ff5305c7423c6a1e1e7a873aea09a4">textord_tabfind_show_strokewidths</a>) {
+    <a class="code" href="class_scroll_view.html">ScrollView</a>* line_blobs_win = <a class="code" href="classtesseract_1_1_b_b_grid.html#aa716f76c7f04f7112abfc10a3f8c63e0">MakeWindow</a>(0, 0, <span class="stringliteral">&quot;Initial textline Blobs&quot;</span>);
+    projection_-&gt;PlotGradedBlobs(&amp;block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#a5dd67c54162a6b60b0fd11500d4a3025">blobs</a>, line_blobs_win);
+    projection_-&gt;PlotGradedBlobs(&amp;block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#ad16b1c18225b44c50674ca46841b0f5f">small_blobs</a>, line_blobs_win);
+  }
+  projection_-&gt;MoveNonTextlineBlobs(&amp;block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#a5dd67c54162a6b60b0fd11500d4a3025">blobs</a>, &amp;block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#aa6a3757d385e79ab76f34afb6e8fc684">noise_blobs</a>);
+  projection_-&gt;MoveNonTextlineBlobs(&amp;block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#ad16b1c18225b44c50674ca46841b0f5f">small_blobs</a>, &amp;block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#aa6a3757d385e79ab76f34afb6e8fc684">noise_blobs</a>);
+  <span class="comment">// Clear and re Insert to take advantage of the removed diacritics.</span>
+  <a class="code" href="classtesseract_1_1_b_b_grid.html#a0b373075bdfda41719d6fb9a64bcfee0">Clear</a>();
+  InsertBlobs(block);
+  FindInitialPartitions(rerotation, block, part_grid, big_parts);
+  nontext_map_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  projection_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  denorm_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a90b53628c521c80302467b8059fc0a5c"></a><!-- doxytag: member="tesseract::StrokeWidth::HandleClick" ref="a90b53628c521c80302467b8059fc0a5c" args="(int x, int y)" -->
@@ -350,6 +454,43 @@ Public Member Functions</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classtesseract_1_1_b_b_grid.html#aa3c72e54651cbf20ee185f8623a60335">tesseract::BBGrid&lt; BLOBNBOX, BLOBNBOX_CLIST, BLOBNBOX_C_IT &gt;</a>.</p>
 
+<p>Definition at line <a class="el" href="strokewidth_8cpp_source.html#l00404">404</a> of file <a class="el" href="strokewidth_8cpp_source.html">strokewidth.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                          {
+  <a class="code" href="classtesseract_1_1_stroke_width.html#a90b53628c521c80302467b8059fc0a5c">BBGrid&lt;BLOBNBOX, BLOBNBOX_CLIST, BLOBNBOX_C_IT&gt;::HandleClick</a>(x, y);
+  <span class="comment">// Run a radial search for blobs that overlap.</span>
+  <a class="code" href="namespacetesseract.html#a2681de132e11a73d6fc4f281b2750109">BlobGridSearch</a> radsearch(<span class="keyword">this</span>);
+  radsearch.StartRadSearch(x, y, 1);
+  <a class="code" href="class_b_l_o_b_n_b_o_x.html">BLOBNBOX</a>* neighbour;
+  <a class="code" href="class_f_c_o_o_r_d.html">FCOORD</a> click(static_cast&lt;float&gt;(x), static_cast&lt;float&gt;(y));
+  <span class="keywordflow">while</span> ((neighbour = radsearch.NextRadSearch()) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="class_t_b_o_x.html">TBOX</a> nbox = neighbour-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a7b97b8bc16b1473a28f9c44011522f4e">bounding_box</a>();
+    <span class="keywordflow">if</span> (nbox.<a class="code" href="class_t_b_o_x.html#a5d4e2c5f91b791e94d4c94e513180632">contains</a>(click) &amp;&amp; neighbour-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a483f44541a4dd818f02225c92f030e07">cblob</a>() != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      PrintBoxWidths(neighbour);
+      <span class="keywordflow">if</span> (neighbour-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a20cea54041981db2aa2e94cb4db7b4cf">neighbour</a>(<a class="code" href="blobbox_8h.html#a4974474b3b161b68355d9a16eeaa3883a34eeb3a076f3bbcb32d47b74ee3cee86">BND_LEFT</a>) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+        PrintBoxWidths(neighbour-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a20cea54041981db2aa2e94cb4db7b4cf">neighbour</a>(<a class="code" href="blobbox_8h.html#a4974474b3b161b68355d9a16eeaa3883a34eeb3a076f3bbcb32d47b74ee3cee86">BND_LEFT</a>));
+      <span class="keywordflow">if</span> (neighbour-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a20cea54041981db2aa2e94cb4db7b4cf">neighbour</a>(<a class="code" href="blobbox_8h.html#a4974474b3b161b68355d9a16eeaa3883ac0391ea6a5bf43f7735142e9ae87a62f">BND_RIGHT</a>) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+        PrintBoxWidths(neighbour-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a20cea54041981db2aa2e94cb4db7b4cf">neighbour</a>(<a class="code" href="blobbox_8h.html#a4974474b3b161b68355d9a16eeaa3883ac0391ea6a5bf43f7735142e9ae87a62f">BND_RIGHT</a>));
+      <span class="keywordflow">if</span> (neighbour-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a20cea54041981db2aa2e94cb4db7b4cf">neighbour</a>(<a class="code" href="blobbox_8h.html#a4974474b3b161b68355d9a16eeaa3883a29aa5ffa693a9ac7e91c8c59e037509c">BND_ABOVE</a>) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+        PrintBoxWidths(neighbour-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a20cea54041981db2aa2e94cb4db7b4cf">neighbour</a>(<a class="code" href="blobbox_8h.html#a4974474b3b161b68355d9a16eeaa3883a29aa5ffa693a9ac7e91c8c59e037509c">BND_ABOVE</a>));
+      <span class="keywordflow">if</span> (neighbour-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a20cea54041981db2aa2e94cb4db7b4cf">neighbour</a>(<a class="code" href="blobbox_8h.html#a4974474b3b161b68355d9a16eeaa3883a898fc0442f50593b8ce360d3253d254d">BND_BELOW</a>) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+        PrintBoxWidths(neighbour-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a20cea54041981db2aa2e94cb4db7b4cf">neighbour</a>(<a class="code" href="blobbox_8h.html#a4974474b3b161b68355d9a16eeaa3883a898fc0442f50593b8ce360d3253d254d">BND_BELOW</a>));
+      <span class="keywordtype">int</span> gaps[<a class="code" href="blobbox_8h.html#a4974474b3b161b68355d9a16eeaa3883a0f3b81ac0cbf413ac18c6de98cd69921">BND_COUNT</a>];
+      neighbour-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#ab4222cadac89dc2c9675d35cf2170042">NeighbourGaps</a>(gaps);
+      <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Left gap=%d, right=%d, above=%d, below=%d, horz=%d, vert=%d\n&quot;</span>
+              <span class="stringliteral">&quot;Good=    %d        %d        %d        %d\n&quot;</span>,
+              gaps[<a class="code" href="blobbox_8h.html#a4974474b3b161b68355d9a16eeaa3883a34eeb3a076f3bbcb32d47b74ee3cee86">BND_LEFT</a>], gaps[<a class="code" href="blobbox_8h.html#a4974474b3b161b68355d9a16eeaa3883ac0391ea6a5bf43f7735142e9ae87a62f">BND_RIGHT</a>],
+              gaps[<a class="code" href="blobbox_8h.html#a4974474b3b161b68355d9a16eeaa3883a29aa5ffa693a9ac7e91c8c59e037509c">BND_ABOVE</a>], gaps[<a class="code" href="blobbox_8h.html#a4974474b3b161b68355d9a16eeaa3883a898fc0442f50593b8ce360d3253d254d">BND_BELOW</a>],
+              neighbour-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a9009e27a6c6f2025035170850dcf62c2">horz_possible</a>(),
+              neighbour-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a4ab21b274ede7a7080d5b2bca8f2c268">vert_possible</a>(),
+              neighbour-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#ac975a83c42bf7f9e07e06eedea3d67a7">good_stroke_neighbour</a>(BND_LEFT),
+              neighbour-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#ac975a83c42bf7f9e07e06eedea3d67a7">good_stroke_neighbour</a>(BND_RIGHT),
+              neighbour-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#ac975a83c42bf7f9e07e06eedea3d67a7">good_stroke_neighbour</a>(BND_ABOVE),
+              neighbour-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#ac975a83c42bf7f9e07e06eedea3d67a7">good_stroke_neighbour</a>(BND_BELOW));
+      <span class="keywordflow">break</span>;
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a726e68e695eceafbf22602ba8c563c4a"></a><!-- doxytag: member="tesseract::StrokeWidth::RemoveLineResidue" ref="a726e68e695eceafbf22602ba8c563c4a" args="(ColPartition_LIST *big_part_list)" -->
@@ -367,6 +508,56 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="strokewidth_8cpp_source.html#l00292">292</a> of file <a class="el" href="strokewidth_8cpp_source.html">strokewidth.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                    {
+  <a class="code" href="namespacetesseract.html#a2681de132e11a73d6fc4f281b2750109">BlobGridSearch</a> gsearch(<span class="keyword">this</span>);
+  <a class="code" href="class_b_l_o_b_n_b_o_x.html">BLOBNBOX</a>* bbox;
+  <span class="comment">// For every vertical line-like bbox in the grid, search its neighbours</span>
+  <span class="comment">// to find the tallest, and if the original box is taller by sufficient</span>
+  <span class="comment">// margin, then call it line residue and delete it.</span>
+  gsearch.StartFullSearch();
+  <span class="keywordflow">while</span> ((bbox = gsearch.NextFullSearch()) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="class_t_b_o_x.html">TBOX</a> box = bbox-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a7b97b8bc16b1473a28f9c44011522f4e">bounding_box</a>();
+    <span class="keywordflow">if</span> (box.<a class="code" href="class_t_b_o_x.html#a8379d4bbc72bdbb1f069fc14790e632d">height</a>() &lt; box.<a class="code" href="class_t_b_o_x.html#af95494a2ccacc70cc2b83820b2948619">width</a>() * <a class="code" href="namespacetesseract.html#a84872b3032afddbed37888802b109b56">kLineResidueAspectRatio</a>)
+      <span class="keywordflow">continue</span>;
+    <span class="comment">// Set up a rectangle search around the blob to find the size of its</span>
+    <span class="comment">// neighbours.</span>
+    <span class="keywordtype">int</span> padding = box.<a class="code" href="class_t_b_o_x.html#a8379d4bbc72bdbb1f069fc14790e632d">height</a>() * <a class="code" href="namespacetesseract.html#a1a706351c04a309beaf8be435136baac">kLineResiduePadRatio</a>;
+    <a class="code" href="class_t_b_o_x.html">TBOX</a> search_box = box;
+    search_box.<a class="code" href="class_t_b_o_x.html#ad78f4f7e9746def02b0d2e8e8a2b3ceb">pad</a>(padding, padding);
+    <span class="keywordtype">bool</span> debug = <a class="code" href="classtesseract_1_1_aligned_blob.html#a357ff9e1d9bac2b1d88fb0d335fa7f3e">AlignedBlob::WithinTestRegion</a>(2, box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>(),
+                                               box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>());
+    <span class="comment">// Find the largest object in the search box not equal to bbox.</span>
+    <a class="code" href="namespacetesseract.html#a2681de132e11a73d6fc4f281b2750109">BlobGridSearch</a> rsearch(<span class="keyword">this</span>);
+    <span class="keywordtype">int</span> max_size = 0;
+    <a class="code" href="class_b_l_o_b_n_b_o_x.html">BLOBNBOX</a>* n;
+    rsearch.StartRectSearch(search_box);
+    <span class="keywordflow">while</span> ((n = rsearch.NextRectSearch()) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      <span class="keywordflow">if</span> (n == bbox) <span class="keywordflow">continue</span>;
+      <a class="code" href="class_t_b_o_x.html">TBOX</a> nbox = n-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a7b97b8bc16b1473a28f9c44011522f4e">bounding_box</a>();
+      <span class="keywordflow">if</span> (nbox.<a class="code" href="class_t_b_o_x.html#a8379d4bbc72bdbb1f069fc14790e632d">height</a>() &gt; max_size) {
+        max_size = nbox.<a class="code" href="class_t_b_o_x.html#a8379d4bbc72bdbb1f069fc14790e632d">height</a>();
+      }
+    }
+    <span class="keywordflow">if</span> (debug) {
+      <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Max neighbour size=%d for candidate line box at:&quot;</span>, max_size);
+      box.<a class="code" href="class_t_b_o_x.html#a2e753aa9943276301d68e9f9cad99620">print</a>();
+    }
+    <span class="keywordflow">if</span> (max_size * <a class="code" href="namespacetesseract.html#aad875f37920782a2a2e7acedceefb20f">kLineResidueSizeRatio</a> &lt; box.<a class="code" href="class_t_b_o_x.html#a8379d4bbc72bdbb1f069fc14790e632d">height</a>()) {
+<span class="preprocessor">      #ifndef GRAPHICS_DISABLED</span>
+<span class="preprocessor"></span>      <span class="keywordflow">if</span> (leaders_win_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+        <span class="comment">// We are debugging, so display deleted in pink blobs in the same</span>
+        <span class="comment">// window that we use to display leader detection.</span>
+        leaders_win_-&gt;<a class="code" href="class_scroll_view.html#a79855c525ec660b452382e9813d2edb5">Pen</a>(<a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8aee71d1b0400315f55f86c9723631a10e">ScrollView::PINK</a>);
+        leaders_win_-&gt;<a class="code" href="class_scroll_view.html#ac2a8fdf5d37967ea4a298dc092b6ed0e">Rectangle</a>(box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>(), box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>(),
+                                box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>(), box.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>());
+      }
+<span class="preprocessor">      #endif  // GRAPHICS_DISABLED</span>
+<span class="preprocessor"></span>      <a class="code" href="classtesseract_1_1_col_partition.html#a2baab68bca77728c6b50521131dc9b1a">ColPartition::MakeBigPartition</a>(bbox, big_part_list);
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a8273b43eb6170be582f30d5049aec523"></a><!-- doxytag: member="tesseract::StrokeWidth::SetNeighboursOnMediumBlobs" ref="a8273b43eb6170be582f30d5049aec523" args="(TO_BLOCK *block)" -->
@@ -384,6 +575,17 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="strokewidth_8cpp_source.html#l00154">154</a> of file <a class="el" href="strokewidth_8cpp_source.html">strokewidth.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                            {
+  <span class="comment">// Run a preliminary strokewidth neighbour detection on the medium blobs.</span>
+  <a class="code" href="classtesseract_1_1_blob_grid.html#ae3e2254b403947fc9628221aa3cb5b26">InsertBlobList</a>(&amp;block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#a5dd67c54162a6b60b0fd11500d4a3025">blobs</a>);
+  BLOBNBOX_IT blob_it(&amp;block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#a5dd67c54162a6b60b0fd11500d4a3025">blobs</a>);
+  <span class="keywordflow">for</span> (blob_it.mark_cycle_pt(); !blob_it.cycled_list(); blob_it.forward()) {
+    SetNeighbours(<span class="keyword">false</span>, <span class="keyword">false</span>, blob_it.data());
+  }
+  <a class="code" href="classtesseract_1_1_b_b_grid.html#a0b373075bdfda41719d6fb9a64bcfee0">Clear</a>();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2db693b25f867e5ac21177353f6abcac"></a><!-- doxytag: member="tesseract::StrokeWidth::TestVerticalTextDirection" ref="a2db693b25f867e5ac21177353f6abcac" args="(TO_BLOCK *block, BLOBNBOX_CLIST *osd_blobs)" -->
@@ -411,11 +613,54 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="strokewidth_8cpp_source.html#l00219">219</a> of file <a class="el" href="strokewidth_8cpp_source.html">strokewidth.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                       {
+  <span class="keywordflow">if</span> (<a class="code" href="namespacetesseract.html#ac301261d944fad68a80e922f67a02fa6">textord_tabfind_force_vertical_text</a>) <span class="keywordflow">return</span> <span class="keyword">true</span>;
+  <span class="keywordflow">if</span> (!<a class="code" href="namespacetesseract.html#af8cfa4b20dc36de190500367d58c1ae5">textord_tabfind_vertical_text</a>) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+
+  <span class="keywordtype">int</span> vertical_boxes = 0;
+  <span class="keywordtype">int</span> horizontal_boxes = 0;
+  <span class="comment">// Count vertical normal and large blobs.</span>
+  BLOBNBOX_CLIST vertical_blobs;
+  BLOBNBOX_CLIST horizontal_blobs;
+  BLOBNBOX_CLIST nondescript_blobs;
+  CollectHorizVertBlobs(&amp;block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#a5dd67c54162a6b60b0fd11500d4a3025">blobs</a>, &amp;vertical_boxes, &amp;horizontal_boxes,
+                        &amp;vertical_blobs, &amp;horizontal_blobs, &amp;nondescript_blobs);
+  CollectHorizVertBlobs(&amp;block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#aafe2a9baa69300ee71da42e6dc18cfee">large_blobs</a>, &amp;vertical_boxes, &amp;horizontal_boxes,
+                        &amp;vertical_blobs, &amp;horizontal_blobs, &amp;nondescript_blobs);
+  <span class="keywordflow">if</span> (<a class="code" href="alignedblob_8cpp.html#ace3f88c2ebef0843236018cd170eea14">textord_debug_tabfind</a>)
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;TextDir hbox=%d vs vbox=%d, %dH, %dV, %dN osd blobs\n&quot;</span>,
+            horizontal_boxes, vertical_boxes,
+            horizontal_blobs.length(), vertical_blobs.length(),
+            nondescript_blobs.length());
+  <span class="keywordflow">if</span> (osd_blobs != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp; vertical_boxes == 0 &amp;&amp; horizontal_boxes == 0) {
+    <span class="comment">// Only nondescript blobs available, so return those.</span>
+    BLOBNBOX_C_IT osd_it(osd_blobs);
+    osd_it.add_list_after(&amp;nondescript_blobs);
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+  <span class="keywordtype">int</span> min_vert_boxes = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>((vertical_boxes + horizontal_boxes) *
+                                        <a class="code" href="namespacetesseract.html#a7d8b2088f3354a58c4ebcf648b6cf700">textord_tabfind_vertical_text_ratio</a>);
+  <span class="keywordflow">if</span> (vertical_boxes &gt;= min_vert_boxes) {
+    <span class="keywordflow">if</span> (osd_blobs != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      BLOBNBOX_C_IT osd_it(osd_blobs);
+      osd_it.add_list_after(&amp;vertical_blobs);
+    }
+    <span class="keywordflow">return</span> <span class="keyword">true</span>;
+  } <span class="keywordflow">else</span> {
+    <span class="keywordflow">if</span> (osd_blobs != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      BLOBNBOX_C_IT osd_it(osd_blobs);
+      osd_it.add_list_after(&amp;horizontal_blobs);
+    }
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+}
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/textord/<a class="el" href="strokewidth_8h_source.html">strokewidth.h</a></li>
-<li>tesseract-ocr/textord/<a class="el" href="strokewidth_8cpp.html">strokewidth.cpp</a></li>
+<li>tesseract-ocr/textord/<a class="el" href="strokewidth_8cpp_source.html">strokewidth.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -438,7 +683,7 @@ Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:17 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:53 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

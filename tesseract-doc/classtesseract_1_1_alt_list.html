@@ -135,7 +135,10 @@ Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_alt_list.html#afad648f9ceb847661f71cab87c00e208">alt_cost_</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void **&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_alt_list.html#a9c30e8b6c8fd2346184b0180ff5af4d6">alt_tag_</a></td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="altlist_8h_source.html#l00030">30</a> of file <a class="el" href="altlist_8h_source.html">altlist.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a8469cc99ad3fdad109ba6df979ca9cfe"></a><!-- doxytag: member="tesseract::AltList::AltList" ref="a8469cc99ad3fdad109ba6df979ca9cfe" args="(int max_alt)" -->
 <div class="memitem">
 <div class="memproto">
@@ -151,6 +154,14 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="altlist_8cpp_source.html#l00025">25</a> of file <a class="el" href="altlist_8cpp_source.html">altlist.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                            {
+  <a class="code" href="classtesseract_1_1_alt_list.html#af2feccb6f1085ac6c1884a0440c47578">max_alt_</a> = max_alt;
+  <a class="code" href="classtesseract_1_1_alt_list.html#a5a4e150fef9c9beb9cfbf6529cf8b467">alt_cnt_</a> = 0;
+  <a class="code" href="classtesseract_1_1_alt_list.html#afad648f9ceb847661f71cab87c00e208">alt_cost_</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <a class="code" href="classtesseract_1_1_alt_list.html#a9c30e8b6c8fd2346184b0180ff5af4d6">alt_tag_</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a0f9763670aea57c9b9b3e958ce0a5464"></a><!-- doxytag: member="tesseract::AltList::~AltList" ref="a0f9763670aea57c9b9b3e958ce0a5464" args="()" -->
@@ -167,6 +178,19 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="altlist_8cpp_source.html#l00032">32</a> of file <a class="el" href="altlist_8cpp_source.html">altlist.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                  {
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_alt_list.html#afad648f9ceb847661f71cab87c00e208">alt_cost_</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keyword">delete</span> []<a class="code" href="classtesseract_1_1_alt_list.html#afad648f9ceb847661f71cab87c00e208">alt_cost_</a>;
+    <a class="code" href="classtesseract_1_1_alt_list.html#afad648f9ceb847661f71cab87c00e208">alt_cost_</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_alt_list.html#a9c30e8b6c8fd2346184b0180ff5af4d6">alt_tag_</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keyword">delete</span> []<a class="code" href="classtesseract_1_1_alt_list.html#a9c30e8b6c8fd2346184b0180ff5af4d6">alt_tag_</a>;
+    <a class="code" href="classtesseract_1_1_alt_list.html#a9c30e8b6c8fd2346184b0180ff5af4d6">alt_tag_</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -185,6 +209,9 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="altlist_8h_source.html#l00041">41</a> of file <a class="el" href="altlist_8h_source.html">altlist.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_alt_list.html#afad648f9ceb847661f71cab87c00e208">alt_cost_</a>[alt_idx]; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aadb48ec686ebb9f9c2873c2153da8825"></a><!-- doxytag: member="tesseract::AltList::AltCount" ref="aadb48ec686ebb9f9c2873c2153da8825" args="() const " -->
@@ -201,6 +228,9 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="altlist_8h_source.html#l00039">39</a> of file <a class="el" href="altlist_8h_source.html">altlist.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_alt_list.html#a5a4e150fef9c9beb9cfbf6529cf8b467">alt_cnt_</a>; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aae2b790bbc85ca17d3c96bb67b56df80"></a><!-- doxytag: member="tesseract::AltList::AltProb" ref="aae2b790bbc85ca17d3c96bb67b56df80" args="(int alt_idx) const " -->
@@ -218,6 +248,11 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="altlist_8h_source.html#l00043">43</a> of file <a class="el" href="altlist_8h_source.html">altlist.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                           {
+    <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_cube_utils.html#abe90a391bde5178077826ef3dc574d1d">CubeUtils::Cost2Prob</a>(<a class="code" href="classtesseract_1_1_alt_list.html#a306aeb11c4477af0309561ceb5da404e">AltCost</a>(alt_idx));
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3864321e544f4cb5d2a4caeb954d8b85"></a><!-- doxytag: member="tesseract::AltList::AltTag" ref="a3864321e544f4cb5d2a4caeb954d8b85" args="(int alt_idx) const " -->
@@ -235,6 +270,9 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="altlist_8h_source.html#l00047">47</a> of file <a class="el" href="altlist_8h_source.html">altlist.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_alt_list.html#a9c30e8b6c8fd2346184b0180ff5af4d6">alt_tag_</a>[alt_idx]; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa5fa04cf2bb199215be50307d189aeea"></a><!-- doxytag: member="tesseract::AltList::BestCost" ref="aa5fa04cf2bb199215be50307d189aeea" args="(int *best_alt) const " -->
@@ -252,6 +290,23 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="altlist_8cpp_source.html#l00045">45</a> of file <a class="el" href="altlist_8cpp_source.html">altlist.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                         {
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_alt_list.html#a5a4e150fef9c9beb9cfbf6529cf8b467">alt_cnt_</a> &lt;= 0) {
+    (*best_alt) = -1;
+    <span class="keywordflow">return</span> -1;
+  }
+
+  <span class="keywordtype">int</span> best_alt_idx = 0;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> alt_idx = 1; alt_idx &lt; <a class="code" href="classtesseract_1_1_alt_list.html#a5a4e150fef9c9beb9cfbf6529cf8b467">alt_cnt_</a>; alt_idx++) {
+    <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_alt_list.html#afad648f9ceb847661f71cab87c00e208">alt_cost_</a>[alt_idx] &lt; <a class="code" href="classtesseract_1_1_alt_list.html#afad648f9ceb847661f71cab87c00e208">alt_cost_</a>[best_alt_idx]) {
+      best_alt_idx = alt_idx;
+    }
+  }
+  (*best_alt) = best_alt_idx;
+  <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_alt_list.html#afad648f9ceb847661f71cab87c00e208">alt_cost_</a>[best_alt_idx];
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a20c701f1ff8ef7397a2b3abe661aa403"></a><!-- doxytag: member="tesseract::AltList::Sort" ref="a20c701f1ff8ef7397a2b3abe661aa403" args="()=0" -->
@@ -284,6 +339,8 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="altlist_8h_source.html#l00053">53</a> of file <a class="el" href="altlist_8h_source.html">altlist.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="afad648f9ceb847661f71cab87c00e208"></a><!-- doxytag: member="tesseract::AltList::alt_cost_" ref="afad648f9ceb847661f71cab87c00e208" args="" -->
@@ -296,6 +353,8 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="altlist_8h_source.html#l00055">55</a> of file <a class="el" href="altlist_8h_source.html">altlist.h</a>.</p>
 
 </div>
 </div>
@@ -310,6 +369,8 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="altlist_8h_source.html#l00057">57</a> of file <a class="el" href="altlist_8h_source.html">altlist.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="af2feccb6f1085ac6c1884a0440c47578"></a><!-- doxytag: member="tesseract::AltList::max_alt_" ref="af2feccb6f1085ac6c1884a0440c47578" args="" -->
@@ -323,11 +384,13 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="altlist_8h_source.html#l00051">51</a> of file <a class="el" href="altlist_8h_source.html">altlist.h</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/cube/<a class="el" href="altlist_8h_source.html">altlist.h</a></li>
-<li>tesseract-ocr/cube/<a class="el" href="altlist_8cpp.html">altlist.cpp</a></li>
+<li>tesseract-ocr/cube/<a class="el" href="altlist_8cpp_source.html">altlist.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -350,7 +413,7 @@ Protected Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:15 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:50 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

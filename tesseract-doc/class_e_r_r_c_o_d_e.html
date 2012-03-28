@@ -112,7 +112,10 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (const char *caller, <a class="el" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637">TessErrorLogCode</a> action, const char *format,...) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_r_r_c_o_d_e.html#a254b7f27badabab53217143590a5ef39">ERRCODE</a> (const char *string)</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="errcode_8h_source.html#l00069">69</a> of file <a class="el" href="errcode_8h_source.html">errcode.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a254b7f27badabab53217143590a5ef39"></a><!-- doxytag: member="ERRCODE::ERRCODE" ref="a254b7f27badabab53217143590a5ef39" args="(const char *string)" -->
 <div class="memitem">
 <div class="memproto">
@@ -128,6 +131,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="errcode_8h_source.html#l00077">77</a> of file <a class="el" href="errcode_8h_source.html">errcode.h</a>.</p>
+<div class="fragment"><pre class="fragment">                              {
+    message = string;
+  }                            <span class="comment">// initialize with string</span>
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -168,11 +176,60 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="errcode_8cpp_source.html#l00041">41</a> of file <a class="el" href="errcode_8cpp_source.html">errcode.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">        {
+  va_list args;                  <span class="comment">// variable args</span>
+  <span class="keywordtype">char</span> msg[<a class="code" href="errcode_8cpp.html#aa24597a54a085c6c2c33b64138f09eff">MAX_MSG</a>];
+  <span class="keywordtype">char</span> *msgptr = msg;
+
+  <span class="keywordflow">if</span> (caller != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+                                 <span class="comment">//name of caller</span>
+    msgptr += sprintf (msgptr, <span class="stringliteral">&quot;%s:&quot;</span>, caller);
+                                 <span class="comment">//actual message</span>
+  msgptr += sprintf (msgptr, <span class="stringliteral">&quot;Error:%s&quot;</span>, message);
+  <span class="keywordflow">if</span> (format != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    msgptr += sprintf (msgptr, <span class="stringliteral">&quot;:&quot;</span>);
+    va_start(args, format);  <span class="comment">//variable list</span>
+<span class="preprocessor">    #ifdef _WIN32</span>
+<span class="preprocessor"></span>                                 <span class="comment">//print remainder</span>
+    msgptr += _vsnprintf (msgptr, <a class="code" href="errcode_8cpp.html#aa24597a54a085c6c2c33b64138f09eff">MAX_MSG</a> - 2 - (msgptr - msg), format, args);
+    msg[<a class="code" href="errcode_8cpp.html#aa24597a54a085c6c2c33b64138f09eff">MAX_MSG</a> - 2] = <span class="charliteral">&#39;\0&#39;</span>;     <span class="comment">//ensure termination</span>
+    strcat (msg, <span class="stringliteral">&quot;\n&quot;</span>);
+<span class="preprocessor">    #else</span>
+<span class="preprocessor"></span>                                 <span class="comment">//print remainder</span>
+    msgptr += vsprintf (msgptr, format, args);
+                                 <span class="comment">//no specific</span>
+    msgptr += sprintf (msgptr, <span class="stringliteral">&quot;\n&quot;</span>);
+<span class="preprocessor">    #endif</span>
+<span class="preprocessor"></span>    va_end(args);
+  }
+  <span class="keywordflow">else</span>
+                                 <span class="comment">//no specific</span>
+    msgptr += sprintf (msgptr, <span class="stringliteral">&quot;\n&quot;</span>);
+
+  fprintf(stderr, msg);
+
+  <span class="keywordtype">int</span>* p = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordflow">switch</span> (action) {
+    <span class="keywordflow">case</span> <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a488607ea6c5f90b63a063b953af1e078">DBG</a>:
+    <span class="keywordflow">case</span> <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a13d4c6d048f76d5b02c6f1b70323e770">TESSLOG</a>:
+      <span class="keywordflow">return</span>;                    <span class="comment">//report only</span>
+    <span class="keywordflow">case</span> <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a5e74e236a50519c41cbbcecea29add63">TESSEXIT</a>:
+      <span class="comment">//err_exit();</span>
+    <span class="keywordflow">case</span> <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>:
+      <span class="comment">// Create a deliberate segv as the stack trace is more useful that way.</span>
+      <span class="keywordflow">if</span> (!*p)
+        abort();
+    <span class="keywordflow">default</span>:
+      <a class="code" href="errcode_8cpp.html#a7e1ef09aa091c698c9fe7e38cae89a1c">BADERRACTION</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;error&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  }
+}
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/ccutil/<a class="el" href="errcode_8h_source.html">errcode.h</a></li>
-<li>tesseract-ocr/ccutil/<a class="el" href="errcode_8cpp.html">errcode.cpp</a></li>
+<li>tesseract-ocr/ccutil/<a class="el" href="errcode_8cpp_source.html">errcode.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -194,7 +251,7 @@ Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:12 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:45 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

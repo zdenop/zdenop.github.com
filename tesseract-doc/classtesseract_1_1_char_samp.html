@@ -164,7 +164,10 @@ Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_char_samp.html#a4029effcd3c0137b55b256a023a18949">AuxFeatureCnt</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_char_samp.html#aeb6d9f55a5b4f1cb127b5c0536c44007">LabelLen</a> (const <a class="el" href="namespacetesseract.html#aea2c6172b0ca77907e29cd018595b425">char_32</a> *label32)</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="char__samp_8h_source.html#l00039">39</a> of file <a class="el" href="char__samp_8h_source.html">char_samp.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a38afcea73865907b1b87ca836ea7992b"></a><!-- doxytag: member="tesseract::CharSamp::CharSamp" ref="a38afcea73865907b1b87ca836ea7992b" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -179,6 +182,14 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__samp_8cpp_source.html#l00029">29</a> of file <a class="el" href="char__samp_8cpp_source.html">char_samp.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">    : <a class="code" href="classtesseract_1_1_bmp8.html#a5814f6e19d868ea36dc646aa645ec9ae">Bmp8</a>(0, 0) {
+  left_ = 0;
+  top_ = 0;
+  label32_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  page_ = -1;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab58985de88cbb742fde27f01006e1f2e"></a><!-- doxytag: member="tesseract::CharSamp::CharSamp" ref="ab58985de88cbb742fde27f01006e1f2e" args="(int wid, int hgt)" -->
@@ -206,6 +217,14 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__samp_8cpp_source.html#l00037">37</a> of file <a class="el" href="char__samp_8cpp_source.html">char_samp.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">    : <a class="code" href="classtesseract_1_1_bmp8.html#a5814f6e19d868ea36dc646aa645ec9ae">Bmp8</a>(wid, hgt) {
+  left_ = 0;
+  top_ = 0;
+  label32_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  page_ = -1;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9d0365728b2e97e8e58e279f785885af"></a><!-- doxytag: member="tesseract::CharSamp::CharSamp" ref="a9d0365728b2e97e8e58e279f785885af" args="(int left, int top, int wid, int hgt)" -->
@@ -245,6 +264,14 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__samp_8cpp_source.html#l00045">45</a> of file <a class="el" href="char__samp_8cpp_source.html">char_samp.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">    : <a class="code" href="classtesseract_1_1_bmp8.html#a5814f6e19d868ea36dc646aa645ec9ae">Bmp8</a>(wid, hgt)
+    , left_(left)
+    , top_(top) {
+  label32_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  page_ = -1;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a484bb5304c3242a8e0acd7e363a950ce"></a><!-- doxytag: member="tesseract::CharSamp::~CharSamp" ref="a484bb5304c3242a8e0acd7e363a950ce" args="()" -->
@@ -261,6 +288,14 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__samp_8cpp_source.html#l00053">53</a> of file <a class="el" href="char__samp_8cpp_source.html">char_samp.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                    {
+  <span class="keywordflow">if</span> (label32_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keyword">delete</span> []label32_;
+    label32_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -278,6 +313,9 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__samp_8h_source.html#l00138">138</a> of file <a class="el" href="char__samp_8h_source.html">char_samp.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> (5); }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a347842b37a6af68a7c53b99460706ee6"></a><!-- doxytag: member="tesseract::CharSamp::Bottom" ref="a347842b37a6af68a7c53b99460706ee6" args="() const " -->
@@ -294,6 +332,9 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__samp_8h_source.html#l00049">49</a> of file <a class="el" href="char__samp_8h_source.html">char_samp.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> top_ + <a class="code" href="classtesseract_1_1_bmp8.html#a62d633750ad515b99eda172efccc7b55">hgt_</a>; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aae24be60c2be99a00c76bbc6f102cecf"></a><!-- doxytag: member="tesseract::CharSamp::Clone" ref="aae24be60c2be99a00c76bbc6f102cecf" args="() const " -->
@@ -310,6 +351,21 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__samp_8cpp_source.html#l00575">575</a> of file <a class="el" href="char__samp_8cpp_source.html">char_samp.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                {
+  <span class="comment">// create the cropped char samp</span>
+  <a class="code" href="classtesseract_1_1_char_samp.html#a38afcea73865907b1b87ca836ea7992b">CharSamp</a> *samp = <span class="keyword">new</span> <a class="code" href="classtesseract_1_1_char_samp.html#a38afcea73865907b1b87ca836ea7992b">CharSamp</a>(left_, top_, <a class="code" href="classtesseract_1_1_bmp8.html#aefc333b9afa85c20f0daed573021fedf">wid_</a>, <a class="code" href="classtesseract_1_1_bmp8.html#a62d633750ad515b99eda172efccc7b55">hgt_</a>);
+  samp-&gt;SetLabel(label32_);
+  samp-&gt;SetFirstChar(first_char_);
+  samp-&gt;SetLastChar(last_char_);
+  samp-&gt;SetNormTop(norm_top_);
+  samp-&gt;SetNormBottom(norm_bottom_);
+  samp-&gt;SetNormAspectRatio(norm_aspect_ratio_);
+  <span class="comment">// copy the bitmap to the cropped img</span>
+  <a class="code" href="classtesseract_1_1_bmp8.html#aef4e553b550e2fc133fda73ce36a82bd">Copy</a>(0, 0, <a class="code" href="classtesseract_1_1_bmp8.html#aefc333b9afa85c20f0daed573021fedf">wid_</a>, <a class="code" href="classtesseract_1_1_bmp8.html#a62d633750ad515b99eda172efccc7b55">hgt_</a>, samp);
+  <span class="keywordflow">return</span> samp;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a947af06d45b0af633fefa5bb7fd0249c"></a><!-- doxytag: member="tesseract::CharSamp::ComputeFeatures" ref="a947af06d45b0af633fefa5bb7fd0249c" args="(int conv_grid_size, float *features)" -->
@@ -337,6 +393,31 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__samp_8cpp_source.html#l00656">656</a> of file <a class="el" href="char__samp_8cpp_source.html">char_samp.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                  {
+  <span class="comment">// Create a scaled BMP</span>
+  <a class="code" href="classtesseract_1_1_char_samp.html#a38afcea73865907b1b87ca836ea7992b">CharSamp</a> *scaled_bmp = <a class="code" href="classtesseract_1_1_char_samp.html#ae487ef754f7b0cad136a96af9db992bc">Scale</a>(conv_grid_size, conv_grid_size);
+  <span class="keywordflow">if</span> (!scaled_bmp) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+  <span class="comment">// prepare input</span>
+  <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *buff = scaled_bmp-&gt;RawData();
+  <span class="comment">// bitmap features</span>
+  <span class="keywordtype">int</span> input;
+  <span class="keywordtype">int</span> bmp_size = conv_grid_size * conv_grid_size;
+  <span class="keywordflow">for</span> (input = 0; input &lt; bmp_size; input++) {
+    features[input] = 255.0f - (1.0f * buff[input]);
+  }
+  <span class="comment">// word context features</span>
+  features[input++] = <a class="code" href="classtesseract_1_1_char_samp.html#afd204abdb0c52a81e09a30d88bcf4109">FirstChar</a>();
+  features[input++] = <a class="code" href="classtesseract_1_1_char_samp.html#a91dc85f7e1c01ce837c6493838bad64d">LastChar</a>();
+  features[input++] = <a class="code" href="classtesseract_1_1_char_samp.html#a9e6cc2565ed9a4b37cc5f2485cc1d61a">NormTop</a>();
+  features[input++] = <a class="code" href="classtesseract_1_1_char_samp.html#af1259ad6f4037f67e442127945c6095f">NormBottom</a>();
+  features[input++] = <a class="code" href="classtesseract_1_1_char_samp.html#ab1b02918e3b38091bb616c818c131dd1">NormAspectRatio</a>();
+  <span class="keyword">delete</span> scaled_bmp;
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="af54aab3c1893ba9aec816015a1a9c9a4"></a><!-- doxytag: member="tesseract::CharSamp::Crop" ref="af54aab3c1893ba9aec816015a1a9c9a4" args="()" -->
@@ -353,6 +434,39 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__samp_8cpp_source.html#l00358">358</a> of file <a class="el" href="char__samp_8cpp_source.html">char_samp.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                         {
+  <span class="comment">// get the dimesions of the cropped img</span>
+  <span class="keywordtype">int</span> cropped_left = 0;
+  <span class="keywordtype">int</span> cropped_top = 0;
+  <span class="keywordtype">int</span> cropped_wid = <a class="code" href="classtesseract_1_1_bmp8.html#aefc333b9afa85c20f0daed573021fedf">wid_</a>;
+  <span class="keywordtype">int</span> cropped_hgt = <a class="code" href="classtesseract_1_1_bmp8.html#a62d633750ad515b99eda172efccc7b55">hgt_</a>;
+  <a class="code" href="classtesseract_1_1_char_samp.html#af54aab3c1893ba9aec816015a1a9c9a4">Bmp8::Crop</a>(&amp;cropped_left, &amp;cropped_top,
+             &amp;cropped_wid, &amp;cropped_hgt);
+
+  <span class="keywordflow">if</span> (cropped_wid == 0 || cropped_hgt == 0) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="comment">// create the cropped char samp</span>
+  <a class="code" href="classtesseract_1_1_char_samp.html#a38afcea73865907b1b87ca836ea7992b">CharSamp</a> *cropped_samp = <span class="keyword">new</span> <a class="code" href="classtesseract_1_1_char_samp.html#a38afcea73865907b1b87ca836ea7992b">CharSamp</a>(left_ + cropped_left,
+                                        top_ + cropped_top,
+                                        cropped_wid, cropped_hgt);
+  cropped_samp-&gt;SetLabel(label32_);
+  cropped_samp-&gt;SetFirstChar(first_char_);
+  cropped_samp-&gt;SetLastChar(last_char_);
+  <span class="comment">// the following 3 fields may/should be reset by the calling function</span>
+  <span class="comment">// using context information, i.e., location of character box</span>
+  <span class="comment">// w.r.t. the word bounding box</span>
+  cropped_samp-&gt;SetNormAspectRatio(255 *
+                                   cropped_wid / (cropped_wid + cropped_hgt));
+  cropped_samp-&gt;SetNormTop(0);
+  cropped_samp-&gt;SetNormBottom(255);
+
+  <span class="comment">// copy the bitmap to the cropped img</span>
+  <a class="code" href="classtesseract_1_1_bmp8.html#aef4e553b550e2fc133fda73ce36a82bd">Copy</a>(cropped_left, cropped_top, cropped_wid, cropped_hgt, cropped_samp);
+  <span class="keywordflow">return</span> cropped_samp;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="afd204abdb0c52a81e09a30d88bcf4109"></a><!-- doxytag: member="tesseract::CharSamp::FirstChar" ref="afd204abdb0c52a81e09a30d88bcf4109" args="() const " -->
@@ -369,6 +483,9 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__samp_8h_source.html#l00054">54</a> of file <a class="el" href="char__samp_8h_source.html">char_samp.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> first_char_; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a0e2ba1e2f91feb45c21734952fd2d1e5"></a><!-- doxytag: member="tesseract::CharSamp::FromCharDumpFile" ref="a0e2ba1e2f91feb45c21734952fd2d1e5" args="(CachedFile *fp)" -->
@@ -388,6 +505,96 @@ Static Public Member Functions</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classtesseract_1_1_bmp8.html#a87f09331b7353eab10bc5dff5bff7898">tesseract::Bmp8</a>.</p>
 
+<p>Definition at line <a class="el" href="char__samp_8cpp_source.html#l00082">82</a> of file <a class="el" href="char__samp_8cpp_source.html">char_samp.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                   {
+  <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> left;
+  <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> top;
+  <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> page;
+  <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> first_char;
+  <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> last_char;
+  <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> norm_top;
+  <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> norm_bottom;
+  <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> norm_aspect_ratio;
+  <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> val32;
+
+  <a class="code" href="namespacetesseract.html#aea2c6172b0ca77907e29cd018595b425">char_32</a> *label32;
+
+  <span class="comment">// read and check 32 bit marker</span>
+  <span class="keywordflow">if</span> (fp-&gt;Read(&amp;val32, <span class="keyword">sizeof</span>(val32)) != <span class="keyword">sizeof</span>(val32)) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="keywordflow">if</span> (val32 != 0xabd0fefe) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="comment">// read label length,</span>
+  <span class="keywordflow">if</span> (fp-&gt;Read(&amp;val32, <span class="keyword">sizeof</span>(val32)) != <span class="keyword">sizeof</span>(val32)) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="comment">// the label is not null terminated in the file</span>
+  <span class="keywordflow">if</span> (val32 &gt; 0) {
+    label32 = <span class="keyword">new</span> <a class="code" href="namespacetesseract.html#aea2c6172b0ca77907e29cd018595b425">char_32</a>[val32 + 1];
+    <span class="keywordflow">if</span> (label32 == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    }
+    <span class="comment">// read label</span>
+    <span class="keywordflow">if</span> (fp-&gt;Read(label32, val32 * <span class="keyword">sizeof</span>(*label32)) !=
+        (val32 * <span class="keyword">sizeof</span>(*label32))) {
+      <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    }
+    <span class="comment">// null terminate</span>
+    label32[val32] = 0;
+  } <span class="keywordflow">else</span> {
+    label32 = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="comment">// read coordinates</span>
+  <span class="keywordflow">if</span> (fp-&gt;Read(&amp;page, <span class="keyword">sizeof</span>(page)) != <span class="keyword">sizeof</span>(page)) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="keywordflow">if</span> (fp-&gt;Read(&amp;left, <span class="keyword">sizeof</span>(left)) != <span class="keyword">sizeof</span>(left)) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="keywordflow">if</span> (fp-&gt;Read(&amp;top, <span class="keyword">sizeof</span>(top)) != <span class="keyword">sizeof</span>(top)) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="keywordflow">if</span> (fp-&gt;Read(&amp;first_char, <span class="keyword">sizeof</span>(first_char)) != <span class="keyword">sizeof</span>(first_char)) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="keywordflow">if</span> (fp-&gt;Read(&amp;last_char, <span class="keyword">sizeof</span>(last_char)) != <span class="keyword">sizeof</span>(last_char)) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="keywordflow">if</span> (fp-&gt;Read(&amp;norm_top, <span class="keyword">sizeof</span>(norm_top)) != <span class="keyword">sizeof</span>(norm_top)) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="keywordflow">if</span> (fp-&gt;Read(&amp;norm_bottom, <span class="keyword">sizeof</span>(norm_bottom)) != <span class="keyword">sizeof</span>(norm_bottom)) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="keywordflow">if</span> (fp-&gt;Read(&amp;norm_aspect_ratio, <span class="keyword">sizeof</span>(norm_aspect_ratio)) !=
+      <span class="keyword">sizeof</span>(norm_aspect_ratio)) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="comment">// create the object</span>
+  <a class="code" href="classtesseract_1_1_char_samp.html#a38afcea73865907b1b87ca836ea7992b">CharSamp</a> *char_samp = <span class="keyword">new</span> <a class="code" href="classtesseract_1_1_char_samp.html#a38afcea73865907b1b87ca836ea7992b">CharSamp</a>();
+  <span class="keywordflow">if</span> (char_samp == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="comment">// init</span>
+  char_samp-&gt;label32_ = label32;
+  char_samp-&gt;page_ = page;
+  char_samp-&gt;left_ = left;
+  char_samp-&gt;top_ = top;
+  char_samp-&gt;first_char_ = first_char;
+  char_samp-&gt;last_char_ = last_char;
+  char_samp-&gt;norm_top_ = norm_top;
+  char_samp-&gt;norm_bottom_ = norm_bottom;
+  char_samp-&gt;norm_aspect_ratio_ = norm_aspect_ratio;
+  <span class="comment">// load the Bmp8 part</span>
+  <span class="keywordflow">if</span> (char_samp-&gt;LoadFromCharDumpFile(fp) == <span class="keyword">false</span>) {
+    <span class="keyword">delete</span> char_samp;
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="keywordflow">return</span> char_samp;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3df91384e4ac0b14d181318870c9d0a5"></a><!-- doxytag: member="tesseract::CharSamp::FromCharDumpFile" ref="a3df91384e4ac0b14d181318870c9d0a5" args="(FILE *fp)" -->
@@ -407,6 +614,94 @@ Static Public Member Functions</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classtesseract_1_1_bmp8.html#a652208bad9349414eb27b43a76c1b6d9">tesseract::Bmp8</a>.</p>
 
+<p>Definition at line <a class="el" href="char__samp_8cpp_source.html#l00172">172</a> of file <a class="el" href="char__samp_8cpp_source.html">char_samp.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                             {
+  <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> left;
+  <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> top;
+  <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> page;
+  <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> first_char;
+  <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> last_char;
+  <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> norm_top;
+  <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> norm_bottom;
+  <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> norm_aspect_ratio;
+  <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> val32;
+  <a class="code" href="namespacetesseract.html#aea2c6172b0ca77907e29cd018595b425">char_32</a> *label32;
+
+  <span class="comment">// read and check 32 bit marker</span>
+  <span class="keywordflow">if</span> (fread(&amp;val32, 1, <span class="keyword">sizeof</span>(val32), fp) != <span class="keyword">sizeof</span>(val32)) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="keywordflow">if</span> (val32 != 0xabd0fefe) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="comment">// read label length,</span>
+  <span class="keywordflow">if</span> (fread(&amp;val32, 1, <span class="keyword">sizeof</span>(val32), fp) != <span class="keyword">sizeof</span>(val32)) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="comment">// the label is not null terminated in the file</span>
+  <span class="keywordflow">if</span> (val32 &gt; 0) {
+    label32 = <span class="keyword">new</span> <a class="code" href="namespacetesseract.html#aea2c6172b0ca77907e29cd018595b425">char_32</a>[val32 + 1];
+    <span class="keywordflow">if</span> (label32 == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    }
+    <span class="comment">// read label</span>
+    <span class="keywordflow">if</span> (fread(label32, 1, val32 * <span class="keyword">sizeof</span>(*label32), fp) !=
+        (val32 * <span class="keyword">sizeof</span>(*label32))) {
+      <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    }
+    <span class="comment">// null terminate</span>
+    label32[val32] = 0;
+  } <span class="keywordflow">else</span> {
+    label32 = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="comment">// read coordinates</span>
+  <span class="keywordflow">if</span> (fread(&amp;page, 1, <span class="keyword">sizeof</span>(page), fp) != <span class="keyword">sizeof</span>(page)) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="keywordflow">if</span> (fread(&amp;left, 1, <span class="keyword">sizeof</span>(left), fp) != <span class="keyword">sizeof</span>(left)) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="keywordflow">if</span> (fread(&amp;top, 1, <span class="keyword">sizeof</span>(top), fp) != <span class="keyword">sizeof</span>(top)) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="keywordflow">if</span> (fread(&amp;first_char, 1, <span class="keyword">sizeof</span>(first_char), fp) != <span class="keyword">sizeof</span>(first_char)) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="keywordflow">if</span> (fread(&amp;last_char, 1, <span class="keyword">sizeof</span>(last_char), fp) != <span class="keyword">sizeof</span>(last_char)) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="keywordflow">if</span> (fread(&amp;norm_top, 1, <span class="keyword">sizeof</span>(norm_top), fp) != <span class="keyword">sizeof</span>(norm_top)) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="keywordflow">if</span> (fread(&amp;norm_bottom, 1, <span class="keyword">sizeof</span>(norm_bottom), fp) != <span class="keyword">sizeof</span>(norm_bottom)) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="keywordflow">if</span> (fread(&amp;norm_aspect_ratio, 1, <span class="keyword">sizeof</span>(norm_aspect_ratio), fp) !=
+      <span class="keyword">sizeof</span>(norm_aspect_ratio)) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="comment">// create the object</span>
+  <a class="code" href="classtesseract_1_1_char_samp.html#a38afcea73865907b1b87ca836ea7992b">CharSamp</a> *char_samp = <span class="keyword">new</span> <a class="code" href="classtesseract_1_1_char_samp.html#a38afcea73865907b1b87ca836ea7992b">CharSamp</a>();
+  <span class="keywordflow">if</span> (char_samp == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="comment">// init</span>
+  char_samp-&gt;label32_ = label32;
+  char_samp-&gt;page_ = page;
+  char_samp-&gt;left_ = left;
+  char_samp-&gt;top_ = top;
+  char_samp-&gt;first_char_ = first_char;
+  char_samp-&gt;last_char_ = last_char;
+  char_samp-&gt;norm_top_ = norm_top;
+  char_samp-&gt;norm_bottom_ = norm_bottom;
+  char_samp-&gt;norm_aspect_ratio_ = norm_aspect_ratio;
+  <span class="comment">// load the Bmp8 part</span>
+  <span class="keywordflow">if</span> (char_samp-&gt;LoadFromCharDumpFile(fp) == <span class="keyword">false</span>) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="keywordflow">return</span> char_samp;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a1831d4cb3ebab7726f4bcea6f69aa18d"></a><!-- doxytag: member="tesseract::CharSamp::FromCharDumpFile" ref="a1831d4cb3ebab7726f4bcea6f69aa18d" args="(unsigned char **raw_data)" -->
@@ -424,6 +719,72 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__samp_8cpp_source.html#l00590">590</a> of file <a class="el" href="char__samp_8cpp_source.html">char_samp.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                 {
+  <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> val32;
+  <a class="code" href="namespacetesseract.html#aea2c6172b0ca77907e29cd018595b425">char_32</a> *label32;
+  <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *raw_data = *raw_data_ptr;
+
+  <span class="comment">// read and check 32 bit marker</span>
+  memcpy(&amp;val32, raw_data, <span class="keyword">sizeof</span>(val32));
+  raw_data += <span class="keyword">sizeof</span>(val32);
+  <span class="keywordflow">if</span> (val32 != 0xabd0fefe) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="comment">// read label length,</span>
+  memcpy(&amp;val32, raw_data, <span class="keyword">sizeof</span>(val32));
+  raw_data += <span class="keyword">sizeof</span>(val32);
+  <span class="comment">// the label is not null terminated in the file</span>
+  <span class="keywordflow">if</span> (val32 &gt; 0) {
+    label32 = <span class="keyword">new</span> <a class="code" href="namespacetesseract.html#aea2c6172b0ca77907e29cd018595b425">char_32</a>[val32 + 1];
+    <span class="keywordflow">if</span> (label32 == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    }
+    <span class="comment">// read label</span>
+    memcpy(label32, raw_data, val32 * <span class="keyword">sizeof</span>(*label32));
+    raw_data += (val32 * <span class="keyword">sizeof</span>(*label32));
+    <span class="comment">// null terminate</span>
+    label32[val32] = 0;
+  } <span class="keywordflow">else</span> {
+    label32 = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="comment">// create the object</span>
+  <a class="code" href="classtesseract_1_1_char_samp.html#a38afcea73865907b1b87ca836ea7992b">CharSamp</a> *char_samp = <span class="keyword">new</span> <a class="code" href="classtesseract_1_1_char_samp.html#a38afcea73865907b1b87ca836ea7992b">CharSamp</a>();
+  <span class="keywordflow">if</span> (char_samp == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="comment">// read coordinates</span>
+  char_samp-&gt;label32_ = label32;
+  memcpy(&amp;char_samp-&gt;page_, raw_data, <span class="keyword">sizeof</span>(char_samp-&gt;page_));
+  raw_data += <span class="keyword">sizeof</span>(char_samp-&gt;page_);
+  memcpy(&amp;char_samp-&gt;left_, raw_data, <span class="keyword">sizeof</span>(char_samp-&gt;left_));
+  raw_data += <span class="keyword">sizeof</span>(char_samp-&gt;left_);
+  memcpy(&amp;char_samp-&gt;top_, raw_data, <span class="keyword">sizeof</span>(char_samp-&gt;top_));
+  raw_data += <span class="keyword">sizeof</span>(char_samp-&gt;top_);
+  memcpy(&amp;char_samp-&gt;first_char_, raw_data, <span class="keyword">sizeof</span>(char_samp-&gt;first_char_));
+  raw_data += <span class="keyword">sizeof</span>(char_samp-&gt;first_char_);
+  memcpy(&amp;char_samp-&gt;last_char_, raw_data, <span class="keyword">sizeof</span>(char_samp-&gt;last_char_));
+  raw_data += <span class="keyword">sizeof</span>(char_samp-&gt;last_char_);
+  memcpy(&amp;char_samp-&gt;norm_top_, raw_data, <span class="keyword">sizeof</span>(char_samp-&gt;norm_top_));
+  raw_data += <span class="keyword">sizeof</span>(char_samp-&gt;norm_top_);
+  memcpy(&amp;char_samp-&gt;norm_bottom_, raw_data, <span class="keyword">sizeof</span>(char_samp-&gt;norm_bottom_));
+  raw_data += <span class="keyword">sizeof</span>(char_samp-&gt;norm_bottom_);
+  memcpy(&amp;char_samp-&gt;norm_aspect_ratio_, raw_data,
+         <span class="keyword">sizeof</span>(char_samp-&gt;norm_aspect_ratio_));
+  raw_data += <span class="keyword">sizeof</span>(char_samp-&gt;norm_aspect_ratio_);
+
+  <span class="comment">// load the Bmp8 part</span>
+  <span class="keywordflow">if</span> (char_samp-&gt;LoadFromCharDumpFile(&amp;raw_data) == <span class="keyword">false</span>) {
+    <span class="keyword">delete</span> char_samp;
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  (*raw_data_ptr) = raw_data;
+  <span class="keywordflow">return</span> char_samp;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9236e114544d03207eb3005e1602c68d"></a><!-- doxytag: member="tesseract::CharSamp::FromConComps" ref="a9236e114544d03207eb3005e1602c68d" args="(ConComp **concomp_array, int strt_concomp, int seg_flags_size, int *seg_flags, bool *left_most, bool *right_most, int word_hgt)" -->
@@ -481,6 +842,111 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__samp_8cpp_source.html#l00467">467</a> of file <a class="el" href="char__samp_8cpp_source.html">char_samp.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                               {
+  <span class="keywordtype">int</span> concomp;
+  <span class="keywordtype">int</span> end_concomp;
+  <span class="keywordtype">int</span> concomp_cnt = 0;
+  end_concomp = strt_concomp + seg_flags_size;
+  <span class="comment">// determine ID range</span>
+  <span class="keywordtype">bool</span> once = <span class="keyword">false</span>;
+  <span class="keywordtype">int</span> min_id = -1;
+  <span class="keywordtype">int</span> max_id = -1;
+  <span class="keywordflow">for</span> (concomp = strt_concomp; concomp &lt; end_concomp; concomp++) {
+    <span class="keywordflow">if</span> (!seg_flags || seg_flags[concomp - strt_concomp] != 0) {
+      <span class="keywordflow">if</span> (!once) {
+        min_id = concomp_array[concomp]-&gt;ID();
+        max_id = concomp_array[concomp]-&gt;ID();
+        once = <span class="keyword">true</span>;
+      } <span class="keywordflow">else</span> {
+        <a class="code" href="helpers_8h.html#a6eb00eb9bc5ed195953f334971c462ae">UpdateRange</a>(concomp_array[concomp]-&gt;ID(), &amp;min_id, &amp;max_id);
+      }
+      concomp_cnt++;
+    }
+  }
+  <span class="keywordflow">if</span> (concomp_cnt &lt; 1 || !once || min_id == -1 || max_id == -1) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="comment">// alloc memo for computing leftmost and right most attributes</span>
+  <span class="keywordtype">int</span> id_cnt = max_id - min_id + 1;
+  <span class="keywordtype">bool</span> *id_exist = <span class="keyword">new</span> <span class="keywordtype">bool</span>[id_cnt];
+  <span class="keywordtype">bool</span> *left_most_exist = <span class="keyword">new</span> <span class="keywordtype">bool</span>[id_cnt];
+  <span class="keywordtype">bool</span> *right_most_exist = <span class="keyword">new</span> <span class="keywordtype">bool</span>[id_cnt];
+  <span class="keywordflow">if</span> (!id_exist || !left_most_exist || !right_most_exist)
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  memset(id_exist, 0, id_cnt * <span class="keyword">sizeof</span>(*id_exist));
+  memset(left_most_exist, 0, id_cnt * <span class="keyword">sizeof</span>(*left_most_exist));
+  memset(right_most_exist, 0, id_cnt * <span class="keyword">sizeof</span>(*right_most_exist));
+  <span class="comment">// find the dimensions of the charsamp</span>
+  once = <span class="keyword">false</span>;
+  <span class="keywordtype">int</span> left = -1;
+  <span class="keywordtype">int</span> right = -1;
+  <span class="keywordtype">int</span> top = -1;
+  <span class="keywordtype">int</span> bottom = -1;
+  <span class="keywordtype">int</span> unq_ids = 0;
+  <span class="keywordtype">int</span> unq_left_most = 0;
+  <span class="keywordtype">int</span> unq_right_most = 0;
+  <span class="keywordflow">for</span> (concomp = strt_concomp; concomp &lt; end_concomp; concomp++) {
+    <span class="keywordflow">if</span> (!seg_flags || seg_flags[concomp - strt_concomp] != 0) {
+      <span class="keywordflow">if</span> (!once) {
+        left = concomp_array[concomp]-&gt;Left();
+        right = concomp_array[concomp]-&gt;Right();
+        top = concomp_array[concomp]-&gt;Top();
+        bottom = concomp_array[concomp]-&gt;Bottom();
+        once = <span class="keyword">true</span>;
+      } <span class="keywordflow">else</span> {
+        <a class="code" href="helpers_8h.html#a6eb00eb9bc5ed195953f334971c462ae">UpdateRange</a>(concomp_array[concomp]-&gt;<a class="code" href="classtesseract_1_1_char_samp.html#a807191c8ad18f1cd5cc576a98e498f4f">Left</a>(),
+                    concomp_array[concomp]-&gt;<a class="code" href="classtesseract_1_1_char_samp.html#aec21c7af6d5513052d75d6305c18cef7">Right</a>(), &amp;left, &amp;right);
+        <a class="code" href="helpers_8h.html#a6eb00eb9bc5ed195953f334971c462ae">UpdateRange</a>(concomp_array[concomp]-&gt;<a class="code" href="classtesseract_1_1_char_samp.html#a7fd4126ace53942c55a9926faaf62756">Top</a>(),
+                    concomp_array[concomp]-&gt;<a class="code" href="classtesseract_1_1_char_samp.html#a347842b37a6af68a7c53b99460706ee6">Bottom</a>(), &amp;top, &amp;bottom);
+      }
+      <span class="comment">// count unq ids, unq left most and right mosts ids</span>
+      <span class="keywordtype">int</span> concomp_id = concomp_array[concomp]-&gt;ID() - min_id;
+      <span class="keywordflow">if</span> (!id_exist[concomp_id]) {
+        id_exist[concomp_id] = <span class="keyword">true</span>;
+        unq_ids++;
+      }
+      <span class="keywordflow">if</span> (concomp_array[concomp]-&gt;LeftMost()) {
+        <span class="keywordflow">if</span> (left_most_exist[concomp_id] == <span class="keyword">false</span>) {
+          left_most_exist[concomp_id] = <span class="keyword">true</span>;
+          unq_left_most++;
+        }
+      }
+      <span class="keywordflow">if</span> (concomp_array[concomp]-&gt;RightMost()) {
+        <span class="keywordflow">if</span> (right_most_exist[concomp_id] == <span class="keyword">false</span>) {
+          right_most_exist[concomp_id] = <span class="keyword">true</span>;
+          unq_right_most++;
+        }
+      }
+    }
+  }
+  <span class="keyword">delete</span> []id_exist;
+  <span class="keyword">delete</span> []left_most_exist;
+  <span class="keyword">delete</span> []right_most_exist;
+  <span class="keywordflow">if</span> (!once || left == -1 || top == -1 || right == -1 || bottom == -1) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  (*left_most) = (unq_left_most &gt;= unq_ids);
+  (*right_most) = (unq_right_most &gt;= unq_ids);
+  <span class="comment">// create the char sample object</span>
+  <a class="code" href="classtesseract_1_1_char_samp.html#a38afcea73865907b1b87ca836ea7992b">CharSamp</a> *samp = <span class="keyword">new</span> <a class="code" href="classtesseract_1_1_char_samp.html#a38afcea73865907b1b87ca836ea7992b">CharSamp</a>(left, top, right - left + 1, bottom - top + 1);
+  <span class="keywordflow">if</span> (!samp) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="comment">// set the foreground pixels</span>
+  <span class="keywordflow">for</span> (concomp = strt_concomp; concomp &lt; end_concomp; concomp++) {
+    <span class="keywordflow">if</span> (!seg_flags || seg_flags[concomp - strt_concomp] != 0) {
+      ConCompPt *pt_ptr = concomp_array[concomp]-&gt;Head();
+      <span class="keywordflow">while</span> (pt_ptr) {
+        samp-&gt;line_buff_[pt_ptr-&gt;y() - top][pt_ptr-&gt;x() - left] = 0;
+        pt_ptr = pt_ptr-&gt;Next();
+      }
+    }
+  }
+  <span class="keywordflow">return</span> samp;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6c14f9fa2793562c82515c4e99c34c92"></a><!-- doxytag: member="tesseract::CharSamp::FromRawData" ref="a6c14f9fa2793562c82515c4e99c34c92" args="(int left, int top, int wid, int hgt, unsigned char *data)" -->
@@ -526,6 +992,20 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__samp_8cpp_source.html#l00283">283</a> of file <a class="el" href="char__samp_8cpp_source.html">char_samp.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                     {
+  <span class="comment">// create the object</span>
+  <a class="code" href="classtesseract_1_1_char_samp.html#a38afcea73865907b1b87ca836ea7992b">CharSamp</a> *char_samp = <span class="keyword">new</span> <a class="code" href="classtesseract_1_1_char_samp.html#a38afcea73865907b1b87ca836ea7992b">CharSamp</a>(left, top, wid, hgt);
+  <span class="keywordflow">if</span> (char_samp == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="keywordflow">if</span> (char_samp-&gt;LoadFromRawData(data) == <span class="keyword">false</span>) {
+    <span class="keyword">delete</span> char_samp;
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="keywordflow">return</span> char_samp;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a37e612a3eb54286b57be4b94142391ef"></a><!-- doxytag: member="tesseract::CharSamp::Label" ref="a37e612a3eb54286b57be4b94142391ef" args="() const " -->
@@ -542,6 +1022,14 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__samp_8h_source.html#l00056">56</a> of file <a class="el" href="char__samp_8h_source.html">char_samp.h</a>.</p>
+<div class="fragment"><pre class="fragment">                        {
+    <span class="keywordflow">if</span> (label32_ == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> || <a class="code" href="classtesseract_1_1_char_samp.html#a145932fac1c12a682d41b28fb4e9d867">LabelLen</a>() != 1) {
+      <span class="keywordflow">return</span> 0;
+    }
+    <span class="keywordflow">return</span> label32_[0];
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a145932fac1c12a682d41b28fb4e9d867"></a><!-- doxytag: member="tesseract::CharSamp::LabelLen" ref="a145932fac1c12a682d41b28fb4e9d867" args="() const " -->
@@ -558,6 +1046,9 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__samp_8h_source.html#l00140">140</a> of file <a class="el" href="char__samp_8h_source.html">char_samp.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_char_samp.html#a145932fac1c12a682d41b28fb4e9d867">LabelLen</a>(label32_); }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aeb6d9f55a5b4f1cb127b5c0536c44007"></a><!-- doxytag: member="tesseract::CharSamp::LabelLen" ref="aeb6d9f55a5b4f1cb127b5c0536c44007" args="(const char_32 *label32)" -->
@@ -575,6 +1066,16 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__samp_8h_source.html#l00141">141</a> of file <a class="el" href="char__samp_8h_source.html">char_samp.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                              {
+    <span class="keywordflow">if</span> (label32 == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      <span class="keywordflow">return</span> 0;
+    }
+    <span class="keywordtype">int</span> len = 0;
+    <span class="keywordflow">while</span> (label32[++len] != 0);
+    <span class="keywordflow">return</span> len;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a91dc85f7e1c01ce837c6493838bad64d"></a><!-- doxytag: member="tesseract::CharSamp::LastChar" ref="a91dc85f7e1c01ce837c6493838bad64d" args="() const " -->
@@ -591,6 +1092,9 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__samp_8h_source.html#l00055">55</a> of file <a class="el" href="char__samp_8h_source.html">char_samp.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> last_char_; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a807191c8ad18f1cd5cc576a98e498f4f"></a><!-- doxytag: member="tesseract::CharSamp::Left" ref="a807191c8ad18f1cd5cc576a98e498f4f" args="() const " -->
@@ -607,6 +1111,9 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__samp_8h_source.html#l00046">46</a> of file <a class="el" href="char__samp_8h_source.html">char_samp.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> left_; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab1b02918e3b38091bb616c818c131dd1"></a><!-- doxytag: member="tesseract::CharSamp::NormAspectRatio" ref="ab1b02918e3b38091bb616c818c131dd1" args="() const " -->
@@ -623,6 +1130,9 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__samp_8h_source.html#l00053">53</a> of file <a class="el" href="char__samp_8h_source.html">char_samp.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> norm_aspect_ratio_; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="af1259ad6f4037f67e442127945c6095f"></a><!-- doxytag: member="tesseract::CharSamp::NormBottom" ref="af1259ad6f4037f67e442127945c6095f" args="() const " -->
@@ -639,6 +1149,9 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__samp_8h_source.html#l00052">52</a> of file <a class="el" href="char__samp_8h_source.html">char_samp.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> norm_bottom_; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9e6cc2565ed9a4b37cc5f2485cc1d61a"></a><!-- doxytag: member="tesseract::CharSamp::NormTop" ref="a9e6cc2565ed9a4b37cc5f2485cc1d61a" args="() const " -->
@@ -655,6 +1168,9 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__samp_8h_source.html#l00051">51</a> of file <a class="el" href="char__samp_8h_source.html">char_samp.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> norm_top_; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4a7a4d6350e1dc85b94587f7eb069be2"></a><!-- doxytag: member="tesseract::CharSamp::Page" ref="a4a7a4d6350e1dc85b94587f7eb069be2" args="() const " -->
@@ -671,6 +1187,9 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__samp_8h_source.html#l00050">50</a> of file <a class="el" href="char__samp_8h_source.html">char_samp.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> page_; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aec21c7af6d5513052d75d6305c18cef7"></a><!-- doxytag: member="tesseract::CharSamp::Right" ref="aec21c7af6d5513052d75d6305c18cef7" args="() const " -->
@@ -687,6 +1206,9 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__samp_8h_source.html#l00047">47</a> of file <a class="el" href="char__samp_8h_source.html">char_samp.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> left_ + <a class="code" href="classtesseract_1_1_bmp8.html#aefc333b9afa85c20f0daed573021fedf">wid_</a>; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad9f46aa90733c6f2682715edefbe70ac"></a><!-- doxytag: member="tesseract::CharSamp::Save2CharDumpFile" ref="ad9f46aa90733c6f2682715edefbe70ac" args="(FILE *fp) const " -->
@@ -704,6 +1226,60 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__samp_8cpp_source.html#l00298">298</a> of file <a class="el" href="char__samp_8cpp_source.html">char_samp.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                               {
+  <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> val32;
+  <span class="comment">// write and check 32 bit marker</span>
+  val32 = 0xabd0fefe;
+  <span class="keywordflow">if</span> (fwrite(&amp;val32, 1, <span class="keyword">sizeof</span>(val32), fp) != <span class="keyword">sizeof</span>(val32)) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+  <span class="comment">// write label length</span>
+  val32 = (label32_ == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) ? 0 : <a class="code" href="classtesseract_1_1_char_samp.html#a145932fac1c12a682d41b28fb4e9d867">LabelLen</a>(label32_);
+  <span class="keywordflow">if</span> (fwrite(&amp;val32, 1, <span class="keyword">sizeof</span>(val32), fp) != <span class="keyword">sizeof</span>(val32)) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+  <span class="comment">// write label</span>
+  <span class="keywordflow">if</span> (label32_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">if</span> (fwrite(label32_, 1, val32 * <span class="keyword">sizeof</span>(*label32_), fp) !=
+        (val32 * <span class="keyword">sizeof</span>(*label32_))) {
+      <span class="keywordflow">return</span> <span class="keyword">false</span>;
+    }
+  }
+  <span class="comment">// write coordinates</span>
+  <span class="keywordflow">if</span> (fwrite(&amp;page_, 1, <span class="keyword">sizeof</span>(page_), fp) != <span class="keyword">sizeof</span>(page_)) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+  <span class="keywordflow">if</span> (fwrite(&amp;left_, 1, <span class="keyword">sizeof</span>(left_), fp) != <span class="keyword">sizeof</span>(left_)) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+  <span class="keywordflow">if</span> (fwrite(&amp;top_, 1, <span class="keyword">sizeof</span>(top_), fp) != <span class="keyword">sizeof</span>(top_)) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+  <span class="keywordflow">if</span> (fwrite(&amp;first_char_, 1, <span class="keyword">sizeof</span>(first_char_), fp) !=
+      <span class="keyword">sizeof</span>(first_char_)) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+  <span class="keywordflow">if</span> (fwrite(&amp;last_char_, 1, <span class="keyword">sizeof</span>(last_char_), fp) != <span class="keyword">sizeof</span>(last_char_)) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+  <span class="keywordflow">if</span> (fwrite(&amp;norm_top_, 1, <span class="keyword">sizeof</span>(norm_top_), fp) != <span class="keyword">sizeof</span>(norm_top_)) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+  <span class="keywordflow">if</span> (fwrite(&amp;norm_bottom_, 1, <span class="keyword">sizeof</span>(norm_bottom_), fp) !=
+      <span class="keyword">sizeof</span>(norm_bottom_)) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+  <span class="keywordflow">if</span> (fwrite(&amp;norm_aspect_ratio_, 1, <span class="keyword">sizeof</span>(norm_aspect_ratio_), fp) !=
+      <span class="keyword">sizeof</span>(norm_aspect_ratio_)) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_bmp8.html#acb33243c84fea596c9abf8aa3ee18825">SaveBmp2CharDumpFile</a>(fp) == <span class="keyword">false</span>) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae487ef754f7b0cad136a96af9db992bc"></a><!-- doxytag: member="tesseract::CharSamp::Scale" ref="ae487ef754f7b0cad136a96af9db992bc" args="(int wid, int hgt, bool isotropic=true)" -->
@@ -737,6 +1313,28 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__samp_8cpp_source.html#l00261">261</a> of file <a class="el" href="char__samp_8cpp_source.html">char_samp.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                          {
+  <a class="code" href="classtesseract_1_1_char_samp.html#a38afcea73865907b1b87ca836ea7992b">CharSamp</a> *scaled_samp = <span class="keyword">new</span> <a class="code" href="classtesseract_1_1_char_samp.html#a38afcea73865907b1b87ca836ea7992b">CharSamp</a>(wid, hgt);
+  <span class="keywordflow">if</span> (scaled_samp == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="keywordflow">if</span> (scaled_samp-&gt;ScaleFrom(<span class="keyword">this</span>, isotropic) == <span class="keyword">false</span>) {
+    <span class="keyword">delete</span> scaled_samp;
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  scaled_samp-&gt;left_ = left_;
+  scaled_samp-&gt;top_ = top_;
+  scaled_samp-&gt;page_ = page_;
+  scaled_samp-&gt;SetLabel(label32_);
+  scaled_samp-&gt;first_char_ = first_char_;
+  scaled_samp-&gt;last_char_ = last_char_;
+  scaled_samp-&gt;norm_top_ = norm_top_;
+  scaled_samp-&gt;norm_bottom_ = norm_bottom_;
+  scaled_samp-&gt;norm_aspect_ratio_ = norm_aspect_ratio_;
+  <span class="keywordflow">return</span> scaled_samp;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a66d6ef340dd9d174b6f966bde9972498"></a><!-- doxytag: member="tesseract::CharSamp::Segment" ref="a66d6ef340dd9d174b6f966bde9972498" args="(int *seg_cnt, bool right_2_left, int max_hist_wnd, int min_con_comp_size) const " -->
@@ -776,6 +1374,80 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__samp_8cpp_source.html#l00392">392</a> of file <a class="el" href="char__samp_8cpp_source.html">char_samp.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                           {
+  <span class="comment">// init</span>
+  (*segment_cnt) = 0;
+  <span class="keywordtype">int</span> concomp_cnt = 0;
+  <span class="keywordtype">int</span> seg_cnt = 0;
+  <span class="comment">// find the concomps of the image</span>
+  ConComp **concomp_array = <a class="code" href="classtesseract_1_1_bmp8.html#ab1da709401133a6b0d058d33c0108eae">FindConComps</a>(&amp;concomp_cnt, min_con_comp_size);
+  <span class="keywordflow">if</span> (concomp_cnt &lt;= 0 || !concomp_array) {
+    <span class="keywordflow">if</span> (concomp_array)
+      <span class="keyword">delete</span> []concomp_array;
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  ConComp **seg_array = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="comment">// segment each concomp further using vertical histogram</span>
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> concomp = 0; concomp &lt; concomp_cnt; concomp++) {
+    <span class="keywordtype">int</span> concomp_seg_cnt = 0;
+    <span class="comment">// segment the concomp</span>
+    ConComp **concomp_seg_array = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    ConComp **concomp_alloc_seg =
+        concomp_array[concomp]-&gt;Segment(max_hist_wnd, &amp;concomp_seg_cnt);
+    <span class="comment">// no segments, add the whole concomp</span>
+    <span class="keywordflow">if</span> (concomp_alloc_seg == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      concomp_seg_cnt = 1;
+      concomp_seg_array = concomp_array + concomp;
+    } <span class="keywordflow">else</span> {
+      <span class="comment">// delete the original concomp, we no longer need it</span>
+      concomp_seg_array = concomp_alloc_seg;
+      <span class="keyword">delete</span> concomp_array[concomp];
+    }
+    <span class="comment">// add the resulting segments</span>
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> seg_idx = 0; seg_idx &lt; concomp_seg_cnt; seg_idx++) {
+      <span class="comment">// too small of a segment: ignore</span>
+      <span class="keywordflow">if</span> (concomp_seg_array[seg_idx]-&gt;<a class="code" href="classtesseract_1_1_bmp8.html#a4a21ea5a104d8c37e22c94b4cde2d462">Width</a>() &lt; 2 &amp;&amp;
+          concomp_seg_array[seg_idx]-&gt;<a class="code" href="classtesseract_1_1_bmp8.html#ae9591eae7d79b924bfcac728cced4ff1">Height</a>() &lt; 2) {
+        <span class="keyword">delete</span> concomp_seg_array[seg_idx];
+      } <span class="keywordflow">else</span> {
+        <span class="comment">// add the new segment</span>
+        <span class="comment">// extend the segment array</span>
+        <span class="keywordflow">if</span> ((seg_cnt % <a class="code" href="classtesseract_1_1_bmp8.html#abb90985ae39b699969e1fc4bce0cebf3">kConCompAllocChunk</a>) == 0) {
+          ConComp **temp_segm_array =
+              <span class="keyword">new</span> ConComp *[seg_cnt + <a class="code" href="classtesseract_1_1_bmp8.html#abb90985ae39b699969e1fc4bce0cebf3">kConCompAllocChunk</a>];
+          <span class="keywordflow">if</span> (temp_segm_array == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+            fprintf(stderr, <span class="stringliteral">&quot;Cube ERROR (CharSamp::Segment): could not &quot;</span>
+                    <span class="stringliteral">&quot;allocate additional connected components\n&quot;</span>);
+            <span class="keyword">delete</span> []concomp_seg_array;
+            <span class="keyword">delete</span> []concomp_array;
+            <span class="keyword">delete</span> []seg_array;
+            <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+          }
+          <span class="keywordflow">if</span> (seg_cnt &gt; 0) {
+            memcpy(temp_segm_array, seg_array, seg_cnt * <span class="keyword">sizeof</span>(*seg_array));
+            <span class="keyword">delete</span> []seg_array;
+          }
+          seg_array = temp_segm_array;
+        }
+        seg_array[seg_cnt++] = concomp_seg_array[seg_idx];
+      }
+    }  <span class="comment">// segment</span>
+    <span class="keywordflow">if</span> (concomp_alloc_seg != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      <span class="keyword">delete</span> []concomp_alloc_seg;
+    }
+  }  <span class="comment">// concomp</span>
+  <span class="keyword">delete</span> []concomp_array;
+
+  <span class="comment">// sort the concomps from Left2Right or Right2Left, based on the reading order</span>
+  <span class="keywordflow">if</span> (seg_cnt &gt; 0 &amp;&amp; seg_array != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    qsort(seg_array, seg_cnt, <span class="keyword">sizeof</span>(*seg_array), right_2_left ?
+        <a class="code" href="classtesseract_1_1_con_comp.html#ac85689fc81acd62cad011973ffb1d814">ConComp::Right2LeftComparer</a> : <a class="code" href="classtesseract_1_1_con_comp.html#a3e14bdb2d1e77560f0bc62e31bee05b4">ConComp::Left2RightComparer</a>);
+  }
+  (*segment_cnt) = seg_cnt;
+  <span class="keywordflow">return</span> seg_array;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a5bf9b4d6bc9140cf0502248efa62d7d8"></a><!-- doxytag: member="tesseract::CharSamp::SetFirstChar" ref="a5bf9b4d6bc9140cf0502248efa62d7d8" args="(unsigned short first_char)" -->
@@ -793,6 +1465,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__samp_8h_source.html#l00104">104</a> of file <a class="el" href="char__samp_8h_source.html">char_samp.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                               {
+    first_char_ = first_char;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3e8a3e4e64de1edfd8ec3cae4a214cd4"></a><!-- doxytag: member="tesseract::CharSamp::SetLabel" ref="a3e8a3e4e64de1edfd8ec3cae4a214cd4" args="(char_32 label)" -->
@@ -810,6 +1487,18 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__samp_8h_source.html#l00068">68</a> of file <a class="el" href="char__samp_8h_source.html">char_samp.h</a>.</p>
+<div class="fragment"><pre class="fragment">                               {
+    <span class="keywordflow">if</span> (label32_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      <span class="keyword">delete</span> []label32_;
+    }
+    label32_ = <span class="keyword">new</span> <a class="code" href="namespacetesseract.html#aea2c6172b0ca77907e29cd018595b425">char_32</a>[2];
+    <span class="keywordflow">if</span> (label32_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      label32_[0] = label;
+      label32_[1] = 0;
+    }
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a98bcb6eb5bf99b3f2530a10eeb9f428f"></a><!-- doxytag: member="tesseract::CharSamp::SetLabel" ref="a98bcb6eb5bf99b3f2530a10eeb9f428f" args="(const char_32 *label32)" -->
@@ -827,6 +1516,26 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__samp_8h_source.html#l00078">78</a> of file <a class="el" href="char__samp_8h_source.html">char_samp.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                        {
+    <span class="keywordflow">if</span> (label32_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      <span class="keyword">delete</span> []label32_;
+      label32_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    }
+    <span class="keywordflow">if</span> (label32 != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      <span class="comment">// remove any byte order markes if any</span>
+      <span class="keywordflow">if</span> (label32[0] == 0xfeff) {
+        label32++;
+      }
+      <span class="keywordtype">int</span> len = <a class="code" href="classtesseract_1_1_char_samp.html#a145932fac1c12a682d41b28fb4e9d867">LabelLen</a>(label32);
+      label32_ = <span class="keyword">new</span> <a class="code" href="namespacetesseract.html#aea2c6172b0ca77907e29cd018595b425">char_32</a>[len + 1];
+      <span class="keywordflow">if</span> (label32_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+        memcpy(label32_, label32, len * <span class="keyword">sizeof</span>(*label32));
+        label32_[len] = 0;
+      }
+    }
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a24f17b0cf1dcfdbb495c533bfb58ffef"></a><!-- doxytag: member="tesseract::CharSamp::SetLabel" ref="a24f17b0cf1dcfdbb495c533bfb58ffef" args="(string str)" -->
@@ -844,6 +1553,17 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__samp_8cpp_source.html#l00071">71</a> of file <a class="el" href="char__samp_8cpp_source.html">char_samp.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                  {
+  <span class="keywordflow">if</span> (label32_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keyword">delete</span> []label32_;
+    label32_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <a class="code" href="namespacetesseract.html#a5e51e225e3ac13c918ed9f77715fa041">string_32</a> str32;
+  <a class="code" href="classtesseract_1_1_cube_utils.html#a911ee12931d18c46e7db79c6758a91cc">CubeUtils::UTF8ToUTF32</a>(str.c_str(), &amp;str32);
+  <a class="code" href="classtesseract_1_1_char_samp.html#a3e8a3e4e64de1edfd8ec3cae4a214cd4">SetLabel</a>(reinterpret_cast&lt;const char_32 *&gt;(str32.c_str()));
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="afe3a578c07826801c34649820efa26bc"></a><!-- doxytag: member="tesseract::CharSamp::SetLastChar" ref="afe3a578c07826801c34649820efa26bc" args="(unsigned short last_char)" -->
@@ -861,6 +1581,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__samp_8h_source.html#l00107">107</a> of file <a class="el" href="char__samp_8h_source.html">char_samp.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                             {
+    last_char_ = last_char;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a48cbe346af928e097cae0ddb2f0f2e60"></a><!-- doxytag: member="tesseract::CharSamp::SetLeft" ref="a48cbe346af928e097cae0ddb2f0f2e60" args="(unsigned short left)" -->
@@ -878,6 +1603,9 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__samp_8h_source.html#l00065">65</a> of file <a class="el" href="char__samp_8h_source.html">char_samp.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ left_ = left; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab166a32f44a38ef3565f2b4c0aaad724"></a><!-- doxytag: member="tesseract::CharSamp::SetNormAspectRatio" ref="ab166a32f44a38ef3565f2b4c0aaad724" args="(unsigned short norm_aspect_ratio)" -->
@@ -895,6 +1623,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__samp_8h_source.html#l00101">101</a> of file <a class="el" href="char__samp_8h_source.html">char_samp.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                            {
+    norm_aspect_ratio_ = norm_aspect_ratio;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad706f5c94c4f8db5c7c8bbebe180d3c5"></a><!-- doxytag: member="tesseract::CharSamp::SetNormBottom" ref="ad706f5c94c4f8db5c7c8bbebe180d3c5" args="(unsigned short norm_bottom)" -->
@@ -912,6 +1645,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__samp_8h_source.html#l00098">98</a> of file <a class="el" href="char__samp_8h_source.html">char_samp.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                 {
+    norm_bottom_ = norm_bottom;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7c39a8cb10c6069b0e0721fe993bc73e"></a><!-- doxytag: member="tesseract::CharSamp::SetNormTop" ref="a7c39a8cb10c6069b0e0721fe993bc73e" args="(unsigned short norm_top)" -->
@@ -929,6 +1667,9 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__samp_8h_source.html#l00097">97</a> of file <a class="el" href="char__samp_8h_source.html">char_samp.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ norm_top_ = norm_top; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2b3eb721a4dcd8cf4d8d059b52eb48eb"></a><!-- doxytag: member="tesseract::CharSamp::SetPage" ref="a2b3eb721a4dcd8cf4d8d059b52eb48eb" args="(unsigned short page)" -->
@@ -946,6 +1687,9 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__samp_8h_source.html#l00067">67</a> of file <a class="el" href="char__samp_8h_source.html">char_samp.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ page_ = page; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4b8858573b883877ae6679456ba4ecbd"></a><!-- doxytag: member="tesseract::CharSamp::SetTop" ref="a4b8858573b883877ae6679456ba4ecbd" args="(unsigned short top)" -->
@@ -963,6 +1707,9 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__samp_8h_source.html#l00066">66</a> of file <a class="el" href="char__samp_8h_source.html">char_samp.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ top_ = top; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4ce24f6e9ef0a6157d809d09ec15500b"></a><!-- doxytag: member="tesseract::CharSamp::stringLabel" ref="a4ce24f6e9ef0a6157d809d09ec15500b" args="() const " -->
@@ -979,6 +1726,16 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__samp_8cpp_source.html#l00061">61</a> of file <a class="el" href="char__samp_8cpp_source.html">char_samp.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                   {
+  <span class="keywordtype">string</span> str = <span class="stringliteral">&quot;&quot;</span>;
+  <span class="keywordflow">if</span> (label32_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="namespacetesseract.html#a5e51e225e3ac13c918ed9f77715fa041">string_32</a> str32(label32_);
+    <a class="code" href="classtesseract_1_1_cube_utils.html#a30c20693fc79e49a67c9694700f1d0b5">CubeUtils::UTF32ToUTF8</a>(str32.c_str(), &amp;str);
+  }
+  <span class="keywordflow">return</span> str;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a56e028633389dd8f4f376c47ce6fe299"></a><!-- doxytag: member="tesseract::CharSamp::StrLabel" ref="a56e028633389dd8f4f376c47ce6fe299" args="() const " -->
@@ -995,6 +1752,9 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__samp_8h_source.html#l00062">62</a> of file <a class="el" href="char__samp_8h_source.html">char_samp.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> label32_; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7fd4126ace53942c55a9926faaf62756"></a><!-- doxytag: member="tesseract::CharSamp::Top" ref="a7fd4126ace53942c55a9926faaf62756" args="() const " -->
@@ -1011,11 +1771,14 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__samp_8h_source.html#l00048">48</a> of file <a class="el" href="char__samp_8h_source.html">char_samp.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> top_; }
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/cube/<a class="el" href="char__samp_8h_source.html">char_samp.h</a></li>
-<li>tesseract-ocr/cube/<a class="el" href="char__samp_8cpp.html">char_samp.cpp</a></li>
+<li>tesseract-ocr/cube/<a class="el" href="char__samp_8cpp_source.html">char_samp.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -1038,7 +1801,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:15 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:50 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

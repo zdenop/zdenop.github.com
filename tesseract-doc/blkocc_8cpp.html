@@ -110,7 +110,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <code>#include &quot;<a class="el" href="blkocc_8h_source.html">blkocc.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="helpers_8h_source.html">helpers.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="notdll_8h_source.html">notdll.h</a>&quot;</code><br/>
-</div><table class="memberdecls">
+</div>
+<p><a href="blkocc_8cpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="host_8h.html#a7712a7e28433d0ade59219a129549b6f">BOOL8</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="blkocc_8cpp.html#a1b548029a83d9ac05ecb47cb177c69fb">test_underline</a> (<a class="el" href="host_8h.html#a7712a7e28433d0ade59219a129549b6f">BOOL8</a> testing_on, <a class="el" href="class_c___b_l_o_b.html">C_BLOB</a> *blob, <a class="el" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> baseline, <a class="el" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> xheight)</td></tr>
@@ -158,6 +160,65 @@ Variables</h2></td></tr>
 <p>test_underline</p>
 <p>Check to see if the blob is an underline. Return TRUE if it is. </p>
 
+<p>Definition at line <a class="el" href="blkocc_8cpp_source.html#l00055">55</a> of file <a class="el" href="blkocc_8cpp_source.html">blkocc.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                      {
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> occ;
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> blob_width;              <span class="comment">//width of blob</span>
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> blob_box;                  <span class="comment">//bounding box</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> desc_occ;
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> x_occ;
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> asc_occ;
+  <a class="code" href="class_s_t_a_t_s.html">STATS</a> projection;
+
+  blob_box = blob-&gt;<a class="code" href="class_c___b_l_o_b.html#a77e52e29e2c622a3a63bb7edb110f6ab">bounding_box</a> ();
+  blob_width = blob-&gt;<a class="code" href="class_c___b_l_o_b.html#a77e52e29e2c622a3a63bb7edb110f6ab">bounding_box</a> ().<a class="code" href="class_t_b_o_x.html#af95494a2ccacc70cc2b83820b2948619">width</a> ();
+  projection.<a class="code" href="class_s_t_a_t_s.html#abcad6a546e1a1851730bc32f17b154ee">set_range</a> (blob_box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a> (), blob_box.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a> () + 1);
+  <span class="keywordflow">if</span> (testing_on) {
+    <span class="comment">//              blob-&gt;plot(to_win,GOLDENROD,GOLDENROD);</span>
+    <span class="comment">//              line_color_index(to_win,GOLDENROD);</span>
+    <span class="comment">//              move2d(to_win,blob_box.left(),baseline);</span>
+    <span class="comment">//              draw2d(to_win,blob_box.right(),baseline);</span>
+    <span class="comment">//              move2d(to_win,blob_box.left(),baseline+xheight);</span>
+    <span class="comment">//              draw2d(to_win,blob_box.right(),baseline+xheight);</span>
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>
+      (<span class="stringliteral">&quot;Testing underline on blob at (%d,%d)-&gt;(%d,%d), base=%d\nOccs:&quot;</span>,
+      blob-&gt;<a class="code" href="class_c___b_l_o_b.html#a77e52e29e2c622a3a63bb7edb110f6ab">bounding_box</a> ().<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a> (), blob-&gt;<a class="code" href="class_c___b_l_o_b.html#a77e52e29e2c622a3a63bb7edb110f6ab">bounding_box</a> ().<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a> (),
+      blob-&gt;<a class="code" href="class_c___b_l_o_b.html#a77e52e29e2c622a3a63bb7edb110f6ab">bounding_box</a> ().<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a> (), blob-&gt;<a class="code" href="class_c___b_l_o_b.html#a77e52e29e2c622a3a63bb7edb110f6ab">bounding_box</a> ().<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a> (),
+      <a class="code" href="mfoutline_8h.html#a2a4b69f9a2827dc98bc4cbc233118865a83297de004f4e58b9be2108c6cd08a23">baseline</a>);
+  }
+  horizontal_cblob_projection(blob, &amp;projection);
+  desc_occ = 0;
+  <span class="keywordflow">for</span> (occ = blob_box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a> (); occ &lt; <a class="code" href="mfoutline_8h.html#a2a4b69f9a2827dc98bc4cbc233118865a83297de004f4e58b9be2108c6cd08a23">baseline</a>; occ++)
+    <span class="keywordflow">if</span> (occ &lt;= blob_box.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a> () &amp;&amp; projection.<a class="code" href="class_s_t_a_t_s.html#a4a3a320660e2092eeaa605df70bea8ea">pile_count</a> (occ) &gt; desc_occ)
+                                 <span class="comment">//max in region</span>
+      desc_occ = projection.<a class="code" href="class_s_t_a_t_s.html#a4a3a320660e2092eeaa605df70bea8ea">pile_count</a> (occ);
+  x_occ = 0;
+  <span class="keywordflow">for</span> (occ = baseline; occ &lt;= baseline + xheight; occ++)
+    <span class="keywordflow">if</span> (occ &gt;= blob_box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a> () &amp;&amp; occ &lt;= blob_box.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a> ()
+    &amp;&amp; projection.<a class="code" href="class_s_t_a_t_s.html#a4a3a320660e2092eeaa605df70bea8ea">pile_count</a> (occ) &gt; x_occ)
+                                 <span class="comment">//max in region</span>
+      x_occ = projection.<a class="code" href="class_s_t_a_t_s.html#a4a3a320660e2092eeaa605df70bea8ea">pile_count</a> (occ);
+  asc_occ = 0;
+  <span class="keywordflow">for</span> (occ = baseline + xheight + 1; occ &lt;= blob_box.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a> (); occ++)
+    <span class="keywordflow">if</span> (occ &gt;= blob_box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a> () &amp;&amp; projection.<a class="code" href="class_s_t_a_t_s.html#a4a3a320660e2092eeaa605df70bea8ea">pile_count</a> (occ) &gt; asc_occ)
+      asc_occ = projection.<a class="code" href="class_s_t_a_t_s.html#a4a3a320660e2092eeaa605df70bea8ea">pile_count</a> (occ);
+  <span class="keywordflow">if</span> (testing_on) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a> (<span class="stringliteral">&quot;%d %d %d\n&quot;</span>, desc_occ, x_occ, asc_occ);
+  }
+  <span class="keywordflow">if</span> (desc_occ == 0 &amp;&amp; x_occ == 0 &amp;&amp; asc_occ == 0) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a> (<span class="stringliteral">&quot;Bottom=%d, top=%d, base=%d, x=%d\n&quot;</span>,
+      blob_box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a> (), blob_box.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a> (), <a class="code" href="mfoutline_8h.html#a2a4b69f9a2827dc98bc4cbc233118865a83297de004f4e58b9be2108c6cd08a23">baseline</a>, xheight);
+    projection.<a class="code" href="class_s_t_a_t_s.html#a78e51420aa91ecff1f635e606d4a0f88">print</a>();
+  }
+  <span class="keywordflow">if</span> (desc_occ &gt; x_occ + x_occ
+    &amp;&amp; desc_occ &gt; blob_width * <a class="code" href="blkocc_8cpp.html#a1cb0deabd2c5a114d01553973c68301c">textord_underline_threshold</a>)
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;                 <span class="comment">//real underline</span>
+  <span class="keywordflow">if</span> (asc_occ &gt; x_occ + x_occ
+    &amp;&amp; asc_occ &gt; blob_width * textord_underline_threshold)
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;                 <span class="comment">//overline</span>
+  <span class="keywordflow">return</span> <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;                  <span class="comment">//neither</span>
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Variable Documentation</h2>
@@ -172,6 +233,8 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"Fraction of width occupied" </p>
+
+<p>Definition at line <a class="el" href="blkocc_8cpp_source.html#l00040">40</a> of file <a class="el" href="blkocc_8cpp_source.html">blkocc.cpp</a>.</p>
 
 </div>
 </div>
@@ -195,7 +258,7 @@ Variables</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:10 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:42 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

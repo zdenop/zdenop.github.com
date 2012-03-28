@@ -133,7 +133,10 @@ Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacetesseract.html#aa13017f5f891a1f9f95074bf26a5b222">AmbigType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_ambig_spec.html#ae29644f82c6feac4df14b22368fa0873">type</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_ambig_spec.html#a4cfb10d18b7c636f3afa5f223afa445e">wrong_ngram_size</a></td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="ambigs_8h_source.html#l00113">113</a> of file <a class="el" href="ambigs_8h_source.html">ambigs.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="aaa3a04113f5db03951771afa6423e7f4"></a><!-- doxytag: member="tesseract::AmbigSpec::AmbigSpec" ref="aaa3a04113f5db03951771afa6423e7f4" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -148,6 +151,15 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ambigs_8cpp_source.html#l00034">34</a> of file <a class="el" href="ambigs_8cpp_source.html">ambigs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                     {
+  <a class="code" href="classtesseract_1_1_ambig_spec.html#a9d7f07e5b038c6d61acc9bb75ba7ef1b">wrong_ngram</a>[0] = INVALID_UNICHAR_ID;
+  <a class="code" href="classtesseract_1_1_ambig_spec.html#ad3a4b121b26cf829422700494aed91e4">correct_fragments</a>[0] = INVALID_UNICHAR_ID;
+  <a class="code" href="classtesseract_1_1_ambig_spec.html#a879c6167dbfc54980bfeb5a15b32bf73">correct_ngram_id</a> = INVALID_UNICHAR_ID;
+  <a class="code" href="classtesseract_1_1_ambig_spec.html#ae29644f82c6feac4df14b22368fa0873">type</a> = <a class="code" href="namespacetesseract.html#aa13017f5f891a1f9f95074bf26a5b222af40a6c3f3fbd83ba09a6607f534349dc">NOT_AMBIG</a>;
+  <a class="code" href="classtesseract_1_1_ambig_spec.html#a4cfb10d18b7c636f3afa5f223afa445e">wrong_ngram_size</a> = 0;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a5283933a9e7267b3505f5f18cf289f3e"></a><!-- doxytag: member="tesseract::AmbigSpec::~AmbigSpec" ref="a5283933a9e7267b3505f5f18cf289f3e" args="()" -->
@@ -164,6 +176,9 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ambigs_8h_source.html#l00116">116</a> of file <a class="el" href="ambigs_8h_source.html">ambigs.h</a>.</p>
+<div class="fragment"><pre class="fragment">{}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -192,6 +207,15 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ambigs_8h_source.html#l00121">121</a> of file <a class="el" href="ambigs_8h_source.html">ambigs.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                       {
+    <span class="keyword">const</span> <a class="code" href="classtesseract_1_1_ambig_spec.html#aaa3a04113f5db03951771afa6423e7f4">AmbigSpec</a> *s1 =
+      *<span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><a class="code" href="classtesseract_1_1_ambig_spec.html#aaa3a04113f5db03951771afa6423e7f4">AmbigSpec</a> * <span class="keyword">const </span>*<span class="keyword">&gt;</span>(spec1);
+    <span class="keyword">const</span> <a class="code" href="classtesseract_1_1_ambig_spec.html#aaa3a04113f5db03951771afa6423e7f4">AmbigSpec</a> *s2 =
+      *<span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><a class="code" href="classtesseract_1_1_ambig_spec.html#aaa3a04113f5db03951771afa6423e7f4">AmbigSpec</a> * <span class="keyword">const </span>*<span class="keyword">&gt;</span>(spec2);
+    <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_unichar_id_array_utils.html#a2fd19f82c1c81f57dd766bded5ae8904">UnicharIdArrayUtils::compare</a>(s1-&gt;wrong_ngram, s2-&gt;wrong_ngram);
+  }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
@@ -206,6 +230,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ambigs_8h_source.html#l00130">130</a> of file <a class="el" href="ambigs_8h_source.html">ambigs.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a879c6167dbfc54980bfeb5a15b32bf73"></a><!-- doxytag: member="tesseract::AmbigSpec::correct_ngram_id" ref="a879c6167dbfc54980bfeb5a15b32bf73" args="" -->
@@ -218,6 +244,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="ambigs_8h_source.html#l00131">131</a> of file <a class="el" href="ambigs_8h_source.html">ambigs.h</a>.</p>
 
 </div>
 </div>
@@ -232,6 +260,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ambigs_8h_source.html#l00132">132</a> of file <a class="el" href="ambigs_8h_source.html">ambigs.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a9d7f07e5b038c6d61acc9bb75ba7ef1b"></a><!-- doxytag: member="tesseract::AmbigSpec::wrong_ngram" ref="a9d7f07e5b038c6d61acc9bb75ba7ef1b" args="[MAX_AMBIG_SIZE+1]" -->
@@ -244,6 +274,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="ambigs_8h_source.html#l00129">129</a> of file <a class="el" href="ambigs_8h_source.html">ambigs.h</a>.</p>
 
 </div>
 </div>
@@ -258,11 +290,13 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ambigs_8h_source.html#l00133">133</a> of file <a class="el" href="ambigs_8h_source.html">ambigs.h</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/ccutil/<a class="el" href="ambigs_8h_source.html">ambigs.h</a></li>
-<li>tesseract-ocr/ccutil/<a class="el" href="ambigs_8cpp.html">ambigs.cpp</a></li>
+<li>tesseract-ocr/ccutil/<a class="el" href="ambigs_8cpp_source.html">ambigs.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -285,7 +319,7 @@ Public Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:14 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:49 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

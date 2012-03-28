@@ -106,7 +106,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <code>#include &quot;<a class="el" href="emalloc_8h_source.html">emalloc.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="freelist_8h_source.html">freelist.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="tprintf_8h_source.html">tprintf.h</a>&quot;</code><br/>
-</div><table class="memberdecls">
+</div>
+<p><a href="bitvec_8cpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="bitvec_8h.html#a584fa1e33e36d105f97bc7e7288fb259">BIT_VECTOR</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bitvec_8cpp.html#a74773bfbcc12095f8d32c11b28e2577d">ExpandBitVector</a> (<a class="el" href="bitvec_8h.html#a584fa1e33e36d105f97bc7e7288fb259">BIT_VECTOR</a> Vector, int NewNumBits)</td></tr>
@@ -156,6 +158,12 @@ Functions</h2></td></tr>
 <dd>
 History: Fri Nov 16 10:11:16 1990, DSJ, Created. </dd></dl>
 
+<p>Definition at line <a class="el" href="bitvec_8cpp_source.html#l00048">48</a> of file <a class="el" href="bitvec_8cpp_source.html">bitvec.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                              {
+  <span class="keywordflow">return</span> ((<a class="code" href="bitvec_8h.html#a584fa1e33e36d105f97bc7e7288fb259">BIT_VECTOR</a>) <a class="code" href="emalloc_8cpp.html#a92c09eaf43dcfc23a738fca16eb677b9">Erealloc</a>(Vector,
+    <span class="keyword">sizeof</span>(Vector[0]) * <a class="code" href="bitvec_8h.html#a905ff9b6c51cb231dd8baf1713a3c9b8">WordsInVectorOfSize</a>(NewNumBits)));
+}                                <span class="comment">/* ExpandBitVector */</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="adc1a7f52bb1fce0746e1e5725ad679f6"></a><!-- doxytag: member="bitvec.cpp::FreeBitVector" ref="adc1a7f52bb1fce0746e1e5725ad679f6" args="(BIT_VECTOR BitVector)" -->
@@ -187,6 +195,13 @@ History: Fri Nov 16 10:11:16 1990, DSJ, Created. </dd></dl>
 <dd>
 History: Tue Oct 23 16:46:09 1990, DSJ, Created.</dd></dl>
 
+<p>Definition at line <a class="el" href="bitvec_8cpp_source.html#l00055">55</a> of file <a class="el" href="bitvec_8cpp_source.html">bitvec.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                         {
+  <span class="keywordflow">if</span> (BitVector) {
+    <a class="code" href="emalloc_8cpp.html#af846576ae65dc13e49ddc616e17baa27">Efree</a>(BitVector);
+  }
+}                                <span class="comment">/* FreeBitVector */</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a5e8aad36a4fa1ed6100fc1504a2100b5"></a><!-- doxytag: member="bitvec.cpp::hamming_distance" ref="a5e8aad36a4fa1ed6100fc1504a2100b5" args="(uinT32 *array1, uinT32 *array2, int length)" -->
@@ -221,6 +236,22 @@ History: Tue Oct 23 16:46:09 1990, DSJ, Created.</dd></dl>
 <div class="memdoc">
 <p>hamming_distance(array1,array2,length) computes the hamming distance between two bit strings. </p>
 
+<p>Definition at line <a class="el" href="bitvec_8cpp_source.html#l00081">81</a> of file <a class="el" href="bitvec_8cpp_source.html">bitvec.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                 {
+  <span class="keyword">register</span> <a class="code" href="host_8h.html#afc8530b39ebe0b6df1e19159d2508d15">uinT32</a> diff;   <span class="comment">/*bit difference */</span>
+  <span class="keyword">register</span> <span class="keywordtype">int</span> dist;             <span class="comment">/*total distance */</span>
+
+  dist = 0;
+  <span class="keywordflow">for</span> (; length &gt; 0; length--) {
+    diff = *array1++ ^ *array2++;<span class="comment">/*different bits */</span>
+    <span class="keywordflow">while</span> (diff) {
+      diff &amp;= diff - 1;          <span class="comment">/*lose a bit */</span>
+      dist++;
+    }
+  }
+  <span class="keywordflow">return</span> dist;                   <span class="comment">/*total distance */</span>
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a502314dc3ee4b178df067713b324b868"></a><!-- doxytag: member="bitvec.cpp::NewBitVector" ref="a502314dc3ee4b178df067713b324b868" args="(int NumBits)" -->
@@ -253,6 +284,12 @@ History: Tue Oct 23 16:46:09 1990, DSJ, Created.</dd></dl>
 <dd>
 History: Tue Oct 23 16:51:27 1990, DSJ, Created. </dd></dl>
 
+<p>Definition at line <a class="el" href="bitvec_8cpp_source.html#l00111">111</a> of file <a class="el" href="bitvec_8cpp_source.html">bitvec.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                     {
+  <span class="keywordflow">return</span> ((<a class="code" href="bitvec_8h.html#a584fa1e33e36d105f97bc7e7288fb259">BIT_VECTOR</a>) <a class="code" href="emalloc_8cpp.html#a55f2088f1a7b3333bb5c7275ab726bba">Emalloc</a>(<span class="keyword">sizeof</span>(<a class="code" href="host_8h.html#afc8530b39ebe0b6df1e19159d2508d15">uinT32</a>) *
+    <a class="code" href="bitvec_8h.html#a905ff9b6c51cb231dd8baf1713a3c9b8">WordsInVectorOfSize</a>(NumBits)));
+}                                <span class="comment">/* NewBitVector */</span>
+</pre></div>
 </div>
 </div>
 </div>
@@ -275,7 +312,7 @@ History: Tue Oct 23 16:51:27 1990, DSJ, Created. </dd></dl>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:09 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:42 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

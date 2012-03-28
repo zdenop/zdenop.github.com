@@ -113,7 +113,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <code>#include &quot;<a class="el" href="classify_8h_source.html">classify.h</a>&quot;</code><br/>
 <code>#include &lt;math.h&gt;</code><br/>
 <code>#include &lt;stdio.h&gt;</code><br/>
-</div><table class="memberdecls">
+</div>
+<p><a href="mfoutline_8cpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr><td colspan="2"><h2><a name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetesseract.html">tesseract</a></td></tr>
@@ -153,6 +155,8 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mfoutline_8cpp_source.html#l00033">33</a> of file <a class="el" href="mfoutline_8cpp_source.html">mfoutline.cpp</a>.</p>
+
 </div>
 </div>
 <hr/><h2>Function Documentation</h2>
@@ -188,6 +192,31 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>---------------------------------------------------------------------------- Private Code ---------------------------------------------------------------------------- </p>
 
+<p>Definition at line <a class="el" href="mfoutline_8cpp_source.html#l00413">413</a> of file <a class="el" href="mfoutline_8cpp_source.html">mfoutline.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                          {
+<span class="comment">/*</span>
+<span class="comment"> ** Parameters:</span>
+<span class="comment"> **   Start, End  defines segment of outline to be modified</span>
+<span class="comment"> **   Direction new direction to assign to segment</span>
+<span class="comment"> ** Globals: none</span>
+<span class="comment"> ** Operation: Change the direction of every vector in the specified</span>
+<span class="comment"> **   outline segment to Direction.  The segment to be changed</span>
+<span class="comment"> **   starts at Start and ends at End.  Note that the previous</span>
+<span class="comment"> **   direction of End must also be changed to reflect the</span>
+<span class="comment"> **   change in direction of the point before it.</span>
+<span class="comment"> ** Return: none</span>
+<span class="comment"> ** Exceptions: none</span>
+<span class="comment"> ** History: Fri May  4 10:42:04 1990, DSJ, Created.</span>
+<span class="comment"> */</span>
+  <a class="code" href="structlist__rec.html">MFOUTLINE</a> Current;
+
+  <span class="keywordflow">for</span> (Current = Start; Current != End; Current = <a class="code" href="mfoutline_8h.html#ad2dfef920e57366bab3231610ab39f4d">NextPointAfter</a> (Current))
+    <a class="code" href="mfoutline_8h.html#aabb22902a8c1b9a830cb6347a474feea">PointAt</a> (Current)-&gt;Direction = Direction;
+
+  <a class="code" href="mfoutline_8h.html#aabb22902a8c1b9a830cb6347a474feea">PointAt</a> (End)-&gt;PreviousDirection = Direction;
+
+}                                <span class="comment">/* ChangeDirection */</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a5918c653f568c2a6e5aa43569c01f346"></a><!-- doxytag: member="mfoutline.cpp::CharNormalizeOutline" ref="a5918c653f568c2a6e5aa43569c01f346" args="(MFOUTLINE Outline, FLOAT32 XCenter, FLOAT32 YCenter, FLOAT32 XScale, FLOAT32 YScale)" -->
@@ -233,6 +262,42 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mfoutline_8cpp_source.html#l00439">439</a> of file <a class="el" href="mfoutline_8cpp_source.html">mfoutline.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                          {
+<span class="comment">/*</span>
+<span class="comment"> ** Parameters:</span>
+<span class="comment"> **   Outline     outline to be character normalized</span>
+<span class="comment"> **   XCenter, YCenter  center point for normalization</span>
+<span class="comment"> **   XScale, YScale    scale factors for normalization</span>
+<span class="comment"> ** Globals: none</span>
+<span class="comment"> ** Operation: This routine normalizes each point in Outline by</span>
+<span class="comment"> **   translating it to the specified center and scaling it</span>
+<span class="comment"> **   anisotropically according to the given scale factors.</span>
+<span class="comment"> ** Return: none</span>
+<span class="comment"> ** Exceptions: none</span>
+<span class="comment"> ** History: Fri Dec 14 10:27:11 1990, DSJ, Created.</span>
+<span class="comment"> */</span>
+  <a class="code" href="structlist__rec.html">MFOUTLINE</a> First, Current;
+  <a class="code" href="struct_m_f_e_d_g_e_p_t.html">MFEDGEPT</a> *CurrentPoint;
+
+  <span class="keywordflow">if</span> (Outline == <a class="code" href="oldlist_8h.html#ae212530ca629c67513698e988c705a5a">NIL_LIST</a>)
+    <span class="keywordflow">return</span>;
+
+  First = Outline;
+  Current = First;
+  <span class="keywordflow">do</span> {
+    CurrentPoint = <a class="code" href="mfoutline_8h.html#aabb22902a8c1b9a830cb6347a474feea">PointAt</a> (Current);
+    CurrentPoint-&gt;<a class="code" href="struct_m_f_e_d_g_e_p_t.html#a2b633b56b9a1a71a23551e387b7c8af4">Point</a>.<a class="code" href="struct_f_p_o_i_n_t.html#a96c1f94ff16244b06cb59b79152dc8ae">x</a> =
+      (CurrentPoint-&gt;<a class="code" href="struct_m_f_e_d_g_e_p_t.html#a2b633b56b9a1a71a23551e387b7c8af4">Point</a>.<a class="code" href="struct_f_p_o_i_n_t.html#a96c1f94ff16244b06cb59b79152dc8ae">x</a> - XCenter) * XScale;
+    CurrentPoint-&gt;<a class="code" href="struct_m_f_e_d_g_e_p_t.html#a2b633b56b9a1a71a23551e387b7c8af4">Point</a>.<a class="code" href="struct_f_p_o_i_n_t.html#a119bd5a9f0b29cabb3987fd94c5d4ca8">y</a> =
+      (CurrentPoint-&gt;<a class="code" href="struct_m_f_e_d_g_e_p_t.html#a2b633b56b9a1a71a23551e387b7c8af4">Point</a>.<a class="code" href="struct_f_p_o_i_n_t.html#a119bd5a9f0b29cabb3987fd94c5d4ca8">y</a> - YCenter) * YScale;
+
+    Current = <a class="code" href="mfoutline_8h.html#ad2dfef920e57366bab3231610ab39f4d">NextPointAfter</a> (Current);
+  }
+  <span class="keywordflow">while</span> (Current != First);
+
+}                                <span class="comment">/* CharNormalizeOutline */</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a97334eef13fe16a7e0ce178f905d2c39"></a><!-- doxytag: member="mfoutline.cpp::ComputeDirection" ref="a97334eef13fe16a7e0ce178f905d2c39" args="(MFEDGEPT *Start, MFEDGEPT *Finish, FLOAT32 MinSlope, FLOAT32 MaxSlope)" -->
@@ -272,6 +337,79 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mfoutline_8cpp_source.html#l00480">480</a> of file <a class="el" href="mfoutline_8cpp_source.html">mfoutline.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                        {
+<span class="comment">/*</span>
+<span class="comment"> ** Parameters:</span>
+<span class="comment"> **   Start   starting point to compute direction from</span>
+<span class="comment"> **   Finish    finishing point to compute direction to</span>
+<span class="comment"> **   MinSlope  slope below which lines are horizontal</span>
+<span class="comment"> **   MaxSlope  slope above which lines are vertical</span>
+<span class="comment"> ** Globals: none</span>
+<span class="comment"> ** Operation:</span>
+<span class="comment"> **   This routine computes the slope from Start to Finish and</span>
+<span class="comment"> **   and then computes the approximate direction of the line</span>
+<span class="comment"> **   segment from Start to Finish.  The direction is quantized</span>
+<span class="comment"> **   into 8 buckets:</span>
+<span class="comment"> **     N, S, E, W, NE, NW, SE, SW</span>
+<span class="comment"> **   Both the slope and the direction are then stored into</span>
+<span class="comment"> **   the appropriate fields of the Start edge point.  The</span>
+<span class="comment"> **   direction is also stored into the PreviousDirection field</span>
+<span class="comment"> **   of the Finish edge point.</span>
+<span class="comment"> ** Return: none</span>
+<span class="comment"> ** Exceptions: none</span>
+<span class="comment"> ** History: 7/25/89, DSJ, Created.</span>
+<span class="comment"> */</span>
+  <a class="code" href="struct_f_p_o_i_n_t.html">FVECTOR</a> Delta;
+
+  Delta.<a class="code" href="struct_f_p_o_i_n_t.html#a96c1f94ff16244b06cb59b79152dc8ae">x</a> = Finish-&gt;<a class="code" href="struct_m_f_e_d_g_e_p_t.html#a2b633b56b9a1a71a23551e387b7c8af4">Point</a>.<a class="code" href="struct_f_p_o_i_n_t.html#a96c1f94ff16244b06cb59b79152dc8ae">x</a> - Start-&gt;<a class="code" href="struct_m_f_e_d_g_e_p_t.html#a2b633b56b9a1a71a23551e387b7c8af4">Point</a>.<a class="code" href="struct_f_p_o_i_n_t.html#a96c1f94ff16244b06cb59b79152dc8ae">x</a>;
+  Delta.<a class="code" href="struct_f_p_o_i_n_t.html#a119bd5a9f0b29cabb3987fd94c5d4ca8">y</a> = Finish-&gt;<a class="code" href="struct_m_f_e_d_g_e_p_t.html#a2b633b56b9a1a71a23551e387b7c8af4">Point</a>.<a class="code" href="struct_f_p_o_i_n_t.html#a119bd5a9f0b29cabb3987fd94c5d4ca8">y</a> - Start-&gt;<a class="code" href="struct_m_f_e_d_g_e_p_t.html#a2b633b56b9a1a71a23551e387b7c8af4">Point</a>.<a class="code" href="struct_f_p_o_i_n_t.html#a119bd5a9f0b29cabb3987fd94c5d4ca8">y</a>;
+  <span class="keywordflow">if</span> (Delta.<a class="code" href="struct_f_p_o_i_n_t.html#a96c1f94ff16244b06cb59b79152dc8ae">x</a> == 0)
+  <span class="keywordflow">if</span> (Delta.<a class="code" href="struct_f_p_o_i_n_t.html#a119bd5a9f0b29cabb3987fd94c5d4ca8">y</a> &lt; 0) {
+    Start-&gt;<a class="code" href="struct_m_f_e_d_g_e_p_t.html#a75770cf1960863e6937f2ca578ede6ef">Slope</a> = -<a class="code" href="host_8h.html#a9adcee815220ec9db98062213806ed04">MAX_FLOAT32</a>;
+    Start-&gt;<a class="code" href="struct_m_f_e_d_g_e_p_t.html#a2b987163e368c4d0a3c4d027b5619665">Direction</a> = <a class="code" href="mfoutline_8h.html#aa268a41a13430b18e933ed40207178d0a035a454a75284b5dc261bd500ab311ed">south</a>;
+  }
+  <span class="keywordflow">else</span> {
+    Start-&gt;<a class="code" href="struct_m_f_e_d_g_e_p_t.html#a75770cf1960863e6937f2ca578ede6ef">Slope</a> = <a class="code" href="host_8h.html#a9adcee815220ec9db98062213806ed04">MAX_FLOAT32</a>;
+    Start-&gt;<a class="code" href="struct_m_f_e_d_g_e_p_t.html#a2b987163e368c4d0a3c4d027b5619665">Direction</a> = <a class="code" href="mfoutline_8h.html#aa268a41a13430b18e933ed40207178d0a257e6b7fcd6ccb860083f20eb9bd660d">north</a>;
+  }
+  <span class="keywordflow">else</span> {
+    Start-&gt;<a class="code" href="struct_m_f_e_d_g_e_p_t.html#a75770cf1960863e6937f2ca578ede6ef">Slope</a> = Delta.<a class="code" href="struct_f_p_o_i_n_t.html#a119bd5a9f0b29cabb3987fd94c5d4ca8">y</a> / Delta.<a class="code" href="struct_f_p_o_i_n_t.html#a96c1f94ff16244b06cb59b79152dc8ae">x</a>;
+    <span class="keywordflow">if</span> (Delta.<a class="code" href="struct_f_p_o_i_n_t.html#a96c1f94ff16244b06cb59b79152dc8ae">x</a> &gt; 0)
+      <span class="keywordflow">if</span> (Delta.<a class="code" href="struct_f_p_o_i_n_t.html#a119bd5a9f0b29cabb3987fd94c5d4ca8">y</a> &gt; 0)
+        <span class="keywordflow">if</span> (Start-&gt;<a class="code" href="struct_m_f_e_d_g_e_p_t.html#a75770cf1960863e6937f2ca578ede6ef">Slope</a> &gt; MinSlope)
+          <span class="keywordflow">if</span> (Start-&gt;<a class="code" href="struct_m_f_e_d_g_e_p_t.html#a75770cf1960863e6937f2ca578ede6ef">Slope</a> &lt; MaxSlope)
+            Start-&gt;<a class="code" href="struct_m_f_e_d_g_e_p_t.html#a2b987163e368c4d0a3c4d027b5619665">Direction</a> = <a class="code" href="mfoutline_8h.html#aa268a41a13430b18e933ed40207178d0ae3b4c14104592166f37bd10677137b23">northeast</a>;
+    <span class="keywordflow">else</span>
+      Start-&gt;<a class="code" href="struct_m_f_e_d_g_e_p_t.html#a2b987163e368c4d0a3c4d027b5619665">Direction</a> = <a class="code" href="mfoutline_8h.html#aa268a41a13430b18e933ed40207178d0a257e6b7fcd6ccb860083f20eb9bd660d">north</a>;
+    <span class="keywordflow">else</span>
+      Start-&gt;<a class="code" href="struct_m_f_e_d_g_e_p_t.html#a2b987163e368c4d0a3c4d027b5619665">Direction</a> = <a class="code" href="mfoutline_8h.html#aa268a41a13430b18e933ed40207178d0a1be79cd4775c5384e197f1031580b10a">east</a>;
+    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (Start-&gt;<a class="code" href="struct_m_f_e_d_g_e_p_t.html#a75770cf1960863e6937f2ca578ede6ef">Slope</a> &lt; -MinSlope)
+    <span class="keywordflow">if</span> (Start-&gt;<a class="code" href="struct_m_f_e_d_g_e_p_t.html#a75770cf1960863e6937f2ca578ede6ef">Slope</a> &gt; -MaxSlope)
+      Start-&gt;<a class="code" href="struct_m_f_e_d_g_e_p_t.html#a2b987163e368c4d0a3c4d027b5619665">Direction</a> = <a class="code" href="mfoutline_8h.html#aa268a41a13430b18e933ed40207178d0ae1fe6949267a85f8ffd113c0eb67116a">southeast</a>;
+    <span class="keywordflow">else</span>
+      Start-&gt;<a class="code" href="struct_m_f_e_d_g_e_p_t.html#a2b987163e368c4d0a3c4d027b5619665">Direction</a> = <a class="code" href="mfoutline_8h.html#aa268a41a13430b18e933ed40207178d0a035a454a75284b5dc261bd500ab311ed">south</a>;
+    <span class="keywordflow">else</span>
+      Start-&gt;<a class="code" href="struct_m_f_e_d_g_e_p_t.html#a2b987163e368c4d0a3c4d027b5619665">Direction</a> = <a class="code" href="mfoutline_8h.html#aa268a41a13430b18e933ed40207178d0a1be79cd4775c5384e197f1031580b10a">east</a>;
+    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (Delta.<a class="code" href="struct_f_p_o_i_n_t.html#a119bd5a9f0b29cabb3987fd94c5d4ca8">y</a> &gt; 0)
+    <span class="keywordflow">if</span> (Start-&gt;<a class="code" href="struct_m_f_e_d_g_e_p_t.html#a75770cf1960863e6937f2ca578ede6ef">Slope</a> &lt; -MinSlope)
+      <span class="keywordflow">if</span> (Start-&gt;<a class="code" href="struct_m_f_e_d_g_e_p_t.html#a75770cf1960863e6937f2ca578ede6ef">Slope</a> &gt; -MaxSlope)
+        Start-&gt;<a class="code" href="struct_m_f_e_d_g_e_p_t.html#a2b987163e368c4d0a3c4d027b5619665">Direction</a> = <a class="code" href="mfoutline_8h.html#aa268a41a13430b18e933ed40207178d0a612166623e6f200d052d3d8dc4c075c0">northwest</a>;
+    <span class="keywordflow">else</span>
+      Start-&gt;<a class="code" href="struct_m_f_e_d_g_e_p_t.html#a2b987163e368c4d0a3c4d027b5619665">Direction</a> = <a class="code" href="mfoutline_8h.html#aa268a41a13430b18e933ed40207178d0a257e6b7fcd6ccb860083f20eb9bd660d">north</a>;
+    <span class="keywordflow">else</span>
+      Start-&gt;<a class="code" href="struct_m_f_e_d_g_e_p_t.html#a2b987163e368c4d0a3c4d027b5619665">Direction</a> = <a class="code" href="mfoutline_8h.html#aa268a41a13430b18e933ed40207178d0a9f771a3f89930d6b7e164e32a951dcb6">west</a>;
+    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (Start-&gt;<a class="code" href="struct_m_f_e_d_g_e_p_t.html#a75770cf1960863e6937f2ca578ede6ef">Slope</a> &gt; MinSlope)
+    <span class="keywordflow">if</span> (Start-&gt;<a class="code" href="struct_m_f_e_d_g_e_p_t.html#a75770cf1960863e6937f2ca578ede6ef">Slope</a> &lt; MaxSlope)
+      Start-&gt;<a class="code" href="struct_m_f_e_d_g_e_p_t.html#a2b987163e368c4d0a3c4d027b5619665">Direction</a> = <a class="code" href="mfoutline_8h.html#aa268a41a13430b18e933ed40207178d0a0a8b39b36c98d2346b9a5453838f3aea">southwest</a>;
+    <span class="keywordflow">else</span>
+      Start-&gt;<a class="code" href="struct_m_f_e_d_g_e_p_t.html#a2b987163e368c4d0a3c4d027b5619665">Direction</a> = <a class="code" href="mfoutline_8h.html#aa268a41a13430b18e933ed40207178d0a035a454a75284b5dc261bd500ab311ed">south</a>;
+    <span class="keywordflow">else</span>
+      Start-&gt;<a class="code" href="struct_m_f_e_d_g_e_p_t.html#a2b987163e368c4d0a3c4d027b5619665">Direction</a> = <a class="code" href="mfoutline_8h.html#aa268a41a13430b18e933ed40207178d0a9f771a3f89930d6b7e164e32a951dcb6">west</a>;
+  }
+  Finish-&gt;<a class="code" href="struct_m_f_e_d_g_e_p_t.html#a47d3c4465ab5bb663d77c507cfebc18a">PreviousDirection</a> = Start-&gt;<a class="code" href="struct_m_f_e_d_g_e_p_t.html#a2b987163e368c4d0a3c4d027b5619665">Direction</a>;
+}                                <span class="comment">/* ComputeDirection */</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a84a628621cc7dc5eb36614c785a098a9"></a><!-- doxytag: member="mfoutline.cpp::ComputeOutlineStats" ref="a84a628621cc7dc5eb36614c785a098a9" args="(LIST Outlines, OUTLINE_STATS *OutlineStats)" -->
@@ -299,6 +437,54 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mfoutline_8cpp_source.html#l00108">108</a> of file <a class="el" href="mfoutline_8cpp_source.html">mfoutline.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                     {
+<span class="comment">/*</span>
+<span class="comment"> ** Parameters:</span>
+<span class="comment"> **   Outlines  list of outlines to compute stats for</span>
+<span class="comment"> **   OutlineStats  place to put results</span>
+<span class="comment"> ** Globals: none</span>
+<span class="comment"> ** Operation: This routine computes several statistics about the outlines</span>
+<span class="comment"> **   in Outlines.  These statistics are usually used to perform</span>
+<span class="comment"> **   anistropic normalization of all of the outlines.  The</span>
+<span class="comment"> **   statistics generated are:</span>
+<span class="comment"> **     first moments about x and y axes</span>
+<span class="comment"> **     total length of all outlines</span>
+<span class="comment"> **     center of mass of all outlines</span>
+<span class="comment"> **     second moments about center of mass axes</span>
+<span class="comment"> **     radius of gyration about center of mass axes</span>
+<span class="comment"> ** Return: none (results are returned in OutlineStats)</span>
+<span class="comment"> ** Exceptions: none</span>
+<span class="comment"> ** History: Fri Dec 14 08:32:03 1990, DSJ, Created.</span>
+<span class="comment"> */</span>
+  <a class="code" href="structlist__rec.html">MFOUTLINE</a> Outline;
+  <a class="code" href="structlist__rec.html">MFOUTLINE</a> EdgePoint;
+  <a class="code" href="struct_m_f_e_d_g_e_p_t.html">MFEDGEPT</a> *Current;
+  <a class="code" href="struct_m_f_e_d_g_e_p_t.html">MFEDGEPT</a> *Last;
+
+  <a class="code" href="mfoutline_8cpp.html#ab1a3167a695b3448b64ee38f6da9a264">InitOutlineStats</a>(OutlineStats);
+  <a class="code" href="oldlist_8h.html#a2cf19ba78be6b54f66823d58f34f2a53">iterate</a>(Outlines) {
+    Outline = (<a class="code" href="mfoutline_8h.html#a7ccab0cdf14413921e017ad0af14e1de">MFOUTLINE</a>) <a class="code" href="oldlist_8h.html#a69547be764424f18b0be535400747978">first_node</a> (Outlines);
+
+    Last = <a class="code" href="mfoutline_8h.html#aabb22902a8c1b9a830cb6347a474feea">PointAt</a> (Outline);
+    Outline = <a class="code" href="mfoutline_8h.html#ad2dfef920e57366bab3231610ab39f4d">NextPointAfter</a> (Outline);
+    EdgePoint = Outline;
+    <span class="keywordflow">do</span> {
+      Current = <a class="code" href="mfoutline_8h.html#aabb22902a8c1b9a830cb6347a474feea">PointAt</a> (EdgePoint);
+
+      <a class="code" href="mfoutline_8cpp.html#a943167d00e171b3cbc68252f32a45196">UpdateOutlineStats</a> (OutlineStats,
+        Last-&gt;<a class="code" href="struct_m_f_e_d_g_e_p_t.html#a2b633b56b9a1a71a23551e387b7c8af4">Point</a>.<a class="code" href="struct_f_p_o_i_n_t.html#a96c1f94ff16244b06cb59b79152dc8ae">x</a>, Last-&gt;<a class="code" href="struct_m_f_e_d_g_e_p_t.html#a2b633b56b9a1a71a23551e387b7c8af4">Point</a>.<a class="code" href="struct_f_p_o_i_n_t.html#a119bd5a9f0b29cabb3987fd94c5d4ca8">y</a>,
+        Current-&gt;<a class="code" href="struct_m_f_e_d_g_e_p_t.html#a2b633b56b9a1a71a23551e387b7c8af4">Point</a>.<a class="code" href="struct_f_p_o_i_n_t.html#a96c1f94ff16244b06cb59b79152dc8ae">x</a>, Current-&gt;<a class="code" href="struct_m_f_e_d_g_e_p_t.html#a2b633b56b9a1a71a23551e387b7c8af4">Point</a>.<a class="code" href="struct_f_p_o_i_n_t.html#a119bd5a9f0b29cabb3987fd94c5d4ca8">y</a>);
+
+      Last = Current;
+      EdgePoint = <a class="code" href="mfoutline_8h.html#ad2dfef920e57366bab3231610ab39f4d">NextPointAfter</a> (EdgePoint);
+    }
+    <span class="keywordflow">while</span> (EdgePoint != Outline);
+  }
+  <a class="code" href="mfoutline_8cpp.html#a8983618bd7c7c05ff69355b0aa4185fe">FinishOutlineStats</a>(OutlineStats);
+
+}                                <span class="comment">/* ComputeOutlineStats */</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4acb6328d74e385e88c02c45e1306b97"></a><!-- doxytag: member="mfoutline.cpp::ConvertBlob" ref="a4acb6328d74e385e88c02c45e1306b97" args="(TBLOB *blob)" -->
@@ -316,6 +502,14 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mfoutline_8cpp_source.html#l00041">41</a> of file <a class="el" href="mfoutline_8cpp_source.html">mfoutline.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                              {
+  <a class="code" href="structlist__rec.html">LIST</a> outlines = <a class="code" href="oldlist_8h.html#ae212530ca629c67513698e988c705a5a">NIL_LIST</a>;
+  <span class="keywordflow">return</span> (blob == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+      ? <a class="code" href="oldlist_8h.html#ae212530ca629c67513698e988c705a5a">NIL_LIST</a>
+      : <a class="code" href="mfoutline_8cpp.html#a4d507cbf8bfa947b364ed74f5cb160cd">ConvertOutlines</a>(blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a>, outlines, <a class="code" href="mfoutline_8h.html#abace9421f1a42147c8af40a950bc7203a281b97b7e8b9c87a09e7fc5b5fe95da8">outer</a>);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a8ddc957cfa64a7dc50f9a3836319e766"></a><!-- doxytag: member="mfoutline.cpp::ConvertOutline" ref="a8ddc957cfa64a7dc50f9a3836319e766" args="(TESSLINE *outline)" -->
@@ -333,6 +527,40 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mfoutline_8cpp_source.html#l00051">51</a> of file <a class="el" href="mfoutline_8cpp_source.html">mfoutline.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                            {
+  <a class="code" href="struct_m_f_e_d_g_e_p_t.html">MFEDGEPT</a> *NewPoint;
+  <a class="code" href="structlist__rec.html">MFOUTLINE</a> MFOutline = <a class="code" href="oldlist_8h.html#ae212530ca629c67513698e988c705a5a">NIL_LIST</a>;
+  <a class="code" href="struct_e_d_g_e_p_t.html">EDGEPT</a> *EdgePoint;
+  <a class="code" href="struct_e_d_g_e_p_t.html">EDGEPT</a> *StartPoint;
+  <a class="code" href="struct_e_d_g_e_p_t.html">EDGEPT</a> *NextPoint;
+
+  <span class="keywordflow">if</span> (outline == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> || outline-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0ab1e26b1dae548f0bd3c096c6183b18">loop</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <span class="keywordflow">return</span> MFOutline;
+
+  StartPoint = outline-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0ab1e26b1dae548f0bd3c096c6183b18">loop</a>;
+  EdgePoint = StartPoint;
+  <span class="keywordflow">do</span> {
+    NextPoint = EdgePoint-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>;
+
+    <span class="comment">/* filter out duplicate points */</span>
+    <span class="keywordflow">if</span> (EdgePoint-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> != NextPoint-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> ||
+        EdgePoint-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a> != NextPoint-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a>) {
+      NewPoint = <a class="code" href="mfoutline_8cpp.html#a917b406f8854b822d8cf2eb2480e6684">NewEdgePoint</a>();
+      <a class="code" href="mfoutline_8h.html#a1960e4d5f6a5ee3649830432ab38937b">ClearMark</a>(NewPoint);
+      NewPoint-&gt;<a class="code" href="struct_m_f_e_d_g_e_p_t.html#a6c6f4bc040c7147dce9a63516758ad5d">Hidden</a> = EdgePoint-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7e6e4c9b9bcc3b1e66ab62bb7641c39a">IsHidden</a>();
+      NewPoint-&gt;<a class="code" href="struct_m_f_e_d_g_e_p_t.html#a2b633b56b9a1a71a23551e387b7c8af4">Point</a>.<a class="code" href="struct_f_p_o_i_n_t.html#a96c1f94ff16244b06cb59b79152dc8ae">x</a> = EdgePoint-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a>;
+      NewPoint-&gt;<a class="code" href="struct_m_f_e_d_g_e_p_t.html#a2b633b56b9a1a71a23551e387b7c8af4">Point</a>.<a class="code" href="struct_f_p_o_i_n_t.html#a119bd5a9f0b29cabb3987fd94c5d4ca8">y</a> = EdgePoint-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a>;
+      MFOutline = <a class="code" href="oldlist_8cpp.html#a9c4294375af81ab4c133b6b5a3679a16">push</a>(MFOutline, NewPoint);
+    }
+    EdgePoint = NextPoint;
+  } <span class="keywordflow">while</span> (EdgePoint != StartPoint);
+
+  <span class="keywordflow">if</span> (MFOutline != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <a class="code" href="mfoutline_8h.html#a72b744e3e7220468dad3d2c67ef65bbf">MakeOutlineCircular</a>(MFOutline);
+  <span class="keywordflow">return</span> MFOutline;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4d507cbf8bfa947b364ed74f5cb160cd"></a><!-- doxytag: member="mfoutline.cpp::ConvertOutlines" ref="a4d507cbf8bfa947b364ed74f5cb160cd" args="(TESSLINE *outline, LIST mf_outlines, OUTLINETYPE outline_type)" -->
@@ -366,6 +594,19 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mfoutline_8cpp_source.html#l00092">92</a> of file <a class="el" href="mfoutline_8cpp_source.html">mfoutline.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                               {
+  <a class="code" href="structlist__rec.html">MFOUTLINE</a> mf_outline;
+
+  <span class="keywordflow">while</span> (outline != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    mf_outline = <a class="code" href="mfoutline_8cpp.html#a8ddc957cfa64a7dc50f9a3836319e766">ConvertOutline</a>(outline);
+    <span class="keywordflow">if</span> (mf_outline != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+      mf_outlines = <a class="code" href="oldlist_8cpp.html#a9c4294375af81ab4c133b6b5a3679a16">push</a>(mf_outlines, mf_outline);
+    outline = outline-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0fb224d43ea53a791f0957fa92793bef">next</a>;
+  }
+  <span class="keywordflow">return</span> mf_outlines;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac2b870343576dd24d1c4871f5988d556"></a><!-- doxytag: member="mfoutline.cpp::FindDirectionChanges" ref="ac2b870343576dd24d1c4871f5988d556" args="(MFOUTLINE Outline, FLOAT32 MinSlope, FLOAT32 MaxSlope)" -->
@@ -399,6 +640,46 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mfoutline_8cpp_source.html#l00157">157</a> of file <a class="el" href="mfoutline_8cpp_source.html">mfoutline.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                            {
+<span class="comment">/*</span>
+<span class="comment"> ** Parameters:</span>
+<span class="comment"> **   Outline   micro-feature outline to analyze</span>
+<span class="comment"> **   MinSlope  controls &quot;snapping&quot; of segments to horizontal</span>
+<span class="comment"> **   MaxSlope  controls &quot;snapping&quot; of segments to vertical</span>
+<span class="comment"> ** Globals: none</span>
+<span class="comment"> ** Operation:</span>
+<span class="comment"> **   This routine searches thru the specified outline, computes</span>
+<span class="comment"> **   a slope for each vector in the outline, and marks each</span>
+<span class="comment"> **   vector as having one of the following directions:</span>
+<span class="comment"> **     N, S, E, W, NE, NW, SE, SW</span>
+<span class="comment"> **   This information is then stored in the outline and the</span>
+<span class="comment"> **   outline is returned.</span>
+<span class="comment"> ** Return: none</span>
+<span class="comment"> ** Exceptions: none</span>
+<span class="comment"> ** History: 7/21/89, DSJ, Created.</span>
+<span class="comment"> */</span>
+  <a class="code" href="struct_m_f_e_d_g_e_p_t.html">MFEDGEPT</a> *Current;
+  <a class="code" href="struct_m_f_e_d_g_e_p_t.html">MFEDGEPT</a> *Last;
+  <a class="code" href="structlist__rec.html">MFOUTLINE</a> EdgePoint;
+
+  <span class="keywordflow">if</span> (<a class="code" href="mfoutline_8h.html#ac8e258367e719e5a22e83af1c2b33e53">DegenerateOutline</a> (Outline))
+    <span class="keywordflow">return</span>;
+
+  Last = <a class="code" href="mfoutline_8h.html#aabb22902a8c1b9a830cb6347a474feea">PointAt</a> (Outline);
+  Outline = <a class="code" href="mfoutline_8h.html#ad2dfef920e57366bab3231610ab39f4d">NextPointAfter</a> (Outline);
+  EdgePoint = Outline;
+  <span class="keywordflow">do</span> {
+    Current = <a class="code" href="mfoutline_8h.html#aabb22902a8c1b9a830cb6347a474feea">PointAt</a> (EdgePoint);
+    <a class="code" href="mfoutline_8cpp.html#a97334eef13fe16a7e0ce178f905d2c39">ComputeDirection</a>(Last, Current, MinSlope, MaxSlope);
+
+    Last = Current;
+    EdgePoint = <a class="code" href="mfoutline_8h.html#ad2dfef920e57366bab3231610ab39f4d">NextPointAfter</a> (EdgePoint);
+  }
+  <span class="keywordflow">while</span> (EdgePoint != Outline);
+
+}                                <span class="comment">/* FindDirectionChanges */</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a8983618bd7c7c05ff69355b0aa4185fe"></a><!-- doxytag: member="mfoutline.cpp::FinishOutlineStats" ref="a8983618bd7c7c05ff69355b0aa4185fe" args="(register OUTLINE_STATS *OutlineStats)" -->
@@ -416,6 +697,45 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mfoutline_8cpp_source.html#l00557">557</a> of file <a class="el" href="mfoutline_8cpp_source.html">mfoutline.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                              {
+<span class="comment">/*</span>
+<span class="comment"> ** Parameters:</span>
+<span class="comment"> **   OutlineStats  statistics about a set of outlines</span>
+<span class="comment"> ** Globals: none</span>
+<span class="comment"> ** Operation: Use the preliminary statistics accumulated in OutlineStats</span>
+<span class="comment"> **   to compute the final statistics.</span>
+<span class="comment"> **   (see Dan Johnson&#39;s Tesseract lab</span>
+<span class="comment"> **   notebook #2, pgs. 74-78).</span>
+<span class="comment"> ** Return: none</span>
+<span class="comment"> ** Exceptions: none</span>
+<span class="comment"> ** History: Fri Dec 14 10:13:36 1990, DSJ, Created.</span>
+<span class="comment"> */</span>
+  OutlineStats-&gt;x = 0.5 * OutlineStats-&gt;My / OutlineStats-&gt;L;
+  OutlineStats-&gt;y = 0.5 * OutlineStats-&gt;Mx / OutlineStats-&gt;L;
+
+  OutlineStats-&gt;Ix = (OutlineStats-&gt;Ix / 3.0 -
+    OutlineStats-&gt;y * OutlineStats-&gt;Mx +
+    OutlineStats-&gt;y * OutlineStats-&gt;y * OutlineStats-&gt;L);
+
+  OutlineStats-&gt;Iy = (OutlineStats-&gt;Iy / 3.0 -
+    OutlineStats-&gt;x * OutlineStats-&gt;My +
+    OutlineStats-&gt;x * OutlineStats-&gt;x * OutlineStats-&gt;L);
+
+  <span class="comment">/* Ix and/or Iy could possibly be negative due to roundoff error */</span>
+  <span class="keywordflow">if</span> (OutlineStats-&gt;Ix &lt; 0.0)
+    OutlineStats-&gt;Ix = <a class="code" href="mfoutline_8cpp.html#aeb013f47829ae8698a722f8fd1ddb989">MIN_INERTIA</a>;
+  <span class="keywordflow">if</span> (OutlineStats-&gt;Iy &lt; 0.0)
+    OutlineStats-&gt;Iy = <a class="code" href="mfoutline_8cpp.html#aeb013f47829ae8698a722f8fd1ddb989">MIN_INERTIA</a>;
+
+  OutlineStats-&gt;Rx = sqrt (OutlineStats-&gt;Ix / OutlineStats-&gt;L);
+  OutlineStats-&gt;Ry = sqrt (OutlineStats-&gt;Iy / OutlineStats-&gt;L);
+
+  OutlineStats-&gt;Mx *= 0.5;
+  OutlineStats-&gt;My *= 0.5;
+
+}                                <span class="comment">/* FinishOutlineStats */</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4633687049466a4f28d70775b0481431"></a><!-- doxytag: member="mfoutline.cpp::FreeMFOutline" ref="a4633687049466a4f28d70775b0481431" args="(void *arg)" -->
@@ -433,6 +753,32 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mfoutline_8cpp_source.html#l00200">200</a> of file <a class="el" href="mfoutline_8cpp_source.html">mfoutline.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                              {  <span class="comment">//MFOUTLINE                             Outline)</span>
+<span class="comment">/*</span>
+<span class="comment"> ** Parameters:</span>
+<span class="comment"> **   Outline   micro-feature outline to be freed</span>
+<span class="comment"> ** Globals: none</span>
+<span class="comment"> ** Operation:</span>
+<span class="comment"> **   This routine deallocates all of the memory consumed by</span>
+<span class="comment"> **   a micro-feature outline.</span>
+<span class="comment"> ** Return: none</span>
+<span class="comment"> ** Exceptions: none</span>
+<span class="comment"> ** History: 7/27/89, DSJ, Created.</span>
+<span class="comment"> */</span>
+  <a class="code" href="structlist__rec.html">MFOUTLINE</a> Start;
+  <a class="code" href="structlist__rec.html">MFOUTLINE</a> Outline = (<a class="code" href="mfoutline_8h.html#a7ccab0cdf14413921e017ad0af14e1de">MFOUTLINE</a>) arg;
+
+  <span class="comment">/* break the circular outline so we can use std. techniques to deallocate */</span>
+  Start = <a class="code" href="oldlist_8h.html#adb120d4c08ce52b5dfe524f0419a9154">list_rest</a> (Outline);
+  <a class="code" href="oldlist_8h.html#a42cc2d9c5eabb2193e2e64df41adedf4">set_rest</a>(Outline, <a class="code" href="oldlist_8h.html#ae212530ca629c67513698e988c705a5a">NIL_LIST</a>);
+  <span class="keywordflow">while</span> (Start != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="memry_8cpp.html#a204a6cd6de69d4bd7a73ca30e0a0f947">free_struct</a> (<a class="code" href="oldlist_8h.html#a69547be764424f18b0be535400747978">first_node</a> (Start), <span class="keyword">sizeof</span> (<a class="code" href="struct_m_f_e_d_g_e_p_t.html">MFEDGEPT</a>), <span class="stringliteral">&quot;MFEDGEPT&quot;</span>);
+    Start = <a class="code" href="oldlist_8cpp.html#a4a16ea0d766f4b3bc697142d5303a62c">pop</a> (Start);
+  }
+
+}                                <span class="comment">/* FreeMFOutline */</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a553352ad44661adad2a80a24ac78aeaf"></a><!-- doxytag: member="mfoutline.cpp::FreeOutlines" ref="a553352ad44661adad2a80a24ac78aeaf" args="(LIST Outlines)" -->
@@ -450,6 +796,21 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mfoutline_8cpp_source.html#l00227">227</a> of file <a class="el" href="mfoutline_8cpp_source.html">mfoutline.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                 {
+<span class="comment">/*</span>
+<span class="comment"> ** Parameters:</span>
+<span class="comment"> **   Outlines  list of mf-outlines to be freed</span>
+<span class="comment"> ** Globals: none</span>
+<span class="comment"> ** Operation: Release all memory consumed by the specified list</span>
+<span class="comment"> **   of outlines.</span>
+<span class="comment"> ** Return: none</span>
+<span class="comment"> ** Exceptions: none</span>
+<span class="comment"> ** History: Thu Dec 13 16:14:50 1990, DSJ, Created.</span>
+<span class="comment"> */</span>
+  <a class="code" href="oldlist_8cpp.html#a1a1efc1a269e5bb5bf16c1a174363ba4">destroy_nodes</a>(Outlines, <a class="code" href="mfoutline_8cpp.html#a4633687049466a4f28d70775b0481431">FreeMFOutline</a>);
+}                                <span class="comment">/* FreeOutlines */</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab1a3167a695b3448b64ee38f6da9a264"></a><!-- doxytag: member="mfoutline.cpp::InitOutlineStats" ref="ab1a3167a695b3448b64ee38f6da9a264" args="(OUTLINE_STATS *OutlineStats)" -->
@@ -467,6 +828,29 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mfoutline_8cpp_source.html#l00597">597</a> of file <a class="el" href="mfoutline_8cpp_source.html">mfoutline.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                   {
+<span class="comment">/*</span>
+<span class="comment"> ** Parameters:</span>
+<span class="comment"> **   OutlineStats  stats data structure to be initialized</span>
+<span class="comment"> ** Globals: none</span>
+<span class="comment"> ** Operation: Initialize the outline statistics data structure so</span>
+<span class="comment"> **   that it is ready to start accumulating statistics.</span>
+<span class="comment"> ** Return: none</span>
+<span class="comment"> ** Exceptions: none</span>
+<span class="comment"> ** History: Fri Dec 14 08:55:22 1990, DSJ, Created.</span>
+<span class="comment"> */</span>
+  OutlineStats-&gt;<a class="code" href="struct_o_u_t_l_i_n_e___s_t_a_t_s.html#a48dcb42e547f23fbf75a53f396c2d020">Mx</a> = 0.0;
+  OutlineStats-&gt;<a class="code" href="struct_o_u_t_l_i_n_e___s_t_a_t_s.html#a19fd6ebb6e878a2f2df7c168edd7ed81">My</a> = 0.0;
+  OutlineStats-&gt;<a class="code" href="struct_o_u_t_l_i_n_e___s_t_a_t_s.html#a91a6aea2761ea0e675b1e47c87da2509">L</a> = 0.0;
+  OutlineStats-&gt;<a class="code" href="struct_o_u_t_l_i_n_e___s_t_a_t_s.html#a2e72d57afc14290aef97b17bba52cd98">x</a> = 0.0;
+  OutlineStats-&gt;<a class="code" href="struct_o_u_t_l_i_n_e___s_t_a_t_s.html#a27f428c88f5d21ad9125a93c30d73699">y</a> = 0.0;
+  OutlineStats-&gt;<a class="code" href="struct_o_u_t_l_i_n_e___s_t_a_t_s.html#a6af6966cfc75974663f3746d8a490a34">Ix</a> = 0.0;
+  OutlineStats-&gt;<a class="code" href="struct_o_u_t_l_i_n_e___s_t_a_t_s.html#af32048351768bcc8ad6566dcb452090d">Iy</a> = 0.0;
+  OutlineStats-&gt;<a class="code" href="struct_o_u_t_l_i_n_e___s_t_a_t_s.html#a44df0e96a471cc5e0380b52d04eec549">Rx</a> = 0.0;
+  OutlineStats-&gt;<a class="code" href="struct_o_u_t_l_i_n_e___s_t_a_t_s.html#afb6d2229fa00b3a255aa11efa7894527">Ry</a> = 0.0;
+}                                <span class="comment">/* InitOutlineStats */</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="afa2531f8656ba496465bc23ff1a2f99c"></a><!-- doxytag: member="mfoutline.cpp::MarkDirectionChanges" ref="afa2531f8656ba496465bc23ff1a2f99c" args="(MFOUTLINE Outline)" -->
@@ -484,6 +868,42 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mfoutline_8cpp_source.html#l00243">243</a> of file <a class="el" href="mfoutline_8cpp_source.html">mfoutline.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                             {
+<span class="comment">/*</span>
+<span class="comment"> ** Parameters:</span>
+<span class="comment"> **   Outline   micro-feature outline to analyze</span>
+<span class="comment"> ** Globals: none</span>
+<span class="comment"> ** Operation:</span>
+<span class="comment"> **   This routine searches thru the specified outline and finds</span>
+<span class="comment"> **   the points at which the outline changes direction.  These</span>
+<span class="comment"> **   points are then marked as &quot;extremities&quot;.  This routine is</span>
+<span class="comment"> **   used as an alternative to FindExtremities().  It forces the</span>
+<span class="comment"> **   endpoints of the microfeatures to be at the direction</span>
+<span class="comment"> **   changes rather than at the midpoint between direction</span>
+<span class="comment"> **   changes.</span>
+<span class="comment"> ** Return: none</span>
+<span class="comment"> ** Exceptions: none</span>
+<span class="comment"> ** History: 6/29/90, DSJ, Created.</span>
+<span class="comment"> */</span>
+  <a class="code" href="structlist__rec.html">MFOUTLINE</a> Current;
+  <a class="code" href="structlist__rec.html">MFOUTLINE</a> Last;
+  <a class="code" href="structlist__rec.html">MFOUTLINE</a> First;
+
+  <span class="keywordflow">if</span> (<a class="code" href="mfoutline_8h.html#ac8e258367e719e5a22e83af1c2b33e53">DegenerateOutline</a> (Outline))
+    <span class="keywordflow">return</span>;
+
+  First = <a class="code" href="mfoutline_8cpp.html#a224d838335416038dcb0348f665f5a05">NextDirectionChange</a> (Outline);
+  Last = First;
+  <span class="keywordflow">do</span> {
+    Current = <a class="code" href="mfoutline_8cpp.html#a224d838335416038dcb0348f665f5a05">NextDirectionChange</a> (Last);
+    <a class="code" href="mfoutline_8h.html#ae5174bb3e6e300b198551b13834c1a62">MarkPoint</a> (<a class="code" href="mfoutline_8h.html#aabb22902a8c1b9a830cb6347a474feea">PointAt</a> (Current));
+    Last = Current;
+  }
+  <span class="keywordflow">while</span> (Last != First);
+
+}                                <span class="comment">/* MarkDirectionChanges */</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a917b406f8854b822d8cf2eb2480e6684"></a><!-- doxytag: member="mfoutline.cpp::NewEdgePoint" ref="a917b406f8854b822d8cf2eb2480e6684" args="()" -->
@@ -500,6 +920,11 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mfoutline_8cpp_source.html#l00281">281</a> of file <a class="el" href="mfoutline_8cpp_source.html">mfoutline.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                         {
+  <span class="keywordflow">return</span> ((<a class="code" href="struct_m_f_e_d_g_e_p_t.html">MFEDGEPT</a> *) <a class="code" href="memry_8cpp.html#a4f4e6728de23eb0530f9bdc8b3a114d3">alloc_struct</a>(<span class="keyword">sizeof</span>(<a class="code" href="struct_m_f_e_d_g_e_p_t.html">MFEDGEPT</a>), <span class="stringliteral">&quot;MFEDGEPT&quot;</span>));
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a224d838335416038dcb0348f665f5a05"></a><!-- doxytag: member="mfoutline.cpp::NextDirectionChange" ref="a224d838335416038dcb0348f665f5a05" args="(MFOUTLINE EdgePoint)" -->
@@ -517,6 +942,36 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mfoutline_8cpp_source.html#l00621">621</a> of file <a class="el" href="mfoutline_8cpp_source.html">mfoutline.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                   {
+<span class="comment">/*</span>
+<span class="comment"> ** Parameters:</span>
+<span class="comment"> **   EdgePoint start search from this point</span>
+<span class="comment"> ** Globals: none</span>
+<span class="comment"> ** Operation:</span>
+<span class="comment"> **   This routine returns the next point in the micro-feature</span>
+<span class="comment"> **   outline that has a direction different than EdgePoint.  The</span>
+<span class="comment"> **   routine assumes that the outline being searched is not a</span>
+<span class="comment"> **   degenerate outline (i.e. it must have 2 or more edge points).</span>
+<span class="comment"> ** Return: Point of next direction change in micro-feature outline.</span>
+<span class="comment"> ** Exceptions: none</span>
+<span class="comment"> ** History: 7/25/89, DSJ, Created.</span>
+<span class="comment"> */</span>
+  <a class="code" href="mfoutline_8h.html#aa268a41a13430b18e933ed40207178d0">DIRECTION</a> InitialDirection;
+
+  InitialDirection = <a class="code" href="mfoutline_8h.html#aabb22902a8c1b9a830cb6347a474feea">PointAt</a> (EdgePoint)-&gt;Direction;
+
+  <a class="code" href="structlist__rec.html">MFOUTLINE</a> next_pt = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordflow">do</span> {
+    EdgePoint = <a class="code" href="mfoutline_8h.html#ad2dfef920e57366bab3231610ab39f4d">NextPointAfter</a>(EdgePoint);
+    next_pt = <a class="code" href="mfoutline_8h.html#ad2dfef920e57366bab3231610ab39f4d">NextPointAfter</a>(EdgePoint);
+  } <span class="keywordflow">while</span> (<a class="code" href="mfoutline_8h.html#aabb22902a8c1b9a830cb6347a474feea">PointAt</a>(EdgePoint)-&gt;Direction == InitialDirection &amp;&amp;
+           !<a class="code" href="mfoutline_8h.html#aabb22902a8c1b9a830cb6347a474feea">PointAt</a>(EdgePoint)-&gt;Hidden &amp;&amp;
+           next_pt != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp; !<a class="code" href="mfoutline_8h.html#aabb22902a8c1b9a830cb6347a474feea">PointAt</a>(next_pt)-&gt;Hidden);
+
+  <span class="keywordflow">return</span> (EdgePoint);
+}                                <span class="comment">/* NextDirectionChange */</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="af520bd5bba313216d0b6fb9e58041266"></a><!-- doxytag: member="mfoutline.cpp::NextExtremity" ref="af520bd5bba313216d0b6fb9e58041266" args="(MFOUTLINE EdgePoint)" -->
@@ -534,6 +989,30 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mfoutline_8cpp_source.html#l00287">287</a> of file <a class="el" href="mfoutline_8cpp_source.html">mfoutline.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                             {
+<span class="comment">/*</span>
+<span class="comment"> ** Parameters:</span>
+<span class="comment"> **   EdgePoint start search from this point</span>
+<span class="comment"> ** Globals: none</span>
+<span class="comment"> ** Operation:</span>
+<span class="comment"> **   This routine returns the next point in the micro-feature</span>
+<span class="comment"> **   outline that is an extremity.  The search starts after</span>
+<span class="comment"> **   EdgePoint.  The routine assumes that the outline being</span>
+<span class="comment"> **   searched is not a degenerate outline (i.e. it must have</span>
+<span class="comment"> **   2 or more edge points).</span>
+<span class="comment"> ** Return: Next extremity in the outline after EdgePoint.</span>
+<span class="comment"> ** Exceptions: none</span>
+<span class="comment"> ** History: 7/26/89, DSJ, Created.</span>
+<span class="comment"> */</span>
+  EdgePoint = <a class="code" href="mfoutline_8h.html#ad2dfef920e57366bab3231610ab39f4d">NextPointAfter</a>(EdgePoint);
+  <span class="keywordflow">while</span> (!<a class="code" href="mfoutline_8h.html#aabb22902a8c1b9a830cb6347a474feea">PointAt</a>(EdgePoint)-&gt;ExtremityMark)
+    EdgePoint = <a class="code" href="mfoutline_8h.html#ad2dfef920e57366bab3231610ab39f4d">NextPointAfter</a>(EdgePoint);
+
+  <span class="keywordflow">return</span> (EdgePoint);
+
+}                                <span class="comment">/* NextExtremity */</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a30b1492f0756c31499da0157ecba50ff"></a><!-- doxytag: member="mfoutline.cpp::NormalizeOutline" ref="a30b1492f0756c31499da0157ecba50ff" args="(MFOUTLINE Outline, FLOAT32 XOrigin)" -->
@@ -561,6 +1040,37 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mfoutline_8cpp_source.html#l00312">312</a> of file <a class="el" href="mfoutline_8cpp_source.html">mfoutline.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                       {
+<span class="comment">/*</span>
+<span class="comment"> ** Parameters:</span>
+<span class="comment"> **   Outline   outline to be normalized</span>
+<span class="comment"> **   XOrigin   x-origin of text</span>
+<span class="comment"> ** Globals: none</span>
+<span class="comment"> ** Operation:</span>
+<span class="comment"> **   This routine normalizes the coordinates of the specified</span>
+<span class="comment"> **   outline so that the outline is deskewed down to the</span>
+<span class="comment"> **   baseline, translated so that x=0 is at XOrigin, and scaled</span>
+<span class="comment"> **   so that the height of a character cell from descender to</span>
+<span class="comment"> **   ascender is 1.  Of this height, 0.25 is for the descender,</span>
+<span class="comment"> **   0.25 for the ascender, and 0.5 for the x-height.  The</span>
+<span class="comment"> **   y coordinate of the baseline is 0.</span>
+<span class="comment"> ** Return: none</span>
+<span class="comment"> ** Exceptions: none</span>
+<span class="comment"> ** History: 8/2/89, DSJ, Created.</span>
+<span class="comment"> */</span>
+  <span class="keywordflow">if</span> (Outline == <a class="code" href="oldlist_8h.html#ae212530ca629c67513698e988c705a5a">NIL_LIST</a>)
+    <span class="keywordflow">return</span>;
+
+  <a class="code" href="structlist__rec.html">MFOUTLINE</a> EdgePoint = Outline;
+  <span class="keywordflow">do</span> {
+    <a class="code" href="struct_m_f_e_d_g_e_p_t.html">MFEDGEPT</a> *Current = <a class="code" href="mfoutline_8h.html#aabb22902a8c1b9a830cb6347a474feea">PointAt</a>(EdgePoint);
+    Current-&gt;<a class="code" href="struct_m_f_e_d_g_e_p_t.html#a2b633b56b9a1a71a23551e387b7c8af4">Point</a>.<a class="code" href="struct_f_p_o_i_n_t.html#a119bd5a9f0b29cabb3987fd94c5d4ca8">y</a> = <a class="code" href="mfoutline_8h.html#a91645597f620e8307a65e8ab35d963b8">MF_SCALE_FACTOR</a> * (Current-&gt;<a class="code" href="struct_m_f_e_d_g_e_p_t.html#a2b633b56b9a1a71a23551e387b7c8af4">Point</a>.<a class="code" href="struct_f_p_o_i_n_t.html#a119bd5a9f0b29cabb3987fd94c5d4ca8">y</a> - <a class="code" href="baseline_8h.html#a011c4f289bef07581a2aed5570f1918c">BASELINE_OFFSET</a>);
+    Current-&gt;<a class="code" href="struct_m_f_e_d_g_e_p_t.html#a2b633b56b9a1a71a23551e387b7c8af4">Point</a>.<a class="code" href="struct_f_p_o_i_n_t.html#a96c1f94ff16244b06cb59b79152dc8ae">x</a> = <a class="code" href="mfoutline_8h.html#a91645597f620e8307a65e8ab35d963b8">MF_SCALE_FACTOR</a> * (Current-&gt;<a class="code" href="struct_m_f_e_d_g_e_p_t.html#a2b633b56b9a1a71a23551e387b7c8af4">Point</a>.<a class="code" href="struct_f_p_o_i_n_t.html#a96c1f94ff16244b06cb59b79152dc8ae">x</a> - XOrigin);
+    EdgePoint = <a class="code" href="mfoutline_8h.html#ad2dfef920e57366bab3231610ab39f4d">NextPointAfter</a>(EdgePoint);
+  } <span class="keywordflow">while</span> (EdgePoint != Outline);
+}                                <span class="comment">/* NormalizeOutline */</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a943167d00e171b3cbc68252f32a45196"></a><!-- doxytag: member="mfoutline.cpp::UpdateOutlineStats" ref="a943167d00e171b3cbc68252f32a45196" args="(register OUTLINE_STATS *OutlineStats, register FLOAT32 x1, register FLOAT32 x2, register FLOAT32 y1, register FLOAT32 y2)" -->
@@ -606,6 +1116,49 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mfoutline_8cpp_source.html#l00652">652</a> of file <a class="el" href="mfoutline_8cpp_source.html">mfoutline.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                             {
+<span class="comment">/*</span>
+<span class="comment"> ** Parameters:</span>
+<span class="comment"> **   OutlineStats  statistics to add this segment to</span>
+<span class="comment"> **   x1, y1, x2, y2  segment to be added to statistics</span>
+<span class="comment"> ** Globals: none</span>
+<span class="comment"> ** Operation: This routine adds the statistics for the specified</span>
+<span class="comment"> **   line segment to OutlineStats.  The statistics that are</span>
+<span class="comment"> **   kept are:</span>
+<span class="comment"> **     sum of length of all segments</span>
+<span class="comment"> **     sum of 2*Mx for all segments</span>
+<span class="comment"> **     sum of 2*My for all segments</span>
+<span class="comment"> **     sum of 2*Mx*(y1+y2) - L*y1*y2 for all segments</span>
+<span class="comment"> **     sum of 2*My*(x1+x2) - L*x1*x2 for all segments</span>
+<span class="comment"> **   These numbers, once collected can later be used to easily</span>
+<span class="comment"> **   compute the center of mass, first and second moments,</span>
+<span class="comment"> **   and radii of gyration.  (see Dan Johnson&#39;s Tesseract lab</span>
+<span class="comment"> **   notebook #2, pgs. 74-78).</span>
+<span class="comment"> ** Return: none</span>
+<span class="comment"> ** Exceptions: none</span>
+<span class="comment"> ** History: Fri Dec 14 08:59:17 1990, DSJ, Created.</span>
+<span class="comment"> */</span>
+  <span class="keyword">register</span> <a class="code" href="host_8h.html#aa8336782d864ba03efadb73a51260961">FLOAT64</a> L;
+  <span class="keyword">register</span> <a class="code" href="host_8h.html#aa8336782d864ba03efadb73a51260961">FLOAT64</a> Mx2;
+  <span class="keyword">register</span> <a class="code" href="host_8h.html#aa8336782d864ba03efadb73a51260961">FLOAT64</a> My2;
+
+  <span class="comment">/* compute length of segment */</span>
+  L = sqrt ((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
+  OutlineStats-&gt;L += L;
+
+  <span class="comment">/* compute 2Mx and 2My components */</span>
+  Mx2 = L * (y1 + y2);
+  My2 = L * (x1 + x2);
+  OutlineStats-&gt;Mx += Mx2;
+  OutlineStats-&gt;My += My2;
+
+  <span class="comment">/* compute second moment component */</span>
+  OutlineStats-&gt;Ix += Mx2 * (y1 + y2) - L * y1 * y2;
+  OutlineStats-&gt;Iy += My2 * (x1 + x2) - L * x1 * x2;
+
+}                                <span class="comment">/* UpdateOutlineStats */</span>
+</pre></div>
 </div>
 </div>
 </div>
@@ -628,7 +1181,7 @@ Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:09 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:41 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

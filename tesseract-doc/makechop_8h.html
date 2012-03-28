@@ -149,6 +149,8 @@ Functions</h2></td></tr>
 <b>Value:</b><div class="fragment"><pre class="fragment">(outline-&gt;Contains(split-&gt;point1-&gt;pos) &amp;&amp;  \
         outline-&gt;Contains(split-&gt;point2-&gt;pos))    \
 </pre></div>
+<p>Definition at line <a class="el" href="makechop_8h_source.html#l00044">44</a> of file <a class="el" href="makechop_8h_source.html">makechop.h</a>.</p>
+
 </div>
 </div>
 <hr/><h2>Function Documentation</h2>
@@ -189,6 +191,22 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="makechop_8cpp_source.html#l00052">52</a> of file <a class="el" href="makechop_8cpp_source.html">makechop.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                              {
+  <span class="keywordflow">if</span> (seam-&gt;<a class="code" href="structseam__record.html#a4161a1874921a7854bdd3d7a9f930729">split1</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="blobs_8cpp.html#a2ab5e3b619507b26900a73919b165970">divide_blobs</a>(blob, other_blob, italic_blob, seam-&gt;<a class="code" href="structseam__record.html#a62ddded2ea46187c395f40823d036ed3">location</a>);
+  }
+  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (seam-&gt;<a class="code" href="structseam__record.html#a75d831b3365583331780636979fbb321">split2</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="makechop_8cpp.html#a96dc4a90b556cbe0dab2eceb5ae65ffd">make_split_blobs</a>(blob, other_blob, italic_blob, seam);
+  }
+  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (seam-&gt;<a class="code" href="structseam__record.html#ad3878ea3c362e24fcdd063ed81f9ac5a">split3</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="makechop_8cpp.html#a4ed0ab664f9d3f136e7aa438ab6c4db5">make_double_split</a>(blob, other_blob, italic_blob, seam);
+  }
+  <span class="keywordflow">else</span> {
+    <a class="code" href="makechop_8cpp.html#afd14bd93bb49f7ab009cb45665b4dc43">make_triple_split</a>(blob, other_blob, italic_blob, seam);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a407d2116f0a53e5d7cb11d4dcdc489a0"></a><!-- doxytag: member="makechop.h::form_two_blobs" ref="a407d2116f0a53e5d7cb11d4dcdc489a0" args="(TBLOB *blob, TBLOB *other_blob, bool italic_blob, const TPOINT &amp;location)" -->
@@ -228,6 +246,18 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="makechop_8cpp_source.html#l00074">74</a> of file <a class="el" href="makechop_8cpp_source.html">makechop.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                            {
+  <a class="code" href="olutil_8cpp.html#ad4f4e346c4650affddae46c8df8299ce">setup_blob_outlines</a>(blob);
+
+  <a class="code" href="blobs_8cpp.html#a2ab5e3b619507b26900a73919b165970">divide_blobs</a>(blob, other_blob, italic_blob, location);
+
+  <a class="code" href="olutil_8cpp.html#a1d3c90a38ea91d7baf73af2c77b03d7f">eliminate_duplicate_outlines</a>(blob);
+  <a class="code" href="olutil_8cpp.html#a1d3c90a38ea91d7baf73af2c77b03d7f">eliminate_duplicate_outlines</a>(other_blob);
+
+  <a class="code" href="olutil_8cpp.html#ac29e40d2a6a1a8a7a1eb317324262d86">correct_blob_order</a>(blob, other_blob);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4ed0ab664f9d3f136e7aa438ab6c4db5"></a><!-- doxytag: member="makechop.h::make_double_split" ref="a4ed0ab664f9d3f136e7aa438ab6c4db5" args="(TBLOB *blob, TBLOB *other_blob, bool italic_blob, SEAM *seam)" -->
@@ -267,6 +297,13 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="makechop_8cpp_source.html#l00093">93</a> of file <a class="el" href="makechop_8cpp_source.html">makechop.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                   {
+  <a class="code" href="makechop_8cpp.html#a503883850fa5d77ae8b47baf76c541ae">make_single_split</a>(blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a>, seam-&gt;<a class="code" href="structseam__record.html#a4161a1874921a7854bdd3d7a9f930729">split1</a>);
+  <a class="code" href="makechop_8cpp.html#a503883850fa5d77ae8b47baf76c541ae">make_single_split</a>(blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a>, seam-&gt;<a class="code" href="structseam__record.html#a75d831b3365583331780636979fbb321">split2</a>);
+  <a class="code" href="makechop_8cpp.html#a407d2116f0a53e5d7cb11d4dcdc489a0">form_two_blobs</a>(blob, other_blob, italic_blob, seam-&gt;<a class="code" href="structseam__record.html#a62ddded2ea46187c395f40823d036ed3">location</a>);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a503883850fa5d77ae8b47baf76c541ae"></a><!-- doxytag: member="makechop.h::make_single_split" ref="a503883850fa5d77ae8b47baf76c541ae" args="(TESSLINE *outlines, SPLIT *split)" -->
@@ -294,6 +331,28 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="makechop_8cpp_source.html#l00107">107</a> of file <a class="el" href="makechop_8cpp_source.html">makechop.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                         {
+  assert (outlines != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+
+  <a class="code" href="split_8cpp.html#ac76a475de30b432aa78727bd6b93a729">split_outline</a> (split-&gt;<a class="code" href="structsplit__record.html#a2451170e7785bb495c0dd3d96fc71167">point1</a>, split-&gt;<a class="code" href="structsplit__record.html#adb5ec4152eddde15c1996133177a9a58">point2</a>);
+
+  <span class="keywordflow">while</span> (outlines-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0fb224d43ea53a791f0957fa92793bef">next</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    outlines = outlines-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0fb224d43ea53a791f0957fa92793bef">next</a>;
+
+  outlines-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0fb224d43ea53a791f0957fa92793bef">next</a> = <span class="keyword">new</span> <a class="code" href="struct_t_e_s_s_l_i_n_e.html">TESSLINE</a>;
+  outlines-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0fb224d43ea53a791f0957fa92793bef">next</a>-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0ab1e26b1dae548f0bd3c096c6183b18">loop</a> = split-&gt;<a class="code" href="structsplit__record.html#a2451170e7785bb495c0dd3d96fc71167">point1</a>;
+  outlines-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0fb224d43ea53a791f0957fa92793bef">next</a>-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#aacf6d56a8b92228f875e06d09c78eca5">ComputeBoundingBox</a>();
+
+  outlines = outlines-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0fb224d43ea53a791f0957fa92793bef">next</a>;
+
+  outlines-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0fb224d43ea53a791f0957fa92793bef">next</a> = <span class="keyword">new</span> <a class="code" href="struct_t_e_s_s_l_i_n_e.html">TESSLINE</a>;
+  outlines-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0fb224d43ea53a791f0957fa92793bef">next</a>-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0ab1e26b1dae548f0bd3c096c6183b18">loop</a> = split-&gt;<a class="code" href="structsplit__record.html#adb5ec4152eddde15c1996133177a9a58">point2</a>;
+  outlines-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0fb224d43ea53a791f0957fa92793bef">next</a>-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#aacf6d56a8b92228f875e06d09c78eca5">ComputeBoundingBox</a>();
+
+  outlines-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0fb224d43ea53a791f0957fa92793bef">next</a>-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0fb224d43ea53a791f0957fa92793bef">next</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a96dc4a90b556cbe0dab2eceb5ae65ffd"></a><!-- doxytag: member="makechop.h::make_split_blobs" ref="a96dc4a90b556cbe0dab2eceb5ae65ffd" args="(TBLOB *blob, TBLOB *other_blob, bool italic_blob, SEAM *seam)" -->
@@ -333,6 +392,13 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="makechop_8cpp_source.html#l00135">135</a> of file <a class="el" href="makechop_8cpp_source.html">makechop.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                  {
+  <a class="code" href="makechop_8cpp.html#a503883850fa5d77ae8b47baf76c541ae">make_single_split</a>(blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a>, seam-&gt;<a class="code" href="structseam__record.html#a4161a1874921a7854bdd3d7a9f930729">split1</a>);
+
+  <a class="code" href="makechop_8cpp.html#a407d2116f0a53e5d7cb11d4dcdc489a0">form_two_blobs</a> (blob, other_blob, italic_blob, seam-&gt;<a class="code" href="structseam__record.html#a62ddded2ea46187c395f40823d036ed3">location</a>);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="afd14bd93bb49f7ab009cb45665b4dc43"></a><!-- doxytag: member="makechop.h::make_triple_split" ref="afd14bd93bb49f7ab009cb45665b4dc43" args="(TBLOB *blob, TBLOB *other_blob, bool italic_blob, SEAM *seam)" -->
@@ -372,6 +438,15 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="makechop_8cpp_source.html#l00151">151</a> of file <a class="el" href="makechop_8cpp_source.html">makechop.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                   {
+  <a class="code" href="makechop_8cpp.html#a503883850fa5d77ae8b47baf76c541ae">make_single_split</a>(blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a>, seam-&gt;<a class="code" href="structseam__record.html#a4161a1874921a7854bdd3d7a9f930729">split1</a>);
+  <a class="code" href="makechop_8cpp.html#a503883850fa5d77ae8b47baf76c541ae">make_single_split</a>(blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a>, seam-&gt;<a class="code" href="structseam__record.html#a75d831b3365583331780636979fbb321">split2</a>);
+  <a class="code" href="makechop_8cpp.html#a503883850fa5d77ae8b47baf76c541ae">make_single_split</a>(blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a>, seam-&gt;<a class="code" href="structseam__record.html#ad3878ea3c362e24fcdd063ed81f9ac5a">split3</a>);
+
+  <a class="code" href="makechop_8cpp.html#a407d2116f0a53e5d7cb11d4dcdc489a0">form_two_blobs</a>(blob, other_blob, italic_blob, seam-&gt;<a class="code" href="structseam__record.html#a62ddded2ea46187c395f40823d036ed3">location</a>);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa6a78540c9d1b2be89f28016c2aa408f"></a><!-- doxytag: member="makechop.h::undo_seam" ref="aa6a78540c9d1b2be89f28016c2aa408f" args="(TBLOB *blob, TBLOB *other_blob, SEAM *seam)" -->
@@ -405,6 +480,43 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="makechop_8cpp_source.html#l00168">168</a> of file <a class="el" href="makechop_8cpp_source.html">makechop.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                           {
+  <a class="code" href="struct_t_e_s_s_l_i_n_e.html">TESSLINE</a> *outline;
+
+  <span class="keywordflow">if</span> (!seam)
+    <span class="keywordflow">return</span>;                      <span class="comment">/* Append other blob outlines */</span>
+  <span class="keywordflow">if</span> (blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a> = other_blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a>;
+    other_blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  outline = blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a>;
+  <span class="keywordflow">while</span> (outline-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0fb224d43ea53a791f0957fa92793bef">next</a>)
+    outline = outline-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0fb224d43ea53a791f0957fa92793bef">next</a>;
+  outline-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0fb224d43ea53a791f0957fa92793bef">next</a> = other_blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a>;
+  other_blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keyword">delete</span> other_blob;
+
+  <span class="keywordflow">if</span> (seam-&gt;<a class="code" href="structseam__record.html#a4161a1874921a7854bdd3d7a9f930729">split1</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+  }
+  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (seam-&gt;<a class="code" href="structseam__record.html#a75d831b3365583331780636979fbb321">split2</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="makechop_8cpp.html#aac5cbbe57b200218a324936bd098f948">undo_single_split</a> (blob, seam-&gt;<a class="code" href="structseam__record.html#a4161a1874921a7854bdd3d7a9f930729">split1</a>);
+  }
+  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (seam-&gt;<a class="code" href="structseam__record.html#ad3878ea3c362e24fcdd063ed81f9ac5a">split3</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="makechop_8cpp.html#aac5cbbe57b200218a324936bd098f948">undo_single_split</a> (blob, seam-&gt;<a class="code" href="structseam__record.html#a4161a1874921a7854bdd3d7a9f930729">split1</a>);
+    <a class="code" href="makechop_8cpp.html#aac5cbbe57b200218a324936bd098f948">undo_single_split</a> (blob, seam-&gt;<a class="code" href="structseam__record.html#a75d831b3365583331780636979fbb321">split2</a>);
+  }
+  <span class="keywordflow">else</span> {
+    <a class="code" href="makechop_8cpp.html#aac5cbbe57b200218a324936bd098f948">undo_single_split</a> (blob, seam-&gt;<a class="code" href="structseam__record.html#ad3878ea3c362e24fcdd063ed81f9ac5a">split3</a>);
+    <a class="code" href="makechop_8cpp.html#aac5cbbe57b200218a324936bd098f948">undo_single_split</a> (blob, seam-&gt;<a class="code" href="structseam__record.html#a75d831b3365583331780636979fbb321">split2</a>);
+    <a class="code" href="makechop_8cpp.html#aac5cbbe57b200218a324936bd098f948">undo_single_split</a> (blob, seam-&gt;<a class="code" href="structseam__record.html#a4161a1874921a7854bdd3d7a9f930729">split1</a>);
+  }
+
+  <a class="code" href="olutil_8cpp.html#ad4f4e346c4650affddae46c8df8299ce">setup_blob_outlines</a>(blob);
+  <a class="code" href="olutil_8cpp.html#a1d3c90a38ea91d7baf73af2c77b03d7f">eliminate_duplicate_outlines</a>(blob);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aac5cbbe57b200218a324936bd098f948"></a><!-- doxytag: member="makechop.h::undo_single_split" ref="aac5cbbe57b200218a324936bd098f948" args="(TBLOB *blob, SPLIT *split)" -->
@@ -432,6 +544,24 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="makechop_8cpp_source.html#l00211">211</a> of file <a class="el" href="makechop_8cpp_source.html">makechop.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                  {
+  <a class="code" href="struct_t_e_s_s_l_i_n_e.html">TESSLINE</a> *outline1;
+  <a class="code" href="struct_t_e_s_s_l_i_n_e.html">TESSLINE</a> *outline2;
+  <span class="comment">/* Modify edge points */</span>
+  <a class="code" href="split_8cpp.html#a3c66a2f04c0878b8982e04d5a3d29e04">unsplit_outlines</a> (split-&gt;<a class="code" href="structsplit__record.html#a2451170e7785bb495c0dd3d96fc71167">point1</a>, split-&gt;<a class="code" href="structsplit__record.html#adb5ec4152eddde15c1996133177a9a58">point2</a>);
+
+  outline1 = <span class="keyword">new</span> <a class="code" href="struct_t_e_s_s_l_i_n_e.html">TESSLINE</a>;
+  outline1-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0fb224d43ea53a791f0957fa92793bef">next</a> = blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a>;
+  blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a> = outline1;
+  outline1-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0ab1e26b1dae548f0bd3c096c6183b18">loop</a> = split-&gt;<a class="code" href="structsplit__record.html#a2451170e7785bb495c0dd3d96fc71167">point1</a>;
+
+  outline2 = <span class="keyword">new</span> <a class="code" href="struct_t_e_s_s_l_i_n_e.html">TESSLINE</a>;
+  outline2-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0fb224d43ea53a791f0957fa92793bef">next</a> = blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a>;
+  blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a> = outline2;
+  outline2-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0ab1e26b1dae548f0bd3c096c6183b18">loop</a> = split-&gt;<a class="code" href="structsplit__record.html#adb5ec4152eddde15c1996133177a9a58">point2</a>;
+}
+</pre></div>
 </div>
 </div>
 </div>
@@ -454,7 +584,7 @@ Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:10 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:43 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

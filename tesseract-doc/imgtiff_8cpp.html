@@ -107,7 +107,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <code>#include &lt;stdio.h&gt;</code><br/>
 <code>#include &quot;<a class="el" href="imgtiff_8h_source.html">imgtiff.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="helpers_8h_source.html">helpers.h</a>&quot;</code><br/>
-</div><table class="memberdecls">
+</div>
+<p><a href="imgtiff_8cpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr><td colspan="2"><h2><a name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_t_i_f_f_e_n_t_r_y.html">TIFFENTRY</a></td></tr>
@@ -133,6 +135,8 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="imgtiff_8cpp_source.html#l00064">64</a> of file <a class="el" href="imgtiff_8cpp_source.html">imgtiff.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="aa5b6674baac007dfe40533a21ba0b964"></a><!-- doxytag: member="imgtiff.cpp::INTEL" ref="aa5b6674baac007dfe40533a21ba0b964" args="" -->
@@ -145,6 +149,8 @@ Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="imgtiff_8cpp_source.html#l00036">36</a> of file <a class="el" href="imgtiff_8cpp_source.html">imgtiff.cpp</a>.</p>
 
 </div>
 </div>
@@ -159,6 +165,8 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="imgtiff_8cpp_source.html#l00037">37</a> of file <a class="el" href="imgtiff_8cpp_source.html">imgtiff.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a3018c7600b7bb9866400596a56a57af7"></a><!-- doxytag: member="imgtiff.cpp::START" ref="a3018c7600b7bb9866400596a56a57af7" args="" -->
@@ -171,6 +179,8 @@ Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="imgtiff_8cpp_source.html#l00065">65</a> of file <a class="el" href="imgtiff_8cpp_source.html">imgtiff.cpp</a>.</p>
 
 </div>
 </div>
@@ -190,6 +200,41 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="imgtiff_8cpp_source.html#l00080">80</a> of file <a class="el" href="imgtiff_8cpp_source.html">imgtiff.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                             {
+  <span class="keywordflow">if</span> (fp == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) <span class="keywordflow">return</span> 0;
+  <span class="comment">// Read header</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> filetype = 0;
+  <span class="keywordflow">if</span> (fread(&amp;filetype, <span class="keyword">sizeof</span>(filetype), 1, fp) != 1 ||
+      (filetype != <a class="code" href="imgtiff_8cpp.html#aa5b6674baac007dfe40533a21ba0b964">INTEL</a> &amp;&amp; filetype != <a class="code" href="imgtiff_8cpp.html#ad57773914ad9db8c5654576676b5aff8">MOTO</a>)) {
+    <span class="keywordflow">return</span> 0;
+  }
+  fseek(fp, 4L, SEEK_SET);
+  <span class="keywordtype">int</span> npages = 0;
+  <span class="keywordflow">do</span> {
+    <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> start;                   <span class="comment">// Start of tiff directory.</span>
+    <span class="keywordflow">if</span> (fread(&amp;start, <span class="keyword">sizeof</span>(start), 1, fp) != 1) {
+      <span class="keywordflow">return</span> npages;
+    }
+    <span class="keywordflow">if</span> (filetype != <a class="code" href="host_8h.html#ab4d425bc30f287a102d3bd994274a9cb">__NATIVE__</a>)
+      <a class="code" href="helpers_8h.html#ae7eeeca49954d4b13d269729f2fecd5a">ReverseN</a>(&amp;start, <span class="keyword">sizeof</span>(start));
+    <span class="keywordflow">if</span> (start &lt;= 0) {
+      <span class="keywordflow">return</span> npages;
+    }
+    fseek(fp, start, SEEK_SET);
+    <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> entries;                 <span class="comment">// No of tiff entries.</span>
+    <span class="keywordflow">if</span> (fread(&amp;entries, <span class="keyword">sizeof</span>(entries), 1, fp) != 1) {
+      <span class="keywordflow">return</span> npages;
+    }
+    <span class="keywordflow">if</span> (filetype != <a class="code" href="host_8h.html#ab4d425bc30f287a102d3bd994274a9cb">__NATIVE__</a>)
+      <a class="code" href="helpers_8h.html#ae7eeeca49954d4b13d269729f2fecd5a">ReverseN</a>(&amp;entries, <span class="keyword">sizeof</span>(entries));
+    <span class="comment">// Skip the tags and get to the next start.</span>
+    fseek(fp, entries * <span class="keyword">sizeof</span>(<a class="code" href="struct_t_i_f_f_e_n_t_r_y.html">TIFFENTRY</a>), SEEK_CUR);
+    ++npages;
+  } <span class="keywordflow">while</span> (1);
+  <span class="keywordflow">return</span> 0;
+}
+</pre></div>
 </div>
 </div>
 </div>
@@ -212,7 +257,7 @@ Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:10 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:42 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

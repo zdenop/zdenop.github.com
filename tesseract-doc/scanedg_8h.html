@@ -156,6 +156,50 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="scanedg_8cpp_source.html#l00035">35</a> of file <a class="el" href="scanedg_8cpp_source.html">scanedg.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                           {
+  <a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a> margin;                  <span class="comment">// margin colour</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> x;                       <span class="comment">// line coords</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> y;                       <span class="comment">// current line</span>
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> bleft;                  <span class="comment">// bounding box</span>
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> tright;
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> block_bleft;            <span class="comment">// bounding box</span>
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> block_tright;
+  <span class="keywordtype">int</span> xindex;                    <span class="comment">// index to pixel</span>
+  <a class="code" href="class_b_l_o_c_k___l_i_n_e___i_t.html" title="rectangle iterator">BLOCK_LINE_IT</a> line_it = block; <span class="comment">// line iterator</span>
+  <a class="code" href="class_i_m_a_g_e_l_i_n_e.html">IMAGELINE</a> bwline;              <span class="comment">// thresholded line</span>
+                                 <span class="comment">// lines in progress</span>
+  <a class="code" href="class_c_r_a_c_k_e_d_g_e.html">CRACKEDGE</a> **ptrline = <span class="keyword">new</span> <a class="code" href="class_c_r_a_c_k_e_d_g_e.html">CRACKEDGE</a>*[t_image-&gt;<a class="code" href="class_i_m_a_g_e.html#aee6f16416203f7d678fc61ae22dedc6e">get_xsize</a>()+1];
+  <a class="code" href="class_c_r_a_c_k_e_d_g_e.html">CRACKEDGE</a> *free_cracks = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+
+  block-&gt;<a class="code" href="class_p_d_b_l_k.html#a91950a96127b4a0bb9b237e1f5f889a4" title="get box">bounding_box</a>(bleft, tright);  <span class="comment">// block box</span>
+  block_bleft = bleft;
+  block_tright = tright;
+  <span class="keywordflow">for</span> (x = tright.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a>() - bleft.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a>(); x &gt;= 0; x--)
+    ptrline[x] = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;           <span class="comment">//no lines in progress</span>
+
+  bwline.<a class="code" href="class_i_m_a_g_e_l_i_n_e.html#a4cc90adaaa649d7fd24b35f57c517b7c">init</a>(t_image-&gt;<a class="code" href="class_i_m_a_g_e.html#aee6f16416203f7d678fc61ae22dedc6e">get_xsize</a>());
+
+  margin = <a class="code" href="scanedg_8cpp.html#a5c91c3924c21f1e24a333317e8d08a74">WHITE_PIX</a>;
+
+  <span class="keywordflow">for</span> (y = tright.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a>() - 1; y &gt;= bleft.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a>() - 1; y--) {
+    <span class="keywordflow">if</span> (y &gt;= block_bleft.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a>() &amp;&amp; y &lt; block_tright.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a>()) {
+      t_image-&gt;<a class="code" href="class_i_m_a_g_e.html#ad3cdcd971f7c3089a0eb3b6ea968018b">get_line</a>(bleft.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a>(), y, tright.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a>() - bleft.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a>(), &amp;bwline, 0);
+      <a class="code" href="scanedg_8cpp.html#a7265d5ee56fbab9229a8f39e28d38458">make_margins</a>(block, &amp;line_it, bwline.<a class="code" href="class_i_m_a_g_e_l_i_n_e.html#a0bf967eba44b6352a126f74c1a057172" title="image pixels">pixels</a>, margin, bleft.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a>(),
+                   tright.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a>(), y);
+    } <span class="keywordflow">else</span> {
+      x = tright.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a>() - bleft.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a>();
+      <span class="keywordflow">for</span> (xindex = 0; xindex &lt; x; xindex++)
+        bwline.<a class="code" href="class_i_m_a_g_e_l_i_n_e.html#a0bf967eba44b6352a126f74c1a057172" title="image pixels">pixels</a>[xindex] = margin;
+    }
+    <a class="code" href="scanedg_8cpp.html#ab24d6aa53a42392537afadfb6333b489">line_edges</a>(bleft.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a>(), y, tright.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a>() - bleft.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a>(),
+               margin, bwline.<a class="code" href="class_i_m_a_g_e_l_i_n_e.html#a0bf967eba44b6352a126f74c1a057172" title="image pixels">pixels</a>, ptrline, &amp;free_cracks, outline_it);
+  }
+
+  <a class="code" href="scanedg_8cpp.html#a19b3430c0ac6e770e54b8b52a9a991c5">free_crackedges</a>(free_cracks);  <span class="comment">// really free them</span>
+  <span class="keyword">delete</span>[] ptrline;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a19b3430c0ac6e770e54b8b52a9a991c5"></a><!-- doxytag: member="scanedg.h::free_crackedges" ref="a19b3430c0ac6e770e54b8b52a9a991c5" args="(CRACKEDGE *start)" -->
@@ -173,6 +217,17 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="scanedg_8cpp_source.html#l00398">398</a> of file <a class="el" href="scanedg_8cpp_source.html">scanedg.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                       {
+  <a class="code" href="class_c_r_a_c_k_e_d_g_e.html">CRACKEDGE</a> *current;            <span class="comment">// current edge to free</span>
+  <a class="code" href="class_c_r_a_c_k_e_d_g_e.html">CRACKEDGE</a> *next;               <span class="comment">// next one to free</span>
+
+  <span class="keywordflow">for</span> (current = start; current != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>; current = next) {
+    next = current-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a65662bdae2f4b5a3b670791fa6d6d44a">next</a>;
+    <span class="keyword">delete</span> current;              <span class="comment">// delete them all</span>
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a06f8ee398cd3556fc0d40c5decd25745"></a><!-- doxytag: member="scanedg.h::h_edge" ref="a06f8ee398cd3556fc0d40c5decd25745" args="(int sign, CRACKEDGE *join, CrackPos *pos)" -->
@@ -206,6 +261,49 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="scanedg_8cpp_source.html#l00262">262</a> of file <a class="el" href="scanedg_8cpp_source.html">scanedg.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                 {
+  <a class="code" href="class_c_r_a_c_k_e_d_g_e.html">CRACKEDGE</a> *newpt;              <span class="comment">// return value</span>
+
+  <span class="keywordflow">if</span> (*pos-&gt;<a class="code" href="struct_crack_pos.html#ad0f5bf625d55d94e09e5a5f4e920461e">free_cracks</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    newpt = *pos-&gt;<a class="code" href="struct_crack_pos.html#ad0f5bf625d55d94e09e5a5f4e920461e">free_cracks</a>;
+    *pos-&gt;<a class="code" href="struct_crack_pos.html#ad0f5bf625d55d94e09e5a5f4e920461e">free_cracks</a> = newpt-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a65662bdae2f4b5a3b670791fa6d6d44a">next</a>;  <span class="comment">// get one fast</span>
+  } <span class="keywordflow">else</span> {
+    newpt = <span class="keyword">new</span> <a class="code" href="class_c_r_a_c_k_e_d_g_e.html">CRACKEDGE</a>;
+  }
+  newpt-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#ae7bcdb1f6f28f612a0ff4ace03b38165">pos</a>.<a class="code" href="class_i_c_o_o_r_d.html#aa9fb418d1c602c0533e426759da43d67" title="rewrite function">set_y</a>(pos-&gt;<a class="code" href="struct_crack_pos.html#a71d7e214daf3a1ce26ee03037a0f0caf">y</a> + 1);       <span class="comment">// coords of pt</span>
+  newpt-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a25eed9381f5de431869fd4d61fdbd15d">stepy</a> = 0;              <span class="comment">// edge is horizontal</span>
+
+  <span class="keywordflow">if</span> (sign &gt; 0) {
+    newpt-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#ae7bcdb1f6f28f612a0ff4ace03b38165">pos</a>.<a class="code" href="class_i_c_o_o_r_d.html#a94c586039b3a003b35cf659b33b938f3" title="rewrite function">set_x</a>(pos-&gt;<a class="code" href="struct_crack_pos.html#a152fb63ed25f1545f1d10a1a80466bd4">x</a> + 1);     <span class="comment">// start location</span>
+    newpt-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a907cb1dc30d54151b7bd96a8ab90f207">stepx</a> = -1;
+    newpt-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a9d7eda07653a7c0831d92630a1668dc3">stepdir</a> = 0;
+  } <span class="keywordflow">else</span> {
+    newpt-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#ae7bcdb1f6f28f612a0ff4ace03b38165">pos</a>.<a class="code" href="class_i_c_o_o_r_d.html#a94c586039b3a003b35cf659b33b938f3" title="rewrite function">set_x</a>(pos-&gt;<a class="code" href="struct_crack_pos.html#a152fb63ed25f1545f1d10a1a80466bd4">x</a>);        <span class="comment">// start location</span>
+    newpt-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a907cb1dc30d54151b7bd96a8ab90f207">stepx</a> = 1;
+    newpt-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a9d7eda07653a7c0831d92630a1668dc3">stepdir</a> = 2;
+  }
+
+  <span class="keywordflow">if</span> (join == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    newpt-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a65662bdae2f4b5a3b670791fa6d6d44a">next</a> = newpt;         <span class="comment">// ptrs to other ends</span>
+    newpt-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a22411a30eb2b7529ccb755dc3971b0d1">prev</a> = newpt;
+  } <span class="keywordflow">else</span> {
+    <span class="keywordflow">if</span> (newpt-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#ae7bcdb1f6f28f612a0ff4ace03b38165">pos</a>.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a>() + newpt-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a907cb1dc30d54151b7bd96a8ab90f207">stepx</a> == join-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#ae7bcdb1f6f28f612a0ff4ace03b38165">pos</a>.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a>()
+    &amp;&amp; newpt-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#ae7bcdb1f6f28f612a0ff4ace03b38165">pos</a>.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a>() == join-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#ae7bcdb1f6f28f612a0ff4ace03b38165">pos</a>.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a>()) {
+      newpt-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a22411a30eb2b7529ccb755dc3971b0d1">prev</a> = join-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a22411a30eb2b7529ccb755dc3971b0d1">prev</a>;  <span class="comment">// update other ends</span>
+      newpt-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a22411a30eb2b7529ccb755dc3971b0d1">prev</a>-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a65662bdae2f4b5a3b670791fa6d6d44a">next</a> = newpt;
+      newpt-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a65662bdae2f4b5a3b670791fa6d6d44a">next</a> = <a class="code" href="oldlist_8cpp.html#a185e827874145ed10ce9db702a34f671">join</a>;        <span class="comment">// join up</span>
+      join-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a22411a30eb2b7529ccb755dc3971b0d1">prev</a> = newpt;
+    } <span class="keywordflow">else</span> {
+      newpt-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a65662bdae2f4b5a3b670791fa6d6d44a">next</a> = join-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a65662bdae2f4b5a3b670791fa6d6d44a">next</a>;  <span class="comment">// update other ends</span>
+      newpt-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a65662bdae2f4b5a3b670791fa6d6d44a">next</a>-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a22411a30eb2b7529ccb755dc3971b0d1">prev</a> = newpt;
+      newpt-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a22411a30eb2b7529ccb755dc3971b0d1">prev</a> = <a class="code" href="oldlist_8cpp.html#a185e827874145ed10ce9db702a34f671">join</a>;        <span class="comment">// join up</span>
+      join-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a65662bdae2f4b5a3b670791fa6d6d44a">next</a> = newpt;
+    }
+  }
+  <span class="keywordflow">return</span> newpt;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6e23861c825d8a8e48c8b26d75e0b715"></a><!-- doxytag: member="scanedg.h::join_edges" ref="a6e23861c825d8a8e48c8b26d75e0b715" args="(CRACKEDGE *edge1, CRACKEDGE *edge2, CRACKEDGE **free_cracks, C_OUTLINE_IT *outline_it)" -->
@@ -245,6 +343,30 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="scanedg_8cpp_source.html#l00365">365</a> of file <a class="el" href="scanedg_8cpp_source.html">scanedg.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                          {
+  <span class="keywordflow">if</span> (edge1-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#ae7bcdb1f6f28f612a0ff4ace03b38165">pos</a>.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a>() + edge1-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a907cb1dc30d54151b7bd96a8ab90f207">stepx</a> != edge2-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#ae7bcdb1f6f28f612a0ff4ace03b38165">pos</a>.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a>()
+  || edge1-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#ae7bcdb1f6f28f612a0ff4ace03b38165">pos</a>.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a>() + edge1-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a25eed9381f5de431869fd4d61fdbd15d">stepy</a> != edge2-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#ae7bcdb1f6f28f612a0ff4ace03b38165">pos</a>.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a>()) {
+    <a class="code" href="class_c_r_a_c_k_e_d_g_e.html">CRACKEDGE</a> *tempedge = edge1;
+    edge1 = edge2;               <span class="comment">// swap araound</span>
+    edge2 = tempedge;
+  }
+
+  <span class="keywordflow">if</span> (edge1-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a65662bdae2f4b5a3b670791fa6d6d44a">next</a> == edge2) {
+                                 <span class="comment">// already closed</span>
+    <a class="code" href="edgloop_8cpp.html#affa66849c6f718f217c84b000407944b">complete_edge</a>(edge1, outline_it);
+                                 <span class="comment">// attach freelist to end</span>
+    edge1-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a22411a30eb2b7529ccb755dc3971b0d1">prev</a>-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a65662bdae2f4b5a3b670791fa6d6d44a">next</a> = *free_cracks;
+    *free_cracks = edge1;         <span class="comment">// and free list</span>
+  } <span class="keywordflow">else</span> {
+                                 <span class="comment">// update opposite ends</span>
+    edge2-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a22411a30eb2b7529ccb755dc3971b0d1">prev</a>-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a65662bdae2f4b5a3b670791fa6d6d44a">next</a> = edge1-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a65662bdae2f4b5a3b670791fa6d6d44a">next</a>;
+    edge1-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a65662bdae2f4b5a3b670791fa6d6d44a">next</a>-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a22411a30eb2b7529ccb755dc3971b0d1">prev</a> = edge2-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a22411a30eb2b7529ccb755dc3971b0d1">prev</a>;
+    edge1-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a65662bdae2f4b5a3b670791fa6d6d44a">next</a> = edge2;         <span class="comment">// make joins</span>
+    edge2-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a22411a30eb2b7529ccb755dc3971b0d1">prev</a> = edge1;
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab24d6aa53a42392537afadfb6333b489"></a><!-- doxytag: member="scanedg.h::line_edges" ref="ab24d6aa53a42392537afadfb6333b489" args="(inT16 x, inT16 y, inT16 xext, uinT8 uppercolour, uinT8 *bwpos, CRACKEDGE **prevline, CRACKEDGE **free_cracks, C_OUTLINE_IT *outline_it)" -->
@@ -308,6 +430,77 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="scanedg_8cpp_source.html#l00178">178</a> of file <a class="el" href="scanedg_8cpp_source.html">scanedg.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                          {
+  <a class="code" href="struct_crack_pos.html">CrackPos</a> pos = {free_cracks, x, y };
+  <span class="keywordtype">int</span> xmax;                      <span class="comment">// max x coord</span>
+  <span class="keywordtype">int</span> colour;                    <span class="comment">// of current pixel</span>
+  <span class="keywordtype">int</span> prevcolour;                <span class="comment">// of previous pixel</span>
+  <a class="code" href="class_c_r_a_c_k_e_d_g_e.html">CRACKEDGE</a> *current;            <span class="comment">// current h edge</span>
+  <a class="code" href="class_c_r_a_c_k_e_d_g_e.html">CRACKEDGE</a> *newcurrent;         <span class="comment">// new h edge</span>
+
+  xmax = x + xext;               <span class="comment">// max allowable coord</span>
+  prevcolour = uppercolour;      <span class="comment">// forced plain margin</span>
+  current = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;                <span class="comment">// nothing yet</span>
+
+                                 <span class="comment">// do each pixel</span>
+  <span class="keywordflow">for</span> (; pos.<a class="code" href="struct_crack_pos.html#a152fb63ed25f1545f1d10a1a80466bd4">x</a> &lt; xmax; pos.<a class="code" href="struct_crack_pos.html#a152fb63ed25f1545f1d10a1a80466bd4">x</a>++, prevline++) {
+    colour = *bwpos++;           <span class="comment">// current pixel</span>
+    <span class="keywordflow">if</span> (*prevline != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+                                 <span class="comment">// changed above</span>
+                                 <span class="comment">// change colour</span>
+      uppercolour = <a class="code" href="scanedg_8cpp.html#a29f11db4ed3af442549b1de233ac4739">FLIP_COLOUR</a>(uppercolour);
+      <span class="keywordflow">if</span> (colour == prevcolour) {
+        <span class="keywordflow">if</span> (colour == uppercolour) {
+                                 <span class="comment">// finish a line</span>
+          <a class="code" href="scanedg_8cpp.html#a6e23861c825d8a8e48c8b26d75e0b715">join_edges</a>(current, *prevline, free_cracks, outline_it);
+          current = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;        <span class="comment">// no edge now</span>
+        } <span class="keywordflow">else</span> {
+                                 <span class="comment">// new horiz edge</span>
+          current = <a class="code" href="scanedg_8cpp.html#a06f8ee398cd3556fc0d40c5decd25745">h_edge</a>(uppercolour - colour, *prevline, &amp;pos);
+        }
+        *prevline = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;        <span class="comment">// no change this time</span>
+      } <span class="keywordflow">else</span> {
+        <span class="keywordflow">if</span> (colour == uppercolour)
+          *prevline = <a class="code" href="scanedg_8cpp.html#a9f6f7cf3af410407129ae07523fde0db">v_edge</a>(colour - prevcolour, *prevline, &amp;pos);
+                                 <span class="comment">// 8 vs 4 connection</span>
+        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (colour == <a class="code" href="scanedg_8cpp.html#a5c91c3924c21f1e24a333317e8d08a74">WHITE_PIX</a>) {
+          <a class="code" href="scanedg_8cpp.html#a6e23861c825d8a8e48c8b26d75e0b715">join_edges</a>(current, *prevline, free_cracks, outline_it);
+          current = <a class="code" href="scanedg_8cpp.html#a06f8ee398cd3556fc0d40c5decd25745">h_edge</a>(uppercolour - colour, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, &amp;pos);
+          *prevline = <a class="code" href="scanedg_8cpp.html#a9f6f7cf3af410407129ae07523fde0db">v_edge</a>(colour - prevcolour, current, &amp;pos);
+        } <span class="keywordflow">else</span> {
+          newcurrent = <a class="code" href="scanedg_8cpp.html#a06f8ee398cd3556fc0d40c5decd25745">h_edge</a>(uppercolour - colour, *prevline, &amp;pos);
+          *prevline = <a class="code" href="scanedg_8cpp.html#a9f6f7cf3af410407129ae07523fde0db">v_edge</a>(colour - prevcolour, current, &amp;pos);
+          current = newcurrent;  <span class="comment">// right going h edge</span>
+        }
+        prevcolour = colour;     <span class="comment">// remember new colour</span>
+      }
+    } <span class="keywordflow">else</span> {
+      <span class="keywordflow">if</span> (colour != prevcolour) {
+        *prevline = current = <a class="code" href="scanedg_8cpp.html#a9f6f7cf3af410407129ae07523fde0db">v_edge</a>(colour - prevcolour, current, &amp;pos);
+        prevcolour = colour;
+      }
+      <span class="keywordflow">if</span> (colour != uppercolour)
+        current = <a class="code" href="scanedg_8cpp.html#a06f8ee398cd3556fc0d40c5decd25745">h_edge</a>(uppercolour - colour, current, &amp;pos);
+      <span class="keywordflow">else</span>
+        current = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;          <span class="comment">// no edge now</span>
+    }
+  }
+  <span class="keywordflow">if</span> (current != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+                                 <span class="comment">// out of block</span>
+    <span class="keywordflow">if</span> (*prevline != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {     <span class="comment">// got one to join to?</span>
+      <a class="code" href="scanedg_8cpp.html#a6e23861c825d8a8e48c8b26d75e0b715">join_edges</a>(current, *prevline, free_cracks, outline_it);
+      *prevline = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;          <span class="comment">// tidy now</span>
+    } <span class="keywordflow">else</span> {
+                                 <span class="comment">// fake vertical</span>
+      *prevline = <a class="code" href="scanedg_8cpp.html#a9f6f7cf3af410407129ae07523fde0db">v_edge</a>(<a class="code" href="scanedg_8cpp.html#a29f11db4ed3af442549b1de233ac4739">FLIP_COLOUR</a>(prevcolour)-prevcolour, current, &amp;pos);
+    }
+  } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (*prevline != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+                                 <span class="comment">//continue fake</span>
+    *prevline = <a class="code" href="scanedg_8cpp.html#a9f6f7cf3af410407129ae07523fde0db">v_edge</a>(<a class="code" href="scanedg_8cpp.html#a29f11db4ed3af442549b1de233ac4739">FLIP_COLOUR</a>(prevcolour)-prevcolour, *prevline, &amp;pos);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7265d5ee56fbab9229a8f39e28d38458"></a><!-- doxytag: member="scanedg.h::make_margins" ref="a7265d5ee56fbab9229a8f39e28d38458" args="(PDBLK *block, BLOCK_LINE_IT *line_it, uinT8 *pixels, uinT8 margin, inT16 left, inT16 right, inT16 y)" -->
@@ -365,6 +558,50 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="scanedg_8cpp_source.html#l00087">87</a> of file <a class="el" href="scanedg_8cpp_source.html">scanedg.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                   {
+  <a class="code" href="class_p_b___l_i_n_e___i_t.html">PB_LINE_IT</a> *lines;
+  ICOORDELT_LIST *segments;      <span class="comment">//bits of a line</span>
+  ICOORDELT_IT seg_it;
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> start;                   <span class="comment">//of segment</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> xext;                    <span class="comment">//of segment</span>
+  <span class="keywordtype">int</span> xindex;                    <span class="comment">//index to pixel</span>
+
+  <span class="keywordflow">if</span> (block-&gt;<a class="code" href="class_p_d_b_l_k.html#a6670779c69aca2d574e4a0590d9b3939">poly_block</a> () != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    lines = <span class="keyword">new</span> <a class="code" href="class_p_b___l_i_n_e___i_t.html">PB_LINE_IT</a> (block-&gt;<a class="code" href="class_p_d_b_l_k.html#a6670779c69aca2d574e4a0590d9b3939">poly_block</a> ());
+    segments = lines-&gt;<a class="code" href="class_p_b___l_i_n_e___i_t.html#a951f496eedaed0deb3e61946f7444122">get_line</a> (y);
+    <span class="keywordflow">if</span> (!segments-&gt;empty ()) {
+      seg_it.set_to_list (segments);
+      seg_it.mark_cycle_pt ();
+      start = seg_it.data ()-&gt;x ();
+      xext = seg_it.data ()-&gt;y ();
+      <span class="keywordflow">for</span> (xindex = left; xindex &lt; right; xindex++) {
+        <span class="keywordflow">if</span> (xindex &gt;= start &amp;&amp; !seg_it.cycled_list ()) {
+          xindex = start + xext - 1;
+          seg_it.forward ();
+          start = seg_it.data ()-&gt;x ();
+          xext = seg_it.data ()-&gt;y ();
+        }
+        <span class="keywordflow">else</span>
+          pixels[xindex - left] = margin;
+      }
+    }
+    <span class="keywordflow">else</span> {
+      <span class="keywordflow">for</span> (xindex = left; xindex &lt; right; xindex++)
+        pixels[xindex - left] = margin;
+    }
+    <span class="keyword">delete</span> segments;
+    <span class="keyword">delete</span> lines;
+  }
+  <span class="keywordflow">else</span> {
+    start = line_it-&gt;<a class="code" href="class_b_l_o_c_k___l_i_n_e___i_t.html#acb41ad4c1ece0af796b3551d5ad6dd8c">get_line</a> (y, xext);
+    <span class="keywordflow">for</span> (xindex = left; xindex &lt; start; xindex++)
+      pixels[xindex - left] = margin;
+    <span class="keywordflow">for</span> (xindex = start + xext; xindex &lt; right; xindex++)
+      pixels[xindex - left] = margin;
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9f6f7cf3af410407129ae07523fde0db"></a><!-- doxytag: member="scanedg.h::v_edge" ref="a9f6f7cf3af410407129ae07523fde0db" args="(int sign, CRACKEDGE *join, CrackPos *pos)" -->
@@ -398,6 +635,49 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="scanedg_8cpp_source.html#l00313">313</a> of file <a class="el" href="scanedg_8cpp_source.html">scanedg.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                 {
+  <a class="code" href="class_c_r_a_c_k_e_d_g_e.html">CRACKEDGE</a> *newpt;              <span class="comment">// return value</span>
+
+  <span class="keywordflow">if</span> (*pos-&gt;<a class="code" href="struct_crack_pos.html#ad0f5bf625d55d94e09e5a5f4e920461e">free_cracks</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    newpt = *pos-&gt;<a class="code" href="struct_crack_pos.html#ad0f5bf625d55d94e09e5a5f4e920461e">free_cracks</a>;
+    *pos-&gt;<a class="code" href="struct_crack_pos.html#ad0f5bf625d55d94e09e5a5f4e920461e">free_cracks</a> = newpt-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a65662bdae2f4b5a3b670791fa6d6d44a">next</a>;  <span class="comment">// get one fast</span>
+  } <span class="keywordflow">else</span> {
+    newpt = <span class="keyword">new</span> <a class="code" href="class_c_r_a_c_k_e_d_g_e.html">CRACKEDGE</a>;
+  }
+  newpt-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#ae7bcdb1f6f28f612a0ff4ace03b38165">pos</a>.<a class="code" href="class_i_c_o_o_r_d.html#a94c586039b3a003b35cf659b33b938f3" title="rewrite function">set_x</a>(pos-&gt;<a class="code" href="struct_crack_pos.html#a152fb63ed25f1545f1d10a1a80466bd4">x</a>);           <span class="comment">// coords of pt</span>
+  newpt-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a907cb1dc30d54151b7bd96a8ab90f207">stepx</a> = 0;              <span class="comment">// edge is vertical</span>
+
+  <span class="keywordflow">if</span> (sign &gt; 0) {
+    newpt-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#ae7bcdb1f6f28f612a0ff4ace03b38165">pos</a>.<a class="code" href="class_i_c_o_o_r_d.html#aa9fb418d1c602c0533e426759da43d67" title="rewrite function">set_y</a>(pos-&gt;<a class="code" href="struct_crack_pos.html#a71d7e214daf3a1ce26ee03037a0f0caf">y</a>);         <span class="comment">// start location</span>
+    newpt-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a25eed9381f5de431869fd4d61fdbd15d">stepy</a> = 1;
+    newpt-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a9d7eda07653a7c0831d92630a1668dc3">stepdir</a> = 3;
+  } <span class="keywordflow">else</span> {
+    newpt-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#ae7bcdb1f6f28f612a0ff4ace03b38165">pos</a>.<a class="code" href="class_i_c_o_o_r_d.html#aa9fb418d1c602c0533e426759da43d67" title="rewrite function">set_y</a>(pos-&gt;<a class="code" href="struct_crack_pos.html#a71d7e214daf3a1ce26ee03037a0f0caf">y</a> + 1);     <span class="comment">// start location</span>
+    newpt-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a25eed9381f5de431869fd4d61fdbd15d">stepy</a> = -1;
+    newpt-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a9d7eda07653a7c0831d92630a1668dc3">stepdir</a> = 1;
+  }
+
+  <span class="keywordflow">if</span> (join == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    newpt-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a65662bdae2f4b5a3b670791fa6d6d44a">next</a> = newpt;         <span class="comment">//ptrs to other ends</span>
+    newpt-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a22411a30eb2b7529ccb755dc3971b0d1">prev</a> = newpt;
+  } <span class="keywordflow">else</span> {
+    <span class="keywordflow">if</span> (newpt-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#ae7bcdb1f6f28f612a0ff4ace03b38165">pos</a>.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a>() == join-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#ae7bcdb1f6f28f612a0ff4ace03b38165">pos</a>.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a>()
+    &amp;&amp; newpt-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#ae7bcdb1f6f28f612a0ff4ace03b38165">pos</a>.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a>() + newpt-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a25eed9381f5de431869fd4d61fdbd15d">stepy</a> == join-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#ae7bcdb1f6f28f612a0ff4ace03b38165">pos</a>.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a>()) {
+      newpt-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a22411a30eb2b7529ccb755dc3971b0d1">prev</a> = join-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a22411a30eb2b7529ccb755dc3971b0d1">prev</a>;  <span class="comment">// update other ends</span>
+      newpt-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a22411a30eb2b7529ccb755dc3971b0d1">prev</a>-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a65662bdae2f4b5a3b670791fa6d6d44a">next</a> = newpt;
+      newpt-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a65662bdae2f4b5a3b670791fa6d6d44a">next</a> = <a class="code" href="oldlist_8cpp.html#a185e827874145ed10ce9db702a34f671">join</a>;        <span class="comment">// join up</span>
+      join-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a22411a30eb2b7529ccb755dc3971b0d1">prev</a> = newpt;
+    } <span class="keywordflow">else</span> {
+      newpt-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a65662bdae2f4b5a3b670791fa6d6d44a">next</a> = join-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a65662bdae2f4b5a3b670791fa6d6d44a">next</a>;  <span class="comment">// update other ends</span>
+      newpt-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a65662bdae2f4b5a3b670791fa6d6d44a">next</a>-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a22411a30eb2b7529ccb755dc3971b0d1">prev</a> = newpt;
+      newpt-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a22411a30eb2b7529ccb755dc3971b0d1">prev</a> = <a class="code" href="oldlist_8cpp.html#a185e827874145ed10ce9db702a34f671">join</a>;        <span class="comment">// join up</span>
+      join-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a65662bdae2f4b5a3b670791fa6d6d44a">next</a> = newpt;
+    }
+  }
+  <span class="keywordflow">return</span> newpt;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a98c58c8e07b0ed6c4b7b56fe6a49d9cd"></a><!-- doxytag: member="scanedg.h::whiteout_block" ref="a98c58c8e07b0ed6c4b7b56fe6a49d9cd" args="(IMAGE *t_image, PDBLK *block)" -->
@@ -425,6 +705,29 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="scanedg_8cpp_source.html#l00145">145</a> of file <a class="el" href="scanedg_8cpp_source.html">scanedg.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                     {
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> x;                       <span class="comment">//line coords</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> y;                       <span class="comment">//current line</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> xext;                    <span class="comment">//line width</span>
+  <span class="keywordtype">int</span> xindex;                    <span class="comment">//index to pixel</span>
+  <a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a> *dest;                   <span class="comment">//destination pixel</span>
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> block_box;                 <span class="comment">//bounding box</span>
+  <a class="code" href="class_b_l_o_c_k___l_i_n_e___i_t.html" title="rectangle iterator">BLOCK_LINE_IT</a> line_it = block; <span class="comment">//line iterator</span>
+  <a class="code" href="class_i_m_a_g_e_l_i_n_e.html">IMAGELINE</a> bwline;              <span class="comment">//thresholded line</span>
+
+  block_box = block-&gt;<a class="code" href="class_p_d_b_l_k.html#a91950a96127b4a0bb9b237e1f5f889a4" title="get box">bounding_box</a> ();
+  <span class="keywordflow">for</span> (y = block_box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a> (); y &lt; block_box.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a> (); y++) {
+                                 <span class="comment">//find line limits</span>
+    x = line_it.<a class="code" href="class_b_l_o_c_k___l_i_n_e___i_t.html#acb41ad4c1ece0af796b3551d5ad6dd8c">get_line</a> (y, xext);
+    t_image-&gt;<a class="code" href="class_i_m_a_g_e.html#ad3cdcd971f7c3089a0eb3b6ea968018b">get_line</a> (x, y, xext, &amp;bwline, 0);
+    dest = bwline.<a class="code" href="class_i_m_a_g_e_l_i_n_e.html#a0bf967eba44b6352a126f74c1a057172" title="image pixels">pixels</a>;        <span class="comment">//destination pixel</span>
+    <span class="keywordflow">for</span> (xindex = 0; xindex &lt; xext; xindex++)
+      *dest++ = 1;
+    t_image-&gt;<a class="code" href="class_i_m_a_g_e.html#afbea9591218792f2be5e805a77ee167d">put_line</a> (x, y, xext, &amp;bwline, 0);
+  }
+}
+</pre></div>
 </div>
 </div>
 </div>
@@ -447,7 +750,7 @@ Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:10 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:42 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

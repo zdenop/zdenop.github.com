@@ -117,7 +117,10 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_tesseract_cube_combiner.html#ab252cffb22f7047e21236e07b6038362">ValidWord</a> (const string &amp;str)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_tesseract_cube_combiner.html#a3de63e254e7fcb9b11368aae332b7cbd">LoadCombinerNet</a> ()</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="tesseract__cube__combiner_8h_source.html#l00047">47</a> of file <a class="el" href="tesseract__cube__combiner_8h_source.html">tesseract_cube_combiner.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="ae4632ce85e2828fc21a908638c362b80"></a><!-- doxytag: member="tesseract::TesseractCubeCombiner::TesseractCubeCombiner" ref="ae4632ce85e2828fc21a908638c362b80" args="(CubeRecoContext *cube_cntxt)" -->
 <div class="memitem">
 <div class="memproto">
@@ -133,6 +136,12 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tesseract__cube__combiner_8cpp_source.html#l00039">39</a> of file <a class="el" href="tesseract__cube__combiner_8cpp_source.html">tesseract_cube_combiner.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                        {
+  cube_cntxt_ = cube_cntxt;
+  combiner_net_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aaa055f1f3d7f072c6b59fdf1abf2b32d"></a><!-- doxytag: member="tesseract::TesseractCubeCombiner::~TesseractCubeCombiner" ref="aaa055f1f3d7f072c6b59fdf1abf2b32d" args="()" -->
@@ -149,6 +158,14 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tesseract__cube__combiner_8cpp_source.html#l00044">44</a> of file <a class="el" href="tesseract__cube__combiner_8cpp_source.html">tesseract_cube_combiner.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                              {
+  <span class="keywordflow">if</span> (combiner_net_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keyword">delete</span> combiner_net_;
+    combiner_net_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -177,6 +194,29 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tesseract__cube__combiner_8cpp_source.html#l00242">242</a> of file <a class="el" href="tesseract__cube__combiner_8cpp_source.html">tesseract_cube_combiner.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                  {
+  <span class="comment">// If no combiner is loaded or the cube object is undefined,</span>
+  <span class="comment">// tesseract wins with probability 1.0</span>
+  <span class="keywordflow">if</span> (combiner_net_ == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> || cube_obj == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Cube WARNING (TesseractCubeCombiner::CombineResults): &quot;</span>
+            <span class="stringliteral">&quot;Cube objects not initialized; defaulting to Tesseract\n&quot;</span>);
+    <span class="keywordflow">return</span> 1.0;
+  }
+
+  <span class="comment">// Retrieve the alternate list from the CubeObject&#39;s current state.</span>
+  <span class="comment">// If the alt list empty, tesseract wins with probability 1.0</span>
+  WordAltList *cube_alt_list = cube_obj-&gt;AlternateList();
+  <span class="keywordflow">if</span> (cube_alt_list == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    cube_alt_list = cube_obj-&gt;RecognizeWord();
+  <span class="keywordflow">if</span> (cube_alt_list == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> || cube_alt_list-&gt;AltCount() &lt;= 0) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Cube WARNING (TesseractCubeCombiner::CombineResults): &quot;</span>
+            <span class="stringliteral">&quot;Cube returned no results; defaulting to Tesseract\n&quot;</span>);
+    <span class="keywordflow">return</span> 1.0;
+  }
+  <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_tesseract_cube_combiner.html#ab1690445d6285ffc5d59740f964acd50">CombineResults</a>(tess_res, cube_obj, cube_alt_list);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa1f466ab6c3aadf222554c55d1ec6d72"></a><!-- doxytag: member="tesseract::TesseractCubeCombiner::CombineResults" ref="aa1f466ab6c3aadf222554c55d1ec6d72" args="(WERD_RES *tess_res, CubeObject *cube_obj, WordAltList *alt_list)" -->
@@ -210,6 +250,42 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tesseract__cube__combiner_8cpp_source.html#l00270">270</a> of file <a class="el" href="tesseract__cube__combiner_8cpp_source.html">tesseract_cube_combiner.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                        {
+  <span class="comment">// If no combiner is loaded or the cube object is undefined, or the</span>
+  <span class="comment">// alt list is empty, tesseract wins with probability 1.0</span>
+  <span class="keywordflow">if</span> (combiner_net_ == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> || cube_obj == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> ||
+      cube_alt_list == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> || cube_alt_list-&gt;AltCount() &lt;= 0) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Cube WARNING (TesseractCubeCombiner::CombineResults): &quot;</span>
+            <span class="stringliteral">&quot;Cube result cannot be retrieved; defaulting to Tesseract\n&quot;</span>);
+    <span class="keywordflow">return</span> 1.0;
+  }
+
+  <span class="comment">// Tesseract result string, tesseract confidence, and cost of</span>
+  <span class="comment">// tesseract result according to cube</span>
+  <span class="keywordtype">string</span> tess_str = tess_res-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a41d740f0accccdfb245d34d554122116">unichar_string</a>().<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a>();
+  <span class="comment">// Map certainty [-20.0, 0.0] to confidence [0, 100]</span>
+  <span class="keywordtype">int</span> tess_confidence = <a class="code" href="ndminx_8h.html#a74e75242132eaabbc1c512488a135926">MIN</a>(100, <a class="code" href="ndminx_8h.html#aacc3ee1a7f283f8ef65cea31f4436a95">MAX</a>(1, static_cast&lt;int&gt;(
+      100 + (5 * tess_res-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a1b25ef2b44d21a7204483a7ca804f293">certainty</a>()))));
+
+  <span class="comment">// Compute the combiner features. If feature computation fails or</span>
+  <span class="comment">// answers are identical, tesseract wins with probability 1.0</span>
+  vector&lt;double&gt; features;
+  <span class="keywordtype">bool</span> agreement;
+  <span class="keywordtype">bool</span> combiner_success = <a class="code" href="classtesseract_1_1_tesseract_cube_combiner.html#af8c2aa49c97d12ecff81c4bf59290eaf">ComputeCombinerFeatures</a>(tess_str, tess_confidence,
+                                                  cube_obj, cube_alt_list,
+                                                  &amp;features, &amp;agreement);
+  <span class="keywordflow">if</span> (!combiner_success || agreement)
+    <span class="keywordflow">return</span> 1.0;
+
+  <span class="comment">// Classify combiner feature vector and return output (probability</span>
+  <span class="comment">// of tesseract class).</span>
+  <span class="keywordtype">double</span> net_out[2];
+  <span class="keywordflow">if</span> (!combiner_net_-&gt;FeedForward(&amp;features[0], net_out))
+    <span class="keywordflow">return</span> 1.0;
+  <span class="keywordflow">return</span> net_out[1];
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="af8c2aa49c97d12ecff81c4bf59290eaf"></a><!-- doxytag: member="tesseract::TesseractCubeCombiner::ComputeCombinerFeatures" ref="af8c2aa49c97d12ecff81c4bf59290eaf" args="(const string &amp;tess_res, int tess_confidence, CubeObject *cube_obj, WordAltList *cube_alt_list, vector&lt; double &gt; *features, bool *agreement)" -->
@@ -261,6 +337,110 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tesseract__cube__combiner_8cpp_source.html#l00130">130</a> of file <a class="el" href="tesseract__cube__combiner_8cpp_source.html">tesseract_cube_combiner.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                     {
+  features-&gt;clear();
+  *agreement = <span class="keyword">false</span>;
+  <span class="keywordflow">if</span> (cube_alt_list == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> || cube_alt_list-&gt;AltCount() &lt;= 0)
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+
+  <span class="comment">// Get Cube&#39;s best string; return false if empty</span>
+  <a class="code" href="namespacetesseract.html#aea2c6172b0ca77907e29cd018595b425">char_32</a> *cube_best_str32 = cube_alt_list-&gt;Alt(0);
+  <span class="keywordflow">if</span> (cube_best_str32 == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> || <a class="code" href="classtesseract_1_1_cube_utils.html#a88fe596e3dcadab7909c0bff64f61f59">CubeUtils::StrLen</a>(cube_best_str32) &lt; 1)
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordtype">string</span> cube_best_str;
+  <span class="keywordtype">int</span> cube_best_cost = cube_alt_list-&gt;AltCost(0);
+  <span class="keywordtype">int</span> cube_best_bigram_cost = 0;
+  <span class="keywordtype">bool</span> cube_best_bigram_cost_valid = <span class="keyword">true</span>;
+  <span class="keywordflow">if</span> (cube_cntxt_-&gt;Bigrams())
+    cube_best_bigram_cost = cube_cntxt_-&gt;Bigrams()-&gt;
+        Cost(cube_best_str32, cube_cntxt_-&gt;CharacterSet());
+  <span class="keywordflow">else</span>
+    cube_best_bigram_cost_valid = <span class="keyword">false</span>;
+  <a class="code" href="classtesseract_1_1_cube_utils.html#a30c20693fc79e49a67c9694700f1d0b5">CubeUtils::UTF32ToUTF8</a>(cube_best_str32, &amp;cube_best_str);
+
+  <span class="comment">// Get Tesseract&#39;s UTF32 string</span>
+  <a class="code" href="namespacetesseract.html#a5e51e225e3ac13c918ed9f77715fa041">string_32</a> tess_str32;
+  <a class="code" href="classtesseract_1_1_cube_utils.html#a911ee12931d18c46e7db79c6758a91cc">CubeUtils::UTF8ToUTF32</a>(tess_str.c_str(), &amp;tess_str32);
+
+  <span class="comment">// Compute agreement flag</span>
+  *agreement = (tess_str.compare(cube_best_str) == 0);
+
+  <span class="comment">// Get Cube&#39;s second best string; if empty, return false</span>
+  <a class="code" href="namespacetesseract.html#aea2c6172b0ca77907e29cd018595b425">char_32</a> *cube_next_best_str32;
+  <span class="keywordtype">string</span> cube_next_best_str;
+  <span class="keywordtype">int</span> cube_next_best_cost = <a class="code" href="cube__const_8h.html#ab15bac3baa4fd3e56ba19eefebe4065f">WORST_COST</a>;
+  <span class="keywordflow">if</span> (cube_alt_list-&gt;AltCount() &gt; 1) {
+    cube_next_best_str32 = cube_alt_list-&gt;Alt(1);
+    <span class="keywordflow">if</span> (cube_next_best_str32 == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> ||
+        <a class="code" href="classtesseract_1_1_cube_utils.html#a88fe596e3dcadab7909c0bff64f61f59">CubeUtils::StrLen</a>(cube_next_best_str32) == 0) {
+      <span class="keywordflow">return</span> <span class="keyword">false</span>;
+    }
+    cube_next_best_cost = cube_alt_list-&gt;AltCost(1);
+    <a class="code" href="classtesseract_1_1_cube_utils.html#a30c20693fc79e49a67c9694700f1d0b5">CubeUtils::UTF32ToUTF8</a>(cube_next_best_str32, &amp;cube_next_best_str);
+  }
+  <span class="comment">// Rank of Tesseract&#39;s top result in Cube&#39;s alternate list</span>
+  <span class="keywordtype">int</span> tess_rank = 0;
+  <span class="keywordflow">for</span> (tess_rank = 0; tess_rank &lt; cube_alt_list-&gt;AltCount(); tess_rank++) {
+    <span class="keywordtype">string</span> alt_str;
+    <a class="code" href="classtesseract_1_1_cube_utils.html#a30c20693fc79e49a67c9694700f1d0b5">CubeUtils::UTF32ToUTF8</a>(cube_alt_list-&gt;Alt(tess_rank), &amp;alt_str);
+    <span class="keywordflow">if</span> (alt_str == tess_str)
+      <span class="keywordflow">break</span>;
+  }
+
+  <span class="comment">// Cube&#39;s cost for tesseract&#39;s result. Note that this modifies the</span>
+  <span class="comment">// state of cube_obj, including its alternate list by calling RecognizeWord()</span>
+  <span class="keywordtype">int</span> tess_cost = cube_obj-&gt;WordCost(tess_str.c_str());
+  <span class="comment">// Cube&#39;s bigram cost of Tesseract&#39;s string</span>
+  <span class="keywordtype">int</span> tess_bigram_cost = 0;
+  <span class="keywordtype">int</span> tess_bigram_cost_valid = <span class="keyword">true</span>;
+  <span class="keywordflow">if</span> (cube_cntxt_-&gt;Bigrams())
+    tess_bigram_cost = cube_cntxt_-&gt;Bigrams()-&gt;
+        Cost(tess_str32.c_str(), cube_cntxt_-&gt;CharacterSet());
+  <span class="keywordflow">else</span>
+    tess_bigram_cost_valid = <span class="keyword">false</span>;
+
+  <span class="comment">// Tesseract confidence</span>
+  features-&gt;push_back(tess_confidence);
+  <span class="comment">// Cube cost of Tesseract string</span>
+  features-&gt;push_back(tess_cost);
+  <span class="comment">// Cube Rank of Tesseract string</span>
+  features-&gt;push_back(tess_rank);
+  <span class="comment">// length of Tesseract OCR string</span>
+  features-&gt;push_back(tess_str.length());
+  <span class="comment">// Tesseract OCR string in dictionary</span>
+  features-&gt;push_back(<a class="code" href="classtesseract_1_1_tesseract_cube_combiner.html#ab252cffb22f7047e21236e07b6038362">ValidWord</a>(tess_str));
+  <span class="keywordflow">if</span> (tess_bigram_cost_valid) {
+    <span class="comment">// bigram cost of Tesseract string</span>
+    features-&gt;push_back(tess_bigram_cost);
+  }
+  <span class="comment">// Cube tess_cost of Cube best string</span>
+  features-&gt;push_back(cube_best_cost);
+  <span class="comment">// Cube tess_cost of Cube next best string</span>
+  features-&gt;push_back(cube_next_best_cost);
+  <span class="comment">// length of Cube string</span>
+  features-&gt;push_back(cube_best_str.length());
+  <span class="comment">// Cube string in dictionary</span>
+  features-&gt;push_back(<a class="code" href="classtesseract_1_1_tesseract_cube_combiner.html#ab252cffb22f7047e21236e07b6038362">ValidWord</a>(cube_best_str));
+  <span class="keywordflow">if</span> (cube_best_bigram_cost_valid) {
+    <span class="comment">// bigram cost of Cube string</span>
+    features-&gt;push_back(cube_best_bigram_cost);
+  }
+  <span class="comment">// case-insensitive string comparison, including punctuation</span>
+  <span class="keywordtype">int</span> compare_nocase_punc = CompareStrings(cube_best_str.c_str(),
+                                           tess_str.c_str(), <span class="keyword">false</span>, <span class="keyword">true</span>);
+  features-&gt;push_back(compare_nocase_punc == 0);
+  <span class="comment">// case-sensitive string comparison, ignoring punctuation</span>
+  <span class="keywordtype">int</span> compare_case_nopunc = CompareStrings(cube_best_str.c_str(),
+                                           tess_str.c_str(), <span class="keyword">true</span>, <span class="keyword">false</span>);
+  features-&gt;push_back(compare_case_nopunc == 0);
+  <span class="comment">// case-insensitive string comparison, ignoring punctuation</span>
+  <span class="keywordtype">int</span> compare_nocase_nopunc = CompareStrings(cube_best_str.c_str(),
+                                             tess_str.c_str(), <span class="keyword">true</span>, <span class="keyword">true</span>);
+  features-&gt;push_back(compare_nocase_nopunc == 0);
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3de63e254e7fcb9b11368aae332b7cbd"></a><!-- doxytag: member="tesseract::TesseractCubeCombiner::LoadCombinerNet" ref="a3de63e254e7fcb9b11368aae332b7cbd" args="()" -->
@@ -277,6 +457,37 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tesseract__cube__combiner_8cpp_source.html#l00051">51</a> of file <a class="el" href="tesseract__cube__combiner_8cpp_source.html">tesseract_cube_combiner.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                            {
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(cube_cntxt_);
+  <span class="comment">// Compute the path of the combiner net</span>
+  <span class="keywordtype">string</span> data_path;
+  cube_cntxt_-&gt;GetDataFilePath(&amp;data_path);
+  <span class="keywordtype">string</span> net_file_name =  data_path + cube_cntxt_-&gt;Lang() +
+                          <span class="stringliteral">&quot;.tesseract_cube.nn&quot;</span>;
+
+  <span class="comment">// Return false if file does not exist</span>
+  FILE *fp = fopen(net_file_name.c_str(), <span class="stringliteral">&quot;rb&quot;</span>);
+  <span class="keywordflow">if</span> (fp == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">else</span>
+    fclose(fp);
+
+  <span class="comment">// Load and validate net</span>
+  combiner_net_ = <a class="code" href="classtesseract_1_1_neural_net.html#aacdfeca9c810f9d8beb9438b35a8b93a">NeuralNet::FromFile</a>(net_file_name);
+  <span class="keywordflow">if</span> (combiner_net_ == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Could not read combiner net file %s&quot;</span>, net_file_name.c_str());
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (combiner_net_-&gt;out_cnt() != 2) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Invalid combiner net file %s! Output count != 2\n&quot;</span>,
+            net_file_name.c_str());
+    <span class="keyword">delete</span> combiner_net_;
+    combiner_net_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab252cffb22f7047e21236e07b6038362"></a><!-- doxytag: member="tesseract::TesseractCubeCombiner::ValidWord" ref="ab252cffb22f7047e21236e07b6038362" args="(const string &amp;str)" -->
@@ -294,11 +505,17 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tesseract__cube__combiner_8cpp_source.html#l00122">122</a> of file <a class="el" href="tesseract__cube__combiner_8cpp_source.html">tesseract_cube_combiner.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                       {
+  <span class="keywordflow">return</span> (cube_cntxt_-&gt;TesseractObject()-&gt;getDict().valid_word(str.c_str())
+          &gt; 0);
+}
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/ccmain/<a class="el" href="tesseract__cube__combiner_8h_source.html">tesseract_cube_combiner.h</a></li>
-<li>tesseract-ocr/ccmain/<a class="el" href="tesseract__cube__combiner_8cpp.html">tesseract_cube_combiner.cpp</a></li>
+<li>tesseract-ocr/ccmain/<a class="el" href="tesseract__cube__combiner_8cpp_source.html">tesseract_cube_combiner.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -321,7 +538,7 @@ Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:14 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:49 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

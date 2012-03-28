@@ -107,7 +107,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <code>#include &quot;<a class="el" href="scanedg_8h_source.html">scanedg.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="drawedg_8h_source.html">drawedg.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="edgloop_8h_source.html">edgloop.h</a>&quot;</code><br/>
-</div><table class="memberdecls">
+</div>
+<p><a href="edgloop_8cpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr><td colspan="2"><h2><a name="define-members"></a>
 Defines</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="edgloop_8cpp.html#ac4de85ebe649ec1bd29042d93ec87019">MINEDGELENGTH</a>&#160;&#160;&#160;8</td></tr>
@@ -132,6 +134,8 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="edgloop_8cpp_source.html#l00030">30</a> of file <a class="el" href="edgloop_8cpp_source.html">edgloop.cpp</a>.</p>
+
 </div>
 </div>
 <hr/><h2>Function Documentation</h2>
@@ -150,6 +154,51 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="edgloop_8cpp_source.html#l00070">70</a> of file <a class="el" href="edgloop_8cpp_source.html">edgloop.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                         {
+  <span class="keywordtype">int</span> lastchain;              <span class="comment">//last chain code</span>
+  <span class="keywordtype">int</span> chaindiff;               <span class="comment">//chain code diff</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> length;                  <span class="comment">//length of loop</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> chainsum;                <span class="comment">//sum of chain diffs</span>
+  <a class="code" href="class_c_r_a_c_k_e_d_g_e.html">CRACKEDGE</a> *edgept;             <span class="comment">//current point</span>
+  <span class="keyword">const</span> <a class="code" href="class_e_r_r_c_o_d_e.html">ERRCODE</a> ED_ILLEGAL_SUM = <span class="stringliteral">&quot;Illegal sum of chain codes&quot;</span>;
+
+  length = 0;
+  chainsum = 0;                  <span class="comment">//sum of chain codes</span>
+  edgept = start;
+  lastchain = edgept-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a22411a30eb2b7529ccb755dc3971b0d1">prev</a>-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a9d7eda07653a7c0831d92630a1668dc3">stepdir</a>; <span class="comment">//previous chain code</span>
+  <span class="keywordflow">do</span> {
+    length++;
+    <span class="keywordflow">if</span> (edgept-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a9d7eda07653a7c0831d92630a1668dc3">stepdir</a> != lastchain) {
+                                 <span class="comment">//chain code difference</span>
+      chaindiff = edgept-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a9d7eda07653a7c0831d92630a1668dc3">stepdir</a> - lastchain;
+      <span class="keywordflow">if</span> (chaindiff &gt; 2)
+        chaindiff -= 4;
+      <span class="keywordflow">else</span> <span class="keywordflow">if</span> (chaindiff &lt; -2)
+        chaindiff += 4;
+      chainsum += chaindiff;     <span class="comment">//sum differences</span>
+      lastchain = edgept-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a9d7eda07653a7c0831d92630a1668dc3">stepdir</a>;
+    }
+    edgept = edgept-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a65662bdae2f4b5a3b670791fa6d6d44a">next</a>;
+  }
+  <span class="keywordflow">while</span> (edgept != start &amp;&amp; length &lt; <a class="code" href="edgloop_8cpp.html#ae9384494d3f22e3875f42547abc5c16f">edges_maxedgelength</a>);
+
+  <span class="keywordflow">if</span> ((chainsum != 4 &amp;&amp; chainsum != -4)
+  || edgept != start || length &lt; <a class="code" href="edgloop_8cpp.html#ac4de85ebe649ec1bd29042d93ec87019">MINEDGELENGTH</a>) {
+    <span class="keywordflow">if</span> (edgept != start) {
+     <span class="keywordflow">return</span> <a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8a61dec9bc0aaf1d527a731b2a6ce055c8">ScrollView::YELLOW</a>;
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (length &lt; <a class="code" href="edgloop_8cpp.html#ac4de85ebe649ec1bd29042d93ec87019">MINEDGELENGTH</a>) {
+     <span class="keywordflow">return</span> <a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8aebeaaeee353c6f04b4498b1fef94bbb3">ScrollView::MAGENTA</a>;
+    } <span class="keywordflow">else</span> {
+      ED_ILLEGAL_SUM.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;check_path_legal&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a13d4c6d048f76d5b02c6f1b70323e770">TESSLOG</a>, <span class="stringliteral">&quot;chainsum=%d&quot;</span>,
+        chainsum);
+      <span class="keywordflow">return</span> <a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8a9d8c87be486dead41d198d6b97a22174">ScrollView::GREEN</a>;
+    }
+  }
+                                 <span class="comment">//colour on inside</span>
+  <span class="keywordflow">return</span> chainsum &lt; 0 ? <a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8a66e5117e4930fdd9a43bdb674d57a719">ScrollView::BLUE</a> : <a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8a0959f7470b08ae1a38aa7e38fba29402">ScrollView::RED</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="affa66849c6f718f217c84b000407944b"></a><!-- doxytag: member="edgloop.cpp::complete_edge" ref="affa66849c6f718f217c84b000407944b" args="(CRACKEDGE *start, C_OUTLINE_IT *outline_it)" -->
@@ -177,6 +226,25 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="edgloop_8cpp_source.html#l00040">40</a> of file <a class="el" href="edgloop_8cpp_source.html">edgloop.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                             {
+  <a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8">ScrollView::Color</a> colour;                 <span class="comment">//colour to draw in</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> looplength;              <span class="comment">//steps in loop</span>
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> botleft;                <span class="comment">//bounding box</span>
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> topright;
+  <a class="code" href="class_c___o_u_t_l_i_n_e.html">C_OUTLINE</a> *outline;            <span class="comment">//new outline</span>
+
+                                 <span class="comment">//check length etc.</span>
+  colour = <a class="code" href="edgloop_8cpp.html#adeed8a1cb243009aa6867ff637eb8677">check_path_legal</a> (start);
+
+  <span class="keywordflow">if</span> (colour == <a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8a0959f7470b08ae1a38aa7e38fba29402">ScrollView::RED</a> || colour == <a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8a66e5117e4930fdd9a43bdb674d57a719">ScrollView::BLUE</a>) {
+    looplength = <a class="code" href="edgloop_8cpp.html#a47f9609e31d14519392c829137d72d8a">loop_bounding_box</a> (start, botleft, topright);
+    outline = <span class="keyword">new</span> <a class="code" href="coutln_8h.html#a33c25172cfe8e7ec617eb16413b61294">C_OUTLINE</a> (start, botleft, topright, looplength);
+                                 <span class="comment">//add to list</span>
+    outline_it-&gt;add_after_then_move (outline);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a47f9609e31d14519392c829137d72d8a"></a><!-- doxytag: member="edgloop.cpp::loop_bounding_box" ref="a47f9609e31d14519392c829137d72d8a" args="(CRACKEDGE *&amp;start, ICOORD &amp;botleft, ICOORD &amp;topright)" -->
@@ -210,6 +278,46 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="edgloop_8cpp_source.html#l00122">122</a> of file <a class="el" href="edgloop_8cpp_source.html">edgloop.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                          {
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> length;                  <span class="comment">//length of loop</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> leftmost;                <span class="comment">//on top row</span>
+  <a class="code" href="class_c_r_a_c_k_e_d_g_e.html">CRACKEDGE</a> *edgept;             <span class="comment">//current point</span>
+  <a class="code" href="class_c_r_a_c_k_e_d_g_e.html">CRACKEDGE</a> *realstart;          <span class="comment">//topleft start</span>
+
+  edgept = start;
+  realstart = start;
+  botleft = topright = <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> (edgept-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#ae7bcdb1f6f28f612a0ff4ace03b38165">pos</a>.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> (), edgept-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#ae7bcdb1f6f28f612a0ff4ace03b38165">pos</a>.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ());
+  leftmost = edgept-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#ae7bcdb1f6f28f612a0ff4ace03b38165">pos</a>.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ();
+  length = 0;                    <span class="comment">//coutn length</span>
+  <span class="keywordflow">do</span> {
+    edgept = edgept-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#a65662bdae2f4b5a3b670791fa6d6d44a">next</a>;
+    <span class="keywordflow">if</span> (edgept-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#ae7bcdb1f6f28f612a0ff4ace03b38165">pos</a>.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () &lt; botleft.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ())
+                                 <span class="comment">//get bounding box</span>
+      botleft.<a class="code" href="class_i_c_o_o_r_d.html#a94c586039b3a003b35cf659b33b938f3" title="rewrite function">set_x</a> (edgept-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#ae7bcdb1f6f28f612a0ff4ace03b38165">pos</a>.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ());
+    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (edgept-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#ae7bcdb1f6f28f612a0ff4ace03b38165">pos</a>.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () &gt; topright.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ())
+      topright.<a class="code" href="class_i_c_o_o_r_d.html#a94c586039b3a003b35cf659b33b938f3" title="rewrite function">set_x</a> (edgept-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#ae7bcdb1f6f28f612a0ff4ace03b38165">pos</a>.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ());
+    <span class="keywordflow">if</span> (edgept-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#ae7bcdb1f6f28f612a0ff4ace03b38165">pos</a>.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () &lt; botleft.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ())
+                                 <span class="comment">//get bounding box</span>
+      botleft.<a class="code" href="class_i_c_o_o_r_d.html#aa9fb418d1c602c0533e426759da43d67" title="rewrite function">set_y</a> (edgept-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#ae7bcdb1f6f28f612a0ff4ace03b38165">pos</a>.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ());
+    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (edgept-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#ae7bcdb1f6f28f612a0ff4ace03b38165">pos</a>.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () &gt; topright.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ()) {
+      realstart = edgept;
+      leftmost = edgept-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#ae7bcdb1f6f28f612a0ff4ace03b38165">pos</a>.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ();
+      topright.<a class="code" href="class_i_c_o_o_r_d.html#aa9fb418d1c602c0533e426759da43d67" title="rewrite function">set_y</a> (edgept-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#ae7bcdb1f6f28f612a0ff4ace03b38165">pos</a>.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ());
+    }
+    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (edgept-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#ae7bcdb1f6f28f612a0ff4ace03b38165">pos</a>.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () == topright.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ()
+    &amp;&amp; edgept-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#ae7bcdb1f6f28f612a0ff4ace03b38165">pos</a>.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () &lt; leftmost) {
+                                 <span class="comment">//leftmost on line</span>
+      leftmost = edgept-&gt;<a class="code" href="class_c_r_a_c_k_e_d_g_e.html#ae7bcdb1f6f28f612a0ff4ace03b38165">pos</a>.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ();
+      realstart = edgept;
+    }
+    length++;                    <span class="comment">//count elements</span>
+  }
+  <span class="keywordflow">while</span> (edgept != start);
+  start = realstart;             <span class="comment">//shift it to topleft</span>
+  <span class="keywordflow">return</span> length;
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Variable Documentation</h2>
@@ -224,6 +332,8 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"Max steps in any outline" </p>
+
+<p>Definition at line <a class="el" href="edgloop_8cpp_source.html#l00032">32</a> of file <a class="el" href="edgloop_8cpp_source.html">edgloop.cpp</a>.</p>
 
 </div>
 </div>
@@ -247,7 +357,7 @@ Variables</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:10 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:42 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

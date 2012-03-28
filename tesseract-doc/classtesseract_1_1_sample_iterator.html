@@ -130,7 +130,10 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_sample_iterator.html#a82e48b99ecac34b9e0dbf8a96521bb4e">UniformSamples</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_sample_iterator.html#ac0a70c42261385f21d97c699ff181fad">NormalizeSamples</a> ()</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="sampleiterator_8h_source.html#l00092">92</a> of file <a class="el" href="sampleiterator_8h_source.html">sampleiterator.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a9789d39f648bb3942e69fb42402b173c"></a><!-- doxytag: member="tesseract::SampleIterator::SampleIterator" ref="a9789d39f648bb3942e69fb42402b173c" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -145,6 +148,16 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="sampleiterator_8cpp_source.html#l00027">27</a> of file <a class="el" href="sampleiterator_8cpp_source.html">sampleiterator.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">  : charset_map_(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>),
+    shape_table_(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>),
+    sample_set_(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>),
+    randomize_(<span class="keyword">false</span>),
+    owned_shape_table_(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+  num_shapes_ = 0;
+  <a class="code" href="classtesseract_1_1_sample_iterator.html#a90e5190efbff41c67519ba29fa59186f">Begin</a>();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6a7e5ec1f292ab6ecea1f3385496ec37"></a><!-- doxytag: member="tesseract::SampleIterator::~SampleIterator" ref="a6a7e5ec1f292ab6ecea1f3385496ec37" args="()" -->
@@ -161,6 +174,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="sampleiterator_8cpp_source.html#l00037">37</a> of file <a class="el" href="sampleiterator_8cpp_source.html">sampleiterator.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                {
+  <a class="code" href="classtesseract_1_1_sample_iterator.html#ab9b74fc9ac303c34474b69ee69f2d663">Clear</a>();
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -178,6 +196,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="sampleiterator_8cpp_source.html#l00099">99</a> of file <a class="el" href="sampleiterator_8cpp_source.html">sampleiterator.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                 {
+  <span class="keywordflow">return</span> shape_index_ &gt;= num_shapes_;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a90e5190efbff41c67519ba29fa59186f"></a><!-- doxytag: member="tesseract::SampleIterator::Begin" ref="a90e5190efbff41c67519ba29fa59186f" args="()" -->
@@ -194,6 +217,19 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="sampleiterator_8cpp_source.html#l00087">87</a> of file <a class="el" href="sampleiterator_8cpp_source.html">sampleiterator.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                           {
+  shape_index_ = -1;
+  shape_char_index_ = 0;
+  num_shape_chars_ = 0;
+  shape_font_index_ = 0;
+  num_shape_fonts_ = 0;
+  sample_index_ = 0;
+  num_samples_ = 0;
+  <span class="comment">// Find the first indexable sample.</span>
+  <a class="code" href="classtesseract_1_1_sample_iterator.html#aea58e8234a0b6bab9061929622150bb1">Next</a>();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a1fdfa33c330477eb7c5eef8ca47fd40c"></a><!-- doxytag: member="tesseract::SampleIterator::charset_map" ref="a1fdfa33c330477eb7c5eef8ca47fd40c" args="() const " -->
@@ -210,6 +246,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="sampleiterator_8h_source.html#l00137">137</a> of file <a class="el" href="sampleiterator_8h_source.html">sampleiterator.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                          {
+    <span class="keywordflow">return</span> *charset_map_;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab9b74fc9ac303c34474b69ee69f2d663"></a><!-- doxytag: member="tesseract::SampleIterator::Clear" ref="ab9b74fc9ac303c34474b69ee69f2d663" args="()" -->
@@ -226,6 +267,12 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="sampleiterator_8cpp_source.html#l00041">41</a> of file <a class="el" href="sampleiterator_8cpp_source.html">sampleiterator.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                           {
+  <span class="keyword">delete</span> owned_shape_table_;
+  owned_shape_table_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a95b17d95d0777709dee9606e57a6aad1"></a><!-- doxytag: member="tesseract::SampleIterator::CompactCharsetSize" ref="a95b17d95d0777709dee9606e57a6aad1" args="() const " -->
@@ -242,6 +289,12 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="sampleiterator_8cpp_source.html#l00196">196</a> of file <a class="el" href="sampleiterator_8cpp_source.html">sampleiterator.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                             {
+  <span class="keywordflow">return</span> charset_map_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> ? charset_map_-&gt;CompactSize()
+                              : <a class="code" href="classtesseract_1_1_sample_iterator.html#ad575eda15498de5a5de614dbcfa4d0aa">SparseCharsetSize</a>();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a745b2bf5f8956bc1233e28f9b1c5b639"></a><!-- doxytag: member="tesseract::SampleIterator::GetCompactClassID" ref="a745b2bf5f8956bc1233e28f9b1c5b639" args="() const " -->
@@ -258,6 +311,12 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="sampleiterator_8cpp_source.html#l00142">142</a> of file <a class="el" href="sampleiterator_8cpp_source.html">sampleiterator.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                            {
+  <span class="keywordflow">return</span> charset_map_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> ? charset_map_-&gt;SparseToCompact(shape_index_)
+                              : <a class="code" href="classtesseract_1_1_sample_iterator.html#a35e0355b17965fef669f2bd84ea624a7">GetSparseClassID</a>();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a274fa0bca10b58d7efddebde0338a698"></a><!-- doxytag: member="tesseract::SampleIterator::GetSample" ref="a274fa0bca10b58d7efddebde0338a698" args="() const " -->
@@ -274,6 +333,18 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="sampleiterator_8cpp_source.html#l00103">103</a> of file <a class="el" href="sampleiterator_8cpp_source.html">sampleiterator.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                      {
+  <span class="keywordflow">if</span> (shape_table_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keyword">const</span> UnicharAndFonts* shape_entry = GetShapeEntry();
+    <span class="keywordtype">int</span> char_id = shape_entry-&gt;unichar_id;
+    <span class="keywordtype">int</span> font_id = shape_entry-&gt;font_ids[shape_font_index_];
+    <span class="keywordflow">return</span> *sample_set_-&gt;GetSample(font_id, char_id, sample_index_);
+  } <span class="keywordflow">else</span> {
+    <span class="keywordflow">return</span> *sample_set_-&gt;GetSample(shape_index_);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a35e0355b17965fef669f2bd84ea624a7"></a><!-- doxytag: member="tesseract::SampleIterator::GetSparseClassID" ref="a35e0355b17965fef669f2bd84ea624a7" args="() const " -->
@@ -290,6 +361,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="sampleiterator_8cpp_source.html#l00150">150</a> of file <a class="el" href="sampleiterator_8cpp_source.html">sampleiterator.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                           {
+  <span class="keywordflow">return</span> shape_table_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> ? shape_index_ : <a class="code" href="classtesseract_1_1_sample_iterator.html#a274fa0bca10b58d7efddebde0338a698">GetSample</a>().class_id();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3651237953d616f7d27f4ed46106707c"></a><!-- doxytag: member="tesseract::SampleIterator::GlobalSampleIndex" ref="a3651237953d616f7d27f4ed46106707c" args="() const " -->
@@ -306,6 +382,18 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="sampleiterator_8cpp_source.html#l00127">127</a> of file <a class="el" href="sampleiterator_8cpp_source.html">sampleiterator.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                            {
+  <span class="keywordflow">if</span> (shape_table_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keyword">const</span> UnicharAndFonts* shape_entry = GetShapeEntry();
+    <span class="keywordtype">int</span> char_id = shape_entry-&gt;unichar_id;
+    <span class="keywordtype">int</span> font_id = shape_entry-&gt;font_ids[shape_font_index_];
+    <span class="keywordflow">return</span> sample_set_-&gt;GlobalSampleIndex(font_id, char_id, sample_index_);
+  } <span class="keywordflow">else</span> {
+    <span class="keywordflow">return</span> shape_index_;
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a0cdb514895d01dff26b51a2e5bc1b0ea"></a><!-- doxytag: member="tesseract::SampleIterator::Init" ref="a0cdb514895d01dff26b51a2e5bc1b0ea" args="(const IndexMapBiDi *charset_map, const ShapeTable *shape_table, bool randomize, TrainingSampleSet *sample_set)" -->
@@ -345,6 +433,40 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="sampleiterator_8cpp_source.html#l00047">47</a> of file <a class="el" href="sampleiterator_8cpp_source.html">sampleiterator.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                         {
+  <a class="code" href="classtesseract_1_1_sample_iterator.html#ab9b74fc9ac303c34474b69ee69f2d663">Clear</a>();
+  charset_map_ = <a class="code" href="classtesseract_1_1_sample_iterator.html#a1fdfa33c330477eb7c5eef8ca47fd40c">charset_map</a>;
+  shape_table_ = <a class="code" href="classtesseract_1_1_sample_iterator.html#aeae6fe3f5607f0e0ff9f82151d096ced">shape_table</a>;
+  sample_set_ = <a class="code" href="classtesseract_1_1_sample_iterator.html#a11e0a8f5f60216b68c3fe6528d551295">sample_set</a>;
+  randomize_ = randomize;
+  <span class="keywordflow">if</span> (shape_table_ == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp; charset_map_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="comment">// The caller wishes to iterate by class. The easiest way to do this</span>
+    <span class="comment">// is to create a dummy shape_table_ that we will own.</span>
+    <span class="keywordtype">int</span> num_fonts = sample_set_-&gt;NumFonts();
+    owned_shape_table_ = <span class="keyword">new</span> ShapeTable(sample_set_-&gt;unicharset());
+    <span class="keywordtype">int</span> charsetsize = sample_set_-&gt;unicharset().size();
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> c = 0; c &lt; charsetsize; ++c) {
+      <span class="comment">// We always add a shape for each character to keep the index in sync</span>
+      <span class="comment">// with the unichar_id.</span>
+      <span class="keywordtype">int</span> shape_id = owned_shape_table_-&gt;AddShape(c, 0);
+      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> = 1; <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> &lt; num_fonts; ++<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>) {
+        <span class="keywordflow">if</span> (sample_set_-&gt;NumClassSamples(<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>, c, <span class="keyword">true</span>) &gt; 0) {
+          owned_shape_table_-&gt;AddToShape(shape_id, c, <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>);
+        }
+      }
+    }
+    shape_table_ = owned_shape_table_;
+  }
+  <span class="keywordflow">if</span> (shape_table_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    num_shapes_ = shape_table_-&gt;NumShapes();
+  } <span class="keywordflow">else</span> {
+    num_shapes_ = randomize ? sample_set_-&gt;num_samples()
+                            : sample_set_-&gt;num_raw_samples();
+  }
+  <a class="code" href="classtesseract_1_1_sample_iterator.html#a90e5190efbff41c67519ba29fa59186f">Begin</a>();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a476d245234d73a6c9ef7c85b57148a27"></a><!-- doxytag: member="tesseract::SampleIterator::MapSampleFeatures" ref="a476d245234d73a6c9ef7c85b57148a27" args="(const IntFeatureMap &amp;feature_map)" -->
@@ -362,6 +484,14 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="sampleiterator_8cpp_source.html#l00211">211</a> of file <a class="el" href="sampleiterator_8cpp_source.html">sampleiterator.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                       {
+  <span class="keywordflow">for</span> (<a class="code" href="classtesseract_1_1_sample_iterator.html#a90e5190efbff41c67519ba29fa59186f">Begin</a>(); !<a class="code" href="classtesseract_1_1_sample_iterator.html#a4dde9bf911b04c848fbdc4cca8699b70">AtEnd</a>(); <a class="code" href="classtesseract_1_1_sample_iterator.html#aea58e8234a0b6bab9061929622150bb1">Next</a>()) {
+    TrainingSample* <a class="code" href="structsample.html">sample</a> = <a class="code" href="classtesseract_1_1_sample_iterator.html#a0941312fec55859dc29a1b32b0e298cd">MutableSample</a>();
+    sample-&gt;MapFeatures(feature_map);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a0941312fec55859dc29a1b32b0e298cd"></a><!-- doxytag: member="tesseract::SampleIterator::MutableSample" ref="a0941312fec55859dc29a1b32b0e298cd" args="() const " -->
@@ -378,6 +508,18 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="sampleiterator_8cpp_source.html#l00114">114</a> of file <a class="el" href="sampleiterator_8cpp_source.html">sampleiterator.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                    {
+  <span class="keywordflow">if</span> (shape_table_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keyword">const</span> UnicharAndFonts* shape_entry = GetShapeEntry();
+    <span class="keywordtype">int</span> char_id = shape_entry-&gt;unichar_id;
+    <span class="keywordtype">int</span> font_id = shape_entry-&gt;font_ids[shape_font_index_];
+    <span class="keywordflow">return</span> sample_set_-&gt;MutableSample(font_id, char_id, sample_index_);
+  } <span class="keywordflow">else</span> {
+    <span class="keywordflow">return</span> sample_set_-&gt;mutable_sample(shape_index_);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aea58e8234a0b6bab9061929622150bb1"></a><!-- doxytag: member="tesseract::SampleIterator::Next" ref="aea58e8234a0b6bab9061929622150bb1" args="()" -->
@@ -394,6 +536,46 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="sampleiterator_8cpp_source.html#l00156">156</a> of file <a class="el" href="sampleiterator_8cpp_source.html">sampleiterator.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                          {
+  <span class="keywordflow">if</span> (shape_table_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="comment">// Next sample in this class/font combination.</span>
+    ++sample_index_;
+    <span class="keywordflow">if</span> (sample_index_ &lt; num_samples_)
+      <span class="keywordflow">return</span>;
+    <span class="comment">// Next font in this class in this shape.</span>
+    sample_index_ = 0;
+    <span class="keywordflow">do</span> {
+      ++shape_font_index_;
+      <span class="keywordflow">if</span> (shape_font_index_ &gt;= num_shape_fonts_) {
+        <span class="comment">// Next unichar in this shape.</span>
+        shape_font_index_ = 0;
+        ++shape_char_index_;
+        <span class="keywordflow">if</span> (shape_char_index_ &gt;= num_shape_chars_) {
+          <span class="comment">// Find the next shape that is mapped in the charset_map_.</span>
+          shape_char_index_ = 0;
+          <span class="keywordflow">do</span> {
+            ++shape_index_;
+          } <span class="keywordflow">while</span> (shape_index_ &lt; num_shapes_ &amp;&amp;
+                   charset_map_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp;
+                   charset_map_-&gt;SparseToCompact(shape_index_) &lt; 0);
+          <span class="keywordflow">if</span> (shape_index_ &gt;= num_shapes_)
+            <span class="keywordflow">return</span>;  <span class="comment">// The end.</span>
+          num_shape_chars_ = shape_table_-&gt;GetShape(shape_index_).size();
+        }
+      }
+      <span class="keyword">const</span> UnicharAndFonts* shape_entry = GetShapeEntry();
+      num_shape_fonts_ = shape_entry-&gt;font_ids.size();
+      <span class="keywordtype">int</span> char_id = shape_entry-&gt;unichar_id;
+      <span class="keywordtype">int</span> font_id = shape_entry-&gt;font_ids[shape_font_index_];
+      num_samples_ = sample_set_-&gt;NumClassSamples(font_id, char_id, randomize_);
+    } <span class="keywordflow">while</span> (num_samples_ == 0);
+  } <span class="keywordflow">else</span> {
+    <span class="comment">// We are just iterating over the samples.</span>
+    ++shape_index_;
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac0a70c42261385f21d97c699ff181fad"></a><!-- doxytag: member="tesseract::SampleIterator::NormalizeSamples" ref="ac0a70c42261385f21d97c699ff181fad" args="()" -->
@@ -410,6 +592,29 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="sampleiterator_8cpp_source.html#l00233">233</a> of file <a class="el" href="sampleiterator_8cpp_source.html">sampleiterator.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                        {
+  <span class="keywordtype">double</span> total_weight = 0.0;
+  <span class="keywordtype">int</span> sample_count = 0;
+  <span class="keywordflow">for</span> (<a class="code" href="classtesseract_1_1_sample_iterator.html#a90e5190efbff41c67519ba29fa59186f">Begin</a>(); !<a class="code" href="classtesseract_1_1_sample_iterator.html#a4dde9bf911b04c848fbdc4cca8699b70">AtEnd</a>(); <a class="code" href="classtesseract_1_1_sample_iterator.html#aea58e8234a0b6bab9061929622150bb1">Next</a>()) {
+    <span class="keyword">const</span> TrainingSample&amp; <a class="code" href="structsample.html">sample</a> = <a class="code" href="classtesseract_1_1_sample_iterator.html#a274fa0bca10b58d7efddebde0338a698">GetSample</a>();
+    total_weight += sample.weight();
+    ++sample_count;
+  }
+  <span class="comment">// Normalize samples.</span>
+  <span class="keywordtype">double</span> min_assigned_sample_weight = 1.0;
+  <span class="keywordflow">if</span> (total_weight &gt; 0.0) {
+    <span class="keywordflow">for</span> (<a class="code" href="classtesseract_1_1_sample_iterator.html#a90e5190efbff41c67519ba29fa59186f">Begin</a>(); !<a class="code" href="classtesseract_1_1_sample_iterator.html#a4dde9bf911b04c848fbdc4cca8699b70">AtEnd</a>(); <a class="code" href="classtesseract_1_1_sample_iterator.html#aea58e8234a0b6bab9061929622150bb1">Next</a>()) {
+      TrainingSample* sample = <a class="code" href="classtesseract_1_1_sample_iterator.html#a0941312fec55859dc29a1b32b0e298cd">MutableSample</a>();
+      <span class="keywordtype">double</span> weight = sample-&gt;weight() / total_weight;
+      <span class="keywordflow">if</span> (weight &lt; min_assigned_sample_weight)
+        min_assigned_sample_weight = weight;
+      sample-&gt;set_weight(weight);
+    }
+  }
+  <span class="keywordflow">return</span> min_assigned_sample_weight;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a11e0a8f5f60216b68c3fe6528d551295"></a><!-- doxytag: member="tesseract::SampleIterator::sample_set" ref="a11e0a8f5f60216b68c3fe6528d551295" args="() const " -->
@@ -426,6 +631,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="sampleiterator_8h_source.html#l00144">144</a> of file <a class="el" href="sampleiterator_8h_source.html">sampleiterator.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                              {
+    <span class="keywordflow">return</span> sample_set_;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aeae6fe3f5607f0e0ff9f82151d096ced"></a><!-- doxytag: member="tesseract::SampleIterator::shape_table" ref="aeae6fe3f5607f0e0ff9f82151d096ced" args="() const " -->
@@ -442,6 +652,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="sampleiterator_8h_source.html#l00140">140</a> of file <a class="el" href="sampleiterator_8h_source.html">sampleiterator.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                        {
+    <span class="keywordflow">return</span> shape_table_;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad575eda15498de5a5de614dbcfa4d0aa"></a><!-- doxytag: member="tesseract::SampleIterator::SparseCharsetSize" ref="ad575eda15498de5a5de614dbcfa4d0aa" args="() const " -->
@@ -458,6 +673,14 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="sampleiterator_8cpp_source.html#l00202">202</a> of file <a class="el" href="sampleiterator_8cpp_source.html">sampleiterator.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                            {
+  <span class="keywordflow">return</span> charset_map_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>
+      ? charset_map_-&gt;SparseSize()
+      : (shape_table_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> ? shape_table_-&gt;NumShapes()
+                              : sample_set_-&gt;charsetsize());
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a82e48b99ecac34b9e0dbf8a96521bb4e"></a><!-- doxytag: member="tesseract::SampleIterator::UniformSamples" ref="a82e48b99ecac34b9e0dbf8a96521bb4e" args="()" -->
@@ -474,11 +697,23 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="sampleiterator_8cpp_source.html#l00220">220</a> of file <a class="el" href="sampleiterator_8cpp_source.html">sampleiterator.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                   {
+  <span class="keywordtype">int</span> num_good_samples = 0;
+  <span class="keywordflow">for</span> (<a class="code" href="classtesseract_1_1_sample_iterator.html#a90e5190efbff41c67519ba29fa59186f">Begin</a>(); !<a class="code" href="classtesseract_1_1_sample_iterator.html#a4dde9bf911b04c848fbdc4cca8699b70">AtEnd</a>(); <a class="code" href="classtesseract_1_1_sample_iterator.html#aea58e8234a0b6bab9061929622150bb1">Next</a>()) {
+    TrainingSample* <a class="code" href="structsample.html">sample</a> = <a class="code" href="classtesseract_1_1_sample_iterator.html#a0941312fec55859dc29a1b32b0e298cd">MutableSample</a>();
+    sample-&gt;set_weight(1.0);
+    ++num_good_samples;
+  }
+  <a class="code" href="classtesseract_1_1_sample_iterator.html#ac0a70c42261385f21d97c699ff181fad">NormalizeSamples</a>();
+  <span class="keywordflow">return</span> num_good_samples;
+}
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/classify/<a class="el" href="sampleiterator_8h_source.html">sampleiterator.h</a></li>
-<li>tesseract-ocr/classify/<a class="el" href="sampleiterator_8cpp.html">sampleiterator.cpp</a></li>
+<li>tesseract-ocr/classify/<a class="el" href="sampleiterator_8cpp_source.html">sampleiterator.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -501,7 +736,7 @@ Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:15 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:50 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

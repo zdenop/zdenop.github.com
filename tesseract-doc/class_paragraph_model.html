@@ -122,7 +122,10 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_paragraph_model.html#aac8329ca5408cc3636258390e80277f5">Comparable</a> (const <a class="el" href="class_paragraph_model.html">ParagraphModel</a> &amp;other) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_s_t_r_i_n_g.html">STRING</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_paragraph_model.html#a602f01af8ff434945dc2a952aa874271">ToString</a> () const </td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="ocrpara_8h_source.html#l00114">114</a> of file <a class="el" href="ocrpara_8h_source.html">ocrpara.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="ab1f81be6e22e055efdbbc4bb2aa5add3"></a><!-- doxytag: member="ParagraphModel::ParagraphModel" ref="ab1f81be6e22e055efdbbc4bb2aa5add3" args="(tesseract::ParagraphJustification justification, int margin, int first_indent, int body_indent, int tolerance)" -->
 <div class="memitem">
 <div class="memproto">
@@ -166,6 +169,21 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrpara_8h_source.html#l00116">116</a> of file <a class="el" href="ocrpara_8h_source.html">ocrpara.h</a>.</p>
+<div class="fragment"><pre class="fragment">      : justification_(<a class="code" href="class_paragraph_model.html#ad5c1367f22a798e616c64248ed50509e">justification</a>),
+        margin_(<a class="code" href="class_paragraph_model.html#a34c9b49f071bd5416bd88adc84eebd43">margin</a>),
+        first_indent_(<a class="code" href="class_paragraph_model.html#a2c03df657560f6dfcf2ef4305def8745">first_indent</a>),
+        body_indent_(<a class="code" href="class_paragraph_model.html#a52304ed69b5fce47200c80cb81baeb92">body_indent</a>),
+        tolerance_(<a class="code" href="class_paragraph_model.html#a5b8f05844a3320fb2a6ac0efd5b24045">tolerance</a>) {
+    <span class="comment">// Make one of {first_indent, body_indent} is 0.</span>
+    <span class="keywordtype">int</span> added_margin = <a class="code" href="class_paragraph_model.html#a2c03df657560f6dfcf2ef4305def8745">first_indent</a>;
+    <span class="keywordflow">if</span> (<a class="code" href="class_paragraph_model.html#a52304ed69b5fce47200c80cb81baeb92">body_indent</a> &lt; added_margin)
+      added_margin = <a class="code" href="class_paragraph_model.html#a52304ed69b5fce47200c80cb81baeb92">body_indent</a>;
+    margin_ += added_margin;
+    first_indent_ -= added_margin;
+    body_indent_ -= added_margin;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a95d3987b6187377c046e2bd19a269f90"></a><!-- doxytag: member="ParagraphModel::ParagraphModel" ref="a95d3987b6187377c046e2bd19a269f90" args="()" -->
@@ -182,6 +200,13 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrpara_8h_source.html#l00135">135</a> of file <a class="el" href="ocrpara_8h_source.html">ocrpara.h</a>.</p>
+<div class="fragment"><pre class="fragment">      : justification_(<a class="code" href="namespacetesseract.html#a550970d1662b3ac5830c6a28dba676b1a90150303905fef6037adc10dc2aa3689">tesseract::JUSTIFICATION_UNKNOWN</a>),
+         margin_(0),
+         first_indent_(0),
+         body_indent_(0),
+         tolerance_(0) { }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -199,6 +224,9 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrpara_8h_source.html#l00169">169</a> of file <a class="el" href="ocrpara_8h_source.html">ocrpara.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> body_indent_; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aac8329ca5408cc3636258390e80277f5"></a><!-- doxytag: member="ParagraphModel::Comparable" ref="aac8329ca5408cc3636258390e80277f5" args="(const ParagraphModel &amp;other) const " -->
@@ -216,6 +244,20 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrpara_8cpp_source.html#l00080">80</a> of file <a class="el" href="ocrpara_8cpp_source.html">ocrpara.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                 {
+  <span class="keywordflow">if</span> (justification_ != other.justification_)
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">if</span> (justification_ == <a class="code" href="namespacetesseract.html#a550970d1662b3ac5830c6a28dba676b1aa9a39d3bca308f650f8c75b0c14f6838">JUSTIFICATION_CENTER</a> ||
+      justification_ == <a class="code" href="namespacetesseract.html#a550970d1662b3ac5830c6a28dba676b1a90150303905fef6037adc10dc2aa3689">JUSTIFICATION_UNKNOWN</a>)
+    <span class="keywordflow">return</span> <span class="keyword">true</span>;
+  <span class="keywordtype">int</span> <a class="code" href="class_paragraph_model.html#a5b8f05844a3320fb2a6ac0efd5b24045">tolerance</a> = (tolerance_ + other.tolerance_) / 4;
+  <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a80998b3d098c50b53b1f275adeafe267">NearlyEqual</a>(margin_ + first_indent_,
+                     other.margin_ + other.first_indent_, tolerance) &amp;&amp;
+         <a class="code" href="host_8h.html#a80998b3d098c50b53b1f275adeafe267">NearlyEqual</a>(margin_ + body_indent_,
+                     other.margin_ + other.body_indent_, tolerance);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2c03df657560f6dfcf2ef4305def8745"></a><!-- doxytag: member="ParagraphModel::first_indent" ref="a2c03df657560f6dfcf2ef4305def8745" args="() const " -->
@@ -232,6 +274,9 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrpara_8h_source.html#l00168">168</a> of file <a class="el" href="ocrpara_8h_source.html">ocrpara.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> first_indent_; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a01060b765512c91bda1f7c18744e71c3"></a><!-- doxytag: member="ParagraphModel::is_flush" ref="a01060b765512c91bda1f7c18744e71c3" args="() const " -->
@@ -248,6 +293,13 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrpara_8h_source.html#l00171">171</a> of file <a class="el" href="ocrpara_8h_source.html">ocrpara.h</a>.</p>
+<div class="fragment"><pre class="fragment">                        {
+    <span class="keywordflow">return</span> (justification_ == <a class="code" href="namespacetesseract.html#a550970d1662b3ac5830c6a28dba676b1a0141f695e0959de2dc43e0eb94023ff6">tesseract::JUSTIFICATION_LEFT</a> ||
+            justification_ == <a class="code" href="namespacetesseract.html#a550970d1662b3ac5830c6a28dba676b1a93a23b19fec3ebdb587df6e0aa9e9fce">tesseract::JUSTIFICATION_RIGHT</a>) &amp;&amp;
+        abs(first_indent_ - body_indent_) &lt;= tolerance_;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad5c1367f22a798e616c64248ed50509e"></a><!-- doxytag: member="ParagraphModel::justification" ref="ad5c1367f22a798e616c64248ed50509e" args="() const " -->
@@ -264,6 +316,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrpara_8h_source.html#l00164">164</a> of file <a class="el" href="ocrpara_8h_source.html">ocrpara.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                        {
+    <span class="keywordflow">return</span> justification_;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a34c9b49f071bd5416bd88adc84eebd43"></a><!-- doxytag: member="ParagraphModel::margin" ref="a34c9b49f071bd5416bd88adc84eebd43" args="() const " -->
@@ -280,6 +337,9 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrpara_8h_source.html#l00167">167</a> of file <a class="el" href="ocrpara_8h_source.html">ocrpara.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> margin_; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a5b8f05844a3320fb2a6ac0efd5b24045"></a><!-- doxytag: member="ParagraphModel::tolerance" ref="a5b8f05844a3320fb2a6ac0efd5b24045" args="() const " -->
@@ -296,6 +356,9 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrpara_8h_source.html#l00170">170</a> of file <a class="el" href="ocrpara_8h_source.html">ocrpara.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> tolerance_; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a602f01af8ff434945dc2a952aa874271"></a><!-- doxytag: member="ParagraphModel::ToString" ref="a602f01af8ff434945dc2a952aa874271" args="() const " -->
@@ -312,6 +375,16 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrpara_8cpp_source.html#l00093">93</a> of file <a class="el" href="ocrpara_8cpp_source.html">ocrpara.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                      {
+  <span class="keywordtype">char</span> buffer[200];
+  <span class="keyword">const</span> <a class="code" href="class_s_t_r_i_n_g.html">STRING</a> &amp;alignment = ParagraphJustificationToString(justification_);
+  snprintf(buffer, <span class="keyword">sizeof</span>(buffer),
+           <span class="stringliteral">&quot;margin: %d, first_indent: %d, body_indent: %d, alignment: %s&quot;</span>,
+           margin_, first_indent_, body_indent_, alignment.<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a>());
+  <span class="keywordflow">return</span> <a class="code" href="class_s_t_r_i_n_g.html">STRING</a>(buffer);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="af1711b2d86cc61b7913d01e7a383209b"></a><!-- doxytag: member="ParagraphModel::ValidBodyLine" ref="af1711b2d86cc61b7913d01e7a383209b" args="(int lmargin, int lindent, int rindent, int rmargin) const " -->
@@ -351,6 +424,23 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrpara_8cpp_source.html#l00063">63</a> of file <a class="el" href="ocrpara_8cpp_source.html">ocrpara.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                   {
+  <span class="keywordflow">switch</span> (justification_) {
+    <span class="keywordflow">case</span> <a class="code" href="namespacetesseract.html#a550970d1662b3ac5830c6a28dba676b1a0141f695e0959de2dc43e0eb94023ff6">JUSTIFICATION_LEFT</a>:
+      <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a80998b3d098c50b53b1f275adeafe267">NearlyEqual</a>(lmargin + lindent, margin_ + body_indent_,
+                         tolerance_);
+    <span class="keywordflow">case</span> <a class="code" href="namespacetesseract.html#a550970d1662b3ac5830c6a28dba676b1a93a23b19fec3ebdb587df6e0aa9e9fce">JUSTIFICATION_RIGHT</a>:
+      <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a80998b3d098c50b53b1f275adeafe267">NearlyEqual</a>(rmargin + rindent, margin_ + body_indent_,
+                         tolerance_);
+    <span class="keywordflow">case</span> <a class="code" href="namespacetesseract.html#a550970d1662b3ac5830c6a28dba676b1aa9a39d3bca308f650f8c75b0c14f6838">JUSTIFICATION_CENTER</a>:
+      <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a80998b3d098c50b53b1f275adeafe267">NearlyEqual</a>(lindent, rindent, tolerance_ * 2);
+    <span class="keywordflow">default</span>:
+      <span class="comment">// shouldn&#39;t happen</span>
+      <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aac83726f552a7058fc552bac776fffd5"></a><!-- doxytag: member="ParagraphModel::ValidFirstLine" ref="aac83726f552a7058fc552bac776fffd5" args="(int lmargin, int lindent, int rindent, int rmargin) const " -->
@@ -390,11 +480,28 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrpara_8cpp_source.html#l00046">46</a> of file <a class="el" href="ocrpara_8cpp_source.html">ocrpara.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                    {
+  <span class="keywordflow">switch</span> (justification_) {
+    <span class="keywordflow">case</span> <a class="code" href="namespacetesseract.html#a550970d1662b3ac5830c6a28dba676b1a0141f695e0959de2dc43e0eb94023ff6">JUSTIFICATION_LEFT</a>:
+      <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a80998b3d098c50b53b1f275adeafe267">NearlyEqual</a>(lmargin + lindent, margin_ + first_indent_,
+                         tolerance_);
+    <span class="keywordflow">case</span> <a class="code" href="namespacetesseract.html#a550970d1662b3ac5830c6a28dba676b1a93a23b19fec3ebdb587df6e0aa9e9fce">JUSTIFICATION_RIGHT</a>:
+      <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a80998b3d098c50b53b1f275adeafe267">NearlyEqual</a>(rmargin + rindent, margin_ + first_indent_,
+                         tolerance_);
+    <span class="keywordflow">case</span> <a class="code" href="namespacetesseract.html#a550970d1662b3ac5830c6a28dba676b1aa9a39d3bca308f650f8c75b0c14f6838">JUSTIFICATION_CENTER</a>:
+      <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a80998b3d098c50b53b1f275adeafe267">NearlyEqual</a>(lindent, rindent, tolerance_ * 2);
+    <span class="keywordflow">default</span>:
+      <span class="comment">// shouldn&#39;t happen</span>
+      <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+}
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/ccstruct/<a class="el" href="ocrpara_8h_source.html">ocrpara.h</a></li>
-<li>tesseract-ocr/ccstruct/<a class="el" href="ocrpara_8cpp.html">ocrpara.cpp</a></li>
+<li>tesseract-ocr/ccstruct/<a class="el" href="ocrpara_8cpp_source.html">ocrpara.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -416,7 +523,7 @@ Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:12 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:46 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

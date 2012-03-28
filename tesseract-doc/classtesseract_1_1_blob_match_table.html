@@ -118,7 +118,10 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">BLOB_CHOICE_LIST *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_blob_match_table.html#a07541d5a431250ed1bc5f9a22cf686e4">get_match_by_box</a> (const <a class="el" href="class_t_b_o_x.html">TBOX</a> &amp;box)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_blob_match_table.html#a10f7ba42d7354631474857fdd54af94f">add_to_match</a> (<a class="el" href="struct_t_b_l_o_b.html">TBLOB</a> *blob, BLOB_CHOICE_LIST *ratings)</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="matchtab_8h_source.html#l00042">42</a> of file <a class="el" href="matchtab_8h_source.html">matchtab.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="abbf1917c7b927c690c0177b6567e56c1"></a><!-- doxytag: member="tesseract::BlobMatchTable::BlobMatchTable" ref="abbf1917c7b927c690c0177b6567e56c1" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -133,6 +136,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="matchtab_8cpp_source.html#l00038">38</a> of file <a class="el" href="matchtab_8cpp_source.html">matchtab.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">  : been_initialized_(<span class="keyword">false</span>), match_table_(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+  <a class="code" href="classtesseract_1_1_blob_match_table.html#adccd291f7c70303e621e950c289be897">init_match_table</a>();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab46ff6040a4bcaed7b7e13361e7d260b"></a><!-- doxytag: member="tesseract::BlobMatchTable::~BlobMatchTable" ref="ab46ff6040a4bcaed7b7e13361e7d260b" args="()" -->
@@ -149,6 +157,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="matchtab_8cpp_source.html#l00043">43</a> of file <a class="el" href="matchtab_8cpp_source.html">matchtab.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                {
+  <a class="code" href="classtesseract_1_1_blob_match_table.html#afdaff3d125ee57f9ee4d6a777e13f0ce">end_match_table</a>();
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -177,6 +190,38 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="matchtab_8cpp_source.html#l00183">183</a> of file <a class="el" href="matchtab_8cpp_source.html">matchtab.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                        {
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> bbox = blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a8f1f8f110170fe12cf8147d504cd0ea2">bounding_box</a>();
+  <span class="keywordtype">int</span> start = Hash(bbox);
+  <span class="keywordtype">int</span> x = start;
+  <span class="keywordflow">do</span> {
+    <span class="keywordflow">if</span> (IsEmpty(x)) {
+      fprintf(stderr, <span class="stringliteral">&quot;Can not update uninitialized entry in match_table\n&quot;</span>);
+      <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(!IsEmpty(x));
+    }
+    <span class="keywordflow">if</span> (match_table_[x].box == bbox) {
+      <span class="comment">// Copy new ratings to match_table_[x].rating.</span>
+      BLOB_CHOICE_IT it;
+      it.set_to_list(match_table_[x].rating);
+      BLOB_CHOICE_IT new_it;
+      new_it.set_to_list(ratings);
+      assert(it.length() &lt;= new_it.length());
+      <span class="keywordflow">for</span> (it.mark_cycle_pt(), new_it.mark_cycle_pt();
+           !it.cycled_list() &amp;&amp; !new_it.cycled_list(); new_it.forward()) {
+        <span class="keywordflow">if</span> (it.data()-&gt;unichar_id() == new_it.data()-&gt;unichar_id()) {
+          it.forward();
+        } <span class="keywordflow">else</span> {
+          it.add_before_stay_put(<span class="keyword">new</span> <a class="code" href="class_b_l_o_b___c_h_o_i_c_e.html">BLOB_CHOICE</a>(*(new_it.data())));
+        }
+      }
+      <span class="keywordflow">return</span>;
+    }
+    <span class="keywordflow">if</span> (++x &gt;= <a class="code" href="matchtab_8cpp.html#a5fd794ca55cdba7dc292a10fe44b72a0">NUM_MATCH_ENTRIES</a>)
+      x = 0;
+  } <span class="keywordflow">while</span> (x != start);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="afdaff3d125ee57f9ee4d6a777e13f0ce"></a><!-- doxytag: member="tesseract::BlobMatchTable::end_match_table" ref="afdaff3d125ee57f9ee4d6a777e13f0ce" args="()" -->
@@ -193,6 +238,16 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="matchtab_8cpp_source.html#l00071">71</a> of file <a class="el" href="matchtab_8cpp_source.html">matchtab.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                     {
+  <span class="keywordflow">if</span> (been_initialized_) {
+    <a class="code" href="classtesseract_1_1_blob_match_table.html#adccd291f7c70303e621e950c289be897">init_match_table</a>();
+    <span class="keyword">delete</span>[] match_table_;
+    match_table_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    been_initialized_ = <span class="keyword">false</span>;
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2748789f84786ee7c3edf96e6e88a63f"></a><!-- doxytag: member="tesseract::BlobMatchTable::get_match" ref="a2748789f84786ee7c3edf96e6e88a63f" args="(TBLOB *blob)" -->
@@ -210,6 +265,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="matchtab_8cpp_source.html#l00118">118</a> of file <a class="el" href="matchtab_8cpp_source.html">matchtab.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                       {
+  <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_blob_match_table.html#a07541d5a431250ed1bc5f9a22cf686e4">get_match_by_box</a>(blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a8f1f8f110170fe12cf8147d504cd0ea2">bounding_box</a>());
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a07541d5a431250ed1bc5f9a22cf686e4"></a><!-- doxytag: member="tesseract::BlobMatchTable::get_match_by_box" ref="a07541d5a431250ed1bc5f9a22cf686e4" args="(const TBOX &amp;box)" -->
@@ -227,6 +287,27 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="matchtab_8cpp_source.html#l00150">150</a> of file <a class="el" href="matchtab_8cpp_source.html">matchtab.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                  {
+  <span class="keywordtype">int</span> start = Hash(box);
+  <span class="keywordtype">int</span> x = start;
+  <span class="comment">/* Search for match */</span>
+  <span class="keywordflow">do</span> {
+    <span class="comment">/* Not found when blank */</span>
+    <span class="keywordflow">if</span> (IsEmpty(x))
+      <span class="keywordflow">break</span>;
+    <span class="comment">/* Is this the match ? */</span>
+    <span class="keywordflow">if</span> (match_table_[x].box == box) {
+      BLOB_CHOICE_LIST *blist = <span class="keyword">new</span> BLOB_CHOICE_LIST();
+      blist-&gt;deep_copy(match_table_[x].rating, &amp;<a class="code" href="class_b_l_o_b___c_h_o_i_c_e.html#af3f12ffe754a76bf2abbb82a001336f9">BLOB_CHOICE::deep_copy</a>);
+      <span class="keywordflow">return</span> blist;
+    }
+    <span class="keywordflow">if</span> (++x &gt;= <a class="code" href="matchtab_8cpp.html#a5fd794ca55cdba7dc292a10fe44b72a0">NUM_MATCH_ENTRIES</a>)
+      x = 0;
+  } <span class="keywordflow">while</span> (x != start);
+  <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="adccd291f7c70303e621e950c289be897"></a><!-- doxytag: member="tesseract::BlobMatchTable::init_match_table" ref="adccd291f7c70303e621e950c289be897" args="()" -->
@@ -243,6 +324,26 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="matchtab_8cpp_source.html#l00052">52</a> of file <a class="el" href="matchtab_8cpp_source.html">matchtab.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                      {
+  <span class="keywordflow">if</span> (been_initialized_) {
+    <span class="comment">/* Reclaim old choices */</span>
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> x = 0; x &lt; <a class="code" href="matchtab_8cpp.html#a5fd794ca55cdba7dc292a10fe44b72a0">NUM_MATCH_ENTRIES</a>; x++) {
+      <span class="keywordflow">if</span> (!IsEmpty(x)) {
+        match_table_[x].rating-&gt;clear();
+        <span class="keyword">delete</span> match_table_[x].rating;
+        <span class="comment">// Reinitialize the entry.</span>
+        match_table_[x].box = <a class="code" href="class_t_b_o_x.html">TBOX</a>();
+        match_table_[x].rating = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+      }
+    }
+  } <span class="keywordflow">else</span> {
+    <span class="comment">/* Allocate memory once */</span>
+    match_table_ = <span class="keyword">new</span> MATCH[<a class="code" href="matchtab_8cpp.html#a5fd794ca55cdba7dc292a10fe44b72a0">NUM_MATCH_ENTRIES</a>];
+    been_initialized_ = <span class="keyword">true</span>;
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a347bdac464ebf52e72e01993a4133c9a"></a><!-- doxytag: member="tesseract::BlobMatchTable::put_match" ref="a347bdac464ebf52e72e01993a4133c9a" args="(TBLOB *blob, BLOB_CHOICE_LIST *ratings)" -->
@@ -270,11 +371,36 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="matchtab_8cpp_source.html#l00087">87</a> of file <a class="el" href="matchtab_8cpp_source.html">matchtab.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                     {
+  <span class="keywordflow">if</span> (!blob) <span class="keywordflow">return</span>;
+  <span class="comment">/* Hash into table */</span>
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> bbox(blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a8f1f8f110170fe12cf8147d504cd0ea2">bounding_box</a>());
+  <span class="keywordtype">int</span> start = Hash(bbox);
+
+  <span class="comment">/* Look for empty */</span>
+  <span class="keywordtype">int</span> x = start;
+  <span class="keywordflow">do</span> {
+    <span class="keywordflow">if</span> (IsEmpty(x)) {
+      <span class="comment">/* Add this entry */</span>
+      match_table_[x].box = bbox;
+      <span class="comment">// Copy ratings to match_table_[x].rating</span>
+      match_table_[x].rating = <span class="keyword">new</span> BLOB_CHOICE_LIST();
+      match_table_[x].rating-&gt;deep_copy(ratings, &amp;<a class="code" href="class_b_l_o_b___c_h_o_i_c_e.html#af3f12ffe754a76bf2abbb82a001336f9">BLOB_CHOICE::deep_copy</a>);
+      <span class="keywordflow">return</span>;
+    }
+    <span class="keywordflow">if</span> (++x &gt;= <a class="code" href="matchtab_8cpp.html#a5fd794ca55cdba7dc292a10fe44b72a0">NUM_MATCH_ENTRIES</a>)
+      x = 0;
+  } <span class="keywordflow">while</span> (x != start);
+
+  <a class="code" href="callcpp_8cpp.html#a21679e7fec2d69db23107348fa13c153">cprintf</a> (<span class="stringliteral">&quot;error: Match table is full\n&quot;</span>);
+}
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/wordrec/<a class="el" href="matchtab_8h_source.html">matchtab.h</a></li>
-<li>tesseract-ocr/wordrec/<a class="el" href="matchtab_8cpp.html">matchtab.cpp</a></li>
+<li>tesseract-ocr/wordrec/<a class="el" href="matchtab_8cpp_source.html">matchtab.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -297,7 +423,7 @@ Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:17 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:54 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

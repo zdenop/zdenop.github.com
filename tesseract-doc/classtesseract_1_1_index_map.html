@@ -133,7 +133,10 @@ Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_index_map.html#ae3ff257a84297cf8c67ee4bb27e54194">sparse_size_</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_generic_vector.html">GenericVector</a>&lt; <a class="el" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_index_map.html#a5089b80f1c2f365c07dc075da232aa89">compact_map_</a></td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="indexmapbidi_8h_source.html#l00042">42</a> of file <a class="el" href="indexmapbidi_8h_source.html">indexmapbidi.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a0ed244a46cf41eaee538f917605a9c8c"></a><!-- doxytag: member="tesseract::IndexMap::~IndexMap" ref="a0ed244a46cf41eaee538f917605a9c8c" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -148,6 +151,9 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="indexmapbidi_8h_source.html#l00044">44</a> of file <a class="el" href="indexmapbidi_8h_source.html">indexmapbidi.h</a>.</p>
+<div class="fragment"><pre class="fragment">{}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -165,6 +171,11 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="indexmapbidi_8h_source.html#l00061">61</a> of file <a class="el" href="indexmapbidi_8h_source.html">indexmapbidi.h</a>.</p>
+<div class="fragment"><pre class="fragment">                          {
+    <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_index_map.html#a5089b80f1c2f365c07dc075da232aa89">compact_map_</a>.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>();
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad9e50b500bcbadf8f3be98cd672f0c4a"></a><!-- doxytag: member="tesseract::IndexMap::CompactToSparse" ref="ad9e50b500bcbadf8f3be98cd672f0c4a" args="(int compact_index) const " -->
@@ -182,6 +193,11 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="indexmapbidi_8h_source.html#l00053">53</a> of file <a class="el" href="indexmapbidi_8h_source.html">indexmapbidi.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                               {
+    <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_index_map.html#a5089b80f1c2f365c07dc075da232aa89">compact_map_</a>[compact_index];
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a838d73d3bb8c7e8a1b43761cf99f337d"></a><!-- doxytag: member="tesseract::IndexMap::CopyFrom" ref="a838d73d3bb8c7e8a1b43761cf99f337d" args="(const IndexMap &amp;src)" -->
@@ -199,6 +215,12 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="indexmapbidi_8cpp_source.html#l00033">33</a> of file <a class="el" href="indexmapbidi_8cpp_source.html">indexmapbidi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                           {
+  <a class="code" href="classtesseract_1_1_index_map.html#ae3ff257a84297cf8c67ee4bb27e54194">sparse_size_</a> = src.sparse_size_;
+  <a class="code" href="classtesseract_1_1_index_map.html#a5089b80f1c2f365c07dc075da232aa89">compact_map_</a> = src.compact_map_;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6547a318de4fb3ca1422ba6c2c91b233"></a><!-- doxytag: member="tesseract::IndexMap::CopyFrom" ref="a6547a318de4fb3ca1422ba6c2c91b233" args="(const IndexMapBiDi &amp;src)" -->
@@ -218,6 +240,12 @@ Protected Attributes</h2></td></tr>
 
 <p>Reimplemented in <a class="el" href="classtesseract_1_1_index_map_bi_di.html#a2b5e065b41a3a58f83b28b8d6df05185">tesseract::IndexMapBiDi</a>.</p>
 
+<p>Definition at line <a class="el" href="indexmapbidi_8cpp_source.html#l00037">37</a> of file <a class="el" href="indexmapbidi_8cpp_source.html">indexmapbidi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                               {
+  <a class="code" href="classtesseract_1_1_index_map.html#ae3ff257a84297cf8c67ee4bb27e54194">sparse_size_</a> = src.SparseSize();
+  <a class="code" href="classtesseract_1_1_index_map.html#a5089b80f1c2f365c07dc075da232aa89">compact_map_</a> = src.compact_map_;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a74a60120500f7ced59f2cea3bc42138f"></a><!-- doxytag: member="tesseract::IndexMap::DeSerialize" ref="a74a60120500f7ced59f2cea3bc42138f" args="(bool swap, FILE *fp)" -->
@@ -247,6 +275,17 @@ Protected Attributes</h2></td></tr>
 
 <p>Reimplemented in <a class="el" href="classtesseract_1_1_index_map_bi_di.html#ad54cf4a1295408ec26e87ce377a8747d">tesseract::IndexMapBiDi</a>.</p>
 
+<p>Definition at line <a class="el" href="indexmapbidi_8cpp_source.html#l00052">52</a> of file <a class="el" href="indexmapbidi_8cpp_source.html">indexmapbidi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                              {
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> sparse_size;
+  <span class="keywordflow">if</span> (fread(&amp;sparse_size, <span class="keyword">sizeof</span>(sparse_size), 1, fp) != 1) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">if</span> (swap)
+    <a class="code" href="helpers_8h.html#ae7eeeca49954d4b13d269729f2fecd5a">ReverseN</a>(&amp;sparse_size, <span class="keyword">sizeof</span>(sparse_size));
+  <a class="code" href="classtesseract_1_1_index_map.html#ae3ff257a84297cf8c67ee4bb27e54194">sparse_size_</a> = sparse_size;
+  <span class="keywordflow">if</span> (!<a class="code" href="classtesseract_1_1_index_map.html#a5089b80f1c2f365c07dc075da232aa89">compact_map_</a>.<a class="code" href="class_generic_vector.html#aa4f5b1bc0d044fbd1fc77363b798c39c">DeSerialize</a>(swap, fp)) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a067894b455dcd2e3d013a9449e1aae7d"></a><!-- doxytag: member="tesseract::IndexMap::Serialize" ref="a067894b455dcd2e3d013a9449e1aae7d" args="(FILE *fp) const " -->
@@ -266,6 +305,14 @@ Protected Attributes</h2></td></tr>
 
 <p>Reimplemented in <a class="el" href="classtesseract_1_1_index_map_bi_di.html#aa92b1c868939853b0e20c6842ece0f1a">tesseract::IndexMapBiDi</a>.</p>
 
+<p>Definition at line <a class="el" href="indexmapbidi_8cpp_source.html#l00043">43</a> of file <a class="el" href="indexmapbidi_8cpp_source.html">indexmapbidi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                       {
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> sparse_size = <a class="code" href="classtesseract_1_1_index_map.html#ae3ff257a84297cf8c67ee4bb27e54194">sparse_size_</a>;
+  <span class="keywordflow">if</span> (fwrite(&amp;sparse_size, <span class="keyword">sizeof</span>(sparse_size), 1, fp) != 1) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">if</span> (!<a class="code" href="classtesseract_1_1_index_map.html#a5089b80f1c2f365c07dc075da232aa89">compact_map_</a>.<a class="code" href="class_generic_vector.html#a51aeec27092537323abc7174af1c16ef">Serialize</a>(fp)) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a25dc97e755104bf3e58a8a9f0a254d18"></a><!-- doxytag: member="tesseract::IndexMap::SparseSize" ref="a25dc97e755104bf3e58a8a9f0a254d18" args="() const " -->
@@ -284,6 +331,11 @@ Protected Attributes</h2></td></tr>
 
 <p>Reimplemented in <a class="el" href="classtesseract_1_1_index_map_bi_di.html#ae108e47d0f0049137072ad2bc1f6705d">tesseract::IndexMapBiDi</a>.</p>
 
+<p>Definition at line <a class="el" href="indexmapbidi_8h_source.html#l00057">57</a> of file <a class="el" href="indexmapbidi_8h_source.html">indexmapbidi.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                 {
+    <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_index_map.html#ae3ff257a84297cf8c67ee4bb27e54194">sparse_size_</a>;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="af6d980041372e85befb238aae69192c0"></a><!-- doxytag: member="tesseract::IndexMap::SparseToCompact" ref="af6d980041372e85befb238aae69192c0" args="(int sparse_index) const " -->
@@ -303,6 +355,12 @@ Protected Attributes</h2></td></tr>
 
 <p>Reimplemented in <a class="el" href="classtesseract_1_1_index_map_bi_di.html#a2c0f96f5d5fad6c9973e1b074fac5a03">tesseract::IndexMapBiDi</a>.</p>
 
+<p>Definition at line <a class="el" href="indexmapbidi_8cpp_source.html#l00027">27</a> of file <a class="el" href="indexmapbidi_8cpp_source.html">indexmapbidi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                    {
+  <span class="keywordtype">int</span> result = <a class="code" href="classtesseract_1_1_index_map.html#a5089b80f1c2f365c07dc075da232aa89">compact_map_</a>.<a class="code" href="class_generic_vector.html#a2eaa0df35abb2c00571bb1d6e5d73377">binary_search</a>(sparse_index);
+  <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_index_map.html#a5089b80f1c2f365c07dc075da232aa89">compact_map_</a>[result] == sparse_index ? result : -1;
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
@@ -317,6 +375,8 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="indexmapbidi_8h_source.html#l00080">80</a> of file <a class="el" href="indexmapbidi_8h_source.html">indexmapbidi.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ae3ff257a84297cf8c67ee4bb27e54194"></a><!-- doxytag: member="tesseract::IndexMap::sparse_size_" ref="ae3ff257a84297cf8c67ee4bb27e54194" args="" -->
@@ -330,11 +390,13 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="indexmapbidi_8h_source.html#l00077">77</a> of file <a class="el" href="indexmapbidi_8h_source.html">indexmapbidi.h</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/ccutil/<a class="el" href="indexmapbidi_8h_source.html">indexmapbidi.h</a></li>
-<li>tesseract-ocr/ccutil/<a class="el" href="indexmapbidi_8cpp.html">indexmapbidi.cpp</a></li>
+<li>tesseract-ocr/ccutil/<a class="el" href="indexmapbidi_8cpp_source.html">indexmapbidi.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -357,7 +419,7 @@ Protected Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:15 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:49 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

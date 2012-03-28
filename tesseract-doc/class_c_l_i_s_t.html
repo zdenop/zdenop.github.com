@@ -126,7 +126,10 @@ Public Member Functions</h2></td></tr>
 Friends</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c_l_i_s_t.html#a1526f53a1a74af65ae4a85e6f4b8df03">CLIST_ITERATOR</a></td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="clst_8h_source.html#l00070">70</a> of file <a class="el" href="clst_8h_source.html">clst.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="ad9e03e3a10feab4567bf902304a52d22"></a><!-- doxytag: member="CLIST::CLIST" ref="ad9e03e3a10feab4567bf902304a52d22" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -141,6 +144,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="clst_8h_source.html#l00081">81</a> of file <a class="el" href="clst_8h_source.html">clst.h</a>.</p>
+<div class="fragment"><pre class="fragment">            {  <span class="comment">//constructor</span>
+      <a class="code" href="oldlist_8cpp.html#ad9ec1d10cbd07fc3376ef300df603418">last</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3475d5cd30143914175758739f106131"></a><!-- doxytag: member="CLIST::~CLIST" ref="a3475d5cd30143914175758739f106131" args="()" -->
@@ -157,6 +165,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="clst_8h_source.html#l00085">85</a> of file <a class="el" href="clst_8h_source.html">clst.h</a>.</p>
+<div class="fragment"><pre class="fragment">              {                  <span class="comment">//destructor</span>
+      <a class="code" href="class_c_l_i_s_t.html#a26d45a15761facd8e7ab567c0f70510b">shallow_clear</a>();
+    }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -191,6 +204,39 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="clst_8cpp_source.html#l00199">199</a> of file <a class="el" href="clst_8cpp_source.html">clst.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                    {
+  <span class="comment">// Check for adding at the end.</span>
+  <span class="keywordflow">if</span> (<a class="code" href="oldlist_8cpp.html#ad9ec1d10cbd07fc3376ef300df603418">last</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> || comparator(&amp;<a class="code" href="oldlist_8cpp.html#ad9ec1d10cbd07fc3376ef300df603418">last</a>-&gt;data, &amp;new_data) &lt; 0) {
+    <a class="code" href="class_c_l_i_s_t___l_i_n_k.html">CLIST_LINK</a>* new_element = <span class="keyword">new</span> <a class="code" href="class_c_l_i_s_t___l_i_n_k.html">CLIST_LINK</a>;
+    new_element-&gt;data = new_data;
+    <span class="keywordflow">if</span> (<a class="code" href="oldlist_8cpp.html#ad9ec1d10cbd07fc3376ef300df603418">last</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      new_element-&gt;next = new_element;
+    } <span class="keywordflow">else</span> {
+      new_element-&gt;next = <a class="code" href="oldlist_8cpp.html#ad9ec1d10cbd07fc3376ef300df603418">last</a>-&gt;<a class="code" href="structlist__rec.html#af4f6ed22cbbd6d68b0bc4505defed426">next</a>;
+      <a class="code" href="oldlist_8cpp.html#ad9ec1d10cbd07fc3376ef300df603418">last</a>-&gt;<a class="code" href="structlist__rec.html#af4f6ed22cbbd6d68b0bc4505defed426">next</a> = new_element;
+    }
+    <a class="code" href="oldlist_8cpp.html#ad9ec1d10cbd07fc3376ef300df603418">last</a> = new_element;
+    <span class="keywordflow">return</span> <span class="keyword">true</span>;
+  } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (!unique || <a class="code" href="oldlist_8cpp.html#ad9ec1d10cbd07fc3376ef300df603418">last</a>-&gt;data != new_data) {
+    <span class="comment">// Need to use an iterator.</span>
+    <a class="code" href="class_c_l_i_s_t___i_t_e_r_a_t_o_r.html">CLIST_ITERATOR</a> it(<span class="keyword">this</span>);
+    <span class="keywordflow">for</span> (it.mark_cycle_pt(); !it.cycled_list(); it.forward()) {
+      <span class="keywordtype">void</span>* data = it.data();
+      <span class="keywordflow">if</span> (data == new_data &amp;&amp; unique)
+        <span class="keywordflow">return</span> <span class="keyword">false</span>;
+      <span class="keywordflow">if</span> (comparator(&amp;data, &amp;new_data) &gt; 0)
+        <span class="keywordflow">break</span>;
+    }
+    <span class="keywordflow">if</span> (it.cycled_list())
+      it.add_to_end(new_data);
+    <span class="keywordflow">else</span>
+      it.add_before_then_move(new_data);
+    <span class="keywordflow">return</span> <span class="keyword">true</span>;
+  }
+  <span class="keywordflow">return</span> <span class="keyword">false</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2be073a2db0e9ad7a4616ff80ef7ded0"></a><!-- doxytag: member="CLIST::assign_to_sublist" ref="a2be073a2db0e9ad7a4616ff80ef7ded0" args="(CLIST_ITERATOR *start_it, CLIST_ITERATOR *end_it)" -->
@@ -218,6 +264,22 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="clst_8cpp_source.html#l00109">109</a> of file <a class="el" href="clst_8cpp_source.html">clst.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                      {  <span class="comment">//from list end</span>
+  <span class="keyword">const</span> <a class="code" href="class_e_r_r_c_o_d_e.html">ERRCODE</a> LIST_NOT_EMPTY =
+    <span class="stringliteral">&quot;Destination list must be empty before extracting a sublist&quot;</span>;
+
+<span class="preprocessor">  #ifndef NDEBUG</span>
+<span class="preprocessor"></span>  <span class="keywordflow">if</span> (!<span class="keyword">this</span>)
+    <a class="code" href="lsterr_8h.html#aa905f4edc3563a45c13d5067f6398d6a">NULL_OBJECT</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;CLIST::assign_to_sublist&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+<span class="preprocessor">  #endif</span>
+<span class="preprocessor"></span>
+  <span class="keywordflow">if</span> (!<a class="code" href="class_c_l_i_s_t.html#abea2ae13be1c6124c36d118711c1f569">empty</a> ())
+    LIST_NOT_EMPTY.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;CLIST.assign_to_sublist&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+
+  <a class="code" href="oldlist_8cpp.html#ad9ec1d10cbd07fc3376ef300df603418">last</a> = start_it-&gt;extract_sublist (end_it);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="abea2ae13be1c6124c36d118711c1f569"></a><!-- doxytag: member="CLIST::empty" ref="abea2ae13be1c6124c36d118711c1f569" args="() const " -->
@@ -234,6 +296,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="clst_8h_source.html#l00095">95</a> of file <a class="el" href="clst_8h_source.html">clst.h</a>.</p>
+<div class="fragment"><pre class="fragment">                       {  <span class="comment">//is list empty?</span>
+      <span class="keywordflow">return</span> !<a class="code" href="oldlist_8cpp.html#ad9ec1d10cbd07fc3376ef300df603418">last</a>;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="af39a1aa5f39bdf731c52f93040a59833"></a><!-- doxytag: member="CLIST::internal_deep_clear" ref="af39a1aa5f39bdf731c52f93040a59833" args="(void(*zapper)(void *))" -->
@@ -251,6 +318,29 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="clst_8cpp_source.html#l00042">42</a> of file <a class="el" href="clst_8cpp_source.html">clst.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                         {       <span class="comment">//ptr to zapper functn</span>
+  <a class="code" href="class_c_l_i_s_t___l_i_n_k.html">CLIST_LINK</a> *ptr;
+  <a class="code" href="class_c_l_i_s_t___l_i_n_k.html">CLIST_LINK</a> *next;
+
+<span class="preprocessor">  #ifndef NDEBUG</span>
+<span class="preprocessor"></span>  <span class="keywordflow">if</span> (!<span class="keyword">this</span>)
+    <a class="code" href="lsterr_8h.html#aa905f4edc3563a45c13d5067f6398d6a">NULL_OBJECT</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;CLIST::internal_deep_clear&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+<span class="preprocessor">  #endif</span>
+<span class="preprocessor"></span>
+  <span class="keywordflow">if</span> (!<a class="code" href="class_c_l_i_s_t.html#abea2ae13be1c6124c36d118711c1f569">empty</a> ()) {
+    ptr = <a class="code" href="oldlist_8cpp.html#ad9ec1d10cbd07fc3376ef300df603418">last</a>-&gt;<a class="code" href="structlist__rec.html#af4f6ed22cbbd6d68b0bc4505defed426">next</a>;            <span class="comment">//set to first</span>
+    <a class="code" href="oldlist_8cpp.html#ad9ec1d10cbd07fc3376ef300df603418">last</a>-&gt;<a class="code" href="structlist__rec.html#af4f6ed22cbbd6d68b0bc4505defed426">next</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;           <span class="comment">//break circle</span>
+    <a class="code" href="oldlist_8cpp.html#ad9ec1d10cbd07fc3376ef300df603418">last</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;                 <span class="comment">//set list empty</span>
+    <span class="keywordflow">while</span> (ptr) {
+      next = ptr-&gt;next;
+      zapper (ptr-&gt;data);
+      <span class="keyword">delete</span>(ptr);
+      ptr = next;
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a50c68a9fed571b9d4036616f179f3ca2"></a><!-- doxytag: member="CLIST::length" ref="a50c68a9fed571b9d4036616f179f3ca2" args="() const " -->
@@ -267,6 +357,21 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="clst_8cpp_source.html#l00133">133</a> of file <a class="el" href="clst_8cpp_source.html">clst.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                          {  <span class="comment">//count elements</span>
+  <a class="code" href="class_c_l_i_s_t___i_t_e_r_a_t_o_r.html">CLIST_ITERATOR</a> it(const_cast&lt;CLIST*&gt;(<span class="keyword">this</span>));
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> <a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a> = 0;
+
+<span class="preprocessor">  #ifndef NDEBUG</span>
+<span class="preprocessor"></span>  <span class="keywordflow">if</span> (!<span class="keyword">this</span>)
+    <a class="code" href="lsterr_8h.html#aa905f4edc3563a45c13d5067f6398d6a">NULL_OBJECT</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;CLIST::length&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+<span class="preprocessor">  #endif</span>
+<span class="preprocessor"></span>
+  <span class="keywordflow">for</span> (it.mark_cycle_pt(); !it.cycled_list(); it.forward())
+    count++;
+  <span class="keywordflow">return</span> <a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad72452d15c1233bceaa9bcdd56a6b007"></a><!-- doxytag: member="CLIST::set_subtract" ref="ad72452d15c1233bceaa9bcdd56a6b007" args="(int comparator(const void *, const void *), bool unique, CLIST *minuend, CLIST *subtrahend)" -->
@@ -306,6 +411,29 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="clst_8cpp_source.html#l00237">237</a> of file <a class="el" href="clst_8cpp_source.html">clst.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                            {
+  <a class="code" href="class_c_l_i_s_t.html#a26d45a15761facd8e7ab567c0f70510b">shallow_clear</a>();
+  <a class="code" href="class_c_l_i_s_t___i_t_e_r_a_t_o_r.html">CLIST_ITERATOR</a> m_it(minuend);
+  <a class="code" href="class_c_l_i_s_t___i_t_e_r_a_t_o_r.html">CLIST_ITERATOR</a> s_it(subtrahend);
+  <span class="comment">// Since both lists are sorted, finding the subtras that are not</span>
+  <span class="comment">// minus is a case of a parallel iteration.</span>
+  <span class="keywordflow">for</span> (m_it.mark_cycle_pt(); !m_it.cycled_list(); m_it.forward()) {
+    <span class="keywordtype">void</span>* minu = m_it.data();
+    <span class="keywordtype">void</span>* subtra = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    <span class="keywordflow">if</span> (!s_it.empty()) {
+      subtra = s_it.data();
+      <span class="keywordflow">while</span> (!s_it.at_last() &amp;&amp;
+             comparator(&amp;subtra, &amp;minu) &lt; 0) {
+        s_it.forward();
+        subtra = s_it.data();
+      }
+    }
+    <span class="keywordflow">if</span> (subtra == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> || comparator(&amp;subtra, &amp;minu) != 0)
+      <a class="code" href="class_c_l_i_s_t.html#afae1f22a2fae0e890593501f6ddb48df">add_sorted</a>(comparator, unique, minu);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a26d45a15761facd8e7ab567c0f70510b"></a><!-- doxytag: member="CLIST::shallow_clear" ref="a26d45a15761facd8e7ab567c0f70510b" args="()" -->
@@ -322,6 +450,28 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="clst_8cpp_source.html#l00075">75</a> of file <a class="el" href="clst_8cpp_source.html">clst.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                          {  <span class="comment">//destroy all links</span>
+  <a class="code" href="class_c_l_i_s_t___l_i_n_k.html">CLIST_LINK</a> *ptr;
+  <a class="code" href="class_c_l_i_s_t___l_i_n_k.html">CLIST_LINK</a> *next;
+
+<span class="preprocessor">  #ifndef NDEBUG</span>
+<span class="preprocessor"></span>  <span class="keywordflow">if</span> (!<span class="keyword">this</span>)
+    <a class="code" href="lsterr_8h.html#aa905f4edc3563a45c13d5067f6398d6a">NULL_OBJECT</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;CLIST::shallow_clear&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+<span class="preprocessor">  #endif</span>
+<span class="preprocessor"></span>
+  <span class="keywordflow">if</span> (!<a class="code" href="class_c_l_i_s_t.html#abea2ae13be1c6124c36d118711c1f569">empty</a> ()) {
+    ptr = <a class="code" href="oldlist_8cpp.html#ad9ec1d10cbd07fc3376ef300df603418">last</a>-&gt;<a class="code" href="structlist__rec.html#af4f6ed22cbbd6d68b0bc4505defed426">next</a>;            <span class="comment">//set to first</span>
+    <a class="code" href="oldlist_8cpp.html#ad9ec1d10cbd07fc3376ef300df603418">last</a>-&gt;<a class="code" href="structlist__rec.html#af4f6ed22cbbd6d68b0bc4505defed426">next</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;           <span class="comment">//break circle</span>
+    <a class="code" href="oldlist_8cpp.html#ad9ec1d10cbd07fc3376ef300df603418">last</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;                 <span class="comment">//set list empty</span>
+    <span class="keywordflow">while</span> (ptr) {
+      next = ptr-&gt;next;
+      <span class="keyword">delete</span>(ptr);
+      ptr = next;
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="af34485052143b0c31bfaba519099180f"></a><!-- doxytag: member="CLIST::shallow_copy" ref="af34485052143b0c31bfaba519099180f" args="(CLIST *from_list)" -->
@@ -339,6 +489,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="clst_8h_source.html#l00103">103</a> of file <a class="el" href="clst_8h_source.html">clst.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                        {  <span class="comment">//beware destructors!!</span>
+      <a class="code" href="oldlist_8cpp.html#ad9ec1d10cbd07fc3376ef300df603418">last</a> = from_list-&gt;last;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a94c691e28943646a297544e487635d2c"></a><!-- doxytag: member="CLIST::singleton" ref="a94c691e28943646a297544e487635d2c" args="() const " -->
@@ -355,6 +510,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="clst_8h_source.html#l00099">99</a> of file <a class="el" href="clst_8h_source.html">clst.h</a>.</p>
+<div class="fragment"><pre class="fragment">                           {
+      <span class="keywordflow">return</span> <a class="code" href="oldlist_8cpp.html#ad9ec1d10cbd07fc3376ef300df603418">last</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> ? (<a class="code" href="oldlist_8cpp.html#ad9ec1d10cbd07fc3376ef300df603418">last</a> == last-&gt;<a class="code" href="structlist__rec.html#af4f6ed22cbbd6d68b0bc4505defed426">next</a>) : <span class="keyword">false</span>;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a336224bea4c0eb090b8f5af08474a703"></a><!-- doxytag: member="CLIST::sort" ref="a336224bea4c0eb090b8f5af08474a703" args="(int comparator(const void *, const void *))" -->
@@ -372,6 +532,42 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="clst_8cpp_source.html#l00155">155</a> of file <a class="el" href="clst_8cpp_source.html">clst.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                             {
+  <a class="code" href="class_c_l_i_s_t___i_t_e_r_a_t_o_r.html">CLIST_ITERATOR</a> it(<span class="keyword">this</span>);
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> <a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a>;
+  <span class="keywordtype">void</span> **<a class="code" href="structarray__record.html#aedd2fbe577bea4938d80154db35c6685">base</a>;                   <span class="comment">//ptr array to sort</span>
+  <span class="keywordtype">void</span> **current;
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> i;
+
+<span class="preprocessor">  #ifndef NDEBUG</span>
+<span class="preprocessor"></span>  <span class="keywordflow">if</span> (!<span class="keyword">this</span>)
+    <a class="code" href="lsterr_8h.html#aa905f4edc3563a45c13d5067f6398d6a">NULL_OBJECT</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;CLIST::sort&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+<span class="preprocessor">  #endif</span>
+<span class="preprocessor"></span>
+  <span class="comment">/* Allocate an array of pointers, one per list element */</span>
+  count = <a class="code" href="class_c_l_i_s_t.html#a50c68a9fed571b9d4036616f179f3ca2">length</a> ();
+  base = (<span class="keywordtype">void</span> **) malloc (count * <span class="keyword">sizeof</span> (<span class="keywordtype">void</span> *));
+
+  <span class="comment">/* Extract all elements, putting the pointers in the array */</span>
+  current = <a class="code" href="structarray__record.html#aedd2fbe577bea4938d80154db35c6685">base</a>;
+  <span class="keywordflow">for</span> (it.mark_cycle_pt (); !it.cycled_list (); it.forward ()) {
+    *current = it.extract ();
+    current++;
+  }
+
+  <span class="comment">/* Sort the pointer array */</span>
+  qsort ((<span class="keywordtype">char</span> *) base, count, <span class="keyword">sizeof</span> (*base), comparator);
+
+  <span class="comment">/* Rebuild the list from the sorted pointers */</span>
+  current = <a class="code" href="structarray__record.html#aedd2fbe577bea4938d80154db35c6685">base</a>;
+  <span class="keywordflow">for</span> (i = 0; i &lt; <a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a>; i++) {
+    it.add_to_end (*current);
+    current++;
+  }
+  free(base);
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Friends And Related Function Documentation</h2>
@@ -386,11 +582,13 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="clst_8h_source.html#l00072">72</a> of file <a class="el" href="clst_8h_source.html">clst.h</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/ccutil/<a class="el" href="clst_8h_source.html">clst.h</a></li>
-<li>tesseract-ocr/ccutil/<a class="el" href="clst_8cpp.html">clst.cpp</a></li>
+<li>tesseract-ocr/ccutil/<a class="el" href="clst_8cpp_source.html">clst.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -412,7 +610,7 @@ Friends</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:12 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:45 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

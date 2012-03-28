@@ -131,6 +131,8 @@ Package Functions</h2></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>Constructs a new menulistitem which possesses a flag that can be toggled. </p>
+
+<p>Definition at line <a class="el" href="_s_v_checkbox_menu_item_8java_source.html#l00031">31</a> of file <a class="el" href="_s_v_checkbox_menu_item_8java_source.html">SVCheckboxMenuItem.java</a>.</p>
 </div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a73698e9fec190004c45a53ed7bd08032"></a><!-- doxytag: member="com::google::scrollview::ui::SVCheckboxMenuItem::SVCheckboxMenuItem" ref="a73698e9fec190004c45a53ed7bd08032" args="(int id, String name, boolean val)" -->
 <div class="memitem">
@@ -163,6 +165,12 @@ Package Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="_s_v_checkbox_menu_item_8java_source.html#l00036">36</a> of file <a class="el" href="_s_v_checkbox_menu_item_8java_source.html">SVCheckboxMenuItem.java</a>.</p>
+<div class="fragment"><pre class="fragment">                                                       {
+    super(<span class="keywordtype">id</span>, <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_abstract_menu_item.html#acff73744423ec2a92eb8dc83f2cb1797">name</a>, <span class="keyword">new</span> JCheckBoxMenuItem(<a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_abstract_menu_item.html#acff73744423ec2a92eb8dc83f2cb1797">name</a>, val));
+    <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_checkbox_menu_item.html#a3ec1d39a6b40c6443fda3f2acd75cba4">bvalue</a> = val;
+  }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -183,6 +191,11 @@ Package Functions</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_abstract_menu_item.html#af45002f791ea5df98eb08845905dc08d">com.google.scrollview.ui.SVAbstractMenuItem</a>.</p>
 
+<p>Definition at line <a class="el" href="_s_v_checkbox_menu_item_8java_source.html#l00056">56</a> of file <a class="el" href="_s_v_checkbox_menu_item_8java_source.html">SVCheckboxMenuItem.java</a>.</p>
+<div class="fragment"><pre class="fragment">                           {
+    <span class="keywordflow">return</span> Boolean.toString(<a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_checkbox_menu_item.html#a3ec1d39a6b40c6443fda3f2acd75cba4">bvalue</a>);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a72443e61a50409f948f64f5a0d3ba386"></a><!-- doxytag: member="com::google::scrollview::ui::SVCheckboxMenuItem::performAction" ref="a72443e61a50409f948f64f5a0d3ba386" args="(SVWindow window, SVEventType eventType)" -->
@@ -213,6 +226,18 @@ Package Functions</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_abstract_menu_item.html#a88eee480ee60a2e501de7a55710fb3f1">com.google.scrollview.ui.SVAbstractMenuItem</a>.</p>
 
+<p>Definition at line <a class="el" href="_s_v_checkbox_menu_item_8java_source.html#l00043">43</a> of file <a class="el" href="_s_v_checkbox_menu_item_8java_source.html">SVCheckboxMenuItem.java</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                    {
+    <span class="comment">// Checkbox entry - trigger and send event.</span>
+    <span class="keywordflow">if</span> (<a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_checkbox_menu_item.html#a3ec1d39a6b40c6443fda3f2acd75cba4">bvalue</a>) {
+      <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_checkbox_menu_item.html#a3ec1d39a6b40c6443fda3f2acd75cba4">bvalue</a> = <span class="keyword">false</span>;
+    } <span class="keywordflow">else</span> {
+      <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_checkbox_menu_item.html#a3ec1d39a6b40c6443fda3f2acd75cba4">bvalue</a> = <span class="keyword">true</span>;
+    }
+    <a class="code" href="struct_s_v_event.html">SVEvent</a> svme = <span class="keyword">new</span> <a class="code" href="struct_s_v_event.html">SVEvent</a>(eventType, window, <span class="keywordtype">id</span>, <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_checkbox_menu_item.html#a77444a778b3dec7c4e9dfb4eb373e3fc">getValue</a>());
+    <a class="code" href="class_scroll_view.html">ScrollView</a>.addMessage(svme);
+  }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
@@ -227,6 +252,8 @@ Package Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="_s_v_checkbox_menu_item_8java_source.html#l00034">34</a> of file <a class="el" href="_s_v_checkbox_menu_item_8java_source.html">SVCheckboxMenuItem.java</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a4c8f48bb36aecf9288259cb5629c0155"></a><!-- doxytag: member="com::google::scrollview::ui::SVCheckboxMenuItem::desc" ref="a4c8f48bb36aecf9288259cb5629c0155" args="" -->
@@ -239,6 +266,8 @@ Package Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="_s_v_checkbox_menu_item_8java_source.html#l00033">33</a> of file <a class="el" href="_s_v_checkbox_menu_item_8java_source.html">SVCheckboxMenuItem.java</a>.</p>
 
 </div>
 </div>
@@ -253,10 +282,12 @@ Package Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="_s_v_checkbox_menu_item_8java_source.html#l00032">32</a> of file <a class="el" href="_s_v_checkbox_menu_item_8java_source.html">SVCheckboxMenuItem.java</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>tesseract-ocr/java/com/google/scrollview/ui/<a class="el" href="_s_v_checkbox_menu_item_8java.html">SVCheckboxMenuItem.java</a></li>
+<li>tesseract-ocr/java/com/google/scrollview/ui/<a class="el" href="_s_v_checkbox_menu_item_8java_source.html">SVCheckboxMenuItem.java</a></li>
 </ul>
 </div>
 </div>
@@ -282,7 +313,7 @@ Package Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:14 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:48 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

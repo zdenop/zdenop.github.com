@@ -150,6 +150,8 @@ Variables</h2></td></tr>
 <div class="memdoc">
 <p>---------------------------------------------------------------------------- Public Function Prototypes ---------------------------------------------------------------------------- </p>
 
+<p>Definition at line <a class="el" href="intmatcher_8h_source.html#l00073">73</a> of file <a class="el" href="intmatcher_8h_source.html">intmatcher.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a1a81f6021dc96b06bb0683c605b77a1b"></a><!-- doxytag: member="intmatcher.h::SE_TABLE_SIZE" ref="a1a81f6021dc96b06bb0683c605b77a1b" args="" -->
@@ -162,6 +164,8 @@ Variables</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="intmatcher_8h_source.html#l00074">74</a> of file <a class="el" href="intmatcher_8h_source.html">intmatcher.h</a>.</p>
 
 </div>
 </div>
@@ -177,6 +181,8 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intmatcher_8h_source.html#l00057">57</a> of file <a class="el" href="intmatcher_8h_source.html">intmatcher.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="aff4c44c8325e37c1bc68c45543e12119"></a><!-- doxytag: member="intmatcher.h::INT_RESULT" ref="aff4c44c8325e37c1bc68c45543e12119" args="" -->
@@ -189,6 +195,8 @@ Variables</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="intmatcher_8h_source.html#l00048">48</a> of file <a class="el" href="intmatcher_8h_source.html">intmatcher.h</a>.</p>
 
 </div>
 </div>
@@ -224,6 +232,61 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intmatcher_8cpp_source.html#l01304">1304</a> of file <a class="el" href="intmatcher_8cpp_source.html">intmatcher.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                       {
+<span class="comment">/*</span>
+<span class="comment"> **      Parameters:</span>
+<span class="comment"> **              n      Number of elements to sort</span>
+<span class="comment"> **              ra     Key array [1..n]</span>
+<span class="comment"> **              rb     Index array [1..n]</span>
+<span class="comment"> **      Globals:</span>
+<span class="comment"> **      Operation:</span>
+<span class="comment"> **              Sort Key array in ascending order using heap sort</span>
+<span class="comment"> **              algorithm.  Also sort Index array that is tied to</span>
+<span class="comment"> **              the key array.</span>
+<span class="comment"> **      Return:</span>
+<span class="comment"> **      Exceptions: none</span>
+<span class="comment"> **      History: Tue Feb 19 10:24:24 MST 1991, RWM, Created.</span>
+<span class="comment"> */</span>
+  <span class="keyword">register</span> <span class="keywordtype">int</span> i, rra, rrb;
+  <span class="keywordtype">int</span> l, j, ir;
+
+  l = (n &gt;&gt; 1) + 1;
+  ir = n;
+  <span class="keywordflow">for</span> (;;) {
+    <span class="keywordflow">if</span> (l &gt; 1) {
+      rra = ra[--l];
+      rrb = rb[l];
+    }
+    <span class="keywordflow">else</span> {
+      rra = ra[ir];
+      rrb = rb[ir];
+      ra[ir] = ra[1];
+      rb[ir] = rb[1];
+      <span class="keywordflow">if</span> (--ir == 1) {
+        ra[1] = rra;
+        rb[1] = rrb;
+        <span class="keywordflow">return</span>;
+      }
+    }
+    i = l;
+    j = l &lt;&lt; 1;
+    <span class="keywordflow">while</span> (j &lt;= ir) {
+      <span class="keywordflow">if</span> (j &lt; ir &amp;&amp; ra[j] &lt; ra[j + 1])
+        ++j;
+      <span class="keywordflow">if</span> (rra &lt; ra[j]) {
+        ra[i] = ra[j];
+        rb[i] = rb[j];
+        j += (i = j);
+      }
+      <span class="keywordflow">else</span>
+        j = ir + 1;
+    }
+    ra[i] = rra;
+    rb[i] = rrb;
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac09cb672ae1ca95d69111e4a79dd9990"></a><!-- doxytag: member="intmatcher.h::IMDebugConfiguration" ref="ac09cb672ae1ca95d69111e4a79dd9990" args="(INT_FEATURE FeatureNum, uinT16 ActualProtoNum, uinT8 Evidence, BIT_VECTOR ConfigMask, uinT32 ConfigWord)" -->
@@ -382,7 +445,7 @@ Variables</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:09 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:41 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

@@ -162,6 +162,8 @@ Package Attributes</h2></td></tr>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_window.html">SVWindow</a> is the top-level ui class. It should get instantiated whenever the user intends to create a new window. It contains helper functions to draw on the canvas, add new menu items, show modal dialogs etc.</p>
 <dl class="author"><dt><b>Author:</b></dt><dd><a href="mailto:wanke@google.com">wanke@google.com</a> </dd></dl>
+
+<p>Definition at line <a class="el" href="_s_v_window_8java_source.html#l00054">54</a> of file <a class="el" href="_s_v_window_8java_source.html">SVWindow.java</a>.</p>
 </div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a4ab1f138910166ed9fe164ca81333ae3"></a><!-- doxytag: member="com::google::scrollview::ui::SVWindow::SVWindow" ref="a4ab1f138910166ed9fe164ca81333ae3" args="(String name, int hash, int posX, int posY, int sizeX, int sizeY, int canvasSizeX, int canvasSizeY)" -->
 <div class="memitem">
@@ -238,6 +240,95 @@ Package Attributes</h2></td></tr>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="_s_v_window_8java_source.html#l00193">193</a> of file <a class="el" href="_s_v_window_8java_source.html">SVWindow.java</a>.</p>
+<div class="fragment"><pre class="fragment">                                                               {
+    super(name);
+
+    <span class="comment">// Provide defaults for sizes.</span>
+    <span class="keywordflow">if</span> (sizeX == 0) sizeX = canvasSizeX;
+    <span class="keywordflow">if</span> (sizeY == 0) sizeY = canvasSizeY;
+    <span class="keywordflow">if</span> (canvasSizeX == 0) canvasSizeX = sizeX;
+    <span class="keywordflow">if</span> (canvasSizeY == 0) canvasSizeY = sizeY;
+
+    <span class="comment">// Initialize variables</span>
+    <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_window.html#a6f1a73825025d315cac5cccbd44ae0b6">nrWindows</a>++;
+    this.<a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_window.html#aea901b0201b39bf786b849dfa6fbf7f1">hash</a> = <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_window.html#aea901b0201b39bf786b849dfa6fbf7f1">hash</a>;
+    this.svEventHandler = <span class="keyword">new</span> <a class="code" href="class_s_v_event_handler.html">SVEventHandler</a>(<span class="keyword">this</span>);
+    this.<a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_window.html#af927e4e513dea50b75824b0af505b64c">currentPenColor</a> = Color.BLACK;
+    this.<a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_window.html#a4f664b721f39af5caffbf9b39911a3cf">currentBrushColor</a> = Color.BLACK;
+    this.<a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_window.html#ae10fe8e557197887c7a25ac1c8151e4e">currentFont</a> = <span class="keyword">new</span> Font(<span class="stringliteral">&quot;Times New Roman&quot;</span>, Font.PLAIN, 12);
+
+    <span class="comment">// Determine the initial size and zoom factor of the window.</span>
+    <span class="comment">// If the window is too big, rescale it and zoom out.</span>
+    <span class="keywordtype">int</span> shrinkfactor = 1;
+
+    <span class="keywordflow">if</span> (sizeX &gt; MAX_WINDOW_X) {
+      shrinkfactor = (sizeX + MAX_WINDOW_X - 1) / MAX_WINDOW_X;
+    }
+    <span class="keywordflow">if</span> (sizeY / shrinkfactor &gt; MAX_WINDOW_Y) {
+      shrinkfactor = (sizeY + MAX_WINDOW_Y - 1) / MAX_WINDOW_Y;
+    }
+    winSizeX = sizeX / shrinkfactor;
+    winSizeY = sizeY / shrinkfactor;
+    <span class="keywordtype">double</span> initialScalingfactor = 1.0 / shrinkfactor;
+    <span class="keywordflow">if</span> (winSizeX &gt; canvasSizeX || winSizeY &gt; canvasSizeY) {
+      initialScalingfactor = Math.min(1.0 * winSizeX / canvasSizeX,
+                                      1.0 * winSizeY / canvasSizeY);
+    }
+
+    <span class="comment">// Setup the actual window (its size, camera, title, etc.)</span>
+    <span class="keywordflow">if</span> (<a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_window.html#aa819a7350e2004d9e67f7948f5e96321">canvas</a> == null) {
+      <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_window.html#aa819a7350e2004d9e67f7948f5e96321">canvas</a> = <span class="keyword">new</span> PCanvas();
+      getContentPane().add(<a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_window.html#aa819a7350e2004d9e67f7948f5e96321">canvas</a>, BorderLayout.CENTER);
+    }
+
+    <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_window.html#aed72a76cc9b322ec184c4aa506bf36f9">layer</a> = <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_window.html#aa819a7350e2004d9e67f7948f5e96321">canvas</a>.getLayer();
+    <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_window.html#aa819a7350e2004d9e67f7948f5e96321">canvas</a>.setBackground(Color.BLACK);
+
+    <span class="comment">// Disable anitaliasing to make the lines more visible.</span>
+    <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_window.html#aa819a7350e2004d9e67f7948f5e96321">canvas</a>.setDefaultRenderQuality(PPaintContext.LOW_QUALITY_RENDERING);
+
+    setLayout(<span class="keyword">new</span> BorderLayout());
+
+    setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+
+    validate();
+    <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_window.html#aa819a7350e2004d9e67f7948f5e96321">canvas</a>.requestFocus();
+
+    <span class="comment">// Manipulation of Piccolo&#39;s scene graph should be done from Swings</span>
+    <span class="comment">// event dispatch thread since Piccolo is not thread safe. This code calls</span>
+    <span class="comment">// initialize() from that thread once the PFrame is initialized, so you are</span>
+    <span class="comment">// safe to start working with Piccolo in the initialize() method.</span>
+    SwingUtilities.invokeLater(<span class="keyword">new</span> Runnable() {
+      <span class="keyword">public</span> <span class="keywordtype">void</span> run() {
+        repaint();
+      }
+    });
+
+    setSize(winSizeX, winSizeY);
+    setLocation(posX, posY);
+    setTitle(name);
+
+    <span class="comment">// Add a Scrollpane to be able to scroll within the canvas</span>
+    PScrollPane scrollPane = <span class="keyword">new</span> PScrollPane(<a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_window.html#aa819a7350e2004d9e67f7948f5e96321">canvas</a>);
+    getContentPane().add(scrollPane);
+    scrollPane.setWheelScrollingEnabled(<span class="keyword">false</span>);
+    PCamera lc = <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_window.html#aa819a7350e2004d9e67f7948f5e96321">canvas</a>.getCamera();
+    lc.scaleViewAboutPoint(initialScalingfactor, 0, 0);
+
+    <span class="comment">// Disable the default event handlers and add our own.</span>
+    addWindowListener(svEventHandler);
+    <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_window.html#aa819a7350e2004d9e67f7948f5e96321">canvas</a>.removeInputEventListener(<a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_window.html#aa819a7350e2004d9e67f7948f5e96321">canvas</a>.getPanEventHandler());
+    <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_window.html#aa819a7350e2004d9e67f7948f5e96321">canvas</a>.removeInputEventListener(<a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_window.html#aa819a7350e2004d9e67f7948f5e96321">canvas</a>.getZoomEventHandler());
+    <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_window.html#aa819a7350e2004d9e67f7948f5e96321">canvas</a>.addInputEventListener(svEventHandler);
+    <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_window.html#aa819a7350e2004d9e67f7948f5e96321">canvas</a>.addKeyListener(svEventHandler);
+
+    <span class="comment">// Make the window visible.</span>
+    validate();
+    setVisible(<span class="keyword">true</span>);
+
+  }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -279,6 +370,11 @@ Package Attributes</h2></td></tr>
 <div class="memdoc">
 <p>Adds a checkbox entry to the menubar, c.f. SVMenubar.add(...) </p>
 
+<p>Definition at line <a class="el" href="_s_v_window_8java_source.html#l00493">493</a> of file <a class="el" href="_s_v_window_8java_source.html">SVWindow.java</a>.</p>
+<div class="fragment"><pre class="fragment">                                              {
+    svMenuBar.add(parent, name, <span class="keywordtype">id</span>, checked);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9f08e10d5ac6033324e3ff24d77800e0"></a><!-- doxytag: member="com::google::scrollview::ui::SVWindow::addMenuBarItem" ref="a9f08e10d5ac6033324e3ff24d77800e0" args="(String parent, String name)" -->
@@ -307,6 +403,11 @@ Package Attributes</h2></td></tr>
 <div class="memdoc">
 <p>Adds a submenu to the menubar, c.f. SVMenubar.add(...) </p>
 
+<p>Definition at line <a class="el" href="_s_v_window_8java_source.html#l00499">499</a> of file <a class="el" href="_s_v_window_8java_source.html">SVWindow.java</a>.</p>
+<div class="fragment"><pre class="fragment">                                                         {
+    <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_window.html#a9e8cc8aa2ba4f7e080d105292a02eb13">addMenuBarItem</a>(parent, name, -1);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a23d17f20a454f51f1bdb9fe4395a4158"></a><!-- doxytag: member="com::google::scrollview::ui::SVWindow::addMenuBarItem" ref="a23d17f20a454f51f1bdb9fe4395a4158" args="(String parent, String name, int id)" -->
@@ -341,6 +442,15 @@ Package Attributes</h2></td></tr>
 <div class="memdoc">
 <p>Adds a new entry to the menubar, c.f. SVMenubar.add(...) </p>
 
+<p>Definition at line <a class="el" href="_s_v_window_8java_source.html#l00504">504</a> of file <a class="el" href="_s_v_window_8java_source.html">SVWindow.java</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                 {
+    <span class="keywordflow">if</span> (svMenuBar == null) {
+      svMenuBar = <span class="keyword">new</span> SVMenuBar(<span class="keyword">this</span>);
+
+    }
+    svMenuBar.add(parent, name, <span class="keywordtype">id</span>);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="af7e718442d8c4f71720c1d1bb60a845b"></a><!-- doxytag: member="com::google::scrollview::ui::SVWindow::addMessage" ref="af7e718442d8c4f71720c1d1bb60a845b" args="(String message)" -->
@@ -359,6 +469,15 @@ Package Attributes</h2></td></tr>
 <div class="memdoc">
 <p>Add a message to the message box. </p>
 
+<p>Definition at line <a class="el" href="_s_v_window_8java_source.html#l00513">513</a> of file <a class="el" href="_s_v_window_8java_source.html">SVWindow.java</a>.</p>
+<div class="fragment"><pre class="fragment">                                         {
+    <span class="keywordflow">if</span> (ta != null) {
+      ta.append(message + <span class="stringliteral">&quot;\n&quot;</span>);
+    } <span class="keywordflow">else</span> {
+      System.out.println(message + <span class="stringliteral">&quot;\n&quot;</span>);
+    }
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad9d3f0e630729a8af6b949ea87981384"></a><!-- doxytag: member="com::google::scrollview::ui::SVWindow::addMessageBox" ref="ad9d3f0e630729a8af6b949ea87981384" args="()" -->
@@ -376,6 +495,18 @@ Package Attributes</h2></td></tr>
 <div class="memdoc">
 <p>Convenience function to add a message box to the window which can be used to output debug information. </p>
 
+<p>Definition at line <a class="el" href="_s_v_window_8java_source.html#l00286">286</a> of file <a class="el" href="_s_v_window_8java_source.html">SVWindow.java</a>.</p>
+<div class="fragment"><pre class="fragment">                              {
+    <span class="keywordflow">if</span> (ta == null) {
+      ta = <span class="keyword">new</span> TextArea();
+      ta.setEditable(<span class="keyword">false</span>);
+      getContentPane().add(ta, BorderLayout.SOUTH);
+    }
+    <span class="comment">// We need to make the window bigger to accomodate the message box.</span>
+    winSizeY += DEF_MESSAGEBOX_HEIGHT;
+    setSize(winSizeX, winSizeY);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac17a1d88f11020dba84020c8aa29a2e1"></a><!-- doxytag: member="com::google::scrollview::ui::SVWindow::addPopupMenuItem" ref="ac17a1d88f11020dba84020c8aa29a2e1" args="(String parent, String name)" -->
@@ -404,6 +535,14 @@ Package Attributes</h2></td></tr>
 <div class="memdoc">
 <p>Adds a submenu to the popup menu, c.f. <a class="el" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_popup_menu.html#aab6cd8f94f4fef10391dd62950a0e1c7">SVPopupMenu.add</a>(...) </p>
 
+<p>Definition at line <a class="el" href="_s_v_window_8java_source.html#l00609">609</a> of file <a class="el" href="_s_v_window_8java_source.html">SVWindow.java</a>.</p>
+<div class="fragment"><pre class="fragment">                                                           {
+    <span class="keywordflow">if</span> (<a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_window.html#a139a5a8fb2c4b7924c08bd50a6ce7901">svPuMenu</a> == null) {
+      <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_window.html#a139a5a8fb2c4b7924c08bd50a6ce7901">svPuMenu</a> = <span class="keyword">new</span> SVPopupMenu(<span class="keyword">this</span>);
+    }
+    <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_window.html#a139a5a8fb2c4b7924c08bd50a6ce7901">svPuMenu</a>.add(parent, name, -1);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a06c68a63a81f9bbb5df1f51c37fbc2b2"></a><!-- doxytag: member="com::google::scrollview::ui::SVWindow::addPopupMenuItem" ref="a06c68a63a81f9bbb5df1f51c37fbc2b2" args="(String parent, String name, int cmdEvent, String value, String desc)" -->
@@ -450,6 +589,14 @@ Package Attributes</h2></td></tr>
 <div class="memdoc">
 <p>Adds a new menu entry to the popup menu, c.f. <a class="el" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_popup_menu.html#aab6cd8f94f4fef10391dd62950a0e1c7">SVPopupMenu.add</a>(...) </p>
 
+<p>Definition at line <a class="el" href="_s_v_window_8java_source.html#l00617">617</a> of file <a class="el" href="_s_v_window_8java_source.html">SVWindow.java</a>.</p>
+<div class="fragment"><pre class="fragment">                                 {
+    <span class="keywordflow">if</span> (<a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_window.html#a139a5a8fb2c4b7924c08bd50a6ce7901">svPuMenu</a> == null) {
+      <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_window.html#a139a5a8fb2c4b7924c08bd50a6ce7901">svPuMenu</a> = <span class="keyword">new</span> SVPopupMenu(<span class="keyword">this</span>);
+    }
+    <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_window.html#a139a5a8fb2c4b7924c08bd50a6ce7901">svPuMenu</a>.add(parent, name, cmdEvent, value, desc);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a41910329679b9584f3f79b6f077c4327"></a><!-- doxytag: member="com::google::scrollview::ui::SVWindow::brush" ref="a41910329679b9584f3f79b6f077c4327" args="(int red, int green, int blue)" -->
@@ -484,6 +631,11 @@ Package Attributes</h2></td></tr>
 <div class="memdoc">
 <p>Set the brush to an RGB color </p>
 
+<p>Definition at line <a class="el" href="_s_v_window_8java_source.html#l00120">120</a> of file <a class="el" href="_s_v_window_8java_source.html">SVWindow.java</a>.</p>
+<div class="fragment"><pre class="fragment">                                                  {
+    <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_window.html#a41910329679b9584f3f79b6f077c4327">brush</a>(red, green, blue, 255);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a38ba7fe1d210601f8d5818da94fb387a"></a><!-- doxytag: member="com::google::scrollview::ui::SVWindow::brush" ref="a38ba7fe1d210601f8d5818da94fb387a" args="(int red, int green, int blue, int alpha)" -->
@@ -524,6 +676,16 @@ Package Attributes</h2></td></tr>
 <div class="memdoc">
 <p>Set the brush to an RGBA color </p>
 
+<p>Definition at line <a class="el" href="_s_v_window_8java_source.html#l00125">125</a> of file <a class="el" href="_s_v_window_8java_source.html">SVWindow.java</a>.</p>
+<div class="fragment"><pre class="fragment">                                                             {
+    <span class="comment">// If alpha is zero, use a null brush to save rendering time.</span>
+    <span class="keywordflow">if</span> (alpha == 0) {
+      <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_window.html#a4f664b721f39af5caffbf9b39911a3cf">currentBrushColor</a> = null;
+    } <span class="keywordflow">else</span> {
+      <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_window.html#a4f664b721f39af5caffbf9b39911a3cf">currentBrushColor</a> = <span class="keyword">new</span> Color(red, green, blue, alpha);
+    }
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2b2333329e3dfed7b716fbec67b85055"></a><!-- doxytag: member="com::google::scrollview::ui::SVWindow::clear" ref="a2b2333329e3dfed7b716fbec67b85055" args="()" -->
@@ -541,6 +703,11 @@ Package Attributes</h2></td></tr>
 <div class="memdoc">
 <p>Erase all content from the window, but do not destroy it. </p>
 
+<p>Definition at line <a class="el" href="_s_v_window_8java_source.html#l00135">135</a> of file <a class="el" href="_s_v_window_8java_source.html">SVWindow.java</a>.</p>
+<div class="fragment"><pre class="fragment">                      {
+    <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_window.html#aed72a76cc9b322ec184c4aa506bf36f9">layer</a>.removeAllChildren();
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="afa7991b0b4354b92790b96c5647e7492"></a><!-- doxytag: member="com::google::scrollview::ui::SVWindow::createImage" ref="afa7991b0b4354b92790b96c5647e7492" args="(String internalName, int width, int height, int bitsPerPixel)" -->
@@ -590,6 +757,11 @@ Package Attributes</h2></td></tr>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="_s_v_window_8java_source.html#l00149">149</a> of file <a class="el" href="_s_v_window_8java_source.html">SVWindow.java</a>.</p>
+<div class="fragment"><pre class="fragment">                        {
+    SVImageHandler.createImage(internalName, width, height, bitsPerPixel);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a0dd2fc75f412ad61d1a28db23b202460"></a><!-- doxytag: member="com::google::scrollview::ui::SVWindow::createPolyline" ref="a0dd2fc75f412ad61d1a28db23b202460" args="(int length)" -->
@@ -614,6 +786,14 @@ Package Attributes</h2></td></tr>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="_s_v_window_8java_source.html#l00160">160</a> of file <a class="el" href="_s_v_window_8java_source.html">SVWindow.java</a>.</p>
+<div class="fragment"><pre class="fragment">                                         {
+    <a class="code" href="class_scroll_view.html">ScrollView</a>.polylineXCoords = <span class="keyword">new</span> <span class="keywordtype">float</span>[length];
+    <a class="code" href="class_scroll_view.html">ScrollView</a>.polylineYCoords = <span class="keyword">new</span> <span class="keywordtype">float</span>[length];
+    <a class="code" href="class_scroll_view.html">ScrollView</a>.polylineSize = length;
+    <a class="code" href="class_scroll_view.html">ScrollView</a>.polylineScanned = 0;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a1a18e074cfbbeeb99356b77f0a007d42"></a><!-- doxytag: member="com::google::scrollview::ui::SVWindow::destroy" ref="a1a18e074cfbbeeb99356b77f0a007d42" args="()" -->
@@ -631,6 +811,14 @@ Package Attributes</h2></td></tr>
 <div class="memdoc">
 <p>Destroys a window. </p>
 
+<p>Definition at line <a class="el" href="_s_v_window_8java_source.html#l00626">626</a> of file <a class="el" href="_s_v_window_8java_source.html">SVWindow.java</a>.</p>
+<div class="fragment"><pre class="fragment">                        {
+    <a class="code" href="class_scroll_view.html">ScrollView</a>.addMessage(<span class="keyword">new</span> <a class="code" href="struct_s_v_event.html">SVEvent</a>(<a class="code" href="scrollview_8h.html#a3688a0cf2f95d10a57e095222ccfe9a0">SVEventType</a>.SVET_DESTROY, <span class="keyword">this</span>, 0,
+        <span class="stringliteral">&quot;SVET_DESTROY&quot;</span>));
+    setVisible(<span class="keyword">false</span>);
+    <span class="comment">// dispose();</span>
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a81d1e3351bf847670cbaa313a59f5a10"></a><!-- doxytag: member="com::google::scrollview::ui::SVWindow::drawEllipse" ref="a81d1e3351bf847670cbaa313a59f5a10" args="(int x, int y, int width, int height)" -->
@@ -671,6 +859,15 @@ Package Attributes</h2></td></tr>
 <div class="memdoc">
 <p>Draw an ellipse at (x,y) with given width and height, using the current stroke, the current brush color to fill it and the current pen color for the outline. </p>
 
+<p>Definition at line <a class="el" href="_s_v_window_8java_source.html#l00313">313</a> of file <a class="el" href="_s_v_window_8java_source.html">SVWindow.java</a>.</p>
+<div class="fragment"><pre class="fragment">                                                               {
+    PPath pn = PPath.createEllipse(x, y, width, height);
+    pn.setStrokePaint(<a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_window.html#af927e4e513dea50b75824b0af505b64c">currentPenColor</a>);
+    pn.setStroke(<a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_window.html#ab03aecbc14fdf51972fa3ae84c207274">stroke</a>);
+    pn.setPaint(<a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_window.html#a4f664b721f39af5caffbf9b39911a3cf">currentBrushColor</a>);
+    <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_window.html#aed72a76cc9b322ec184c4aa506bf36f9">layer</a>.addChild(pn);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a61ef21a00eadde0b63cf0c92001fe47a"></a><!-- doxytag: member="com::google::scrollview::ui::SVWindow::drawImage" ref="a61ef21a00eadde0b63cf0c92001fe47a" args="(String internalName, int x_pos, int y_pos)" -->
@@ -705,6 +902,14 @@ Package Attributes</h2></td></tr>
 <div class="memdoc">
 <p>Draw the image with the given name at (x,y). Any image loaded stays in memory, so if you intend to redraw an image, you do not have to use createImage again. </p>
 
+<p>Definition at line <a class="el" href="_s_v_window_8java_source.html#l00326">326</a> of file <a class="el" href="_s_v_window_8java_source.html">SVWindow.java</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                   {
+    PImage img = SVImageHandler.getImage(internalName);
+    img.setX(x_pos);
+    img.setY(y_pos);
+    <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_window.html#aed72a76cc9b322ec184c4aa506bf36f9">layer</a>.addChild(img);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a137acbe889e1563247931a281a5c51da"></a><!-- doxytag: member="com::google::scrollview::ui::SVWindow::drawLine" ref="a137acbe889e1563247931a281a5c51da" args="(int x1, int y1, int x2, int y2)" -->
@@ -745,6 +950,17 @@ Package Attributes</h2></td></tr>
 <div class="memdoc">
 <p>Draw a line from (x1,y1) to (x2,y2) using the current pen color and stroke. </p>
 
+<p>Definition at line <a class="el" href="_s_v_window_8java_source.html#l00336">336</a> of file <a class="el" href="_s_v_window_8java_source.html">SVWindow.java</a>.</p>
+<div class="fragment"><pre class="fragment">                                                       {
+    PPath pn = PPath.createLine(x1, y1, x2, y2);
+    pn.setStrokePaint(<a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_window.html#af927e4e513dea50b75824b0af505b64c">currentPenColor</a>);
+    pn.setPaint(null);  <span class="comment">// Null paint may render faster than the default.</span>
+    pn.setStroke(<a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_window.html#ab03aecbc14fdf51972fa3ae84c207274">stroke</a>);
+    pn.moveTo(x1, y1);
+    pn.lineTo(x2, y2);
+    <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_window.html#aed72a76cc9b322ec184c4aa506bf36f9">layer</a>.addChild(pn);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9d5d6190b20f7f0f98acb4f17ee2a772"></a><!-- doxytag: member="com::google::scrollview::ui::SVWindow::drawPolyline" ref="a9d5d6190b20f7f0f98acb4f17ee2a772" args="()" -->
@@ -762,6 +978,17 @@ Package Attributes</h2></td></tr>
 <div class="memdoc">
 <p>Draw the now complete polyline. </p>
 
+<p>Definition at line <a class="el" href="_s_v_window_8java_source.html#l00170">170</a> of file <a class="el" href="_s_v_window_8java_source.html">SVWindow.java</a>.</p>
+<div class="fragment"><pre class="fragment">                             {
+    PPath pn = PPath.createPolyline(<a class="code" href="class_scroll_view.html">ScrollView</a>.polylineXCoords,
+                                    <a class="code" href="class_scroll_view.html">ScrollView</a>.polylineYCoords);
+    <a class="code" href="class_scroll_view.html">ScrollView</a>.polylineSize = 0;
+    pn.setStrokePaint(<a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_window.html#af927e4e513dea50b75824b0af505b64c">currentPenColor</a>);
+    pn.setPaint(null);  <span class="comment">// Don&#39;t fill the polygon - this is just a polyline.</span>
+    pn.setStroke(<a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_window.html#ab03aecbc14fdf51972fa3ae84c207274">stroke</a>);
+    <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_window.html#aed72a76cc9b322ec184c4aa506bf36f9">layer</a>.addChild(pn);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a682911a0edf13c33e0c6d09ea2255023"></a><!-- doxytag: member="com::google::scrollview::ui::SVWindow::drawRectangle" ref="a682911a0edf13c33e0c6d09ea2255023" args="(int x1, int y1, int x2, int y2)" -->
@@ -802,6 +1029,27 @@ Package Attributes</h2></td></tr>
 <div class="memdoc">
 <p>Draw a rectangle given the two points (x1,y1) and (x2,y2) using the current stroke, pen color for the border and the brush to fill the interior. </p>
 
+<p>Definition at line <a class="el" href="_s_v_window_8java_source.html#l00351">351</a> of file <a class="el" href="_s_v_window_8java_source.html">SVWindow.java</a>.</p>
+<div class="fragment"><pre class="fragment">                                                            {
+
+    <span class="keywordflow">if</span> (x1 &gt; x2) {
+      <span class="keywordtype">int</span> t = x1;
+      x1 = x2;
+      x2 = t;
+    }
+    <span class="keywordflow">if</span> (y1 &gt; y2) {
+      <span class="keywordtype">int</span> t = y1;
+      y1 = y2;
+      y2 = t;
+    }
+
+    PPath pn = PPath.createRectangle(x1, y1, x2 - x1, y2 - y1);
+    pn.setStrokePaint(<a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_window.html#af927e4e513dea50b75824b0af505b64c">currentPenColor</a>);
+    pn.setStroke(<a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_window.html#ab03aecbc14fdf51972fa3ae84c207274">stroke</a>);
+    pn.setPaint(<a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_window.html#a4f664b721f39af5caffbf9b39911a3cf">currentBrushColor</a>);
+    <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_window.html#aed72a76cc9b322ec184c4aa506bf36f9">layer</a>.addChild(pn);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae94a674d1f2b282be218b4d1a7282caa"></a><!-- doxytag: member="com::google::scrollview::ui::SVWindow::drawText" ref="ae94a674d1f2b282be218b4d1a7282caa" args="(int x, int y, String text)" -->
@@ -836,6 +1084,43 @@ Package Attributes</h2></td></tr>
 <div class="memdoc">
 <p>Draw some text at (x,y) using the current pen color and text attributes. If the current font does NOT support at least one character, it tries to find a font which is capable of displaying it and use that to render the text. Note: If the font says it can render a glyph, but in reality it turns out to be crap, there is nothing we can do about it. </p>
 
+<p>Definition at line <a class="el" href="_s_v_window_8java_source.html#l00378">378</a> of file <a class="el" href="_s_v_window_8java_source.html">SVWindow.java</a>.</p>
+<div class="fragment"><pre class="fragment">                                                  {
+    <span class="keywordtype">int</span> unreadableCharAt = -1;
+    <span class="keywordtype">char</span>[] chars = text.toCharArray();
+    PText pt = <span class="keyword">new</span> PText(text);
+    pt.setTextPaint(<a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_window.html#af927e4e513dea50b75824b0af505b64c">currentPenColor</a>);
+    pt.setFont(<a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_window.html#ae10fe8e557197887c7a25ac1c8151e4e">currentFont</a>);
+
+    <span class="comment">// Check to see if every character can be displayed by the current font.</span>
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; chars.length; i++) {
+      <span class="keywordflow">if</span> (!<a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_window.html#ae10fe8e557197887c7a25ac1c8151e4e">currentFont</a>.canDisplay(chars[i])) {
+        <span class="comment">// Set to the first not displayable character.</span>
+        unreadableCharAt = i;
+        <span class="keywordflow">break</span>;
+      }
+    }
+
+    <span class="comment">// Have to find some working font and use it for this text entry.</span>
+    <span class="keywordflow">if</span> (unreadableCharAt != -1) {
+      Font[] allfonts =
+          GraphicsEnvironment.getLocalGraphicsEnvironment().getAllFonts();
+      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; allfonts.length; j++) {
+        <span class="keywordflow">if</span> (allfonts[j].canDisplay(chars[unreadableCharAt])) {
+          Font tempFont =
+              <span class="keyword">new</span> Font(allfonts[j].getFontName(), <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_window.html#ae10fe8e557197887c7a25ac1c8151e4e">currentFont</a>.getStyle(),
+                  <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_window.html#ae10fe8e557197887c7a25ac1c8151e4e">currentFont</a>.getSize());
+          pt.setFont(tempFont);
+          <span class="keywordflow">break</span>;
+        }
+      }
+    }
+
+    pt.setX(x);
+    pt.setY(y);
+    <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_window.html#aed72a76cc9b322ec184c4aa506bf36f9">layer</a>.addChild(pt);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a1b5a952dc71272500c1ee277426e44d2"></a><!-- doxytag: member="com::google::scrollview::ui::SVWindow::openImage" ref="a1b5a952dc71272500c1ee277426e44d2" args="(String filename)" -->
@@ -860,6 +1145,11 @@ Package Attributes</h2></td></tr>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="_s_v_window_8java_source.html#l00639">639</a> of file <a class="el" href="_s_v_window_8java_source.html">SVWindow.java</a>.</p>
+<div class="fragment"><pre class="fragment">                                         {
+    SVImageHandler.openImage(filename);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a8f9bfdbfa43c92cf515f7b7fffaa5029"></a><!-- doxytag: member="com::google::scrollview::ui::SVWindow::pen" ref="a8f9bfdbfa43c92cf515f7b7fffaa5029" args="(int red, int green, int blue)" -->
@@ -894,6 +1184,11 @@ Package Attributes</h2></td></tr>
 <div class="memdoc">
 <p>Set the pen color to an RGB value </p>
 
+<p>Definition at line <a class="el" href="_s_v_window_8java_source.html#l00415">415</a> of file <a class="el" href="_s_v_window_8java_source.html">SVWindow.java</a>.</p>
+<div class="fragment"><pre class="fragment">                                                {
+    <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_window.html#a8f9bfdbfa43c92cf515f7b7fffaa5029">pen</a>(red, green, blue, 255);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a113554fca0b37e1d7808f208fc67569e"></a><!-- doxytag: member="com::google::scrollview::ui::SVWindow::pen" ref="a113554fca0b37e1d7808f208fc67569e" args="(int red, int green, int blue, int alpha)" -->
@@ -934,6 +1229,11 @@ Package Attributes</h2></td></tr>
 <div class="memdoc">
 <p>Set the pen color to an RGBA value </p>
 
+<p>Definition at line <a class="el" href="_s_v_window_8java_source.html#l00420">420</a> of file <a class="el" href="_s_v_window_8java_source.html">SVWindow.java</a>.</p>
+<div class="fragment"><pre class="fragment">                                                           {
+    <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_window.html#af927e4e513dea50b75824b0af505b64c">currentPenColor</a> = <span class="keyword">new</span> Color(red, green, blue, alpha);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a75383fd0ec18a38f91915b8fbd76b60e"></a><!-- doxytag: member="com::google::scrollview::ui::SVWindow::setStrokeWidth" ref="a75383fd0ec18a38f91915b8fbd76b60e" args="(float width)" -->
@@ -958,6 +1258,13 @@ Package Attributes</h2></td></tr>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="_s_v_window_8java_source.html#l00302">302</a> of file <a class="el" href="_s_v_window_8java_source.html">SVWindow.java</a>.</p>
+<div class="fragment"><pre class="fragment">                                          {
+    <span class="comment">// If this worked we wouldn&#39;t need the antialiased rendering off.</span>
+    <span class="comment">// stroke = new PFixedWidthStroke(width);</span>
+    <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_window.html#ab03aecbc14fdf51972fa3ae84c207274">stroke</a> = <span class="keyword">new</span> BasicStroke(width);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a5123c30975aff1918d3724560daefba0"></a><!-- doxytag: member="com::google::scrollview::ui::SVWindow::showInputDialog" ref="a5123c30975aff1918d3724560daefba0" args="(String msg, String def, int id, SVEventType evtype)" -->
@@ -1007,6 +1314,21 @@ Package Attributes</h2></td></tr>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="_s_v_window_8java_source.html#l00561">561</a> of file <a class="el" href="_s_v_window_8java_source.html">SVWindow.java</a>.</p>
+<div class="fragment"><pre class="fragment">                                                  {
+    svEventHandler.timer.stop();
+    String tmp =
+        (String) JOptionPane.showInputDialog(<span class="keyword">this</span>, msg, <span class="stringliteral">&quot;&quot;</span>,
+            JOptionPane.QUESTION_MESSAGE, null, null, def);
+
+    <span class="keywordflow">if</span> (tmp != null) {
+      tmp = convertIntegerStringToUnicodeString(tmp);
+      <a class="code" href="struct_s_v_event.html">SVEvent</a> res = <span class="keyword">new</span> <a class="code" href="struct_s_v_event.html">SVEvent</a>(evtype, <span class="keyword">this</span>, <span class="keywordtype">id</span>, tmp);
+      <a class="code" href="class_scroll_view.html">ScrollView</a>.addMessage(res);
+    }
+    svEventHandler.timer.restart();
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac9bd24e457b91afbaec45a3bbaeaa251"></a><!-- doxytag: member="com::google::scrollview::ui::SVWindow::showInputDialog" ref="ac9bd24e457b91afbaec45a3bbaeaa251" args="(String msg)" -->
@@ -1031,6 +1353,11 @@ Package Attributes</h2></td></tr>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="_s_v_window_8java_source.html#l00583">583</a> of file <a class="el" href="_s_v_window_8java_source.html">SVWindow.java</a>.</p>
+<div class="fragment"><pre class="fragment">                                          {
+    <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_window.html#a5123c30975aff1918d3724560daefba0">showInputDialog</a>(msg, null, -1, <a class="code" href="scrollview_8h.html#a3688a0cf2f95d10a57e095222ccfe9a0">SVEventType</a>.SVET_INPUT);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a412dd4700ae8cec0b138da6a51adde3d"></a><!-- doxytag: member="com::google::scrollview::ui::SVWindow::showYesNoDialog" ref="a412dd4700ae8cec0b138da6a51adde3d" args="(String msg)" -->
@@ -1055,6 +1382,22 @@ Package Attributes</h2></td></tr>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="_s_v_window_8java_source.html#l00593">593</a> of file <a class="el" href="_s_v_window_8java_source.html">SVWindow.java</a>.</p>
+<div class="fragment"><pre class="fragment">                                          {
+    <span class="comment">// res returns 0 on yes, 1 on no. Seems to be a bit counterintuitive</span>
+    <span class="keywordtype">int</span> res =
+        JOptionPane.showOptionDialog(<span class="keyword">this</span>, msg, <span class="stringliteral">&quot;&quot;</span>, JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE, null, null, null);
+    <a class="code" href="struct_s_v_event.html">SVEvent</a> e = null;
+
+    <span class="keywordflow">if</span> (res == 0) {
+      e = <span class="keyword">new</span> <a class="code" href="struct_s_v_event.html">SVEvent</a>(<a class="code" href="scrollview_8h.html#a3688a0cf2f95d10a57e095222ccfe9a0">SVEventType</a>.SVET_INPUT, <span class="keyword">this</span>, 0, 0, 0, 0, <span class="stringliteral">&quot;y&quot;</span>);
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (res == 1) {
+      e = <span class="keyword">new</span> <a class="code" href="struct_s_v_event.html">SVEvent</a>(<a class="code" href="scrollview_8h.html#a3688a0cf2f95d10a57e095222ccfe9a0">SVEventType</a>.SVET_INPUT, <span class="keyword">this</span>, 0, 0, 0, 0, <span class="stringliteral">&quot;n&quot;</span>);
+    }
+    <a class="code" href="class_scroll_view.html">ScrollView</a>.addMessage(e);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a048014e314af2eb0b25ff51e983560e2"></a><!-- doxytag: member="com::google::scrollview::ui::SVWindow::textAttributes" ref="a048014e314af2eb0b25ff51e983560e2" args="(String font, int pixelSize, boolean bold, boolean italic, boolean underlined)" -->
@@ -1101,6 +1444,24 @@ Package Attributes</h2></td></tr>
 <div class="memdoc">
 <p>Define how to display text. Note: underlined is not currently not supported </p>
 
+<p>Definition at line <a class="el" href="_s_v_window_8java_source.html#l00427">427</a> of file <a class="el" href="_s_v_window_8java_source.html">SVWindow.java</a>.</p>
+<div class="fragment"><pre class="fragment">                                          {
+
+    <span class="comment">// For legacy reasons convert &quot;Times&quot; to &quot;Times New Roman&quot;</span>
+    <span class="keywordflow">if</span> (font.equals(<span class="stringliteral">&quot;Times&quot;</span>)) {
+      font = <span class="stringliteral">&quot;Times New Roman&quot;</span>;
+    }
+
+    <span class="keywordtype">int</span> style = Font.PLAIN;
+    <span class="keywordflow">if</span> (bold) {
+      style += Font.BOLD;
+    }
+    <span class="keywordflow">if</span> (italic) {
+      style += Font.ITALIC;
+    }
+    <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_window.html#ae10fe8e557197887c7a25ac1c8151e4e">currentFont</a> = <span class="keyword">new</span> Font(font, style, pixelSize);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="abde7d029a0ae5028aa1a4d6428a5f5b8"></a><!-- doxytag: member="com::google::scrollview::ui::SVWindow::update" ref="abde7d029a0ae5028aa1a4d6428a5f5b8" args="()" -->
@@ -1119,6 +1480,24 @@ Package Attributes</h2></td></tr>
 <p>Flush buffers and update display.</p>
 <p>Only actually reacts if there are no more messages in the stack, to prevent the canvas from flickering. </p>
 
+<p>Definition at line <a class="el" href="_s_v_window_8java_source.html#l00475">475</a> of file <a class="el" href="_s_v_window_8java_source.html">SVWindow.java</a>.</p>
+<div class="fragment"><pre class="fragment">                       {
+    <span class="comment">// TODO(rays) fix bugs in piccolo or use something else.</span>
+    <span class="comment">// The repaint function generates many</span>
+    <span class="comment">// exceptions for no good reason. We catch and ignore as many as we</span>
+    <span class="comment">// can here, but most of them are generated by the system repaints</span>
+    <span class="comment">// caused by resizing/exposing parts of the window etc, and they</span>
+    <span class="comment">// generate unwanted stack traces that have to be piped to /dev/null</span>
+    <span class="comment">// (on linux).</span>
+    <span class="keywordflow">try</span> {
+      repaint();
+    } <span class="keywordflow">catch</span> (NullPointerException e) {
+      <span class="comment">// Do nothing so the output isn&#39;t full of stack traces.</span>
+    } <span class="keywordflow">catch</span> (IllegalPathStateException e) {
+      <span class="comment">// Do nothing so the output isn&#39;t full of stack traces.</span>
+    }
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae0f2b73bcb8c7fd9ce68fd327ecd333c"></a><!-- doxytag: member="com::google::scrollview::ui::SVWindow::zoomRectangle" ref="ae0f2b73bcb8c7fd9ce68fd327ecd333c" args="(int x1, int y1, int x2, int y2)" -->
@@ -1159,6 +1538,27 @@ Package Attributes</h2></td></tr>
 <div class="memdoc">
 <p>Zoom the window to the rectangle given the two points (x1,y1) and (x2,y2), which must be greater than (x1,y1). </p>
 
+<p>Definition at line <a class="el" href="_s_v_window_8java_source.html#l00449">449</a> of file <a class="el" href="_s_v_window_8java_source.html">SVWindow.java</a>.</p>
+<div class="fragment"><pre class="fragment">                                                            {
+    <span class="keywordflow">if</span> (x2 &gt; x1 &amp;&amp; y2 &gt; y1) {
+      winSizeX = getWidth();
+      winSizeY = getHeight();
+      <span class="keywordtype">int</span> width = x2 - x1;
+      <span class="keywordtype">int</span> height = y2 - y1;
+      <span class="comment">// Since piccolo doesn&#39;t do this well either, pad with a margin</span>
+      <span class="comment">// all the way around.</span>
+      <span class="keywordtype">int</span> wmargin = width / 2;
+      <span class="keywordtype">int</span> hmargin = height / 2;
+      <span class="keywordtype">double</span> scalefactor = Math.min(winSizeX / (2.0 * wmargin + width),
+                                    winSizeY / (2.0 * hmargin + height));
+      PCamera lc = <a class="code" href="classcom_1_1google_1_1scrollview_1_1ui_1_1_s_v_window.html#aa819a7350e2004d9e67f7948f5e96321">canvas</a>.getCamera();
+      lc.scaleView(scalefactor / lc.getViewScale());
+      lc.animateViewToPanToBounds(<span class="keyword">new</span> Rectangle(x1 - hmargin, y1 - hmargin,
+                                                2 * wmargin + width,
+                                                2 * hmargin + height), 0);
+    }
+  }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
@@ -1172,6 +1572,8 @@ Package Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="_s_v_window_8java_source.html#l00115">115</a> of file <a class="el" href="_s_v_window_8java_source.html">SVWindow.java</a>.</p>
 
 </div>
 </div>
@@ -1187,6 +1589,8 @@ Package Attributes</h2></td></tr>
 <div class="memdoc">
 <p>The current color of the brush. It is used to draw the interior of primitives. </p>
 
+<p>Definition at line <a class="el" href="_s_v_window_8java_source.html#l00077">77</a> of file <a class="el" href="_s_v_window_8java_source.html">SVWindow.java</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ae10fe8e557197887c7a25ac1c8151e4e"></a><!-- doxytag: member="com::google::scrollview::ui::SVWindow::currentFont" ref="ae10fe8e557197887c7a25ac1c8151e4e" args="" -->
@@ -1200,6 +1604,8 @@ Package Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>The system name of the current font we are using (e.g. "Times New Roman"). </p>
+
+<p>Definition at line <a class="el" href="_s_v_window_8java_source.html#l00081">81</a> of file <a class="el" href="_s_v_window_8java_source.html">SVWindow.java</a>.</p>
 
 </div>
 </div>
@@ -1215,6 +1621,8 @@ Package Attributes</h2></td></tr>
 <div class="memdoc">
 <p>The current color of the pen. It is used to draw edges, text, etc. </p>
 
+<p>Definition at line <a class="el" href="_s_v_window_8java_source.html#l00071">71</a> of file <a class="el" href="_s_v_window_8java_source.html">SVWindow.java</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="aea901b0201b39bf786b849dfa6fbf7f1"></a><!-- doxytag: member="com::google::scrollview::ui::SVWindow::hash" ref="aea901b0201b39bf786b849dfa6fbf7f1" args="" -->
@@ -1228,6 +1636,8 @@ Package Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>A unique representation for the window, also known by the client. It is used when sending messages from server to client to identify him. </p>
+
+<p>Definition at line <a class="el" href="_s_v_window_8java_source.html#l00099">99</a> of file <a class="el" href="_s_v_window_8java_source.html">SVWindow.java</a>.</p>
 
 </div>
 </div>
@@ -1243,6 +1653,8 @@ Package Attributes</h2></td></tr>
 <div class="memdoc">
 <p>The top level layer we add our PNodes to (root node). </p>
 
+<p>Definition at line <a class="el" href="_s_v_window_8java_source.html#l00068">68</a> of file <a class="el" href="_s_v_window_8java_source.html">SVWindow.java</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a6f1a73825025d315cac5cccbd44ae0b6"></a><!-- doxytag: member="com::google::scrollview::ui::SVWindow::nrWindows" ref="a6f1a73825025d315cac5cccbd44ae0b6" args="" -->
@@ -1256,6 +1668,8 @@ Package Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>The total number of created Windows. If this ever reaches 0 (apart from the beginning), quit the server. </p>
+
+<p>Definition at line <a class="el" href="_s_v_window_8java_source.html#l00105">105</a> of file <a class="el" href="_s_v_window_8java_source.html">SVWindow.java</a>.</p>
 
 </div>
 </div>
@@ -1271,6 +1685,8 @@ Package Attributes</h2></td></tr>
 <div class="memdoc">
 <p>Constant defining the "speed" at which to zoom in and out. </p>
 
+<p>Definition at line <a class="el" href="_s_v_window_8java_source.html#l00065">65</a> of file <a class="el" href="_s_v_window_8java_source.html">SVWindow.java</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ab03aecbc14fdf51972fa3ae84c207274"></a><!-- doxytag: member="com::google::scrollview::ui::SVWindow::stroke" ref="ab03aecbc14fdf51972fa3ae84c207274" args="" -->
@@ -1285,6 +1701,8 @@ Package Attributes</h2></td></tr>
 <div class="memdoc">
 <p>The stroke width to be used. </p>
 
+<p>Definition at line <a class="el" href="_s_v_window_8java_source.html#l00093">93</a> of file <a class="el" href="_s_v_window_8java_source.html">SVWindow.java</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a139a5a8fb2c4b7924c08bd50a6ce7901"></a><!-- doxytag: member="com::google::scrollview::ui::SVWindow::svPuMenu" ref="a139a5a8fb2c4b7924c08bd50a6ce7901" args="" -->
@@ -1298,10 +1716,12 @@ Package Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="_s_v_window_8java_source.html#l00114">114</a> of file <a class="el" href="_s_v_window_8java_source.html">SVWindow.java</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>tesseract-ocr/java/com/google/scrollview/ui/<a class="el" href="_s_v_window_8java.html">SVWindow.java</a></li>
+<li>tesseract-ocr/java/com/google/scrollview/ui/<a class="el" href="_s_v_window_8java_source.html">SVWindow.java</a></li>
 </ul>
 </div>
 </div>
@@ -1327,7 +1747,7 @@ Package Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:14 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:48 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

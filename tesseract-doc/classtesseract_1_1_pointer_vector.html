@@ -132,10 +132,13 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_pointer_vector.html#af324f722c7188f7ffc6ae3ff5eecd95a">DeSerialize</a> (bool swap, FILE *fp)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_pointer_vector.html#a0b7159bc7b422f32b1f26d7f1d067fce">sort</a> ()</td></tr>
 </table>
-<h3>template&lt;typename T&gt;<br/>
- class tesseract::PointerVector&lt; T &gt;</h3>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock"><h3>template&lt;typename T&gt;<br/>
+class tesseract::PointerVector&lt; T &gt;</h3>
 
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+
+<p>Definition at line <a class="el" href="genericvector_8h_source.html#l00327">327</a> of file <a class="el" href="genericvector_8h_source.html">genericvector.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a022d9a96e0d6c359284232387db109f3"></a><!-- doxytag: member="tesseract::PointerVector::PointerVector" ref="a022d9a96e0d6c359284232387db109f3" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -152,6 +155,9 @@ template&lt;typename T&gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="genericvector_8h_source.html#l00329">329</a> of file <a class="el" href="genericvector_8h_source.html">genericvector.h</a>.</p>
+<div class="fragment"><pre class="fragment">: <a class="code" href="class_generic_vector.html">GenericVector&lt;T*&gt;</a>() { }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ada50f92a05337f4f193de0179fae226c"></a><!-- doxytag: member="tesseract::PointerVector::PointerVector" ref="ada50f92a05337f4f193de0179fae226c" args="(int size)" -->
@@ -171,6 +177,9 @@ template&lt;typename T&gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="genericvector_8h_source.html#l00330">330</a> of file <a class="el" href="genericvector_8h_source.html">genericvector.h</a>.</p>
+<div class="fragment"><pre class="fragment">: <a class="code" href="class_generic_vector.html">GenericVector&lt;T*&gt;</a>(<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>) { }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a1c540ed4a9c7083ab999f6df7b3b580e"></a><!-- doxytag: member="tesseract::PointerVector::~PointerVector" ref="a1c540ed4a9c7083ab999f6df7b3b580e" args="()" -->
@@ -189,6 +198,13 @@ template&lt;typename T&gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="genericvector_8h_source.html#l00331">331</a> of file <a class="el" href="genericvector_8h_source.html">genericvector.h</a>.</p>
+<div class="fragment"><pre class="fragment">                           {
+    <span class="comment">// Clear must be called here, even though it is called again by the base,</span>
+    <span class="comment">// as the base will call the wrong clear.</span>
+    <a class="code" href="classtesseract_1_1_pointer_vector.html#adf340a1a717d01c8109bdcf22218eeec">clear</a>();
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9fb21553c3e9d1c7582deebc3be62d9c"></a><!-- doxytag: member="tesseract::PointerVector::PointerVector" ref="a9fb21553c3e9d1c7582deebc3be62d9c" args="(const PointerVector &amp;other)" -->
@@ -208,6 +224,12 @@ template&lt;typename T&gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="genericvector_8h_source.html#l00338">338</a> of file <a class="el" href="genericvector_8h_source.html">genericvector.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                            {
+    this-&gt;<a class="code" href="class_generic_vector.html#a5b010723588fe15f303e4f3474d8479e">init</a>(other.size());
+    this-&gt;<a class="code" href="classtesseract_1_1_pointer_vector.html#ac614c7655bbef9b646df3775b1109711">operator+=</a>(other);
+  }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -229,6 +251,12 @@ template&lt;typename T&gt; </div>
 
 <p>Reimplemented from <a class="el" href="class_generic_vector.html#a9cdbff49b186574b83e43afba606fdd9">GenericVector&lt; T * &gt;</a>.</p>
 
+<p>Definition at line <a class="el" href="genericvector_8h_source.html#l00397">397</a> of file <a class="el" href="genericvector_8h_source.html">genericvector.h</a>.</p>
+<div class="fragment"><pre class="fragment">                       {
+    <a class="code" href="class_generic_vector.html#a98f62dccd75224a60437c2761bd215cd">GenericVector&lt;T*&gt;::delete_data_pointers</a>();
+    <a class="code" href="classtesseract_1_1_pointer_vector.html#adf340a1a717d01c8109bdcf22218eeec">GenericVector&lt;T*&gt;::clear</a>();
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a41f83a9b780f76b5f7fc3fd9f4c595d3"></a><!-- doxytag: member="tesseract::PointerVector::compact" ref="a41f83a9b780f76b5f7fc3fd9f4c595d3" args="(TessResultCallback1&lt; bool, const T * &gt; *delete_cb)" -->
@@ -248,6 +276,27 @@ template&lt;typename T&gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="genericvector_8h_source.html#l00373">373</a> of file <a class="el" href="genericvector_8h_source.html">genericvector.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                               {
+    <span class="keywordtype">int</span> new_size = 0;
+    <span class="keywordtype">int</span> old_index = 0;
+    <span class="comment">// Until the callback returns true, the elements stay the same.</span>
+    <span class="keywordflow">while</span> (old_index &lt; <a class="code" href="class_generic_vector.html">GenericVector&lt;T*&gt;::size_used_</a> &amp;&amp;
+           !delete_cb-&gt;<a class="code" href="class_tess_result_callback1.html#a15949cddc2970f837e3eef7e7dc84fce">Run</a>(<a class="code" href="class_generic_vector.html">GenericVector&lt;T*&gt;::data_</a>[old_index++]))
+      ++new_size;
+    <span class="comment">// Now just copy anything else that gets false from delete_cb.</span>
+    <span class="keywordflow">for</span> (; old_index &lt; GenericVector&lt;T*&gt;::size_used_; ++old_index) {
+      <span class="keywordflow">if</span> (!delete_cb-&gt;<a class="code" href="class_tess_result_callback1.html#a15949cddc2970f837e3eef7e7dc84fce">Run</a>(<a class="code" href="class_generic_vector.html">GenericVector&lt;T*&gt;::data_</a>[old_index])) {
+        <a class="code" href="class_generic_vector.html">GenericVector&lt;T*&gt;::data_</a>[new_size++] =
+            <a class="code" href="class_generic_vector.html">GenericVector&lt;T*&gt;::data_</a>[old_index];
+      } <span class="keywordflow">else</span> {
+        <span class="keyword">delete</span> <a class="code" href="class_generic_vector.html">GenericVector&lt;T*&gt;::data_</a>[old_index];
+      }
+    }
+    <a class="code" href="class_generic_vector.html">GenericVector&lt;T*&gt;::size_used_</a> = new_size;
+    <span class="keyword">delete</span> delete_cb;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="af324f722c7188f7ffc6ae3ff5eecd95a"></a><!-- doxytag: member="tesseract::PointerVector::DeSerialize" ref="af324f722c7188f7ffc6ae3ff5eecd95a" args="(bool swap, FILE *fp)" -->
@@ -279,6 +328,25 @@ template&lt;typename T&gt; </div>
 
 <p>Reimplemented from <a class="el" href="class_generic_vector.html#aa4f5b1bc0d044fbd1fc77363b798c39c">GenericVector&lt; T * &gt;</a>.</p>
 
+<p>Definition at line <a class="el" href="genericvector_8h_source.html#l00419">419</a> of file <a class="el" href="genericvector_8h_source.html">genericvector.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                {
+    <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> reserved;
+    <span class="keywordflow">if</span> (fread(&amp;reserved, <span class="keyword">sizeof</span>(reserved), 1, fp) != 1) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+    <span class="keywordflow">if</span> (swap) <a class="code" href="helpers_8h.html#a7bb3b6a97c833fe8630a7b129917b985">Reverse32</a>(&amp;reserved);
+    <a class="code" href="class_generic_vector.html#aa225ea3fc9374961482bc804028317eb">GenericVector&lt;T*&gt;::reserve</a>(reserved);
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; reserved; ++i) {
+      <a class="code" href="host_8h.html#a2ba4d271e85baf0d333318985cb3bced">inT8</a> non_null;
+      <span class="keywordflow">if</span> (fread(&amp;non_null, <span class="keyword">sizeof</span>(non_null), 1, fp) != 1) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+      T* item = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+      <span class="keywordflow">if</span> (non_null) {
+        item = <span class="keyword">new</span> T;
+        <span class="keywordflow">if</span> (!item-&gt;DeSerialize(swap, fp)) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+      }
+      this-&gt;<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(item);
+    }
+    <span class="keywordflow">return</span> <span class="keyword">true</span>;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac614c7655bbef9b646df3775b1109711"></a><!-- doxytag: member="tesseract::PointerVector::operator+=" ref="ac614c7655bbef9b646df3775b1109711" args="(const PointerVector &amp;other)" -->
@@ -298,6 +366,15 @@ template&lt;typename T&gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="genericvector_8h_source.html#l00342">342</a> of file <a class="el" href="genericvector_8h_source.html">genericvector.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                           {
+    this-&gt;<a class="code" href="class_generic_vector.html#aa225ea3fc9374961482bc804028317eb">reserve</a>(this-&gt;<a class="code" href="class_generic_vector.html#ae7cf6cba62f831b6d56c7d03e9eff3bc">size_used_</a> + other.size_used_);
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; other.size(); ++i) {
+      this-&gt;<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(<span class="keyword">new</span> T(*other.data_[i]));
+    }
+    <span class="keywordflow">return</span> *<span class="keyword">this</span>;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab90a746ca4c2b6db744af7e8eae2b31e"></a><!-- doxytag: member="tesseract::PointerVector::operator=" ref="ab90a746ca4c2b6db744af7e8eae2b31e" args="(const PointerVector &amp;other)" -->
@@ -317,6 +394,13 @@ template&lt;typename T&gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="genericvector_8h_source.html#l00350">350</a> of file <a class="el" href="genericvector_8h_source.html">genericvector.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                          {
+    this-&gt;<a class="code" href="classtesseract_1_1_pointer_vector.html#aa38ca98856fb4ca4d521786a77e2b4ce">truncate</a>(0);
+    this-&gt;<a class="code" href="classtesseract_1_1_pointer_vector.html#ac614c7655bbef9b646df3775b1109711">operator+=</a>(other);
+    <span class="keywordflow">return</span> *<span class="keyword">this</span>;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a36e300beddeffc06af243e2b278e8f70"></a><!-- doxytag: member="tesseract::PointerVector::remove" ref="a36e300beddeffc06af243e2b278e8f70" args="(int index)" -->
@@ -338,6 +422,12 @@ template&lt;typename T&gt; </div>
 
 <p>Reimplemented from <a class="el" href="class_generic_vector.html#a3fd37a240a42f1c3052e8d28614d3702">GenericVector&lt; T * &gt;</a>.</p>
 
+<p>Definition at line <a class="el" href="genericvector_8h_source.html#l00358">358</a> of file <a class="el" href="genericvector_8h_source.html">genericvector.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                 {
+    <span class="keyword">delete</span> <a class="code" href="class_generic_vector.html">GenericVector&lt;T*&gt;::data_</a>[index];
+    <a class="code" href="classtesseract_1_1_pointer_vector.html#a36e300beddeffc06af243e2b278e8f70">GenericVector&lt;T*&gt;::remove</a>(index);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aea7ac16752260e06f7c996343b17d876"></a><!-- doxytag: member="tesseract::PointerVector::Serialize" ref="aea7ac16752260e06f7c996343b17d876" args="(FILE *fp) const " -->
@@ -359,6 +449,18 @@ template&lt;typename T&gt; </div>
 
 <p>Reimplemented from <a class="el" href="class_generic_vector.html#a51aeec27092537323abc7174af1c16ef">GenericVector&lt; T * &gt;</a>.</p>
 
+<p>Definition at line <a class="el" href="genericvector_8h_source.html#l00404">404</a> of file <a class="el" href="genericvector_8h_source.html">genericvector.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                         {
+    <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> used = <a class="code" href="class_generic_vector.html">GenericVector&lt;T*&gt;::size_used_</a>;
+    <span class="keywordflow">if</span> (fwrite(&amp;used, <span class="keyword">sizeof</span>(used), 1, fp) != 1) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; used; ++i) {
+      <a class="code" href="host_8h.html#a2ba4d271e85baf0d333318985cb3bced">inT8</a> non_null = <a class="code" href="class_generic_vector.html">GenericVector&lt;T*&gt;::data_</a>[i] != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+      <span class="keywordflow">if</span> (fwrite(&amp;non_null, <span class="keyword">sizeof</span>(non_null), 1, fp) != 1) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+      <span class="keywordflow">if</span> (non_null &amp;&amp; !<a class="code" href="class_generic_vector.html">GenericVector&lt;T*&gt;::data_</a>[i]-&gt;<a class="code" href="classtesseract_1_1_pointer_vector.html#aea7ac16752260e06f7c996343b17d876">Serialize</a>(fp)) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+    }
+    <span class="keywordflow">return</span> <span class="keyword">true</span>;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a0b7159bc7b422f32b1f26d7f1d067fce"></a><!-- doxytag: member="tesseract::PointerVector::sort" ref="a0b7159bc7b422f32b1f26d7f1d067fce" args="()" -->
@@ -379,6 +481,11 @@ template&lt;typename T&gt; </div>
 
 <p>Reimplemented from <a class="el" href="class_generic_vector.html#a999bbd8ff336c81fe1198ea714c7936d">GenericVector&lt; T * &gt;</a>.</p>
 
+<p>Definition at line <a class="el" href="genericvector_8h_source.html#l00439">439</a> of file <a class="el" href="genericvector_8h_source.html">genericvector.h</a>.</p>
+<div class="fragment"><pre class="fragment">              {
+    <a class="code" href="classtesseract_1_1_pointer_vector.html#a0b7159bc7b422f32b1f26d7f1d067fce">sort</a>(&amp;sort_ptr_cmp&lt;T&gt;);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa38ca98856fb4ca4d521786a77e2b4ce"></a><!-- doxytag: member="tesseract::PointerVector::truncate" ref="aa38ca98856fb4ca4d521786a77e2b4ce" args="(int size)" -->
@@ -400,6 +507,13 @@ template&lt;typename T&gt; </div>
 
 <p>Reimplemented from <a class="el" href="class_generic_vector.html#af1793745c45178626c9afe48c7a1e140">GenericVector&lt; T * &gt;</a>.</p>
 
+<p>Definition at line <a class="el" href="genericvector_8h_source.html#l00365">365</a> of file <a class="el" href="genericvector_8h_source.html">genericvector.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                  {
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = <a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>; i &lt; GenericVector&lt;T*&gt;::size_used_; ++i)
+      <span class="keyword">delete</span> <a class="code" href="class_generic_vector.html">GenericVector&lt;T*&gt;::data_</a>[i];
+    <a class="code" href="classtesseract_1_1_pointer_vector.html#aa38ca98856fb4ca4d521786a77e2b4ce">GenericVector&lt;T*&gt;::truncate</a>(<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>);
+  }
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
@@ -426,7 +540,7 @@ template&lt;typename T&gt; </div>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:15 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:49 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

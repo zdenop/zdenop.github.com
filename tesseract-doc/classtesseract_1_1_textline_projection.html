@@ -123,7 +123,10 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_textline_projection.html#adf0a59d6215cb6cb5fd906c323dc9c3d">EvaluateColPartition</a> (const <a class="el" href="classtesseract_1_1_col_partition.html">ColPartition</a> &amp;part, const <a class="el" href="class_d_e_n_o_r_m.html">DENORM</a> *denorm, bool debug) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_textline_projection.html#a43ff05bad93c8d1cbf600ed442315ce5">EvaluateBox</a> (const <a class="el" href="class_t_b_o_x.html">TBOX</a> &amp;box, const <a class="el" href="class_d_e_n_o_r_m.html">DENORM</a> *denorm, bool debug) const </td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="textlineprojection_8h_source.html#l00033">33</a> of file <a class="el" href="textlineprojection_8h_source.html">textlineprojection.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a5f31df35a173c0549f13ee7d5654912e"></a><!-- doxytag: member="tesseract::TextlineProjection::TextlineProjection" ref="a5f31df35a173c0549f13ee7d5654912e" args="(int resolution)" -->
 <div class="memitem">
 <div class="memproto">
@@ -139,6 +142,13 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="textlineprojection_8cpp_source.html#l00041">41</a> of file <a class="el" href="textlineprojection_8cpp_source.html">textlineprojection.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">  : x_origin_(0), y_origin_(0), pix_(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+  <span class="comment">// The projection map should be about 100 ppi, whatever the input.</span>
+  scale_factor_ = <a class="code" href="helpers_8h.html#ab60e4f82956a1f5fdb54d0d8303e95b7">IntCastRounded</a>(resolution / 100.0);
+  <span class="keywordflow">if</span> (scale_factor_ &lt; 1) scale_factor_ = 1;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4c272e561b9be50e091493c532396284"></a><!-- doxytag: member="tesseract::TextlineProjection::~TextlineProjection" ref="a4c272e561b9be50e091493c532396284" args="()" -->
@@ -155,6 +165,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="textlineprojection_8cpp_source.html#l00047">47</a> of file <a class="el" href="textlineprojection_8cpp_source.html">textlineprojection.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                        {
+  pixDestroy(&amp;pix_);
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -189,6 +204,21 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="textlineprojection_8cpp_source.html#l00338">338</a> of file <a class="el" href="textlineprojection_8cpp_source.html">textlineprojection.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                            {
+  <span class="keywordtype">int</span> grad1 = 0;
+  <span class="keywordtype">int</span> grad2 = 0;
+  EvaluateBoxInternal(box, denorm, debug, &amp;grad1, &amp;grad2, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <span class="keywordtype">int</span> worst_result = <a class="code" href="ndminx_8h.html#a74e75242132eaabbc1c512488a135926">MIN</a>(grad1, grad2);
+  <span class="keywordtype">int</span> total_result = grad1 + grad2;
+  <span class="keywordflow">if</span> (total_result &gt;= 6) <span class="keywordflow">return</span> <span class="keyword">false</span>;  <span class="comment">// Strongly in textline.</span>
+  <span class="comment">// Medium strength: if either gradient is negative, it is likely outside</span>
+  <span class="comment">// the body of the textline.</span>
+  <span class="keywordflow">if</span> (worst_result &lt; 0)
+    <span class="keywordflow">return</span> <span class="keyword">true</span>;
+  <span class="keywordflow">return</span> <span class="keyword">false</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a813c0b50d88ccb86b6457fdd6bbe66e5"></a><!-- doxytag: member="tesseract::TextlineProjection::ConstructProjection" ref="a813c0b50d88ccb86b6457fdd6bbe66e5" args="(TO_BLOCK *input_block, const FCOORD &amp;rotation, Pix *nontext_map)" -->
@@ -222,6 +252,24 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="textlineprojection_8cpp_source.html#l00058">58</a> of file <a class="el" href="textlineprojection_8cpp_source.html">textlineprojection.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                               {
+  pixDestroy(&amp;pix_);
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> image_box(0, 0, pixGetWidth(nontext_map), pixGetHeight(nontext_map));
+  x_origin_ = 0;
+  y_origin_ = image_box.height();
+  <span class="keywordtype">int</span> width = (image_box.width() + scale_factor_ - 1) / scale_factor_;
+  <span class="keywordtype">int</span> height = (image_box.height() + scale_factor_ - 1) / scale_factor_;
+
+  pix_ = pixCreate(width, height, 8);
+  ProjectBlobs(&amp;input_block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#a5dd67c54162a6b60b0fd11500d4a3025">blobs</a>, rotation, image_box, nontext_map);
+  ProjectBlobs(&amp;input_block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#aafe2a9baa69300ee71da42e6dc18cfee">large_blobs</a>, rotation, image_box, nontext_map);
+  Pix* final_pix = pixBlockconv(pix_, 1, 1);
+<span class="comment">//  Pix* final_pix = pixBlockconv(pix_, 2, 2);</span>
+  pixDestroy(&amp;pix_);
+  pix_ = final_pix;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a1e581a8489ec184b8ba5fbee9aa9f8c9"></a><!-- doxytag: member="tesseract::TextlineProjection::DisplayProjection" ref="a1e581a8489ec184b8ba5fbee9aa9f8c9" args="() const " -->
@@ -238,6 +286,40 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="textlineprojection_8cpp_source.html#l00117">117</a> of file <a class="el" href="textlineprojection_8cpp_source.html">textlineprojection.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                 {
+  <span class="keywordtype">int</span> width = pixGetWidth(pix_);
+  <span class="keywordtype">int</span> height = pixGetHeight(pix_);
+  Pix* pixc = pixCreate(width, height, 32);
+  <span class="keywordtype">int</span> src_wpl = pixGetWpl(pix_);
+  <span class="keywordtype">int</span> col_wpl = pixGetWpl(pixc);
+  <a class="code" href="host_8h.html#afc8530b39ebe0b6df1e19159d2508d15">uinT32</a>* src_data = pixGetData(pix_);
+  <a class="code" href="host_8h.html#afc8530b39ebe0b6df1e19159d2508d15">uinT32</a>* col_data = pixGetData(pixc);
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> y = 0; y &lt; height; ++y, src_data += src_wpl, col_data += col_wpl) {
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> x = 0; x &lt; width; ++x) {
+      <span class="keywordtype">int</span> pixel = GET_DATA_BYTE(src_data, x);
+      l_uint32 result;
+      <span class="keywordflow">if</span> (pixel &lt;= 17)
+        composeRGBPixel(0, 0, pixel * 15, &amp;result);
+      <span class="keywordflow">else</span> <span class="keywordflow">if</span> (pixel &lt;= 145)
+        composeRGBPixel(0, (pixel - 17) * 2, 255, &amp;result);
+      <span class="keywordflow">else</span>
+        composeRGBPixel((pixel - 145) * 2, 255, 255, &amp;result);
+      col_data[x] = result;
+    }
+  }
+<span class="preprocessor">#if 0</span>
+<span class="preprocessor"></span>  <span class="comment">// TODO(rays) uncomment when scrollview can display non-binary images.</span>
+  <a class="code" href="class_scroll_view.html">ScrollView</a>* win = <span class="keyword">new</span> <a class="code" href="class_scroll_view.html">ScrollView</a>(<span class="stringliteral">&quot;Projection&quot;</span>, 0, 0,
+                                   width, height, width, height);
+  win-&gt;<a class="code" href="class_scroll_view.html#a45881e629322d82c9fc0c5f926a76f16">Image</a>(pixc, 0, 0);
+  win-&gt;<a class="code" href="class_scroll_view.html#a0830a51981a20c8700b5ec49137e46e9">Update</a>();
+<span class="preprocessor">#else</span>
+<span class="preprocessor"></span>  pixWrite(<span class="stringliteral">&quot;projection.png&quot;</span>, pixc, IFF_PNG);
+<span class="preprocessor">#endif</span>
+<span class="preprocessor"></span>  pixDestroy(&amp;pixc);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6093b6f965fd63e9688b8719d556a68d"></a><!-- doxytag: member="tesseract::TextlineProjection::DistanceOfBoxFromBox" ref="a6093b6f965fd63e9688b8719d556a68d" args="(const TBOX &amp;from_box, const TBOX &amp;to_box, bool horizontal_textline, const DENORM *denorm, bool debug) const " -->
@@ -283,6 +365,64 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="textlineprojection_8cpp_source.html#l00194">194</a> of file <a class="el" href="textlineprojection_8cpp_source.html">textlineprojection.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                               {
+  <span class="comment">// The parallel_gap is the horizontal gap between a horizontal textline and</span>
+  <span class="comment">// the box. Analogous for vertical.</span>
+  <span class="keywordtype">int</span> parallel_gap = 0;
+  <span class="comment">// start_pt is the box end of the line to be modified for curved space.</span>
+  <a class="code" href="struct_t_p_o_i_n_t.html">TPOINT</a> start_pt;
+  <span class="comment">// end_pt is the partition end of the line to be modified for curved space.</span>
+  <a class="code" href="struct_t_p_o_i_n_t.html">TPOINT</a> end_pt;
+  <span class="keywordflow">if</span> (horizontal_textline) {
+    parallel_gap = from_box.<a class="code" href="class_t_b_o_x.html#a6c296f134aaae6ee544c4d000d76f80e">x_gap</a>(to_box) + from_box.<a class="code" href="class_t_b_o_x.html#af95494a2ccacc70cc2b83820b2948619">width</a>();
+    start_pt.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> = (from_box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>() + from_box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>()) / 2;
+    end_pt.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> = start_pt.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a>;
+    <span class="keywordflow">if</span> (from_box.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>() - to_box.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>() &gt;= to_box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>() - from_box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>()) {
+      start_pt.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a> = from_box.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>();
+      end_pt.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a> = <a class="code" href="ndminx_8h.html#a74e75242132eaabbc1c512488a135926">MIN</a>(to_box.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>(), start_pt.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a>);
+    } <span class="keywordflow">else</span> {
+      start_pt.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a> = from_box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>();
+      end_pt.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a> = <a class="code" href="ndminx_8h.html#aacc3ee1a7f283f8ef65cea31f4436a95">MAX</a>(to_box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>(), start_pt.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a>);
+    }
+  } <span class="keywordflow">else</span> {
+    parallel_gap = from_box.<a class="code" href="class_t_b_o_x.html#a98e0f9a8622eec475ee93b260c57c7ab">y_gap</a>(to_box) + from_box.<a class="code" href="class_t_b_o_x.html#a8379d4bbc72bdbb1f069fc14790e632d">height</a>();
+    <span class="keywordflow">if</span> (from_box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>() - to_box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>() &gt;= to_box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>() - from_box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>()) {
+      start_pt.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> = from_box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>();
+      end_pt.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> = <a class="code" href="ndminx_8h.html#a74e75242132eaabbc1c512488a135926">MIN</a>(to_box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>(), start_pt.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a>);
+    } <span class="keywordflow">else</span> {
+      start_pt.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> = from_box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>();
+      end_pt.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> = <a class="code" href="ndminx_8h.html#aacc3ee1a7f283f8ef65cea31f4436a95">MAX</a>(to_box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>(), start_pt.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a>);
+    }
+    start_pt.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a> = (from_box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>() + from_box.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>()) / 2;
+    end_pt.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a> = start_pt.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a>;
+  }
+  <span class="comment">// The perpendicular gap is the max vertical distance gap out of:</span>
+  <span class="comment">// top of from_box to to_box top and bottom of from_box to to_box bottom.</span>
+  <span class="comment">// This value is then modified for curved projection space.</span>
+  <span class="comment">// Analogous for vertical.</span>
+  <span class="keywordtype">int</span> perpendicular_gap = 0;
+  <span class="comment">// If start_pt == end_pt, then the from_box lies entirely within the to_box</span>
+  <span class="comment">// (in the perpendicular direction), so we don&#39;t need to calculate the</span>
+  <span class="comment">// perpendicular_gap.</span>
+  <span class="keywordflow">if</span> (start_pt.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> != end_pt.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> || start_pt.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a> != end_pt.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a>) {
+    <span class="keywordflow">if</span> (denorm != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      <span class="comment">// Denormalize the start and end.</span>
+      denorm-&gt;<a class="code" href="class_d_e_n_o_r_m.html#a7f208ca46e4fc576432c16bf16a504f0">DenormTransform</a>(start_pt, &amp;start_pt);
+      denorm-&gt;<a class="code" href="class_d_e_n_o_r_m.html#a7f208ca46e4fc576432c16bf16a504f0">DenormTransform</a>(end_pt, &amp;end_pt);
+    }
+    <span class="keywordflow">if</span> (abs(start_pt.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a> - end_pt.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a>) &gt;= abs(start_pt.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> - end_pt.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a>)) {
+      perpendicular_gap = <a class="code" href="classtesseract_1_1_textline_projection.html#a8a1de7e99cec9c448b63d3627892429b">VerticalDistance</a>(debug, start_pt.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a>, start_pt.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a>,
+                                           end_pt.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a>);
+    } <span class="keywordflow">else</span> {
+      perpendicular_gap = <a class="code" href="classtesseract_1_1_textline_projection.html#ac1e6deb3faabc127c87d7d9a0be59ed2">HorizontalDistance</a>(debug, start_pt.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a>, end_pt.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a>,
+                                             start_pt.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a>);
+    }
+  }
+  <span class="comment">// The parallel_gap weighs less than the perpendicular_gap.</span>
+  <span class="keywordflow">return</span> perpendicular_gap + parallel_gap / <a class="code" href="textlineprojection_8cpp.html#a6bff85a79d3b0f4a9f27b9e290b5cd68">kParaPerpDistRatio</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa72325e896b00272a6486ab4c57c54d3"></a><!-- doxytag: member="tesseract::TextlineProjection::DistanceOfBoxFromPartition" ref="aa72325e896b00272a6486ab4c57c54d3" args="(const TBOX &amp;box, const ColPartition &amp;part, const DENORM *denorm, bool debug) const " -->
@@ -322,6 +462,23 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="textlineprojection_8cpp_source.html#l00154">154</a> of file <a class="el" href="textlineprojection_8cpp_source.html">textlineprojection.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                     {
+  <span class="comment">// Compute a partition box that uses the median top/bottom of the blobs</span>
+  <span class="comment">// within and median left/right for vertical.</span>
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> part_box = part.bounding_box();
+  <span class="keywordflow">if</span> (part.IsHorizontalType()) {
+    part_box.<a class="code" href="class_t_b_o_x.html#a7f40dfd290a907200bdc98c196f63f45">set_top</a>(part.median_top());
+    part_box.<a class="code" href="class_t_b_o_x.html#a6f803b24b046883cb0f3882dc3d92302">set_bottom</a>(part.median_bottom());
+  } <span class="keywordflow">else</span> {
+    part_box.<a class="code" href="class_t_b_o_x.html#ae6151cd794841e100d8a346a0c4a46e6">set_left</a>(part.median_left());
+    part_box.<a class="code" href="class_t_b_o_x.html#a2246293d3667b28c52a52353a2d5caea">set_right</a>(part.median_right());
+  }
+  <span class="comment">// Now use DistanceOfBoxFromBox to make the actual calculation.</span>
+  <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_textline_projection.html#a6093b6f965fd63e9688b8719d556a68d">DistanceOfBoxFromBox</a>(box, part_box, part.IsHorizontalType(),
+                              denorm, debug);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a43ff05bad93c8d1cbf600ed442315ce5"></a><!-- doxytag: member="tesseract::TextlineProjection::EvaluateBox" ref="a43ff05bad93c8d1cbf600ed442315ce5" args="(const TBOX &amp;box, const DENORM *denorm, bool debug) const " -->
@@ -355,6 +512,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="textlineprojection_8cpp_source.html#l00410">410</a> of file <a class="el" href="textlineprojection_8cpp_source.html">textlineprojection.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                      {
+  <span class="keywordflow">return</span> EvaluateBoxInternal(box, denorm, debug, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="adf0a59d6215cb6cb5fd906c323dc9c3d"></a><!-- doxytag: member="tesseract::TextlineProjection::EvaluateColPartition" ref="adf0a59d6215cb6cb5fd906c323dc9c3d" args="(const ColPartition &amp;part, const DENORM *denorm, bool debug) const " -->
@@ -388,6 +550,31 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="textlineprojection_8cpp_source.html#l00359">359</a> of file <a class="el" href="textlineprojection_8cpp_source.html">textlineprojection.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                               {
+  <span class="keywordflow">if</span> (part.IsSingleton())
+    <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_textline_projection.html#a43ff05bad93c8d1cbf600ed442315ce5">EvaluateBox</a>(part.bounding_box(), denorm, debug);
+  <span class="comment">// Test vertical orientation.</span>
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> box = part.bounding_box();
+  <span class="comment">// Use the partition median for left/right.</span>
+  box.<a class="code" href="class_t_b_o_x.html#ae6151cd794841e100d8a346a0c4a46e6">set_left</a>(part.median_left());
+  box.<a class="code" href="class_t_b_o_x.html#a2246293d3667b28c52a52353a2d5caea">set_right</a>(part.median_right());
+  <span class="keywordtype">int</span> vresult = <a class="code" href="classtesseract_1_1_textline_projection.html#a43ff05bad93c8d1cbf600ed442315ce5">EvaluateBox</a>(box, denorm, debug);
+
+  <span class="comment">// Test horizontal orientation.</span>
+  box = part.bounding_box();
+  <span class="comment">// Use the partition median for top/bottom.</span>
+  box.<a class="code" href="class_t_b_o_x.html#a7f40dfd290a907200bdc98c196f63f45">set_top</a>(part.median_top());
+  box.<a class="code" href="class_t_b_o_x.html#a6f803b24b046883cb0f3882dc3d92302">set_bottom</a>(part.median_bottom());
+  <span class="keywordtype">int</span> hresult = <a class="code" href="classtesseract_1_1_textline_projection.html#a43ff05bad93c8d1cbf600ed442315ce5">EvaluateBox</a>(box, denorm, debug);
+  <span class="keywordflow">if</span> (debug) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Partition hresult=%d, vresult=%d from:&quot;</span>, hresult, vresult);
+    part.bounding_box().print();
+    part.Print();
+  }
+  <span class="keywordflow">return</span> hresult &gt;= -vresult ? hresult : vresult;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac1e6deb3faabc127c87d7d9a0be59ed2"></a><!-- doxytag: member="tesseract::TextlineProjection::HorizontalDistance" ref="ac1e6deb3faabc127c87d7d9a0be59ed2" args="(bool debug, int x1, int x2, int y) const " -->
@@ -427,6 +614,35 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="textlineprojection_8cpp_source.html#l00306">306</a> of file <a class="el" href="textlineprojection_8cpp_source.html">textlineprojection.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                        {
+  x1 = ImageXToProjectionX(x1);
+  x2 = ImageXToProjectionX(x2);
+  y = ImageYToProjectionY(y);
+  <span class="keywordflow">if</span> (x1 == x2) <span class="keywordflow">return</span> 0;
+  <span class="keywordtype">int</span> wpl = pixGetWpl(pix_);
+  <span class="keywordtype">int</span> step = x1 &lt; x2 ? 1 : -1;
+  <a class="code" href="host_8h.html#afc8530b39ebe0b6df1e19159d2508d15">uinT32</a>* data = pixGetData(pix_) + y * wpl;
+  <span class="keywordtype">int</span> prev_pixel = GET_DATA_BYTE(data, x1);
+  <span class="keywordtype">int</span> distance = 0;
+  <span class="keywordtype">int</span> right_way_steps = 0;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> x = x1; x != x2; x += step) {
+    <span class="keywordtype">int</span> pixel = GET_DATA_BYTE(data, x + step);
+    <span class="keywordflow">if</span> (debug)
+      <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;At (%d,%d), pix = %d, prev=%d\n&quot;</span>,
+              x + step, y, pixel, prev_pixel);
+    <span class="keywordflow">if</span> (pixel &lt; prev_pixel)
+      distance += <a class="code" href="textlineprojection_8cpp.html#a092bd18070934c5079ce09f4cf3cf403">kWrongWayPenalty</a>;
+    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (pixel &gt; prev_pixel)
+      ++right_way_steps;
+    <span class="keywordflow">else</span>
+      ++distance;
+    prev_pixel = pixel;
+  }
+  <span class="keywordflow">return</span> distance * scale_factor_ +
+      right_way_steps * scale_factor_ / <a class="code" href="textlineprojection_8cpp.html#a092bd18070934c5079ce09f4cf3cf403">kWrongWayPenalty</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="af2d55a393da9c25220a8a3ec6ca861d4"></a><!-- doxytag: member="tesseract::TextlineProjection::MoveNonTextlineBlobs" ref="af2d55a393da9c25220a8a3ec6ca861d4" args="(BLOBNBOX_LIST *blobs, BLOBNBOX_LIST *small_blobs) const " -->
@@ -454,6 +670,22 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="textlineprojection_8cpp_source.html#l00100">100</a> of file <a class="el" href="textlineprojection_8cpp_source.html">textlineprojection.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                            {
+  BLOBNBOX_IT it(blobs);
+  BLOBNBOX_IT small_it(small_blobs);
+  <span class="keywordflow">for</span> (it.mark_cycle_pt(); !it.cycled_list(); it.forward()) {
+    <a class="code" href="class_b_l_o_b_n_b_o_x.html">BLOBNBOX</a>* blob = it.data();
+    <span class="keyword">const</span> <a class="code" href="class_t_b_o_x.html">TBOX</a>&amp; box = blob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a7b97b8bc16b1473a28f9c44011522f4e">bounding_box</a>();
+    <span class="keywordtype">bool</span> debug = <a class="code" href="classtesseract_1_1_aligned_blob.html#a357ff9e1d9bac2b1d88fb0d335fa7f3e">AlignedBlob::WithinTestRegion</a>(2, box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>(),
+                                               box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>());
+    <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_textline_projection.html#ad73a87b2d4bccbc8f5f6113481b9c0e2">BoxOutOfHTextline</a>(box, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, debug) &amp;&amp; !blob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#aa4e11bd4e9e5903b52bcd363db008f2e">UniquelyVertical</a>()) {
+      blob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#acdf3cc39226f3378516956b0e33fa533">ClearNeighbours</a>();
+      small_it.add_to_end(it.extract());
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aac6c563b3b6bc5f903f7c4b0061daf32"></a><!-- doxytag: member="tesseract::TextlineProjection::PlotGradedBlobs" ref="aac6c563b3b6bc5f903f7c4b0061daf32" args="(BLOBNBOX_LIST *blobs, ScrollView *win)" -->
@@ -481,6 +713,24 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="textlineprojection_8cpp_source.html#l00078">78</a> of file <a class="el" href="textlineprojection_8cpp_source.html">textlineprojection.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                          {
+<span class="preprocessor">  #ifndef GRAPHICS_DISABLED</span>
+<span class="preprocessor"></span>  BLOBNBOX_IT it(blobs);
+  <span class="keywordflow">for</span> (it.mark_cycle_pt(); !it.cycled_list(); it.forward()) {
+    <a class="code" href="class_b_l_o_b_n_b_o_x.html">BLOBNBOX</a>* blob = it.data();
+    <span class="keyword">const</span> <a class="code" href="class_t_b_o_x.html">TBOX</a>&amp; box = blob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a7b97b8bc16b1473a28f9c44011522f4e">bounding_box</a>();
+    <span class="keywordtype">bool</span> bad_box = <a class="code" href="classtesseract_1_1_textline_projection.html#ad73a87b2d4bccbc8f5f6113481b9c0e2">BoxOutOfHTextline</a>(box, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, <span class="keyword">false</span>);
+    <span class="keywordflow">if</span> (blob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#aa4e11bd4e9e5903b52bcd363db008f2e">UniquelyVertical</a>())
+      win-&gt;<a class="code" href="class_scroll_view.html#a79855c525ec660b452382e9813d2edb5">Pen</a>(<a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8a61dec9bc0aaf1d527a731b2a6ce055c8">ScrollView::YELLOW</a>);
+    <span class="keywordflow">else</span>
+      win-&gt;<a class="code" href="class_scroll_view.html#a79855c525ec660b452382e9813d2edb5">Pen</a>(bad_box ? <a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8a0959f7470b08ae1a38aa7e38fba29402">ScrollView::RED</a> : <a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8a66e5117e4930fdd9a43bdb674d57a719">ScrollView::BLUE</a>);
+    win-&gt;<a class="code" href="class_scroll_view.html#ac2a8fdf5d37967ea4a298dc092b6ed0e">Rectangle</a>(box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>(), box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>(), box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>(), box.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>());
+  }
+  win-&gt;<a class="code" href="class_scroll_view.html#a0830a51981a20c8700b5ec49137e46e9">Update</a>();
+<span class="preprocessor">  #endif  // GRAPHICS_DISABLED</span>
+<span class="preprocessor"></span>}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a8a1de7e99cec9c448b63d3627892429b"></a><!-- doxytag: member="tesseract::TextlineProjection::VerticalDistance" ref="a8a1de7e99cec9c448b63d3627892429b" args="(bool debug, int x, int y1, int y2) const " -->
@@ -520,11 +770,42 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="textlineprojection_8cpp_source.html#l00273">273</a> of file <a class="el" href="textlineprojection_8cpp_source.html">textlineprojection.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                               {
+  x = ImageXToProjectionX(x);
+  y1 = ImageYToProjectionY(y1);
+  y2 = ImageYToProjectionY(y2);
+  <span class="keywordflow">if</span> (y1 == y2) <span class="keywordflow">return</span> 0;
+  <span class="keywordtype">int</span> wpl = pixGetWpl(pix_);
+  <span class="keywordtype">int</span> step = y1 &lt; y2 ? 1 : -1;
+  <a class="code" href="host_8h.html#afc8530b39ebe0b6df1e19159d2508d15">uinT32</a>* data = pixGetData(pix_) + y1 * wpl;
+  wpl *= step;
+  <span class="keywordtype">int</span> prev_pixel = GET_DATA_BYTE(data, x);
+  <span class="keywordtype">int</span> distance = 0;
+  <span class="keywordtype">int</span> right_way_steps = 0;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> y = y1; y != y2; y += step) {
+    data += wpl;
+    <span class="keywordtype">int</span> pixel = GET_DATA_BYTE(data, x);
+    <span class="keywordflow">if</span> (debug)
+      <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;At (%d,%d), pix = %d, prev=%d\n&quot;</span>,
+              x, y + step, pixel, prev_pixel);
+    <span class="keywordflow">if</span> (pixel &lt; prev_pixel)
+      distance += <a class="code" href="textlineprojection_8cpp.html#a092bd18070934c5079ce09f4cf3cf403">kWrongWayPenalty</a>;
+    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (pixel &gt; prev_pixel)
+      ++right_way_steps;
+    <span class="keywordflow">else</span>
+      ++distance;
+    prev_pixel = pixel;
+  }
+  <span class="keywordflow">return</span> distance * scale_factor_ +
+      right_way_steps * scale_factor_ / <a class="code" href="textlineprojection_8cpp.html#a092bd18070934c5079ce09f4cf3cf403">kWrongWayPenalty</a>;
+}
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/textord/<a class="el" href="textlineprojection_8h_source.html">textlineprojection.h</a></li>
-<li>tesseract-ocr/textord/<a class="el" href="textlineprojection_8cpp.html">textlineprojection.cpp</a></li>
+<li>tesseract-ocr/textord/<a class="el" href="textlineprojection_8cpp_source.html">textlineprojection.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -547,7 +828,7 @@ Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:17 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:54 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

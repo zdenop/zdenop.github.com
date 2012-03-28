@@ -120,7 +120,10 @@ Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a></td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="blobs_8h_source.html#l00053">53</a> of file <a class="el" href="blobs_8h_source.html">blobs.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="ae904cdd453d9303892c367c8f358c028"></a><!-- doxytag: member="TPOINT::TPOINT" ref="ae904cdd453d9303892c367c8f358c028" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -135,6 +138,9 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8h_source.html#l00054">54</a> of file <a class="el" href="blobs_8h_source.html">blobs.h</a>.</p>
+<div class="fragment"><pre class="fragment">: <a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a>(0), <a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a>(0) {}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a16bd52027648e2b99bcfb2fba652c63a"></a><!-- doxytag: member="TPOINT::TPOINT" ref="a16bd52027648e2b99bcfb2fba652c63a" args="(inT16 vx, inT16 vy)" -->
@@ -162,6 +168,9 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8h_source.html#l00055">55</a> of file <a class="el" href="blobs_8h_source.html">blobs.h</a>.</p>
+<div class="fragment"><pre class="fragment">: <a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a>(vx), <a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a>(vy) {}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac733ed1df90b1f9e1d30175ee580d039"></a><!-- doxytag: member="TPOINT::TPOINT" ref="ac733ed1df90b1f9e1d30175ee580d039" args="(const ICOORD &amp;ic)" -->
@@ -179,6 +188,9 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8h_source.html#l00056">56</a> of file <a class="el" href="blobs_8h_source.html">blobs.h</a>.</p>
+<div class="fragment"><pre class="fragment">: <a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a>(ic.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a>()), <a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a>(ic.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a>()) {}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -197,6 +209,12 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8h_source.html#l00058">58</a> of file <a class="el" href="blobs_8h_source.html">blobs.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                       {
+    <a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> += other.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a>;
+    <a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a> += other.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a>;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a627d77cda5c1a93bd9a79b089b2e1550"></a><!-- doxytag: member="TPOINT::operator/=" ref="a627d77cda5c1a93bd9a79b089b2e1550" args="(int divisor)" -->
@@ -214,6 +232,12 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8h_source.html#l00062">62</a> of file <a class="el" href="blobs_8h_source.html">blobs.h</a>.</p>
+<div class="fragment"><pre class="fragment">                               {
+    <a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> /= divisor;
+    <a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a> /= divisor;
+  }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
@@ -228,6 +252,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8h_source.html#l00067">67</a> of file <a class="el" href="blobs_8h_source.html">blobs.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a6d62f015b74612e43975e439a096039c"></a><!-- doxytag: member="TPOINT::y" ref="a6d62f015b74612e43975e439a096039c" args="" -->
@@ -240,6 +266,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="blobs_8h_source.html#l00068">68</a> of file <a class="el" href="blobs_8h_source.html">blobs.h</a>.</p>
 
 </div>
 </div>
@@ -266,7 +294,7 @@ Public Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:14 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:48 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

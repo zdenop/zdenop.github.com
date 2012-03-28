@@ -171,6 +171,41 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="imgs_8cpp_source.html#l00831">831</a> of file <a class="el" href="imgs_8cpp_source.html">imgs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                            {
+  <a class="code" href="class_i_m_a_g_e_l_i_n_e.html">IMAGELINE</a> copyline;            <span class="comment">//copy of line</span>
+  <a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a> *copy;                   <span class="comment">//source pointer</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> pixel;                   <span class="comment">//pixel index</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> y;                       <span class="comment">//line index</span>
+  <a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a> bytespp;                 <span class="comment">//bytes per pixel</span>
+
+  <span class="keywordflow">if</span> (xstart &lt; 0 || ystart &lt; 0)
+    <span class="keywordflow">return</span>;
+  <span class="keywordflow">if</span> (xext &lt;= 0)
+    xext = source-&gt;<a class="code" href="class_i_m_a_g_e.html#aee6f16416203f7d678fc61ae22dedc6e">get_xsize</a> (); <span class="comment">//default to all</span>
+  <span class="keywordflow">if</span> (xext &gt; source-&gt;<a class="code" href="class_i_m_a_g_e.html#aee6f16416203f7d678fc61ae22dedc6e">get_xsize</a> () - xstart)
+                                 <span class="comment">//clip to smallest</span>
+    xext = source-&gt;<a class="code" href="class_i_m_a_g_e.html#aee6f16416203f7d678fc61ae22dedc6e">get_xsize</a> () - xstart;
+  <span class="keywordflow">if</span> (yext &lt;= 0)
+    yext = source-&gt;<a class="code" href="class_i_m_a_g_e.html#a3f8caf7062bd65eea2fc068fb3ec7c10">get_ysize</a> (); <span class="comment">//default to all</span>
+  <span class="keywordflow">if</span> (yext &gt; source-&gt;<a class="code" href="class_i_m_a_g_e.html#a3f8caf7062bd65eea2fc068fb3ec7c10">get_ysize</a> () - ystart)
+                                 <span class="comment">//clip to smallest</span>
+    yext = source-&gt;<a class="code" href="class_i_m_a_g_e.html#a3f8caf7062bd65eea2fc068fb3ec7c10">get_ysize</a> () - ystart;
+  <span class="keywordflow">if</span> (xext &lt;= 0 || yext &lt;= 0)
+    <span class="keywordflow">return</span>;                      <span class="comment">//nothing to do</span>
+
+  bytespp = source-&gt;<a class="code" href="class_i_m_a_g_e.html#adc989f275743a36c9a9bce4b83c48c72">get_bpp</a> () == 24 ? 3 : 1;
+  <span class="keywordflow">for</span> (y = 0; y &lt; yext; y++) {
+    source-&gt;<a class="code" href="class_i_m_a_g_e.html#a46c97959964cd92e2dc1a4f6248dfac3">check_legal_access</a> (xstart, ystart + y, xext);
+    source-&gt;<a class="code" href="class_i_m_a_g_e.html#a44de5c052ec0829de2aff958756beb0f">fast_get_line</a> (xstart, ystart + y, xext, &amp;copyline);
+    <span class="keywordflow">for</span> (pixel = xext * bytespp, copy = copyline.<a class="code" href="class_i_m_a_g_e_l_i_n_e.html#a0bf967eba44b6352a126f74c1a057172" title="image pixels">pixels</a>; pixel &gt; 0;
+      pixel--, copy++)
+    *copy += bias;               <span class="comment">//add bias</span>
+
+    source-&gt;<a class="code" href="class_i_m_a_g_e.html#a97634582d0c01e510827711338a50425">fast_put_line</a> (xstart, ystart + y, xext, &amp;copyline);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a0df725752395af1328217c86bf552ed4"></a><!-- doxytag: member="imgs.h::check_legal_image_size" ref="a0df725752395af1328217c86bf552ed4" args="(inT32 x, inT32 y, inT8 bits_per_pixel)" -->
@@ -204,6 +239,23 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="imgs_8cpp_source.html#l00240">240</a> of file <a class="el" href="imgs_8cpp_source.html">imgs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                              {
+  <span class="keywordflow">if</span> (x &lt;= 0 || y &lt;= 0) {
+    <a class="code" href="imgerrs_8h.html#ae511546aebaf910a87fb3ca25b62da6a">BADIMAGESIZE</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;check_legal_image_size&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a13d4c6d048f76d5b02c6f1b70323e770">TESSLOG</a>, <span class="stringliteral">&quot;(%d,%d)&quot;</span>, x, y);
+    <span class="keywordflow">return</span> -1;                   <span class="comment">//failed</span>
+  }
+  <span class="keywordflow">if</span> (bits_per_pixel != 1 &amp;&amp; bits_per_pixel != 2
+      &amp;&amp; bits_per_pixel != 4 &amp;&amp; bits_per_pixel != 5
+      &amp;&amp; bits_per_pixel != 6 &amp;&amp; bits_per_pixel != 8 &amp;&amp; bits_per_pixel != 24
+      &amp;&amp; bits_per_pixel != 32) {
+    <a class="code" href="imgerrs_8h.html#af2f32937d04ae19ccae856ff89d08992">BADBPP</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;check_legal_image_size&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a13d4c6d048f76d5b02c6f1b70323e770">TESSLOG</a>, <span class="stringliteral">&quot;%d&quot;</span>, bits_per_pixel);
+    <span class="keywordflow">return</span> -1;
+  }
+                                 <span class="comment">//bytes per line</span>
+  <span class="keywordflow">return</span> <a class="code" href="img_8h.html#a0ee65bc5580141bc6e2f538915b8af70">COMPUTE_IMAGE_XDIM</a> (x, bits_per_pixel);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="adf532c19ebf5ba5ec70086035b874dbc"></a><!-- doxytag: member="imgs.h::copy_sub_image" ref="adf532c19ebf5ba5ec70086035b874dbc" args="(IMAGE *source, inT32 xstart, inT32 ystart, inT32 xext, inT32 yext, IMAGE *dest, inT32 xdest, inT32 ydest, BOOL8 adjust_grey)" -->
@@ -273,6 +325,116 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="imgs_8cpp_source.html#l00269">269</a> of file <a class="el" href="imgs_8cpp_source.html">imgs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                            {
+  <a class="code" href="class_i_m_a_g_e_l_i_n_e.html">IMAGELINE</a> copyline;            <span class="comment">//copy of line</span>
+  <a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a> *copy;                   <span class="comment">//source pointer</span>
+  <a class="code" href="host_8h.html#a2ba4d271e85baf0d333318985cb3bced">inT8</a> shift;                    <span class="comment">//shift factor</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> pixel;                   <span class="comment">//pixel index</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> y;                       <span class="comment">//line index</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> yoffset;                 <span class="comment">//current adjusted offset</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> bytesize;                <span class="comment">//no of bytes to copy</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> srcppb;                  <span class="comment">//pixels per byte</span>
+  <a class="code" href="host_8h.html#a7712a7e28433d0ade59219a129549b6f">BOOL8</a> aligned;
+
+  <span class="keywordflow">if</span> (xstart &lt; 0 || ystart &lt; 0 || xdest &lt; 0 || ydest &lt; 0)
+    <span class="keywordflow">return</span>;
+  <span class="keywordflow">if</span> (xext &lt;= 0)
+    xext = source-&gt;xsize;        <span class="comment">//default to all</span>
+  <span class="keywordflow">if</span> (xext &gt; source-&gt;xsize - xstart)
+                                 <span class="comment">//clip to smallest</span>
+      xext = source-&gt;xsize - xstart;
+  <span class="keywordflow">if</span> (xext &gt; dest-&gt;xsize - xdest)
+    xext = dest-&gt;xsize - xdest;
+  <span class="keywordflow">if</span> (yext &lt;= 0)
+    yext = source-&gt;ysize;        <span class="comment">//default to all</span>
+  <span class="keywordflow">if</span> (yext &gt; source-&gt;ysize - ystart)
+                                 <span class="comment">//clip to smallest</span>
+      yext = source-&gt;ysize - ystart;
+  <span class="keywordflow">if</span> (yext &gt; dest-&gt;ysize - ydest)
+    yext = dest-&gt;ysize - ydest;
+  <span class="keywordflow">if</span> (xext &lt;= 0 || yext &lt;= 0)
+    <span class="keywordflow">return</span>;                      <span class="comment">//nothing to do</span>
+
+  srcppb = 8 / source-&gt;bpp;      <span class="comment">//pixels per byte</span>
+  <span class="keywordflow">if</span> (source-&gt;bpp == dest-&gt;bpp || !adjust_grey)
+    shift = 0;                   <span class="comment">//no adjustment</span>
+  <span class="keywordflow">else</span> {
+    shift = source-&gt;bps - dest-&gt;bps;
+    <span class="keywordflow">if</span> (shift &lt; 0)
+      shift = -shift;            <span class="comment">//keep positive</span>
+  }
+  aligned = source-&gt;bpp == dest-&gt;bpp;
+  <span class="keywordflow">if</span> (aligned &amp;&amp; srcppb != 0) {
+    aligned = xstart % srcppb == 0
+      &amp;&amp; xdest % srcppb == 0
+      &amp;&amp; (xext % srcppb == 0 || xdest + xext == dest-&gt;xsize);
+  }
+  <span class="keywordflow">for</span> (y = 0; y &lt; yext; y++) {
+    <span class="keywordflow">if</span> (ystart &gt;= ydest)
+      yoffset = y;               <span class="comment">//top down</span>
+    <span class="keywordflow">else</span>
+      yoffset = yext - y - 1;    <span class="comment">//bottom up</span>
+    source-&gt;<a class="code" href="class_i_m_a_g_e.html#a46c97959964cd92e2dc1a4f6248dfac3">check_legal_access</a> (xstart, ystart + yoffset, xext);
+    dest-&gt;<a class="code" href="class_i_m_a_g_e.html#a46c97959964cd92e2dc1a4f6248dfac3">check_legal_access</a> (xdest, ydest + yoffset, xext);
+    <span class="keywordflow">if</span> (aligned) {
+      bytesize = <a class="code" href="img_8h.html#a0ee65bc5580141bc6e2f538915b8af70">COMPUTE_IMAGE_XDIM</a> (xext, source-&gt;bpp);
+      <span class="comment">//get bytes per line</span>
+      <span class="keywordflow">if</span> (srcppb == 0)
+                                 <span class="comment">//do cheap move</span>
+        memmove (dest-&gt;image + (dest-&gt;ymax - 1 - ydest - yoffset) * dest-&gt;xdim + xdest * 3, source-&gt;image + (source-&gt;ymax - 1 - ystart - yoffset) * source-&gt;xdim + xstart * 3, (<span class="keywordtype">unsigned</span>) bytesize);
+      <span class="keywordflow">else</span>
+                                 <span class="comment">//do cheap move</span>
+        memmove (dest-&gt;image + (dest-&gt;ymax - 1 - ydest - yoffset) * dest-&gt;xdim + xdest / srcppb, source-&gt;image + (source-&gt;ymax - 1 - ystart - yoffset) * source-&gt;xdim + xstart / srcppb, (<span class="keywordtype">unsigned</span>) bytesize);
+    }
+    <span class="keywordflow">else</span> {
+      <span class="keywordflow">if</span> (shift == 0) {
+        source-&gt;<a class="code" href="class_i_m_a_g_e.html#a44de5c052ec0829de2aff958756beb0f">fast_get_line</a> (xstart, ystart + yoffset, xext,
+          &amp;copyline);
+      }
+      <span class="keywordflow">else</span> <span class="keywordflow">if</span> (source-&gt;bpp &lt; dest-&gt;bpp) {
+        source-&gt;<a class="code" href="class_i_m_a_g_e.html#ad3cdcd971f7c3089a0eb3b6ea968018b">get_line</a> (xstart, ystart + yoffset, xext, &amp;copyline, 0);
+        <span class="keywordflow">if</span> (source-&gt;bpp &lt;= shift
+        &amp;&amp; (source-&gt;bpp == 1 || source-&gt;bpp == 4)) {
+          <span class="keywordflow">if</span> (source-&gt;bpp == 1) {
+            <span class="keywordflow">for</span> (pixel = 0, copy = copyline.<a class="code" href="class_i_m_a_g_e_l_i_n_e.html#a0bf967eba44b6352a126f74c1a057172" title="image pixels">pixels</a>; pixel &lt; xext;
+              pixel++, copy++)
+            <span class="keywordflow">if</span> (*copy)
+              *copy = 0xff;
+          }
+          <span class="keywordflow">else</span> {
+            <span class="keywordflow">for</span> (pixel = 0, copy = copyline.<a class="code" href="class_i_m_a_g_e_l_i_n_e.html#a0bf967eba44b6352a126f74c1a057172" title="image pixels">pixels</a>; pixel &lt; xext;
+              pixel++, copy++)
+                                 <span class="comment">//scale up</span>
+            *copy = (*copy &lt;&lt; shift) | *copy;
+          }
+        }
+        <span class="keywordflow">else</span> {
+          <span class="keywordflow">for</span> (pixel = 0, copy = copyline.<a class="code" href="class_i_m_a_g_e_l_i_n_e.html#a0bf967eba44b6352a126f74c1a057172" title="image pixels">pixels</a>; pixel &lt; xext;
+            pixel++)
+          *copy++ &lt;&lt;= shift;     <span class="comment">//scale up</span>
+        }
+      }
+      <span class="keywordflow">else</span> {
+        source-&gt;<a class="code" href="class_i_m_a_g_e.html#ad3cdcd971f7c3089a0eb3b6ea968018b">get_line</a> (xstart, ystart + yoffset, xext, &amp;copyline, 0);
+        <span class="keywordflow">if</span> (source-&gt;bpp == 24) {
+          <span class="keywordflow">for</span> (pixel = 0, copy = copyline.<a class="code" href="class_i_m_a_g_e_l_i_n_e.html#a0bf967eba44b6352a126f74c1a057172" title="image pixels">pixels</a> + 1; pixel &lt; xext;
+          pixel++) {
+            *copy &gt;&gt;= shift;
+            copy += 3;
+          }
+        }
+        <span class="keywordflow">else</span> {
+          <span class="keywordflow">for</span> (pixel = 0, copy = copyline.<a class="code" href="class_i_m_a_g_e_l_i_n_e.html#a0bf967eba44b6352a126f74c1a057172" title="image pixels">pixels</a>; pixel &lt; xext;
+            pixel++)
+          *copy++ &gt;&gt;= shift;     <span class="comment">//scale down</span>
+        }
+      }
+      dest-&gt;<a class="code" href="class_i_m_a_g_e.html#afbea9591218792f2be5e805a77ee167d">put_line</a> (xdest, ydest + yoffset, xext, &amp;copyline, 0);
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad524b64ac508eee1576a4787e1f5f457"></a><!-- doxytag: member="imgs.h::enlarge_sub_image" ref="ad524b64ac508eee1576a4787e1f5f457" args="(IMAGE *source, inT32 xstart, inT32 ystart, IMAGE *dest, inT32 xdest, inT32 ydest, inT32 xext, inT32 yext, inT32 scale, BOOL8 adjust_grey)" -->
@@ -348,6 +510,103 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="imgs_8cpp_source.html#l00397">397</a> of file <a class="el" href="imgs_8cpp_source.html">imgs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                               {
+  <a class="code" href="host_8h.html#a2ba4d271e85baf0d333318985cb3bced">inT8</a> shift;                    <span class="comment">//shift factor</span>
+  <a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a> pixel;                   <span class="comment">//current pixel</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> srcext;                  <span class="comment">//source extent</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> xoffset;                 <span class="comment">//column index</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> yoffset;                 <span class="comment">//line index</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> xindex, yindex;          <span class="comment">//index in super pixel</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> startxindex;             <span class="comment">//initial x index</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> xscale;                  <span class="comment">//x scale factor</span>
+  <a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a> *src;                    <span class="comment">//source pixels</span>
+  <a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a> *destpix;                <span class="comment">//dest pixels</span>
+  <a class="code" href="class_i_m_a_g_e_l_i_n_e.html">IMAGELINE</a> copyline;            <span class="comment">//copy of line</span>
+  <a class="code" href="class_i_m_a_g_e_l_i_n_e.html">IMAGELINE</a> bigline;             <span class="comment">//expanded line</span>
+
+  <span class="keywordflow">if</span> (xstart &lt; 0 || ystart &lt; 0 || xdest &lt; 0 || ydest &lt; 0)
+    <span class="keywordflow">return</span>;
+
+  <span class="keywordflow">if</span> (xext &lt;= 0)
+    xext = dest-&gt;xsize;          <span class="comment">//default to all</span>
+  <span class="keywordflow">if</span> (xext &gt; source-&gt;xsize * scale - xstart)
+                                 <span class="comment">//clip to smallest</span>
+    xext = source-&gt;xsize * scale - xstart;
+  <span class="keywordflow">if</span> (xext &gt; dest-&gt;xsize - xdest)
+    xext = dest-&gt;xsize - xdest;
+  <span class="keywordflow">if</span> (yext &lt;= 0)
+    yext = dest-&gt;ysize;          <span class="comment">//default to all</span>
+  <span class="keywordflow">if</span> (yext &gt; source-&gt;ysize * scale - ystart)
+    yext = source-&gt;ysize * scale - ystart;
+  <span class="keywordflow">if</span> (yext &gt; dest-&gt;ysize - ydest)
+    yext = dest-&gt;ysize - ydest;
+  <span class="keywordflow">if</span> (xext &lt;= 0 || yext &lt;= 0)
+    <span class="keywordflow">return</span>;                      <span class="comment">//nothing to do</span>
+
+  xindex = xstart % scale;       <span class="comment">//offset in super pixel</span>
+  startxindex = xindex;
+  yindex = ystart % scale;
+                                 <span class="comment">//no of source pixels</span>
+  srcext = (xext + xindex + scale - 1) / scale;
+  xstart /= scale;               <span class="comment">//actual start</span>
+  ystart /= scale;
+  <span class="keywordflow">if</span> (adjust_grey) {
+    shift = dest-&gt;bps - source-&gt;bps;
+  }
+  <span class="keywordflow">else</span>
+    shift = 0;                   <span class="comment">//no adjustment</span>
+  bigline.<a class="code" href="class_i_m_a_g_e_l_i_n_e.html#a4cc90adaaa649d7fd24b35f57c517b7c">init</a> (xext * 3);
+  bigline.<a class="code" href="class_i_m_a_g_e_l_i_n_e.html#ac60badda4f68e244ddba91eacbe1ce80" title="bits per pixel">bpp</a> = dest-&gt;bpp == 24 ? source-&gt;bpp : dest-&gt;bpp;
+
+  <span class="keywordflow">for</span> (yoffset = 0; yoffset &lt; yext; ystart++) {
+    source-&gt;<a class="code" href="class_i_m_a_g_e.html#a46c97959964cd92e2dc1a4f6248dfac3">check_legal_access</a> (xstart, ystart, srcext);
+    dest-&gt;<a class="code" href="class_i_m_a_g_e.html#a46c97959964cd92e2dc1a4f6248dfac3">check_legal_access</a> (xdest, ydest + yoffset, xext);
+    source-&gt;<a class="code" href="class_i_m_a_g_e.html#a44de5c052ec0829de2aff958756beb0f">fast_get_line</a> (xstart, ystart, srcext, &amp;copyline);
+    src = copyline.<a class="code" href="class_i_m_a_g_e_l_i_n_e.html#a0bf967eba44b6352a126f74c1a057172" title="image pixels">pixels</a>;
+    destpix = bigline.<a class="code" href="class_i_m_a_g_e_l_i_n_e.html#a0bf967eba44b6352a126f74c1a057172" title="image pixels">pixels</a>;
+    xscale = scale;              <span class="comment">//enlargement factor</span>
+    <span class="keywordflow">if</span> (source-&gt;bpp == 24 &amp;&amp; dest-&gt;bpp == 24) {
+      <span class="keywordflow">for</span> (xoffset = 0, xindex = startxindex; xoffset &lt; xext;
+      src += source-&gt;bytespp) {
+        xoffset += xscale - xindex;
+        <span class="keywordflow">if</span> (xoffset &gt; xext)
+          xscale -= xoffset - xext;
+        <span class="keywordflow">for</span> (; xindex &lt; xscale; xindex++) {
+          *destpix++ = *src;
+          *destpix++ = *(src + 1);
+          *destpix++ = *(src + 2);
+        }
+        xindex = 0;
+      }
+    }
+    <span class="keywordflow">else</span> {
+      <span class="keywordflow">if</span> (source-&gt;bpp == 24)
+        src++;
+      <span class="keywordflow">for</span> (xoffset = 0, xindex = startxindex; xoffset &lt; xext;
+      src += source-&gt;bytespp) {
+        xoffset += xscale - xindex;
+        <span class="keywordflow">if</span> (xoffset &gt; xext)
+                                 <span class="comment">//clip to dest limit</span>
+            xscale -= xoffset - xext;
+        <span class="keywordflow">if</span> (shift == 0)
+          pixel = *src;
+        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (shift &gt; 0)
+          pixel = *src &lt;&lt; shift;
+        <span class="keywordflow">else</span>
+          pixel = *src &gt;&gt; (-shift);
+        <span class="keywordflow">for</span> (; xindex &lt; xscale; xindex++)
+          *destpix++ = pixel;    <span class="comment">//duplicate pixel</span>
+        xindex = 0;
+      }
+    }
+    <span class="keywordflow">for</span> (; yoffset &lt; yext &amp;&amp; yindex &lt; scale; yindex++, yoffset++) {
+      dest-&gt;<a class="code" href="class_i_m_a_g_e.html#afbea9591218792f2be5e805a77ee167d">put_line</a> (xdest, ydest + yoffset, xext, &amp;bigline, 0);
+    }
+    yindex = 0;
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ace8abc71ce7c0bb82ff54377abf45e66"></a><!-- doxytag: member="imgs.h::fast_reduce_sub_image" ref="ace8abc71ce7c0bb82ff54377abf45e66" args="(IMAGE *source, inT32 xstart, inT32 ystart, inT32 xext, inT32 yext, IMAGE *dest, inT32 xdest, inT32 ydest, inT32 scale, BOOL8 adjust_grey)" -->
@@ -423,6 +682,129 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="imgs_8cpp_source.html#l00515">515</a> of file <a class="el" href="imgs_8cpp_source.html">imgs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                   {
+  <a class="code" href="host_8h.html#a2ba4d271e85baf0d333318985cb3bced">inT8</a> shift;                    <span class="comment">//shift factor</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> xfactor;                 <span class="comment">//run on x coord</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> divisor;                 <span class="comment">//total cell area</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> xindex, yindex;          <span class="comment">//into averaging square</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> xcoord;                  <span class="comment">//current x coord</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> destext;                 <span class="comment">//destination size</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> yoffset;                 <span class="comment">//current adjusted offset</span>
+  <a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a> *pixel;                  <span class="comment">//ptr to source pixels</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> *sums;                   <span class="comment">//ptr to sums array</span>
+  <a class="code" href="class_i_m_a_g_e_l_i_n_e.html">IMAGELINE</a> copyline;            <span class="comment">//copy of line</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> *linesums;               <span class="comment">//averaging sums</span>
+
+  <span class="keywordflow">if</span> (xstart &lt; 0 || ystart &lt; 0 || xdest &lt; 0 || ydest &lt; 0)
+    <span class="keywordflow">return</span>;
+  <span class="keywordflow">if</span> (xext &lt;= 0)
+    xext = source-&gt;xsize;        <span class="comment">//default to all</span>
+  <span class="keywordflow">if</span> (xext &gt; source-&gt;xsize - xstart)
+                                 <span class="comment">//clip to smallest</span>
+      xext = source-&gt;xsize - xstart;
+  <span class="keywordflow">if</span> (xext &gt; (dest-&gt;xsize - xdest) * scale)
+    xext = (dest-&gt;xsize - xdest) * scale;
+  <span class="keywordflow">if</span> (yext &lt;= 0)
+    yext = source-&gt;ysize;        <span class="comment">//default to all</span>
+  <span class="keywordflow">if</span> (yext &gt; source-&gt;ysize - ystart)
+                                 <span class="comment">//clip to smallest</span>
+      yext = source-&gt;ysize - ystart;
+  <span class="keywordflow">if</span> (yext &gt; (dest-&gt;ysize - ydest) * scale)
+    yext = (dest-&gt;ysize - ydest) * scale;
+  <span class="keywordflow">if</span> (xext &lt;= 0 || yext &lt;= 0)
+    <span class="keywordflow">return</span>;                      <span class="comment">//nothing to do</span>
+
+  xfactor = xext % scale;        <span class="comment">//left overs</span>
+  <span class="keywordflow">if</span> (xfactor == 0)
+    xfactor = scale;
+                                 <span class="comment">//destination pixels</span>
+  destext = (xext + scale - 1) / scale;
+  <span class="keywordflow">if</span> (adjust_grey)
+                                 <span class="comment">//shift factor</span>
+    shift = dest-&gt;bps - source-&gt;bps;
+  <span class="keywordflow">else</span>
+    shift = 0;                   <span class="comment">//no adjustment</span>
+  linesums = <span class="keyword">new</span> <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a>[destext * source-&gt;bytespp];
+
+  <span class="keywordflow">for</span> (yoffset = 0; yoffset &lt; yext; ydest++) {
+    source-&gt;<a class="code" href="class_i_m_a_g_e.html#a46c97959964cd92e2dc1a4f6248dfac3">check_legal_access</a> (xstart, ystart + yoffset, xext);
+    dest-&gt;<a class="code" href="class_i_m_a_g_e.html#a46c97959964cd92e2dc1a4f6248dfac3">check_legal_access</a> (xdest, ydest, destext);
+    <span class="keywordflow">for</span> (xindex = destext * source-&gt;bytespp - 1; xindex &gt;= 0; xindex--)
+      linesums[xindex] = 0;      <span class="comment">//zero sums</span>
+    <span class="keywordflow">for</span> (yindex = 0; yindex &lt; scale
+    &amp;&amp; ystart + yoffset &lt; source-&gt;ysize; yindex += 3) {
+      source-&gt;<a class="code" href="class_i_m_a_g_e.html#a44de5c052ec0829de2aff958756beb0f">fast_get_line</a> (xstart, ystart + yoffset, xext, &amp;copyline);
+      pixel = copyline.<a class="code" href="class_i_m_a_g_e_l_i_n_e.html#a0bf967eba44b6352a126f74c1a057172" title="image pixels">pixels</a>;   <span class="comment">//start of line</span>
+      <span class="keywordflow">if</span> (source-&gt;bpp == 24) {
+        <span class="keywordflow">for</span> (xcoord = 1, sums = linesums; xcoord &lt; destext;
+        xcoord++, sums += 3) {
+          <span class="keywordflow">for</span> (xindex = 0; xindex &lt; scale; xindex += 2) {
+            *sums += *pixel++;
+            *(sums + 1) += *pixel++;
+            *(sums + 2) += *pixel++;
+            pixel += 3;
+          }
+          <span class="keywordflow">if</span> (scale &amp; 1)
+            pixel -= 3;          <span class="comment">//correct position</span>
+        }
+        <span class="keywordflow">for</span> (xindex = 0; xindex &lt; xfactor; xindex += 2) {
+          *sums += *pixel++;
+          *(sums + 1) += *pixel++;
+          *(sums + 2) += *pixel++;
+          pixel += 3;
+        }
+      }
+      <span class="keywordflow">else</span> {
+        <span class="keywordflow">for</span> (xcoord = 1, sums = linesums; xcoord &lt; destext;
+        xcoord++, sums++) {
+          <span class="keywordflow">for</span> (xindex = 0; xindex &lt; scale; xindex += 2) {
+            *sums += *pixel;
+            pixel += 2;
+          }
+          <span class="keywordflow">if</span> (scale &amp; 1)
+            pixel--;             <span class="comment">//correct position</span>
+        }
+        <span class="keywordflow">for</span> (xindex = 0; xindex &lt; xfactor; xindex += 2) {
+          *sums += *pixel;
+          pixel += 2;
+        }
+      }
+      yoffset += 3;              <span class="comment">//every 3 lines</span>
+    }
+    <span class="keywordflow">if</span> (yindex &gt; scale)
+      yoffset -= yindex - scale; <span class="comment">//back on right scale</span>
+    copyline.<a class="code" href="class_i_m_a_g_e_l_i_n_e.html#a4cc90adaaa649d7fd24b35f57c517b7c">init</a> ();            <span class="comment">//set pixels back to array</span>
+    copyline.<a class="code" href="class_i_m_a_g_e_l_i_n_e.html#ac60badda4f68e244ddba91eacbe1ce80" title="bits per pixel">bpp</a> = source-&gt;bpp;
+    pixel = copyline.<a class="code" href="class_i_m_a_g_e_l_i_n_e.html#a0bf967eba44b6352a126f74c1a057172" title="image pixels">pixels</a>;
+                                 <span class="comment">//pixels in block</span>
+    divisor = ((yindex + 2) / 3) * ((scale + 1) / 2);
+    <span class="keywordflow">if</span> (shift &lt;= 0) {
+      divisor &lt;&lt;= (-shift);      <span class="comment">//do greyscale correction</span>
+      <span class="keywordflow">for</span> (sums = linesums, xindex = (destext - 1) * source-&gt;bytespp;
+        xindex &gt; 0; xindex--)
+                                 <span class="comment">//turn to destination value</span>
+      *pixel++ = (<a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a>) (*sums++ / divisor);
+      <span class="keywordflow">for</span> (xindex = source-&gt;bytespp; xindex &gt; 0; xindex--)
+        *pixel++ = *sums++
+          / (((yindex + 2) / 3) * ((xfactor + 1) / 2) &lt;&lt; (-shift));
+      <span class="comment">//lastone different</span>
+    }
+    <span class="keywordflow">else</span> {
+      <span class="keywordflow">for</span> (sums = linesums, xindex = (destext - 1) * source-&gt;bytespp;
+        xindex &gt; 0; xindex--)
+      *pixel++ = (<a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a>) ((*sums++ &lt;&lt; shift) / divisor);
+      <span class="comment">//destination value</span>
+      <span class="keywordflow">for</span> (xindex = source-&gt;bytespp; xindex &gt; 0; xindex--)
+                                 <span class="comment">//last one different</span>
+        *pixel++ = (*(sums++) &lt;&lt; shift) / (((yindex + 2) / 3) * ((xfactor + 1) / 2));
+    }
+                                 <span class="comment">//put in destination</span>
+    dest-&gt;<a class="code" href="class_i_m_a_g_e.html#afbea9591218792f2be5e805a77ee167d">put_line</a> (xdest, ydest, destext, &amp;copyline, 0);
+  }
+  <span class="keyword">delete</span> [] linesums;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa6bebc6424c5e6afcb08178ed6b44158"></a><!-- doxytag: member="imgs.h::invert_image" ref="aa6bebc6424c5e6afcb08178ed6b44158" args="(IMAGE *image)" -->
@@ -440,6 +822,33 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="imgs_8cpp_source.html#l00796">796</a> of file <a class="el" href="imgs_8cpp_source.html">imgs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                          {
+  <a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a> mask;                    <span class="comment">//bit mask</span>
+  <a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a> bytespp;                 <span class="comment">//bytes per pixel</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> xsize, ysize;            <span class="comment">/*size of image */</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> xindex, yindex;          <span class="comment">/*index into image */</span>
+  <a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a> *pixel;                  <span class="comment">/*current pixel */</span>
+  <a class="code" href="class_i_m_a_g_e_l_i_n_e.html">IMAGELINE</a> line;                <span class="comment">/*line of image */</span>
+
+  bytespp = image-&gt;<a class="code" href="class_i_m_a_g_e.html#adc989f275743a36c9a9bce4b83c48c72">get_bpp</a> () == 24 ? 3 : 1;
+  xsize = image-&gt;<a class="code" href="class_i_m_a_g_e.html#aee6f16416203f7d678fc61ae22dedc6e">get_xsize</a> ();   <span class="comment">/*find sizes */</span>
+  ysize = image-&gt;<a class="code" href="class_i_m_a_g_e.html#a3f8caf7062bd65eea2fc068fb3ec7c10">get_ysize</a> ();
+                                 <span class="comment">//pixel mask</span>
+  mask = (1 &lt;&lt; image-&gt;<a class="code" href="class_i_m_a_g_e.html#adc989f275743a36c9a9bce4b83c48c72">get_bpp</a> ()) - 1;
+                                 <span class="comment">/*do each line */</span>
+  <span class="keywordflow">for</span> (yindex = ysize - 1; yindex &gt;= 0; yindex--) {
+    image-&gt;<a class="code" href="class_i_m_a_g_e.html#a44de5c052ec0829de2aff958756beb0f">fast_get_line</a> (0, yindex, xsize, &amp;line);
+    <span class="keywordflow">for</span> (pixel = line.<a class="code" href="class_i_m_a_g_e_l_i_n_e.html#a0bf967eba44b6352a126f74c1a057172" title="image pixels">pixels</a>, xindex = xsize * bytespp; xindex &gt; 0;
+      xindex--) {
+      *pixel = (*pixel) ^ mask;  <span class="comment">//invert image only</span>
+      ++pixel;
+    }
+                                 <span class="comment">/*put it back */</span>
+    image-&gt;<a class="code" href="class_i_m_a_g_e.html#a97634582d0c01e510827711338a50425">fast_put_line</a> (0, yindex, xsize, &amp;line);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a987ea5c1e5f652311b99892283211a79"></a><!-- doxytag: member="imgs.h::reduce_sub_image" ref="a987ea5c1e5f652311b99892283211a79" args="(IMAGE *source, inT32 xstart, inT32 ystart, inT32 xext, inT32 yext, IMAGE *dest, inT32 xdest, inT32 ydest, inT32 scale, BOOL8 adjust_grey)" -->
@@ -515,6 +924,128 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="imgs_8cpp_source.html#l00657">657</a> of file <a class="el" href="imgs_8cpp_source.html">imgs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                              {
+  <a class="code" href="host_8h.html#a2ba4d271e85baf0d333318985cb3bced">inT8</a> shift;                    <span class="comment">//shift factor</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> xfactor;                 <span class="comment">//run on x coord</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> divisor;                 <span class="comment">//total cell area</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> div2;                    <span class="comment">//total cell area divided by 2</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> xindex, yindex;          <span class="comment">//into averaging square</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> xcoord;                  <span class="comment">//current x coord</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> destext;                 <span class="comment">//destination size</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> yoffset;                 <span class="comment">//current adjusted offset</span>
+  <a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a> *pixel;                  <span class="comment">//ptr to source pixels</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> *sums;                   <span class="comment">//ptr to sums array</span>
+  <a class="code" href="class_i_m_a_g_e_l_i_n_e.html">IMAGELINE</a> copyline;            <span class="comment">//copy of line</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> *linesums;               <span class="comment">//averaging sums</span>
+
+  <span class="keywordflow">if</span> (xstart &lt; 0 || ystart &lt; 0 || xdest &lt; 0 || ydest &lt; 0)
+    <span class="keywordflow">return</span>;
+  <span class="keywordflow">if</span> (xext &lt;= 0)
+    xext = source-&gt;xsize;        <span class="comment">//default to all</span>
+  <span class="keywordflow">if</span> (xext &gt; source-&gt;xsize - xstart)
+                                 <span class="comment">//clip to smallest</span>
+      xext = source-&gt;xsize - xstart;
+  <span class="keywordflow">if</span> (xext &gt; (dest-&gt;xsize - xdest) * scale)
+    xext = (dest-&gt;xsize - xdest) * scale;
+  <span class="keywordflow">if</span> (yext &lt;= 0)
+    yext = source-&gt;ysize;        <span class="comment">//default to all</span>
+  <span class="keywordflow">if</span> (yext &gt; source-&gt;ysize - ystart)
+                                 <span class="comment">//clip to smallest</span>
+      yext = source-&gt;ysize - ystart;
+  <span class="keywordflow">if</span> (yext &gt; (dest-&gt;ysize - ydest) * scale)
+    yext = (dest-&gt;ysize - ydest) * scale;
+  <span class="keywordflow">if</span> (xext &lt;= 0 || yext &lt;= 0)
+    <span class="keywordflow">return</span>;                      <span class="comment">//nothing to do</span>
+
+  xfactor = xext % scale;        <span class="comment">//left overs</span>
+  <span class="keywordflow">if</span> (xfactor == 0)
+    xfactor = scale;
+                                 <span class="comment">//destination pixels</span>
+  destext = (xext + scale - 1) / scale;
+  <span class="keywordflow">if</span> (adjust_grey)
+                                 <span class="comment">//shift factor</span>
+    shift = dest-&gt;bps - source-&gt;bps;
+  <span class="keywordflow">else</span>
+    shift = 0;                   <span class="comment">//no adjustment</span>
+  linesums = <span class="keyword">new</span> <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a>[destext * source-&gt;bytespp];
+
+  <span class="keywordflow">for</span> (yoffset = 0; yoffset &lt; yext; ydest++) {
+    source-&gt;<a class="code" href="class_i_m_a_g_e.html#a46c97959964cd92e2dc1a4f6248dfac3">check_legal_access</a> (xstart, ystart + yoffset, xext);
+    dest-&gt;<a class="code" href="class_i_m_a_g_e.html#a46c97959964cd92e2dc1a4f6248dfac3">check_legal_access</a> (xdest, ydest, destext);
+    <span class="keywordflow">for</span> (xindex = 0; xindex &lt; (destext) * source-&gt;bytespp; xindex++)
+      linesums[xindex] = 0;      <span class="comment">//zero sums</span>
+    <span class="keywordflow">for</span> (yindex = 0; yindex &lt; scale &amp;&amp; ystart + yoffset &lt; source-&gt;ysize;
+    yindex++) {
+      source-&gt;<a class="code" href="class_i_m_a_g_e.html#a44de5c052ec0829de2aff958756beb0f">fast_get_line</a> (xstart, ystart + yoffset, xext, &amp;copyline);
+      pixel = copyline.<a class="code" href="class_i_m_a_g_e_l_i_n_e.html#a0bf967eba44b6352a126f74c1a057172" title="image pixels">pixels</a>;   <span class="comment">//start of line</span>
+      <span class="keywordflow">if</span> (source-&gt;bpp == 24) {
+        <span class="keywordflow">for</span> (xcoord = 1, sums = linesums; xcoord &lt; destext;
+        xcoord++, sums += 3) {
+          <span class="keywordflow">for</span> (xindex = 0; xindex &lt; scale; xindex++) {
+            *sums += *pixel++;
+            *(sums + 1) += *pixel++;
+            *(sums + 2) += *pixel++;
+          }
+        }
+        <span class="keywordflow">for</span> (xindex = 0; xindex &lt; xfactor; xindex++) {
+          *sums += *pixel++;
+          *(sums + 1) += *pixel++;
+          *(sums + 2) += *pixel++;
+        }
+      }
+      <span class="keywordflow">else</span> {
+        <span class="keywordflow">for</span> (xcoord = 1, sums = linesums; xcoord &lt; destext;
+        xcoord++, sums++) {
+          <span class="keywordflow">for</span> (xindex = 0; xindex &lt; scale; xindex++)
+            *sums += *pixel++;
+        }
+        <span class="keywordflow">for</span> (xindex = 0; xindex &lt; xfactor; xindex++)
+          *sums += *pixel++;
+      }
+      yoffset++;                 <span class="comment">//next line</span>
+    }
+    copyline.<a class="code" href="class_i_m_a_g_e_l_i_n_e.html#a4cc90adaaa649d7fd24b35f57c517b7c">init</a> ();            <span class="comment">//set pixels back to array</span>
+    copyline.<a class="code" href="class_i_m_a_g_e_l_i_n_e.html#a6037be8392ca69c8514ccc78c92c4f26">set_bpp</a> (source-&gt;bpp);
+    pixel = copyline.<a class="code" href="class_i_m_a_g_e_l_i_n_e.html#a0bf967eba44b6352a126f74c1a057172" title="image pixels">pixels</a>;
+    divisor = yindex * scale;
+    <span class="keywordflow">if</span> (divisor == 0) {
+      <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>
+        (<span class="stringliteral">&quot;Impossible:divisor=0!, yindex=%d, scale=%d, yoffset=%d,yext=%d\n&quot;</span>,
+        yindex, scale, yoffset, yext);
+      <span class="keywordflow">break</span>;
+    }
+    <span class="keywordflow">if</span> (shift &lt;= 0) {
+      divisor &lt;&lt;= (-shift);      <span class="comment">//do greyscale correction</span>
+      div2 = divisor / 2;
+      <span class="keywordflow">for</span> (sums = linesums, xindex = (destext - 1) * source-&gt;bytespp;
+        xindex &gt; 0; xindex--)
+      *pixel++ = (<a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a>) ((div2 + *sums++) / divisor);
+      <span class="comment">//turn to destination value</span>
+      div2 = (yindex * xfactor &lt;&lt; (-shift)) / 2;
+      <span class="keywordflow">for</span> (xindex = source-&gt;bytespp; xindex &gt; 0; xindex--)
+        *pixel++ =
+          (<a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a>) ((div2 + *sums++) / (yindex * xfactor &lt;&lt; (-shift)));
+      <span class="comment">//lastone different</span>
+    }
+    <span class="keywordflow">else</span> {
+      div2 = divisor / 2;
+      <span class="keywordflow">for</span> (sums = linesums, xindex = (destext - 1) * source-&gt;bytespp;
+        xindex &gt; 0; xindex--)
+      *pixel++ = (<a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a>) ((div2 + (*sums++ &lt;&lt; shift)) / divisor);
+      <span class="comment">//destination value</span>
+      div2 = (yindex * xfactor) / 2;
+      <span class="keywordflow">for</span> (xindex = source-&gt;bytespp; xindex &gt; 0; xindex--)
+        *pixel++ =
+          (<a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a>) ((div2 + (*sums++ &lt;&lt; shift)) / (yindex * xfactor));
+      <span class="comment">//last one different</span>
+    }
+                                 <span class="comment">//put in destination</span>
+    dest-&gt;<a class="code" href="class_i_m_a_g_e.html#afbea9591218792f2be5e805a77ee167d">put_line</a> (xdest, ydest, destext, &amp;copyline, 0);
+  }
+  <span class="keyword">delete</span> [] linesums;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a8e16bf9c8a0b05003c82b692f5549b40"></a><!-- doxytag: member="imgs.h::starbase_to_normal" ref="a8e16bf9c8a0b05003c82b692f5549b40" args="(IMAGE *source, inT32 xstart, inT32 ystart, inT32 xext, inT32 yext, IMAGE *dest, inT32 xdest, inT32 ydest, BOOL8 preserve_grey)" -->
@@ -584,6 +1115,83 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="imgs_8cpp_source.html#l00881">881</a> of file <a class="el" href="imgs_8cpp_source.html">imgs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                {
+  <a class="code" href="class_i_m_a_g_e_l_i_n_e.html">IMAGELINE</a> copyline;            <span class="comment">//copy of line</span>
+  <a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a> *copy;                   <span class="comment">//source pointer</span>
+  <a class="code" href="host_8h.html#a2ba4d271e85baf0d333318985cb3bced">inT8</a> shift4;                   <span class="comment">//shift factor</span>
+  <a class="code" href="host_8h.html#a2ba4d271e85baf0d333318985cb3bced">inT8</a> shift6;                   <span class="comment">//shift factor</span>
+  <a class="code" href="host_8h.html#a2ba4d271e85baf0d333318985cb3bced">inT8</a> colour_shift;             <span class="comment">//shift of colours</span>
+  <a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a> white_level;             <span class="comment">//dest white value</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> pixel;                   <span class="comment">//pixel index</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> y;                       <span class="comment">//line index</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> yoffset;                 <span class="comment">//current adjusted offset</span>
+  <a class="code" href="host_8h.html#a2ba4d271e85baf0d333318985cb3bced">inT8</a> srcppb;                   <span class="comment">//pixels per byte</span>
+
+  <span class="keywordflow">if</span> (xstart &lt; 0 || ystart &lt; 0 || xdest &lt; 0 || ydest &lt; 0)
+    <span class="keywordflow">return</span>;
+  <span class="keywordflow">if</span> (xext &lt;= 0)
+    xext = source-&gt;<a class="code" href="class_i_m_a_g_e.html#aee6f16416203f7d678fc61ae22dedc6e">get_xsize</a> (); <span class="comment">//default to all</span>
+  <span class="keywordflow">if</span> (xext &gt; source-&gt;<a class="code" href="class_i_m_a_g_e.html#aee6f16416203f7d678fc61ae22dedc6e">get_xsize</a> () - xstart)
+                                 <span class="comment">//clip to smallest</span>
+    xext = source-&gt;<a class="code" href="class_i_m_a_g_e.html#aee6f16416203f7d678fc61ae22dedc6e">get_xsize</a> () - xstart;
+  <span class="keywordflow">if</span> (xext &gt; dest-&gt;<a class="code" href="class_i_m_a_g_e.html#aee6f16416203f7d678fc61ae22dedc6e">get_xsize</a> () - xdest)
+    xext = dest-&gt;<a class="code" href="class_i_m_a_g_e.html#aee6f16416203f7d678fc61ae22dedc6e">get_xsize</a> () - xdest;
+  <span class="keywordflow">if</span> (yext &lt;= 0)
+    yext = source-&gt;<a class="code" href="class_i_m_a_g_e.html#a3f8caf7062bd65eea2fc068fb3ec7c10">get_ysize</a> (); <span class="comment">//default to all</span>
+  <span class="keywordflow">if</span> (yext &gt; source-&gt;<a class="code" href="class_i_m_a_g_e.html#a3f8caf7062bd65eea2fc068fb3ec7c10">get_ysize</a> () - ystart)
+                                 <span class="comment">//clip to smallest</span>
+    yext = source-&gt;<a class="code" href="class_i_m_a_g_e.html#a3f8caf7062bd65eea2fc068fb3ec7c10">get_ysize</a> () - ystart;
+  <span class="keywordflow">if</span> (yext &gt; dest-&gt;<a class="code" href="class_i_m_a_g_e.html#a3f8caf7062bd65eea2fc068fb3ec7c10">get_ysize</a> () - ydest)
+    yext = dest-&gt;<a class="code" href="class_i_m_a_g_e.html#a3f8caf7062bd65eea2fc068fb3ec7c10">get_ysize</a> () - ydest;
+  <span class="keywordflow">if</span> (xext &lt;= 0 || yext &lt;= 0)
+    <span class="keywordflow">return</span>;                      <span class="comment">//nothing to do</span>
+
+                                 <span class="comment">//pixels per byte</span>
+  srcppb = 8 / source-&gt;<a class="code" href="class_i_m_a_g_e.html#adc989f275743a36c9a9bce4b83c48c72">get_bpp</a> ();
+  shift4 = 4 - dest-&gt;<a class="code" href="class_i_m_a_g_e.html#adc989f275743a36c9a9bce4b83c48c72">get_bpp</a> (); <span class="comment">//for different bpps</span>
+  shift6 = 6 - dest-&gt;<a class="code" href="class_i_m_a_g_e.html#adc989f275743a36c9a9bce4b83c48c72">get_bpp</a> ();
+                                 <span class="comment">//for grey preserve</span>
+  colour_shift = 8 - dest-&gt;<a class="code" href="class_i_m_a_g_e.html#adc989f275743a36c9a9bce4b83c48c72">get_bpp</a> ();
+  white_level = dest-&gt;<a class="code" href="class_i_m_a_g_e.html#afa7970786b9c8a5e93b5496b5a3ae71a">get_white_level</a> ();
+  <span class="keywordflow">for</span> (y = 0; y &lt; yext; y++) {
+    <span class="keywordflow">if</span> (ystart &gt;= ydest)
+      yoffset = y;               <span class="comment">//top down</span>
+    <span class="keywordflow">else</span>
+      yoffset = yext - y - 1;    <span class="comment">//bottom up</span>
+    source-&gt;<a class="code" href="class_i_m_a_g_e.html#a46c97959964cd92e2dc1a4f6248dfac3">check_legal_access</a> (xstart, ystart + yoffset, xext);
+    dest-&gt;<a class="code" href="class_i_m_a_g_e.html#a46c97959964cd92e2dc1a4f6248dfac3">check_legal_access</a> (xdest, ydest + yoffset, xext);
+    source-&gt;<a class="code" href="class_i_m_a_g_e.html#ad3cdcd971f7c3089a0eb3b6ea968018b">get_line</a> (xstart, ystart + yoffset, xext, &amp;copyline, 0);
+    <span class="keywordflow">for</span> (pixel = 0, copy = copyline.<a class="code" href="class_i_m_a_g_e_l_i_n_e.html#a0bf967eba44b6352a126f74c1a057172" title="image pixels">pixels</a>; pixel &lt; xext; pixel++) {
+      <span class="keywordflow">if</span> (*copy &lt; <a class="code" href="imgs_8cpp.html#afe6424da3124ece686c28e5098738357">FIXED_COLOURS</a> &amp;&amp; preserve_grey)
+        *copy = <a class="code" href="imgs_8cpp.html#acbb702db45cd9f85936cb0cd8b9652bd">grey_scales</a>[*copy] &gt;&gt; colour_shift;
+      <span class="keywordflow">else</span> <span class="keywordflow">if</span> (*copy &lt; <a class="code" href="imgs_8cpp.html#afe6424da3124ece686c28e5098738357">FIXED_COLOURS</a>) {
+        <span class="keywordflow">if</span> (*copy == <a class="code" href="imgs_8cpp.html#a31503e4b0f23137edefe782ad5632878">BLACK_PIX</a>)
+          *copy = white_level;   <span class="comment">//black-&gt;white</span>
+        <span class="keywordflow">else</span>
+          *copy = 0;             <span class="comment">//others-&gt;black</span>
+      }
+      <span class="keywordflow">else</span> <span class="keywordflow">if</span> (*copy &gt;= <a class="code" href="imgs_8cpp.html#a1660edd57e10b58c80d61135cfbb605e">MIN_4BIT</a> &amp;&amp; *copy &lt; <a class="code" href="imgs_8cpp.html#a3994c0a53601a0cece4b5ec6f9245d0d">MAX_4BIT</a>) {
+        <span class="keywordflow">if</span> (shift4 &lt; 0)
+          *copy = (*copy - <a class="code" href="imgs_8cpp.html#a1660edd57e10b58c80d61135cfbb605e">MIN_4BIT</a>) &lt;&lt; (-shift4);
+        <span class="keywordflow">else</span>
+          *copy = (*copy - <a class="code" href="imgs_8cpp.html#a1660edd57e10b58c80d61135cfbb605e">MIN_4BIT</a>) &gt;&gt; shift4;
+      }
+      <span class="keywordflow">else</span> <span class="keywordflow">if</span> (*copy &gt;= <a class="code" href="imgs_8cpp.html#ad683ffb2275a912ba4dc7a7b4370e31c">MIN_6BIT</a> &amp;&amp; *copy &lt; <a class="code" href="imgs_8cpp.html#a8243e83cdb4b1c26cf2fecf744f5b0b4">MAX_6BIT</a>) {
+        <span class="keywordflow">if</span> (shift6 &lt; 0)
+          *copy = (*copy - <a class="code" href="imgs_8cpp.html#ad683ffb2275a912ba4dc7a7b4370e31c">MIN_6BIT</a>) &lt;&lt; (-shift6);
+        <span class="keywordflow">else</span>
+          *copy = (*copy - <a class="code" href="imgs_8cpp.html#ad683ffb2275a912ba4dc7a7b4370e31c">MIN_6BIT</a>) &gt;&gt; shift6;
+      }
+      <span class="keywordflow">else</span> {
+        *copy = white_level;     <span class="comment">//white the rest</span>
+      }
+      copy++;
+    }
+    dest-&gt;<a class="code" href="class_i_m_a_g_e.html#afbea9591218792f2be5e805a77ee167d">put_line</a> (xdest, ydest + yoffset, xext, &amp;copyline, 0);
+  }
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Variable Documentation</h2>
@@ -598,6 +1206,8 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"Image resolution dpi" </p>
+
+<p>Definition at line <a class="el" href="imgs_8cpp_source.html#l00064">64</a> of file <a class="el" href="imgs_8cpp_source.html">imgs.cpp</a>.</p>
 
 </div>
 </div>
@@ -621,7 +1231,7 @@ Variables</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:10 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:42 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

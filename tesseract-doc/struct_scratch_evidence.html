@@ -120,7 +120,10 @@ Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_scratch_evidence.html#ab308dd0dfb19adb21841cd771470de26">sum_feature_evidence_</a> [MAX_NUM_CONFIGS]</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_scratch_evidence.html#a9b3d9a4f9c214b55d313d9241d3ee71a">proto_evidence_</a> [MAX_NUM_PROTOS][MAX_PROTO_INDEX]</td></tr>
 </table>
-<hr/><h2>Member Function Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="intmatcher_8h_source.html#l00076">76</a> of file <a class="el" href="intmatcher_8h_source.html">intmatcher.h</a>.</p>
+</div><hr/><h2>Member Function Documentation</h2>
 <a class="anchor" id="a2c13d9e0b848687d31343e91e7084814"></a><!-- doxytag: member="ScratchEvidence::Clear" ref="a2c13d9e0b848687d31343e91e7084814" args="(const INT_CLASS class_template)" -->
 <div class="memitem">
 <div class="memproto">
@@ -137,6 +140,14 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>---------------------------------------------------------------------------- Private Code ---------------------------------------------------------------------------- </p>
 
+<p>Definition at line <a class="el" href="intmatcher_8cpp_source.html#l00741">741</a> of file <a class="el" href="intmatcher_8cpp_source.html">intmatcher.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                          {
+  memset(<a class="code" href="struct_scratch_evidence.html#ab308dd0dfb19adb21841cd771470de26">sum_feature_evidence_</a>, 0,
+         class_template-&gt;<a class="code" href="struct_i_n_t___c_l_a_s_s___s_t_r_u_c_t.html#abb9c509f11364b949fe9764bc122938c">NumConfigs</a> * <span class="keyword">sizeof</span>(<a class="code" href="struct_scratch_evidence.html#ab308dd0dfb19adb21841cd771470de26">sum_feature_evidence_</a>[0]));
+  memset(<a class="code" href="struct_scratch_evidence.html#a9b3d9a4f9c214b55d313d9241d3ee71a">proto_evidence_</a>, 0,
+         class_template-&gt;<a class="code" href="struct_i_n_t___c_l_a_s_s___s_t_r_u_c_t.html#ab81b4bb4bddc50d49d1a66b809d9f629">NumProtos</a> * <span class="keyword">sizeof</span>(<a class="code" href="struct_scratch_evidence.html#a9b3d9a4f9c214b55d313d9241d3ee71a">proto_evidence_</a>[0]));
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a471d50a958b4db76b029fb80cfe518df"></a><!-- doxytag: member="ScratchEvidence::ClearFeatureEvidence" ref="a471d50a958b4db76b029fb80cfe518df" args="(const INT_CLASS class_template)" -->
@@ -154,6 +165,12 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intmatcher_8cpp_source.html#l00748">748</a> of file <a class="el" href="intmatcher_8cpp_source.html">intmatcher.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                         {
+  memset(<a class="code" href="struct_scratch_evidence.html#a84bd5533dcf7e98c637ccb86bbe826a3">feature_evidence_</a>, 0,
+         class_template-&gt;<a class="code" href="struct_i_n_t___c_l_a_s_s___s_t_r_u_c_t.html#abb9c509f11364b949fe9764bc122938c">NumConfigs</a> * <span class="keyword">sizeof</span>(<a class="code" href="struct_scratch_evidence.html#a84bd5533dcf7e98c637ccb86bbe826a3">feature_evidence_</a>[0]));
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a464a2acbcf47898c7028173204793749"></a><!-- doxytag: member="ScratchEvidence::NormalizeSums" ref="a464a2acbcf47898c7028173204793749" args="(INT_CLASS ClassTemplate, inT16 NumFeatures, inT32 used_features)" -->
@@ -187,6 +204,15 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intmatcher_8cpp_source.html#l01225">1225</a> of file <a class="el" href="intmatcher_8cpp_source.html">intmatcher.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                     {
+
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; ClassTemplate-&gt;<a class="code" href="struct_i_n_t___c_l_a_s_s___s_t_r_u_c_t.html#abb9c509f11364b949fe9764bc122938c">NumConfigs</a>; i++) {
+    <a class="code" href="struct_scratch_evidence.html#ab308dd0dfb19adb21841cd771470de26">sum_feature_evidence_</a>[i] = (<a class="code" href="struct_scratch_evidence.html#ab308dd0dfb19adb21841cd771470de26">sum_feature_evidence_</a>[i] &lt;&lt; 8) /
+        (NumFeatures + ClassTemplate-&gt;<a class="code" href="struct_i_n_t___c_l_a_s_s___s_t_r_u_c_t.html#a86454e5d855825a4b2b370038598e88c">ConfigLengths</a>[i]);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a79dd917414b5c32c9c181fce578fd919"></a><!-- doxytag: member="ScratchEvidence::UpdateSumOfProtoEvidences" ref="a79dd917414b5c32c9c181fce578fd919" args="(INT_CLASS ClassTemplate, BIT_VECTOR ConfigMask, inT16 NumFeatures)" -->
@@ -220,6 +246,43 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intmatcher_8cpp_source.html#l01183">1183</a> of file <a class="el" href="intmatcher_8cpp_source.html">intmatcher.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                       {
+
+  <span class="keywordtype">int</span> *IntPointer;
+  <a class="code" href="host_8h.html#afc8530b39ebe0b6df1e19159d2508d15">uinT32</a> ConfigWord;
+  <span class="keywordtype">int</span> ProtoSetIndex;
+  <a class="code" href="host_8h.html#acb2dfad543247740dab87d31bb49dfff">uinT16</a> ProtoNum;
+  <a class="code" href="struct_p_r_o_t_o___s_e_t___s_t_r_u_c_t.html">PROTO_SET</a> ProtoSet;
+  <span class="keywordtype">int</span> NumProtos;
+  <a class="code" href="host_8h.html#acb2dfad543247740dab87d31bb49dfff">uinT16</a> ActualProtoNum;
+
+  NumProtos = ClassTemplate-&gt;<a class="code" href="struct_i_n_t___c_l_a_s_s___s_t_r_u_c_t.html#ab81b4bb4bddc50d49d1a66b809d9f629">NumProtos</a>;
+
+  <span class="keywordflow">for</span> (ProtoSetIndex = 0; ProtoSetIndex &lt; ClassTemplate-&gt;<a class="code" href="struct_i_n_t___c_l_a_s_s___s_t_r_u_c_t.html#a92a0b5397c2b6f3cc0346a72ce3595bd">NumProtoSets</a>;
+       ProtoSetIndex++) {
+    ProtoSet = ClassTemplate-&gt;<a class="code" href="struct_i_n_t___c_l_a_s_s___s_t_r_u_c_t.html#ac11726dfb0e9ac06fd00351082ca7888">ProtoSets</a>[ProtoSetIndex];
+    ActualProtoNum = (ProtoSetIndex * <a class="code" href="intproto_8h.html#ac6c8bf8f6110ef3cfc4bcd13d52c475c">PROTOS_PER_PROTO_SET</a>);
+    <span class="keywordflow">for</span> (ProtoNum = 0;
+         ((ProtoNum &lt; <a class="code" href="intproto_8h.html#ac6c8bf8f6110ef3cfc4bcd13d52c475c">PROTOS_PER_PROTO_SET</a>) &amp;&amp; (ActualProtoNum &lt; NumProtos));
+         ProtoNum++, ActualProtoNum++) {
+      <span class="keywordtype">int</span> temp = 0;
+      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; ClassTemplate-&gt;<a class="code" href="struct_i_n_t___c_l_a_s_s___s_t_r_u_c_t.html#a9b4f333b97970433f1c34d45103281d3">ProtoLengths</a>[ActualProtoNum]; i++)
+        temp += <a class="code" href="struct_scratch_evidence.html#a9b3d9a4f9c214b55d313d9241d3ee71a">proto_evidence_</a>[ActualProtoNum] [i];
+
+      ConfigWord = ProtoSet-&gt;<a class="code" href="struct_p_r_o_t_o___s_e_t___s_t_r_u_c_t.html#aec92455cfcae19d9a7278ab3e8733d11">Protos</a>[ProtoNum].<a class="code" href="struct_i_n_t___p_r_o_t_o___s_t_r_u_c_t.html#a897689cf42ad3255533f8d26f5fb4eb8">Configs</a>[0];
+      ConfigWord &amp;= *ConfigMask;
+      IntPointer = <a class="code" href="struct_scratch_evidence.html#ab308dd0dfb19adb21841cd771470de26">sum_feature_evidence_</a>;
+      <span class="keywordflow">while</span> (ConfigWord) {
+        <span class="keywordflow">if</span> (ConfigWord &amp; 1)
+          *IntPointer += temp;
+        IntPointer++;
+        ConfigWord &gt;&gt;= 1;
+      }
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
@@ -234,6 +297,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intmatcher_8h_source.html#l00077">77</a> of file <a class="el" href="intmatcher_8h_source.html">intmatcher.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a9b3d9a4f9c214b55d313d9241d3ee71a"></a><!-- doxytag: member="ScratchEvidence::proto_evidence_" ref="a9b3d9a4f9c214b55d313d9241d3ee71a" args="[MAX_NUM_PROTOS][MAX_PROTO_INDEX]" -->
@@ -246,6 +311,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="intmatcher_8h_source.html#l00079">79</a> of file <a class="el" href="intmatcher_8h_source.html">intmatcher.h</a>.</p>
 
 </div>
 </div>
@@ -260,11 +327,13 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intmatcher_8h_source.html#l00078">78</a> of file <a class="el" href="intmatcher_8h_source.html">intmatcher.h</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following files:<ul>
 <li>tesseract-ocr/classify/<a class="el" href="intmatcher_8h_source.html">intmatcher.h</a></li>
-<li>tesseract-ocr/classify/<a class="el" href="intmatcher_8cpp.html">intmatcher.cpp</a></li>
+<li>tesseract-ocr/classify/<a class="el" href="intmatcher_8cpp_source.html">intmatcher.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -286,7 +355,7 @@ Public Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:13 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:46 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

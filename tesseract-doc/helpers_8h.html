@@ -144,6 +144,15 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="helpers_8h_source.html#l00032">32</a> of file <a class="el" href="helpers_8h_source.html">helpers.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                    {
+  <span class="keywordtype">int</span> last_index = strlen(str) - 1;
+  <span class="keywordflow">while</span> (last_index &gt;= 0 &amp;&amp;
+         (str[last_index] == <span class="charliteral">&#39;\n&#39;</span> || str[last_index] == <span class="charliteral">&#39;\r&#39;</span>)) {
+    str[last_index--] = <span class="charliteral">&#39;\0&#39;</span>;
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="af8739168d5b3235996eeb25dac3c4044"></a><!-- doxytag: member="helpers.h::ClipToRange" ref="af8739168d5b3235996eeb25dac3c4044" args="(const T &amp;x, const T &amp;lower_bound, const T &amp;upper_bound)" -->
@@ -179,6 +188,15 @@ template&lt;typename T &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="helpers_8h_source.html#l00064">64</a> of file <a class="el" href="helpers_8h_source.html">helpers.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                             {
+  <span class="keywordflow">if</span> (x &lt; lower_bound)
+    <span class="keywordflow">return</span> lower_bound;
+  <span class="keywordflow">if</span> (x &gt; upper_bound)
+    <span class="keywordflow">return</span> upper_bound;
+  <span class="keywordflow">return</span> x;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a29e9efc11d2c7cdfa4c30881e82999dc"></a><!-- doxytag: member="helpers.h::DivRounded" ref="a29e9efc11d2c7cdfa4c30881e82999dc" args="(int a, int b)" -->
@@ -206,6 +224,12 @@ template&lt;typename T &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="helpers_8h_source.html#l00115">115</a> of file <a class="el" href="helpers_8h_source.html">helpers.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                    {
+  <span class="keywordflow">if</span> (b &lt; 0) <span class="keywordflow">return</span> -<a class="code" href="helpers_8h.html#a29e9efc11d2c7cdfa4c30881e82999dc">DivRounded</a>(a, -b);
+  <span class="keywordflow">return</span> a &gt;= 0 ? (a + b / 2) / b : (a - b / 2) / b;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab60e4f82956a1f5fdb54d0d8303e95b7"></a><!-- doxytag: member="helpers.h::IntCastRounded" ref="ab60e4f82956a1f5fdb54d0d8303e95b7" args="(double x)" -->
@@ -223,6 +247,11 @@ template&lt;typename T &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="helpers_8h_source.html#l00121">121</a> of file <a class="el" href="helpers_8h_source.html">helpers.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                    {
+  <span class="keywordflow">return</span> x &gt;= 0.0 ? <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(x + 0.5) : -<span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(-x + 0.5);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6a6e013c7a0b4afa87f5e37697f7f99f"></a><!-- doxytag: member="helpers.h::IntersectRange" ref="a6a6e013c7a0b4afa87f5e37697f7f99f" args="(const T &amp;lower1, const T &amp;upper1, T *lower2, T *upper2)" -->
@@ -264,6 +293,14 @@ template&lt;typename T &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="helpers_8h_source.html#l00095">95</a> of file <a class="el" href="helpers_8h_source.html">helpers.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                 {
+  <span class="keywordflow">if</span> (lower1 &gt; *lower2)
+    *lower2 = lower1;
+  <span class="keywordflow">if</span> (upper1 &lt; *upper2)
+    *upper2 = upper1;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a560c3ba94fe224dd67b10bd4cb5a6886"></a><!-- doxytag: member="helpers.h::Modulo" ref="a560c3ba94fe224dd67b10bd4cb5a6886" args="(int a, int b)" -->
@@ -291,6 +328,11 @@ template&lt;typename T &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="helpers_8h_source.html#l00106">106</a> of file <a class="el" href="helpers_8h_source.html">helpers.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                {
+  <span class="keywordflow">return</span> (a % b + b) % b;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3c77aeb5931af9236d1d7fdecf7129be"></a><!-- doxytag: member="helpers.h::Reverse16" ref="a3c77aeb5931af9236d1d7fdecf7129be" args="(void *ptr)" -->
@@ -308,6 +350,11 @@ template&lt;typename T &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="helpers_8h_source.html#l00137">137</a> of file <a class="el" href="helpers_8h_source.html">helpers.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                 {
+  <a class="code" href="helpers_8h.html#ae7eeeca49954d4b13d269729f2fecd5a">ReverseN</a>(ptr, 2);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7bb3b6a97c833fe8630a7b129917b985"></a><!-- doxytag: member="helpers.h::Reverse32" ref="a7bb3b6a97c833fe8630a7b129917b985" args="(void *ptr)" -->
@@ -325,6 +372,11 @@ template&lt;typename T &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="helpers_8h_source.html#l00142">142</a> of file <a class="el" href="helpers_8h_source.html">helpers.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                 {
+  <a class="code" href="helpers_8h.html#ae7eeeca49954d4b13d269729f2fecd5a">ReverseN</a>(ptr, 4);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a19ab4c9ee8967ade8c255c2d11061c80"></a><!-- doxytag: member="helpers.h::Reverse64" ref="a19ab4c9ee8967ade8c255c2d11061c80" args="(void *ptr)" -->
@@ -342,6 +394,11 @@ template&lt;typename T &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="helpers_8h_source.html#l00147">147</a> of file <a class="el" href="helpers_8h_source.html">helpers.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                 {
+  <a class="code" href="helpers_8h.html#ae7eeeca49954d4b13d269729f2fecd5a">ReverseN</a>(ptr, 8);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae7eeeca49954d4b13d269729f2fecd5a"></a><!-- doxytag: member="helpers.h::ReverseN" ref="ae7eeeca49954d4b13d269729f2fecd5a" args="(void *ptr, int num_bytes)" -->
@@ -369,6 +426,17 @@ template&lt;typename T &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="helpers_8h_source.html#l00126">126</a> of file <a class="el" href="helpers_8h_source.html">helpers.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                               {
+  <span class="keywordtype">char</span> *cptr = <span class="keyword">reinterpret_cast&lt;</span><span class="keywordtype">char</span> *<span class="keyword">&gt;</span>(ptr);
+  <span class="keywordtype">int</span> halfsize = num_bytes / 2;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; halfsize; ++i) {
+    <span class="keywordtype">char</span> tmp = cptr[i];
+    cptr[i] = cptr[num_bytes - 1 - i];
+    cptr[num_bytes - 1 - i] = tmp;
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aea2e31b49321ab46ca2ec6fa510cc975"></a><!-- doxytag: member="helpers.h::RoundUp" ref="aea2e31b49321ab46ca2ec6fa510cc975" args="(int n, int block_size)" -->
@@ -396,6 +464,11 @@ template&lt;typename T &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="helpers_8h_source.html#l00058">58</a> of file <a class="el" href="helpers_8h_source.html">helpers.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                          {
+  <span class="keywordflow">return</span> block_size * ((n + block_size - 1) / block_size);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2ddd0a4cdfa269201be6c7716ae94b0a"></a><!-- doxytag: member="helpers.h::SkipNewline" ref="a2ddd0a4cdfa269201be6c7716ae94b0a" args="(FILE *file)" -->
@@ -413,6 +486,11 @@ template&lt;typename T &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="helpers_8h_source.html#l00041">41</a> of file <a class="el" href="helpers_8h_source.html">helpers.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                    {
+  <span class="keywordflow">if</span> (fgetc(file) != <span class="charliteral">&#39;\n&#39;</span>) fseek(file, -1, SEEK_CUR);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a975e556a833acc19d7e6e21587366974"></a><!-- doxytag: member="helpers.h::sort_floats" ref="a975e556a833acc19d7e6e21587366974" args="(const void *arg1, const void *arg2)" -->
@@ -440,6 +518,18 @@ template&lt;typename T &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="helpers_8h_source.html#l00046">46</a> of file <a class="el" href="helpers_8h_source.html">helpers.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                           {
+  <span class="keywordtype">float</span> diff = *((<span class="keywordtype">float</span> *) arg1) - *((<span class="keywordtype">float</span> *) arg2);
+  <span class="keywordflow">if</span> (diff &gt; 0) {
+    <span class="keywordflow">return</span> 1;
+  } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (diff &lt; 0) {
+    <span class="keywordflow">return</span> -1;
+  } <span class="keywordflow">else</span> {
+    <span class="keywordflow">return</span> 0;
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6eb00eb9bc5ed195953f334971c462ae"></a><!-- doxytag: member="helpers.h::UpdateRange" ref="a6eb00eb9bc5ed195953f334971c462ae" args="(const T1 &amp;x, T2 *lower_bound, T2 *upper_bound)" -->
@@ -475,6 +565,14 @@ template&lt;typename T1 , typename T2 &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="helpers_8h_source.html#l00074">74</a> of file <a class="el" href="helpers_8h_source.html">helpers.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                       {
+  <span class="keywordflow">if</span> (x &lt; *lower_bound)
+    *lower_bound = x;
+  <span class="keywordflow">if</span> (x &gt; *upper_bound)
+    *upper_bound = x;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a525da2725ab47c5dad3f5b8e00fd49dd"></a><!-- doxytag: member="helpers.h::UpdateRange" ref="a525da2725ab47c5dad3f5b8e00fd49dd" args="(const T1 &amp;x_lo, const T1 &amp;x_hi, T2 *lower_bound, T2 *upper_bound)" -->
@@ -516,6 +614,14 @@ template&lt;typename T1 , typename T2 &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="helpers_8h_source.html#l00083">83</a> of file <a class="el" href="helpers_8h_source.html">helpers.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                          {
+  <span class="keywordflow">if</span> (x_lo &lt; *lower_bound)
+    *lower_bound = x_lo;
+  <span class="keywordflow">if</span> (x_hi &gt; *upper_bound)
+    *upper_bound = x_hi;
+}
+</pre></div>
 </div>
 </div>
 </div>
@@ -538,7 +644,7 @@ template&lt;typename T1 , typename T2 &gt; </div>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:09 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:40 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

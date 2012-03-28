@@ -128,7 +128,10 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_blob_grid.html#a70262f671ac05a8b72c71ba75d9a51de">~BlobGrid</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_blob_grid.html#ae3e2254b403947fc9628221aa3cb5b26">InsertBlobList</a> (BLOBNBOX_LIST *blobs)</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="blobgrid_8h_source.html#l00033">33</a> of file <a class="el" href="blobgrid_8h_source.html">blobgrid.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a86754acb30620ac8308d7e178f7618bd"></a><!-- doxytag: member="tesseract::BlobGrid::BlobGrid" ref="a86754acb30620ac8308d7e178f7618bd" args="(int gridsize, const ICOORD &amp;bleft, const ICOORD &amp;tright)" -->
 <div class="memitem">
 <div class="memproto">
@@ -160,6 +163,10 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobgrid_8cpp_source.html#l00024">24</a> of file <a class="el" href="blobgrid_8cpp_source.html">blobgrid.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">  : BBGrid&lt;BLOBNBOX, BLOBNBOX_CLIST, BLOBNBOX_C_IT&gt;(<a class="code" href="classtesseract_1_1_grid_base.html#afff2cee730084711205977b5fcb4901e">gridsize</a>, <a class="code" href="classtesseract_1_1_grid_base.html#ad20b2cb8eb2bf52871d5260c04949cce">bleft</a>, <a class="code" href="classtesseract_1_1_grid_base.html#aa94e147841b6a4fae0b28e7e872685a5">tright</a>) {
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a70262f671ac05a8b72c71ba75d9a51de"></a><!-- doxytag: member="tesseract::BlobGrid::~BlobGrid" ref="a70262f671ac05a8b72c71ba75d9a51de" args="()" -->
@@ -176,6 +183,10 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobgrid_8cpp_source.html#l00028">28</a> of file <a class="el" href="blobgrid_8cpp_source.html">blobgrid.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                    {
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -194,11 +205,21 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobgrid_8cpp_source.html#l00034">34</a> of file <a class="el" href="blobgrid_8cpp_source.html">blobgrid.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                  {
+  BLOBNBOX_IT blob_it(blobs);
+  <span class="keywordflow">for</span> (blob_it.mark_cycle_pt(); !blob_it.cycled_list(); blob_it.forward()) {
+    <a class="code" href="class_b_l_o_b_n_b_o_x.html">BLOBNBOX</a>* blob = blob_it.data();
+    <span class="keywordflow">if</span> (!blob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#af37f373c72851534101f4caf296a3cf7">joined_to_prev</a>())
+      <a class="code" href="classtesseract_1_1_b_b_grid.html#a7b379525e3d60c68e583352ae4b8a750">InsertBBox</a>(<span class="keyword">true</span>, <span class="keyword">true</span>, blob);
+  }
+}
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/textord/<a class="el" href="blobgrid_8h_source.html">blobgrid.h</a></li>
-<li>tesseract-ocr/textord/<a class="el" href="blobgrid_8cpp.html">blobgrid.cpp</a></li>
+<li>tesseract-ocr/textord/<a class="el" href="blobgrid_8cpp_source.html">blobgrid.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -221,7 +242,7 @@ Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:17 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:52 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

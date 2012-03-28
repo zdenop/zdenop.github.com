@@ -187,7 +187,10 @@ Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_equation_detect.html#ae97d45cf4e1e79c132831151d66fb662">resolution_</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_equation_detect.html#aec76c4ef860f40ec042c65ea1340fc31">page_count_</a></td></tr>
 </table>
-<hr/><h2>Member Enumeration Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="equationdetect_8h_source.html#l00042">42</a> of file <a class="el" href="equationdetect_8h_source.html">equationdetect.h</a>.</p>
+</div><hr/><h2>Member Enumeration Documentation</h2>
 <a class="anchor" id="a8af35d2174dc3814a0e895115b4b4223"></a><!-- doxytag: member="tesseract::EquationDetect::IndentType" ref="a8af35d2174dc3814a0e895115b4b4223" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -213,6 +216,15 @@ Protected Attributes</h2></td></tr>
 </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="equationdetect_8h_source.html#l00048">48</a> of file <a class="el" href="equationdetect_8h_source.html">equationdetect.h</a>.</p>
+<div class="fragment"><pre class="fragment">                  {
+    <a class="code" href="classtesseract_1_1_equation_detect.html#a8af35d2174dc3814a0e895115b4b4223a0b833974e34cfce11e7bb182afd5c43c">NO_INDENT</a>,
+    <a class="code" href="classtesseract_1_1_equation_detect.html#a8af35d2174dc3814a0e895115b4b4223aab75a5b0799710a14abdda1687c1ae0e">LEFT_INDENT</a>,
+    <a class="code" href="classtesseract_1_1_equation_detect.html#a8af35d2174dc3814a0e895115b4b4223a8b060953ddfce6e934e4346ba630606b">RIGHT_INDENT</a>,
+    <a class="code" href="classtesseract_1_1_equation_detect.html#a8af35d2174dc3814a0e895115b4b4223a4c2d65f544868a206cf72cd4928c8d06">BOTH_INDENT</a>,
+    <a class="code" href="classtesseract_1_1_equation_detect.html#a8af35d2174dc3814a0e895115b4b4223ab662e3c6542168f17a908c82ce4017a0">INDENT_TYPE_COUNT</a>
+  };
+</pre></div>
 </div>
 </div>
 <hr/><h2>Constructor &amp; Destructor Documentation</h2>
@@ -241,6 +253,29 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="equationdetect_8cpp_source.html#l00105">105</a> of file <a class="el" href="equationdetect_8cpp_source.html">equationdetect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                     {
+  <span class="keyword">const</span> <span class="keywordtype">char</span>* default_name = <span class="stringliteral">&quot;equ&quot;</span>;
+  <span class="keywordflow">if</span> (equ_name == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    equ_name = default_name;
+  }
+  <a class="code" href="classtesseract_1_1_equation_detect.html#a1eeb1ca073ec04a8f4d182b85812bcc9">equ_tesseract_</a> = <a class="code" href="classtesseract_1_1_equation_detect.html#ac9825c046385d42504424a69d3b56177">lang_tesseract_</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <a class="code" href="classtesseract_1_1_equation_detect.html#ae97d45cf4e1e79c132831151d66fb662">resolution_</a> = 0;
+  <a class="code" href="classtesseract_1_1_equation_detect.html#aec76c4ef860f40ec042c65ea1340fc31">page_count_</a> = 0;
+
+  <span class="comment">// Construct equ_tesseract_.</span>
+  <a class="code" href="classtesseract_1_1_equation_detect.html#a1eeb1ca073ec04a8f4d182b85812bcc9">equ_tesseract_</a> = <span class="keyword">new</span> Tesseract();
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_equation_detect.html#a1eeb1ca073ec04a8f4d182b85812bcc9">equ_tesseract_</a>-&gt;init_tesseract(equ_datapath, equ_name,
+                                     <a class="code" href="namespacetesseract.html#a04550a0ed1279562027bf2fc92c421aeaea8028f61e76a0f4def7cbe7905206cf">OEM_TESSERACT_ONLY</a>)) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Warning: equation region detection requested,&quot;</span>
+            <span class="stringliteral">&quot; but %s failed to load from %s\n&quot;</span>, equ_name, equ_datapath);
+    <span class="keyword">delete</span> <a class="code" href="classtesseract_1_1_equation_detect.html#a1eeb1ca073ec04a8f4d182b85812bcc9">equ_tesseract_</a>;
+    <a class="code" href="classtesseract_1_1_equation_detect.html#a1eeb1ca073ec04a8f4d182b85812bcc9">equ_tesseract_</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <a class="code" href="classtesseract_1_1_equation_detect.html#aa6dfc694549236e0be87efd3d2c8d17f">cps_super_bbox_</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a09236e0cf2e96fd341927a9dbb822f95"></a><!-- doxytag: member="tesseract::EquationDetect::~EquationDetect" ref="a09236e0cf2e96fd341927a9dbb822f95" args="()" -->
@@ -257,6 +292,16 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="equationdetect_8cpp_source.html#l00128">128</a> of file <a class="el" href="equationdetect_8cpp_source.html">equationdetect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                {
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_equation_detect.html#a1eeb1ca073ec04a8f4d182b85812bcc9">equ_tesseract_</a>) {
+    <span class="keyword">delete</span> (<a class="code" href="classtesseract_1_1_equation_detect.html#a1eeb1ca073ec04a8f4d182b85812bcc9">equ_tesseract_</a>);
+  }
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_equation_detect.html#aa6dfc694549236e0be87efd3d2c8d17f">cps_super_bbox_</a>) {
+    <span class="keyword">delete</span>(<a class="code" href="classtesseract_1_1_equation_detect.html#aa6dfc694549236e0be87efd3d2c8d17f">cps_super_bbox_</a>);
+  }
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -291,6 +336,26 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="equationdetect_8cpp_source.html#l00757">757</a> of file <a class="el" href="equationdetect_8cpp_source.html">equationdetect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                        {
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(part);
+  <span class="keyword">const</span> <a class="code" href="class_t_b_o_x.html">TBOX</a>&amp; box = part-&gt;bounding_box();
+
+  <span class="comment">// Check if it is aligned with any indented_texts_left.</span>
+  <span class="keywordflow">if</span> (!indented_texts_left.<a class="code" href="class_generic_vector.html#afb0d8c52a603b6aa965d63bbf06a27dd">empty</a>() &amp;&amp;
+      <a class="code" href="classtesseract_1_1_equation_detect.html#ab6e37bfef27092f6205b13bf8b221ffd">CountAlignment</a>(indented_texts_left, box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>()) &gt;=
+      <a class="code" href="namespacetesseract.html#a1a5ac6fad51e61e88df309fb704d8ebc">kLeftIndentAlignmentCountTh</a>) {
+      <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+
+  <span class="comment">// Check the foreground density.</span>
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_equation_detect.html#a4aa9c0126e15827ea9c66319558d2fb9">ComputeForegroundDensity</a>(box) &gt; foreground_density_th) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a14f4d2d35ed292b40ce57b028d7e124a"></a><!-- doxytag: member="tesseract::EquationDetect::CheckSeedBlobsCount" ref="a14f4d2d35ed292b40ce57b028d7e124a" args="(ColPartition *part)" -->
@@ -308,6 +373,25 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="equationdetect_8cpp_source.html#l01004">1004</a> of file <a class="el" href="equationdetect_8cpp_source.html">equationdetect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                           {
+  <span class="keywordflow">if</span> (!part) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+  <span class="keyword">const</span> <span class="keywordtype">int</span> kSeedMathBlobsCount = 2;
+  <span class="keyword">const</span> <span class="keywordtype">int</span> kSeedMathDigitBlobsCount = 5;
+
+  <span class="keywordtype">int</span> blobs = part-&gt;boxes_count(),
+      math_blobs = part-&gt;SpecialBlobsCount(<a class="code" href="blobbox_8h.html#a75b089d27e1df813fed544e0c131df8ca356056d522254adc40c8acdf14f19c4d">BSTT_MATH</a>),
+      digit_blobs = part-&gt;SpecialBlobsCount(<a class="code" href="blobbox_8h.html#a75b089d27e1df813fed544e0c131df8caaf28e2df284d1c1c8caf262b5fcdb3f4">BSTT_DIGIT</a>);
+  <span class="keywordflow">if</span> (blobs &lt; <a class="code" href="namespacetesseract.html#a113f000461790e1cd1c397f382814da5">kSeedBlobsCountTh</a> || math_blobs &lt;= kSeedMathBlobsCount ||
+      math_blobs + digit_blobs &lt;= kSeedMathDigitBlobsCount) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a8c054862ed6512cb8c935c53d179ffb2"></a><!-- doxytag: member="tesseract::EquationDetect::CheckSeedDensity" ref="a8c054862ed6512cb8c935c53d179ffb2" args="(const float math_density_high, const float math_density_low, const ColPartition *part) const " -->
@@ -341,6 +425,23 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="equationdetect_8cpp_source.html#l01022">1022</a> of file <a class="el" href="equationdetect_8cpp_source.html">equationdetect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                    {
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(part);
+  <span class="keywordtype">float</span> math_digit_density = part-&gt;SpecialBlobsDensity(<a class="code" href="blobbox_8h.html#a75b089d27e1df813fed544e0c131df8ca356056d522254adc40c8acdf14f19c4d">BSTT_MATH</a>)
+      + part-&gt;SpecialBlobsDensity(<a class="code" href="blobbox_8h.html#a75b089d27e1df813fed544e0c131df8caaf28e2df284d1c1c8caf262b5fcdb3f4">BSTT_DIGIT</a>);
+  <span class="keywordtype">float</span> italic_density = part-&gt;SpecialBlobsDensity(<a class="code" href="blobbox_8h.html#a75b089d27e1df813fed544e0c131df8ca9f7c059031ba5f95a4e0f43bac16a33a">BSTT_ITALIC</a>);
+  <span class="keywordflow">if</span> (math_digit_density &gt; math_density_high) {
+    <span class="keywordflow">return</span> <span class="keyword">true</span>;
+  }
+  <span class="keywordflow">if</span> (math_digit_density + italic_density &gt; <a class="code" href="namespacetesseract.html#ad64e658be002902d7a5b0dd98ab0fe35">kMathItalicDensityTh</a> &amp;&amp;
+      math_digit_density &gt; math_density_low) {
+    <span class="keywordflow">return</span> <span class="keyword">true</span>;
+  }
+
+  <span class="keywordflow">return</span> <span class="keyword">false</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aac03fc4552265dd3e79fae673fa63b88"></a><!-- doxytag: member="tesseract::EquationDetect::CheckSeedFgDensity" ref="aac03fc4552265dd3e79fae673fa63b88" args="(const float density_th, ColPartition *part)" -->
@@ -368,6 +469,28 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="equationdetect_8cpp_source.html#l00645">645</a> of file <a class="el" href="equationdetect_8cpp_source.html">equationdetect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                            {
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(part);
+
+  <span class="comment">// Split part horizontall, and check for each sub part.</span>
+  <a class="code" href="class_generic_vector.html">GenericVector&lt;TBOX&gt;</a> sub_boxes;
+  <a class="code" href="classtesseract_1_1_equation_detect.html#a1ec8cc3dc57f53854d2190f112c00c85">SplitCPHorLite</a>(part, &amp;sub_boxes);
+  <span class="keywordtype">float</span> parts_passed = 0.0;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; sub_boxes.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>(); ++i) {
+    <span class="keywordtype">float</span> density = <a class="code" href="classtesseract_1_1_equation_detect.html#a4aa9c0126e15827ea9c66319558d2fb9">ComputeForegroundDensity</a>(sub_boxes[i]);
+    <span class="keywordflow">if</span> (density &lt; density_th) {
+      parts_passed++;
+    }
+  }
+
+  <span class="comment">// If most sub parts passed, then we return true.</span>
+  <span class="keyword">const</span> <span class="keywordtype">float</span> kSeedPartRatioTh = 0.3;
+  <span class="keywordtype">bool</span> retval = (parts_passed / sub_boxes.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>() &gt;= kSeedPartRatioTh);
+
+  <span class="keywordflow">return</span> retval;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab8a8a444009d7a5846bafa4bdceb58f1"></a><!-- doxytag: member="tesseract::EquationDetect::CheckSeedNeighborDensity" ref="ab8a8a444009d7a5846bafa4bdceb58f1" args="(const ColPartition *part) const " -->
@@ -385,6 +508,24 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="equationdetect_8cpp_source.html#l01313">1313</a> of file <a class="el" href="equationdetect_8cpp_source.html">equationdetect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                            {
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(part);
+  <span class="keywordflow">if</span> (part-&gt;boxes_count() &lt; <a class="code" href="namespacetesseract.html#a113f000461790e1cd1c397f382814da5">kSeedBlobsCountTh</a>) {
+    <span class="comment">// Too few blobs, skip the check.</span>
+    <span class="keywordflow">return</span> <span class="keyword">true</span>;
+  }
+
+  <span class="comment">// We check the math blobs density and the unclear blobs density.</span>
+  <span class="keywordflow">if</span> (part-&gt;SpecialBlobsDensity(<a class="code" href="blobbox_8h.html#a75b089d27e1df813fed544e0c131df8ca356056d522254adc40c8acdf14f19c4d">BSTT_MATH</a>) +
+      part-&gt;SpecialBlobsDensity(<a class="code" href="blobbox_8h.html#a75b089d27e1df813fed544e0c131df8caaf28e2df284d1c1c8caf262b5fcdb3f4">BSTT_DIGIT</a>) &gt; <a class="code" href="namespacetesseract.html#ad996502770c51cc260e4d66db9543bcc">kMathDigitDensityTh1</a> ||
+      part-&gt;SpecialBlobsDensity(<a class="code" href="blobbox_8h.html#a75b089d27e1df813fed544e0c131df8ca604529fa299b8dcc81b0ac07ebb2c9b7">BSTT_UNCLEAR</a>) &gt; <a class="code" href="namespacetesseract.html#a07a51423879204a025d373c6ae40fba5">kUnclearDensityTh</a>) {
+    <span class="keywordflow">return</span> <span class="keyword">true</span>;
+  }
+
+  <span class="keywordflow">return</span> <span class="keyword">false</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a8de69a1f250877609333539286e6914a"></a><!-- doxytag: member="tesseract::EquationDetect::ComputeCPsSuperBBox" ref="a8de69a1f250877609333539286e6914a" args="()" -->
@@ -401,6 +542,20 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="equationdetect_8cpp_source.html#l00810">810</a> of file <a class="el" href="equationdetect_8cpp_source.html">equationdetect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                         {
+  <a class="code" href="namespacetesseract.html#a990e3f25988f7d70c40a13225e645492">ColPartitionGridSearch</a> gsearch(<a class="code" href="classtesseract_1_1_equation_detect.html#a4798ba96020b3ce55050b66dd3c72fe0">part_grid_</a>);
+  ColPartition *part = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  gsearch.StartFullSearch();
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_equation_detect.html#aa6dfc694549236e0be87efd3d2c8d17f">cps_super_bbox_</a>) {
+    <span class="keyword">delete</span> <a class="code" href="classtesseract_1_1_equation_detect.html#aa6dfc694549236e0be87efd3d2c8d17f">cps_super_bbox_</a>;
+  }
+  <a class="code" href="classtesseract_1_1_equation_detect.html#aa6dfc694549236e0be87efd3d2c8d17f">cps_super_bbox_</a> = <span class="keyword">new</span> <a class="code" href="class_t_b_o_x.html">TBOX</a>();
+  <span class="keywordflow">while</span> ((part = gsearch.NextFullSearch()) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    (*cps_super_bbox_) += part-&gt;bounding_box();
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4aa9c0126e15827ea9c66319558d2fb9"></a><!-- doxytag: member="tesseract::EquationDetect::ComputeForegroundDensity" ref="a4aa9c0126e15827ea9c66319558d2fb9" args="(const TBOX &amp;tbox)" -->
@@ -418,6 +573,26 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="equationdetect_8cpp_source.html#l00626">626</a> of file <a class="el" href="equationdetect_8cpp_source.html">equationdetect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                               {
+<span class="preprocessor">#if LIBLEPT_MINOR_VERSION &lt; 69 &amp;&amp; LIBLEPT_MAJOR_VERSION &lt;= 1</span>
+<span class="preprocessor"></span>  <span class="comment">// This will disable the detector because no seed will be identified.</span>
+  <span class="keywordflow">return</span> 1.0f;
+<span class="preprocessor">#else</span>
+<span class="preprocessor"></span>  Pix *pix_bi = <a class="code" href="classtesseract_1_1_equation_detect.html#ac9825c046385d42504424a69d3b56177">lang_tesseract_</a>-&gt;pix_binary();
+  <span class="keywordtype">int</span> pix_height = pixGetHeight(pix_bi);
+  Box* box = boxCreate(tbox.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>(), pix_height - tbox.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>(),
+                       tbox.<a class="code" href="class_t_b_o_x.html#af95494a2ccacc70cc2b83820b2948619">width</a>(), tbox.<a class="code" href="class_t_b_o_x.html#a8379d4bbc72bdbb1f069fc14790e632d">height</a>());
+  Pix *pix_sub = pixClipRectangle(pix_bi, box, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  l_float32 fract;
+  pixForegroundFraction(pix_sub, &amp;fract);
+  pixDestroy(&amp;pix_sub);
+  boxDestroy(&amp;box);
+
+  <span class="keywordflow">return</span> fract;
+<span class="preprocessor">#endif</span>
+<span class="preprocessor"></span>}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab6e37bfef27092f6205b13bf8b221ffd"></a><!-- doxytag: member="tesseract::EquationDetect::CountAlignment" ref="ab6e37bfef27092f6205b13bf8b221ffd" args="(const GenericVector&lt; int &gt; &amp;sorted_vec, const int val) const " -->
@@ -445,6 +620,29 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="equationdetect_8cpp_source.html#l00779">779</a> of file <a class="el" href="equationdetect_8cpp_source.html">equationdetect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                               {
+  <span class="keywordflow">if</span> (sorted_vec.<a class="code" href="class_generic_vector.html#afb0d8c52a603b6aa965d63bbf06a27dd">empty</a>()) {
+    <span class="keywordflow">return</span> 0;
+  }
+  <span class="keyword">const</span> <span class="keywordtype">int</span> kDistTh = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(roundf(0.03 * <a class="code" href="classtesseract_1_1_equation_detect.html#ae97d45cf4e1e79c132831151d66fb662">resolution_</a>));
+  <span class="keywordtype">int</span> pos = sorted_vec.<a class="code" href="class_generic_vector.html#a2eaa0df35abb2c00571bb1d6e5d73377">binary_search</a>(val), <a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a> = 0;
+
+  <span class="comment">// Search left side.</span>
+  <span class="keywordtype">int</span> index = pos;
+  <span class="keywordflow">while</span> (index &gt;= 0 &amp;&amp; abs(val - sorted_vec[index--]) &lt; kDistTh) {
+    <a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a>++;
+  }
+
+  <span class="comment">// Search right side.</span>
+  index = pos + 1;
+  <span class="keywordflow">while</span> (index &lt; sorted_vec.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>() &amp;&amp; sorted_vec[index++] - val &lt; kDistTh) {
+    <a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a>++;
+  }
+
+  <span class="keywordflow">return</span> <a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a096b2bb7f8f59484ec2043d92c3f1eec"></a><!-- doxytag: member="tesseract::EquationDetect::EstimateTextPartLineSpacing" ref="a096b2bb7f8f59484ec2043d92c3f1eec" args="()" -->
@@ -461,6 +659,47 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="equationdetect_8cpp_source.html#l00888">888</a> of file <a class="el" href="equationdetect_8cpp_source.html">equationdetect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                {
+  <a class="code" href="namespacetesseract.html#a990e3f25988f7d70c40a13225e645492">ColPartitionGridSearch</a> gsearch(<a class="code" href="classtesseract_1_1_equation_detect.html#a4798ba96020b3ce55050b66dd3c72fe0">part_grid_</a>);
+
+  <span class="comment">// Get the y gap between text partitions;</span>
+  ColPartition *current = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, *prev = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  gsearch.StartFullSearch();
+  <a class="code" href="class_generic_vector.html">GenericVector&lt;int&gt;</a> ygaps;
+  <span class="keywordflow">while</span> ((current = gsearch.NextFullSearch()) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">if</span> (!<a class="code" href="publictypes_8h.html#a49b7c03fb4e55b82a8fd22b7c6094082">PTIsTextType</a>(current-&gt;type())) {
+      <span class="keywordflow">continue</span>;
+    }
+    <span class="keywordflow">if</span> (prev != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      <span class="keyword">const</span> <a class="code" href="class_t_b_o_x.html">TBOX</a> &amp;current_box = current-&gt;bounding_box();
+      <span class="keyword">const</span> <a class="code" href="class_t_b_o_x.html">TBOX</a> &amp;prev_box = prev-&gt;bounding_box();
+      <span class="comment">// prev and current should be x major overlap and non y overlap.</span>
+      <span class="keywordflow">if</span> (current_box.<a class="code" href="class_t_b_o_x.html#a9f7e4e20bdfeee0d82db2f8d24aa72dc">major_x_overlap</a>(prev_box) &amp;&amp;
+          !current_box.<a class="code" href="class_t_b_o_x.html#a7ae8e4b8b3af5b23db3d6c959249064c">y_overlap</a>(prev_box)) {
+        <span class="keywordtype">int</span> gap = current_box.<a class="code" href="class_t_b_o_x.html#a98e0f9a8622eec475ee93b260c57c7ab">y_gap</a>(prev_box);
+        <span class="keywordflow">if</span> (gap &lt; <a class="code" href="ndminx_8h.html#a74e75242132eaabbc1c512488a135926">MIN</a>(current_box.<a class="code" href="class_t_b_o_x.html#a8379d4bbc72bdbb1f069fc14790e632d">height</a>(), prev_box.<a class="code" href="class_t_b_o_x.html#a8379d4bbc72bdbb1f069fc14790e632d">height</a>())) {
+          <span class="comment">// The gap should be smaller than the height of the bounding boxes.</span>
+          ygaps.<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(gap);
+        }
+      }
+    }
+    prev = current;
+  }
+
+  <span class="keywordflow">if</span> (ygaps.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>() &lt; 8) {  <span class="comment">// We do not have enough data.</span>
+    <span class="keywordflow">return</span> -1;
+  }
+
+  <span class="comment">// Compute the line spacing from ygaps: use the mean of the first half.</span>
+  ygaps.<a class="code" href="class_generic_vector.html#a999bbd8ff336c81fe1198ea714c7936d">sort</a>();
+  <span class="keywordtype">int</span> spacing = 0, <a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a>;
+  <span class="keywordflow">for</span> (<a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a> = 0; <a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a> &lt; ygaps.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>() / 2; <a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a>++) {
+    spacing += ygaps[<a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a>];
+  }
+  <span class="keywordflow">return</span> spacing / <a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a51f3ad45ba13e180c87afd7af86846de"></a><!-- doxytag: member="tesseract::EquationDetect::EstimateTypeForUnichar" ref="a51f3ad45ba13e180c87afd7af86846de" args="(const UNICHARSET &amp;unicharset, const UNICHAR_ID id) const " -->
@@ -488,6 +727,40 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="equationdetect_8cpp_source.html#l00239">239</a> of file <a class="el" href="equationdetect_8cpp_source.html">equationdetect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                             {
+  <a class="code" href="class_s_t_r_i_n_g.html">STRING</a> s = unicharset.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a421c0b6ebcbbe7547490252fb688c961">id_to_unichar</a>(<span class="keywordtype">id</span>);
+  <span class="keywordflow">if</span> (unicharset.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#ad1dd0929edfb0e9e4905cc2fbeff42c2">get_isalpha</a>(<span class="keywordtype">id</span>)) {
+    <span class="keywordflow">return</span> <a class="code" href="blobbox_8h.html#a75b089d27e1df813fed544e0c131df8ca1e2ca6a59ce1487c101d4605eab44b7a">BSTT_NONE</a>;
+  }
+
+  <span class="keywordflow">if</span> (unicharset.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a57f82c4777d39c923cb9ec27cac9bcb6">get_ispunctuation</a>(<span class="keywordtype">id</span>)) {
+    <span class="comment">// Exclude some special texts that are likely to be confused as math symbol.</span>
+    <span class="keyword">static</span> <a class="code" href="class_generic_vector.html">GenericVector&lt;UNICHAR_ID&gt;</a> ids_to_exclude;
+    <span class="keywordflow">if</span> (ids_to_exclude.<a class="code" href="class_generic_vector.html#afb0d8c52a603b6aa965d63bbf06a27dd">empty</a>()) {
+      <span class="keyword">static</span> <span class="keyword">const</span> <a class="code" href="class_s_t_r_i_n_g.html">STRING</a> kCharsToEx[] = {<span class="stringliteral">&quot;&#39;&quot;</span>, <span class="stringliteral">&quot;`&quot;</span>, <span class="stringliteral">&quot;\&quot;&quot;</span>, <span class="stringliteral">&quot;\\&quot;</span>, <span class="stringliteral">&quot;,&quot;</span>, <span class="stringliteral">&quot;.&quot;</span>,
+          <span class="stringliteral">&quot;〈&quot;</span>, <span class="stringliteral">&quot;〉&quot;</span>, <span class="stringliteral">&quot;《&quot;</span>, <span class="stringliteral">&quot;》&quot;</span>, <span class="stringliteral">&quot;」&quot;</span>, <span class="stringliteral">&quot;「&quot;</span>, <span class="stringliteral">&quot;&quot;</span>};
+      <span class="keywordtype">int</span> i = 0;
+      <span class="keywordflow">while</span> (kCharsToEx[i] != <span class="stringliteral">&quot;&quot;</span>) {
+        ids_to_exclude.<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(
+            unicharset.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#ae786fa834962ef4d6dbf8300c6c5d456">unichar_to_id</a>(kCharsToEx[i++].<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a>()));
+      }
+      ids_to_exclude.<a class="code" href="class_generic_vector.html#a999bbd8ff336c81fe1198ea714c7936d">sort</a>();
+    }
+    <span class="keywordflow">return</span> ids_to_exclude.<a class="code" href="class_generic_vector.html#a56b47b53976101ce26410fea5be3cdd2">bool_binary_search</a>(<span class="keywordtype">id</span>) ? <a class="code" href="blobbox_8h.html#a75b089d27e1df813fed544e0c131df8ca1e2ca6a59ce1487c101d4605eab44b7a">BSTT_NONE</a> : <a class="code" href="blobbox_8h.html#a75b089d27e1df813fed544e0c131df8ca356056d522254adc40c8acdf14f19c4d">BSTT_MATH</a>;
+  }
+
+  <span class="comment">// Check if it is digit. In addition to the isdigit attribute, we also check</span>
+  <span class="comment">// if this character belongs to those likely to be confused with a digit.</span>
+  <span class="keyword">static</span> <span class="keyword">const</span> <a class="code" href="class_s_t_r_i_n_g.html">STRING</a> kDigitsChars = <span class="stringliteral">&quot;|&quot;</span>;
+  <span class="keywordflow">if</span> (unicharset.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a5951dde3ab90c12c309d776570a10725">get_isdigit</a>(<span class="keywordtype">id</span>) ||
+      (s.<a class="code" href="class_s_t_r_i_n_g.html#a168505a533eda60219c93e25adf4cdc5">length</a>() == 1 &amp;&amp; kDigitsChars.<a class="code" href="class_s_t_r_i_n_g.html#ad4c1a804168d9442f125944e7eb5159d">contains</a>(s[0]))) {
+    <span class="keywordflow">return</span> <a class="code" href="blobbox_8h.html#a75b089d27e1df813fed544e0c131df8caaf28e2df284d1c1c8caf262b5fcdb3f4">BSTT_DIGIT</a>;
+  } <span class="keywordflow">else</span>  {
+    <span class="keywordflow">return</span> <a class="code" href="blobbox_8h.html#a75b089d27e1df813fed544e0c131df8ca356056d522254adc40c8acdf14f19c4d">BSTT_MATH</a>;
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a76bc8a18a94fc5f89f6d4d073ba0c9bf"></a><!-- doxytag: member="tesseract::EquationDetect::ExpandSeed" ref="a76bc8a18a94fc5f89f6d4d073ba0c9bf" args="(ColPartition *seed)" -->
@@ -505,6 +778,50 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="equationdetect_8cpp_source.html#l01105">1105</a> of file <a class="el" href="equationdetect_8cpp_source.html">equationdetect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                  {
+  <span class="keywordflow">if</span> (seed == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> ||  <span class="comment">// This seed has been absorbed by other seeds.</span>
+      seed-&gt;IsVerticalType()) {  <span class="comment">// We skip vertical type right now.</span>
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+
+  <span class="comment">// Expand in four directions.</span>
+  <a class="code" href="class_generic_vector.html">GenericVector&lt;ColPartition*&gt;</a> parts_to_merge;
+  <a class="code" href="classtesseract_1_1_equation_detect.html#a627301cfc796de6a012ddec128e60b9d">ExpandSeedHorizontal</a>(<span class="keyword">true</span>, seed, &amp;parts_to_merge);
+  <a class="code" href="classtesseract_1_1_equation_detect.html#a627301cfc796de6a012ddec128e60b9d">ExpandSeedHorizontal</a>(<span class="keyword">false</span>, seed, &amp;parts_to_merge);
+  <a class="code" href="classtesseract_1_1_equation_detect.html#a3d11902fde644823ee7c56e56ca804bb">ExpandSeedVertical</a>(<span class="keyword">true</span>, seed, &amp;parts_to_merge);
+  <a class="code" href="classtesseract_1_1_equation_detect.html#a3d11902fde644823ee7c56e56ca804bb">ExpandSeedVertical</a>(<span class="keyword">false</span>, seed, &amp;parts_to_merge);
+  <a class="code" href="classtesseract_1_1_equation_detect.html#ad11061cfdb9eb9cbdb8c9206b96b2c54">SearchByOverlap</a>(seed, &amp;parts_to_merge);
+
+  <span class="keywordflow">if</span> (parts_to_merge.<a class="code" href="class_generic_vector.html#afb0d8c52a603b6aa965d63bbf06a27dd">empty</a>()) {  <span class="comment">// We don&#39;t find any partition to merge.</span>
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+
+  <span class="comment">// Merge all partitions in parts_to_merge with seed. We first remove seed</span>
+  <span class="comment">// from part_grid_ as its bounding box is going to expand. Then we add it</span>
+  <span class="comment">// back after it aborbs all parts_to_merge parititions.</span>
+  <a class="code" href="classtesseract_1_1_equation_detect.html#a4798ba96020b3ce55050b66dd3c72fe0">part_grid_</a>-&gt;RemoveBBox(seed);
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; parts_to_merge.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>(); ++i) {
+    ColPartition* part = parts_to_merge[i];
+    <span class="keywordflow">if</span> (part-&gt;type() == <a class="code" href="publictypes_8h.html#a03566528a98c079dafeebf00502f2b60adfde914b43bcf45b29f149fa4415bf45">PT_EQUATION</a>) {
+      <span class="comment">// If part is in cp_seeds_, then we mark it as NULL so that we won&#39;t</span>
+      <span class="comment">// process it again.</span>
+      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; <a class="code" href="classtesseract_1_1_equation_detect.html#ad41af69ecd3e0227bbe5b4714c429666">cp_seeds_</a>.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>(); ++j) {
+        <span class="keywordflow">if</span> (part == <a class="code" href="classtesseract_1_1_equation_detect.html#ad41af69ecd3e0227bbe5b4714c429666">cp_seeds_</a>[j]) {
+          <a class="code" href="classtesseract_1_1_equation_detect.html#ad41af69ecd3e0227bbe5b4714c429666">cp_seeds_</a>[j] = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+          <span class="keywordflow">break</span>;
+        }
+      }
+    }
+
+    <span class="comment">// part has already been removed from part_grid_ in function</span>
+    <span class="comment">// ExpandSeedHorizontal/ExpandSeedVertical.</span>
+    seed-&gt;Absorb(part, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  }
+
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a627301cfc796de6a012ddec128e60b9d"></a><!-- doxytag: member="tesseract::EquationDetect::ExpandSeedHorizontal" ref="a627301cfc796de6a012ddec128e60b9d" args="(const bool search_left, ColPartition *seed, GenericVector&lt; ColPartition * &gt; *parts_to_merge)" -->
@@ -538,6 +855,60 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="equationdetect_8cpp_source.html#l01148">1148</a> of file <a class="el" href="equationdetect_8cpp_source.html">equationdetect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                  {
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(seed != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp; parts_to_merge != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <span class="keyword">const</span> <span class="keywordtype">float</span> kYOverlapTh = 0.6;
+  <span class="keyword">const</span> <span class="keywordtype">int</span> kXGapTh = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(roundf(0.2 * <a class="code" href="classtesseract_1_1_equation_detect.html#ae97d45cf4e1e79c132831151d66fb662">resolution_</a>));
+
+  <a class="code" href="namespacetesseract.html#a990e3f25988f7d70c40a13225e645492">ColPartitionGridSearch</a> <a class="code" href="oldlist_8cpp.html#a1d8af9328f064a9df6d6f88336dd054e">search</a>(<a class="code" href="classtesseract_1_1_equation_detect.html#a4798ba96020b3ce55050b66dd3c72fe0">part_grid_</a>);
+  <span class="keyword">const</span> <a class="code" href="class_t_b_o_x.html">TBOX</a>&amp; seed_box(seed-&gt;bounding_box());
+  <span class="keywordtype">int</span> x = search_left ? seed_box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>() : seed_box.right();
+  <a class="code" href="oldlist_8cpp.html#a1d8af9328f064a9df6d6f88336dd054e">search</a>.StartSideSearch(x, seed_box.bottom(), seed_box.top());
+  <a class="code" href="oldlist_8cpp.html#a1d8af9328f064a9df6d6f88336dd054e">search</a>.SetUniqueMode(<span class="keyword">true</span>);
+
+  <span class="comment">// Search iteratively.</span>
+  ColPartition *part = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordflow">while</span> ((part = <a class="code" href="oldlist_8cpp.html#a1d8af9328f064a9df6d6f88336dd054e">search</a>.NextSideSearch(search_left)) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">if</span> (part == seed) {
+      <span class="keywordflow">continue</span>;
+    }
+    <span class="keyword">const</span> <a class="code" href="class_t_b_o_x.html">TBOX</a>&amp; part_box(part-&gt;bounding_box());
+    <span class="keywordflow">if</span> (part_box.x_gap(seed_box) &gt; kXGapTh) {  <span class="comment">// Out of scope.</span>
+      <span class="keywordflow">break</span>;
+    }
+
+    <span class="comment">// Check part location.</span>
+    <span class="keywordflow">if</span> ((part_box.left() &gt;= seed_box.left() &amp;&amp; search_left) ||
+        (part_box.right() &lt;= seed_box.right() &amp;&amp; !search_left)) {
+      <span class="keywordflow">continue</span>;
+    }
+
+    <span class="keywordflow">if</span> (part-&gt;type() != <a class="code" href="publictypes_8h.html#a03566528a98c079dafeebf00502f2b60adfde914b43bcf45b29f149fa4415bf45">PT_EQUATION</a>) {  <span class="comment">// Non-equation type.</span>
+      <span class="comment">// Skip PT_LINLINE_EQUATION and non text type.</span>
+      <span class="keywordflow">if</span> (part-&gt;type() == <a class="code" href="publictypes_8h.html#a03566528a98c079dafeebf00502f2b60aa52ce81f771512916e01215965910fc6">PT_INLINE_EQUATION</a> ||
+          (!<a class="code" href="namespacetesseract.html#a1aff6897e170c358d7672413b3c221de">IsTextOrEquationType</a>(part-&gt;type()) &amp;&amp;
+           part-&gt;blob_type() != <a class="code" href="blobbox_8h.html#aebfaf711760a99b60c297d1d619df575a56cc149e97b34634dd39babda79ea17d">BRT_HLINE</a>)) {
+        <span class="keywordflow">continue</span>;
+      }
+      <span class="comment">// For other types, it should be the near small neighbor of seed.</span>
+      <span class="keywordflow">if</span> (!<a class="code" href="classtesseract_1_1_equation_detect.html#a76f41d3142ca8575d3a574ff995ed207">IsNearSmallNeighbor</a>(seed_box, part_box) ||
+          !<a class="code" href="classtesseract_1_1_equation_detect.html#ab8a8a444009d7a5846bafa4bdceb58f1">CheckSeedNeighborDensity</a>(part)) {
+        <span class="keywordflow">continue</span>;
+      }
+    } <span class="keywordflow">else</span> {  <span class="comment">// Equation type, check the y overlap.</span>
+      <span class="keywordflow">if</span> (part_box.y_overlap_fraction(seed_box) &lt; kYOverlapTh &amp;&amp;
+          seed_box.y_overlap_fraction(part_box) &lt; kYOverlapTh) {
+        <span class="keywordflow">continue</span>;
+      }
+    }
+
+    <span class="comment">// Passed the check, delete it from search and add into parts_to_merge.</span>
+    <a class="code" href="oldlist_8cpp.html#a1d8af9328f064a9df6d6f88336dd054e">search</a>.RemoveBBox();
+    parts_to_merge-&gt;<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(part);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3d11902fde644823ee7c56e56ca804bb"></a><!-- doxytag: member="tesseract::EquationDetect::ExpandSeedVertical" ref="a3d11902fde644823ee7c56e56ca804bb" args="(const bool search_bottom, ColPartition *seed, GenericVector&lt; ColPartition * &gt; *parts_to_merge)" -->
@@ -571,6 +942,91 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="equationdetect_8cpp_source.html#l01204">1204</a> of file <a class="el" href="equationdetect_8cpp_source.html">equationdetect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                  {
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(seed != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp; parts_to_merge != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp;
+              <a class="code" href="classtesseract_1_1_equation_detect.html#aa6dfc694549236e0be87efd3d2c8d17f">cps_super_bbox_</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <span class="keyword">const</span> <span class="keywordtype">float</span> kXOverlapTh = 0.4;
+  <span class="keyword">const</span> <span class="keywordtype">int</span> kYGapTh = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(roundf(0.2 * <a class="code" href="classtesseract_1_1_equation_detect.html#ae97d45cf4e1e79c132831151d66fb662">resolution_</a>));
+
+  <a class="code" href="namespacetesseract.html#a990e3f25988f7d70c40a13225e645492">ColPartitionGridSearch</a> <a class="code" href="oldlist_8cpp.html#a1d8af9328f064a9df6d6f88336dd054e">search</a>(<a class="code" href="classtesseract_1_1_equation_detect.html#a4798ba96020b3ce55050b66dd3c72fe0">part_grid_</a>);
+  <span class="keyword">const</span> <a class="code" href="class_t_b_o_x.html">TBOX</a>&amp; seed_box(seed-&gt;bounding_box());
+  <span class="keywordtype">int</span> y = search_bottom ? seed_box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>() : seed_box.top();
+  <a class="code" href="oldlist_8cpp.html#a1d8af9328f064a9df6d6f88336dd054e">search</a>.StartVerticalSearch(
+      <a class="code" href="classtesseract_1_1_equation_detect.html#aa6dfc694549236e0be87efd3d2c8d17f">cps_super_bbox_</a>-&gt;<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>(), <a class="code" href="classtesseract_1_1_equation_detect.html#aa6dfc694549236e0be87efd3d2c8d17f">cps_super_bbox_</a>-&gt;<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>(), y);
+  <a class="code" href="oldlist_8cpp.html#a1d8af9328f064a9df6d6f88336dd054e">search</a>.SetUniqueMode(<span class="keyword">true</span>);
+
+  <span class="comment">// Search iteratively.</span>
+  ColPartition *part = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <a class="code" href="class_generic_vector.html">GenericVector&lt;ColPartition*&gt;</a> parts;
+  <span class="keywordtype">int</span> skipped_min_top = INT_MAX, skipped_max_bottom = -1;
+  <span class="keywordflow">while</span> ((part = <a class="code" href="oldlist_8cpp.html#a1d8af9328f064a9df6d6f88336dd054e">search</a>.NextVerticalSearch(search_bottom)) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">if</span> (part == seed) {
+      <span class="keywordflow">continue</span>;
+    }
+    <span class="keyword">const</span> <a class="code" href="class_t_b_o_x.html">TBOX</a>&amp; part_box(part-&gt;bounding_box());
+
+    <span class="keywordflow">if</span> (part_box.y_gap(seed_box) &gt; kYGapTh) {  <span class="comment">// Out of scope.</span>
+      <span class="keywordflow">break</span>;
+    }
+
+    <span class="comment">// Check part location.</span>
+    <span class="keywordflow">if</span> ((part_box.bottom() &gt;= seed_box.bottom() &amp;&amp; search_bottom) ||
+        (part_box.top() &lt;= seed_box.top() &amp;&amp; !search_bottom)) {
+      <span class="keywordflow">continue</span>;
+    }
+
+    <span class="keywordtype">bool</span> skip_part = <span class="keyword">false</span>;
+    <span class="keywordflow">if</span> (part-&gt;type() != <a class="code" href="publictypes_8h.html#a03566528a98c079dafeebf00502f2b60adfde914b43bcf45b29f149fa4415bf45">PT_EQUATION</a>) {  <span class="comment">// Non-equation type.</span>
+      <span class="comment">// Skip PT_LINLINE_EQUATION and non text type.</span>
+      <span class="keywordflow">if</span> (part-&gt;type() == <a class="code" href="publictypes_8h.html#a03566528a98c079dafeebf00502f2b60aa52ce81f771512916e01215965910fc6">PT_INLINE_EQUATION</a> ||
+          (!<a class="code" href="namespacetesseract.html#a1aff6897e170c358d7672413b3c221de">IsTextOrEquationType</a>(part-&gt;type()) &amp;&amp;
+           part-&gt;blob_type() != <a class="code" href="blobbox_8h.html#aebfaf711760a99b60c297d1d619df575a56cc149e97b34634dd39babda79ea17d">BRT_HLINE</a>)) {
+        skip_part = <span class="keyword">true</span>;
+      } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (!<a class="code" href="classtesseract_1_1_equation_detect.html#a76f41d3142ca8575d3a574ff995ed207">IsNearSmallNeighbor</a>(seed_box, part_box) ||
+          !<a class="code" href="classtesseract_1_1_equation_detect.html#ab8a8a444009d7a5846bafa4bdceb58f1">CheckSeedNeighborDensity</a>(part)) {
+        <span class="comment">// For other types, it should be the near small neighbor of seed.</span>
+        skip_part = <span class="keyword">true</span>;
+      }
+    } <span class="keywordflow">else</span> {  <span class="comment">// Equation type, check the x overlap.</span>
+      <span class="keywordflow">if</span> (part_box.x_overlap_fraction(seed_box) &lt; kXOverlapTh &amp;&amp;
+          seed_box.x_overlap_fraction(part_box) &lt; kXOverlapTh) {
+        skip_part = <span class="keyword">true</span>;
+      }
+    }
+    <span class="keywordflow">if</span> (skip_part) {
+      <span class="keywordflow">if</span> (part-&gt;type() != <a class="code" href="publictypes_8h.html#a03566528a98c079dafeebf00502f2b60adfde914b43bcf45b29f149fa4415bf45">PT_EQUATION</a>) {
+        <span class="keywordflow">if</span> (skipped_min_top &gt; part_box.top()) {
+          skipped_min_top = part_box.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>();
+        }
+        <span class="keywordflow">if</span> (skipped_max_bottom &lt; part_box.bottom()) {
+          skipped_max_bottom = part_box.bottom();
+        }
+      }
+    } <span class="keywordflow">else</span> {
+      parts.<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(part);
+    }
+  }
+
+  <span class="comment">// For every part in parts, we need verify it is not above skipped_min_top</span>
+  <span class="comment">// when search top, or not below skipped_max_bottom when search bottom. I.e.,</span>
+  <span class="comment">// we will skip a part if it looks like:</span>
+  <span class="comment">//             search bottom      |         search top</span>
+  <span class="comment">// seed:     ******************   | part:    **********</span>
+  <span class="comment">// skipped: xxx                   | skipped:  xxx</span>
+  <span class="comment">// part:       **********         | seed:    ***********</span>
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; parts.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>(); i++) {
+    <span class="keyword">const</span> <a class="code" href="class_t_b_o_x.html">TBOX</a>&amp; part_box(parts[i]-&gt;bounding_box());
+    <span class="keywordflow">if</span> ((search_bottom &amp;&amp; part_box.top() &lt;= skipped_max_bottom) ||
+        (!search_bottom &amp;&amp; part_box.bottom() &gt;= skipped_min_top)) {
+      <span class="keywordflow">continue</span>;
+    }
+    <span class="comment">// Add parts[i] into parts_to_merge, and delete it from part_grid_.</span>
+    parts_to_merge-&gt;<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(parts[i]);
+    <a class="code" href="classtesseract_1_1_equation_detect.html#a4798ba96020b3ce55050b66dd3c72fe0">part_grid_</a>-&gt;RemoveBBox(parts[i]);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a800a94628a99a8f3e054619e170d7fbb"></a><!-- doxytag: member="tesseract::EquationDetect::FindEquationParts" ref="a800a94628a99a8f3e054619e170d7fbb" args="(ColPartitionGrid *part_grid, ColPartitionSet **best_columns)" -->
@@ -600,6 +1056,72 @@ Protected Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="classtesseract_1_1_equation_detect_base.html#a4f11f002edacf57f9e8b10103e0288a7">tesseract::EquationDetectBase</a>.</p>
 
+<p>Definition at line <a class="el" href="equationdetect_8cpp_source.html#l00373">373</a> of file <a class="el" href="equationdetect_8cpp_source.html">equationdetect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                 {
+  <span class="keywordflow">if</span> (!<a class="code" href="classtesseract_1_1_equation_detect.html#a1eeb1ca073ec04a8f4d182b85812bcc9">equ_tesseract_</a> || !<a class="code" href="classtesseract_1_1_equation_detect.html#ac9825c046385d42504424a69d3b56177">lang_tesseract_</a>) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Warning: equ_tesseract_/lang_tesseract_ is NULL!\n&quot;</span>);
+    <span class="keywordflow">return</span> -1;
+  }
+  <span class="keywordflow">if</span> (!part_grid || !best_columns) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;part_grid/best_columns is NULL!!\n&quot;</span>);
+    <span class="keywordflow">return</span> -1;
+  }
+  <a class="code" href="classtesseract_1_1_equation_detect.html#ad41af69ecd3e0227bbe5b4714c429666">cp_seeds_</a>.<a class="code" href="class_generic_vector.html#a9cdbff49b186574b83e43afba606fdd9">clear</a>();
+  <a class="code" href="classtesseract_1_1_equation_detect.html#a4798ba96020b3ce55050b66dd3c72fe0">part_grid_</a> = part_grid;
+  <a class="code" href="classtesseract_1_1_equation_detect.html#a56fe80b060d60fd1d833b3054f44abdf">best_columns_</a> = best_columns;
+  <a class="code" href="classtesseract_1_1_equation_detect.html#ae97d45cf4e1e79c132831151d66fb662">resolution_</a> = <a class="code" href="classtesseract_1_1_equation_detect.html#ac9825c046385d42504424a69d3b56177">lang_tesseract_</a>-&gt;source_resolution();
+  <a class="code" href="class_s_t_r_i_n_g.html">STRING</a> outfile;
+  <a class="code" href="classtesseract_1_1_equation_detect.html#aec76c4ef860f40ec042c65ea1340fc31">page_count_</a>++;
+
+  <span class="keywordflow">if</span> (<a class="code" href="equationdetect_8cpp.html#ab3821a15abf7ddbf050f01af5138a7ec">equationdetect_save_bi_image</a>) {
+    <a class="code" href="classtesseract_1_1_equation_detect.html#a1b16b753a8304af5b0b4e85f5a02aa41">GetOutputTiffName</a>(<span class="stringliteral">&quot;_bi&quot;</span>, &amp;outfile);
+    pixWrite(outfile.<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a>(), <a class="code" href="classtesseract_1_1_equation_detect.html#ac9825c046385d42504424a69d3b56177">lang_tesseract_</a>-&gt;pix_binary(), IFF_TIFF_G4);
+  }
+
+  <span class="comment">// Pass 0: Compute special text type for blobs.</span>
+  <a class="code" href="classtesseract_1_1_equation_detect.html#ae00172a9d9483ef7a204f2316e4d7f96">IdentifySpecialText</a>();
+
+  <span class="comment">// Pass 1: Merge parts by overlap.</span>
+  <a class="code" href="classtesseract_1_1_equation_detect.html#ad26e2adac7587d71b2a9394a4b8897a6">MergePartsByLocation</a>();
+
+  <span class="comment">// Pass 2: compute the math blob density and find the seed partition.</span>
+  <a class="code" href="classtesseract_1_1_equation_detect.html#a39c1397a958168add27d1a4bbc3ff916">IdentifySeedParts</a>();
+  <span class="comment">// We still need separate seed into block seed and inline seed partition.</span>
+  <a class="code" href="classtesseract_1_1_equation_detect.html#a89b2d841680f6f6207fc4f10b8d7839f">IdentifyInlineParts</a>();
+
+  <span class="keywordflow">if</span> (<a class="code" href="equationdetect_8cpp.html#a5c4a2fdf13d6975e77cffaa102f74b37">equationdetect_save_seed_image</a>) {
+    <a class="code" href="classtesseract_1_1_equation_detect.html#a1b16b753a8304af5b0b4e85f5a02aa41">GetOutputTiffName</a>(<span class="stringliteral">&quot;_seed&quot;</span>, &amp;outfile);
+    <a class="code" href="classtesseract_1_1_equation_detect.html#ae10f647d8ed221a3e2faf4520b293281">PaintColParts</a>(outfile);
+  }
+
+  <span class="comment">// Pass 3: expand block equation seeds.</span>
+  <span class="keywordflow">while</span> (!<a class="code" href="classtesseract_1_1_equation_detect.html#ad41af69ecd3e0227bbe5b4714c429666">cp_seeds_</a>.<a class="code" href="class_generic_vector.html#afb0d8c52a603b6aa965d63bbf06a27dd">empty</a>()) {
+    <a class="code" href="class_generic_vector.html">GenericVector&lt;ColPartition*&gt;</a> seeds_expanded;
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="classtesseract_1_1_equation_detect.html#ad41af69ecd3e0227bbe5b4714c429666">cp_seeds_</a>.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>(); ++i) {
+      <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_equation_detect.html#a76bc8a18a94fc5f89f6d4d073ba0c9bf">ExpandSeed</a>(<a class="code" href="classtesseract_1_1_equation_detect.html#ad41af69ecd3e0227bbe5b4714c429666">cp_seeds_</a>[i])) {
+        <span class="comment">// If this seed is expanded, then we add it into seeds_expanded. Note</span>
+        <span class="comment">// this seed has been removed from part_grid_ if it is expanded.</span>
+        seeds_expanded.<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(<a class="code" href="classtesseract_1_1_equation_detect.html#ad41af69ecd3e0227bbe5b4714c429666">cp_seeds_</a>[i]);
+      }
+    }
+    <span class="comment">// Add seeds_expanded back into part_grid_ and reset cp_seeds_.</span>
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; seeds_expanded.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>(); ++i) {
+      <a class="code" href="classtesseract_1_1_equation_detect.html#a5f75b1dad656abfdb1a10eddeb8e65de">InsertPartAfterAbsorb</a>(seeds_expanded[i]);
+    }
+    <a class="code" href="classtesseract_1_1_equation_detect.html#ad41af69ecd3e0227bbe5b4714c429666">cp_seeds_</a> = seeds_expanded;
+  }
+
+  <span class="comment">// Pass 4: find math block satellite text partitions and merge them.</span>
+  <a class="code" href="classtesseract_1_1_equation_detect.html#a0bb5b44fbab44c93cb338eed35b4ef4a">ProcessMathBlockSatelliteParts</a>();
+
+  <span class="keywordflow">if</span> (<a class="code" href="equationdetect_8cpp.html#ad6fcc8bf72a1d8f1162e2dfb30d30d2f">equationdetect_save_merged_image</a>) {  <span class="comment">// For debug.</span>
+    <a class="code" href="classtesseract_1_1_equation_detect.html#a1b16b753a8304af5b0b4e85f5a02aa41">GetOutputTiffName</a>(<span class="stringliteral">&quot;_merged&quot;</span>, &amp;outfile);
+    <a class="code" href="classtesseract_1_1_equation_detect.html#ae10f647d8ed221a3e2faf4520b293281">PaintColParts</a>(outfile);
+  }
+
+  <span class="keywordflow">return</span> 0;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a1b16b753a8304af5b0b4e85f5a02aa41"></a><!-- doxytag: member="tesseract::EquationDetect::GetOutputTiffName" ref="a1b16b753a8304af5b0b4e85f5a02aa41" args="(const char *name, STRING *image_name) const " -->
@@ -627,6 +1149,14 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="equationdetect_8cpp_source.html#l01477">1477</a> of file <a class="el" href="equationdetect_8cpp_source.html">equationdetect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                 {
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(image_name &amp;&amp; name);
+  <span class="keywordtype">char</span> page[50];
+  snprintf(page, <span class="keyword">sizeof</span>(page), <span class="stringliteral">&quot;%04d&quot;</span>, <a class="code" href="classtesseract_1_1_equation_detect.html#aec76c4ef860f40ec042c65ea1340fc31">page_count_</a>);
+  *image_name = <a class="code" href="class_s_t_r_i_n_g.html">STRING</a>(<a class="code" href="classtesseract_1_1_equation_detect.html#ac9825c046385d42504424a69d3b56177">lang_tesseract_</a>-&gt;imagebasename) + page + name + <span class="stringliteral">&quot;.tif&quot;</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab4f5bf2daf3f1ab5332c879ef98e5008"></a><!-- doxytag: member="tesseract::EquationDetect::IdentifyBlobsToSkip" ref="ab4f5bf2daf3f1ab5332c879ef98e5008" args="(ColPartition *part)" -->
@@ -644,6 +1174,55 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="equationdetect_8cpp_source.html#l00325">325</a> of file <a class="el" href="equationdetect_8cpp_source.html">equationdetect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                           {
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(part);
+  BLOBNBOX_C_IT blob_it(part-&gt;boxes());
+
+  <span class="keywordflow">for</span> (blob_it.mark_cycle_pt(); !blob_it.cycled_list(); blob_it.forward()) {
+    <span class="comment">// At this moment, no blob should have been joined.</span>
+    <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(!blob_it.data()-&gt;joined_to_prev());
+  }
+  <span class="keywordflow">for</span> (blob_it.mark_cycle_pt(); !blob_it.cycled_list(); blob_it.forward()) {
+    <a class="code" href="class_b_l_o_b_n_b_o_x.html">BLOBNBOX</a>* blob = blob_it.data();
+    <span class="keywordflow">if</span> (blob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#af37f373c72851534101f4caf296a3cf7">joined_to_prev</a>() || blob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#aa33e4d1cf720df979dc50d2b39abb4e9">special_text_type</a>() == <a class="code" href="blobbox_8h.html#a75b089d27e1df813fed544e0c131df8ca6fac1a2510eab4553549833d5d1afdc0">BSTT_SKIP</a>) {
+      <span class="keywordflow">continue</span>;
+    }
+    <a class="code" href="class_t_b_o_x.html">TBOX</a> blob_box = blob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a7b97b8bc16b1473a28f9c44011522f4e">bounding_box</a>();
+
+    <span class="comment">// Search if any blob can be merged into blob. If found, then we mark all</span>
+    <span class="comment">// these blobs as BSTT_SKIP.</span>
+    BLOBNBOX_C_IT blob_it2 = blob_it;
+    <span class="keywordtype">bool</span> found = <span class="keyword">false</span>;
+    <span class="keywordflow">while</span> (!blob_it2.at_last()) {
+      <a class="code" href="class_b_l_o_b_n_b_o_x.html">BLOBNBOX</a>* nextblob = blob_it2.forward();
+      <span class="keyword">const</span> <a class="code" href="class_t_b_o_x.html">TBOX</a>&amp; nextblob_box = nextblob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a7b97b8bc16b1473a28f9c44011522f4e">bounding_box</a>();
+      <span class="keywordflow">if</span> (nextblob_box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>() &gt;= blob_box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>()) {
+        <span class="keywordflow">break</span>;
+      }
+      <span class="keyword">const</span> <span class="keywordtype">float</span> kWidthR = 0.4, kHeightR = 0.3;
+      <span class="keywordtype">bool</span> xoverlap = blob_box.<a class="code" href="class_t_b_o_x.html#a9f7e4e20bdfeee0d82db2f8d24aa72dc">major_x_overlap</a>(nextblob_box),
+          yoverlap = blob_box.<a class="code" href="class_t_b_o_x.html#a7ae8e4b8b3af5b23db3d6c959249064c">y_overlap</a>(nextblob_box);
+      <span class="keywordtype">float</span> widthR = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(
+          <a class="code" href="ndminx_8h.html#a74e75242132eaabbc1c512488a135926">MIN</a>(nextblob_box.<a class="code" href="class_t_b_o_x.html#af95494a2ccacc70cc2b83820b2948619">width</a>(), blob_box.<a class="code" href="class_t_b_o_x.html#af95494a2ccacc70cc2b83820b2948619">width</a>())) /
+          <a class="code" href="ndminx_8h.html#aacc3ee1a7f283f8ef65cea31f4436a95">MAX</a>(nextblob_box.<a class="code" href="class_t_b_o_x.html#af95494a2ccacc70cc2b83820b2948619">width</a>(), blob_box.<a class="code" href="class_t_b_o_x.html#af95494a2ccacc70cc2b83820b2948619">width</a>());
+      <span class="keywordtype">float</span> heightR = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(
+          <a class="code" href="ndminx_8h.html#a74e75242132eaabbc1c512488a135926">MIN</a>(nextblob_box.<a class="code" href="class_t_b_o_x.html#a8379d4bbc72bdbb1f069fc14790e632d">height</a>(), blob_box.<a class="code" href="class_t_b_o_x.html#a8379d4bbc72bdbb1f069fc14790e632d">height</a>())) /
+          <a class="code" href="ndminx_8h.html#aacc3ee1a7f283f8ef65cea31f4436a95">MAX</a>(nextblob_box.<a class="code" href="class_t_b_o_x.html#a8379d4bbc72bdbb1f069fc14790e632d">height</a>(), blob_box.<a class="code" href="class_t_b_o_x.html#a8379d4bbc72bdbb1f069fc14790e632d">height</a>());
+
+      <span class="keywordflow">if</span> (xoverlap &amp;&amp; yoverlap &amp;&amp; widthR &gt; kWidthR &amp;&amp; heightR &gt; kHeightR) {
+        <span class="comment">// Found one, set nextblob type and recompute blob_box.</span>
+        found = <span class="keyword">true</span>;
+        nextblob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a1650427df7e6b935dd737ad9eb70c36b">set_special_text_type</a>(<a class="code" href="blobbox_8h.html#a75b089d27e1df813fed544e0c131df8ca6fac1a2510eab4553549833d5d1afdc0">BSTT_SKIP</a>);
+        blob_box += nextblob_box;
+      }
+    }
+    <span class="keywordflow">if</span> (found) {
+      blob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a1650427df7e6b935dd737ad9eb70c36b">set_special_text_type</a>(<a class="code" href="blobbox_8h.html#a75b089d27e1df813fed544e0c131df8ca6fac1a2510eab4553549833d5d1afdc0">BSTT_SKIP</a>);
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a89b2d841680f6f6207fc4f10b8d7839f"></a><!-- doxytag: member="tesseract::EquationDetect::IdentifyInlineParts" ref="a89b2d841680f6f6207fc4f10b8d7839f" args="()" -->
@@ -660,6 +1239,15 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="equationdetect_8cpp_source.html#l00802">802</a> of file <a class="el" href="equationdetect_8cpp_source.html">equationdetect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                         {
+  <a class="code" href="classtesseract_1_1_equation_detect.html#a8de69a1f250877609333539286e6914a">ComputeCPsSuperBBox</a>();
+  <a class="code" href="classtesseract_1_1_equation_detect.html#ae246fb4897d7e5181ff727874a9eb140">IdentifyInlinePartsHorizontal</a>();
+  <span class="keywordtype">int</span> textparts_linespacing = <a class="code" href="classtesseract_1_1_equation_detect.html#a096b2bb7f8f59484ec2043d92c3f1eec">EstimateTextPartLineSpacing</a>();
+  <a class="code" href="classtesseract_1_1_equation_detect.html#a657f367e87724bfab6359c42f10fad66">IdentifyInlinePartsVertical</a>(<span class="keyword">true</span>, textparts_linespacing);
+  <a class="code" href="classtesseract_1_1_equation_detect.html#a657f367e87724bfab6359c42f10fad66">IdentifyInlinePartsVertical</a>(<span class="keyword">false</span>, textparts_linespacing);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae246fb4897d7e5181ff727874a9eb140"></a><!-- doxytag: member="tesseract::EquationDetect::IdentifyInlinePartsHorizontal" ref="ae246fb4897d7e5181ff727874a9eb140" args="()" -->
@@ -676,6 +1264,72 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="equationdetect_8cpp_source.html#l00823">823</a> of file <a class="el" href="equationdetect_8cpp_source.html">equationdetect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                   {
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(<a class="code" href="classtesseract_1_1_equation_detect.html#aa6dfc694549236e0be87efd3d2c8d17f">cps_super_bbox_</a>);
+  <a class="code" href="class_generic_vector.html">GenericVector&lt;ColPartition*&gt;</a> new_seeds;
+  <span class="keyword">const</span> <span class="keywordtype">int</span> kMarginDiffTh = <a class="code" href="helpers_8h.html#ab60e4f82956a1f5fdb54d0d8303e95b7">IntCastRounded</a>(
+      0.5 * <a class="code" href="classtesseract_1_1_equation_detect.html#ac9825c046385d42504424a69d3b56177">lang_tesseract_</a>-&gt;source_resolution());
+  <span class="keyword">const</span> <span class="keywordtype">int</span> kGapTh = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(roundf(
+      1.0 * <a class="code" href="classtesseract_1_1_equation_detect.html#ac9825c046385d42504424a69d3b56177">lang_tesseract_</a>-&gt;source_resolution()));
+  <a class="code" href="namespacetesseract.html#a990e3f25988f7d70c40a13225e645492">ColPartitionGridSearch</a> <a class="code" href="oldlist_8cpp.html#a1d8af9328f064a9df6d6f88336dd054e">search</a>(<a class="code" href="classtesseract_1_1_equation_detect.html#a4798ba96020b3ce55050b66dd3c72fe0">part_grid_</a>);
+  <a class="code" href="oldlist_8cpp.html#a1d8af9328f064a9df6d6f88336dd054e">search</a>.SetUniqueMode(<span class="keyword">true</span>);
+  <span class="comment">// The center x coordinate of the cp_super_bbox_.</span>
+  <span class="keywordtype">int</span> cps_cx = <a class="code" href="classtesseract_1_1_equation_detect.html#aa6dfc694549236e0be87efd3d2c8d17f">cps_super_bbox_</a>-&gt;<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>() + <a class="code" href="classtesseract_1_1_equation_detect.html#aa6dfc694549236e0be87efd3d2c8d17f">cps_super_bbox_</a>-&gt;<a class="code" href="class_t_b_o_x.html#af95494a2ccacc70cc2b83820b2948619">width</a>() / 2;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="classtesseract_1_1_equation_detect.html#ad41af69ecd3e0227bbe5b4714c429666">cp_seeds_</a>.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>(); ++i) {
+    ColPartition* part = <a class="code" href="classtesseract_1_1_equation_detect.html#ad41af69ecd3e0227bbe5b4714c429666">cp_seeds_</a>[i];
+    <span class="keyword">const</span> <a class="code" href="class_t_b_o_x.html">TBOX</a>&amp; part_box(part-&gt;bounding_box());
+    <span class="keywordtype">int</span> left_margin = part_box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>() - <a class="code" href="classtesseract_1_1_equation_detect.html#aa6dfc694549236e0be87efd3d2c8d17f">cps_super_bbox_</a>-&gt;<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>(),
+        right_margin = <a class="code" href="classtesseract_1_1_equation_detect.html#aa6dfc694549236e0be87efd3d2c8d17f">cps_super_bbox_</a>-&gt;<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>() - part_box.right();
+    <span class="keywordtype">bool</span> right_to_left;
+    <span class="keywordflow">if</span> (left_margin + kMarginDiffTh &lt; right_margin &amp;&amp;
+        left_margin &lt; kMarginDiffTh) {
+      <span class="comment">// part is left aligned, so we search if it has any right neighbor.</span>
+      <a class="code" href="oldlist_8cpp.html#a1d8af9328f064a9df6d6f88336dd054e">search</a>.StartSideSearch(
+          part_box.right(), part_box.top(), part_box.bottom());
+      right_to_left = <span class="keyword">false</span>;
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (left_margin &gt; cps_cx) {
+      <span class="comment">// part locates on the right half on image, so search if it has any left</span>
+      <span class="comment">// neighbor.</span>
+      <a class="code" href="oldlist_8cpp.html#a1d8af9328f064a9df6d6f88336dd054e">search</a>.StartSideSearch(
+          part_box.left(), part_box.top(), part_box.bottom());
+      right_to_left = <span class="keyword">true</span>;
+    } <span class="keywordflow">else</span> {  <span class="comment">// part is not an inline equation.</span>
+      new_seeds.<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(part);
+      <span class="keywordflow">continue</span>;
+    }
+    ColPartition* neighbor = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    <span class="keywordtype">bool</span> side_neighbor_found = <span class="keyword">false</span>;
+    <span class="keywordflow">while</span> ((neighbor = <a class="code" href="oldlist_8cpp.html#a1d8af9328f064a9df6d6f88336dd054e">search</a>.NextSideSearch(right_to_left)) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      <span class="keyword">const</span> <a class="code" href="class_t_b_o_x.html">TBOX</a>&amp; neighbor_box(neighbor-&gt;bounding_box());
+      <span class="keywordflow">if</span> (!<a class="code" href="namespacetesseract.html#a1aff6897e170c358d7672413b3c221de">IsTextOrEquationType</a>(neighbor-&gt;type()) ||
+          part_box.x_gap(neighbor_box) &gt; kGapTh ||
+          !part_box.major_y_overlap(neighbor_box) ||
+          part_box.major_x_overlap(neighbor_box)) {
+        <span class="keywordflow">continue</span>;
+      }
+      <span class="comment">// We have found one. Set the side_neighbor_found flag.</span>
+      side_neighbor_found = <span class="keyword">true</span>;
+      <span class="keywordflow">break</span>;
+    }
+    <span class="keywordflow">if</span> (!side_neighbor_found) {  <span class="comment">// Mark part as PT_INLINE_EQUATION.</span>
+      part-&gt;set_type(<a class="code" href="publictypes_8h.html#a03566528a98c079dafeebf00502f2b60aa52ce81f771512916e01215965910fc6">PT_INLINE_EQUATION</a>);
+    } <span class="keywordflow">else</span> {
+      <span class="comment">// Check the geometric feature of neighbor.</span>
+      <span class="keyword">const</span> <a class="code" href="class_t_b_o_x.html">TBOX</a>&amp; neighbor_box(neighbor-&gt;bounding_box());
+      <span class="keywordflow">if</span> (neighbor_box.width() &gt; part_box.width() &amp;&amp;
+          neighbor-&gt;type() != <a class="code" href="publictypes_8h.html#a03566528a98c079dafeebf00502f2b60adfde914b43bcf45b29f149fa4415bf45">PT_EQUATION</a>) {  <span class="comment">// Mark as PT_INLINE_EQUATION.</span>
+        part-&gt;set_type(<a class="code" href="publictypes_8h.html#a03566528a98c079dafeebf00502f2b60aa52ce81f771512916e01215965910fc6">PT_INLINE_EQUATION</a>);
+      } <span class="keywordflow">else</span> {  <span class="comment">// part is not an inline equation type.</span>
+        new_seeds.<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(part);
+      }
+    }
+  }
+
+  <span class="comment">// Reset the cp_seeds_ using the new_seeds.</span>
+  <a class="code" href="classtesseract_1_1_equation_detect.html#ad41af69ecd3e0227bbe5b4714c429666">cp_seeds_</a> = new_seeds;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a657f367e87724bfab6359c42f10fad66"></a><!-- doxytag: member="tesseract::EquationDetect::IdentifyInlinePartsVertical" ref="a657f367e87724bfab6359c42f10fad66" args="(const bool top_to_bottom, const int textPartsLineSpacing)" -->
@@ -703,6 +1357,35 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="equationdetect_8cpp_source.html#l00928">928</a> of file <a class="el" href="equationdetect_8cpp_source.html">equationdetect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                               {
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_equation_detect.html#ad41af69ecd3e0227bbe5b4714c429666">cp_seeds_</a>.<a class="code" href="class_generic_vector.html#afb0d8c52a603b6aa965d63bbf06a27dd">empty</a>()) {
+    <span class="keywordflow">return</span>;
+  }
+
+  <span class="comment">// Sort cp_seeds_.</span>
+  <span class="keywordflow">if</span> (top_to_bottom) {  <span class="comment">// From top to bottom.</span>
+    <a class="code" href="classtesseract_1_1_equation_detect.html#ad41af69ecd3e0227bbe5b4714c429666">cp_seeds_</a>.<a class="code" href="class_generic_vector.html#a999bbd8ff336c81fe1198ea714c7936d">sort</a>(&amp;SortCPByTopReverse);
+  } <span class="keywordflow">else</span> {  <span class="comment">// From bottom to top.</span>
+    <a class="code" href="classtesseract_1_1_equation_detect.html#ad41af69ecd3e0227bbe5b4714c429666">cp_seeds_</a>.<a class="code" href="class_generic_vector.html#a999bbd8ff336c81fe1198ea714c7936d">sort</a>(&amp;SortCPByBottom);
+  }
+
+  <a class="code" href="class_generic_vector.html">GenericVector&lt;ColPartition*&gt;</a> new_seeds;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="classtesseract_1_1_equation_detect.html#ad41af69ecd3e0227bbe5b4714c429666">cp_seeds_</a>.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>(); ++i) {
+    ColPartition* part = <a class="code" href="classtesseract_1_1_equation_detect.html#ad41af69ecd3e0227bbe5b4714c429666">cp_seeds_</a>[i];
+    <span class="comment">// If we sort cp_seeds_ from top to bottom, then for each cp_seeds_, we look</span>
+    <span class="comment">// for its top neighbors, so that if two/more inline regions are connected</span>
+    <span class="comment">// to each other, then we will identify the top one, and then use it to</span>
+    <span class="comment">// identify the bottom one.</span>
+    <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_equation_detect.html#a9f0be32790e5915d579cd1898530fb6b">IsInline</a>(!top_to_bottom, textparts_linespacing, part)) {
+      part-&gt;set_type(<a class="code" href="publictypes_8h.html#a03566528a98c079dafeebf00502f2b60aa52ce81f771512916e01215965910fc6">PT_INLINE_EQUATION</a>);
+    } <span class="keywordflow">else</span> {
+      new_seeds.<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(part);
+    }
+  }
+  <a class="code" href="classtesseract_1_1_equation_detect.html#ad41af69ecd3e0227bbe5b4714c429666">cp_seeds_</a> = new_seeds;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a39c1397a958168add27d1a4bbc3ff916"></a><!-- doxytag: member="tesseract::EquationDetect::IdentifySeedParts" ref="a39c1397a958168add27d1a4bbc3ff916" args="()" -->
@@ -719,6 +1402,79 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="equationdetect_8cpp_source.html#l00554">554</a> of file <a class="el" href="equationdetect_8cpp_source.html">equationdetect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                       {
+  <a class="code" href="namespacetesseract.html#a990e3f25988f7d70c40a13225e645492">ColPartitionGridSearch</a> gsearch(<a class="code" href="classtesseract_1_1_equation_detect.html#a4798ba96020b3ce55050b66dd3c72fe0">part_grid_</a>);
+  ColPartition *part = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  gsearch.StartFullSearch();
+
+  <a class="code" href="class_generic_vector.html">GenericVector&lt;ColPartition*&gt;</a> seeds1, seeds2;
+  <span class="comment">// The left coordinates of indented text partitions.</span>
+  <a class="code" href="class_generic_vector.html">GenericVector&lt;int&gt;</a> indented_texts_left;
+  <span class="comment">// The foreground density of text partitions.</span>
+  <a class="code" href="class_generic_vector.html">GenericVector&lt;float&gt;</a> texts_foreground_density;
+  <span class="keywordflow">while</span> ((part = gsearch.NextFullSearch()) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">if</span> (!<a class="code" href="namespacetesseract.html#a1aff6897e170c358d7672413b3c221de">IsTextOrEquationType</a>(part-&gt;type())) {
+      <span class="keywordflow">continue</span>;
+    }
+    part-&gt;ComputeSpecialBlobsDensity();
+    <span class="keywordtype">bool</span> blobs_check = <a class="code" href="classtesseract_1_1_equation_detect.html#a14f4d2d35ed292b40ce57b028d7e124a">CheckSeedBlobsCount</a>(part);
+    <span class="keyword">const</span> <span class="keywordtype">int</span> kTextBlobsTh = 20;
+
+    <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_equation_detect.html#a8c054862ed6512cb8c935c53d179ffb2">CheckSeedDensity</a>(<a class="code" href="namespacetesseract.html#ad996502770c51cc260e4d66db9543bcc">kMathDigitDensityTh1</a>, <a class="code" href="namespacetesseract.html#a2a82022958d051af0fb624095c3ada00">kMathDigitDensityTh2</a>, part) &amp;&amp;
+        blobs_check) {
+      <span class="comment">// Passed high density threshold test, save into seeds1.</span>
+      seeds1.<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(part);
+    } <span class="keywordflow">else</span> {
+      <a class="code" href="classtesseract_1_1_equation_detect.html#a8af35d2174dc3814a0e895115b4b4223">IndentType</a> indent = <a class="code" href="classtesseract_1_1_equation_detect.html#a35912b69ed5ffa28d88ed53ba9f060d3">IsIndented</a>(part);
+      <span class="keywordflow">if</span> (<a class="code" href="namespacetesseract.html#afe260b66ccf11a3f3346ba282f315c49">IsLeftIndented</a>(indent) &amp;&amp; blobs_check &amp;&amp;
+          <a class="code" href="classtesseract_1_1_equation_detect.html#a8c054862ed6512cb8c935c53d179ffb2">CheckSeedDensity</a>(<a class="code" href="namespacetesseract.html#a2a82022958d051af0fb624095c3ada00">kMathDigitDensityTh2</a>, <a class="code" href="namespacetesseract.html#a2a82022958d051af0fb624095c3ada00">kMathDigitDensityTh2</a>, part)) {
+        <span class="comment">// Passed low density threshold test and is indented, save into seeds2.</span>
+        seeds2.<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(part);
+      } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (!<a class="code" href="namespacetesseract.html#a8a161b61eb46383ddad93473fb3d8749">IsRightIndented</a>(indent) &amp;&amp;
+                 part-&gt;boxes_count() &gt; kTextBlobsTh) {
+        <span class="comment">// This is likely to be a text part, save the features.</span>
+        <span class="keyword">const</span> <a class="code" href="class_t_b_o_x.html">TBOX</a>&amp;box = part-&gt;bounding_box();
+        <span class="keywordflow">if</span> (<a class="code" href="namespacetesseract.html#afe260b66ccf11a3f3346ba282f315c49">IsLeftIndented</a>(indent)) {
+          indented_texts_left.<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>());
+        }
+        texts_foreground_density.<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(<a class="code" href="classtesseract_1_1_equation_detect.html#a4aa9c0126e15827ea9c66319558d2fb9">ComputeForegroundDensity</a>(box));
+      }
+    }
+  }
+
+  <span class="comment">// Sort the features collected from text regions.</span>
+  indented_texts_left.<a class="code" href="class_generic_vector.html#a999bbd8ff336c81fe1198ea714c7936d">sort</a>();
+  texts_foreground_density.<a class="code" href="class_generic_vector.html#a999bbd8ff336c81fe1198ea714c7936d">sort</a>();
+  <span class="keywordtype">float</span> foreground_density_th = 0.15;  <span class="comment">// Default value.</span>
+  <span class="keywordflow">if</span> (!texts_foreground_density.<a class="code" href="class_generic_vector.html#afb0d8c52a603b6aa965d63bbf06a27dd">empty</a>()) {
+    <span class="comment">// Use the median of the texts_foreground_density.</span>
+    foreground_density_th = 0.8 * texts_foreground_density[
+        texts_foreground_density.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>() / 2];
+  }
+
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; seeds1.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>(); ++i) {
+    <span class="keyword">const</span> <a class="code" href="class_t_b_o_x.html">TBOX</a>&amp; box = seeds1[i]-&gt;bounding_box();
+    <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_equation_detect.html#aac03fc4552265dd3e79fae673fa63b88">CheckSeedFgDensity</a>(foreground_density_th, seeds1[i]) &amp;&amp;
+        !(<a class="code" href="namespacetesseract.html#afe260b66ccf11a3f3346ba282f315c49">IsLeftIndented</a>(<a class="code" href="classtesseract_1_1_equation_detect.html#a35912b69ed5ffa28d88ed53ba9f060d3">IsIndented</a>(seeds1[i])) &amp;&amp;
+          <a class="code" href="classtesseract_1_1_equation_detect.html#ab6e37bfef27092f6205b13bf8b221ffd">CountAlignment</a>(indented_texts_left, box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>()) &gt;=
+          <a class="code" href="namespacetesseract.html#a1a5ac6fad51e61e88df309fb704d8ebc">kLeftIndentAlignmentCountTh</a>)) {
+      <span class="comment">// Mark as PT_EQUATION type.</span>
+      seeds1[i]-&gt;set_type(<a class="code" href="publictypes_8h.html#a03566528a98c079dafeebf00502f2b60adfde914b43bcf45b29f149fa4415bf45">PT_EQUATION</a>);
+      <a class="code" href="classtesseract_1_1_equation_detect.html#ad41af69ecd3e0227bbe5b4714c429666">cp_seeds_</a>.<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(seeds1[i]);
+    } <span class="keywordflow">else</span> {  <span class="comment">// Mark as PT_INLINE_EQUATION type.</span>
+      seeds1[i]-&gt;set_type(<a class="code" href="publictypes_8h.html#a03566528a98c079dafeebf00502f2b60aa52ce81f771512916e01215965910fc6">PT_INLINE_EQUATION</a>);
+    }
+  }
+
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; seeds2.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>(); ++i) {
+    <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_equation_detect.html#a2a1d7cd57ac4ed59a38ffd3b476dd2bf">CheckForSeed2</a>(indented_texts_left, foreground_density_th, seeds2[i])) {
+      seeds2[i]-&gt;set_type(<a class="code" href="publictypes_8h.html#a03566528a98c079dafeebf00502f2b60adfde914b43bcf45b29f149fa4415bf45">PT_EQUATION</a>);
+      <a class="code" href="classtesseract_1_1_equation_detect.html#ad41af69ecd3e0227bbe5b4714c429666">cp_seeds_</a>.<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(seeds2[i]);
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3ca64bf338dcbdc3ed9bdc4abf1c7aa1"></a><!-- doxytag: member="tesseract::EquationDetect::IdentifySpecialText" ref="a3ca64bf338dcbdc3ed9bdc4abf1c7aa1" args="(BLOBNBOX *blob, const int height_th)" -->
@@ -746,6 +1502,80 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="equationdetect_8cpp_source.html#l00165">165</a> of file <a class="el" href="equationdetect_8cpp_source.html">equationdetect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                             {
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(blobnbox != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <span class="keywordflow">if</span> (blobnbox-&gt;bounding_box().height() &lt; height_th &amp;&amp; height_th &gt; 0) {
+    <span class="comment">// For small blob, we simply set to BSTT_NONE.</span>
+    blobnbox-&gt;set_special_text_type(<a class="code" href="blobbox_8h.html#a75b089d27e1df813fed544e0c131df8ca1e2ca6a59ce1487c101d4605eab44b7a">BSTT_NONE</a>);
+    <span class="keywordflow">return</span>;
+  }
+
+  BLOB_CHOICE_LIST ratings_equ, ratings_lang;
+  <a class="code" href="class_c___b_l_o_b.html">C_BLOB</a>* blob = blobnbox-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a483f44541a4dd818f02225c92f030e07">cblob</a>();
+  <a class="code" href="struct_t_b_l_o_b.html">TBLOB</a>* tblob = <a class="code" href="struct_t_b_l_o_b.html#a49b1279a5ff4e05d6dd0beacd2d99395">TBLOB::PolygonalCopy</a>(blob);
+  <span class="keyword">const</span> <a class="code" href="class_t_b_o_x.html">TBOX</a>&amp; box = tblob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a8f1f8f110170fe12cf8147d504cd0ea2">bounding_box</a>();
+
+  <span class="comment">// Normalize the blob. Set the origin to the place we want to be the</span>
+  <span class="comment">// bottom-middle, and scaling is to make the height the x-height.</span>
+  <span class="keywordtype">float</span> scaling = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(<a class="code" href="normalis_8h.html#af974e6755e636c8bc7cbe57e3bcbdd73">kBlnXHeight</a>) / box.<a class="code" href="class_t_b_o_x.html#a8379d4bbc72bdbb1f069fc14790e632d">height</a>();
+  <a class="code" href="class_d_e_n_o_r_m.html">DENORM</a> denorm;
+  <span class="keywordtype">float</span> x_orig = (box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>() + box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>()) / 2.0<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>, y_orig = box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>();
+  denorm.<a class="code" href="class_d_e_n_o_r_m.html#ac667a208c574b073db800890e4e31255">SetupNormalization</a>(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, 0,
+                            x_orig, y_orig, scaling, scaling,
+                            0.0<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>, static_cast&lt;float&gt;(<a class="code" href="normalis_8h.html#abe10ce41bf7240ae8a053dea471d6ed5">kBlnBaselineOffset</a>));
+  <a class="code" href="struct_t_b_l_o_b.html">TBLOB</a>* normed_blob = <span class="keyword">new</span> <a class="code" href="struct_t_b_l_o_b.html">TBLOB</a>(*tblob);
+  normed_blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a6c4c913279ff695055baf11bedd4158d">Normalize</a>(denorm);
+  <a class="code" href="classtesseract_1_1_equation_detect.html#a1eeb1ca073ec04a8f4d182b85812bcc9">equ_tesseract_</a>-&gt;AdaptiveClassifier(normed_blob, denorm, &amp;ratings_equ, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <a class="code" href="classtesseract_1_1_equation_detect.html#ac9825c046385d42504424a69d3b56177">lang_tesseract_</a>-&gt;AdaptiveClassifier(normed_blob, denorm, &amp;ratings_lang, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <span class="keyword">delete</span> normed_blob;
+  <span class="keyword">delete</span> tblob;
+
+  <span class="comment">// Get the best choice from ratings_lang and rating_equ. As the choice in the</span>
+  <span class="comment">// list has already been sorted by the certainty, we simply use the first</span>
+  <span class="comment">// choice.</span>
+  <a class="code" href="class_b_l_o_b___c_h_o_i_c_e.html">BLOB_CHOICE</a> *lang_choice = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, *equ_choice = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordflow">if</span> (ratings_lang.length() &gt; 0) {
+    BLOB_CHOICE_IT choice_it(&amp;ratings_lang);
+    lang_choice = choice_it.data();
+  }
+  <span class="keywordflow">if</span> (ratings_equ.length() &gt; 0) {
+    BLOB_CHOICE_IT choice_it(&amp;ratings_equ);
+    equ_choice = choice_it.data();
+  }
+
+  <span class="keywordtype">float</span> lang_score = lang_choice ? lang_choice-&gt;<a class="code" href="class_b_l_o_b___c_h_o_i_c_e.html#af53d45b718c562ea7209b583c77ac14e">certainty</a>() : -FLT_MAX;
+  <span class="keywordtype">float</span> equ_score = equ_choice ? equ_choice-&gt;certainty() : -FLT_MAX;
+
+  <span class="keyword">const</span> <span class="keywordtype">float</span> kConfScoreTh = -5.0f, kConfDiffTh = 1.8;
+  <span class="comment">// The scores here are negative, so the max/min == fabs(min/max).</span>
+  <span class="comment">// float ratio = fmax(lang_score, equ_score) / fmin(lang_score, equ_score);</span>
+  <span class="keywordtype">float</span> diff = fabs(lang_score - equ_score);
+  <a class="code" href="blobbox_8h.html#a75b089d27e1df813fed544e0c131df8c">BlobSpecialTextType</a> type = <a class="code" href="blobbox_8h.html#a75b089d27e1df813fed544e0c131df8ca1e2ca6a59ce1487c101d4605eab44b7a">BSTT_NONE</a>;
+
+  <span class="comment">// Classification.</span>
+  <span class="keywordflow">if</span> (fmax(lang_score, equ_score) &lt; kConfScoreTh) {
+    <span class="comment">// If both score are very small, then mark it as unclear.</span>
+    type = <a class="code" href="blobbox_8h.html#a75b089d27e1df813fed544e0c131df8ca604529fa299b8dcc81b0ac07ebb2c9b7">BSTT_UNCLEAR</a>;
+  } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (diff &gt; kConfDiffTh &amp;&amp; equ_score &gt; lang_score) {
+    <span class="comment">// If equ_score is significantly higher, then we classify this character as</span>
+    <span class="comment">// math symbol.</span>
+    type = <a class="code" href="blobbox_8h.html#a75b089d27e1df813fed544e0c131df8ca356056d522254adc40c8acdf14f19c4d">BSTT_MATH</a>;
+  } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (lang_choice) {
+    <span class="comment">// For other cases: lang_score is similar or significantly higher.</span>
+    type = <a class="code" href="classtesseract_1_1_equation_detect.html#a51f3ad45ba13e180c87afd7af86846de">EstimateTypeForUnichar</a>(
+        <a class="code" href="classtesseract_1_1_equation_detect.html#ac9825c046385d42504424a69d3b56177">lang_tesseract_</a>-&gt;unicharset, lang_choice-&gt;<a class="code" href="class_b_l_o_b___c_h_o_i_c_e.html#aaba6190b77c5f3dc21905fc4118afa94">unichar_id</a>());
+  }
+
+  <span class="keywordflow">if</span> (type == <a class="code" href="blobbox_8h.html#a75b089d27e1df813fed544e0c131df8ca1e2ca6a59ce1487c101d4605eab44b7a">BSTT_NONE</a> &amp;&amp; <a class="code" href="classtesseract_1_1_equation_detect.html#ac9825c046385d42504424a69d3b56177">lang_tesseract_</a>-&gt;get_fontinfo_table().get(
+      lang_choice-&gt;<a class="code" href="class_b_l_o_b___c_h_o_i_c_e.html#a3594e34861be86d775724f5f91fba3be">fontinfo_id</a>()).is_italic()) {
+    <span class="comment">// For text symbol, we still check if it is italic.</span>
+    blobnbox-&gt;set_special_text_type(<a class="code" href="blobbox_8h.html#a75b089d27e1df813fed544e0c131df8ca9f7c059031ba5f95a4e0f43bac16a33a">BSTT_ITALIC</a>);
+  } <span class="keywordflow">else</span> {
+    blobnbox-&gt;set_special_text_type(type);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae00172a9d9483ef7a204f2316e4d7f96"></a><!-- doxytag: member="tesseract::EquationDetect::IdentifySpecialText" ref="ae00172a9d9483ef7a204f2316e4d7f96" args="()" -->
@@ -762,6 +1592,59 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="equationdetect_8cpp_source.html#l00273">273</a> of file <a class="el" href="equationdetect_8cpp_source.html">equationdetect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                         {
+  <span class="comment">// Set configuration for Tesseract::AdaptiveClassifier.</span>
+  <a class="code" href="classtesseract_1_1_equation_detect.html#a1eeb1ca073ec04a8f4d182b85812bcc9">equ_tesseract_</a>-&gt;tess_cn_matching.set_value(<span class="keyword">true</span>);  <span class="comment">// turn it on</span>
+  <a class="code" href="classtesseract_1_1_equation_detect.html#a1eeb1ca073ec04a8f4d182b85812bcc9">equ_tesseract_</a>-&gt;tess_bn_matching.set_value(<span class="keyword">false</span>);
+
+  <span class="comment">// Set the multiplier to zero for lang_tesseract_ to improve the accuracy.</span>
+  <span class="keywordtype">int</span> classify_class_pruner = <a class="code" href="classtesseract_1_1_equation_detect.html#ac9825c046385d42504424a69d3b56177">lang_tesseract_</a>-&gt;classify_class_pruner_multiplier;
+  <span class="keywordtype">int</span> classify_integer_matcher =
+      <a class="code" href="classtesseract_1_1_equation_detect.html#ac9825c046385d42504424a69d3b56177">lang_tesseract_</a>-&gt;classify_integer_matcher_multiplier;
+  <a class="code" href="classtesseract_1_1_equation_detect.html#ac9825c046385d42504424a69d3b56177">lang_tesseract_</a>-&gt;classify_class_pruner_multiplier.set_value(0);
+  <a class="code" href="classtesseract_1_1_equation_detect.html#ac9825c046385d42504424a69d3b56177">lang_tesseract_</a>-&gt;classify_integer_matcher_multiplier.set_value(0);
+
+  <a class="code" href="namespacetesseract.html#a990e3f25988f7d70c40a13225e645492">ColPartitionGridSearch</a> gsearch(<a class="code" href="classtesseract_1_1_equation_detect.html#a4798ba96020b3ce55050b66dd3c72fe0">part_grid_</a>);
+  ColPartition *part = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  gsearch.StartFullSearch();
+  <span class="keywordflow">while</span> ((part = gsearch.NextFullSearch()) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">if</span> (!<a class="code" href="namespacetesseract.html#a1aff6897e170c358d7672413b3c221de">IsTextOrEquationType</a>(part-&gt;type())) {
+      <span class="keywordflow">continue</span>;
+    }
+    <a class="code" href="classtesseract_1_1_equation_detect.html#ab4f5bf2daf3f1ab5332c879ef98e5008">IdentifyBlobsToSkip</a>(part);
+    BLOBNBOX_C_IT bbox_it(part-&gt;boxes());
+    <span class="comment">// Compute the height threshold.</span>
+    <a class="code" href="class_generic_vector.html">GenericVector&lt;int&gt;</a> blob_heights;
+    <span class="keywordflow">for</span> (bbox_it.mark_cycle_pt (); !bbox_it.cycled_list();
+         bbox_it.forward()) {
+      <span class="keywordflow">if</span> (bbox_it.data()-&gt;special_text_type() != <a class="code" href="blobbox_8h.html#a75b089d27e1df813fed544e0c131df8ca6fac1a2510eab4553549833d5d1afdc0">BSTT_SKIP</a>) {
+        blob_heights.<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(bbox_it.data()-&gt;bounding_box().height());
+      }
+    }
+    blob_heights.sort();
+    <span class="keywordtype">int</span> height_th =  blob_heights[blob_heights.size() / 2] / 3 * 2;
+    <span class="keywordflow">for</span> (bbox_it.mark_cycle_pt (); !bbox_it.cycled_list();
+         bbox_it.forward()) {
+      <span class="keywordflow">if</span> (bbox_it.data()-&gt;special_text_type() != <a class="code" href="blobbox_8h.html#a75b089d27e1df813fed544e0c131df8ca6fac1a2510eab4553549833d5d1afdc0">BSTT_SKIP</a>) {
+        <a class="code" href="classtesseract_1_1_equation_detect.html#ae00172a9d9483ef7a204f2316e4d7f96">IdentifySpecialText</a>(bbox_it.data(), height_th);
+      }
+    }
+  }
+
+  <span class="comment">// Set the multiplier values back.</span>
+  <a class="code" href="classtesseract_1_1_equation_detect.html#ac9825c046385d42504424a69d3b56177">lang_tesseract_</a>-&gt;classify_class_pruner_multiplier.set_value(
+      classify_class_pruner);
+  <a class="code" href="classtesseract_1_1_equation_detect.html#ac9825c046385d42504424a69d3b56177">lang_tesseract_</a>-&gt;classify_integer_matcher_multiplier.set_value(
+      classify_integer_matcher);
+
+  <span class="keywordflow">if</span> (<a class="code" href="equationdetect_8cpp.html#a6a58c01b3dc1775eb9566e7151be8389">equationdetect_save_spt_image</a>) {  <span class="comment">// For debug.</span>
+    <a class="code" href="class_s_t_r_i_n_g.html">STRING</a> outfile;
+    <a class="code" href="classtesseract_1_1_equation_detect.html#a1b16b753a8304af5b0b4e85f5a02aa41">GetOutputTiffName</a>(<span class="stringliteral">&quot;_spt&quot;</span>, &amp;outfile);
+    <a class="code" href="classtesseract_1_1_equation_detect.html#a471e17b6ef69559f50db59e5c92bba50">PaintSpecialTexts</a>(outfile);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a5f75b1dad656abfdb1a10eddeb8e65de"></a><!-- doxytag: member="tesseract::EquationDetect::InsertPartAfterAbsorb" ref="a5f75b1dad656abfdb1a10eddeb8e65de" args="(ColPartition *part)" -->
@@ -779,6 +1662,34 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="equationdetect_8cpp_source.html#l00527">527</a> of file <a class="el" href="equationdetect_8cpp_source.html">equationdetect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                             {
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(part);
+
+  <span class="comment">// Before insert part back into part_grid_, we will need re-compute some</span>
+  <span class="comment">// of its attributes such as first_column_, last_column_. However, we still</span>
+  <span class="comment">// want to preserve its type.</span>
+  <a class="code" href="blobbox_8h.html#aa72f1499398e9694bf46752e1cc895e1">BlobTextFlowType</a> flow_type = part-&gt;flow();
+  <a class="code" href="publictypes_8h.html#a03566528a98c079dafeebf00502f2b60">PolyBlockType</a> part_type = part-&gt;type();
+  <a class="code" href="blobbox_8h.html#aebfaf711760a99b60c297d1d619df575">BlobRegionType</a> blob_type = part-&gt;blob_type();
+
+  <span class="comment">// Call SetPartitionType to re-compute the attributes of part.</span>
+  <span class="keyword">const</span> <a class="code" href="class_t_b_o_x.html">TBOX</a>&amp; part_box(part-&gt;bounding_box());
+  <span class="keywordtype">int</span> grid_x, grid_y;
+  <a class="code" href="classtesseract_1_1_equation_detect.html#a4798ba96020b3ce55050b66dd3c72fe0">part_grid_</a>-&gt;GridCoords(
+      part_box.left(), part_box.bottom(), &amp;grid_x, &amp;grid_y);
+  part-&gt;SetPartitionType(<a class="code" href="classtesseract_1_1_equation_detect.html#ae97d45cf4e1e79c132831151d66fb662">resolution_</a>, <a class="code" href="classtesseract_1_1_equation_detect.html#a56fe80b060d60fd1d833b3054f44abdf">best_columns_</a>[grid_y]);
+
+  <span class="comment">// Reset the types back.</span>
+  part-&gt;set_type(part_type);
+  part-&gt;set_blob_type(blob_type);
+  part-&gt;set_flow(flow_type);
+  part-&gt;SetBlobTypes();
+
+  <span class="comment">// Insert into part_grid_.</span>
+  <a class="code" href="classtesseract_1_1_equation_detect.html#a4798ba96020b3ce55050b66dd3c72fe0">part_grid_</a>-&gt;InsertBBox(<span class="keyword">true</span>, <span class="keyword">true</span>, part);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a35912b69ed5ffa28d88ed53ba9f060d3"></a><!-- doxytag: member="tesseract::EquationDetect::IsIndented" ref="a35912b69ed5ffa28d88ed53ba9f060d3" args="(ColPartition *part)" -->
@@ -796,6 +1707,71 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="equationdetect_8cpp_source.html#l01041">1041</a> of file <a class="el" href="equationdetect_8cpp_source.html">equationdetect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                      {
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(part);
+
+  <a class="code" href="namespacetesseract.html#a990e3f25988f7d70c40a13225e645492">ColPartitionGridSearch</a> <a class="code" href="oldlist_8cpp.html#a1d8af9328f064a9df6d6f88336dd054e">search</a>(<a class="code" href="classtesseract_1_1_equation_detect.html#a4798ba96020b3ce55050b66dd3c72fe0">part_grid_</a>);
+  ColPartition *neighbor = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keyword">const</span> <a class="code" href="class_t_b_o_x.html">TBOX</a>&amp; part_box(part-&gt;bounding_box());
+  <span class="keyword">const</span> <span class="keywordtype">int</span> kXGapTh = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(roundf(0.5 * <a class="code" href="classtesseract_1_1_equation_detect.html#ae97d45cf4e1e79c132831151d66fb662">resolution_</a>));
+  <span class="keyword">const</span> <span class="keywordtype">int</span> kRadiusTh = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(roundf(3.0 * <a class="code" href="classtesseract_1_1_equation_detect.html#ae97d45cf4e1e79c132831151d66fb662">resolution_</a>));
+  <span class="keyword">const</span> <span class="keywordtype">int</span> kYGapTh = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(roundf(0.5 * <a class="code" href="classtesseract_1_1_equation_detect.html#ae97d45cf4e1e79c132831151d66fb662">resolution_</a>));
+
+  <span class="comment">// Here we use a simple approximation algorithm: from the center of part, We</span>
+  <span class="comment">// perform the radius search, and check if we can find a neighboring parition</span>
+  <span class="comment">// that locates on the top/bottom left of part.</span>
+  <a class="code" href="oldlist_8cpp.html#a1d8af9328f064a9df6d6f88336dd054e">search</a>.StartRadSearch((part_box.left() + part_box.right()) / 2,
+      (part_box.top() + part_box.bottom()) / 2, kRadiusTh);
+  <a class="code" href="oldlist_8cpp.html#a1d8af9328f064a9df6d6f88336dd054e">search</a>.SetUniqueMode(<span class="keyword">true</span>);
+  <span class="keywordtype">bool</span> left_indented = <span class="keyword">false</span>, right_indented = <span class="keyword">false</span>;
+  <span class="keywordflow">while</span> ((neighbor = <a class="code" href="oldlist_8cpp.html#a1d8af9328f064a9df6d6f88336dd054e">search</a>.NextRadSearch()) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp;
+         (!left_indented || !right_indented)) {
+    <span class="keywordflow">if</span> (neighbor == part) {
+      <span class="keywordflow">continue</span>;
+    }
+    <span class="keyword">const</span> <a class="code" href="class_t_b_o_x.html">TBOX</a>&amp; neighbor_box(neighbor-&gt;bounding_box());
+
+    <span class="keywordflow">if</span> (part_box.major_y_overlap(neighbor_box) &amp;&amp;
+        part_box.x_gap(neighbor_box) &lt; kXGapTh) {
+      <span class="comment">// When this happens, it is likely part is a fragment of an</span>
+      <span class="comment">// over-segmented colpartition. So we return false.</span>
+      <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_equation_detect.html#a8af35d2174dc3814a0e895115b4b4223a0b833974e34cfce11e7bb182afd5c43c">NO_INDENT</a>;
+    }
+
+    <span class="keywordflow">if</span> (!<a class="code" href="namespacetesseract.html#a1aff6897e170c358d7672413b3c221de">IsTextOrEquationType</a>(neighbor-&gt;type())) {
+      <span class="keywordflow">continue</span>;
+    }
+
+    <span class="comment">// The neighbor should be above/below part, and overlap in x direction.</span>
+    <span class="keywordflow">if</span> (!part_box.x_overlap(neighbor_box) || part_box.y_overlap(neighbor_box)) {
+      <span class="keywordflow">continue</span>;
+    }
+
+    <span class="keywordflow">if</span> (part_box.y_gap(neighbor_box) &lt; kYGapTh) {
+      <span class="keywordtype">int</span> left_gap = part_box.left() - neighbor_box.left();
+      <span class="keywordtype">int</span> right_gap = neighbor_box.right() - part_box.right();
+      <span class="keywordflow">if</span> (left_gap &gt; kXGapTh) {
+        left_indented = <span class="keyword">true</span>;
+      }
+      <span class="keywordflow">if</span> (right_gap &gt; kXGapTh) {
+        right_indented = <span class="keyword">true</span>;
+      }
+    }
+  }
+
+  <span class="keywordflow">if</span> (left_indented &amp;&amp; right_indented) {
+    <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_equation_detect.html#a8af35d2174dc3814a0e895115b4b4223a4c2d65f544868a206cf72cd4928c8d06">BOTH_INDENT</a>;
+  }
+  <span class="keywordflow">if</span> (left_indented) {
+    <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_equation_detect.html#a8af35d2174dc3814a0e895115b4b4223aab75a5b0799710a14abdda1687c1ae0e">LEFT_INDENT</a>;
+  }
+  <span class="keywordflow">if</span> (right_indented) {
+    <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_equation_detect.html#a8af35d2174dc3814a0e895115b4b4223a8b060953ddfce6e934e4346ba630606b">RIGHT_INDENT</a>;
+  }
+  <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_equation_detect.html#a8af35d2174dc3814a0e895115b4b4223a0b833974e34cfce11e7bb182afd5c43c">NO_INDENT</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9f0be32790e5915d579cd1898530fb6b"></a><!-- doxytag: member="tesseract::EquationDetect::IsInline" ref="a9f0be32790e5915d579cd1898530fb6b" args="(const bool search_bottom, const int textPartsLineSpacing, ColPartition *part)" -->
@@ -829,6 +1805,52 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="equationdetect_8cpp_source.html#l00957">957</a> of file <a class="el" href="equationdetect_8cpp_source.html">equationdetect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                  {
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(part != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <span class="comment">// Look for its nearest vertical neighbor that hardly overlaps in y but</span>
+  <span class="comment">// largely overlaps in x.</span>
+  <a class="code" href="namespacetesseract.html#a990e3f25988f7d70c40a13225e645492">ColPartitionGridSearch</a> <a class="code" href="oldlist_8cpp.html#a1d8af9328f064a9df6d6f88336dd054e">search</a>(<a class="code" href="classtesseract_1_1_equation_detect.html#a4798ba96020b3ce55050b66dd3c72fe0">part_grid_</a>);
+  ColPartition *neighbor = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keyword">const</span> <a class="code" href="class_t_b_o_x.html">TBOX</a>&amp; part_box(part-&gt;bounding_box());
+  <span class="keyword">const</span> <span class="keywordtype">float</span> kYGapRatioTh = 1.0;
+
+  <span class="keywordflow">if</span> (search_bottom) {
+    <a class="code" href="oldlist_8cpp.html#a1d8af9328f064a9df6d6f88336dd054e">search</a>.StartVerticalSearch(part_box.left(), part_box.right(),
+                               part_box.bottom());
+  } <span class="keywordflow">else</span> {
+    <a class="code" href="oldlist_8cpp.html#a1d8af9328f064a9df6d6f88336dd054e">search</a>.StartVerticalSearch(part_box.left(), part_box.right(),
+                               part_box.top());
+  }
+  <a class="code" href="oldlist_8cpp.html#a1d8af9328f064a9df6d6f88336dd054e">search</a>.SetUniqueMode(<span class="keyword">true</span>);
+  <span class="keywordflow">while</span> ((neighbor = <a class="code" href="oldlist_8cpp.html#a1d8af9328f064a9df6d6f88336dd054e">search</a>.NextVerticalSearch(search_bottom)) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keyword">const</span> <a class="code" href="class_t_b_o_x.html">TBOX</a>&amp; neighbor_box(neighbor-&gt;bounding_box());
+    <span class="keywordflow">if</span> (part_box.y_gap(neighbor_box) &gt; kYGapRatioTh *
+        <a class="code" href="ndminx_8h.html#a74e75242132eaabbc1c512488a135926">MIN</a>(part_box.height(), neighbor_box.height())) {
+      <span class="comment">// Finished searching.</span>
+      <span class="keywordflow">break</span>;
+    }
+    <span class="keywordflow">if</span> (!<a class="code" href="publictypes_8h.html#a49b7c03fb4e55b82a8fd22b7c6094082">PTIsTextType</a>(neighbor-&gt;type())) {
+      <span class="keywordflow">continue</span>;
+    }
+
+    <span class="comment">// Check if neighbor and part is inline similar.</span>
+    <span class="keyword">const</span> <span class="keywordtype">float</span> kHeightRatioTh = 0.5;
+    <span class="keyword">const</span> <span class="keywordtype">int</span> kYGapTh = textparts_linespacing &gt; 0 ?
+        textparts_linespacing + <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(roundf(0.02 * <a class="code" href="classtesseract_1_1_equation_detect.html#ae97d45cf4e1e79c132831151d66fb662">resolution_</a>)):
+        static_cast&lt;int&gt;(roundf(0.05 * <a class="code" href="classtesseract_1_1_equation_detect.html#ae97d45cf4e1e79c132831151d66fb662">resolution_</a>));  <span class="comment">// Default value.</span>
+    <span class="keywordflow">if</span> (part_box.x_overlap(neighbor_box) &amp;&amp;  <span class="comment">// Location feature.</span>
+        part_box.y_gap(neighbor_box) &lt;= kYGapTh &amp;&amp;  <span class="comment">// Line spacing.</span>
+        <span class="comment">// Geo feature.</span>
+        <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(<a class="code" href="ndminx_8h.html#a74e75242132eaabbc1c512488a135926">MIN</a>(part_box.height(), neighbor_box.height())) /
+        <a class="code" href="ndminx_8h.html#aacc3ee1a7f283f8ef65cea31f4436a95">MAX</a>(part_box.height(), neighbor_box.height()) &gt; kHeightRatioTh) {
+      <span class="keywordflow">return</span> <span class="keyword">true</span>;
+    }
+  }
+
+  <span class="keywordflow">return</span> <span class="keyword">false</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="acd1af0968e619b1140831ee6fc9ab32d"></a><!-- doxytag: member="tesseract::EquationDetect::IsMathBlockSatellite" ref="acd1af0968e619b1140831ee6fc9ab32d" args="(ColPartition *part, GenericVector&lt; ColPartition * &gt; *math_blocks)" -->
@@ -856,6 +1878,60 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="equationdetect_8cpp_source.html#l01379">1379</a> of file <a class="el" href="equationdetect_8cpp_source.html">equationdetect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                   {
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(part != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp; math_blocks != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  math_blocks-&gt;<a class="code" href="class_generic_vector.html#a9cdbff49b186574b83e43afba606fdd9">clear</a>();
+  <span class="keyword">const</span> <a class="code" href="class_t_b_o_x.html">TBOX</a>&amp; part_box(part-&gt;bounding_box());
+  <span class="comment">// Find the top/bottom nearest neighbor of part.</span>
+  ColPartition *neighbors[2];
+  <span class="keywordtype">int</span> y_gaps[2] = {INT_MAX, INT_MAX};
+  <span class="comment">// The horizontal boundary of the neighbors.</span>
+  <span class="keywordtype">int</span> neighbors_left = INT_MAX, neighbors_right = 0;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 2; ++i) {
+    neighbors[i] = <a class="code" href="classtesseract_1_1_equation_detect.html#a60bd749e3e2b016058ba4ece1e1dc80c">SearchNNVertical</a>(i != 0, part);
+    <span class="keywordflow">if</span> (neighbors[i]) {
+      <span class="keyword">const</span> <a class="code" href="class_t_b_o_x.html">TBOX</a>&amp; neighbor_box = neighbors[i]-&gt;bounding_box();
+      y_gaps[i] = neighbor_box.<a class="code" href="class_t_b_o_x.html#a98e0f9a8622eec475ee93b260c57c7ab">y_gap</a>(part_box);
+      <span class="keywordflow">if</span> (neighbor_box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>() &lt; neighbors_left) {
+        neighbors_left = neighbor_box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>();
+      }
+      <span class="keywordflow">if</span> (neighbor_box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>() &gt; neighbors_right) {
+        neighbors_right = neighbor_box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>();
+      }
+    }
+  }
+  <span class="keywordflow">if</span> (neighbors[0] == neighbors[1]) {
+    <span class="comment">// This happens when part is inside neighbor.</span>
+    neighbors[1] = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    y_gaps[1] = INT_MAX;
+  }
+
+  <span class="comment">// Check if part is within [neighbors_left, neighbors_right].</span>
+  <span class="keywordflow">if</span> (part_box.left() &lt; neighbors_left || part_box.right() &gt; neighbors_right) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+
+  <span class="comment">// Get the index of the near one in neighbors.</span>
+  <span class="keywordtype">int</span> index = y_gaps[0] &lt; y_gaps[1] ? 0 : 1;
+
+  <span class="comment">// Check the near one.</span>
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_equation_detect.html#a1f693603157274a6dff98b8d2cb38a89">IsNearMathNeighbor</a>(y_gaps[index], neighbors[index])) {
+    math_blocks-&gt;<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(neighbors[index]);
+  } <span class="keywordflow">else</span> {
+    <span class="comment">// If the near one failed the check, then we skip checking the far one.</span>
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+
+  <span class="comment">// Check the far one.</span>
+  index = 1 - index;
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_equation_detect.html#a1f693603157274a6dff98b8d2cb38a89">IsNearMathNeighbor</a>(y_gaps[index], neighbors[index])) {
+    math_blocks-&gt;<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(neighbors[index]);
+  }
+
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a1f693603157274a6dff98b8d2cb38a89"></a><!-- doxytag: member="tesseract::EquationDetect::IsNearMathNeighbor" ref="a1f693603157274a6dff98b8d2cb38a89" args="(const int y_gap, const ColPartition *neighbor) const " -->
@@ -883,6 +1959,15 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="equationdetect_8cpp_source.html#l01468">1468</a> of file <a class="el" href="equationdetect_8cpp_source.html">equationdetect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                         {
+  <span class="keywordflow">if</span> (!neighbor) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+  <span class="keyword">const</span> <span class="keywordtype">int</span> kYGapTh = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(roundf(<a class="code" href="classtesseract_1_1_equation_detect.html#ae97d45cf4e1e79c132831151d66fb662">resolution_</a> * 0.1));
+  <span class="keywordflow">return</span> neighbor-&gt;type() == <a class="code" href="publictypes_8h.html#a03566528a98c079dafeebf00502f2b60adfde914b43bcf45b29f149fa4415bf45">PT_EQUATION</a> &amp;&amp; y_gap &lt;= kYGapTh;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a76f41d3142ca8575d3a574ff995ed207"></a><!-- doxytag: member="tesseract::EquationDetect::IsNearSmallNeighbor" ref="a76f41d3142ca8575d3a574ff995ed207" args="(const TBOX &amp;seed_box, const TBOX &amp;part_box) const " -->
@@ -910,6 +1995,28 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="equationdetect_8cpp_source.html#l01291">1291</a> of file <a class="el" href="equationdetect_8cpp_source.html">equationdetect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                     {
+  <span class="keyword">const</span> <span class="keywordtype">int</span> kXGapTh = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(roundf(0.25 * <a class="code" href="classtesseract_1_1_equation_detect.html#ae97d45cf4e1e79c132831151d66fb662">resolution_</a>));
+  <span class="keyword">const</span> <span class="keywordtype">int</span> kYGapTh = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(roundf(0.05 * <a class="code" href="classtesseract_1_1_equation_detect.html#ae97d45cf4e1e79c132831151d66fb662">resolution_</a>));
+
+  <span class="comment">// Check geometric feature.</span>
+  <span class="keywordflow">if</span> (part_box.<a class="code" href="class_t_b_o_x.html#a8379d4bbc72bdbb1f069fc14790e632d">height</a>() &gt; seed_box.<a class="code" href="class_t_b_o_x.html#a8379d4bbc72bdbb1f069fc14790e632d">height</a>() ||
+      part_box.<a class="code" href="class_t_b_o_x.html#af95494a2ccacc70cc2b83820b2948619">width</a>() &gt; seed_box.<a class="code" href="class_t_b_o_x.html#af95494a2ccacc70cc2b83820b2948619">width</a>()) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+
+  <span class="comment">// Check overlap and distance.</span>
+  <span class="keywordflow">if</span> ((!part_box.<a class="code" href="class_t_b_o_x.html#a9f7e4e20bdfeee0d82db2f8d24aa72dc">major_x_overlap</a>(seed_box) ||
+       part_box.<a class="code" href="class_t_b_o_x.html#a98e0f9a8622eec475ee93b260c57c7ab">y_gap</a>(seed_box) &gt; kYGapTh) &amp;&amp;
+      (!part_box.<a class="code" href="class_t_b_o_x.html#a6b8b3bf99ea363303e11c26866335f23">major_y_overlap</a>(seed_box) ||
+       part_box.<a class="code" href="class_t_b_o_x.html#a6c296f134aaae6ee544c4d000d76f80e">x_gap</a>(seed_box) &gt; kXGapTh)) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="af6d40cc16252ebeba9458c3d5946b5f9"></a><!-- doxytag: member="tesseract::EquationDetect::LabelSpecialText" ref="af6d40cc16252ebeba9458c3d5946b5f9" args="(TO_BLOCK *to_block)" -->
@@ -929,6 +2036,27 @@ Protected Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="classtesseract_1_1_equation_detect_base.html#ab7c9fe443312c3c0771368d8d43f577b">tesseract::EquationDetectBase</a>.</p>
 
+<p>Definition at line <a class="el" href="equationdetect_8cpp_source.html#l00145">145</a> of file <a class="el" href="equationdetect_8cpp_source.html">equationdetect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                       {
+  <span class="keywordflow">if</span> (to_block == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Warning: input to_block is NULL!\n&quot;</span>);
+    <span class="keywordflow">return</span> -1;
+  }
+
+  <a class="code" href="class_generic_vector.html">GenericVector&lt;BLOBNBOX_LIST*&gt;</a> blob_lists;
+  blob_lists.<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(&amp;(to_block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#a5dd67c54162a6b60b0fd11500d4a3025">blobs</a>));
+  blob_lists.<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(&amp;(to_block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#aafe2a9baa69300ee71da42e6dc18cfee">large_blobs</a>));
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; blob_lists.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>(); ++i) {
+    BLOBNBOX_IT bbox_it(blob_lists[i]);
+    <span class="keywordflow">for</span> (bbox_it.mark_cycle_pt (); !bbox_it.cycled_list();
+         bbox_it.forward()) {
+      bbox_it.data()-&gt;set_special_text_type(<a class="code" href="blobbox_8h.html#a75b089d27e1df813fed544e0c131df8ca1e2ca6a59ce1487c101d4605eab44b7a">BSTT_NONE</a>);
+    }
+  }
+
+  <span class="keywordflow">return</span> 0;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad26e2adac7587d71b2a9394a4b8897a6"></a><!-- doxytag: member="tesseract::EquationDetect::MergePartsByLocation" ref="ad26e2adac7587d71b2a9394a4b8897a6" args="()" -->
@@ -945,6 +2073,46 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="equationdetect_8cpp_source.html#l00439">439</a> of file <a class="el" href="equationdetect_8cpp_source.html">equationdetect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                          {
+  <span class="keywordflow">while</span> (<span class="keyword">true</span>) {
+    ColPartition* part = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    <span class="comment">// partitions that have been updated.</span>
+    <a class="code" href="class_generic_vector.html">GenericVector&lt;ColPartition*&gt;</a> parts_updated;
+    <a class="code" href="namespacetesseract.html#a990e3f25988f7d70c40a13225e645492">ColPartitionGridSearch</a> gsearch(<a class="code" href="classtesseract_1_1_equation_detect.html#a4798ba96020b3ce55050b66dd3c72fe0">part_grid_</a>);
+    gsearch.StartFullSearch();
+    <span class="keywordflow">while</span> ((part = gsearch.NextFullSearch()) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      <span class="keywordflow">if</span> (!<a class="code" href="namespacetesseract.html#a1aff6897e170c358d7672413b3c221de">IsTextOrEquationType</a>(part-&gt;type())) {
+        <span class="keywordflow">continue</span>;
+      }
+      <a class="code" href="class_generic_vector.html">GenericVector&lt;ColPartition*&gt;</a> parts_to_merge;
+      <a class="code" href="classtesseract_1_1_equation_detect.html#ad11061cfdb9eb9cbdb8c9206b96b2c54">SearchByOverlap</a>(part, &amp;parts_to_merge);
+      <span class="keywordflow">if</span> (parts_to_merge.<a class="code" href="class_generic_vector.html#afb0d8c52a603b6aa965d63bbf06a27dd">empty</a>()) {
+        <span class="keywordflow">continue</span>;
+      }
+
+      <span class="comment">// Merge parts_to_merge with part, and remove them from part_grid_.</span>
+      <a class="code" href="classtesseract_1_1_equation_detect.html#a4798ba96020b3ce55050b66dd3c72fe0">part_grid_</a>-&gt;RemoveBBox(part);
+      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; parts_to_merge.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>(); ++i) {
+        <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(parts_to_merge[i] != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp; parts_to_merge[i] != part);
+        part-&gt;Absorb(parts_to_merge[i], <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+      }
+      gsearch.RepositionIterator();
+
+      parts_updated.<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(part);
+    }
+
+    <span class="keywordflow">if</span> (parts_updated.<a class="code" href="class_generic_vector.html#afb0d8c52a603b6aa965d63bbf06a27dd">empty</a>()) {  <span class="comment">// Exit the loop</span>
+      <span class="keywordflow">break</span>;
+    }
+
+    <span class="comment">// Re-insert parts_updated into part_grid_.</span>
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; parts_updated.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>(); ++i) {
+      <a class="code" href="classtesseract_1_1_equation_detect.html#a5f75b1dad656abfdb1a10eddeb8e65de">InsertPartAfterAbsorb</a>(parts_updated[i]);
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae10f647d8ed221a3e2faf4520b293281"></a><!-- doxytag: member="tesseract::EquationDetect::PaintColParts" ref="ae10f647d8ed221a3e2faf4520b293281" args="(const STRING &amp;outfile) const " -->
@@ -962,6 +2130,30 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="equationdetect_8cpp_source.html#l01502">1502</a> of file <a class="el" href="equationdetect_8cpp_source.html">equationdetect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                              {
+  Pix *pix = pixConvertTo32(<a class="code" href="classtesseract_1_1_equation_detect.html#ac9825c046385d42504424a69d3b56177">lang_tesseract_</a>-&gt;BestPix());
+  <a class="code" href="namespacetesseract.html#a990e3f25988f7d70c40a13225e645492">ColPartitionGridSearch</a> gsearch(<a class="code" href="classtesseract_1_1_equation_detect.html#a4798ba96020b3ce55050b66dd3c72fe0">part_grid_</a>);
+  gsearch.StartFullSearch();
+  ColPartition* part = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordflow">while</span> ((part = gsearch.NextFullSearch()) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keyword">const</span> <a class="code" href="class_t_b_o_x.html">TBOX</a>&amp; tbox = part-&gt;bounding_box();
+    Box *box = boxCreate(tbox.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>(), pixGetHeight(pix) - tbox.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>(),
+                         tbox.<a class="code" href="class_t_b_o_x.html#af95494a2ccacc70cc2b83820b2948619">width</a>(), tbox.<a class="code" href="class_t_b_o_x.html#a8379d4bbc72bdbb1f069fc14790e632d">height</a>());
+    <span class="keywordflow">if</span> (part-&gt;type() == <a class="code" href="publictypes_8h.html#a03566528a98c079dafeebf00502f2b60adfde914b43bcf45b29f149fa4415bf45">PT_EQUATION</a>) {
+      pixRenderBoxArb(pix, box, 5, 255, 0, 0);
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (part-&gt;type() == <a class="code" href="publictypes_8h.html#a03566528a98c079dafeebf00502f2b60aa52ce81f771512916e01215965910fc6">PT_INLINE_EQUATION</a>) {
+      pixRenderBoxArb(pix, box, 5, 0, 255, 0);
+    } <span class="keywordflow">else</span> {
+      pixRenderBoxArb(pix, box, 5, 0, 0, 255);
+    }
+    boxDestroy(&amp;box);
+  }
+
+  pixWrite(outfile.<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a>(), pix, IFF_TIFF_LZW);
+  pixDestroy(&amp;pix);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a471e17b6ef69559f50db59e5c92bba50"></a><!-- doxytag: member="tesseract::EquationDetect::PaintSpecialTexts" ref="a471e17b6ef69559f50db59e5c92bba50" args="(const STRING &amp;outfile) const " -->
@@ -979,6 +2171,24 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="equationdetect_8cpp_source.html#l01485">1485</a> of file <a class="el" href="equationdetect_8cpp_source.html">equationdetect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                  {
+  Pix *pix = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, *pixBi = <a class="code" href="classtesseract_1_1_equation_detect.html#ac9825c046385d42504424a69d3b56177">lang_tesseract_</a>-&gt;pix_binary();
+  pix = pixConvertTo32(pixBi);
+  <a class="code" href="namespacetesseract.html#a990e3f25988f7d70c40a13225e645492">ColPartitionGridSearch</a> gsearch(<a class="code" href="classtesseract_1_1_equation_detect.html#a4798ba96020b3ce55050b66dd3c72fe0">part_grid_</a>);
+  ColPartition* part = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  gsearch.StartFullSearch();
+  <span class="keywordflow">while</span> ((part = gsearch.NextFullSearch()) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    BLOBNBOX_C_IT blob_it(part-&gt;boxes());
+    <span class="keywordflow">for</span> (blob_it.mark_cycle_pt(); !blob_it.cycled_list(); blob_it.forward()) {
+      <a class="code" href="classtesseract_1_1_equation_detect_base.html#a135d1cd23d326e3e8f64e7e3255e8e0d">RenderSpecialText</a>(pix, blob_it.data());
+    }
+  }
+
+  pixWrite(outfile.<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a>(), pix, IFF_TIFF_LZW);
+  pixDestroy(&amp;pix);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a90ae1d0f706dad22ca111983ab0734ab"></a><!-- doxytag: member="tesseract::EquationDetect::PrintSpecialBlobsDensity" ref="a90ae1d0f706dad22ca111983ab0734ab" args="(const ColPartition *part) const " -->
@@ -996,6 +2206,22 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="equationdetect_8cpp_source.html#l01525">1525</a> of file <a class="el" href="equationdetect_8cpp_source.html">equationdetect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                            {
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(part);
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> box(part-&gt;bounding_box());
+  <span class="keywordtype">int</span> h = pixGetHeight(<a class="code" href="classtesseract_1_1_equation_detect.html#ac9825c046385d42504424a69d3b56177">lang_tesseract_</a>-&gt;BestPix());
+  <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Printing special blobs density values for ColParition (t=%d,b=%d) &quot;</span>,
+          h - box.top(), h - box.bottom());
+  box.print();
+  <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;blobs count = %d, density = &quot;</span>, part-&gt;boxes_count());
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="blobbox_8h.html#a75b089d27e1df813fed544e0c131df8caceba184627df3dabc8f3e3f2867c4eff">BSTT_COUNT</a>; ++i) {
+    <a class="code" href="blobbox_8h.html#a75b089d27e1df813fed544e0c131df8c">BlobSpecialTextType</a> type = <span class="keyword">static_cast&lt;</span><a class="code" href="blobbox_8h.html#a75b089d27e1df813fed544e0c131df8c">BlobSpecialTextType</a><span class="keyword">&gt;</span>(i);
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;%d:%f &quot;</span>, i, part-&gt;SpecialBlobsDensity(type));
+  }
+  <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;\n&quot;</span>);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a0bb5b44fbab44c93cb338eed35b4ef4a"></a><!-- doxytag: member="tesseract::EquationDetect::ProcessMathBlockSatelliteParts" ref="a0bb5b44fbab44c93cb338eed35b4ef4a" args="()" -->
@@ -1012,6 +2238,56 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="equationdetect_8cpp_source.html#l01330">1330</a> of file <a class="el" href="equationdetect_8cpp_source.html">equationdetect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                    {
+  <span class="comment">// Iterate over part_grid_, and find all parts that are text type but not</span>
+  <span class="comment">// equation type.</span>
+  ColPartition *part = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <a class="code" href="class_generic_vector.html">GenericVector&lt;ColPartition*&gt;</a> text_parts;
+  <a class="code" href="namespacetesseract.html#a990e3f25988f7d70c40a13225e645492">ColPartitionGridSearch</a> gsearch(<a class="code" href="classtesseract_1_1_equation_detect.html#a4798ba96020b3ce55050b66dd3c72fe0">part_grid_</a>);
+  gsearch.StartFullSearch();
+  <span class="keywordflow">while</span> ((part = gsearch.NextFullSearch()) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">if</span> (part-&gt;type() == <a class="code" href="publictypes_8h.html#a03566528a98c079dafeebf00502f2b60aaa63d8d8a99ddc2b3957f8e8787b4eca">PT_FLOWING_TEXT</a> || part-&gt;type() == <a class="code" href="publictypes_8h.html#a03566528a98c079dafeebf00502f2b60a47f25d4065407dd98db92554ca54468b">PT_HEADING_TEXT</a>) {
+      text_parts.<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(part);
+    }
+  }
+  <span class="keywordflow">if</span> (text_parts.<a class="code" href="class_generic_vector.html#afb0d8c52a603b6aa965d63bbf06a27dd">empty</a>()) {
+    <span class="keywordflow">return</span>;
+  }
+
+  <span class="comment">// Compute the medium height of the text_parts.</span>
+  text_parts.<a class="code" href="class_generic_vector.html#a999bbd8ff336c81fe1198ea714c7936d">sort</a>(&amp;SortCPByHeight);
+  <span class="keyword">const</span> <a class="code" href="class_t_b_o_x.html">TBOX</a>&amp; text_box = text_parts[text_parts.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>() / 2]-&gt;bounding_box();
+  <span class="keywordtype">int</span> med_height = text_box.<a class="code" href="class_t_b_o_x.html#a8379d4bbc72bdbb1f069fc14790e632d">height</a>();
+  <span class="keywordflow">if</span> (text_parts.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>() % 2 == 0 &amp;&amp; text_parts.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>() &gt; 1) {
+    <span class="keyword">const</span> <a class="code" href="class_t_b_o_x.html">TBOX</a>&amp; text_box =
+        text_parts[text_parts.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>() / 2 - 1]-&gt;bounding_box();
+    med_height = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(roundf(
+        0.5 * (text_box.<a class="code" href="class_t_b_o_x.html#a8379d4bbc72bdbb1f069fc14790e632d">height</a>() + med_height)));
+  }
+
+  <span class="comment">// Iterate every text_parts and check if it is a math block satellite.</span>
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; text_parts.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>(); ++i) {
+    <span class="keyword">const</span> <a class="code" href="class_t_b_o_x.html">TBOX</a>&amp; text_box(text_parts[i]-&gt;bounding_box());
+    <span class="keywordflow">if</span> (text_box.<a class="code" href="class_t_b_o_x.html#a8379d4bbc72bdbb1f069fc14790e632d">height</a>() &gt; med_height) {
+      <span class="keywordflow">continue</span>;
+    }
+    <a class="code" href="class_generic_vector.html">GenericVector&lt;ColPartition*&gt;</a> math_blocks;
+    <span class="keywordflow">if</span> (!<a class="code" href="classtesseract_1_1_equation_detect.html#acd1af0968e619b1140831ee6fc9ab32d">IsMathBlockSatellite</a>(text_parts[i], &amp;math_blocks)) {
+      <span class="keywordflow">continue</span>;
+    }
+
+    <span class="comment">// Found. merge text_parts[i] with math_blocks.</span>
+    <a class="code" href="classtesseract_1_1_equation_detect.html#a4798ba96020b3ce55050b66dd3c72fe0">part_grid_</a>-&gt;RemoveBBox(text_parts[i]);
+    text_parts[i]-&gt;set_type(<a class="code" href="publictypes_8h.html#a03566528a98c079dafeebf00502f2b60adfde914b43bcf45b29f149fa4415bf45">PT_EQUATION</a>);
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; math_blocks.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>(); ++j) {
+      <a class="code" href="classtesseract_1_1_equation_detect.html#a4798ba96020b3ce55050b66dd3c72fe0">part_grid_</a>-&gt;RemoveBBox(math_blocks[j]);
+      text_parts[i]-&gt;Absorb(math_blocks[j], <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+    }
+    <a class="code" href="classtesseract_1_1_equation_detect.html#a5f75b1dad656abfdb1a10eddeb8e65de">InsertPartAfterAbsorb</a>(text_parts[i]);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad11061cfdb9eb9cbdb8c9206b96b2c54"></a><!-- doxytag: member="tesseract::EquationDetect::SearchByOverlap" ref="ad11061cfdb9eb9cbdb8c9206b96b2c54" args="(ColPartition *seed, GenericVector&lt; ColPartition * &gt; *parts_overlap)" -->
@@ -1039,6 +2315,54 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="equationdetect_8cpp_source.html#l00478">478</a> of file <a class="el" href="equationdetect_8cpp_source.html">equationdetect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                 {
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(seed != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp; parts_overlap != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <span class="keywordflow">if</span> (!<a class="code" href="namespacetesseract.html#a1aff6897e170c358d7672413b3c221de">IsTextOrEquationType</a>(seed-&gt;type())) {
+    <span class="keywordflow">return</span>;
+  }
+  <a class="code" href="namespacetesseract.html#a990e3f25988f7d70c40a13225e645492">ColPartitionGridSearch</a> <a class="code" href="oldlist_8cpp.html#a1d8af9328f064a9df6d6f88336dd054e">search</a>(<a class="code" href="classtesseract_1_1_equation_detect.html#a4798ba96020b3ce55050b66dd3c72fe0">part_grid_</a>);
+  <span class="keyword">const</span> <a class="code" href="class_t_b_o_x.html">TBOX</a>&amp; seed_box(seed-&gt;bounding_box());
+  <span class="keyword">const</span> <span class="keywordtype">int</span> kRadNeighborCells = 30;
+  <a class="code" href="oldlist_8cpp.html#a1d8af9328f064a9df6d6f88336dd054e">search</a>.StartRadSearch((seed_box.left() + seed_box.right()) / 2,
+                        (seed_box.top() + seed_box.bottom()) / 2,
+                        kRadNeighborCells);
+  <a class="code" href="oldlist_8cpp.html#a1d8af9328f064a9df6d6f88336dd054e">search</a>.SetUniqueMode(<span class="keyword">true</span>);
+
+  <span class="comment">// Search iteratively.</span>
+  ColPartition *part;
+  <a class="code" href="class_generic_vector.html">GenericVector&lt;ColPartition*&gt;</a> parts;
+  <span class="keyword">const</span> <span class="keywordtype">float</span> kLargeOverlapTh = 0.95;
+  <span class="keyword">const</span> <span class="keywordtype">float</span> kEquXOverlap = 0.4, kEquYOverlap = 0.5;
+  <span class="keywordflow">while</span> ((part = <a class="code" href="oldlist_8cpp.html#a1d8af9328f064a9df6d6f88336dd054e">search</a>.NextRadSearch()) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">if</span> (part == seed || !<a class="code" href="namespacetesseract.html#a1aff6897e170c358d7672413b3c221de">IsTextOrEquationType</a>(part-&gt;type())) {
+      <span class="keywordflow">continue</span>;
+    }
+    <span class="keyword">const</span> <a class="code" href="class_t_b_o_x.html">TBOX</a>&amp; part_box(part-&gt;bounding_box());
+    <span class="keywordtype">bool</span> merge = <span class="keyword">false</span>;
+
+    <span class="keywordtype">float</span> x_overlap_fraction = part_box.<a class="code" href="class_t_b_o_x.html#a9f1aa7e1a714e01ae826600df63eccb3">x_overlap_fraction</a>(seed_box),
+        y_overlap_fraction = part_box.y_overlap_fraction(seed_box);
+
+    <span class="comment">// If part is large overlapped with seed, then set merge to true.</span>
+    <span class="keywordflow">if</span> (x_overlap_fraction &gt;= kLargeOverlapTh &amp;&amp;
+        y_overlap_fraction &gt;= kLargeOverlapTh) {
+      merge = <span class="keyword">true</span>;
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (seed-&gt;type() == <a class="code" href="publictypes_8h.html#a03566528a98c079dafeebf00502f2b60adfde914b43bcf45b29f149fa4415bf45">PT_EQUATION</a> &amp;&amp;
+               <a class="code" href="namespacetesseract.html#a1aff6897e170c358d7672413b3c221de">IsTextOrEquationType</a>(part-&gt;type())) {
+      <span class="keywordflow">if</span> ((x_overlap_fraction &gt; kEquXOverlap &amp;&amp; y_overlap_fraction &gt; 0.0) ||
+          (x_overlap_fraction &gt; 0.0 &amp;&amp; y_overlap_fraction &gt; kEquYOverlap)) {
+        merge = <span class="keyword">true</span>;
+      }
+    }
+
+    <span class="keywordflow">if</span> (merge) {  <span class="comment">// Remove the part from search and put it into parts.</span>
+      <a class="code" href="oldlist_8cpp.html#a1d8af9328f064a9df6d6f88336dd054e">search</a>.RemoveBBox();
+      parts_overlap-&gt;<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(part);
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a60bd749e3e2b016058ba4ece1e1dc80c"></a><!-- doxytag: member="tesseract::EquationDetect::SearchNNVertical" ref="a60bd749e3e2b016058ba4ece1e1dc80c" args="(const bool search_bottom, const ColPartition *part)" -->
@@ -1066,6 +2390,41 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="equationdetect_8cpp_source.html#l01433">1433</a> of file <a class="el" href="equationdetect_8cpp_source.html">equationdetect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                        {
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(part);
+  ColPartition *nearest_neighbor = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, *neighbor = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keyword">const</span> <span class="keywordtype">int</span> kYGapTh = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(roundf(<a class="code" href="classtesseract_1_1_equation_detect.html#ae97d45cf4e1e79c132831151d66fb662">resolution_</a> * 0.5));
+
+  <a class="code" href="namespacetesseract.html#a990e3f25988f7d70c40a13225e645492">ColPartitionGridSearch</a> <a class="code" href="oldlist_8cpp.html#a1d8af9328f064a9df6d6f88336dd054e">search</a>(<a class="code" href="classtesseract_1_1_equation_detect.html#a4798ba96020b3ce55050b66dd3c72fe0">part_grid_</a>);
+  <a class="code" href="oldlist_8cpp.html#a1d8af9328f064a9df6d6f88336dd054e">search</a>.SetUniqueMode(<span class="keyword">true</span>);
+  <span class="keyword">const</span> <a class="code" href="class_t_b_o_x.html">TBOX</a>&amp; part_box(part-&gt;bounding_box());
+  <span class="keywordtype">int</span> y = search_bottom ? part_box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>() : part_box.top();
+  <a class="code" href="oldlist_8cpp.html#a1d8af9328f064a9df6d6f88336dd054e">search</a>.StartVerticalSearch(part_box.left(), part_box.right(), y);
+  <span class="keywordtype">int</span> min_y_gap = INT_MAX;
+  <span class="keywordflow">while</span> ((neighbor = <a class="code" href="oldlist_8cpp.html#a1d8af9328f064a9df6d6f88336dd054e">search</a>.NextVerticalSearch(search_bottom)) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">if</span> (neighbor == part || !<a class="code" href="namespacetesseract.html#a1aff6897e170c358d7672413b3c221de">IsTextOrEquationType</a>(neighbor-&gt;type())) {
+      <span class="keywordflow">continue</span>;
+    }
+    <span class="keyword">const</span> <a class="code" href="class_t_b_o_x.html">TBOX</a>&amp; neighbor_box(neighbor-&gt;bounding_box());
+    <span class="keywordtype">int</span> y_gap = neighbor_box.<a class="code" href="class_t_b_o_x.html#a98e0f9a8622eec475ee93b260c57c7ab">y_gap</a>(part_box);
+    <span class="keywordflow">if</span> (y_gap &gt; kYGapTh) {  <span class="comment">// Out of scope.</span>
+      <span class="keywordflow">break</span>;
+    }
+    <span class="keywordflow">if</span> (!neighbor_box.major_x_overlap(part_box) ||
+        (search_bottom &amp;&amp; neighbor_box.bottom() &gt; part_box.bottom()) ||
+        (!search_bottom &amp;&amp; neighbor_box.top() &lt; part_box.top())) {
+      <span class="keywordflow">continue</span>;
+    }
+    <span class="keywordflow">if</span> (y_gap &lt; min_y_gap) {
+      min_y_gap = y_gap;
+      nearest_neighbor = neighbor;
+    }
+  }
+
+  <span class="keywordflow">return</span> nearest_neighbor;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aded5530c6cdae80194a4ec70104d9889"></a><!-- doxytag: member="tesseract::EquationDetect::SetLangTesseract" ref="aded5530c6cdae80194a4ec70104d9889" args="(Tesseract *lang_tesseract)" -->
@@ -1083,6 +2442,11 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="equationdetect_8cpp_source.html#l00137">137</a> of file <a class="el" href="equationdetect_8cpp_source.html">equationdetect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                               {
+  <a class="code" href="classtesseract_1_1_equation_detect.html#ac9825c046385d42504424a69d3b56177">lang_tesseract_</a> = lang_tesseract;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a1e62860539cd17573c8f8d8aaf4a07e2"></a><!-- doxytag: member="tesseract::EquationDetect::SetResolution" ref="a1e62860539cd17573c8f8d8aaf4a07e2" args="(const int resolution)" -->
@@ -1100,6 +2464,11 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="equationdetect_8cpp_source.html#l00141">141</a> of file <a class="el" href="equationdetect_8cpp_source.html">equationdetect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                       {
+  <a class="code" href="classtesseract_1_1_equation_detect.html#ae97d45cf4e1e79c132831151d66fb662">resolution_</a> = resolution;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a69db9e31f41bd14650cf850234eceb66"></a><!-- doxytag: member="tesseract::EquationDetect::SplitCPHor" ref="a69db9e31f41bd14650cf850234eceb66" args="(ColPartition *part, GenericVector&lt; ColPartition * &gt; *parts_splitted)" -->
@@ -1127,6 +2496,56 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="equationdetect_8cpp_source.html#l00667">667</a> of file <a class="el" href="equationdetect_8cpp_source.html">equationdetect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                   {
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(part &amp;&amp; parts_splitted);
+  <span class="keywordflow">if</span> (part-&gt;median_width() == 0 || part-&gt;boxes_count() == 0) {
+    <span class="keywordflow">return</span>;
+  }
+
+  <span class="comment">// Make a copy of part, and reset parts_splitted.</span>
+  ColPartition* right_part = part-&gt;CopyButDontOwnBlobs();
+  parts_splitted-&gt;<a class="code" href="class_generic_vector.html#a98f62dccd75224a60437c2761bd215cd">delete_data_pointers</a>();
+  parts_splitted-&gt;<a class="code" href="class_generic_vector.html#a9cdbff49b186574b83e43afba606fdd9">clear</a>();
+
+  <span class="keyword">const</span> <span class="keywordtype">double</span> kThreshold = part-&gt;median_width() * 3.0;
+  <span class="keywordtype">bool</span> found_split = <span class="keyword">true</span>;
+  <span class="keywordflow">while</span> (found_split) {
+    found_split = <span class="keyword">false</span>;
+    BLOBNBOX_C_IT box_it(right_part-&gt;boxes());
+    <span class="comment">// Blobs are sorted left side first. If blobs overlap,</span>
+    <span class="comment">// the previous blob may have a &quot;more right&quot; right side.</span>
+    <span class="comment">// Account for this by always keeping the largest &quot;right&quot;</span>
+    <span class="comment">// so far.</span>
+    <span class="keywordtype">int</span> previous_right = <a class="code" href="host_8h.html#ae6f88d5bb15e97510f484289f2fc89fd">MIN_INT32</a>;
+
+    <span class="comment">// Look for the next split in the partition.</span>
+    <span class="keywordflow">for</span> (box_it.mark_cycle_pt(); !box_it.cycled_list(); box_it.forward()) {
+      <span class="keyword">const</span> <a class="code" href="class_t_b_o_x.html">TBOX</a>&amp; box = box_it.data()-&gt;bounding_box();
+      <span class="keywordflow">if</span> (previous_right != <a class="code" href="host_8h.html#ae6f88d5bb15e97510f484289f2fc89fd">MIN_INT32</a> &amp;&amp;
+          box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>() - previous_right &gt; kThreshold) {
+        <span class="comment">// We have a split position. Split the partition in two pieces.</span>
+        <span class="comment">// Insert the left piece in the grid and keep processing the right.</span>
+        <span class="keywordtype">int</span> mid_x = (box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>() + previous_right) / 2;
+        ColPartition* left_part = right_part;
+        right_part = left_part-&gt;SplitAt(mid_x);
+
+        parts_splitted-&gt;<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(left_part);
+        left_part-&gt;ComputeSpecialBlobsDensity();
+        found_split = <span class="keyword">true</span>;
+        <span class="keywordflow">break</span>;
+      }
+
+      <span class="comment">// The right side of the previous blobs.</span>
+      previous_right = <a class="code" href="ndminx_8h.html#aacc3ee1a7f283f8ef65cea31f4436a95">MAX</a>(previous_right, box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>());
+    }
+  }
+
+  <span class="comment">// Add the last piece.</span>
+  right_part-&gt;ComputeSpecialBlobsDensity();
+  parts_splitted-&gt;<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(right_part);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a1ec8cc3dc57f53854d2190f112c00c85"></a><!-- doxytag: member="tesseract::EquationDetect::SplitCPHorLite" ref="a1ec8cc3dc57f53854d2190f112c00c85" args="(ColPartition *part, GenericVector&lt; TBOX &gt; *splitted_boxes)" -->
@@ -1154,6 +2573,46 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="equationdetect_8cpp_source.html#l00717">717</a> of file <a class="el" href="equationdetect_8cpp_source.html">equationdetect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                          {
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(part &amp;&amp; splitted_boxes);
+  splitted_boxes-&gt;<a class="code" href="class_generic_vector.html#a9cdbff49b186574b83e43afba606fdd9">clear</a>();
+  <span class="keywordflow">if</span> (part-&gt;median_width() == 0) {
+    <span class="keywordflow">return</span>;
+  }
+
+  <span class="keyword">const</span> <span class="keywordtype">double</span> kThreshold = part-&gt;median_width() * 3.0;
+
+  <span class="comment">// Blobs are sorted left side first. If blobs overlap,</span>
+  <span class="comment">// the previous blob may have a &quot;more right&quot; right side.</span>
+  <span class="comment">// Account for this by always keeping the largest &quot;right&quot;</span>
+  <span class="comment">// so far.</span>
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> union_box;
+  <span class="keywordtype">int</span> previous_right = <a class="code" href="host_8h.html#ae6f88d5bb15e97510f484289f2fc89fd">MIN_INT32</a>;
+  BLOBNBOX_C_IT box_it(part-&gt;boxes());
+  <span class="keywordflow">for</span> (box_it.mark_cycle_pt(); !box_it.cycled_list(); box_it.forward()) {
+    <span class="keyword">const</span> <a class="code" href="class_t_b_o_x.html">TBOX</a>&amp; box = box_it.data()-&gt;bounding_box();
+    <span class="keywordflow">if</span> (previous_right != <a class="code" href="host_8h.html#ae6f88d5bb15e97510f484289f2fc89fd">MIN_INT32</a> &amp;&amp;
+        box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>() - previous_right &gt; kThreshold) {
+      <span class="comment">// We have a split position.</span>
+      splitted_boxes-&gt;<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(union_box);
+      previous_right = <a class="code" href="host_8h.html#ae6f88d5bb15e97510f484289f2fc89fd">MIN_INT32</a>;
+    }
+    <span class="keywordflow">if</span> (previous_right == <a class="code" href="host_8h.html#ae6f88d5bb15e97510f484289f2fc89fd">MIN_INT32</a>) {
+      union_box = box;
+    } <span class="keywordflow">else</span> {
+      union_box += box;
+    }
+    <span class="comment">// The right side of the previous blobs.</span>
+    previous_right = <a class="code" href="ndminx_8h.html#aacc3ee1a7f283f8ef65cea31f4436a95">MAX</a>(previous_right, box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>());
+  }
+
+  <span class="comment">// Add the last piece.</span>
+  <span class="keywordflow">if</span> (previous_right != <a class="code" href="host_8h.html#ae6f88d5bb15e97510f484289f2fc89fd">MIN_INT32</a>) {
+    splitted_boxes-&gt;<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(union_box);
+  }
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
@@ -1168,6 +2627,8 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="equationdetect_8h_source.html#l00260">260</a> of file <a class="el" href="equationdetect_8h_source.html">equationdetect.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ad41af69ecd3e0227bbe5b4714c429666"></a><!-- doxytag: member="tesseract::EquationDetect::cp_seeds_" ref="ad41af69ecd3e0227bbe5b4714c429666" args="" -->
@@ -1180,6 +2641,8 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="equationdetect_8h_source.html#l00266">266</a> of file <a class="el" href="equationdetect_8h_source.html">equationdetect.h</a>.</p>
 
 </div>
 </div>
@@ -1194,6 +2657,8 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="equationdetect_8h_source.html#l00263">263</a> of file <a class="el" href="equationdetect_8h_source.html">equationdetect.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a1eeb1ca073ec04a8f4d182b85812bcc9"></a><!-- doxytag: member="tesseract::EquationDetect::equ_tesseract_" ref="a1eeb1ca073ec04a8f4d182b85812bcc9" args="" -->
@@ -1206,6 +2671,8 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="equationdetect_8h_source.html#l00247">247</a> of file <a class="el" href="equationdetect_8h_source.html">equationdetect.h</a>.</p>
 
 </div>
 </div>
@@ -1220,6 +2687,8 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="equationdetect_8h_source.html#l00251">251</a> of file <a class="el" href="equationdetect_8h_source.html">equationdetect.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="aec76c4ef860f40ec042c65ea1340fc31"></a><!-- doxytag: member="tesseract::EquationDetect::page_count_" ref="aec76c4ef860f40ec042c65ea1340fc31" args="" -->
@@ -1232,6 +2701,8 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="equationdetect_8h_source.html#l00272">272</a> of file <a class="el" href="equationdetect_8h_source.html">equationdetect.h</a>.</p>
 
 </div>
 </div>
@@ -1246,6 +2717,8 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="equationdetect_8h_source.html#l00255">255</a> of file <a class="el" href="equationdetect_8h_source.html">equationdetect.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ae97d45cf4e1e79c132831151d66fb662"></a><!-- doxytag: member="tesseract::EquationDetect::resolution_" ref="ae97d45cf4e1e79c132831151d66fb662" args="" -->
@@ -1259,11 +2732,13 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="equationdetect_8h_source.html#l00269">269</a> of file <a class="el" href="equationdetect_8h_source.html">equationdetect.h</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/ccmain/<a class="el" href="equationdetect_8h_source.html">equationdetect.h</a></li>
-<li>tesseract-ocr/ccmain/<a class="el" href="equationdetect_8cpp.html">equationdetect.cpp</a></li>
+<li>tesseract-ocr/ccmain/<a class="el" href="equationdetect_8cpp_source.html">equationdetect.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -1286,7 +2761,7 @@ Protected Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:14 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:49 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

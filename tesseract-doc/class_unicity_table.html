@@ -142,10 +142,13 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_unicity_table.html#a31e2edb3f92024b211332a850723d237">read</a> (FILE *f, <a class="el" href="class_tess_result_callback3.html">TessResultCallback3</a>&lt; bool, FILE *, T *, bool &gt; *cb, bool swap)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">swap is used to switch the endianness.  <a href="#a31e2edb3f92024b211332a850723d237"></a><br/></td></tr>
 </table>
-<h3>template&lt;typename T&gt;<br/>
- class UnicityTable&lt; T &gt;</h3>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock"><h3>template&lt;typename T&gt;<br/>
+class UnicityTable&lt; T &gt;</h3>
 
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+
+<p>Definition at line <a class="el" href="unicity__table_8h_source.html#l00033">33</a> of file <a class="el" href="unicity__table_8h_source.html">unicity_table.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="ad2cf3104bf7e0b115d3709359e57cc72"></a><!-- doxytag: member="UnicityTable::UnicityTable" ref="ad2cf3104bf7e0b115d3709359e57cc72" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -162,6 +165,11 @@ template&lt;typename T &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="unicity__table_8h_source.html#l00108">108</a> of file <a class="el" href="unicity__table_8h_source.html">unicity_table.h</a>.</p>
+<div class="fragment"><pre class="fragment">                              :
+  compare_cb_(0) {
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a98181de03a916ae28b9443a8821e90a5"></a><!-- doxytag: member="UnicityTable::~UnicityTable" ref="a98181de03a916ae28b9443a8821e90a5" args="()" -->
@@ -182,6 +190,11 @@ template&lt;typename T &gt; </div>
 
 <p>Clear the structures and deallocate internal structures. </p>
 
+<p>Definition at line <a class="el" href="unicity__table_8h_source.html#l00114">114</a> of file <a class="el" href="unicity__table_8h_source.html">unicity_table.h</a>.</p>
+<div class="fragment"><pre class="fragment">                               {
+  <a class="code" href="class_unicity_table.html#a43dd3813d75e38232c26e5532b9a096f">clear</a>();
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -202,6 +215,11 @@ template&lt;typename T &gt; </div>
 <div class="memdoc">
 <p>Clear the table, calling the callback function if any. All the owned Callbacks are also deleted. If you don't want the Callbacks to be deleted, before calling clear, set the callback to NULL. </p>
 
+<p>Definition at line <a class="el" href="unicity__table_8h_source.html#l00185">185</a> of file <a class="el" href="unicity__table_8h_source.html">unicity_table.h</a>.</p>
+<div class="fragment"><pre class="fragment">                            {
+  table_.clear();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae2ca9cd7a9bf7837306df260c218772b"></a><!-- doxytag: member="UnicityTable::contains" ref="ae2ca9cd7a9bf7837306df260c218772b" args="(T object) const " -->
@@ -223,6 +241,11 @@ template&lt;typename T&gt; </div>
 
 <p>Return true if T is in the table. </p>
 
+<p>Definition at line <a class="el" href="unicity__table_8h_source.html#l00154">154</a> of file <a class="el" href="unicity__table_8h_source.html">unicity_table.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                             {
+  <span class="keywordflow">return</span> <a class="code" href="class_unicity_table.html#a4820bb7a54cf6ecda86856161c6d5a2f">get_id</a>(<span class="keywordtype">object</span>) != -1;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a327b95e35d5624c791467a63860b6c6b"></a><!-- doxytag: member="UnicityTable::contains_id" ref="a327b95e35d5624c791467a63860b6c6b" args="(int id) const " -->
@@ -244,6 +267,11 @@ template&lt;typename T &gt; </div>
 
 <p>Return true if the id is valid. </p>
 
+<p>Definition at line <a class="el" href="unicity__table_8h_source.html#l00142">142</a> of file <a class="el" href="unicity__table_8h_source.html">unicity_table.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                           {
+  <span class="keywordflow">return</span> table_.contains_index(<span class="keywordtype">id</span>);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3b3107bc72d9edfe501eaba7404de7eb"></a><!-- doxytag: member="UnicityTable::get" ref="a3b3107bc72d9edfe501eaba7404de7eb" args="(int id) const " -->
@@ -265,6 +293,11 @@ template&lt;typename T &gt; </div>
 
 <p>Return the object from an id. </p>
 
+<p>Definition at line <a class="el" href="unicity__table_8h_source.html#l00132">132</a> of file <a class="el" href="unicity__table_8h_source.html">unicity_table.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                          {
+  <span class="keywordflow">return</span> table_.get(<span class="keywordtype">id</span>);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4820bb7a54cf6ecda86856161c6d5a2f"></a><!-- doxytag: member="UnicityTable::get_id" ref="a4820bb7a54cf6ecda86856161c6d5a2f" args="(T object) const " -->
@@ -285,6 +318,11 @@ template&lt;typename T&gt; </div>
 <div class="memdoc">
 <p>Return the id of the T object. This method NEEDS a compare_callback to be passed to set_compare_callback. </p>
 
+<p>Definition at line <a class="el" href="unicity__table_8h_source.html#l00148">148</a> of file <a class="el" href="unicity__table_8h_source.html">unicity_table.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                          {
+  <span class="keywordflow">return</span> table_.get_index(<span class="keywordtype">object</span>);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6913a3f4f880861e0eca6c606e47646a"></a><!-- doxytag: member="UnicityTable::get_mutable" ref="a6913a3f4f880861e0eca6c606e47646a" args="(int id)" -->
@@ -304,6 +342,11 @@ template&lt;typename T &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="unicity__table_8h_source.html#l00137">137</a> of file <a class="el" href="unicity__table_8h_source.html">unicity_table.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                      {
+  <span class="keywordflow">return</span> &amp;(table_.get(<span class="keywordtype">id</span>));
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a18c8fc9ccbd7c0befdae1ab65bafdb12"></a><!-- doxytag: member="UnicityTable::move" ref="a18c8fc9ccbd7c0befdae1ab65bafdb12" args="(UnicityTable&lt; T &gt; *from)" -->
@@ -324,6 +367,11 @@ template&lt;typename T&gt; </div>
 <div class="memdoc">
 <p>This method clear the current object, then, does a shallow copy of its argument, and finally invalidate its argument. </p>
 
+<p>Definition at line <a class="el" href="unicity__table_8h_source.html#l00204">204</a> of file <a class="el" href="unicity__table_8h_source.html">unicity_table.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                {
+  table_.move(&amp;from-&gt;table_);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a659534293ab0e46a46cab4421bebfb8f"></a><!-- doxytag: member="UnicityTable::push_back" ref="a659534293ab0e46a46cab4421bebfb8f" args="(T object)" -->
@@ -345,6 +393,15 @@ template&lt;typename T&gt; </div>
 
 <p>Add an element in the table. </p>
 
+<p>Definition at line <a class="el" href="unicity__table_8h_source.html#l00160">160</a> of file <a class="el" href="unicity__table_8h_source.html">unicity_table.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                       {
+  <span class="keywordtype">int</span> idx = <a class="code" href="class_unicity_table.html#a4820bb7a54cf6ecda86856161c6d5a2f">get_id</a>(<span class="keywordtype">object</span>);
+  <span class="keywordflow">if</span> (idx == -1) {
+    idx = table_.push_back(<span class="keywordtype">object</span>);
+  }
+  <span class="keywordflow">return</span> idx;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a31e2edb3f92024b211332a850723d237"></a><!-- doxytag: member="UnicityTable::read" ref="a31e2edb3f92024b211332a850723d237" args="(FILE *f, TessResultCallback3&lt; bool, FILE *, T *, bool &gt; *cb, bool swap)" -->
@@ -382,6 +439,11 @@ template&lt;typename T&gt; </div>
 
 <p>swap is used to switch the endianness. </p>
 
+<p>Definition at line <a class="el" href="unicity__table_8h_source.html#l00196">196</a> of file <a class="el" href="unicity__table_8h_source.html">unicity_table.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                        {
+  <span class="keywordflow">return</span> table_.read(<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>, cb, swap);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aed48975fff77cc08f4724edd62e52b2e"></a><!-- doxytag: member="UnicityTable::reserve" ref="aed48975fff77cc08f4724edd62e52b2e" args="(int size)" -->
@@ -402,6 +464,11 @@ template&lt;typename T &gt; </div>
 <div class="memdoc">
 <p>Reserve some memory. If there is size or more elements, the table will then allocate size * 2 elements. </p>
 
+<p>Definition at line <a class="el" href="unicity__table_8h_source.html#l00126">126</a> of file <a class="el" href="unicity__table_8h_source.html">unicity_table.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                      {
+  table_.reserve(<a class="code" href="class_unicity_table.html#a834de17f090dcfcc6625b01c5a627c2f" title="Return the size used.">size</a>);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="accc4dcfc4923d6ec2cb0f19c9f21ecfb"></a><!-- doxytag: member="UnicityTable::set_clear_callback" ref="accc4dcfc4923d6ec2cb0f19c9f21ecfb" args="(TessCallback1&lt; T &gt; *cb)" -->
@@ -422,6 +489,11 @@ template&lt;typename T&gt; </div>
 <div class="memdoc">
 <p>Add a callback to be called to delete the elements when the table took their ownership. </p>
 
+<p>Definition at line <a class="el" href="unicity__table_8h_source.html#l00171">171</a> of file <a class="el" href="unicity__table_8h_source.html">unicity_table.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                             {
+  table_.set_clear_callback(cb);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7e1ff22ed9e31fd303ce9fea4f1eeff2"></a><!-- doxytag: member="UnicityTable::set_compare_callback" ref="a7e1ff22ed9e31fd303ce9fea4f1eeff2" args="(TessResultCallback2&lt; bool, T const &amp;, T const &amp; &gt; *cb)" -->
@@ -442,6 +514,12 @@ template&lt;typename T&gt; </div>
 <div class="memdoc">
 <p>Add a callback to be called to compare the elements when needed (contains, get_id, ...) </p>
 
+<p>Definition at line <a class="el" href="unicity__table_8h_source.html#l00178">178</a> of file <a class="el" href="unicity__table_8h_source.html">unicity_table.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                                              {
+  table_.set_compare_callback(cb);
+  compare_cb_ = cb;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a834de17f090dcfcc6625b01c5a627c2f"></a><!-- doxytag: member="UnicityTable::size" ref="a834de17f090dcfcc6625b01c5a627c2f" args="() const " -->
@@ -462,6 +540,11 @@ template&lt;typename T &gt; </div>
 
 <p>Return the size used. </p>
 
+<p>Definition at line <a class="el" href="unicity__table_8h_source.html#l00119">119</a> of file <a class="el" href="unicity__table_8h_source.html">unicity_table.h</a>.</p>
+<div class="fragment"><pre class="fragment">                               {
+  <span class="keywordflow">return</span> table_.size();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a23b683e4ea0132af3004552f5d515d61"></a><!-- doxytag: member="UnicityTable::write" ref="a23b683e4ea0132af3004552f5d515d61" args="(FILE *f, TessResultCallback2&lt; bool, FILE *, T const &amp; &gt; *cb) const " -->
@@ -492,6 +575,11 @@ template&lt;typename T&gt; </div>
 <div class="memdoc">
 <p>Read/Write the table to a file. This does _NOT_ read/write the callbacks. The Callback given must be permanent since they will be called more than once. The given callback will be deleted at the end. Returns false on read/write error. </p>
 
+<p>Definition at line <a class="el" href="unicity__table_8h_source.html#l00190">190</a> of file <a class="el" href="unicity__table_8h_source.html">unicity_table.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                    {
+  <span class="keywordflow">return</span> table_.write(<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>, cb);
+}
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
@@ -517,7 +605,7 @@ template&lt;typename T&gt; </div>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:14 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:48 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

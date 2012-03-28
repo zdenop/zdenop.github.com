@@ -140,7 +140,10 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_master_trainer.html#acb66589deb865e96aaa304c725322801">TestClassifier</a> (int report_level, bool replicate_samples, <a class="el" href="classtesseract_1_1_training_sample_set.html">TrainingSampleSet</a> *samples, <a class="el" href="classtesseract_1_1_shape_classifier.html">ShapeClassifier</a> *test_classifier, <a class="el" href="class_s_t_r_i_n_g.html">STRING</a> *report_string)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_master_trainer.html#a7669b694b622f304cdcbfccb04c779d1">ShapeDistance</a> (const <a class="el" href="classtesseract_1_1_shape_table.html">ShapeTable</a> &amp;shapes, int s1, int s2)</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="mastertrainer_8h_source.html#l00068">68</a> of file <a class="el" href="mastertrainer_8h_source.html">mastertrainer.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a9f9031a5f9e8f03bc23e6216882ab41e"></a><!-- doxytag: member="tesseract::MasterTrainer::MasterTrainer" ref="a9f9031a5f9e8f03bc23e6216882ab41e" args="(NormalizationMode norm_mode, bool shape_analysis, bool replicate_samples, int debug_level)" -->
 <div class="memitem">
 <div class="memproto">
@@ -178,6 +181,19 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mastertrainer_8cpp_source.html#l00046">46</a> of file <a class="el" href="mastertrainer_8cpp_source.html">mastertrainer.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">  : norm_mode_(norm_mode), samples_(fontinfo_table_),
+    junk_samples_(fontinfo_table_), verify_samples_(fontinfo_table_),
+    charsetsize_(0),
+    enable_shape_anaylsis_(shape_analysis),
+    enable_replication_(replicate_samples),
+    fragments_(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>), prev_unichar_id_(-1), debug_level_(debug_level) {
+  fontinfo_table_.<a class="code" href="class_unicity_table.html#a7e1ff22ed9e31fd303ce9fea4f1eeff2">set_compare_callback</a>(
+      <a class="code" href="tesscallback_8h.html#ad000c6729bae0f97075ca10a0b5bf7d6">NewPermanentTessCallback</a>(<a class="code" href="namespacetesseract.html#a050fbf6fe3d3cb63b62efbff771495ba">CompareFontInfo</a>));
+  fontinfo_table_.<a class="code" href="class_unicity_table.html#accc4dcfc4923d6ec2cb0f19c9f21ecfb">set_clear_callback</a>(
+      <a class="code" href="tesscallback_8h.html#ad000c6729bae0f97075ca10a0b5bf7d6">NewPermanentTessCallback</a>(<a class="code" href="namespacetesseract.html#a1eb40be391904d34559ee7fc06b321f4">FontInfoDeleteCallback</a>));
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2be41d34977bf84e0f9903ab74f5ecb1"></a><!-- doxytag: member="tesseract::MasterTrainer::~MasterTrainer" ref="a2be41d34977bf84e0f9903ab74f5ecb1" args="()" -->
@@ -194,6 +210,13 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mastertrainer_8cpp_source.html#l00062">62</a> of file <a class="el" href="mastertrainer_8cpp_source.html">mastertrainer.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                              {
+  <span class="keyword">delete</span> [] fragments_;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> p = 0; p &lt; page_images_.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>(); ++p)
+    pixDestroy(&amp;page_images_[p]);
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -228,6 +251,33 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mastertrainer_8cpp_source.html#l00179">179</a> of file <a class="el" href="mastertrainer_8cpp_source.html">mastertrainer.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                      {
+  <span class="keywordflow">if</span> (verification) {
+    verify_samples_.AddSample(unichar, <a class="code" href="structsample.html">sample</a>);
+    prev_unichar_id_ = -1;
+  } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (unicharset_.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a9f8861ffb917e7341c821928da5865f0">contains_unichar</a>(unichar)) {
+    <span class="keywordflow">if</span> (prev_unichar_id_ &gt;= 0)
+      fragments_[prev_unichar_id_] = -1;
+    prev_unichar_id_ = samples_.AddSample(unichar, <a class="code" href="structsample.html">sample</a>);
+    <span class="keywordflow">if</span> (flat_shapes_.FindShape(prev_unichar_id_, <a class="code" href="structsample.html">sample</a>-&gt;font_id()) &lt; 0)
+      flat_shapes_.AddShape(prev_unichar_id_, <a class="code" href="structsample.html">sample</a>-&gt;font_id());
+  } <span class="keywordflow">else</span> {
+    <span class="keywordtype">int</span> junk_id = junk_samples_.AddSample(unichar, <a class="code" href="structsample.html">sample</a>);
+    <span class="keywordflow">if</span> (prev_unichar_id_ &gt;= 0) {
+      <a class="code" href="class_c_h_a_r___f_r_a_g_m_e_n_t.html">CHAR_FRAGMENT</a>* frag = <a class="code" href="class_c_h_a_r___f_r_a_g_m_e_n_t.html#ac56b3d4af146800dd576dd60a11ea563">CHAR_FRAGMENT::parse_from_string</a>(unichar);
+      <span class="keywordflow">if</span> (frag != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp; frag-&gt;<a class="code" href="class_c_h_a_r___f_r_a_g_m_e_n_t.html#a3a54d954fd5a60836119fa362fe99289">is_natural</a>()) {
+        <span class="keywordflow">if</span> (fragments_[prev_unichar_id_] == 0)
+          fragments_[prev_unichar_id_] = junk_id;
+        <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fragments_[prev_unichar_id_] != junk_id)
+          fragments_[prev_unichar_id_] = -1;
+      }
+      <span class="keyword">delete</span> frag;
+    }
+    prev_unichar_id_ = -1;
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae12810d98f7d82157a1e8a18548d2f42"></a><!-- doxytag: member="tesseract::MasterTrainer::AddSpacingInfo" ref="ae12810d98f7d82157a1e8a18548d2f42" args="(const char *filename)" -->
@@ -245,6 +295,60 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mastertrainer_8cpp_source.html#l00417">417</a> of file <a class="el" href="mastertrainer_8cpp_source.html">mastertrainer.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                       {
+  FILE* fontinfo_file = fopen(filename, <span class="stringliteral">&quot;rb&quot;</span>);
+  <span class="keywordflow">if</span> (fontinfo_file == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <span class="keywordflow">return</span> <span class="keyword">true</span>;  <span class="comment">// We silently ignore missing files!</span>
+  <span class="comment">// Find the fontinfo_id.</span>
+  <span class="keywordtype">int</span> fontinfo_id = <a class="code" href="classtesseract_1_1_master_trainer.html#a150df14674551d178f27d82a1b18f537">GetBestMatchingFontInfoId</a>(filename);
+  <span class="keywordflow">if</span> (fontinfo_id &lt; 0) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;No font found matching fontinfo filename %s\n&quot;</span>, filename);
+    fclose(fontinfo_file);
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+  <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Reading spacing from %s for font %d...\n&quot;</span>, filename, fontinfo_id);
+  <span class="comment">// TODO(rays) scale should probably be a double, but keep as an int for now</span>
+  <span class="comment">// to duplicate current behavior.</span>
+  <span class="keywordtype">int</span> scale = <a class="code" href="normalis_8h.html#af974e6755e636c8bc7cbe57e3bcbdd73">kBlnXHeight</a> / xheights_[fontinfo_id];
+  <span class="keywordtype">int</span> num_unichars;
+  <span class="keywordtype">char</span> uch[<a class="code" href="unichar_8h.html#a902bc40c9d89802bc063afe30ce9e708">UNICHAR_LEN</a>];
+  <span class="keywordtype">char</span> kerned_uch[<a class="code" href="unichar_8h.html#a902bc40c9d89802bc063afe30ce9e708">UNICHAR_LEN</a>];
+  <span class="keywordtype">int</span> x_gap, x_gap_before, x_gap_after, num_kerned;
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(fscanf(fontinfo_file, <span class="stringliteral">&quot;%d\n&quot;</span>, &amp;num_unichars) == 1);
+  FontInfo *fi = fontinfo_table_.<a class="code" href="class_unicity_table.html#a6913a3f4f880861e0eca6c606e47646a">get_mutable</a>(fontinfo_id);
+  fi-&gt;init_spacing(unicharset_.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#aa3e8073ebaf3e0022654c45f27135032">size</a>());
+  FontSpacingInfo *spacing = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> l = 0; l &lt; num_unichars; ++l) {
+    <span class="keywordflow">if</span> (fscanf(fontinfo_file, <span class="stringliteral">&quot;%s %d %d %d&quot;</span>,
+               uch, &amp;x_gap_before, &amp;x_gap_after, &amp;num_kerned) != 4) {
+      <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Bad format of font spacing file %s\n&quot;</span>, filename);
+      fclose(fontinfo_file);
+      <span class="keywordflow">return</span> <span class="keyword">false</span>;
+    }
+    <span class="keywordtype">bool</span> valid = unicharset_.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a9f8861ffb917e7341c821928da5865f0">contains_unichar</a>(uch);
+    <span class="keywordflow">if</span> (valid) {
+      spacing = <span class="keyword">new</span> FontSpacingInfo();
+      spacing-&gt;x_gap_before = <span class="keyword">static_cast&lt;</span><a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a><span class="keyword">&gt;</span>(x_gap_before * scale);
+      spacing-&gt;x_gap_after = <span class="keyword">static_cast&lt;</span><a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a><span class="keyword">&gt;</span>(x_gap_after * scale);
+    }
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> k = 0; k &lt; num_kerned; ++k) {
+      <span class="keywordflow">if</span> (fscanf(fontinfo_file, <span class="stringliteral">&quot;%s %d&quot;</span>, kerned_uch, &amp;x_gap) != 2) {
+        <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Bad format of font spacing file %s\n&quot;</span>, filename);
+        fclose(fontinfo_file);
+        <span class="keywordflow">return</span> <span class="keyword">false</span>;
+      }
+      <span class="keywordflow">if</span> (!valid || !unicharset_.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a9f8861ffb917e7341c821928da5865f0">contains_unichar</a>(kerned_uch)) <span class="keywordflow">continue</span>;
+      spacing-&gt;kerned_unichar_ids.push_back(
+          unicharset_.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#ae786fa834962ef4d6dbf8300c6c5d456">unichar_to_id</a>(kerned_uch));
+      spacing-&gt;kerned_x_gaps.push_back(static_cast&lt;inT16&gt;(x_gap * scale));
+    }
+    <span class="keywordflow">if</span> (valid) fi-&gt;add_spacing(unicharset_.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#ae786fa834962ef4d6dbf8300c6c5d456">unichar_to_id</a>(uch), spacing);
+  }
+  fclose(fontinfo_file);
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab03d8639d3f122eb8c0705712ac44077"></a><!-- doxytag: member="tesseract::MasterTrainer::DebugCanonical" ref="ab03d8639d3f122eb8c0705712ac44077" args="(const char *unichar_str1, const char *unichar_str2)" -->
@@ -272,6 +376,55 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mastertrainer_8cpp_source.html#l00635">635</a> of file <a class="el" href="mastertrainer_8cpp_source.html">mastertrainer.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                             {
+  <span class="keywordtype">int</span> class_id1 = unicharset_.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#ae786fa834962ef4d6dbf8300c6c5d456">unichar_to_id</a>(unichar_str1);
+  <span class="keywordtype">int</span> class_id2 = unicharset_.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#ae786fa834962ef4d6dbf8300c6c5d456">unichar_to_id</a>(unichar_str2);
+  <span class="keywordflow">if</span> (class_id2 == INVALID_UNICHAR_ID)
+    class_id2 = class_id1;
+  <span class="keywordflow">if</span> (class_id1 == INVALID_UNICHAR_ID) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;No unicharset entry found for %s\n&quot;</span>, unichar_str1);
+    <span class="keywordflow">return</span>;
+  } <span class="keywordflow">else</span> {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Font ambiguities for unichar %d = %s and %d = %s\n&quot;</span>,
+            class_id1, unichar_str1, class_id2, unichar_str2);
+  }
+  <span class="keywordtype">int</span> num_fonts = samples_.NumFonts();
+  <span class="keyword">const</span> IntFeatureMap&amp; feature_map = feature_map_;
+  <span class="comment">// Iterate the fonts to get the similarity with other fonst of the same</span>
+  <span class="comment">// class.</span>
+  <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;      &quot;</span>);
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> = 0; <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> &lt; num_fonts; ++<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>) {
+    <span class="keywordflow">if</span> (samples_.NumClassSamples(<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>, class_id2, <span class="keyword">false</span>) == 0)
+      <span class="keywordflow">continue</span>;
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;%6d&quot;</span>, <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>);
+  }
+  <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;\n&quot;</span>);
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> f1 = 0; f1 &lt; num_fonts; ++f1) {
+    <span class="comment">// Map the features of the canonical_sample.</span>
+    <span class="keywordflow">if</span> (samples_.NumClassSamples(f1, class_id1, <span class="keyword">false</span>) == 0)
+      <span class="keywordflow">continue</span>;
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;%4d  &quot;</span>, f1);
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> f2 = 0; f2 &lt; num_fonts; ++f2) {
+      <span class="keywordflow">if</span> (samples_.NumClassSamples(f2, class_id2, <span class="keyword">false</span>) == 0)
+        <span class="keywordflow">continue</span>;
+      <span class="keywordtype">float</span> dist = samples_.ClusterDistance(f1, class_id1, f2, class_id2,
+                                            feature_map);
+      <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot; %5.3f&quot;</span>, dist);
+    }
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;\n&quot;</span>);
+  }
+  <span class="comment">// Build a fake ShapeTable containing all the sample types.</span>
+  ShapeTable shapes(unicharset_);
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> = 0; <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> &lt; num_fonts; ++<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>) {
+    <span class="keywordflow">if</span> (samples_.NumClassSamples(<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>, class_id1, <span class="keyword">true</span>) &gt; 0)
+      shapes.AddShape(class_id1, <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>);
+    <span class="keywordflow">if</span> (class_id1 != class_id2 &amp;&amp;
+        samples_.NumClassSamples(<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>, class_id2, <span class="keyword">true</span>) &gt; 0)
+      shapes.AddShape(class_id2, <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9832f32287c7e682097c0c780270057a"></a><!-- doxytag: member="tesseract::MasterTrainer::DeSerialize" ref="a9832f32287c7e682097c0c780270057a" args="(bool swap, FILE *fp)" -->
@@ -299,6 +452,30 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mastertrainer_8cpp_source.html#l00090">90</a> of file <a class="el" href="mastertrainer_8cpp_source.html">mastertrainer.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                   {
+  <span class="keywordflow">if</span> (fread(&amp;norm_mode_, <span class="keyword">sizeof</span>(norm_mode_), 1, fp) != 1) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">if</span> (swap) {
+    <a class="code" href="helpers_8h.html#ae7eeeca49954d4b13d269729f2fecd5a">ReverseN</a>(&amp;norm_mode_, <span class="keyword">sizeof</span>(norm_mode_));
+  }
+  <span class="keywordflow">if</span> (!unicharset_.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#af066ba55fdc20f996eaaed05618b377e">load_from_file</a>(fp)) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  charsetsize_ = unicharset_.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#aa3e8073ebaf3e0022654c45f27135032">size</a>();
+  <span class="keywordflow">if</span> (!feature_space_.DeSerialize(swap, fp)) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  feature_map_.Init(feature_space_);
+  <span class="keywordflow">if</span> (!samples_.DeSerialize(swap, fp)) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">if</span> (!junk_samples_.DeSerialize(swap, fp)) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">if</span> (!verify_samples_.DeSerialize(swap, fp)) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">if</span> (!master_shapes_.DeSerialize(swap, fp)) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">if</span> (!flat_shapes_.DeSerialize(swap, fp)) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">if</span> (!fontinfo_table_.<a class="code" href="class_unicity_table.html#a31e2edb3f92024b211332a850723d237" title="swap is used to switch the endianness.">read</a>(fp, <a class="code" href="tesscallback_8h.html#ad000c6729bae0f97075ca10a0b5bf7d6">NewPermanentTessCallback</a>(<a class="code" href="namespacetesseract.html#a4a8355da6e96695bb003d778da05a95b">read_info</a>), swap))
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">if</span> (!fontinfo_table_.<a class="code" href="class_unicity_table.html#a31e2edb3f92024b211332a850723d237" title="swap is used to switch the endianness.">read</a>(fp, <a class="code" href="tesscallback_8h.html#ad000c6729bae0f97075ca10a0b5bf7d6">NewPermanentTessCallback</a>(<a class="code" href="namespacetesseract.html#a8643fbecc8aa5b606e53a534ad14d491">read_spacing_info</a>),
+                            swap))
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">if</span> (!xheights_.<a class="code" href="class_generic_vector.html#aa4f5b1bc0d044fbd1fc77363b798c39c">DeSerialize</a>(swap, fp)) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a180440eb25e7149056023d7975c34fd4"></a><!-- doxytag: member="tesseract::MasterTrainer::DisplaySamples" ref="a180440eb25e7149056023d7975c34fd4" args="(const char *unichar_str1, int cloud_font, const char *unichar_str2, int canonical_font)" -->
@@ -338,6 +515,57 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mastertrainer_8cpp_source.html#l00695">695</a> of file <a class="el" href="mastertrainer_8cpp_source.html">mastertrainer.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                       {
+  <span class="keyword">const</span> IntFeatureMap&amp; feature_map = feature_map_;
+  <span class="keyword">const</span> IntFeatureSpace&amp; feature_space = feature_map.feature_space();
+  <a class="code" href="class_scroll_view.html">ScrollView</a>* f_window = <a class="code" href="intproto_8cpp.html#aa420561fce74b76450727980adea72b1">CreateFeatureSpaceWindow</a>(<span class="stringliteral">&quot;Features&quot;</span>, 100, 500);
+  <a class="code" href="namespacetesseract.html#a50fae3caed4dccef6a71ac7e7aa9d63d">ClearFeatureSpaceWindow</a>(norm_mode_ == <a class="code" href="namespacetesseract.html#ad3e7916f0120e26e7b4e0f830784194aa643bd757ce3d9647d68aae97256d0233">NM_BASELINE</a> ? <a class="code" href="mfoutline_8h.html#a2a4b69f9a2827dc98bc4cbc233118865a83297de004f4e58b9be2108c6cd08a23">baseline</a> : <a class="code" href="mfoutline_8h.html#a2a4b69f9a2827dc98bc4cbc233118865afa40ef3af4fea0001b535318130960b2">character</a>,
+                          f_window);
+  <span class="keywordtype">int</span> class_id2 = samples_.unicharset().unichar_to_id(unichar_str2);
+  <span class="keywordflow">if</span> (class_id2 != INVALID_UNICHAR_ID &amp;&amp; canonical_font &gt;= 0) {
+    <span class="keyword">const</span> TrainingSample* <a class="code" href="structsample.html">sample</a> = samples_.GetCanonicalSample(canonical_font,
+                                                               class_id2);
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> = 0; <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> &lt; sample-&gt;num_features(); ++<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>) {
+      <a class="code" href="intproto_8cpp.html#a83c43ef1a01f3be45cbf675da04c3930">RenderIntFeature</a>(f_window, &amp;sample-&gt;features()[<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>], <a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8a0959f7470b08ae1a38aa7e38fba29402">ScrollView::RED</a>);
+    }
+  }
+  <span class="keywordtype">int</span> class_id1 = samples_.unicharset().unichar_to_id(unichar_str1);
+  <span class="keywordflow">if</span> (class_id1 != INVALID_UNICHAR_ID &amp;&amp; cloud_font &gt;= 0) {
+    <span class="keyword">const</span> BitVector&amp; cloud = samples_.GetCloudFeatures(cloud_font, class_id1);
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> = 0; <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> &lt; cloud.size(); ++<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>) {
+      <span class="keywordflow">if</span> (cloud[<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>]) {
+        <a class="code" href="struct_i_n_t___f_e_a_t_u_r_e___s_t_r_u_c_t.html">INT_FEATURE_STRUCT</a> feature =
+            feature_map.InverseIndexFeature(f);
+        <a class="code" href="intproto_8cpp.html#a83c43ef1a01f3be45cbf675da04c3930">RenderIntFeature</a>(f_window, &amp;feature, <a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8a9d8c87be486dead41d198d6b97a22174">ScrollView::GREEN</a>);
+      }
+    }
+  }
+  f_window-&gt;<a class="code" href="class_scroll_view.html#a0830a51981a20c8700b5ec49137e46e9">Update</a>();
+  <a class="code" href="class_scroll_view.html">ScrollView</a>* s_window = <a class="code" href="intproto_8cpp.html#aa420561fce74b76450727980adea72b1">CreateFeatureSpaceWindow</a>(<span class="stringliteral">&quot;Samples&quot;</span>, 100, 500);
+  <a class="code" href="scrollview_8h.html#a3688a0cf2f95d10a57e095222ccfe9a0">SVEventType</a> ev_type;
+  <span class="keywordflow">do</span> {
+    <a class="code" href="struct_s_v_event.html">SVEvent</a>* ev;
+    <span class="comment">// Wait until a click or popup event.</span>
+    ev = f_window-&gt;<a class="code" href="class_scroll_view.html#a0b820b3fe7a2ce083da0784e9339a1ad">AwaitEvent</a>(<a class="code" href="scrollview_8h.html#a3688a0cf2f95d10a57e095222ccfe9a0a6eec81ed585bda7ff47ec38918cb2a0e">SVET_ANY</a>);
+    ev_type = ev-&gt;<a class="code" href="struct_s_v_event.html#a5bf8585bd1901b9103eb2783f8afe508">type</a>;
+    <span class="keywordflow">if</span> (ev_type == <a class="code" href="scrollview_8h.html#a3688a0cf2f95d10a57e095222ccfe9a0a2afe407abe8c055c45765b85d20e7946">SVET_CLICK</a>) {
+      <span class="keywordtype">int</span> feature_index = feature_space.XYToFeatureIndex(ev-&gt;<a class="code" href="struct_s_v_event.html#a45ffe2bc44987a5461278e78de76f6f7">x</a>, ev-&gt;<a class="code" href="struct_s_v_event.html#aabace8b3b902fe15aef808ad9c203bb7">y</a>);
+      <span class="keywordflow">if</span> (feature_index &gt;= 0) {
+        <span class="comment">// Iterate samples and display those with the feature.</span>
+        Shape shape;
+        shape.AddToShape(class_id1, cloud_font);
+        s_window-&gt;<a class="code" href="class_scroll_view.html#a5386b0da16d7cbdd33044e53b95313ac">Clear</a>();
+        samples_.DisplaySamplesWithFeature(feature_index, shape,
+                                           feature_space, <a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8a9d8c87be486dead41d198d6b97a22174">ScrollView::GREEN</a>,
+                                           s_window);
+        s_window-&gt;<a class="code" href="class_scroll_view.html#a0830a51981a20c8700b5ec49137e46e9">Update</a>();
+      }
+    }
+    <span class="keyword">delete</span> ev;
+  } <span class="keywordflow">while</span> (ev_type != <a class="code" href="scrollview_8h.html#a3688a0cf2f95d10a57e095222ccfe9a0adbe9fb2ca110dbf1b838d845d32a89e7">SVET_DESTROY</a>);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a150df14674551d178f27d82a1b18f537"></a><!-- doxytag: member="tesseract::MasterTrainer::GetBestMatchingFontInfoId" ref="a150df14674551d178f27d82a1b18f537" args="(const char *filename)" -->
@@ -355,6 +583,23 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mastertrainer_8cpp_source.html#l00487">487</a> of file <a class="el" href="mastertrainer_8cpp_source.html">mastertrainer.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                 {
+  <span class="keywordtype">int</span> fontinfo_id = -1;
+  <span class="keywordtype">int</span> best_len = 0;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> = 0; <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> &lt; fontinfo_table_.<a class="code" href="class_unicity_table.html#a834de17f090dcfcc6625b01c5a627c2f" title="Return the size used.">size</a>(); ++<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>) {
+    <span class="keywordflow">if</span> (strstr(filename, fontinfo_table_.<a class="code" href="class_unicity_table.html#a3b3107bc72d9edfe501eaba7404de7eb" title="Return the object from an id.">get</a>(<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>).name) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      <span class="keywordtype">int</span> len = strlen(fontinfo_table_.<a class="code" href="class_unicity_table.html#a3b3107bc72d9edfe501eaba7404de7eb" title="Return the object from an id.">get</a>(<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>).name);
+      <span class="comment">// Use the longest matching length in case a substring of a font matched.</span>
+      <span class="keywordflow">if</span> (len &gt; best_len) {
+        best_len = len;
+        fontinfo_id = <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>;
+      }
+    }
+  }
+  <span class="keywordflow">return</span> fontinfo_id;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a39b86ce55cc3c0404905a72eddaa0037"></a><!-- doxytag: member="tesseract::MasterTrainer::GetFontInfoId" ref="a39b86ce55cc3c0404905a72eddaa0037" args="(const char *font_name)" -->
@@ -372,6 +617,20 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mastertrainer_8cpp_source.html#l00472">472</a> of file <a class="el" href="mastertrainer_8cpp_source.html">mastertrainer.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                      {
+  FontInfo fontinfo;
+  <span class="comment">// We are only borrowing the string, so it is OK to const cast it.</span>
+  fontinfo.name = <span class="keyword">const_cast&lt;</span><span class="keywordtype">char</span>*<span class="keyword">&gt;</span>(font_name);
+  fontinfo.properties = 0;  <span class="comment">// Not used to lookup in the table</span>
+  fontinfo.universal_id = 0;
+  <span class="keywordflow">if</span> (!fontinfo_table_.<a class="code" href="class_unicity_table.html#ae2ca9cd7a9bf7837306df260c218772b" title="Return true if T is in the table.">contains</a>(fontinfo)) {
+    <span class="keywordflow">return</span> -1;
+  } <span class="keywordflow">else</span> {
+    <span class="keywordflow">return</span> fontinfo_table_.<a class="code" href="class_unicity_table.html#a4820bb7a54cf6ecda86856161c6d5a2f">get_id</a>(fontinfo);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="abe87e09c9583972b5a7fc04bb138414e"></a><!-- doxytag: member="tesseract::MasterTrainer::GetSamples" ref="abe87e09c9583972b5a7fc04bb138414e" args="()" -->
@@ -388,6 +647,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mastertrainer_8h_source.html#l00185">185</a> of file <a class="el" href="mastertrainer_8h_source.html">mastertrainer.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                  {
+    <span class="keywordflow">return</span> &amp;samples_;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2741ed8b6ac54d16c5a81debdb4459aa"></a><!-- doxytag: member="tesseract::MasterTrainer::IncludeJunk" ref="a2741ed8b6ac54d16c5a81debdb4459aa" args="()" -->
@@ -404,6 +668,28 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mastertrainer_8cpp_source.html#l00307">307</a> of file <a class="el" href="mastertrainer_8cpp_source.html">mastertrainer.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                {
+  <span class="comment">// Get ids of fragments in junk_samples_ that replace the dead chars.</span>
+  <span class="keyword">const</span> <a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html">UNICHARSET</a>&amp; junk_set = junk_samples_.unicharset();
+  <span class="keyword">const</span> <a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html">UNICHARSET</a>&amp; sample_set = samples_.unicharset();
+  <span class="keywordtype">int</span> num_junks = junk_samples_.num_samples();
+  <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Moving %d junk samples to master sample set.\n&quot;</span>, num_junks);
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> s = 0; s &lt; num_junks; ++s) {
+    TrainingSample* <a class="code" href="structsample.html">sample</a> = junk_samples_.mutable_sample(s);
+    <span class="keywordtype">int</span> junk_id = sample-&gt;class_id();
+    <span class="keyword">const</span> <span class="keywordtype">char</span>* junk_utf8 = junk_set.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a421c0b6ebcbbe7547490252fb688c961">id_to_unichar</a>(junk_id);
+    <span class="keywordtype">int</span> sample_id = sample_set.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#ae786fa834962ef4d6dbf8300c6c5d456">unichar_to_id</a>(junk_utf8);
+    <span class="keywordflow">if</span> (sample_id == INVALID_UNICHAR_ID)
+      sample_id = 0;
+    sample-&gt;set_class_id(sample_id);
+    junk_samples_.extract_sample(s);
+    samples_.AddSample(sample_id, sample);
+  }
+  junk_samples_.DeleteDeadSamples();
+  samples_.OrganizeByFontAndClass();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a10cf3bb89a6f869eefdf3d07b0be0be8"></a><!-- doxytag: member="tesseract::MasterTrainer::LoadFontInfo" ref="a10cf3bb89a6f869eefdf3d07b0be0be8" args="(const char *filename)" -->
@@ -421,6 +707,37 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mastertrainer_8cpp_source.html#l00345">345</a> of file <a class="el" href="mastertrainer_8cpp_source.html">mastertrainer.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                     {
+  FILE* fp = fopen(filename, <span class="stringliteral">&quot;rb&quot;</span>);
+  <span class="keywordflow">if</span> (fp == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    fprintf(stderr, <span class="stringliteral">&quot;Failed to load font_properties from %s\n&quot;</span>, filename);
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+  <span class="keywordtype">int</span> italic, bold, fixed, serif, fraktur;
+  <span class="keywordflow">while</span> (!feof(fp)) {
+    FontInfo fontinfo;
+    <span class="keywordtype">char</span>* font_name = <span class="keyword">new</span> <span class="keywordtype">char</span>[1024];
+    fontinfo.name = font_name;
+    fontinfo.properties = 0;
+    fontinfo.universal_id = 0;
+    <span class="keywordflow">if</span> (fscanf(fp, <span class="stringliteral">&quot;%1024s %i %i %i %i %i\n&quot;</span>, font_name,
+               &amp;italic, &amp;bold, &amp;fixed, &amp;serif, &amp;fraktur) != 6)
+      <span class="keywordflow">continue</span>;
+    fontinfo.properties =
+        (italic &lt;&lt; 0) +
+        (bold &lt;&lt; 1) +
+        (fixed &lt;&lt; 2) +
+        (serif &lt;&lt; 3) +
+        (fraktur &lt;&lt; 4);
+    <span class="keywordflow">if</span> (!fontinfo_table_.<a class="code" href="class_unicity_table.html#ae2ca9cd7a9bf7837306df260c218772b" title="Return true if T is in the table.">contains</a>(fontinfo)) {
+      fontinfo_table_.<a class="code" href="class_unicity_table.html#a659534293ab0e46a46cab4421bebfb8f" title="Add an element in the table.">push_back</a>(fontinfo);
+    }
+  }
+  fclose(fp);
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a27f473749fbeb6c5c6dfb92e1afac3ab"></a><!-- doxytag: member="tesseract::MasterTrainer::LoadPageImages" ref="a27f473749fbeb6c5c6dfb92e1afac3ab" args="(const char *filename)" -->
@@ -438,6 +755,16 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mastertrainer_8cpp_source.html#l00209">209</a> of file <a class="el" href="mastertrainer_8cpp_source.html">mastertrainer.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                       {
+  <span class="keywordtype">int</span> page;
+  Pix* pix;
+  <span class="keywordflow">for</span> (page = 0; (pix = pixReadTiff(filename, page)) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>; ++page) {
+    page_images_.<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(pix);
+  }
+  <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Loaded %d page images from %s\n&quot;</span>, page, filename);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a1d16b8d08ef1f8725dc2007b4a2e347e"></a><!-- doxytag: member="tesseract::MasterTrainer::LoadUnicharset" ref="a1d16b8d08ef1f8725dc2007b4a2e347e" args="(const char *filename)" -->
@@ -455,6 +782,25 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mastertrainer_8cpp_source.html#l00114">114</a> of file <a class="el" href="mastertrainer_8cpp_source.html">mastertrainer.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                       {
+  <span class="keywordflow">if</span> (!unicharset_.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#af066ba55fdc20f996eaaed05618b377e">load_from_file</a>(filename)) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Failed to load unicharset from file %s\n&quot;</span>
+            <span class="stringliteral">&quot;Building unicharset for training from scratch...\n&quot;</span>,
+            filename);
+    unicharset_.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#ad9060160cd52065e89cbc8927454f525">clear</a>();
+    <span class="comment">// Space character needed to represent NIL_LIST classification.</span>
+    unicharset_.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#ab5198816dde686850da3530a1f8261fe">unichar_insert</a>(<span class="stringliteral">&quot; &quot;</span>);
+  }
+  charsetsize_ = unicharset_.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#aa3e8073ebaf3e0022654c45f27135032">size</a>();
+  <span class="keyword">delete</span> [] fragments_;
+  fragments_ = <span class="keyword">new</span> <span class="keywordtype">int</span>[charsetsize_];
+  memset(fragments_, 0, <span class="keyword">sizeof</span>(*fragments_) * charsetsize_);
+  samples_.LoadUnicharset(filename);
+  junk_samples_.LoadUnicharset(filename);
+  verify_samples_.LoadUnicharset(filename);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a93a301eb098f4f8a4f7f93fa871d1fff"></a><!-- doxytag: member="tesseract::MasterTrainer::LoadXHeights" ref="a93a301eb098f4f8a4f7f93fa871d1fff" args="(const char *filename)" -->
@@ -472,6 +818,46 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mastertrainer_8cpp_source.html#l00377">377</a> of file <a class="el" href="mastertrainer_8cpp_source.html">mastertrainer.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                     {
+  <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;fontinfo table is of size %d\n&quot;</span>, fontinfo_table_.<a class="code" href="class_unicity_table.html#a834de17f090dcfcc6625b01c5a627c2f" title="Return the size used.">size</a>());
+  xheights_.<a class="code" href="class_generic_vector.html#a6751521fd3eb461d81fc83ef93a0def3">init_to_size</a>(fontinfo_table_.<a class="code" href="class_unicity_table.html#a834de17f090dcfcc6625b01c5a627c2f" title="Return the size used.">size</a>(), -1);
+  <span class="keywordflow">if</span> (filename == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) <span class="keywordflow">return</span> <span class="keyword">true</span>;
+  FILE *<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> = fopen(filename, <span class="stringliteral">&quot;rb&quot;</span>);
+  <span class="keywordflow">if</span> (f == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    fprintf(stderr, <span class="stringliteral">&quot;Failed to load font xheights from %s\n&quot;</span>, filename);
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+  <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Reading x-heights from %s ...\n&quot;</span>, filename);
+  FontInfo fontinfo;
+  fontinfo.properties = 0;  <span class="comment">// Not used to lookup in the table.</span>
+  fontinfo.universal_id = 0;
+  <span class="keywordtype">char</span> buffer[1024];
+  <span class="keywordtype">int</span> xht;
+  <span class="keywordtype">int</span> total_xheight = 0;
+  <span class="keywordtype">int</span> xheight_count = 0;
+  <span class="keywordflow">while</span> (!feof(f)) {
+    <span class="keywordflow">if</span> (fscanf(f, <span class="stringliteral">&quot;%1024s %d\n&quot;</span>, buffer, &amp;xht) != 2)
+      <span class="keywordflow">continue</span>;
+    fontinfo.name = buffer;
+    <span class="keywordflow">if</span> (!fontinfo_table_.<a class="code" href="class_unicity_table.html#ae2ca9cd7a9bf7837306df260c218772b" title="Return true if T is in the table.">contains</a>(fontinfo)) <span class="keywordflow">continue</span>;
+    <span class="keywordtype">int</span> fontinfo_id = fontinfo_table_.<a class="code" href="class_unicity_table.html#a4820bb7a54cf6ecda86856161c6d5a2f">get_id</a>(fontinfo);
+    xheights_[fontinfo_id] = xht;
+    total_xheight += xht;
+    ++xheight_count;
+  }
+  <span class="keywordflow">if</span> (xheight_count == 0) {
+    fprintf(stderr, <span class="stringliteral">&quot;No valid xheights in %s!\n&quot;</span>, filename);
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+  <span class="keywordtype">int</span> mean_xheight = <a class="code" href="helpers_8h.html#a29e9efc11d2c7cdfa4c30881e82999dc">DivRounded</a>(total_xheight, xheight_count);
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; fontinfo_table_.<a class="code" href="class_unicity_table.html#a834de17f090dcfcc6625b01c5a627c2f" title="Return the size used.">size</a>(); ++i) {
+    <span class="keywordflow">if</span> (xheights_[i] &lt; 0)
+      xheights_[i] = mean_xheight;
+  }
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}  <span class="comment">// LoadXHeights</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="afd5dac7fae855b066e09ed16ce4a6d41"></a><!-- doxytag: member="tesseract::MasterTrainer::master_shapes" ref="afd5dac7fae855b066e09ed16ce4a6d41" args="() const " -->
@@ -488,6 +874,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mastertrainer_8h_source.html#l00188">188</a> of file <a class="el" href="mastertrainer_8h_source.html">mastertrainer.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                          {
+    <span class="keywordflow">return</span> master_shapes_;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a22e405da9437d15500ed6796a0195143"></a><!-- doxytag: member="tesseract::MasterTrainer::PostLoadCleanup" ref="a22e405da9437d15500ed6796a0195143" args="()" -->
@@ -504,6 +895,27 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mastertrainer_8cpp_source.html#l00223">223</a> of file <a class="el" href="mastertrainer_8cpp_source.html">mastertrainer.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                    {
+  <span class="keywordflow">if</span> (debug_level_ &gt; 0)
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;PostLoadCleanup...\n&quot;</span>);
+  <span class="keywordflow">if</span> (enable_shape_anaylsis_)
+    ReplaceFragmentedSamples();
+  SampleIterator sample_it;
+  sample_it.Init(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, <span class="keyword">true</span>, &amp;verify_samples_);
+  sample_it.NormalizeSamples();
+  verify_samples_.OrganizeByFontAndClass();
+
+  samples_.IndexFeatures(feature_space_);
+  <span class="comment">// TODO(rays) DeleteOutliers is currently turned off to prove NOP-ness</span>
+  <span class="comment">// against current training.</span>
+  <span class="comment">//  samples_.DeleteOutliers(feature_space_, debug_level_ &gt; 0);</span>
+  samples_.OrganizeByFontAndClass();
+  <span class="keywordflow">if</span> (debug_level_ &gt; 0)
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;ComputeCanonicalSamples...\n&quot;</span>);
+  samples_.ComputeCanonicalSamples(feature_map_, debug_level_ &gt; 0);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a5708ffeae4662b9f2b09b2ef76ba9d20"></a><!-- doxytag: member="tesseract::MasterTrainer::PreTrainingSetup" ref="a5708ffeae4662b9f2b09b2ef76ba9d20" args="()" -->
@@ -520,6 +932,17 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mastertrainer_8cpp_source.html#l00246">246</a> of file <a class="el" href="mastertrainer_8cpp_source.html">mastertrainer.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                     {
+  <span class="keywordflow">if</span> (debug_level_ &gt; 0)
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;PreTrainingSetup...\n&quot;</span>);
+  samples_.IndexFeatures(feature_space_);
+  samples_.ComputeCanonicalFeatures();
+  <span class="keywordflow">if</span> (debug_level_ &gt; 0)
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;ComputeCloudFeatures...\n&quot;</span>);
+  samples_.ComputeCloudFeatures(feature_space_.Size());
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab92b0458c19c0847f8a7d0bc548679e5"></a><!-- doxytag: member="tesseract::MasterTrainer::ReadTrainingSamples" ref="ab92b0458c19c0847f8a7d0bc548679e5" args="(FILE *fp, const FEATURE_DEFS_STRUCT &amp;feature_defs, bool verification)" -->
@@ -553,6 +976,46 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mastertrainer_8cpp_source.html#l00136">136</a> of file <a class="el" href="mastertrainer_8cpp_source.html">mastertrainer.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                           {
+  <span class="keywordtype">char</span> buffer[2048];
+  <span class="keywordtype">int</span> int_feature_type = <a class="code" href="featdefs_8cpp.html#a46a09d60beb44b9c9156346595f352ee">ShortNameToFeatureType</a>(feature_defs, <a class="code" href="featdefs_8cpp.html#abf5c61b4ecdfe9301e0f998156474c6b">kIntFeatureType</a>);
+  <span class="keywordtype">int</span> micro_feature_type = <a class="code" href="featdefs_8cpp.html#a46a09d60beb44b9c9156346595f352ee">ShortNameToFeatureType</a>(feature_defs,
+                                                  <a class="code" href="featdefs_8cpp.html#ae706c172f0e1ba7f7cf1a99c560fd99a">kMicroFeatureType</a>);
+  <span class="keywordtype">int</span> cn_feature_type = <a class="code" href="featdefs_8cpp.html#a46a09d60beb44b9c9156346595f352ee">ShortNameToFeatureType</a>(feature_defs, <a class="code" href="featdefs_8cpp.html#a5f5743c5da72cfdc8eb87e4f2504b2d6">kCNFeatureType</a>);
+  <span class="keywordtype">int</span> geo_feature_type = <a class="code" href="featdefs_8cpp.html#a46a09d60beb44b9c9156346595f352ee">ShortNameToFeatureType</a>(feature_defs, <a class="code" href="featdefs_8cpp.html#abada1502d146a88fadcc73af54ae7540">kGeoFeatureType</a>);
+
+  <span class="keywordflow">while</span> (fgets(buffer, <span class="keyword">sizeof</span>(buffer), fp) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">if</span> (buffer[0] == <span class="charliteral">&#39;\n&#39;</span>)
+      <span class="keywordflow">continue</span>;
+
+    <span class="keywordtype">char</span>* space = strchr(buffer, <span class="charliteral">&#39; &#39;</span>);
+    <span class="keywordflow">if</span> (space == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Bad format in tr file, reading fontname, unichar\n&quot;</span>);
+      <span class="keywordflow">continue</span>;
+    }
+    *space++ = <span class="charliteral">&#39;\0&#39;</span>;
+    <span class="keywordtype">int</span> font_id = <a class="code" href="classtesseract_1_1_master_trainer.html#a39b86ce55cc3c0404905a72eddaa0037">GetFontInfoId</a>(buffer);
+    <span class="keywordtype">int</span> page_number;
+    <a class="code" href="class_s_t_r_i_n_g.html">STRING</a> unichar;
+    <a class="code" href="class_t_b_o_x.html">TBOX</a> bounding_box;
+    <span class="keywordflow">if</span> (!<a class="code" href="boxread_8cpp.html#acd464bb54397318c2f6fb8db9e644fd0">ParseBoxFileStr</a>(space, &amp;page_number, &amp;unichar, &amp;bounding_box)) {
+      <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Bad format in tr file, reading box coords\n&quot;</span>);
+      <span class="keywordflow">continue</span>;
+    }
+    <a class="code" href="struct_c_h_a_r___d_e_s_c___s_t_r_u_c_t.html">CHAR_DESC</a> char_desc = <a class="code" href="featdefs_8cpp.html#ae1558f5d4119a9e651a85e10887be9f3">ReadCharDescription</a>(feature_defs, fp);
+    TrainingSample* <a class="code" href="structsample.html">sample</a> = <span class="keyword">new</span> TrainingSample;
+    sample-&gt;set_font_id(font_id);
+    sample-&gt;set_page_num(page_number + page_images_.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>());
+    sample-&gt;set_bounding_box(bounding_box);
+    sample-&gt;ExtractCharDesc(int_feature_type, micro_feature_type,
+                            cn_feature_type, geo_feature_type, char_desc);
+    <a class="code" href="classtesseract_1_1_master_trainer.html#a899ae91dfafa217a37b09d29cf185756">AddSample</a>(verification, unichar.<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a>(), sample);
+    <a class="code" href="featdefs_8cpp.html#ae2a92eefc3755300284119692527e3b9">FreeCharDescription</a>(char_desc);
+  }
+  charsetsize_ = unicharset_.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#aa3e8073ebaf3e0022654c45f27135032">size</a>();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a251f235cdf45e1f66d08d4bc27dc71d7"></a><!-- doxytag: member="tesseract::MasterTrainer::ReplicateAndRandomizeSamplesIfRequired" ref="a251f235cdf45e1f66d08d4bc27dc71d7" args="()" -->
@@ -569,6 +1032,17 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mastertrainer_8cpp_source.html#l00333">333</a> of file <a class="el" href="mastertrainer_8cpp_source.html">mastertrainer.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                           {
+  <span class="keywordflow">if</span> (enable_replication_) {
+    <span class="keywordflow">if</span> (debug_level_ &gt; 0)
+      <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;ReplicateAndRandomize...\n&quot;</span>);
+    verify_samples_.ReplicateAndRandomizeSamples();
+    samples_.ReplicateAndRandomizeSamples();
+    samples_.IndexFeatures(feature_space_);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a174b7c3318dcc892b7976d59275c4b49"></a><!-- doxytag: member="tesseract::MasterTrainer::Serialize" ref="a174b7c3318dcc892b7976d59275c4b49" args="(FILE *fp) const " -->
@@ -586,6 +1060,24 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mastertrainer_8cpp_source.html#l00071">71</a> of file <a class="el" href="mastertrainer_8cpp_source.html">mastertrainer.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                            {
+  <span class="keywordflow">if</span> (fwrite(&amp;norm_mode_, <span class="keyword">sizeof</span>(norm_mode_), 1, fp) != 1) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">if</span> (!unicharset_.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a1f82a51ad2d63d499a625b97ec806811">save_to_file</a>(fp)) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">if</span> (!feature_space_.Serialize(fp)) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">if</span> (!samples_.Serialize(fp)) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">if</span> (!junk_samples_.Serialize(fp)) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">if</span> (!verify_samples_.Serialize(fp)) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">if</span> (!master_shapes_.Serialize(fp)) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">if</span> (!flat_shapes_.Serialize(fp)) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">if</span> (!fontinfo_table_.<a class="code" href="class_unicity_table.html#a23b683e4ea0132af3004552f5d515d61">write</a>(fp, <a class="code" href="tesscallback_8h.html#ad000c6729bae0f97075ca10a0b5bf7d6">NewPermanentTessCallback</a>(<a class="code" href="namespacetesseract.html#a39563e2e9bd26b96504e53ae2c9defcc">write_info</a>)))
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">if</span> (!fontinfo_table_.<a class="code" href="class_unicity_table.html#a23b683e4ea0132af3004552f5d515d61">write</a>(fp, <a class="code" href="tesscallback_8h.html#ad000c6729bae0f97075ca10a0b5bf7d6">NewPermanentTessCallback</a>(<a class="code" href="namespacetesseract.html#a48b60e911578a0285e73738e81181abf">write_spacing_info</a>)))
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">if</span> (!xheights_.<a class="code" href="class_generic_vector.html#a51aeec27092537323abc7174af1c16ef">Serialize</a>(fp)) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a8c936d1a0d9a20ab57984f0d5e32bb6b"></a><!-- doxytag: member="tesseract::MasterTrainer::SetFeatureSpace" ref="a8c936d1a0d9a20ab57984f0d5e32bb6b" args="(const IntFeatureSpace &amp;fs)" -->
@@ -603,6 +1095,12 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mastertrainer_8h_source.html#l00084">84</a> of file <a class="el" href="mastertrainer_8h_source.html">mastertrainer.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                  {
+    feature_space_ = fs;
+    feature_map_.Init(fs);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab67fe21e2a92afb482594041cbf95735"></a><!-- doxytag: member="tesseract::MasterTrainer::SetupFlatShapeTable" ref="ab67fe21e2a92afb482594041cbf95735" args="(ShapeTable *shape_table)" -->
@@ -620,6 +1118,36 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mastertrainer_8cpp_source.html#l00504">504</a> of file <a class="el" href="mastertrainer_8cpp_source.html">mastertrainer.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                               {
+  <span class="comment">// To exactly mimic the results of the previous implementation, the shapes</span>
+  <span class="comment">// must be clustered in order the fonts arrived, and reverse order of the</span>
+  <span class="comment">// characters within each font.</span>
+  <span class="comment">// Get a list of the fonts in the order they appeared.</span>
+  <a class="code" href="class_generic_vector.html">GenericVector&lt;int&gt;</a> active_fonts;
+  <span class="keywordtype">int</span> num_shapes = flat_shapes_.NumShapes();
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> s = 0; s &lt; num_shapes; ++s) {
+    <span class="keywordtype">int</span> font = flat_shapes_.GetShape(s)[0].font_ids[0];
+    <span class="keywordtype">int</span> <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> = 0;
+    <span class="keywordflow">for</span> (f = 0; f &lt; active_fonts.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>(); ++<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>) {
+      <span class="keywordflow">if</span> (active_fonts[f] == font)
+        <span class="keywordflow">break</span>;
+    }
+    <span class="keywordflow">if</span> (f == active_fonts.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>())
+      active_fonts.<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(font);
+  }
+  <span class="comment">// For each font in order, add all the shapes with that font in reverse order.</span>
+  <span class="keywordtype">int</span> num_fonts = active_fonts.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>();
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> f = 0; f &lt; num_fonts; ++<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>) {
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> s = num_shapes - 1; s &gt;= 0; --s) {
+      <span class="keywordtype">int</span> font = flat_shapes_.GetShape(s)[0].font_ids[0];
+      <span class="keywordflow">if</span> (font == active_fonts[f]) {
+        shape_table-&gt;AddShape(flat_shapes_.GetShape(s));
+      }
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="af66428457e4f45f67188244afb67d00a"></a><!-- doxytag: member="tesseract::MasterTrainer::SetupForClustering" ref="af66428457e4f45f67188244afb67d00a" args="(const ShapeTable &amp;shape_table, const FEATURE_DEFS_STRUCT &amp;feature_defs, int shape_id, int *num_samples)" -->
@@ -659,6 +1187,39 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mastertrainer_8cpp_source.html#l00535">535</a> of file <a class="el" href="mastertrainer_8cpp_source.html">mastertrainer.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                      {
+
+  <span class="keywordtype">int</span> desc_index = <a class="code" href="featdefs_8cpp.html#a46a09d60beb44b9c9156346595f352ee">ShortNameToFeatureType</a>(feature_defs, <a class="code" href="featdefs_8cpp.html#ae706c172f0e1ba7f7cf1a99c560fd99a">kMicroFeatureType</a>);
+  <span class="keywordtype">int</span> num_params = feature_defs.<a class="code" href="struct_f_e_a_t_u_r_e___d_e_f_s___s_t_r_u_c_t.html#ab09a6d77d42a8a2b5882bbc27ee4f23c">FeatureDesc</a>[desc_index]-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___d_e_s_c___s_t_r_u_c_t.html#a0edbab02900ae01549f742582236eb6d">NumParams</a>;
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(num_params == <a class="code" href="mf_8h.html#a0ae9eb66d190c70000f710f7c11977afa1c44793580a78fadeffdefc28065e682">MFCount</a>);
+  <a class="code" href="struct_c_l_u_s_t_e_r_e_r.html">CLUSTERER</a>* clusterer = <a class="code" href="cluster_8cpp.html#a93e53684b74358b68adf48b2ee32b042">MakeClusterer</a>(
+      num_params, feature_defs.<a class="code" href="struct_f_e_a_t_u_r_e___d_e_f_s___s_t_r_u_c_t.html#ab09a6d77d42a8a2b5882bbc27ee4f23c">FeatureDesc</a>[desc_index]-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___d_e_s_c___s_t_r_u_c_t.html#acc46f9f5b3cded3ca8e7de3e94407c58">ParamDesc</a>);
+
+  <span class="comment">// We want to iterate over the samples of just the one shape.</span>
+  IndexMapBiDi shape_map;
+  shape_map.Init(shape_table.NumShapes(), <span class="keyword">false</span>);
+  shape_map.SetMap(shape_id, <span class="keyword">true</span>);
+  shape_map.Setup();
+  <span class="comment">// Reverse the order of the samples to match the previous behavior.</span>
+  <a class="code" href="class_generic_vector.html">GenericVector&lt;const TrainingSample*&gt;</a> sample_ptrs;
+  SampleIterator it;
+  it.Init(&amp;shape_map, &amp;shape_table, <span class="keyword">false</span>, &amp;samples_);
+  <span class="keywordflow">for</span> (it.Begin(); !it.AtEnd(); it.Next()) {
+    sample_ptrs.<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(&amp;it.GetSample());
+  }
+  <span class="keywordtype">int</span> sample_id = 0;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = sample_ptrs.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>() - 1; i &gt;= 0; --i) {
+    <span class="keyword">const</span> TrainingSample* <a class="code" href="structsample.html">sample</a> = sample_ptrs[i];
+    <span class="keywordtype">int</span> num_features = sample-&gt;num_micro_features();
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> = 0; <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> &lt; num_features; ++<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>)
+      <a class="code" href="cluster_8cpp.html#ab3cc5ee277d4a2cf4000668b1ffbcf4a">MakeSample</a>(clusterer, sample-&gt;micro_features()[<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>], sample_id);
+    ++sample_id;
+  }
+  *num_samples = sample_id;
+  <span class="keywordflow">return</span> clusterer;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2dd43e518730bae0820c2f4baed81ac3"></a><!-- doxytag: member="tesseract::MasterTrainer::SetupMasterShapes" ref="a2dd43e518730bae0820c2f4baed81ac3" args="()" -->
@@ -675,6 +1236,45 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mastertrainer_8cpp_source.html#l00258">258</a> of file <a class="el" href="mastertrainer_8cpp_source.html">mastertrainer.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                      {
+  <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Building master shape table\n&quot;</span>);
+  <span class="keywordtype">int</span> num_fonts = samples_.NumFonts();
+
+  ShapeTable char_shapes_begin_fragment(samples_.unicharset());
+  ShapeTable char_shapes_end_fragment(samples_.unicharset());
+  ShapeTable char_shapes(samples_.unicharset());
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> c = 0; c &lt; samples_.charsetsize(); ++c) {
+    ShapeTable shapes(samples_.unicharset());
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> = 0; <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> &lt; num_fonts; ++<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>) {
+      <span class="keywordflow">if</span> (samples_.NumClassSamples(<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>, c, <span class="keyword">true</span>) &gt; 0)
+        shapes.AddShape(c, <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>);
+    }
+    ClusterShapes(<a class="code" href="namespacetesseract.html#a6dc1c791f04726f9cc345b54b85222b9">kMinClusteredShapes</a>, 1, <a class="code" href="namespacetesseract.html#a5a80aa3c385749b5df58ac015ba00e9f">kFontMergeDistance</a>, &amp;shapes);
+
+    <span class="keyword">const</span> <a class="code" href="class_c_h_a_r___f_r_a_g_m_e_n_t.html">CHAR_FRAGMENT</a> *fragment = samples_.unicharset().get_fragment(c);
+
+    <span class="keywordflow">if</span> (fragment == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+      char_shapes.AppendMasterShapes(shapes);
+    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fragment-&gt;<a class="code" href="class_c_h_a_r___f_r_a_g_m_e_n_t.html#a42707cfcbf1e9a38ec0333d3202f8d80">is_beginning</a>())
+      char_shapes_begin_fragment.AppendMasterShapes(shapes);
+    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (fragment-&gt;<a class="code" href="class_c_h_a_r___f_r_a_g_m_e_n_t.html#af222b3b2c71de6199f75e3a7a64aa660">is_ending</a>())
+      char_shapes_end_fragment.AppendMasterShapes(shapes);
+    <span class="keywordflow">else</span>
+      char_shapes.AppendMasterShapes(shapes);
+  }
+  ClusterShapes(<a class="code" href="namespacetesseract.html#a6dc1c791f04726f9cc345b54b85222b9">kMinClusteredShapes</a>, <a class="code" href="namespacetesseract.html#a93d3ba882abd48b578f7db93e8a4e6e9">kMaxUnicharsPerCluster</a>,
+                <a class="code" href="namespacetesseract.html#a5a80aa3c385749b5df58ac015ba00e9f">kFontMergeDistance</a>, &amp;char_shapes_begin_fragment);
+  char_shapes.AppendMasterShapes(char_shapes_begin_fragment);
+  ClusterShapes(<a class="code" href="namespacetesseract.html#a6dc1c791f04726f9cc345b54b85222b9">kMinClusteredShapes</a>, <a class="code" href="namespacetesseract.html#a93d3ba882abd48b578f7db93e8a4e6e9">kMaxUnicharsPerCluster</a>,
+                <a class="code" href="namespacetesseract.html#a5a80aa3c385749b5df58ac015ba00e9f">kFontMergeDistance</a>, &amp;char_shapes_end_fragment);
+  char_shapes.AppendMasterShapes(char_shapes_end_fragment);
+  ClusterShapes(<a class="code" href="namespacetesseract.html#a6dc1c791f04726f9cc345b54b85222b9">kMinClusteredShapes</a>, <a class="code" href="namespacetesseract.html#a93d3ba882abd48b578f7db93e8a4e6e9">kMaxUnicharsPerCluster</a>,
+                <a class="code" href="namespacetesseract.html#a5a80aa3c385749b5df58ac015ba00e9f">kFontMergeDistance</a>, &amp;char_shapes);
+  master_shapes_.AppendMasterShapes(char_shapes);
+  <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Master shape_table:%s\n&quot;</span>, master_shapes_.SummaryStr().string());
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7669b694b622f304cdcbfccb04c779d1"></a><!-- doxytag: member="tesseract::MasterTrainer::ShapeDistance" ref="a7669b694b622f304cdcbfccb04c779d1" args="(const ShapeTable &amp;shapes, int s1, int s2)" -->
@@ -708,6 +1308,35 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mastertrainer_8cpp_source.html#l00797">797</a> of file <a class="el" href="mastertrainer_8cpp_source.html">mastertrainer.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                           {
+  <span class="keyword">const</span> IntFeatureMap&amp; feature_map = feature_map_;
+  <span class="keyword">const</span> Shape&amp; shape1 = shapes.GetShape(s1);
+  <span class="keyword">const</span> Shape&amp; shape2 = shapes.GetShape(s2);
+  <span class="keywordtype">int</span> num_chars1 = shape1.size();
+  <span class="keywordtype">int</span> num_chars2 = shape2.size();
+  <span class="keywordtype">float</span> dist_sum = 0.0f;
+  <span class="keywordtype">int</span> dist_count = 0;
+  <span class="keywordflow">if</span> (num_chars1 &gt; 1 || num_chars2 &gt; 1) {
+    <span class="comment">// In the multi-char case try to optimize the calculation by computing</span>
+    <span class="comment">// distances between characters of matching font where possible.</span>
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> c1 = 0; c1 &lt; num_chars1; ++c1) {
+      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> c2 = 0; c2 &lt; num_chars2; ++c2) {
+        dist_sum += samples_.UnicharDistance(shape1[c1], shape2[c2],
+                                             <span class="keyword">true</span>, feature_map);
+        ++dist_count;
+      }
+    }
+  } <span class="keywordflow">else</span> {
+    <span class="comment">// In the single unichar case, there is little alternative, but to compute</span>
+    <span class="comment">// the squared-order distance between pairs of fonts.</span>
+    dist_sum = samples_.UnicharDistance(shape1[0], shape2[0],
+                                        <span class="keyword">false</span>, feature_map);
+    ++dist_count;
+  }
+  <span class="keywordflow">return</span> dist_sum / dist_count;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="acb66589deb865e96aaa304c725322801"></a><!-- doxytag: member="tesseract::MasterTrainer::TestClassifier" ref="acb66589deb865e96aaa304c725322801" args="(int report_level, bool replicate_samples, TrainingSampleSet *samples, ShapeClassifier *test_classifier, STRING *report_string)" -->
@@ -753,6 +1382,28 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mastertrainer_8cpp_source.html#l00770">770</a> of file <a class="el" href="mastertrainer_8cpp_source.html">mastertrainer.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                            {
+  SampleIterator sample_it;
+  sample_it.Init(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, test_classifier-&gt;GetShapeTable(), replicate_samples,
+                 samples);
+  <span class="keywordflow">if</span> (report_level &gt; 0) {
+    <span class="keywordtype">int</span> num_samples = 0;
+    <span class="keywordflow">for</span> (sample_it.Begin(); !sample_it.AtEnd(); sample_it.Next())
+      ++num_samples;
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Iterator has charset size of %d/%d, %d shapes, %d samples\n&quot;</span>,
+            sample_it.SparseCharsetSize(), sample_it.CompactCharsetSize(),
+            test_classifier-&gt;GetShapeTable()-&gt;NumShapes(), num_samples);
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Testing %sREPLICATED:\n&quot;</span>, replicate_samples ? <span class="stringliteral">&quot;&quot;</span> : <span class="stringliteral">&quot;NON-&quot;</span>);
+  }
+  <span class="keywordtype">double</span> unichar_error = 0.0;
+  <a class="code" href="classtesseract_1_1_error_counter.html#acb9b56ec04616c94320adaad8add95a8">ErrorCounter::ComputeErrorRate</a>(test_classifier, report_level,
+                                 <a class="code" href="namespacetesseract.html#acb0bc20d78b75745c9aa3832a619f4fdaece404f7a03b3e062c4c2f9580019c13">CT_SHAPE_TOP_ERR</a>, fontinfo_table_,
+                                 page_images_, &amp;sample_it, &amp;unichar_error,
+                                 <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, report_string);
+  <span class="keywordflow">return</span> unichar_error;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4bc9b1f1ebe74fab4189e37ec487867b"></a><!-- doxytag: member="tesseract::MasterTrainer::TestClassifierOnSamples" ref="a4bc9b1f1ebe74fab4189e37ec487867b" args="(int report_level, bool replicate_samples, ShapeClassifier *test_classifier, STRING *report_string)" -->
@@ -792,6 +1443,12 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mastertrainer_8cpp_source.html#l00750">750</a> of file <a class="el" href="mastertrainer_8cpp_source.html">mastertrainer.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                   {
+  <a class="code" href="classtesseract_1_1_master_trainer.html#acb66589deb865e96aaa304c725322801">TestClassifier</a>(report_level, replicate_samples, &amp;samples_,
+                 test_classifier, report_string);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae89c92b73a62da4562e7f16ced0f759f"></a><!-- doxytag: member="tesseract::MasterTrainer::unicharset" ref="ae89c92b73a62da4562e7f16ced0f759f" args="() const " -->
@@ -808,6 +1465,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mastertrainer_8h_source.html#l00182">182</a> of file <a class="el" href="mastertrainer_8h_source.html">mastertrainer.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                       {
+    <span class="keywordflow">return</span> samples_.unicharset();
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9972b417fae44eb2515df89f111d415e"></a><!-- doxytag: member="tesseract::MasterTrainer::WriteInttempAndPFFMTable" ref="a9972b417fae44eb2515df89f111d415e" args="(const UNICHARSET &amp;unicharset, const UNICHARSET &amp;shape_set, const ShapeTable &amp;shape_table, CLASS_STRUCT *float_classes, const char *inttemp_file, const char *pffmtable_file)" -->
@@ -859,11 +1521,65 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mastertrainer_8cpp_source.html#l00575">575</a> of file <a class="el" href="mastertrainer_8cpp_source.html">mastertrainer.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                         {
+  <a class="code" href="classtesseract_1_1_classify.html">tesseract::Classify</a> *classify = <span class="keyword">new</span> <a class="code" href="classtesseract_1_1_classify.html">tesseract::Classify</a>();
+  <span class="comment">// Move the fontinfo table to classify.</span>
+  classify-&gt;<a class="code" href="classtesseract_1_1_classify.html#a62597f182a5e23c3b8a030c06e699e99">get_fontinfo_table</a>().<a class="code" href="class_unicity_table.html#a18c8fc9ccbd7c0befdae1ab65bafdb12">move</a>(&amp;fontinfo_table_);
+  <a class="code" href="struct_i_n_t___t_e_m_p_l_a_t_e_s___s_t_r_u_c_t.html">INT_TEMPLATES</a> int_templates = classify-&gt;<a class="code" href="classtesseract_1_1_classify.html#af3d15c15c9f2dce72a400233d4bf366f">CreateIntTemplates</a>(float_classes,
+                                                             shape_set);
+  FILE* fp = fopen(inttemp_file, <span class="stringliteral">&quot;wb&quot;</span>);
+  classify-&gt;<a class="code" href="classtesseract_1_1_classify.html#a81e8a5e5adfc60146ea3eb5b60936dd9">WriteIntTemplates</a>(fp, int_templates, shape_set);
+  fclose(fp);
+  <span class="comment">// Now write pffmtable. This is complicated by the fact that the adaptive</span>
+  <span class="comment">// classifier still wants one indexed by unichar-id, but the static</span>
+  <span class="comment">// classifier needs one indexed by its shape class id.</span>
+  <span class="comment">// We put the shapetable_cutoffs in a GenericVector, and compute the</span>
+  <span class="comment">// unicharset cutoffs along the way.</span>
+  <a class="code" href="class_generic_vector.html">GenericVector&lt;uinT16&gt;</a> shapetable_cutoffs;
+  <a class="code" href="class_generic_vector.html">GenericVector&lt;uinT16&gt;</a> unichar_cutoffs;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> c = 0; c &lt; unicharset.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#aa3e8073ebaf3e0022654c45f27135032">size</a>(); ++c)
+    unichar_cutoffs.<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(0);
+  <span class="comment">/* then write out each class */</span>
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; int_templates-&gt;<a class="code" href="struct_i_n_t___t_e_m_p_l_a_t_e_s___s_t_r_u_c_t.html#a4735b2443aa7452909969d8d07e1877a">NumClasses</a>; ++i) {
+    <a class="code" href="struct_i_n_t___c_l_a_s_s___s_t_r_u_c_t.html">INT_CLASS</a> Class = <a class="code" href="intproto_8h.html#a6a8e29742b045c359e7765a8a1ff4fdc">ClassForClassId</a>(int_templates, i);
+    <span class="comment">// Todo: Test with min instead of max</span>
+    <span class="comment">// int MaxLength = LengthForConfigId(Class, 0);</span>
+    <a class="code" href="host_8h.html#acb2dfad543247740dab87d31bb49dfff">uinT16</a> max_length = 0;
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> config_id = 0; config_id &lt; Class-&gt;<a class="code" href="struct_i_n_t___c_l_a_s_s___s_t_r_u_c_t.html#abb9c509f11364b949fe9764bc122938c">NumConfigs</a>; config_id++) {
+      <span class="comment">// Todo: Test with min instead of max</span>
+      <span class="comment">// if (LengthForConfigId (Class, config_id) &lt; MaxLength)</span>
+      <a class="code" href="host_8h.html#acb2dfad543247740dab87d31bb49dfff">uinT16</a> length = Class-&gt;<a class="code" href="struct_i_n_t___c_l_a_s_s___s_t_r_u_c_t.html#a86454e5d855825a4b2b370038598e88c">ConfigLengths</a>[config_id];
+      <span class="keywordflow">if</span> (length &gt; max_length)
+        max_length = Class-&gt;<a class="code" href="struct_i_n_t___c_l_a_s_s___s_t_r_u_c_t.html#a86454e5d855825a4b2b370038598e88c">ConfigLengths</a>[config_id];
+      <span class="keywordtype">int</span> shape_id = float_classes[i].<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#a42fd551c9f2ee48e5873ae7308df64b4">font_set</a>.<a class="code" href="class_unicity_table.html#a3b3107bc72d9edfe501eaba7404de7eb" title="Return the object from an id.">get</a>(config_id);
+      <span class="keyword">const</span> Shape&amp; shape = shape_table.GetShape(shape_id);
+      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> c = 0; c &lt; shape.size(); ++c) {
+        <span class="keywordtype">int</span> unichar_id = shape[c].unichar_id;
+        <span class="keywordflow">if</span> (length &gt; unichar_cutoffs[unichar_id])
+          unichar_cutoffs[unichar_id] = length;
+      }
+    }
+    shapetable_cutoffs.<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(max_length);
+  }
+  fp = fopen(pffmtable_file, <span class="stringliteral">&quot;wb&quot;</span>);
+  shapetable_cutoffs.<a class="code" href="class_generic_vector.html#a51aeec27092537323abc7174af1c16ef">Serialize</a>(fp);
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> c = 0; c &lt; unicharset.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#aa3e8073ebaf3e0022654c45f27135032">size</a>(); ++c) {
+    <span class="keyword">const</span> <span class="keywordtype">char</span> *unichar = unicharset.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a421c0b6ebcbbe7547490252fb688c961">id_to_unichar</a>(c);
+    <span class="keywordflow">if</span> (strcmp(unichar, <span class="stringliteral">&quot; &quot;</span>) == 0) {
+      unichar = <span class="stringliteral">&quot;NULL&quot;</span>;
+    }
+    fprintf(fp, <span class="stringliteral">&quot;%s %d\n&quot;</span>, unichar, unichar_cutoffs[c]);
+  }
+  fclose(fp);
+  <a class="code" href="intproto_8cpp.html#aed61c96f41cad7c9871e809124987ca8">free_int_templates</a>(int_templates);
+}
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/classify/<a class="el" href="mastertrainer_8h_source.html">mastertrainer.h</a></li>
-<li>tesseract-ocr/classify/<a class="el" href="mastertrainer_8cpp.html">mastertrainer.cpp</a></li>
+<li>tesseract-ocr/classify/<a class="el" href="mastertrainer_8cpp_source.html">mastertrainer.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -886,7 +1602,7 @@ Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:15 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:50 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

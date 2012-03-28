@@ -109,7 +109,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <code>#include &quot;<a class="el" href="freelist_8h_source.html">freelist.h</a>&quot;</code><br/>
 <code>#include &lt;stdio.h&gt;</code><br/>
 <code>#include &lt;math.h&gt;</code><br/>
-</div><table class="memberdecls">
+</div>
+<p><a href="kdtree_8cpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr><td colspan="2"><h2><a name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_min_k.html">MinK&lt; Key, Value &gt;</a></td></tr>
@@ -153,6 +155,8 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="kdtree_8cpp_source.html#l00031">31</a> of file <a class="el" href="kdtree_8cpp_source.html">kdtree.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a322efe6a34504778ebc6b3e2264789d5"></a><!-- doxytag: member="kdtree.cpp::MAXSEARCH" ref="a322efe6a34504778ebc6b3e2264789d5" args="" -->
@@ -166,6 +170,8 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="kdtree_8cpp_source.html#l00038">38</a> of file <a class="el" href="kdtree_8cpp_source.html">kdtree.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a8904460bfbb91685971ab30c3025e0c5"></a><!-- doxytag: member="kdtree.cpp::MINSEARCH" ref="a8904460bfbb91685971ab30c3025e0c5" args="" -->
@@ -178,6 +184,8 @@ Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="kdtree_8cpp_source.html#l00037">37</a> of file <a class="el" href="kdtree_8cpp_source.html">kdtree.cpp</a>.</p>
 
 </div>
 </div>
@@ -211,6 +219,8 @@ Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="kdtree_8cpp_source.html#l00032">32</a> of file <a class="el" href="kdtree_8cpp_source.html">kdtree.cpp</a>.</p>
 
 </div>
 </div>
@@ -252,6 +262,11 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="kdtree_8cpp_source.html#l00486">486</a> of file <a class="el" href="kdtree_8cpp_source.html">kdtree.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                            {
+  <span class="keywordflow">return</span> sqrt(<a class="code" href="kdtree_8cpp.html#ae84afcc393b15041bde2f6b3038a2db4">DistanceSquared</a>(k, dim, p1, p2));
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae84afcc393b15041bde2f6b3038a2db4"></a><!-- doxytag: member="kdtree.cpp::DistanceSquared" ref="ae84afcc393b15041bde2f6b3038a2db4" args="(int k, PARAM_DESC *dim, FLOAT32 p1[], FLOAT32 p2[])" -->
@@ -291,6 +306,28 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="kdtree_8cpp_source.html#l00465">465</a> of file <a class="el" href="kdtree_8cpp_source.html">kdtree.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                            {
+  <a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a> total_distance = 0;
+
+  <span class="keywordflow">for</span> (; k &gt; 0; k--, p1++, p2++, dim++) {
+    <span class="keywordflow">if</span> (dim-&gt;<a class="code" href="struct_p_a_r_a_m___d_e_s_c.html#a6b9843466a3ddf33bfab18f85ca06501">NonEssential</a>)
+      <span class="keywordflow">continue</span>;
+
+    <a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a> dimension_distance = *p1 - *p2;
+
+    <span class="comment">/* if this dimension is circular - check wraparound distance */</span>
+    <span class="keywordflow">if</span> (dim-&gt;<a class="code" href="struct_p_a_r_a_m___d_e_s_c.html#a55807f1e0be0daba2a33380ea29b2f1d">Circular</a>) {
+      dimension_distance = <a class="code" href="kdtree_8cpp.html#adbeb54abd64e764a1b38688776d36f77">Magnitude</a>(dimension_distance);
+      <a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a> wrap_distance = dim-&gt;<a class="code" href="struct_p_a_r_a_m___d_e_s_c.html#a73e76f946bbd324e60914a991d3343d1">Max</a> - dim-&gt;<a class="code" href="struct_p_a_r_a_m___d_e_s_c.html#a6445e8e433a99239e56c3218437f2695">Min</a> - dimension_distance;
+      dimension_distance = <a class="code" href="ndminx_8h.html#a74e75242132eaabbc1c512488a135926">MIN</a>(dimension_distance, wrap_distance);
+    }
+
+    total_distance += dimension_distance * dimension_distance;
+  }
+  <span class="keywordflow">return</span> total_distance;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a21cd787524746ef057017f6c2a543345"></a><!-- doxytag: member="kdtree.cpp::FreeKDNode" ref="a21cd787524746ef057017f6c2a543345" args="(KDNODE *Node)" -->
@@ -308,6 +345,11 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="kdtree_8cpp_source.html#l00407">407</a> of file <a class="el" href="kdtree_8cpp_source.html">kdtree.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                              {
+  <a class="code" href="freelist_8cpp.html#ab462a857e5edf360ae4881bcc92a0bcf">memfree</a> ((<span class="keywordtype">char</span> *)Node);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a37e4019555a2b5284b17237373913346"></a><!-- doxytag: member="kdtree.cpp::FreeKDTree" ref="a37e4019555a2b5284b17237373913346" args="(KDTREE *Tree)" -->
@@ -325,6 +367,27 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="kdtree_8cpp_source.html#l00346">346</a> of file <a class="el" href="kdtree_8cpp_source.html">kdtree.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                              {
+<span class="comment">/*</span>
+<span class="comment"> **  Parameters:</span>
+<span class="comment"> **    Tree  tree data structure to be released</span>
+<span class="comment"> **  Operation:</span>
+<span class="comment"> **    This routine frees all memory which is allocated to the</span>
+<span class="comment"> **    specified KD-tree.  This includes the data structure for</span>
+<span class="comment"> **    the kd-tree itself plus the data structures for each node</span>
+<span class="comment"> **    in the tree.  It does not include the Key and Data items</span>
+<span class="comment"> **    which are pointed to by the nodes.  This memory is left</span>
+<span class="comment"> **    untouched.</span>
+<span class="comment"> **  Return: none</span>
+<span class="comment"> **  Exceptions: none</span>
+<span class="comment"> **  History:</span>
+<span class="comment"> **    5/26/89, DSJ, Created.</span>
+<span class="comment"> */</span>
+  <a class="code" href="kdtree_8cpp.html#a59f352b6bc9971b0d7502d31060f7c44">FreeSubTree</a>(Tree-&gt;<a class="code" href="struct_k_d_t_r_e_e.html#ab52e8a6004fc595de526dfa831c2e725">Root</a>.<a class="code" href="struct_k_d_n_o_d_e.html#a66ffa1cc4e73e45599978f8f6416e350">Left</a>);
+  <a class="code" href="freelist_8cpp.html#ab462a857e5edf360ae4881bcc92a0bcf">memfree</a>(Tree);
+}                                <span class="comment">/* FreeKDTree */</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a59f352b6bc9971b0d7502d31060f7c44"></a><!-- doxytag: member="kdtree.cpp::FreeSubTree" ref="a59f352b6bc9971b0d7502d31060f7c44" args="(KDNODE *sub_tree)" -->
@@ -342,6 +405,15 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="kdtree_8cpp_source.html#l00568">568</a> of file <a class="el" href="kdtree_8cpp_source.html">kdtree.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                   {
+  <span class="keywordflow">if</span> (sub_tree != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="kdtree_8cpp.html#a59f352b6bc9971b0d7502d31060f7c44">FreeSubTree</a>(sub_tree-&gt;<a class="code" href="struct_k_d_n_o_d_e.html#a66ffa1cc4e73e45599978f8f6416e350">Left</a>);
+    <a class="code" href="kdtree_8cpp.html#a59f352b6bc9971b0d7502d31060f7c44">FreeSubTree</a>(sub_tree-&gt;<a class="code" href="struct_k_d_n_o_d_e.html#a699e9e67472e12f86bbb5c1effdb4fa3">Right</a>);
+    <a class="code" href="freelist_8cpp.html#ab462a857e5edf360ae4881bcc92a0bcf">memfree</a>(sub_tree);
+  }
+}                                <span class="comment">/* FreeSubTree */</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="af3be65344ced84a11159bc0bea5de60f"></a><!-- doxytag: member="kdtree.cpp::InsertNodes" ref="af3be65344ced84a11159bc0bea5de60f" args="(KDTREE *tree, KDNODE *nodes)" -->
@@ -369,6 +441,16 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="kdtree_8cpp_source.html#l00558">558</a> of file <a class="el" href="kdtree_8cpp_source.html">kdtree.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                              {
+  <span class="keywordflow">if</span> (nodes == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <span class="keywordflow">return</span>;
+
+  <a class="code" href="kdtree_8cpp.html#a596422fd837fb6937c12be6b277423a0">KDStore</a>(tree, nodes-&gt;<a class="code" href="struct_k_d_n_o_d_e.html#a977838423c3b5e17ecfd0242c39a8202">Key</a>, nodes-&gt;<a class="code" href="struct_k_d_n_o_d_e.html#afd5eeb76bcf3d1ba9b387e0cd4e9ce16">Data</a>);
+  <a class="code" href="kdtree_8cpp.html#af3be65344ced84a11159bc0bea5de60f">InsertNodes</a>(tree, nodes-&gt;<a class="code" href="struct_k_d_n_o_d_e.html#a66ffa1cc4e73e45599978f8f6416e350">Left</a>);
+  <a class="code" href="kdtree_8cpp.html#af3be65344ced84a11159bc0bea5de60f">InsertNodes</a>(tree, nodes-&gt;<a class="code" href="struct_k_d_n_o_d_e.html#a699e9e67472e12f86bbb5c1effdb4fa3">Right</a>);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a270d3ef72c3f0097f249ca75c2aafa3c"></a><!-- doxytag: member="kdtree.cpp::KDDelete" ref="a270d3ef72c3f0097f249ca75c2aafa3c" args="(KDTREE *Tree, FLOAT32 Key[], void *Data)" -->
@@ -414,6 +496,43 @@ Functions</h2></td></tr>
 <dd>
 History: 3/13/89, DSJ, Created. 7/13/89, DSJ, Specify node indirectly by key and data. </dd></dl>
 
+<p>Definition at line <a class="el" href="kdtree_8cpp_source.html#l00269">269</a> of file <a class="el" href="kdtree_8cpp_source.html">kdtree.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                    {
+  <span class="keywordtype">int</span> Level;
+  <a class="code" href="struct_k_d_n_o_d_e.html">KDNODE</a> *Current;
+  <a class="code" href="struct_k_d_n_o_d_e.html">KDNODE</a> *Father;
+
+  <span class="comment">/* initialize search at root of tree */</span>
+  Father = &amp;(Tree-&gt;<a class="code" href="struct_k_d_t_r_e_e.html#ab52e8a6004fc595de526dfa831c2e725">Root</a>);
+  Current = Father-&gt;<a class="code" href="struct_k_d_n_o_d_e.html#a66ffa1cc4e73e45599978f8f6416e350">Left</a>;
+  Level = NextLevel(Tree, -1);
+
+  <span class="comment">/* search tree for node to be deleted */</span>
+  <span class="keywordflow">while</span> ((Current != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) &amp;&amp; (!<a class="code" href="kdtree_8cpp.html#a5a33bfaa4d9dcac7939f99f721bf61b9">NodeFound</a> (Current, Key, Data))) {
+    Father = Current;
+    <span class="keywordflow">if</span> (Key[Level] &lt; Current-&gt;<a class="code" href="struct_k_d_n_o_d_e.html#aba5d7ca0a419ab7ad6a7cbcdb79add07">BranchPoint</a>)
+      Current = Current-&gt;<a class="code" href="struct_k_d_n_o_d_e.html#a66ffa1cc4e73e45599978f8f6416e350">Left</a>;
+    <span class="keywordflow">else</span>
+      Current = Current-&gt;<a class="code" href="struct_k_d_n_o_d_e.html#a699e9e67472e12f86bbb5c1effdb4fa3">Right</a>;
+
+    Level = NextLevel(Tree, Level);
+  }
+
+  <span class="keywordflow">if</span> (Current != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {         <span class="comment">/* if node to be deleted was found */</span>
+    <span class="keywordflow">if</span> (Current == Father-&gt;<a class="code" href="struct_k_d_n_o_d_e.html#a66ffa1cc4e73e45599978f8f6416e350">Left</a>) {
+      Father-&gt;<a class="code" href="struct_k_d_n_o_d_e.html#a66ffa1cc4e73e45599978f8f6416e350">Left</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+      Father-&gt;<a class="code" href="struct_k_d_n_o_d_e.html#a448480738475fb5bdb2e35b51f40f1d1">LeftBranch</a> = Tree-&gt;<a class="code" href="struct_k_d_t_r_e_e.html#a486dfb881bc360bbfbd36248bba80552">KeyDesc</a>[Level].<a class="code" href="struct_p_a_r_a_m___d_e_s_c.html#a6445e8e433a99239e56c3218437f2695">Min</a>;
+    } <span class="keywordflow">else</span> {
+      Father-&gt;<a class="code" href="struct_k_d_n_o_d_e.html#a699e9e67472e12f86bbb5c1effdb4fa3">Right</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+      Father-&gt;<a class="code" href="struct_k_d_n_o_d_e.html#a1c8fd73abb446c3ceaea4cb29ef60b2c">RightBranch</a> = Tree-&gt;<a class="code" href="struct_k_d_t_r_e_e.html#a486dfb881bc360bbfbd36248bba80552">KeyDesc</a>[Level].<a class="code" href="struct_p_a_r_a_m___d_e_s_c.html#a73e76f946bbd324e60914a991d3343d1">Max</a>;
+    }
+
+    <a class="code" href="kdtree_8cpp.html#af3be65344ced84a11159bc0bea5de60f">InsertNodes</a>(Tree, Current-&gt;<a class="code" href="struct_k_d_n_o_d_e.html#a66ffa1cc4e73e45599978f8f6416e350">Left</a>);
+    <a class="code" href="kdtree_8cpp.html#af3be65344ced84a11159bc0bea5de60f">InsertNodes</a>(Tree, Current-&gt;<a class="code" href="struct_k_d_n_o_d_e.html#a699e9e67472e12f86bbb5c1effdb4fa3">Right</a>);
+    <a class="code" href="kdtree_8cpp.html#a59f352b6bc9971b0d7502d31060f7c44">FreeSubTree</a>(Current);
+  }
+}                                <span class="comment">/* KDDelete */</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9a3e49226adc75b00fee5116b401f3e3"></a><!-- doxytag: member="kdtree.cpp::KDNearestNeighborSearch" ref="a9a3e49226adc75b00fee5116b401f3e3" args="(KDTREE *Tree, FLOAT32 Query[], int QuerySize, FLOAT32 MaxDistance, int *NumberOfResults, void **NBuffer, FLOAT32 DBuffer[])" -->
@@ -471,6 +590,34 @@ History: 3/13/89, DSJ, Created. 7/13/89, DSJ, Specify node indirectly by key and
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="kdtree_8cpp_source.html#l00307">307</a> of file <a class="el" href="kdtree_8cpp_source.html">kdtree.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                             {
+<span class="comment">/*</span>
+<span class="comment"> **  Parameters:</span>
+<span class="comment"> **    Tree    ptr to K-D tree to be searched</span>
+<span class="comment"> **    Query    ptr to query key (point in D-space)</span>
+<span class="comment"> **    QuerySize  number of nearest neighbors to be found</span>
+<span class="comment"> **    MaxDistance  all neighbors must be within this distance</span>
+<span class="comment"> **    NBuffer    ptr to QuerySize buffer to hold nearest neighbors</span>
+<span class="comment"> **    DBuffer    ptr to QuerySize buffer to hold distances</span>
+<span class="comment"> **          from nearest neighbor to query point</span>
+<span class="comment"> **  Operation:</span>
+<span class="comment"> **    This routine searches the K-D tree specified by Tree and</span>
+<span class="comment"> **    finds the QuerySize nearest neighbors of Query.  All neighbors</span>
+<span class="comment"> **    must be within MaxDistance of Query.  The data contents of</span>
+<span class="comment"> **    the nearest neighbors</span>
+<span class="comment"> **    are placed in NBuffer and their distances from Query are</span>
+<span class="comment"> **    placed in DBuffer.</span>
+<span class="comment"> **  Return: Number of nearest neighbors actually found</span>
+<span class="comment"> **  Exceptions: none</span>
+<span class="comment"> **  History:</span>
+<span class="comment"> **    3/10/89, DSJ, Created.</span>
+<span class="comment"> **    7/13/89, DSJ, Return contents of node instead of node itself.</span>
+<span class="comment"> */</span>
+  <a class="code" href="class_k_d_tree_search.html">KDTreeSearch</a> <a class="code" href="oldlist_8cpp.html#a1d8af9328f064a9df6d6f88336dd054e">search</a>(Tree, Query, QuerySize);
+  <a class="code" href="oldlist_8cpp.html#a1d8af9328f064a9df6d6f88336dd054e">search</a>.Search(NumberOfResults, DBuffer, NBuffer);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a596422fd837fb6937c12be6b277423a0"></a><!-- doxytag: member="kdtree.cpp::KDStore" ref="a596422fd837fb6937c12be6b277423a0" args="(KDTREE *Tree, FLOAT32 *Key, void *Data)" -->
@@ -516,6 +663,33 @@ History: 3/13/89, DSJ, Created. 7/13/89, DSJ, Specify node indirectly by key and
 <dd>
 History: 3/10/89, DSJ, Created. 7/13/89, DSJ, Changed return to void.</dd></dl>
 
+<p>Definition at line <a class="el" href="kdtree_8cpp_source.html#l00209">209</a> of file <a class="el" href="kdtree_8cpp_source.html">kdtree.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                     {
+  <span class="keywordtype">int</span> Level;
+  <a class="code" href="struct_k_d_n_o_d_e.html">KDNODE</a> *Node;
+  <a class="code" href="struct_k_d_n_o_d_e.html">KDNODE</a> **PtrToNode;
+
+  PtrToNode = &amp;(Tree-&gt;<a class="code" href="struct_k_d_t_r_e_e.html#ab52e8a6004fc595de526dfa831c2e725">Root</a>.<a class="code" href="struct_k_d_n_o_d_e.html#a66ffa1cc4e73e45599978f8f6416e350">Left</a>);
+  Node = *PtrToNode;
+  Level = NextLevel(Tree, -1);
+  <span class="keywordflow">while</span> (Node != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">if</span> (Key[Level] &lt; Node-&gt;<a class="code" href="struct_k_d_n_o_d_e.html#aba5d7ca0a419ab7ad6a7cbcdb79add07">BranchPoint</a>) {
+      PtrToNode = &amp;(Node-&gt;<a class="code" href="struct_k_d_n_o_d_e.html#a66ffa1cc4e73e45599978f8f6416e350">Left</a>);
+      <span class="keywordflow">if</span> (Key[Level] &gt; Node-&gt;<a class="code" href="struct_k_d_n_o_d_e.html#a448480738475fb5bdb2e35b51f40f1d1">LeftBranch</a>)
+        Node-&gt;<a class="code" href="struct_k_d_n_o_d_e.html#a448480738475fb5bdb2e35b51f40f1d1">LeftBranch</a> = Key[Level];
+    }
+    <span class="keywordflow">else</span> {
+      PtrToNode = &amp;(Node-&gt;<a class="code" href="struct_k_d_n_o_d_e.html#a699e9e67472e12f86bbb5c1effdb4fa3">Right</a>);
+      <span class="keywordflow">if</span> (Key[Level] &lt; Node-&gt;<a class="code" href="struct_k_d_n_o_d_e.html#a1c8fd73abb446c3ceaea4cb29ef60b2c">RightBranch</a>)
+        Node-&gt;<a class="code" href="struct_k_d_n_o_d_e.html#a1c8fd73abb446c3ceaea4cb29ef60b2c">RightBranch</a> = Key[Level];
+    }
+    Level = NextLevel(Tree, Level);
+    Node = *PtrToNode;
+  }
+
+  *PtrToNode = <a class="code" href="kdtree_8cpp.html#a5f4c5e8b3eca7978c68bb22144feba82">MakeKDNode</a>(Tree, Key, (<span class="keywordtype">void</span> *) Data, Level);
+}                                <span class="comment">/* KDStore */</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="abf3863949061899c45c47ec81c416234"></a><!-- doxytag: member="kdtree.cpp::KDWalk" ref="abf3863949061899c45c47ec81c416234" args="(KDTREE *Tree, void_proc action, void *context)" -->
@@ -549,6 +723,12 @@ History: 3/10/89, DSJ, Created. 7/13/89, DSJ, Changed return to void.</dd></dl>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="kdtree_8cpp_source.html#l00339">339</a> of file <a class="el" href="kdtree_8cpp_source.html">kdtree.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                           {
+  <span class="keywordflow">if</span> (Tree-&gt;<a class="code" href="struct_k_d_t_r_e_e.html#ab52e8a6004fc595de526dfa831c2e725">Root</a>.<a class="code" href="struct_k_d_n_o_d_e.html#a66ffa1cc4e73e45599978f8f6416e350">Left</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <a class="code" href="kdtree_8cpp.html#adc5707bb9d0b49db3a13959b01117567">Walk</a>(Tree, action, context, Tree-&gt;<a class="code" href="struct_k_d_t_r_e_e.html#ab52e8a6004fc595de526dfa831c2e725">Root</a>.<a class="code" href="struct_k_d_n_o_d_e.html#a66ffa1cc4e73e45599978f8f6416e350">Left</a>, NextLevel(Tree, -1));
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a5f4c5e8b3eca7978c68bb22144feba82"></a><!-- doxytag: member="kdtree.cpp::MakeKDNode" ref="a5f4c5e8b3eca7978c68bb22144feba82" args="(KDTREE *tree, FLOAT32 Key[], void *Data, int Index)" -->
@@ -588,6 +768,41 @@ History: 3/10/89, DSJ, Created. 7/13/89, DSJ, Changed return to void.</dd></dl>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="kdtree_8cpp_source.html#l00371">371</a> of file <a class="el" href="kdtree_8cpp_source.html">kdtree.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                       {
+<span class="comment">/*</span>
+<span class="comment"> **  Parameters:</span>
+<span class="comment"> **      tree  The tree to create the node for</span>
+<span class="comment"> **      Key  Access key for new node in KD tree</span>
+<span class="comment"> **      Data  ptr to data to be stored in new node</span>
+<span class="comment"> **      Index  index of Key to branch on</span>
+<span class="comment"> **  Operation:</span>
+<span class="comment"> **    This routine allocates memory for a new K-D tree node</span>
+<span class="comment"> **    and places the specified Key and Data into it.  The</span>
+<span class="comment"> **    left and right subtree pointers for the node are</span>
+<span class="comment"> **    initialized to empty subtrees.</span>
+<span class="comment"> **  Return:</span>
+<span class="comment"> **    pointer to new K-D tree node</span>
+<span class="comment"> **  Exceptions:</span>
+<span class="comment"> **    None</span>
+<span class="comment"> **  History:</span>
+<span class="comment"> **    3/11/89, DSJ, Created.</span>
+<span class="comment"> */</span>
+  <a class="code" href="struct_k_d_n_o_d_e.html">KDNODE</a> *NewNode;
+
+  NewNode = (<a class="code" href="struct_k_d_n_o_d_e.html">KDNODE</a> *) <a class="code" href="emalloc_8cpp.html#a55f2088f1a7b3333bb5c7275ab726bba">Emalloc</a> (<span class="keyword">sizeof</span> (<a class="code" href="struct_k_d_n_o_d_e.html">KDNODE</a>));
+
+  NewNode-&gt;<a class="code" href="struct_k_d_n_o_d_e.html#a977838423c3b5e17ecfd0242c39a8202">Key</a> = Key;
+  NewNode-&gt;<a class="code" href="struct_k_d_n_o_d_e.html#afd5eeb76bcf3d1ba9b387e0cd4e9ce16">Data</a> = Data;
+  NewNode-&gt;<a class="code" href="struct_k_d_n_o_d_e.html#aba5d7ca0a419ab7ad6a7cbcdb79add07">BranchPoint</a> = Key[Index];
+  NewNode-&gt;<a class="code" href="struct_k_d_n_o_d_e.html#a448480738475fb5bdb2e35b51f40f1d1">LeftBranch</a> = tree-&gt;<a class="code" href="struct_k_d_t_r_e_e.html#a486dfb881bc360bbfbd36248bba80552">KeyDesc</a>[Index].<a class="code" href="struct_p_a_r_a_m___d_e_s_c.html#a6445e8e433a99239e56c3218437f2695">Min</a>;
+  NewNode-&gt;<a class="code" href="struct_k_d_n_o_d_e.html#a1c8fd73abb446c3ceaea4cb29ef60b2c">RightBranch</a> = tree-&gt;<a class="code" href="struct_k_d_t_r_e_e.html#a486dfb881bc360bbfbd36248bba80552">KeyDesc</a>[Index].<a class="code" href="struct_p_a_r_a_m___d_e_s_c.html#a73e76f946bbd324e60914a991d3343d1">Max</a>;
+  NewNode-&gt;<a class="code" href="struct_k_d_n_o_d_e.html#a66ffa1cc4e73e45599978f8f6416e350">Left</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  NewNode-&gt;<a class="code" href="struct_k_d_n_o_d_e.html#a699e9e67472e12f86bbb5c1effdb4fa3">Right</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+
+  <span class="keywordflow">return</span> NewNode;
+}                                <span class="comment">/* MakeKDNode */</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a92b996eb8120afe351d8e7ee82c96ece"></a><!-- doxytag: member="kdtree.cpp::MakeKDTree" ref="a92b996eb8120afe351d8e7ee82c96ece" args="(inT16 KeySize, const PARAM_DESC KeyDesc[])" -->
@@ -616,6 +831,30 @@ History: 3/10/89, DSJ, Created. 7/13/89, DSJ, Changed return to void.</dd></dl>
 <div class="memdoc">
 <p>Return a new <a class="el" href="struct_k_d_t_r_e_e.html">KDTREE</a> based on the specified parameters. Parameters: KeySize # of dimensions in the K-D tree KeyDesc array of params to describe key dimensions </p>
 
+<p>Definition at line <a class="el" href="kdtree_8cpp_source.html#l00184">184</a> of file <a class="el" href="kdtree_8cpp_source.html">kdtree.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                              {
+  <a class="code" href="struct_k_d_t_r_e_e.html">KDTREE</a> *KDTree = (<a class="code" href="struct_k_d_t_r_e_e.html">KDTREE</a> *) <a class="code" href="emalloc_8cpp.html#a55f2088f1a7b3333bb5c7275ab726bba">Emalloc</a>(
+      <span class="keyword">sizeof</span>(<a class="code" href="struct_k_d_t_r_e_e.html">KDTREE</a>) + (KeySize - 1) * <span class="keyword">sizeof</span>(<a class="code" href="struct_p_a_r_a_m___d_e_s_c.html">PARAM_DESC</a>));
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; KeySize; i++) {
+    KDTree-&gt;<a class="code" href="struct_k_d_t_r_e_e.html#a486dfb881bc360bbfbd36248bba80552">KeyDesc</a>[i].<a class="code" href="struct_p_a_r_a_m___d_e_s_c.html#a6b9843466a3ddf33bfab18f85ca06501">NonEssential</a> = KeyDesc[i].<a class="code" href="struct_p_a_r_a_m___d_e_s_c.html#a6b9843466a3ddf33bfab18f85ca06501">NonEssential</a>;
+    KDTree-&gt;<a class="code" href="struct_k_d_t_r_e_e.html#a486dfb881bc360bbfbd36248bba80552">KeyDesc</a>[i].<a class="code" href="struct_p_a_r_a_m___d_e_s_c.html#a55807f1e0be0daba2a33380ea29b2f1d">Circular</a> = KeyDesc[i].<a class="code" href="struct_p_a_r_a_m___d_e_s_c.html#a55807f1e0be0daba2a33380ea29b2f1d">Circular</a>;
+    <span class="keywordflow">if</span> (KeyDesc[i].Circular) {
+      KDTree-&gt;<a class="code" href="struct_k_d_t_r_e_e.html#a486dfb881bc360bbfbd36248bba80552">KeyDesc</a>[i].<a class="code" href="struct_p_a_r_a_m___d_e_s_c.html#a6445e8e433a99239e56c3218437f2695">Min</a> = KeyDesc[i].<a class="code" href="struct_p_a_r_a_m___d_e_s_c.html#a6445e8e433a99239e56c3218437f2695">Min</a>;
+      KDTree-&gt;<a class="code" href="struct_k_d_t_r_e_e.html#a486dfb881bc360bbfbd36248bba80552">KeyDesc</a>[i].<a class="code" href="struct_p_a_r_a_m___d_e_s_c.html#a73e76f946bbd324e60914a991d3343d1">Max</a> = KeyDesc[i].<a class="code" href="struct_p_a_r_a_m___d_e_s_c.html#a73e76f946bbd324e60914a991d3343d1">Max</a>;
+      KDTree-&gt;<a class="code" href="struct_k_d_t_r_e_e.html#a486dfb881bc360bbfbd36248bba80552">KeyDesc</a>[i].<a class="code" href="struct_p_a_r_a_m___d_e_s_c.html#a031dddcdc1744e777435f8ceea197448">Range</a> = KeyDesc[i].<a class="code" href="struct_p_a_r_a_m___d_e_s_c.html#a73e76f946bbd324e60914a991d3343d1">Max</a> - KeyDesc[i].<a class="code" href="struct_p_a_r_a_m___d_e_s_c.html#a6445e8e433a99239e56c3218437f2695">Min</a>;
+      KDTree-&gt;<a class="code" href="struct_k_d_t_r_e_e.html#a486dfb881bc360bbfbd36248bba80552">KeyDesc</a>[i].<a class="code" href="struct_p_a_r_a_m___d_e_s_c.html#a1df92d879d7ec8ea6662e956d27154b5">HalfRange</a> = KDTree-&gt;<a class="code" href="struct_k_d_t_r_e_e.html#a486dfb881bc360bbfbd36248bba80552">KeyDesc</a>[i].<a class="code" href="struct_p_a_r_a_m___d_e_s_c.html#a031dddcdc1744e777435f8ceea197448">Range</a> / 2;
+      KDTree-&gt;<a class="code" href="struct_k_d_t_r_e_e.html#a486dfb881bc360bbfbd36248bba80552">KeyDesc</a>[i].<a class="code" href="struct_p_a_r_a_m___d_e_s_c.html#a7c7bec15766be3633c649a0a9409b512">MidRange</a> = (KeyDesc[i].<a class="code" href="struct_p_a_r_a_m___d_e_s_c.html#a73e76f946bbd324e60914a991d3343d1">Max</a> + KeyDesc[i].<a class="code" href="struct_p_a_r_a_m___d_e_s_c.html#a6445e8e433a99239e56c3218437f2695">Min</a>) / 2;
+    } <span class="keywordflow">else</span> {
+      KDTree-&gt;<a class="code" href="struct_k_d_t_r_e_e.html#a486dfb881bc360bbfbd36248bba80552">KeyDesc</a>[i].<a class="code" href="struct_p_a_r_a_m___d_e_s_c.html#a6445e8e433a99239e56c3218437f2695">Min</a> = <a class="code" href="kdtree_8cpp.html#a8904460bfbb91685971ab30c3025e0c5">MINSEARCH</a>;
+      KDTree-&gt;<a class="code" href="struct_k_d_t_r_e_e.html#a486dfb881bc360bbfbd36248bba80552">KeyDesc</a>[i].<a class="code" href="struct_p_a_r_a_m___d_e_s_c.html#a73e76f946bbd324e60914a991d3343d1">Max</a> = <a class="code" href="kdtree_8cpp.html#a322efe6a34504778ebc6b3e2264789d5">MAXSEARCH</a>;
+    }
+  }
+  KDTree-&gt;<a class="code" href="struct_k_d_t_r_e_e.html#a510104dbda460e78eb8d323502594ef2">KeySize</a> = KeySize;
+  KDTree-&gt;<a class="code" href="struct_k_d_t_r_e_e.html#ab52e8a6004fc595de526dfa831c2e725">Root</a>.<a class="code" href="struct_k_d_n_o_d_e.html#a66ffa1cc4e73e45599978f8f6416e350">Left</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  KDTree-&gt;<a class="code" href="struct_k_d_t_r_e_e.html#ab52e8a6004fc595de526dfa831c2e725">Root</a>.<a class="code" href="struct_k_d_n_o_d_e.html#a699e9e67472e12f86bbb5c1effdb4fa3">Right</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordflow">return</span> KDTree;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="adc5707bb9d0b49db3a13959b01117567"></a><!-- doxytag: member="kdtree.cpp::Walk" ref="adc5707bb9d0b49db3a13959b01117567" args="(KDTREE *tree, void_proc action, void *context, KDNODE *sub_tree, inT32 level)" -->
@@ -661,6 +900,15 @@ History: 3/10/89, DSJ, Created. 7/13/89, DSJ, Changed return to void.</dd></dl>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="kdtree_8cpp_source.html#l00547">547</a> of file <a class="el" href="kdtree_8cpp_source.html">kdtree.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                         {
+  (*action)(context, sub_tree-&gt;<a class="code" href="struct_k_d_n_o_d_e.html#afd5eeb76bcf3d1ba9b387e0cd4e9ce16">Data</a>, level);
+  <span class="keywordflow">if</span> (sub_tree-&gt;<a class="code" href="struct_k_d_n_o_d_e.html#a66ffa1cc4e73e45599978f8f6416e350">Left</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <a class="code" href="kdtree_8cpp.html#adc5707bb9d0b49db3a13959b01117567">Walk</a>(tree, action, context, sub_tree-&gt;<a class="code" href="struct_k_d_n_o_d_e.html#a66ffa1cc4e73e45599978f8f6416e350">Left</a>, NextLevel(tree, level));
+  <span class="keywordflow">if</span> (sub_tree-&gt;<a class="code" href="struct_k_d_n_o_d_e.html#a699e9e67472e12f86bbb5c1effdb4fa3">Right</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <a class="code" href="kdtree_8cpp.html#adc5707bb9d0b49db3a13959b01117567">Walk</a>(tree, action, context, sub_tree-&gt;<a class="code" href="struct_k_d_n_o_d_e.html#a699e9e67472e12f86bbb5c1effdb4fa3">Right</a>, NextLevel(tree, level));
+}
+</pre></div>
 </div>
 </div>
 </div>
@@ -683,7 +931,7 @@ History: 3/10/89, DSJ, Created. 7/13/89, DSJ, Changed return to void.</dd></dl>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:09 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:41 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

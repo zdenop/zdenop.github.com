@@ -126,7 +126,10 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual <a class="el" href="classtesseract_1_1_char_alt_list.html">CharAltList</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_conv_net_char_classifier.html#a9de324fdc6f2b71fd546ad9cd281223b">Classify</a> (<a class="el" href="classtesseract_1_1_char_samp.html">CharSamp</a> *char_samp)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_conv_net_char_classifier.html#a6199a4f98c310f0b2593e95e860eacfc">CharCost</a> (<a class="el" href="classtesseract_1_1_char_samp.html">CharSamp</a> *char_samp)</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="conv__net__classifier_8h_source.html#l00048">48</a> of file <a class="el" href="conv__net__classifier_8h_source.html">conv_net_classifier.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a1ee09e5790b8d690fe995f3235ca0f14"></a><!-- doxytag: member="tesseract::ConvNetCharClassifier::ConvNetCharClassifier" ref="a1ee09e5790b8d690fe995f3235ca0f14" args="(CharSet *char_set, TuningParams *params, FeatureBase *feat_extract)" -->
 <div class="memitem">
 <div class="memproto">
@@ -158,6 +161,13 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="conv__net__classifier_8cpp_source.html#l00038">38</a> of file <a class="el" href="conv__net__classifier_8cpp_source.html">conv_net_classifier.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">    : <a class="code" href="classtesseract_1_1_char_classifier.html#a08c3672c2062828c840d830c7a16639b">CharClassifier</a>(char_set, params, feat_extract) {
+  char_net_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  net_input_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  net_output_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a70d83d9eecbde1c1aca3e3682aa05c09"></a><!-- doxytag: member="tesseract::ConvNetCharClassifier::~ConvNetCharClassifier" ref="a70d83d9eecbde1c1aca3e3682aa05c09" args="()" -->
@@ -174,6 +184,24 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="conv__net__classifier_8cpp_source.html#l00047">47</a> of file <a class="el" href="conv__net__classifier_8cpp_source.html">conv_net_classifier.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                              {
+  <span class="keywordflow">if</span> (char_net_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keyword">delete</span> char_net_;
+    char_net_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="keywordflow">if</span> (net_input_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keyword">delete</span> []net_input_;
+    net_input_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="keywordflow">if</span> (net_output_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keyword">delete</span> []net_output_;
+    net_output_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -194,6 +222,14 @@ Public Member Functions</h2></td></tr>
 
 <p>Implements <a class="el" href="classtesseract_1_1_char_classifier.html#aa447f4775f256d36dab382f1bbb7b56c">tesseract::CharClassifier</a>.</p>
 
+<p>Definition at line <a class="el" href="conv__net__classifier_8cpp_source.html#l00177">177</a> of file <a class="el" href="conv__net__classifier_8cpp_source.html">conv_net_classifier.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                       {
+  <span class="keywordflow">if</span> (RunNets(char_samp) == <span class="keyword">false</span>) {
+    <span class="keywordflow">return</span> 0;
+  }
+  <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_cube_utils.html#a0983096f5ebcb35879a1e0e6038c32f8">CubeUtils::Prob2Cost</a>(1.0<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> - net_output_[0]);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9de324fdc6f2b71fd546ad9cd281223b"></a><!-- doxytag: member="tesseract::ConvNetCharClassifier::Classify" ref="a9de324fdc6f2b71fd546ad9cd281223b" args="(CharSamp *char_samp)" -->
@@ -213,6 +249,31 @@ Public Member Functions</h2></td></tr>
 
 <p>Implements <a class="el" href="classtesseract_1_1_char_classifier.html#ae133c2172d9bc6ae1726ae9a436755f1">tesseract::CharClassifier</a>.</p>
 
+<p>Definition at line <a class="el" href="conv__net__classifier_8cpp_source.html#l00186">186</a> of file <a class="el" href="conv__net__classifier_8cpp_source.html">conv_net_classifier.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                {
+  <span class="comment">// run the needed nets</span>
+  <span class="keywordflow">if</span> (RunNets(char_samp) == <span class="keyword">false</span>) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="keywordtype">int</span> class_cnt = <a class="code" href="classtesseract_1_1_char_classifier.html#afbe25062436573d4a3b8c9e9936f6013">char_set_</a>-&gt;ClassCount();
+
+  <span class="comment">// create an altlist</span>
+  CharAltList *alt_list = <span class="keyword">new</span> CharAltList(<a class="code" href="classtesseract_1_1_char_classifier.html#afbe25062436573d4a3b8c9e9936f6013">char_set_</a>, class_cnt);
+  <span class="keywordflow">if</span> (alt_list == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    fprintf(stderr, <span class="stringliteral">&quot;Cube WARNING (ConvNetCharClassifier::Classify): &quot;</span>
+            <span class="stringliteral">&quot;returning emtpy CharAltList\n&quot;</span>);
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> out = 1; out &lt; class_cnt; out++) {
+    <span class="keywordtype">int</span> cost = <a class="code" href="classtesseract_1_1_cube_utils.html#a0983096f5ebcb35879a1e0e6038c32f8">CubeUtils::Prob2Cost</a>(net_output_[out]);
+    alt_list-&gt;Insert(out, cost);
+  }
+
+  <span class="keywordflow">return</span> alt_list;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab3552a6a9eae46ff0cdd99c3118a2343"></a><!-- doxytag: member="tesseract::ConvNetCharClassifier::SetLearnParam" ref="ab3552a6a9eae46ff0cdd99c3118a2343" args="(char *var_name, float val)" -->
@@ -242,6 +303,12 @@ Public Member Functions</h2></td></tr>
 
 <p>Implements <a class="el" href="classtesseract_1_1_char_classifier.html#ab2c1ff04d245d64d7900afefae9ef842">tesseract::CharClassifier</a>.</p>
 
+<p>Definition at line <a class="el" href="conv__net__classifier_8cpp_source.html#l00074">74</a> of file <a class="el" href="conv__net__classifier_8cpp_source.html">conv_net_classifier.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                   {
+  <span class="comment">// TODO(ahmadab): implementation of parameter initializing.</span>
+  <span class="keywordflow">return</span> <span class="keyword">false</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a15f44fc0bf7d6dd5cdd25608a84a239b"></a><!-- doxytag: member="tesseract::ConvNetCharClassifier::SetNet" ref="a15f44fc0bf7d6dd5cdd25608a84a239b" args="(tesseract::NeuralNet *net)" -->
@@ -259,6 +326,15 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="conv__net__classifier_8cpp_source.html#l00211">211</a> of file <a class="el" href="conv__net__classifier_8cpp_source.html">conv_net_classifier.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                               {
+  <span class="keywordflow">if</span> (char_net_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keyword">delete</span> char_net_;
+    char_net_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  char_net_ = char_net;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a451b0a0301ad22b5644e554dc65a6279"></a><!-- doxytag: member="tesseract::ConvNetCharClassifier::Train" ref="a451b0a0301ad22b5644e554dc65a6279" args="(CharSamp *char_samp, int ClassID)" -->
@@ -288,11 +364,16 @@ Public Member Functions</h2></td></tr>
 
 <p>Implements <a class="el" href="classtesseract_1_1_char_classifier.html#a3ee7b00c9999051a92426b6de0bc7e5d">tesseract::CharClassifier</a>.</p>
 
+<p>Definition at line <a class="el" href="conv__net__classifier_8cpp_source.html#l00067">67</a> of file <a class="el" href="conv__net__classifier_8cpp_source.html">conv_net_classifier.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                  {
+  <span class="keywordflow">return</span> <span class="keyword">false</span>;
+}
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/cube/<a class="el" href="conv__net__classifier_8h_source.html">conv_net_classifier.h</a></li>
-<li>tesseract-ocr/cube/<a class="el" href="conv__net__classifier_8cpp.html">conv_net_classifier.cpp</a></li>
+<li>tesseract-ocr/cube/<a class="el" href="conv__net__classifier_8cpp_source.html">conv_net_classifier.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -315,7 +396,7 @@ Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:15 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:51 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

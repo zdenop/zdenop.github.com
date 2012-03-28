@@ -142,10 +142,13 @@ Protected Attributes</h2></td></tr>
 Friends</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_b_b_grid.html#a63d895957e5663cd516fde667084fca6">GridSearch&lt; BBC, BBC_CLIST, BBC_C_IT &gt;</a></td></tr>
 </table>
-<h3>template&lt;class BBC, class BBC_CLIST, class BBC_C_IT&gt;<br/>
- class tesseract::BBGrid&lt; BBC, BBC_CLIST, BBC_C_IT &gt;</h3>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock"><h3>template&lt;class BBC, class BBC_CLIST, class BBC_C_IT&gt;<br/>
+class tesseract::BBGrid&lt; BBC, BBC_CLIST, BBC_C_IT &gt;</h3>
 
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+
+<p>Definition at line <a class="el" href="bbgrid_8h_source.html#l00163">163</a> of file <a class="el" href="bbgrid_8h_source.html">bbgrid.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a433d978224467a5842ab3126dd0ba903"></a><!-- doxytag: member="tesseract::BBGrid::BBGrid" ref="a433d978224467a5842ab3126dd0ba903" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -162,6 +165,10 @@ template&lt;class BBC , class BBC_CLIST , class BBC_C_IT &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bbgrid_8h_source.html#l00425">425</a> of file <a class="el" href="bbgrid_8h_source.html">bbgrid.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                         : <a class="code" href="classtesseract_1_1_b_b_grid.html#ae58f8b18fce79b681e5f480dd2ea00e4">grid_</a>(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aed2c82e5d0aa5c92137aae623a79f5ec"></a><!-- doxytag: member="tesseract::BBGrid::BBGrid" ref="aed2c82e5d0aa5c92137aae623a79f5ec" args="(int gridsize, const ICOORD &amp;bleft, const ICOORD &amp;tright)" -->
@@ -197,6 +204,11 @@ template&lt;class BBC , class BBC_CLIST , class BBC_C_IT &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bbgrid_8h_source.html#l00429">429</a> of file <a class="el" href="bbgrid_8h_source.html">bbgrid.h</a>.</p>
+<div class="fragment"><pre class="fragment">    : <a class="code" href="classtesseract_1_1_b_b_grid.html#ae58f8b18fce79b681e5f480dd2ea00e4">grid_</a>(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+  <a class="code" href="classtesseract_1_1_b_b_grid.html#a1d2990adf323d7910fbf87b6fc3a7415">Init</a>(<a class="code" href="classtesseract_1_1_grid_base.html#afff2cee730084711205977b5fcb4901e">gridsize</a>, bleft, tright);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a70d6e4e5938d390162572615e0a9036a"></a><!-- doxytag: member="tesseract::BBGrid::~BBGrid" ref="a70d6e4e5938d390162572615e0a9036a" args="()" -->
@@ -215,6 +227,12 @@ template&lt;class BBC , class BBC_CLIST , class BBC_C_IT &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bbgrid_8h_source.html#l00436">436</a> of file <a class="el" href="bbgrid_8h_source.html">bbgrid.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                          {
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_b_b_grid.html#ae58f8b18fce79b681e5f480dd2ea00e4">grid_</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <span class="keyword">delete</span> [] <a class="code" href="classtesseract_1_1_b_b_grid.html#ae58f8b18fce79b681e5f480dd2ea00e4">grid_</a>;
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -234,6 +252,22 @@ template&lt;class BBC , class BBC_CLIST , class BBC_C_IT &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bbgrid_8h_source.html#l00638">638</a> of file <a class="el" href="bbgrid_8h_source.html">bbgrid.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                          {
+  <span class="comment">// Process all grid cells.</span>
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = <a class="code" href="classtesseract_1_1_grid_base.html#a429c00f7b3ea66cfd63a75cfa2c1b43d">gridwidth_</a> * <a class="code" href="classtesseract_1_1_grid_base.html#ae70ca33c0676a296720fea5ddc0aa5cc">gridheight_</a> - 1; i &gt;= 0; --i) {
+    <span class="comment">// Iterate over all elements excent the last.</span>
+    <span class="keywordflow">for</span> (BBC_C_IT it(&amp;<a class="code" href="classtesseract_1_1_b_b_grid.html#ae58f8b18fce79b681e5f480dd2ea00e4">grid_</a>[i]); !it.at_last(); it.forward()) {
+      BBC* ptr = it.data();
+      BBC_C_IT it2(it);
+      <span class="comment">// None of the rest of the elements in the list should equal ptr.</span>
+      <span class="keywordflow">for</span> (it2.forward(); !it2.at_first(); it2.forward()) {
+        <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(it2.data() != ptr);
+      }
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a0b373075bdfda41719d6fb9a64bcfee0"></a><!-- doxytag: member="tesseract::BBGrid::Clear" ref="a0b373075bdfda41719d6fb9a64bcfee0" args="()" -->
@@ -252,6 +286,13 @@ template&lt;class BBC , class BBC_CLIST , class BBC_C_IT &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bbgrid_8h_source.html#l00455">455</a> of file <a class="el" href="bbgrid_8h_source.html">bbgrid.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                             {
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="classtesseract_1_1_grid_base.html#adcda3a0efeed2a95fc777fc7127898a6">gridbuckets_</a>; ++i) {
+    <a class="code" href="classtesseract_1_1_b_b_grid.html#ae58f8b18fce79b681e5f480dd2ea00e4">grid_</a>[i].shallow_clear();
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa3f84b8f684c71394335a5a4f17c90be"></a><!-- doxytag: member="tesseract::BBGrid::ClearGridData" ref="aa3f84b8f684c71394335a5a4f17c90be" args="(void(*free_method)(BBC *))" -->
@@ -271,6 +312,22 @@ template&lt;class BBC, class BBC_CLIST , class BBC_C_IT &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bbgrid_8h_source.html#l00464">464</a> of file <a class="el" href="bbgrid_8h_source.html">bbgrid.h</a>.</p>
+<div class="fragment"><pre class="fragment">                               {
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_b_b_grid.html#ae58f8b18fce79b681e5f480dd2ea00e4">grid_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) <span class="keywordflow">return</span>;
+  <a class="code" href="classtesseract_1_1_b_b_grid.html#a63d895957e5663cd516fde667084fca6">GridSearch&lt;BBC, BBC_CLIST, BBC_C_IT&gt;</a> <a class="code" href="oldlist_8cpp.html#a1d8af9328f064a9df6d6f88336dd054e">search</a>(<span class="keyword">this</span>);
+  <a class="code" href="oldlist_8cpp.html#a1d8af9328f064a9df6d6f88336dd054e">search</a>.StartFullSearch();
+  BBC* bb;
+  BBC_CLIST bb_list;
+  BBC_C_IT it(&amp;bb_list);
+  <span class="keywordflow">while</span> ((bb = <a class="code" href="oldlist_8cpp.html#a1d8af9328f064a9df6d6f88336dd054e">search</a>.NextFullSearch()) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    it.add_after_then_move(bb);
+  }
+  <span class="keywordflow">for</span> (it.mark_cycle_pt(); !it.cycled_list(); it.forward()) {
+    free_method(it.data());
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a48e846646c932192133cdcdac274c94d"></a><!-- doxytag: member="tesseract::BBGrid::CountCellElements" ref="a48e846646c932192133cdcdac274c94d" args="()" -->
@@ -289,6 +346,18 @@ template&lt;class BBC , class BBC_CLIST , class BBC_C_IT &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bbgrid_8h_source.html#l00561">561</a> of file <a class="el" href="bbgrid_8h_source.html">bbgrid.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                             {
+  IntGrid* intgrid = <span class="keyword">new</span> IntGrid(<a class="code" href="classtesseract_1_1_grid_base.html#afff2cee730084711205977b5fcb4901e">gridsize</a>(), <a class="code" href="classtesseract_1_1_grid_base.html#ad20b2cb8eb2bf52871d5260c04949cce">bleft</a>(), <a class="code" href="classtesseract_1_1_grid_base.html#aa94e147841b6a4fae0b28e7e872685a5">tright</a>());
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> y = 0; y &lt; <a class="code" href="classtesseract_1_1_grid_base.html#a07e6b230c150180d009ef1f317e642f2">gridheight</a>(); ++y) {
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> x = 0; x &lt; <a class="code" href="classtesseract_1_1_grid_base.html#a0a38ea995b9d65f8b67d66d5501a5b80">gridwidth</a>(); ++x) {
+      <span class="keywordtype">int</span> cell_count = <a class="code" href="classtesseract_1_1_b_b_grid.html#ae58f8b18fce79b681e5f480dd2ea00e4">grid_</a>[y * <a class="code" href="classtesseract_1_1_grid_base.html#a0a38ea995b9d65f8b67d66d5501a5b80">gridwidth</a>() + x].length();
+      intgrid-&gt;SetGridCell(x, y, cell_count);
+    }
+  }
+  <span class="keywordflow">return</span> intgrid;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a01e56b692125ef3220a23695e2c4821f"></a><!-- doxytag: member="tesseract::BBGrid::DisplayBoxes" ref="a01e56b692125ef3220a23695e2c4821f" args="(ScrollView *window)" -->
@@ -308,6 +377,30 @@ template&lt;class BBC , class BBC_CLIST , class BBC_C_IT &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bbgrid_8h_source.html#l00613">613</a> of file <a class="el" href="bbgrid_8h_source.html">bbgrid.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                       {
+<span class="preprocessor">#ifndef GRAPHICS_DISABLED</span>
+<span class="preprocessor"></span>  tab_win-&gt;Pen(<a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8a66e5117e4930fdd9a43bdb674d57a719">ScrollView::BLUE</a>);
+  tab_win-&gt;Brush(<a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8a77673d8f27617bcfe50a6ebdd81e8c79">ScrollView::NONE</a>);
+
+  <span class="comment">// For every bbox in the grid, display it.</span>
+  <a class="code" href="classtesseract_1_1_b_b_grid.html#a63d895957e5663cd516fde667084fca6">GridSearch&lt;BBC, BBC_CLIST, BBC_C_IT&gt;</a> gsearch(<span class="keyword">this</span>);
+  gsearch.StartFullSearch();
+  BBC* bbox;
+  <span class="keywordflow">while</span> ((bbox = gsearch.NextFullSearch()) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="class_t_b_o_x.html">TBOX</a> box = bbox-&gt;bounding_box();
+    <span class="keywordtype">int</span> left_x = box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>();
+    <span class="keywordtype">int</span> right_x = box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>();
+    <span class="keywordtype">int</span> top_y = box.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>();
+    <span class="keywordtype">int</span> bottom_y = box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>();
+    <a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8">ScrollView::Color</a> box_color = bbox-&gt;BoxColor();
+    tab_win-&gt;Pen(box_color);
+    tab_win-&gt;Rectangle(left_x, bottom_y, right_x, top_y);
+  }
+  tab_win-&gt;Update();
+<span class="preprocessor">#endif</span>
+<span class="preprocessor"></span>}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa3c72e54651cbf20ee185f8623a60335"></a><!-- doxytag: member="tesseract::BBGrid::HandleClick" ref="aa3c72e54651cbf20ee185f8623a60335" args="(int x, int y)" -->
@@ -339,6 +432,11 @@ template&lt;class BBC , class BBC_CLIST , class BBC_C_IT &gt; </div>
 
 <p>Reimplemented in <a class="el" href="classtesseract_1_1_stroke_width.html#a90b53628c521c80302467b8059fc0a5c">tesseract::StrokeWidth</a>, and <a class="el" href="classtesseract_1_1_col_partition_grid.html#ace404c79d8fae1a884f15ea234a5a1a1">tesseract::ColPartitionGrid</a>.</p>
 
+<p>Definition at line <a class="el" href="bbgrid_8h_source.html#l00655">655</a> of file <a class="el" href="bbgrid_8h_source.html">bbgrid.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                               {
+  <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Click at (%d, %d)\n&quot;</span>, x, y);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a1d2990adf323d7910fbf87b6fc3a7415"></a><!-- doxytag: member="tesseract::BBGrid::Init" ref="a1d2990adf323d7910fbf87b6fc3a7415" args="(int gridsize, const ICOORD &amp;bleft, const ICOORD &amp;tright)" -->
@@ -376,6 +474,14 @@ template&lt;class BBC , class BBC_CLIST , class BBC_C_IT &gt; </div>
 
 <p>Reimplemented from <a class="el" href="classtesseract_1_1_grid_base.html#a9e23ba0f9d310510c9a2b3a38f11e683">tesseract::GridBase</a>.</p>
 
+<p>Definition at line <a class="el" href="bbgrid_8h_source.html#l00444">444</a> of file <a class="el" href="bbgrid_8h_source.html">bbgrid.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                  {
+  <a class="code" href="classtesseract_1_1_b_b_grid.html#a1d2990adf323d7910fbf87b6fc3a7415">GridBase::Init</a>(<a class="code" href="classtesseract_1_1_grid_base.html#afff2cee730084711205977b5fcb4901e">gridsize</a>, bleft, tright);
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_b_b_grid.html#ae58f8b18fce79b681e5f480dd2ea00e4">grid_</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <span class="keyword">delete</span> [] <a class="code" href="classtesseract_1_1_b_b_grid.html#ae58f8b18fce79b681e5f480dd2ea00e4">grid_</a>;
+  <a class="code" href="classtesseract_1_1_b_b_grid.html#ae58f8b18fce79b681e5f480dd2ea00e4">grid_</a> = <span class="keyword">new</span> BBC_CLIST[<a class="code" href="classtesseract_1_1_grid_base.html#adcda3a0efeed2a95fc777fc7127898a6">gridbuckets_</a>];
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7b379525e3d60c68e583352ae4b8a750"></a><!-- doxytag: member="tesseract::BBGrid::InsertBBox" ref="a7b379525e3d60c68e583352ae4b8a750" args="(bool h_spread, bool v_spread, BBC *bbox)" -->
@@ -411,6 +517,24 @@ template&lt;class BBC, class BBC_CLIST , class BBC_C_IT &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bbgrid_8h_source.html#l00486">486</a> of file <a class="el" href="bbgrid_8h_source.html">bbgrid.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                             {
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> box = bbox-&gt;bounding_box();
+  <span class="keywordtype">int</span> start_x, start_y, end_x, end_y;
+  <a class="code" href="classtesseract_1_1_grid_base.html#a9cb158bba184d657c51257b98eea9f8f">GridCoords</a>(box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>(), box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>(), &amp;start_x, &amp;start_y);
+  <a class="code" href="classtesseract_1_1_grid_base.html#a9cb158bba184d657c51257b98eea9f8f">GridCoords</a>(box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>(), box.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>(), &amp;end_x, &amp;end_y);
+  <span class="keywordflow">if</span> (!h_spread)
+    end_x = start_x;
+  <span class="keywordflow">if</span> (!v_spread)
+    end_y = start_y;
+  <span class="keywordtype">int</span> grid_index = start_y * <a class="code" href="classtesseract_1_1_grid_base.html#a429c00f7b3ea66cfd63a75cfa2c1b43d">gridwidth_</a>;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> y = start_y; y &lt;= end_y; ++y, grid_index += <a class="code" href="classtesseract_1_1_grid_base.html#a429c00f7b3ea66cfd63a75cfa2c1b43d">gridwidth_</a>) {
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> x = start_x; x &lt;= end_x; ++x) {
+      <a class="code" href="classtesseract_1_1_b_b_grid.html#ae58f8b18fce79b681e5f480dd2ea00e4">grid_</a>[grid_index + x].add_sorted(SortByBoxLeft&lt;BBC&gt;, <span class="keyword">true</span>, bbox);
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a70a2666a2f5db0cf64dea637953b1412"></a><!-- doxytag: member="tesseract::BBGrid::InsertPixPtBBox" ref="a70a2666a2f5db0cf64dea637953b1412" args="(int left, int bottom, Pix *pix, BBC *bbox)" -->
@@ -452,6 +576,21 @@ template&lt;class BBC, class BBC_CLIST , class BBC_C_IT &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bbgrid_8h_source.html#l00514">514</a> of file <a class="el" href="bbgrid_8h_source.html">bbgrid.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                            {
+  <span class="keywordtype">int</span> width = pixGetWidth(pix);
+  <span class="keywordtype">int</span> height = pixGetHeight(pix);
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> y = 0; y &lt; height; ++y) {
+    l_uint32* data = pixGetData(pix) + y * pixGetWpl(pix);
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> x = 0; x &lt; width; ++x) {
+      <span class="keywordflow">if</span> (GET_DATA_BIT(data, x)) {
+        <a class="code" href="classtesseract_1_1_b_b_grid.html#ae58f8b18fce79b681e5f480dd2ea00e4">grid_</a>[(bottom + y) * <a class="code" href="classtesseract_1_1_grid_base.html#a429c00f7b3ea66cfd63a75cfa2c1b43d">gridwidth_</a> + x + left].
+          add_sorted(SortByBoxLeft&lt;BBC&gt;, <span class="keyword">true</span>, bbox);
+      }
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa716f76c7f04f7112abfc10a3f8c63e0"></a><!-- doxytag: member="tesseract::BBGrid::MakeWindow" ref="aa716f76c7f04f7112abfc10a3f8c63e0" args="(int x, int y, const char *window_name)" -->
@@ -487,6 +626,25 @@ template&lt;class BBC , class BBC_CLIST , class BBC_C_IT &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bbgrid_8h_source.html#l00589">589</a> of file <a class="el" href="bbgrid_8h_source.html">bbgrid.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                           {
+  <a class="code" href="class_scroll_view.html">ScrollView</a>* tab_win = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+<span class="preprocessor">#ifndef GRAPHICS_DISABLED</span>
+<span class="preprocessor"></span>  tab_win = <span class="keyword">new</span> <a class="code" href="class_scroll_view.html">ScrollView</a>(window_name, x, y,
+                           <a class="code" href="classtesseract_1_1_grid_base.html#ac348165d112922b3d956f924405012cd">tright_</a>.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a>() - <a class="code" href="classtesseract_1_1_grid_base.html#a5f09e93ec22c3f7a245eb6611309d8d6">bleft_</a>.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a>(),
+                           <a class="code" href="classtesseract_1_1_grid_base.html#ac348165d112922b3d956f924405012cd">tright_</a>.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a>() - <a class="code" href="classtesseract_1_1_grid_base.html#a5f09e93ec22c3f7a245eb6611309d8d6">bleft_</a>.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a>(),
+                           <a class="code" href="classtesseract_1_1_grid_base.html#ac348165d112922b3d956f924405012cd">tright_</a>.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a>() - <a class="code" href="classtesseract_1_1_grid_base.html#a5f09e93ec22c3f7a245eb6611309d8d6">bleft_</a>.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a>(),
+                           <a class="code" href="classtesseract_1_1_grid_base.html#ac348165d112922b3d956f924405012cd">tright_</a>.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a>() - <a class="code" href="classtesseract_1_1_grid_base.html#a5f09e93ec22c3f7a245eb6611309d8d6">bleft_</a>.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a>(),
+                           <span class="keyword">true</span>);
+  TabEventHandler&lt;BBGrid&lt;BBC, BBC_CLIST, BBC_C_IT&gt; &gt;* handler =
+    <span class="keyword">new</span> TabEventHandler&lt;BBGrid&lt;BBC, BBC_CLIST, BBC_C_IT&gt; &gt;(<span class="keyword">this</span>);
+  tab_win-&gt;<a class="code" href="class_scroll_view.html#a598dcb006fb07910229fcfcf1ee05543" title="Add an Event Listener to this ScrollView Window.">AddEventHandler</a>(handler);
+  tab_win-&gt;<a class="code" href="class_scroll_view.html#a79855c525ec660b452382e9813d2edb5">Pen</a>(<a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8a7bba33cbbab6aaa71dce1aad46ecc3a5">ScrollView::GREY</a>);
+  tab_win-&gt;<a class="code" href="class_scroll_view.html#ac2a8fdf5d37967ea4a298dc092b6ed0e">Rectangle</a>(0, 0, <a class="code" href="classtesseract_1_1_grid_base.html#ac348165d112922b3d956f924405012cd">tright_</a>.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a>() - <a class="code" href="classtesseract_1_1_grid_base.html#a5f09e93ec22c3f7a245eb6611309d8d6">bleft_</a>.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a>(), <a class="code" href="classtesseract_1_1_grid_base.html#ac348165d112922b3d956f924405012cd">tright_</a>.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a>() - <a class="code" href="classtesseract_1_1_grid_base.html#a5f09e93ec22c3f7a245eb6611309d8d6">bleft_</a>.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a>());
+<span class="preprocessor">#endif</span>
+<span class="preprocessor"></span>  <span class="keywordflow">return</span> tab_win;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab5924a2ebc0760856cbafde9df32fcd6"></a><!-- doxytag: member="tesseract::BBGrid::RectangleEmpty" ref="ab5924a2ebc0760856cbafde9df32fcd6" args="(const TBOX &amp;rect)" -->
@@ -506,6 +664,13 @@ template&lt;class BBC , class BBC_CLIST , class BBC_C_IT &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bbgrid_8h_source.html#l00552">552</a> of file <a class="el" href="bbgrid_8h_source.html">bbgrid.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                      {
+  <a class="code" href="classtesseract_1_1_b_b_grid.html#a63d895957e5663cd516fde667084fca6">GridSearch&lt;BBC, BBC_CLIST, BBC_C_IT&gt;</a> rsearch(<span class="keyword">this</span>);
+  rsearch.StartRectSearch(rect);
+  <span class="keywordflow">return</span> rsearch.NextRectSearch() == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="adc713153c1282d8727f85ee6d38d7d31"></a><!-- doxytag: member="tesseract::BBGrid::RemoveBBox" ref="adc713153c1282d8727f85ee6d38d7d31" args="(BBC *bbox)" -->
@@ -525,6 +690,24 @@ template&lt;class BBC, class BBC_CLIST , class BBC_C_IT &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bbgrid_8h_source.html#l00533">533</a> of file <a class="el" href="bbgrid_8h_source.html">bbgrid.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                           {
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> box = bbox-&gt;bounding_box();
+  <span class="keywordtype">int</span> start_x, start_y, end_x, end_y;
+  <a class="code" href="classtesseract_1_1_grid_base.html#a9cb158bba184d657c51257b98eea9f8f">GridCoords</a>(box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>(), box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>(), &amp;start_x, &amp;start_y);
+  <a class="code" href="classtesseract_1_1_grid_base.html#a9cb158bba184d657c51257b98eea9f8f">GridCoords</a>(box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>(), box.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>(), &amp;end_x, &amp;end_y);
+  <span class="keywordtype">int</span> grid_index = start_y * <a class="code" href="classtesseract_1_1_grid_base.html#a429c00f7b3ea66cfd63a75cfa2c1b43d">gridwidth_</a>;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> y = start_y; y &lt;= end_y; ++y, grid_index += <a class="code" href="classtesseract_1_1_grid_base.html#a429c00f7b3ea66cfd63a75cfa2c1b43d">gridwidth_</a>) {
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> x = start_x; x &lt;= end_x; ++x) {
+      BBC_C_IT it(&amp;<a class="code" href="classtesseract_1_1_b_b_grid.html#ae58f8b18fce79b681e5f480dd2ea00e4">grid_</a>[grid_index + x]);
+      <span class="keywordflow">for</span> (it.mark_cycle_pt(); !it.cycled_list(); it.forward()) {
+        <span class="keywordflow">if</span> (it.data() == bbox)
+          it.extract();
+      }
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Friends And Related Function Documentation</h2>
@@ -541,6 +724,8 @@ template&lt;class BBC, class BBC_CLIST, class BBC_C_IT&gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bbgrid_8h_source.html#l00165">165</a> of file <a class="el" href="bbgrid_8h_source.html">bbgrid.h</a>.</p>
+
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
@@ -556,6 +741,8 @@ template&lt;class BBC, class BBC_CLIST, class BBC_C_IT&gt; </div>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="bbgrid_8h_source.html#l00226">226</a> of file <a class="el" href="bbgrid_8h_source.html">bbgrid.h</a>.</p>
 
 </div>
 </div>
@@ -583,7 +770,7 @@ template&lt;class BBC, class BBC_CLIST, class BBC_C_IT&gt; </div>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:16 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:52 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

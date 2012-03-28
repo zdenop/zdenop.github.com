@@ -127,10 +127,13 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_grid_search.html#aa6a2166899235a22f58e607786ffd25e">RemoveBBox</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_grid_search.html#ae43afa517cd9b682f10ca1d54dad4ab0">RepositionIterator</a> ()</td></tr>
 </table>
-<h3>template&lt;class BBC, class BBC_CLIST, class BBC_C_IT&gt;<br/>
- class tesseract::GridSearch&lt; BBC, BBC_CLIST, BBC_C_IT &gt;</h3>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock"><h3>template&lt;class BBC, class BBC_CLIST, class BBC_C_IT&gt;<br/>
+class tesseract::GridSearch&lt; BBC, BBC_CLIST, BBC_C_IT &gt;</h3>
 
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+
+<p>Definition at line <a class="el" href="bbgrid_8h_source.html#l00232">232</a> of file <a class="el" href="bbgrid_8h_source.html">bbgrid.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a6c4b247e12b58d26847ee52aa31f7ec6"></a><!-- doxytag: member="tesseract::GridSearch::GridSearch" ref="a6c4b247e12b58d26847ee52aa31f7ec6" args="(BBGrid&lt; BBC, BBC_CLIST, BBC_C_IT &gt; *grid)" -->
 <div class="memitem">
 <div class="memproto">
@@ -148,6 +151,11 @@ template&lt;class BBC, class BBC_CLIST, class BBC_C_IT&gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bbgrid_8h_source.html#l00234">234</a> of file <a class="el" href="bbgrid_8h_source.html">bbgrid.h</a>.</p>
+<div class="fragment"><pre class="fragment">      : grid_(grid), unique_mode_(<span class="keyword">false</span>),
+        previous_return_(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>), next_return_(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+  }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -167,6 +175,11 @@ template&lt;class BBC, class BBC_CLIST, class BBC_C_IT&gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bbgrid_8h_source.html#l00240">240</a> of file <a class="el" href="bbgrid_8h_source.html">bbgrid.h</a>.</p>
+<div class="fragment"><pre class="fragment">                    {
+    <span class="keywordflow">return</span> x_;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="abb4fccc7685ba0e893b8b638a11b5cde"></a><!-- doxytag: member="tesseract::GridSearch::GridY" ref="abb4fccc7685ba0e893b8b638a11b5cde" args="() const " -->
@@ -185,6 +198,11 @@ template&lt;class BBC, class BBC_CLIST, class BBC_C_IT&gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bbgrid_8h_source.html#l00243">243</a> of file <a class="el" href="bbgrid_8h_source.html">bbgrid.h</a>.</p>
+<div class="fragment"><pre class="fragment">                    {
+    <span class="keywordflow">return</span> y_;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae9cd15b1815e744caf0650320aecfc2c"></a><!-- doxytag: member="tesseract::GridSearch::NextFullSearch" ref="ae9cd15b1815e744caf0650320aecfc2c" args="()" -->
@@ -203,6 +221,28 @@ template&lt;class BBC , class BBC_CLIST , class BBC_C_IT &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bbgrid_8h_source.html#l00675">675</a> of file <a class="el" href="bbgrid_8h_source.html">bbgrid.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                          {
+  <span class="keywordtype">int</span> x;
+  <span class="keywordtype">int</span> y;
+  <span class="keywordflow">do</span> {
+    <span class="keywordflow">while</span> (it_.cycled_list()) {
+      ++x_;
+      <span class="keywordflow">if</span> (x_ &gt;= grid_-&gt;gridwidth_) {
+        --y_;
+        <span class="keywordflow">if</span> (y_ &lt; 0)
+          <span class="keywordflow">return</span> CommonEnd();
+        x_ = 0;
+      }
+      SetIterator();
+    }
+    CommonNext();
+    <a class="code" href="class_t_b_o_x.html">TBOX</a> box = previous_return_-&gt;bounding_box();
+    grid_-&gt;GridCoords(box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>(), box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>(), &amp;x, &amp;y);
+  } <span class="keywordflow">while</span> (x != x_ || y != y_);
+  <span class="keywordflow">return</span> previous_return_;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aeed540deb91d38e3cd390d4caf1bd44f"></a><!-- doxytag: member="tesseract::GridSearch::NextRadSearch" ref="aeed540deb91d38e3cd390d4caf1bd44f" args="()" -->
@@ -221,6 +261,36 @@ template&lt;class BBC , class BBC_CLIST , class BBC_C_IT &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bbgrid_8h_source.html#l00713">713</a> of file <a class="el" href="bbgrid_8h_source.html">bbgrid.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                         {
+  <span class="keywordflow">do</span> {
+    <span class="keywordflow">while</span> (it_.cycled_list()) {
+      ++rad_index_;
+      <span class="keywordflow">if</span> (rad_index_ &gt;= radius_) {
+        ++rad_dir_;
+        rad_index_ = 0;
+        <span class="keywordflow">if</span> (rad_dir_ &gt;= 4) {
+          ++radius_;
+          <span class="keywordflow">if</span> (radius_ &gt; max_radius_)
+            <span class="keywordflow">return</span> CommonEnd();
+          rad_dir_ = 0;
+        }
+      }
+      <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> offset = <a class="code" href="class_c___o_u_t_l_i_n_e.html#a91c7142e3c30cb40e5c84cb1a94b662e">C_OUTLINE::chain_step</a>(rad_dir_);
+      offset *= radius_ - rad_index_;
+      offset += <a class="code" href="class_c___o_u_t_l_i_n_e.html#a91c7142e3c30cb40e5c84cb1a94b662e">C_OUTLINE::chain_step</a>(rad_dir_ + 1) * rad_index_;
+      x_ = x_origin_ + offset.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a>();
+      y_ = y_origin_ + offset.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a>();
+      <span class="keywordflow">if</span> (x_ &gt;= 0 &amp;&amp; x_ &lt; grid_-&gt;gridwidth_ &amp;&amp;
+          y_ &gt;= 0 &amp;&amp; y_ &lt; grid_-&gt;gridheight_)
+        SetIterator();
+    }
+    CommonNext();
+  } <span class="keywordflow">while</span> (unique_mode_ &amp;&amp;
+           !returns_.add_sorted(SortByBoxLeft&lt;BBC&gt;, <span class="keyword">true</span>, previous_return_));
+  <span class="keywordflow">return</span> previous_return_;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab2699cb16c4514663963d2e2aa1dadc3"></a><!-- doxytag: member="tesseract::GridSearch::NextRectSearch" ref="ab2699cb16c4514663963d2e2aa1dadc3" args="()" -->
@@ -239,6 +309,26 @@ template&lt;class BBC , class BBC_CLIST , class BBC_C_IT &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bbgrid_8h_source.html#l00839">839</a> of file <a class="el" href="bbgrid_8h_source.html">bbgrid.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                          {
+  <span class="keywordflow">do</span> {
+    <span class="keywordflow">while</span> (it_.cycled_list()) {
+      ++x_;
+      <span class="keywordflow">if</span> (x_ &gt; max_radius_) {
+        --y_;
+        x_ = x_origin_;
+        <span class="keywordflow">if</span> (y_ &lt; y_origin_)
+          <span class="keywordflow">return</span> CommonEnd();
+      }
+      SetIterator();
+    }
+    CommonNext();
+  } <span class="keywordflow">while</span> (!rect_.<a class="code" href="class_t_b_o_x.html#adcc7d2858ccb61cd715dbcff32bd5582">overlap</a>(previous_return_-&gt;bounding_box()) ||
+           (unique_mode_ &amp;&amp;
+            !returns_.add_sorted(SortByBoxLeft&lt;BBC&gt;, <span class="keyword">true</span>, previous_return_)));
+  <span class="keywordflow">return</span> previous_return_;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7515ca407e452687f762349f1c3113ff"></a><!-- doxytag: member="tesseract::GridSearch::NextSideSearch" ref="a7515ca407e452687f762349f1c3113ff" args="(bool right_to_left)" -->
@@ -258,6 +348,30 @@ template&lt;class BBC , class BBC_CLIST , class BBC_C_IT &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bbgrid_8h_source.html#l00760">760</a> of file <a class="el" href="bbgrid_8h_source.html">bbgrid.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                            {
+  <span class="keywordflow">do</span> {
+    <span class="keywordflow">while</span> (it_.cycled_list()) {
+      ++rad_index_;
+      <span class="keywordflow">if</span> (rad_index_ &gt; radius_) {
+        <span class="keywordflow">if</span> (right_to_left)
+          --x_;
+        <span class="keywordflow">else</span>
+          ++x_;
+        rad_index_ = 0;
+        <span class="keywordflow">if</span> (x_ &lt; 0 || x_ &gt;= grid_-&gt;gridwidth_)
+          <span class="keywordflow">return</span> CommonEnd();
+      }
+      y_ = y_origin_ - rad_index_;
+      <span class="keywordflow">if</span> (y_ &gt;= 0 &amp;&amp; y_ &lt; grid_-&gt;gridheight_)
+        SetIterator();
+    }
+    CommonNext();
+  } <span class="keywordflow">while</span> (unique_mode_ &amp;&amp;
+           !returns_.add_sorted(SortByBoxLeft&lt;BBC&gt;, <span class="keyword">true</span>, previous_return_));
+  <span class="keywordflow">return</span> previous_return_;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="adfe2bf527306cdd264be5bdcdd5ac351"></a><!-- doxytag: member="tesseract::GridSearch::NextVerticalSearch" ref="adfe2bf527306cdd264be5bdcdd5ac351" args="(bool top_to_bottom)" -->
@@ -277,6 +391,30 @@ template&lt;class BBC , class BBC_CLIST , class BBC_C_IT &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bbgrid_8h_source.html#l00800">800</a> of file <a class="el" href="bbgrid_8h_source.html">bbgrid.h</a>.</p>
+<div class="fragment"><pre class="fragment">                        {
+  <span class="keywordflow">do</span> {
+    <span class="keywordflow">while</span> (it_.cycled_list()) {
+      ++rad_index_;
+      <span class="keywordflow">if</span> (rad_index_ &gt; radius_) {
+        <span class="keywordflow">if</span> (top_to_bottom)
+          --y_;
+        <span class="keywordflow">else</span>
+          ++y_;
+        rad_index_ = 0;
+        <span class="keywordflow">if</span> (y_ &lt; 0 || y_ &gt;= grid_-&gt;gridheight_)
+          <span class="keywordflow">return</span> CommonEnd();
+      }
+      x_ = x_origin_ + rad_index_;
+      <span class="keywordflow">if</span> (x_ &gt;= 0 &amp;&amp; x_ &lt; grid_-&gt;gridwidth_)
+        SetIterator();
+    }
+    CommonNext();
+  } <span class="keywordflow">while</span> (unique_mode_ &amp;&amp;
+           !returns_.add_sorted(SortByBoxLeft&lt;BBC&gt;, <span class="keyword">true</span>, previous_return_));
+  <span class="keywordflow">return</span> previous_return_;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa6a2166899235a22f58e607786ffd25e"></a><!-- doxytag: member="tesseract::GridSearch::RemoveBBox" ref="aa6a2166899235a22f58e607786ffd25e" args="()" -->
@@ -295,6 +433,32 @@ template&lt;class BBC , class BBC_CLIST , class BBC_C_IT &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bbgrid_8h_source.html#l00862">862</a> of file <a class="el" href="bbgrid_8h_source.html">bbgrid.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                      {
+  <span class="keywordflow">if</span> (previous_return_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="comment">// Remove all instances of previous_return_ from the list, so the iterator</span>
+    <span class="comment">// remains valid after removal from the rest of the grid cells.</span>
+    <span class="comment">// if previous_return_ is not on the list, then it has been removed already.</span>
+    BBC* prev_data = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    BBC* new_previous_return = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    it_.move_to_first();
+    <span class="keywordflow">for</span> (it_.mark_cycle_pt(); !it_.cycled_list();) {
+      <span class="keywordflow">if</span> (it_.data() ==  previous_return_) {
+        new_previous_return = prev_data;
+        it_.extract();
+        it_.forward();
+        next_return_ = it_.cycled_list() ? <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> : it_.data();
+      } <span class="keywordflow">else</span> {
+        prev_data = it_.data();
+        it_.forward();
+      }
+    }
+    grid_-&gt;RemoveBBox(previous_return_);
+    previous_return_ = new_previous_return;
+    <a class="code" href="classtesseract_1_1_grid_search.html#ae43afa517cd9b682f10ca1d54dad4ab0">RepositionIterator</a>();
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae43afa517cd9b682f10ca1d54dad4ab0"></a><!-- doxytag: member="tesseract::GridSearch::RepositionIterator" ref="ae43afa517cd9b682f10ca1d54dad4ab0" args="()" -->
@@ -313,6 +477,34 @@ template&lt;class BBC , class BBC_CLIST , class BBC_C_IT &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bbgrid_8h_source.html#l00888">888</a> of file <a class="el" href="bbgrid_8h_source.html">bbgrid.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                              {
+  <span class="comment">// Something was deleted, so we have little choice but to clear the</span>
+  <span class="comment">// returns list.</span>
+  returns_.shallow_clear();
+  <span class="comment">// Reset the iterator back to one past the previous return.</span>
+  <span class="comment">// If the previous_return_ is no longer in the list, then</span>
+  <span class="comment">// next_return_ serves as a backup.</span>
+  it_.move_to_first();
+  <span class="comment">// Special case, the first element was removed and reposition</span>
+  <span class="comment">// iterator was called. In this case, the data is fine, but the</span>
+  <span class="comment">// cycle point is not. Detect it and return.</span>
+  <span class="keywordflow">if</span> (!it_.empty() &amp;&amp; it_.data() == next_return_) {
+    it_.mark_cycle_pt();
+    <span class="keywordflow">return</span>;
+  }
+  <span class="keywordflow">for</span> (it_.mark_cycle_pt(); !it_.cycled_list(); it_.forward()) {
+    <span class="keywordflow">if</span> (it_.data() == previous_return_ ||
+        it_.data_relative(1) == next_return_) {
+      CommonNext();
+      <span class="keywordflow">return</span>;
+    }
+  }
+  <span class="comment">// We ran off the end of the list. Move to a new cell next time.</span>
+  previous_return_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  next_return_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4cfda44497eb9f7ec77bd2a077000caa"></a><!-- doxytag: member="tesseract::GridSearch::ReturnedSeedElement" ref="a4cfda44497eb9f7ec77bd2a077000caa" args="() const " -->
@@ -331,6 +523,16 @@ template&lt;class BBC, class BBC_CLIST, class BBC_C_IT&gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bbgrid_8h_source.html#l00262">262</a> of file <a class="el" href="bbgrid_8h_source.html">bbgrid.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                   {
+    <a class="code" href="class_t_b_o_x.html">TBOX</a> box = previous_return_-&gt;bounding_box();
+    <span class="keywordtype">int</span> x_center = (box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>()+box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>())/2;
+    <span class="keywordtype">int</span> y_center = (box.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>()+box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>())/2;
+    <span class="keywordtype">int</span> grid_x, grid_y;
+    grid_-&gt;GridCoords(x_center, y_center, &amp;grid_x, &amp;grid_y);
+    <span class="keywordflow">return</span> (x_ == grid_x) &amp;&amp; (y_ == grid_y);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3c44b7c8272584600153d8249a841e73"></a><!-- doxytag: member="tesseract::GridSearch::SetUniqueMode" ref="a3c44b7c8272584600153d8249a841e73" args="(bool mode)" -->
@@ -350,6 +552,11 @@ template&lt;class BBC, class BBC_CLIST, class BBC_C_IT&gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bbgrid_8h_source.html#l00251">251</a> of file <a class="el" href="bbgrid_8h_source.html">bbgrid.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                {
+    unique_mode_ = <a class="code" href="pgedit_8cpp.html#afc03cf3e39248c2e339fee4d31f5f750">mode</a>;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad7f7e99bcda5e0daeb682b772e445f60"></a><!-- doxytag: member="tesseract::GridSearch::StartFullSearch" ref="ad7f7e99bcda5e0daeb682b772e445f60" args="()" -->
@@ -368,6 +575,13 @@ template&lt;class BBC , class BBC_CLIST , class BBC_C_IT &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bbgrid_8h_source.html#l00665">665</a> of file <a class="el" href="bbgrid_8h_source.html">bbgrid.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                           {
+  <span class="comment">// Full search uses x_ and y_ as the current grid</span>
+  <span class="comment">// cell being searched.</span>
+  CommonStart(grid_-&gt;bleft_.x(), grid_-&gt;tright_.y());
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2c170fae34250472834f9ed50cfb83db"></a><!-- doxytag: member="tesseract::GridSearch::StartRadSearch" ref="a2c170fae34250472834f9ed50cfb83db" args="(int x, int y, int max_radius)" -->
@@ -403,6 +617,18 @@ template&lt;class BBC , class BBC_CLIST , class BBC_C_IT &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bbgrid_8h_source.html#l00698">698</a> of file <a class="el" href="bbgrid_8h_source.html">bbgrid.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                          {
+  <span class="comment">// Rad search uses x_origin_ and y_origin_ as the center of the circle.</span>
+  <span class="comment">// The radius_ is the radius of the (diamond-shaped) circle and</span>
+  <span class="comment">// rad_index/rad_dir_ combine to determine the position around it.</span>
+  max_radius_ = max_radius;
+  radius_ = 0;
+  rad_index_ = 0;
+  rad_dir_ = 3;
+  CommonStart(x, y);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae9661d7b80a279a93a4bdd5ecb347871"></a><!-- doxytag: member="tesseract::GridSearch::StartRectSearch" ref="ae9661d7b80a279a93a4bdd5ecb347871" args="(const TBOX &amp;rect)" -->
@@ -422,6 +648,17 @@ template&lt;class BBC , class BBC_CLIST , class BBC_C_IT &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bbgrid_8h_source.html#l00827">827</a> of file <a class="el" href="bbgrid_8h_source.html">bbgrid.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                           {
+  <span class="comment">// Rect search records the xmin in x_origin_, the ymin in y_origin_</span>
+  <span class="comment">// and the xmax in max_radius_.</span>
+  <span class="comment">// The search proceeds left to right, top to bottom.</span>
+  rect_ = rect;
+  CommonStart(rect.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>(), rect.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>());
+  grid_-&gt;GridCoords(rect.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>(), rect.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>(),  <span class="comment">// - rect.height(),</span>
+                    &amp;max_radius_, &amp;y_origin_);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab4eb5b4d43442c26b598b45672713fab"></a><!-- doxytag: member="tesseract::GridSearch::StartSideSearch" ref="ab4eb5b4d43442c26b598b45672713fab" args="(int x, int ymin, int ymax)" -->
@@ -457,6 +694,17 @@ template&lt;class BBC , class BBC_CLIST , class BBC_C_IT &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bbgrid_8h_source.html#l00745">745</a> of file <a class="el" href="bbgrid_8h_source.html">bbgrid.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                               {
+  <span class="comment">// Right search records the x in x_origin_, the ymax in y_origin_</span>
+  <span class="comment">// and the size of the vertical strip to search in radius_.</span>
+  <span class="comment">// To guarantee finding overlapping objects of upto twice the</span>
+  <span class="comment">// given size, double the height.</span>
+  radius_ = ((ymax - ymin) * 2 + grid_-&gt;gridsize_ - 1) / grid_-&gt;gridsize_;
+  rad_index_ = 0;
+  CommonStart(x, ymax);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a071abe1128e59e6ccf1f98a8c6002744"></a><!-- doxytag: member="tesseract::GridSearch::StartVerticalSearch" ref="a071abe1128e59e6ccf1f98a8c6002744" args="(int xmin, int xmax, int y)" -->
@@ -492,6 +740,15 @@ template&lt;class BBC , class BBC_CLIST , class BBC_C_IT &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bbgrid_8h_source.html#l00786">786</a> of file <a class="el" href="bbgrid_8h_source.html">bbgrid.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                      {
+  <span class="comment">// Right search records the xmin in x_origin_, the y in y_origin_</span>
+  <span class="comment">// and the size of the horizontal strip to search in radius_.</span>
+  radius_ = (xmax - xmin + grid_-&gt;gridsize_ - 1) / grid_-&gt;gridsize_;
+  rad_index_ = 0;
+  CommonStart(xmin, y);
+}
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
@@ -518,7 +775,7 @@ template&lt;class BBC , class BBC_CLIST , class BBC_C_IT &gt; </div>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:16 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:52 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

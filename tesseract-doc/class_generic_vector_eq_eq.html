@@ -121,10 +121,13 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_generic_vector_eq_eq.html#aa4940b5052a40842f265ca3f4ba0c36a">GenericVectorEqEq</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_generic_vector_eq_eq.html#a5efa50f0693b50e7e9866ad42887ac04">GenericVectorEqEq</a> (int size)</td></tr>
 </table>
-<h3>template&lt;typename T&gt;<br/>
- class GenericVectorEqEq&lt; T &gt;</h3>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock"><h3>template&lt;typename T&gt;<br/>
+class GenericVectorEqEq&lt; T &gt;</h3>
 
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+
+<p>Definition at line <a class="el" href="genericvector_8h_source.html#l00448">448</a> of file <a class="el" href="genericvector_8h_source.html">genericvector.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="aa4940b5052a40842f265ca3f4ba0c36a"></a><!-- doxytag: member="GenericVectorEqEq::GenericVectorEqEq" ref="aa4940b5052a40842f265ca3f4ba0c36a" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -141,6 +144,12 @@ template&lt;typename T&gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="genericvector_8h_source.html#l00450">450</a> of file <a class="el" href="genericvector_8h_source.html">genericvector.h</a>.</p>
+<div class="fragment"><pre class="fragment">                      {
+    <a class="code" href="class_generic_vector.html#a5fb7cbde5178b72ff3637e8c91e739b7">GenericVector&lt;T&gt;::set_compare_callback</a>(
+        <a class="code" href="tesscallback_8h.html#ad000c6729bae0f97075ca10a0b5bf7d6">NewPermanentTessCallback</a>(tesseract::cmp_eq&lt;T&gt;));
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a5efa50f0693b50e7e9866ad42887ac04"></a><!-- doxytag: member="GenericVectorEqEq::GenericVectorEqEq" ref="a5efa50f0693b50e7e9866ad42887ac04" args="(int size)" -->
@@ -160,6 +169,12 @@ template&lt;typename T&gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="genericvector_8h_source.html#l00454">454</a> of file <a class="el" href="genericvector_8h_source.html">genericvector.h</a>.</p>
+<div class="fragment"><pre class="fragment">                              : <a class="code" href="class_generic_vector.html">GenericVector&lt;T&gt;</a>(<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>) {
+    <a class="code" href="class_generic_vector.html#a5fb7cbde5178b72ff3637e8c91e739b7">GenericVector&lt;T&gt;::set_compare_callback</a>(
+        <a class="code" href="tesscallback_8h.html#ad000c6729bae0f97075ca10a0b5bf7d6">NewPermanentTessCallback</a>(tesseract::cmp_eq&lt;T&gt;));
+  }
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
@@ -185,7 +200,7 @@ template&lt;typename T&gt; </div>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:12 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:46 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

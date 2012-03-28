@@ -151,7 +151,10 @@ Public Member Functions</h2></td></tr>
 Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_tess_lang_mod_edge.html#ae25d25a5c98f6d0a040cd6e04f623c56">CreateChildren</a> (<a class="el" href="classtesseract_1_1_cube_reco_context.html">CubeRecoContext</a> *cntxt, const <a class="el" href="classtesseract_1_1_dawg.html">Dawg</a> *edges, <a class="el" href="dawg_8h.html#ac76aca11806fd7167c274dc45b7f7fe8">NODE_REF</a> edge_reg, <a class="el" href="classtesseract_1_1_lang_mod_edge.html">LangModEdge</a> **lm_edges)</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="tess__lang__mod__edge_8h_source.html#l00068">68</a> of file <a class="el" href="tess__lang__mod__edge_8h_source.html">tess_lang_mod_edge.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="aeb799d029fdc3119ae22a47650a2ff77"></a><!-- doxytag: member="tesseract::TessLangModEdge::TessLangModEdge" ref="aeb799d029fdc3119ae22a47650a2ff77" args="(CubeRecoContext *cntxt, const Dawg *edge_array, EDGE_REF edge, int class_id)" -->
 <div class="memitem">
 <div class="memproto">
@@ -189,6 +192,19 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tess__lang__mod__edge_8cpp_source.html#l00041">41</a> of file <a class="el" href="tess__lang__mod__edge_8cpp_source.html">tess_lang_mod_edge.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                       {
+  root_ = <span class="keyword">false</span>;
+  cntxt_ = cntxt;
+  dawg_ = dawg;
+  start_edge_ = edge_idx;
+  end_edge_ = edge_idx;
+  edge_mask_ = 0;
+  class_id_ = class_id;
+  str_ = cntxt_-&gt;CharacterSet()-&gt;ClassString(class_id);
+  path_cost_ = Cost();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab3b0d8597710212d865000ba682caa24"></a><!-- doxytag: member="tesseract::TessLangModEdge::TessLangModEdge" ref="ab3b0d8597710212d865000ba682caa24" args="(CubeRecoContext *cntxt, const Dawg *edge_array, EDGE_REF start_edge_idx, EDGE_REF end_edge_idx, int class_id)" -->
@@ -234,6 +250,19 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tess__lang__mod__edge_8cpp_source.html#l00055">55</a> of file <a class="el" href="tess__lang__mod__edge_8cpp_source.html">tess_lang_mod_edge.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                               {
+  root_ = <span class="keyword">false</span>;
+  cntxt_ = cntxt;
+  dawg_ = dawg;
+  start_edge_ = start_edge_idx;
+  end_edge_ = end_edge_idx;
+  edge_mask_ = 0;
+  class_id_ = class_id;
+  str_ = cntxt_-&gt;CharacterSet()-&gt;ClassString(class_id);
+  path_cost_ = Cost();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2b5deab93dc548decea6cf7eb45b322f"></a><!-- doxytag: member="tesseract::TessLangModEdge::TessLangModEdge" ref="a2b5deab93dc548decea6cf7eb45b322f" args="(CubeRecoContext *cntxt, int class_id)" -->
@@ -261,6 +290,19 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tess__lang__mod__edge_8cpp_source.html#l00028">28</a> of file <a class="el" href="tess__lang__mod__edge_8cpp_source.html">tess_lang_mod_edge.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                     {
+  root_ = <span class="keyword">false</span>;
+  cntxt_ = cntxt;
+  dawg_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  start_edge_ = 0;
+  end_edge_ = 0;
+  edge_mask_ = 0;
+  class_id_ = class_id;
+  str_ = cntxt_-&gt;CharacterSet()-&gt;ClassString(class_id);
+  path_cost_ = Cost();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7c81c716bb431d27dace7b3393a29de2"></a><!-- doxytag: member="tesseract::TessLangModEdge::~TessLangModEdge" ref="a7c81c716bb431d27dace7b3393a29de2" args="()" -->
@@ -277,6 +319,9 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tess__lang__mod__edge_8h_source.html#l00077">77</a> of file <a class="el" href="tess__lang__mod__edge_8h_source.html">tess_lang_mod_edge.h</a>.</p>
+<div class="fragment"><pre class="fragment">{}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -296,6 +341,9 @@ Static Public Member Functions</h2></td></tr>
 
 <p>Implements <a class="el" href="classtesseract_1_1_lang_mod_edge.html#a4caf57394d94e96f11d02a97293a443b">tesseract::LangModEdge</a>.</p>
 
+<p>Definition at line <a class="el" href="tess__lang__mod__edge_8h_source.html#l00102">102</a> of file <a class="el" href="tess__lang__mod__edge_8h_source.html">tess_lang_mod_edge.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> class_id_; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae25d25a5c98f6d0a040cd6e04f623c56"></a><!-- doxytag: member="tesseract::TessLangModEdge::CreateChildren" ref="ae25d25a5c98f6d0a040cd6e04f623c56" args="(CubeRecoContext *cntxt, const Dawg *edges, NODE_REF edge_reg, LangModEdge **lm_edges)" -->
@@ -335,6 +383,21 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tess__lang__mod__edge_8cpp_source.html#l00104">104</a> of file <a class="el" href="tess__lang__mod__edge_8cpp_source.html">tess_lang_mod_edge.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                              {
+  <span class="keywordtype">int</span> edge_cnt = 0;
+  <a class="code" href="namespacetesseract.html#a5084886f7cd9adefa73d03111d92f593">NodeChildVector</a> vec;
+  dawg-&gt;unichar_ids_of(parent_node, &amp;vec);  <span class="comment">// find all children of the parent</span>
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; vec.size(); ++i) {
+    <span class="keyword">const</span> NodeChild &amp;child = vec[i];
+    <span class="keywordflow">if</span> (child.unichar_id == INVALID_UNICHAR_ID) <span class="keywordflow">continue</span>;
+    edge_array[edge_cnt] =
+      <span class="keyword">new</span> <a class="code" href="classtesseract_1_1_tess_lang_mod_edge.html#aeb799d029fdc3119ae22a47650a2ff77">TessLangModEdge</a>(cntxt, dawg, child.edge_ref, child.unichar_id);
+    <span class="keywordflow">if</span> (edge_array[edge_cnt] != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) edge_cnt++;
+  }
+  <span class="keywordflow">return</span> edge_cnt;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a633a1c6915324d903a7b8d85da7110ce"></a><!-- doxytag: member="tesseract::TessLangModEdge::Description" ref="a633a1c6915324d903a7b8d85da7110ce" args="() const " -->
@@ -353,6 +416,42 @@ Static Public Member Functions</h2></td></tr>
 
 <p>Implements <a class="el" href="classtesseract_1_1_lang_mod_edge.html#ab5669c47ce83226077fbd3f8492e5bd2">tesseract::LangModEdge</a>.</p>
 
+<p>Definition at line <a class="el" href="tess__lang__mod__edge_8cpp_source.html#l00069">69</a> of file <a class="el" href="tess__lang__mod__edge_8cpp_source.html">tess_lang_mod_edge.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                         {
+  <span class="keywordtype">char</span> *char_ptr = <span class="keyword">new</span> <span class="keywordtype">char</span>[256];
+  <span class="keywordflow">if</span> (!char_ptr) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="keywordtype">char</span> dawg_str[256];
+  <span class="keywordtype">char</span> edge_str[32];
+  <span class="keywordflow">if</span> (dawg_ == (Dawg *)<a class="code" href="tess__lang__mod__edge_8h.html#a98e51b44460bd2ee6ff9f6daa36d6e31">DAWG_OOD</a>) {
+    strcpy(dawg_str, <span class="stringliteral">&quot;OOD&quot;</span>);
+  } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (dawg_ == (Dawg *)<a class="code" href="tess__lang__mod__edge_8h.html#af631a733de822313c5960a48010bd9b1">DAWG_NUMBER</a>) {
+    strcpy(dawg_str, <span class="stringliteral">&quot;NUM&quot;</span>);
+  } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (dawg_-&gt;permuter() == SYSTEM_DAWG_PERM) {
+    strcpy(dawg_str, <span class="stringliteral">&quot;Main&quot;</span>);
+  } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (dawg_-&gt;permuter() == USER_DAWG_PERM) {
+    strcpy(dawg_str, <span class="stringliteral">&quot;User&quot;</span>);
+  } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (dawg_-&gt;permuter() == DOC_DAWG_PERM) {
+    strcpy(dawg_str, <span class="stringliteral">&quot;Doc&quot;</span>);
+  } <span class="keywordflow">else</span> {
+    strcpy(dawg_str, <span class="stringliteral">&quot;N/A&quot;</span>);
+  }
+
+  sprintf(edge_str, <span class="stringliteral">&quot;%d&quot;</span>, static_cast&lt;int&gt;(start_edge_));
+  <span class="keywordflow">if</span> (<a class="code" href="tess__lang__mod__edge_8h.html#a680e3c8191626f4d0f9d67dba22e0adb">IsLeadingPuncEdge</a>(edge_mask_)) {
+    strcat(edge_str, <span class="stringliteral">&quot;-LP&quot;</span>);
+  }
+  <span class="keywordflow">if</span> (<a class="code" href="tess__lang__mod__edge_8h.html#a46f74755a19dec523c5eba795fd9b79d">IsTrailingPuncEdge</a>(edge_mask_)) {
+    strcat(edge_str, <span class="stringliteral">&quot;-TP&quot;</span>);
+  }
+  sprintf(char_ptr, <span class="stringliteral">&quot;%s(%s)%s, Wtd Dawg Cost=%d&quot;</span>,
+          dawg_str, edge_str, <a class="code" href="classtesseract_1_1_tess_lang_mod_edge.html#a52a6e1e833effcd67eca6e64b94f82d0">IsEOW</a>() ? <span class="stringliteral">&quot;-EOW-&quot;</span> : <span class="stringliteral">&quot;&quot;</span>, path_cost_);
+
+  <span class="keywordflow">return</span> char_ptr;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4ed7c476cfb97479db4dacda2fe8568b"></a><!-- doxytag: member="tesseract::TessLangModEdge::EdgeMask" ref="a4ed7c476cfb97479db4dacda2fe8568b" args="() const " -->
@@ -369,6 +468,9 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tess__lang__mod__edge_8h_source.html#l00100">100</a> of file <a class="el" href="tess__lang__mod__edge_8h_source.html">tess_lang_mod_edge.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> edge_mask_; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a872d377b48f3fb4568da3ff0b0bf08ec"></a><!-- doxytag: member="tesseract::TessLangModEdge::EdgeString" ref="a872d377b48f3fb4568da3ff0b0bf08ec" args="() const " -->
@@ -387,6 +489,9 @@ Static Public Member Functions</h2></td></tr>
 
 <p>Implements <a class="el" href="classtesseract_1_1_lang_mod_edge.html#a4187741ff5fb8fced6176e83b16b928d">tesseract::LangModEdge</a>.</p>
 
+<p>Definition at line <a class="el" href="tess__lang__mod__edge_8h_source.html#l00101">101</a> of file <a class="el" href="tess__lang__mod__edge_8h_source.html">tess_lang_mod_edge.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> str_; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2d51be9e2c08d55de7a1c25335b87424"></a><!-- doxytag: member="tesseract::TessLangModEdge::EndEdge" ref="a2d51be9e2c08d55de7a1c25335b87424" args="() const " -->
@@ -403,6 +508,9 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tess__lang__mod__edge_8h_source.html#l00099">99</a> of file <a class="el" href="tess__lang__mod__edge_8h_source.html">tess_lang_mod_edge.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> end_edge_; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a0f65636973a798f7202400f9cefd7bef"></a><!-- doxytag: member="tesseract::TessLangModEdge::GetDawg" ref="a0f65636973a798f7202400f9cefd7bef" args="() const " -->
@@ -419,6 +527,9 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tess__lang__mod__edge_8h_source.html#l00097">97</a> of file <a class="el" href="tess__lang__mod__edge_8h_source.html">tess_lang_mod_edge.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> dawg_; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae367533c2d2ce667cc357091042a9d1f"></a><!-- doxytag: member="tesseract::TessLangModEdge::Hash" ref="ae367533c2d2ce667cc357091042a9d1f" args="() const " -->
@@ -437,6 +548,14 @@ Static Public Member Functions</h2></td></tr>
 
 <p>Implements <a class="el" href="classtesseract_1_1_lang_mod_edge.html#a04c2882fb2e15c7fd38050d3e9fd0020">tesseract::LangModEdge</a>.</p>
 
+<p>Definition at line <a class="el" href="tess__lang__mod__edge_8h_source.html#l00178">178</a> of file <a class="el" href="tess__lang__mod__edge_8h_source.html">tess_lang_mod_edge.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                   {
+    <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keywordtype">unsigned</span> <span class="keywordtype">int</span><span class="keyword">&gt;</span>(((start_edge_ | end_edge_) ^
+      ((reinterpret_cast&lt;unsigned long int&gt;(dawg_)))) ^
+      ((<span class="keywordtype">unsigned</span> int)edge_mask_) ^
+      class_id_);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a52a6e1e833effcd67eca6e64b94f82d0"></a><!-- doxytag: member="tesseract::TessLangModEdge::IsEOW" ref="a52a6e1e833effcd67eca6e64b94f82d0" args="() const " -->
@@ -455,6 +574,11 @@ Static Public Member Functions</h2></td></tr>
 
 <p>Implements <a class="el" href="classtesseract_1_1_lang_mod_edge.html#ab107cb811bdbfda4fbd7b2af0bfb505e">tesseract::LangModEdge</a>.</p>
 
+<p>Definition at line <a class="el" href="tess__lang__mod__edge_8h_source.html#l00093">93</a> of file <a class="el" href="tess__lang__mod__edge_8h_source.html">tess_lang_mod_edge.h</a>.</p>
+<div class="fragment"><pre class="fragment">                            {
+    <span class="keywordflow">return</span> (<a class="code" href="classtesseract_1_1_tess_lang_mod_edge.html#a94dce03e7d18eed6a36a4f30c3502b6a">IsTerminal</a>() || (dawg_-&gt;end_of_word(end_edge_) != 0));
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a1b88e84c764ce800071e3d8b37d24693"></a><!-- doxytag: member="tesseract::TessLangModEdge::IsIdentical" ref="a1b88e84c764ce800071e3d8b37d24693" args="(LangModEdge *lang_mod_edge) const " -->
@@ -474,6 +598,20 @@ Static Public Member Functions</h2></td></tr>
 
 <p>Implements <a class="el" href="classtesseract_1_1_lang_mod_edge.html#ac1676b68bb4e4433fbe183d3f3322998">tesseract::LangModEdge</a>.</p>
 
+<p>Definition at line <a class="el" href="tess__lang__mod__edge_8h_source.html#l00189">189</a> of file <a class="el" href="tess__lang__mod__edge_8h_source.html">tess_lang_mod_edge.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                            {
+    <span class="keywordflow">return</span> (class_id_ ==
+        reinterpret_cast&lt;TessLangModEdge *&gt;(lang_mod_edge)-&gt;class_id_ &amp;&amp;
+        str_ == reinterpret_cast&lt;TessLangModEdge *&gt;(lang_mod_edge)-&gt;str_ &amp;&amp;
+        dawg_ == reinterpret_cast&lt;TessLangModEdge *&gt;(lang_mod_edge)-&gt;dawg_ &amp;&amp;
+        start_edge_ ==
+        reinterpret_cast&lt;TessLangModEdge *&gt;(lang_mod_edge)-&gt;start_edge_ &amp;&amp;
+        end_edge_ ==
+        reinterpret_cast&lt;TessLangModEdge *&gt;(lang_mod_edge)-&gt;end_edge_ &amp;&amp;
+        edge_mask_ ==
+        reinterpret_cast&lt;TessLangModEdge *&gt;(lang_mod_edge)-&gt;edge_mask_);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a07bf4e741d906e20c3393b3ab9c3efa6"></a><!-- doxytag: member="tesseract::TessLangModEdge::IsNumber" ref="a07bf4e741d906e20c3393b3ab9c3efa6" args="() const " -->
@@ -490,6 +628,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tess__lang__mod__edge_8h_source.html#l00089">89</a> of file <a class="el" href="tess__lang__mod__edge_8h_source.html">tess_lang_mod_edge.h</a>.</p>
+<div class="fragment"><pre class="fragment">                               {
+    <span class="keywordflow">return</span> (dawg_ == (Dawg *)<a class="code" href="tess__lang__mod__edge_8h.html#af631a733de822313c5960a48010bd9b1">DAWG_NUMBER</a>);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4deba2b471003b762420549f2d3429f0"></a><!-- doxytag: member="tesseract::TessLangModEdge::IsOOD" ref="a4deba2b471003b762420549f2d3429f0" args="() const " -->
@@ -508,6 +651,11 @@ Static Public Member Functions</h2></td></tr>
 
 <p>Implements <a class="el" href="classtesseract_1_1_lang_mod_edge.html#a24d556ce36d63307c9a7195a4da29e0c">tesseract::LangModEdge</a>.</p>
 
+<p>Definition at line <a class="el" href="tess__lang__mod__edge_8h_source.html#l00085">85</a> of file <a class="el" href="tess__lang__mod__edge_8h_source.html">tess_lang_mod_edge.h</a>.</p>
+<div class="fragment"><pre class="fragment">                            {
+    <span class="keywordflow">return</span> (dawg_ == (Dawg *)<a class="code" href="tess__lang__mod__edge_8h.html#a98e51b44460bd2ee6ff9f6daa36d6e31">DAWG_OOD</a>);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa75488be8ff611064bebeb37e92b8f04"></a><!-- doxytag: member="tesseract::TessLangModEdge::IsRoot" ref="aa75488be8ff611064bebeb37e92b8f04" args="() const " -->
@@ -526,6 +674,11 @@ Static Public Member Functions</h2></td></tr>
 
 <p>Implements <a class="el" href="classtesseract_1_1_lang_mod_edge.html#acdcbac70bbb421c944e500da45563fe0">tesseract::LangModEdge</a>.</p>
 
+<p>Definition at line <a class="el" href="tess__lang__mod__edge_8h_source.html#l00080">80</a> of file <a class="el" href="tess__lang__mod__edge_8h_source.html">tess_lang_mod_edge.h</a>.</p>
+<div class="fragment"><pre class="fragment">                             {
+    <span class="keywordflow">return</span> root_;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a94dce03e7d18eed6a36a4f30c3502b6a"></a><!-- doxytag: member="tesseract::TessLangModEdge::IsTerminal" ref="a94dce03e7d18eed6a36a4f30c3502b6a" args="() const " -->
@@ -544,6 +697,12 @@ Static Public Member Functions</h2></td></tr>
 
 <p>Implements <a class="el" href="classtesseract_1_1_lang_mod_edge.html#a8041893a12c0805b34ea50c311460518">tesseract::LangModEdge</a>.</p>
 
+<p>Definition at line <a class="el" href="tess__lang__mod__edge_8h_source.html#l00112">112</a> of file <a class="el" href="tess__lang__mod__edge_8h_source.html">tess_lang_mod_edge.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                 {
+    <span class="keywordflow">return</span> (<a class="code" href="classtesseract_1_1_tess_lang_mod_edge.html#a4deba2b471003b762420549f2d3429f0">IsOOD</a>() || <a class="code" href="classtesseract_1_1_tess_lang_mod_edge.html#a07bf4e741d906e20c3393b3ab9c3efa6">IsNumber</a>() || <a class="code" href="tess__lang__mod__edge_8h.html#a46f74755a19dec523c5eba795fd9b79d">IsTrailingPuncEdge</a>(start_edge_) ||
+            dawg_-&gt;next_node(end_edge_) == 0);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aee915ede33083546da8f7297320ffcc2"></a><!-- doxytag: member="tesseract::TessLangModEdge::PathCost" ref="aee915ede33083546da8f7297320ffcc2" args="() const " -->
@@ -562,6 +721,9 @@ Static Public Member Functions</h2></td></tr>
 
 <p>Implements <a class="el" href="classtesseract_1_1_lang_mod_edge.html#a970086075acc5f211b53825db505ee1d">tesseract::LangModEdge</a>.</p>
 
+<p>Definition at line <a class="el" href="tess__lang__mod__edge_8h_source.html#l00103">103</a> of file <a class="el" href="tess__lang__mod__edge_8h_source.html">tess_lang_mod_edge.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> path_cost_; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="afeb3f0bc4521df5410589e0aafd08db0"></a><!-- doxytag: member="tesseract::TessLangModEdge::SetDawg" ref="afeb3f0bc4521df5410589e0aafd08db0" args="(Dawg *dawg)" -->
@@ -579,6 +741,9 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tess__lang__mod__edge_8h_source.html#l00105">105</a> of file <a class="el" href="tess__lang__mod__edge_8h_source.html">tess_lang_mod_edge.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ dawg_ = dawg; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a220cad69528d5fce2324caac791a32ee"></a><!-- doxytag: member="tesseract::TessLangModEdge::SetEdgeMask" ref="a220cad69528d5fce2324caac791a32ee" args="(EDGE_REF edge_mask)" -->
@@ -596,6 +761,9 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tess__lang__mod__edge_8h_source.html#l00104">104</a> of file <a class="el" href="tess__lang__mod__edge_8h_source.html">tess_lang_mod_edge.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ edge_mask_ = edge_mask; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aed8e3503ce0b836c88f198e9e8f960de"></a><!-- doxytag: member="tesseract::TessLangModEdge::SetEndEdge" ref="aed8e3503ce0b836c88f198e9e8f960de" args="(EDGE_REF edge_idx)" -->
@@ -613,6 +781,9 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tess__lang__mod__edge_8h_source.html#l00107">107</a> of file <a class="el" href="tess__lang__mod__edge_8h_source.html">tess_lang_mod_edge.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ end_edge_ = edge_idx; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a64afc00f99afbcab63045f00fd6d5e8e"></a><!-- doxytag: member="tesseract::TessLangModEdge::SetRoot" ref="a64afc00f99afbcab63045f00fd6d5e8e" args="(bool flag)" -->
@@ -632,6 +803,9 @@ Static Public Member Functions</h2></td></tr>
 
 <p>Implements <a class="el" href="classtesseract_1_1_lang_mod_edge.html#a4dbb34a133e3ca37fb9c5190f2807848">tesseract::LangModEdge</a>.</p>
 
+<p>Definition at line <a class="el" href="tess__lang__mod__edge_8h_source.html#l00083">83</a> of file <a class="el" href="tess__lang__mod__edge_8h_source.html">tess_lang_mod_edge.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ root_ = flag; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa1b2f096bd25dbf71a57c1763977a905"></a><!-- doxytag: member="tesseract::TessLangModEdge::SetSignalWgt" ref="aa1b2f096bd25dbf71a57c1763977a905" args="(int signal, double wgt)" -->
@@ -659,6 +833,23 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tess__lang__mod__edge_8h_source.html#l00144">144</a> of file <a class="el" href="tess__lang__mod__edge_8h_source.html">tess_lang_mod_edge.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                            {
+    CubeTuningParams *params =
+        <span class="keyword">reinterpret_cast&lt;</span>CubeTuningParams *<span class="keyword">&gt;</span>(cntxt_-&gt;Params());
+    <span class="keywordflow">if</span> (params != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      <span class="keywordflow">switch</span> (signal) {
+        <span class="keywordflow">case</span> 0:
+          params-&gt;SetOODWgt(wgt);
+          <span class="keywordflow">break</span>;
+
+        <span class="keywordflow">case</span> 1:
+          params-&gt;SetNumWgt(wgt);
+          <span class="keywordflow">break</span>;
+      }
+    }
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4ba6d2c02ad5801e5b52cc5c79e46023"></a><!-- doxytag: member="tesseract::TessLangModEdge::SetStartEdge" ref="a4ba6d2c02ad5801e5b52cc5c79e46023" args="(EDGE_REF edge_idx)" -->
@@ -676,6 +867,9 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tess__lang__mod__edge_8h_source.html#l00106">106</a> of file <a class="el" href="tess__lang__mod__edge_8h_source.html">tess_lang_mod_edge.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ start_edge_ = edge_idx; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aacf5bc7245539bc429ac73d1d4a5097a"></a><!-- doxytag: member="tesseract::TessLangModEdge::Signal" ref="aacf5bc7245539bc429ac73d1d4a5097a" args="(int signal)" -->
@@ -693,6 +887,22 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tess__lang__mod__edge_8h_source.html#l00161">161</a> of file <a class="el" href="tess__lang__mod__edge_8h_source.html">tess_lang_mod_edge.h</a>.</p>
+<div class="fragment"><pre class="fragment">                         {
+    <span class="keywordflow">switch</span> (signal) {
+      <span class="keywordflow">case</span> 0:
+        <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_tess_lang_mod_edge.html#a4deba2b471003b762420549f2d3429f0">IsOOD</a>() ? <a class="code" href="cube__const_8h.html#a7d98e096ee6e9bda7836df456b6b25e6">MIN_PROB_COST</a> : 0;
+        <span class="keywordflow">break</span>;
+
+      <span class="keywordflow">case</span> 1:
+        <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_tess_lang_mod_edge.html#a07bf4e741d906e20c3393b3ab9c3efa6">IsNumber</a>() ? <a class="code" href="cube__const_8h.html#a7d98e096ee6e9bda7836df456b6b25e6">MIN_PROB_COST</a> : 0;
+        <span class="keywordflow">break</span>;
+
+      <span class="keywordflow">default</span>:
+        <span class="keywordflow">return</span> 0;
+    }
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aeb0c443e2db6fd0591c50dc04c543f0c"></a><!-- doxytag: member="tesseract::TessLangModEdge::SignalCnt" ref="aeb0c443e2db6fd0591c50dc04c543f0c" args="() const " -->
@@ -709,6 +919,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tess__lang__mod__edge_8h_source.html#l00120">120</a> of file <a class="el" href="tess__lang__mod__edge_8h_source.html">tess_lang_mod_edge.h</a>.</p>
+<div class="fragment"><pre class="fragment">                               {
+    <span class="keywordflow">return</span> 2;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a16d9ff6f651b2038ed95d88e897affc7"></a><!-- doxytag: member="tesseract::TessLangModEdge::SignalWgt" ref="a16d9ff6f651b2038ed95d88e897affc7" args="(int signal) const " -->
@@ -726,6 +941,25 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tess__lang__mod__edge_8h_source.html#l00125">125</a> of file <a class="el" href="tess__lang__mod__edge_8h_source.html">tess_lang_mod_edge.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                            {
+    CubeTuningParams *params =
+        <span class="keyword">reinterpret_cast&lt;</span>CubeTuningParams *<span class="keyword">&gt;</span>(cntxt_-&gt;Params());
+    <span class="keywordflow">if</span> (params != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      <span class="keywordflow">switch</span> (signal) {
+        <span class="keywordflow">case</span> 0:
+          <span class="keywordflow">return</span> params-&gt;OODWgt();
+          <span class="keywordflow">break</span>;
+
+        <span class="keywordflow">case</span> 1:
+          <span class="keywordflow">return</span> params-&gt;NumWgt();
+          <span class="keywordflow">break</span>;
+      }
+    }
+
+    <span class="keywordflow">return</span> 0.0;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a5969c8d614bcb3c156e9c429705082ba"></a><!-- doxytag: member="tesseract::TessLangModEdge::StartEdge" ref="a5969c8d614bcb3c156e9c429705082ba" args="() const " -->
@@ -742,11 +976,14 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tess__lang__mod__edge_8h_source.html#l00098">98</a> of file <a class="el" href="tess__lang__mod__edge_8h_source.html">tess_lang_mod_edge.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> start_edge_; }
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/cube/<a class="el" href="tess__lang__mod__edge_8h_source.html">tess_lang_mod_edge.h</a></li>
-<li>tesseract-ocr/cube/<a class="el" href="tess__lang__mod__edge_8cpp.html">tess_lang_mod_edge.cpp</a></li>
+<li>tesseract-ocr/cube/<a class="el" href="tess__lang__mod__edge_8cpp_source.html">tess_lang_mod_edge.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -769,7 +1006,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:15 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:51 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

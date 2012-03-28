@@ -149,7 +149,10 @@ Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_i_c_o_o_r_d.html">ICOORD</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_grid_base.html#a5f09e93ec22c3f7a245eb6611309d8d6">bleft_</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_i_c_o_o_r_d.html">ICOORD</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_grid_base.html#ac348165d112922b3d956f924405012cd">tright_</a></td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="bbgrid_8h_source.html#l00057">57</a> of file <a class="el" href="bbgrid_8h_source.html">bbgrid.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="ac1ea91a905041f0fa896bec740903a77"></a><!-- doxytag: member="tesseract::GridBase::GridBase" ref="ac1ea91a905041f0fa896bec740903a77" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -164,6 +167,10 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bbgrid_8cpp_source.html#l00030">30</a> of file <a class="el" href="bbgrid_8cpp_source.html">bbgrid.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                   {
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a52bfcebedaa848425b8e2d228df559b6"></a><!-- doxytag: member="tesseract::GridBase::GridBase" ref="a52bfcebedaa848425b8e2d228df559b6" args="(int gridsize, const ICOORD &amp;bleft, const ICOORD &amp;tright)" -->
@@ -197,6 +204,11 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bbgrid_8cpp_source.html#l00033">33</a> of file <a class="el" href="bbgrid_8cpp_source.html">bbgrid.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                          {
+  <a class="code" href="classtesseract_1_1_grid_base.html#a9e23ba0f9d310510c9a2b3a38f11e683">Init</a>(<a class="code" href="classtesseract_1_1_grid_base.html#afff2cee730084711205977b5fcb4901e">gridsize</a>, bleft, tright);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7ee16480a8ca444d7847850ac0115813"></a><!-- doxytag: member="tesseract::GridBase::~GridBase" ref="a7ee16480a8ca444d7847850ac0115813" args="()" -->
@@ -213,6 +225,10 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bbgrid_8cpp_source.html#l00037">37</a> of file <a class="el" href="bbgrid_8cpp_source.html">bbgrid.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                    {
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -230,6 +246,11 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bbgrid_8h_source.html#l00077">77</a> of file <a class="el" href="bbgrid_8h_source.html">bbgrid.h</a>.</p>
+<div class="fragment"><pre class="fragment">                              {
+    <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_grid_base.html#a5f09e93ec22c3f7a245eb6611309d8d6">bleft_</a>;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6349387c9d98fae34cf247b12cdc5a00"></a><!-- doxytag: member="tesseract::GridBase::ClipGridCoords" ref="a6349387c9d98fae34cf247b12cdc5a00" args="(int *x, int *y) const " -->
@@ -257,6 +278,12 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bbgrid_8cpp_source.html#l00061">61</a> of file <a class="el" href="bbgrid_8cpp_source.html">bbgrid.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                  {
+  *x = <a class="code" href="helpers_8h.html#af8739168d5b3235996eeb25dac3c4044">ClipToRange</a>(*x, 0, <a class="code" href="classtesseract_1_1_grid_base.html#a429c00f7b3ea66cfd63a75cfa2c1b43d">gridwidth_</a> - 1);
+  *y = <a class="code" href="helpers_8h.html#af8739168d5b3235996eeb25dac3c4044">ClipToRange</a>(*y, 0, <a class="code" href="classtesseract_1_1_grid_base.html#ae70ca33c0676a296720fea5ddc0aa5cc">gridheight_</a> - 1);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9cb158bba184d657c51257b98eea9f8f"></a><!-- doxytag: member="tesseract::GridBase::GridCoords" ref="a9cb158bba184d657c51257b98eea9f8f" args="(int x, int y, int *grid_x, int *grid_y) const " -->
@@ -296,6 +323,13 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bbgrid_8cpp_source.html#l00054">54</a> of file <a class="el" href="bbgrid_8cpp_source.html">bbgrid.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                      {
+  *grid_x = (x - <a class="code" href="classtesseract_1_1_grid_base.html#a5f09e93ec22c3f7a245eb6611309d8d6">bleft_</a>.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a>()) / <a class="code" href="classtesseract_1_1_grid_base.html#a0758dd90d5ce47e504a4148f4cda33f3">gridsize_</a>;
+  *grid_y = (y - <a class="code" href="classtesseract_1_1_grid_base.html#a5f09e93ec22c3f7a245eb6611309d8d6">bleft_</a>.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a>()) / <a class="code" href="classtesseract_1_1_grid_base.html#a0758dd90d5ce47e504a4148f4cda33f3">gridsize_</a>;
+  <a class="code" href="classtesseract_1_1_grid_base.html#a6349387c9d98fae34cf247b12cdc5a00">ClipGridCoords</a>(grid_x, grid_y);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a07e6b230c150180d009ef1f317e642f2"></a><!-- doxytag: member="tesseract::GridBase::gridheight" ref="a07e6b230c150180d009ef1f317e642f2" args="() const " -->
@@ -312,6 +346,11 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bbgrid_8h_source.html#l00074">74</a> of file <a class="el" href="bbgrid_8h_source.html">bbgrid.h</a>.</p>
+<div class="fragment"><pre class="fragment">                         {
+    <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_grid_base.html#ae70ca33c0676a296720fea5ddc0aa5cc">gridheight_</a>;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="afff2cee730084711205977b5fcb4901e"></a><!-- doxytag: member="tesseract::GridBase::gridsize" ref="afff2cee730084711205977b5fcb4901e" args="() const " -->
@@ -328,6 +367,11 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bbgrid_8h_source.html#l00068">68</a> of file <a class="el" href="bbgrid_8h_source.html">bbgrid.h</a>.</p>
+<div class="fragment"><pre class="fragment">                       {
+    <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_grid_base.html#a0758dd90d5ce47e504a4148f4cda33f3">gridsize_</a>;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a0a38ea995b9d65f8b67d66d5501a5b80"></a><!-- doxytag: member="tesseract::GridBase::gridwidth" ref="a0a38ea995b9d65f8b67d66d5501a5b80" args="() const " -->
@@ -344,6 +388,11 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bbgrid_8h_source.html#l00071">71</a> of file <a class="el" href="bbgrid_8h_source.html">bbgrid.h</a>.</p>
+<div class="fragment"><pre class="fragment">                        {
+    <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_grid_base.html#a429c00f7b3ea66cfd63a75cfa2c1b43d">gridwidth_</a>;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9e23ba0f9d310510c9a2b3a38f11e683"></a><!-- doxytag: member="tesseract::GridBase::Init" ref="a9e23ba0f9d310510c9a2b3a38f11e683" args="(int gridsize, const ICOORD &amp;bleft, const ICOORD &amp;tright)" -->
@@ -379,6 +428,18 @@ Protected Attributes</h2></td></tr>
 
 <p>Reimplemented in <a class="el" href="classtesseract_1_1_b_b_grid.html#a1d2990adf323d7910fbf87b6fc3a7415">tesseract::BBGrid&lt; BBC, BBC_CLIST, BBC_C_IT &gt;</a>, <a class="el" href="classtesseract_1_1_b_b_grid.html#a1d2990adf323d7910fbf87b6fc3a7415">tesseract::BBGrid&lt; ColSegment, ColSegment_CLIST, ColSegment_C_IT &gt;</a>, <a class="el" href="classtesseract_1_1_b_b_grid.html#a1d2990adf323d7910fbf87b6fc3a7415">tesseract::BBGrid&lt; BLOBNBOX, BLOBNBOX_CLIST, BLOBNBOX_C_IT &gt;</a>, <a class="el" href="classtesseract_1_1_b_b_grid.html#a1d2990adf323d7910fbf87b6fc3a7415">tesseract::BBGrid&lt; ColPartition, ColPartition_CLIST, ColPartition_C_IT &gt;</a>, and <a class="el" href="classtesseract_1_1_int_grid.html#a5f8aae7fd3be5e1f041e499906dd057f">tesseract::IntGrid</a>.</p>
 
+<p>Definition at line <a class="el" href="bbgrid_8cpp_source.html#l00042">42</a> of file <a class="el" href="bbgrid_8cpp_source.html">bbgrid.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                           {
+  <a class="code" href="classtesseract_1_1_grid_base.html#a0758dd90d5ce47e504a4148f4cda33f3">gridsize_</a> = <a class="code" href="classtesseract_1_1_grid_base.html#afff2cee730084711205977b5fcb4901e">gridsize</a>;
+  <a class="code" href="classtesseract_1_1_grid_base.html#a5f09e93ec22c3f7a245eb6611309d8d6">bleft_</a> = <a class="code" href="classtesseract_1_1_grid_base.html#ad20b2cb8eb2bf52871d5260c04949cce">bleft</a>;
+  <a class="code" href="classtesseract_1_1_grid_base.html#ac348165d112922b3d956f924405012cd">tright_</a> = <a class="code" href="classtesseract_1_1_grid_base.html#aa94e147841b6a4fae0b28e7e872685a5">tright</a>;
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_grid_base.html#a0758dd90d5ce47e504a4148f4cda33f3">gridsize_</a> == 0)
+    <a class="code" href="classtesseract_1_1_grid_base.html#a0758dd90d5ce47e504a4148f4cda33f3">gridsize_</a> = 1;
+  <a class="code" href="classtesseract_1_1_grid_base.html#a429c00f7b3ea66cfd63a75cfa2c1b43d">gridwidth_</a> = (tright.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a>() - bleft.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a>() + <a class="code" href="classtesseract_1_1_grid_base.html#a0758dd90d5ce47e504a4148f4cda33f3">gridsize_</a> - 1) / <a class="code" href="classtesseract_1_1_grid_base.html#a0758dd90d5ce47e504a4148f4cda33f3">gridsize_</a>;
+  <a class="code" href="classtesseract_1_1_grid_base.html#ae70ca33c0676a296720fea5ddc0aa5cc">gridheight_</a> = (tright.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a>() - bleft.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a>() + <a class="code" href="classtesseract_1_1_grid_base.html#a0758dd90d5ce47e504a4148f4cda33f3">gridsize_</a> - 1) / <a class="code" href="classtesseract_1_1_grid_base.html#a0758dd90d5ce47e504a4148f4cda33f3">gridsize_</a>;
+  <a class="code" href="classtesseract_1_1_grid_base.html#adcda3a0efeed2a95fc777fc7127898a6">gridbuckets_</a> = <a class="code" href="classtesseract_1_1_grid_base.html#a429c00f7b3ea66cfd63a75cfa2c1b43d">gridwidth_</a> * <a class="code" href="classtesseract_1_1_grid_base.html#ae70ca33c0676a296720fea5ddc0aa5cc">gridheight_</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa94e147841b6a4fae0b28e7e872685a5"></a><!-- doxytag: member="tesseract::GridBase::tright" ref="aa94e147841b6a4fae0b28e7e872685a5" args="() const " -->
@@ -395,6 +456,11 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bbgrid_8h_source.html#l00080">80</a> of file <a class="el" href="bbgrid_8h_source.html">bbgrid.h</a>.</p>
+<div class="fragment"><pre class="fragment">                               {
+    <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_grid_base.html#ac348165d112922b3d956f924405012cd">tright_</a>;
+  }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
@@ -409,6 +475,8 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bbgrid_8h_source.html#l00095">95</a> of file <a class="el" href="bbgrid_8h_source.html">bbgrid.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="adcda3a0efeed2a95fc777fc7127898a6"></a><!-- doxytag: member="tesseract::GridBase::gridbuckets_" ref="adcda3a0efeed2a95fc777fc7127898a6" args="" -->
@@ -421,6 +489,8 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="bbgrid_8h_source.html#l00094">94</a> of file <a class="el" href="bbgrid_8h_source.html">bbgrid.h</a>.</p>
 
 </div>
 </div>
@@ -435,6 +505,8 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bbgrid_8h_source.html#l00093">93</a> of file <a class="el" href="bbgrid_8h_source.html">bbgrid.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a0758dd90d5ce47e504a4148f4cda33f3"></a><!-- doxytag: member="tesseract::GridBase::gridsize_" ref="a0758dd90d5ce47e504a4148f4cda33f3" args="" -->
@@ -447,6 +519,8 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="bbgrid_8h_source.html#l00091">91</a> of file <a class="el" href="bbgrid_8h_source.html">bbgrid.h</a>.</p>
 
 </div>
 </div>
@@ -461,6 +535,8 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bbgrid_8h_source.html#l00092">92</a> of file <a class="el" href="bbgrid_8h_source.html">bbgrid.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ac348165d112922b3d956f924405012cd"></a><!-- doxytag: member="tesseract::GridBase::tright_" ref="ac348165d112922b3d956f924405012cd" args="" -->
@@ -474,11 +550,13 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bbgrid_8h_source.html#l00096">96</a> of file <a class="el" href="bbgrid_8h_source.html">bbgrid.h</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/textord/<a class="el" href="bbgrid_8h_source.html">bbgrid.h</a></li>
-<li>tesseract-ocr/textord/<a class="el" href="bbgrid_8cpp.html">bbgrid.cpp</a></li>
+<li>tesseract-ocr/textord/<a class="el" href="bbgrid_8cpp_source.html">bbgrid.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -501,7 +579,7 @@ Protected Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:16 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:52 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

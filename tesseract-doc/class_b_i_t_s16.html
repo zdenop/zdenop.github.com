@@ -120,7 +120,10 @@ Public Member Functions</h2></td></tr>
 Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="host_8h.html#acb2dfad543247740dab87d31bb49dfff">uinT16</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_b_i_t_s16.html#a7d262d8e7cc027b2faa748dee3c8c575">val</a></td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="bits16_8h_source.html#l00025">25</a> of file <a class="el" href="bits16_8h_source.html">bits16.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a82000c01cdaf560b80ed1e831bcdf303"></a><!-- doxytag: member="BITS16::BITS16" ref="a82000c01cdaf560b80ed1e831bcdf303" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -135,6 +138,11 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bits16_8h_source.html#l00030">30</a> of file <a class="el" href="bits16_8h_source.html">bits16.h</a>.</p>
+<div class="fragment"><pre class="fragment">             {
+      <a class="code" href="class_b_i_t_s16.html#a7d262d8e7cc027b2faa748dee3c8c575">val</a> = 0;
+    }                            <span class="comment">// constructor</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a1a1df5568dbdc59c1be83f41270c77c4"></a><!-- doxytag: member="BITS16::BITS16" ref="a1a1df5568dbdc59c1be83f41270c77c4" args="(uinT16 init)" -->
@@ -152,6 +160,11 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bits16_8cpp_source.html#l00027">27</a> of file <a class="el" href="bits16_8cpp_source.html">bits16.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                            {  <span class="comment">// initial val</span>
+  <a class="code" href="class_b_i_t_s16.html#a7d262d8e7cc027b2faa748dee3c8c575">val</a> = init;
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -170,6 +183,11 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bits16_8h_source.html#l00056">56</a> of file <a class="el" href="bits16_8h_source.html">bits16.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                   {  <span class="comment">// bit to access</span>
+      <span class="keywordflow">return</span> (<a class="code" href="class_b_i_t_s16.html#a7d262d8e7cc027b2faa748dee3c8c575">val</a> &gt;&gt; bit_num) &amp; 01;
+    };
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4ddf1ce50aaa629cfc6f36af545e23ea"></a><!-- doxytag: member="BITS16::set_bit" ref="a4ddf1ce50aaa629cfc6f36af545e23ea" args="(uinT8 bit_num, BOOL8 value)" -->
@@ -197,6 +215,14 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bits16_8h_source.html#l00047">47</a> of file <a class="el" href="bits16_8h_source.html">bits16.h</a>.</p>
+<div class="fragment"><pre class="fragment">                              {  <span class="comment">// value to flip to</span>
+      <span class="keywordflow">if</span> (value)
+        <a class="code" href="class_b_i_t_s16.html#a7d262d8e7cc027b2faa748dee3c8c575">val</a> = <a class="code" href="class_b_i_t_s16.html#a7d262d8e7cc027b2faa748dee3c8c575">val</a> | 01 &lt;&lt; bit_num;
+      <span class="keywordflow">else</span>
+        <a class="code" href="class_b_i_t_s16.html#a7d262d8e7cc027b2faa748dee3c8c575">val</a> = <a class="code" href="class_b_i_t_s16.html#a7d262d8e7cc027b2faa748dee3c8c575">val</a> &amp; ~(01 &lt;&lt; bit_num);
+    };
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa8e724dcb0c4f3ead1323302f388dd09"></a><!-- doxytag: member="BITS16::turn_off_bit" ref="aa8e724dcb0c4f3ead1323302f388dd09" args="(uinT8 bit_num)" -->
@@ -214,6 +240,11 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bits16_8h_source.html#l00042">42</a> of file <a class="el" href="bits16_8h_source.html">bits16.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                     {  <span class="comment">// bit to flip 0..7</span>
+      <a class="code" href="class_b_i_t_s16.html#a7d262d8e7cc027b2faa748dee3c8c575">val</a> = <a class="code" href="class_b_i_t_s16.html#a7d262d8e7cc027b2faa748dee3c8c575">val</a> &amp; ~(01 &lt;&lt; bit_num);
+    };
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a27b6763e650c847e1405d4c577e41099"></a><!-- doxytag: member="BITS16::turn_on_bit" ref="a27b6763e650c847e1405d4c577e41099" args="(uinT8 bit_num)" -->
@@ -231,6 +262,11 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bits16_8h_source.html#l00037">37</a> of file <a class="el" href="bits16_8h_source.html">bits16.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                    {  <span class="comment">// bit to flip 0..7</span>
+      <a class="code" href="class_b_i_t_s16.html#a7d262d8e7cc027b2faa748dee3c8c575">val</a> = <a class="code" href="class_b_i_t_s16.html#a7d262d8e7cc027b2faa748dee3c8c575">val</a> | 01 &lt;&lt; bit_num;
+    };
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
@@ -245,11 +281,13 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bits16_8h_source.html#l00028">28</a> of file <a class="el" href="bits16_8h_source.html">bits16.h</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/ccutil/<a class="el" href="bits16_8h_source.html">bits16.h</a></li>
-<li>tesseract-ocr/ccutil/<a class="el" href="bits16_8cpp.html">bits16.cpp</a></li>
+<li>tesseract-ocr/ccutil/<a class="el" href="bits16_8cpp_source.html">bits16.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -271,7 +309,7 @@ Public Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:11 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:45 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

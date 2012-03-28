@@ -129,7 +129,10 @@ Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_tessdata_manager.html#ac6b082ed8a3100a594a3198d26807aef">TessdataTypeFromFileSuffix</a> (const char *suffix, <a class="el" href="namespacetesseract.html#a5f278974ef80900b460194614d4f1899">TessdataType</a> *type, bool *text_file)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_tessdata_manager.html#a3171a99cf61d5f3994a5abf2911161da">TessdataTypeFromFileName</a> (const char *filename, <a class="el" href="namespacetesseract.html#a5f278974ef80900b460194614d4f1899">TessdataType</a> *type, bool *text_file)</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="tessdatamanager_8h_source.html#l00131">131</a> of file <a class="el" href="tessdatamanager_8h_source.html">tessdatamanager.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="af776d5d04c22626406d818c2cd836b0e"></a><!-- doxytag: member="tesseract::TessdataManager::TessdataManager" ref="af776d5d04c22626406d818c2cd836b0e" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -144,6 +147,15 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tessdatamanager_8h_source.html#l00133">133</a> of file <a class="el" href="tessdatamanager_8h_source.html">tessdatamanager.h</a>.</p>
+<div class="fragment"><pre class="fragment">                    {
+    data_file_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    actual_tessdata_num_entries_ = 0;
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="namespacetesseract.html#a5f278974ef80900b460194614d4f1899ae23733dd332d50ddb3b0be7990b1538c">TESSDATA_NUM_ENTRIES</a>; ++i) {
+      offset_table_[i] = -1;
+    }
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aafa3cdb993705f4ea53a80b47e0726e9"></a><!-- doxytag: member="tesseract::TessdataManager::~TessdataManager" ref="aafa3cdb993705f4ea53a80b47e0726e9" args="()" -->
@@ -160,6 +172,9 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tessdatamanager_8h_source.html#l00140">140</a> of file <a class="el" href="tessdatamanager_8h_source.html">tessdatamanager.h</a>.</p>
+<div class="fragment"><pre class="fragment">{}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -189,6 +204,57 @@ Static Public Member Functions</h2></td></tr>
 <div class="memdoc">
 <p>Reads all the standard tesseract config and data files for a language at the given path and bundles them up into one binary data file. Returns true if the combined traineddata file was successfully written. </p>
 
+<p>Definition at line <a class="el" href="tessdatamanager_8cpp_source.html#l00108">108</a> of file <a class="el" href="tessdatamanager_8cpp_source.html">tessdatamanager.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                 {
+  <span class="keywordtype">int</span> i;
+  <a class="code" href="host_8h.html#ac53c9cafaf7fe16f985994c49f6b0964">inT64</a> offset_table[<a class="code" href="namespacetesseract.html#a5f278974ef80900b460194614d4f1899ae23733dd332d50ddb3b0be7990b1538c">TESSDATA_NUM_ENTRIES</a>];
+  <span class="keywordflow">for</span> (i = 0; i &lt; <a class="code" href="namespacetesseract.html#a5f278974ef80900b460194614d4f1899ae23733dd332d50ddb3b0be7990b1538c">TESSDATA_NUM_ENTRIES</a>; ++i) offset_table[i] = -1;
+  FILE *output_file = fopen(output_filename, <span class="stringliteral">&quot;wb&quot;</span>);
+  <span class="keywordflow">if</span> (output_file == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Error opening %s for writing\n&quot;</span>, output_filename);
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+  <span class="comment">// Leave some space for recording the offset_table.</span>
+  fseek(output_file,
+        <span class="keyword">sizeof</span>(<a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a>) + <span class="keyword">sizeof</span>(<a class="code" href="host_8h.html#ac53c9cafaf7fe16f985994c49f6b0964">inT64</a>) * TESSDATA_NUM_ENTRIES, SEEK_SET);
+
+  <a class="code" href="namespacetesseract.html#a5f278974ef80900b460194614d4f1899">TessdataType</a> type = <a class="code" href="namespacetesseract.html#a5f278974ef80900b460194614d4f1899ae23733dd332d50ddb3b0be7990b1538c">TESSDATA_NUM_ENTRIES</a>;
+  <span class="keywordtype">bool</span> text_file = <span class="keyword">false</span>;
+  FILE *file_ptr[<a class="code" href="namespacetesseract.html#a5f278974ef80900b460194614d4f1899ae23733dd332d50ddb3b0be7990b1538c">TESSDATA_NUM_ENTRIES</a>];
+
+  <span class="comment">// Load individual tessdata components from files.</span>
+  <span class="keywordflow">for</span> (i = 0; i &lt; <a class="code" href="namespacetesseract.html#a5f278974ef80900b460194614d4f1899ae23733dd332d50ddb3b0be7990b1538c">TESSDATA_NUM_ENTRIES</a>; ++i) {
+    <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(<a class="code" href="classtesseract_1_1_tessdata_manager.html#ac6b082ed8a3100a594a3198d26807aef">TessdataTypeFromFileSuffix</a>(
+        kTessdataFileSuffixes[i], &amp;type, &amp;text_file));
+    <a class="code" href="class_s_t_r_i_n_g.html">STRING</a> filename = language_data_path_prefix;
+    filename += kTessdataFileSuffixes[i];
+    file_ptr[i] =  fopen(filename.<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a>(), <span class="stringliteral">&quot;rb&quot;</span>);
+    <span class="keywordflow">if</span> (file_ptr[i] != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      offset_table[type] = ftell(output_file);
+      <a class="code" href="classtesseract_1_1_tessdata_manager.html#aaf4f11b6c7168a84a31b301e679f2c51">CopyFile</a>(file_ptr[i], output_file, text_file, -1);
+      fclose(file_ptr[i]);
+    }
+  }
+
+  <span class="comment">// Make sure that the required components are present.</span>
+  <span class="keywordflow">if</span> (file_ptr[<a class="code" href="namespacetesseract.html#a5f278974ef80900b460194614d4f1899a54d433c57446ba87f95299d42d324a18">TESSDATA_UNICHARSET</a>] == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Error opening unicharset file\n&quot;</span>);
+    fclose(output_file);
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+  <span class="keywordflow">if</span> (file_ptr[<a class="code" href="namespacetesseract.html#a5f278974ef80900b460194614d4f1899adfd87e838c95bfbdab3d08399e36b362">TESSDATA_INTTEMP</a>] != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp;
+      (file_ptr[<a class="code" href="namespacetesseract.html#a5f278974ef80900b460194614d4f1899afe6ffc645055800e632965abcbc9c501">TESSDATA_PFFMTABLE</a>] == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> ||
+       file_ptr[<a class="code" href="namespacetesseract.html#a5f278974ef80900b460194614d4f1899a54f23d768a3b4d9d8cfd2513f5101d66">TESSDATA_NORMPROTO</a>] == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Error opening pffmtable and/or normproto files&quot;</span>
+            <span class="stringliteral">&quot; while inttemp file was present\n&quot;</span>);
+    fclose(output_file);
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+
+  <a class="code" href="classtesseract_1_1_tessdata_manager.html#ab2416accf8953092865410829761b95f">WriteMetadata</a>(offset_table, output_file);
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aaf4f11b6c7168a84a31b301e679f2c51"></a><!-- doxytag: member="tesseract::TessdataManager::CopyFile" ref="aaf4f11b6c7168a84a31b301e679f2c51" args="(FILE *input_file, FILE *output_file, bool newline_end, inT64 num_bytes_to_copy)" -->
@@ -229,6 +295,33 @@ Static Public Member Functions</h2></td></tr>
 <div class="memdoc">
 <p>Copies data from the given input file to the output_file provided. If num_bytes_to_copy is &gt;= 0, only num_bytes_to_copy is copied from the input file, otherwise all the data in the input file is copied. </p>
 
+<p>Definition at line <a class="el" href="tessdatamanager_8cpp_source.html#l00068">68</a> of file <a class="el" href="tessdatamanager_8cpp_source.html">tessdatamanager.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                          {
+  <span class="keywordflow">if</span> (num_bytes_to_copy == 0) <span class="keywordflow">return</span>;
+  <span class="keywordtype">int</span> buffer_size = 1024;
+  <span class="keywordflow">if</span> (num_bytes_to_copy &gt; 0 &amp;&amp; buffer_size &gt; num_bytes_to_copy) {
+    buffer_size = num_bytes_to_copy;
+  }
+  <a class="code" href="host_8h.html#ac53c9cafaf7fe16f985994c49f6b0964">inT64</a> num_bytes_copied = 0;
+  <span class="keywordtype">char</span> *chunk = <span class="keyword">new</span> <span class="keywordtype">char</span>[buffer_size];
+  <span class="keywordtype">int</span> bytes_read;
+  <span class="keywordtype">char</span> last_char = 0x0;
+  <span class="keywordflow">while</span> ((bytes_read = fread(chunk, <span class="keyword">sizeof</span>(<span class="keywordtype">char</span>),
+                             buffer_size, input_file))) {
+    fwrite(chunk, <span class="keyword">sizeof</span>(<span class="keywordtype">char</span>), bytes_read, output_file);
+    last_char = chunk[bytes_read-1];
+    <span class="keywordflow">if</span> (num_bytes_to_copy &gt; 0) {
+      num_bytes_copied += bytes_read;
+      <span class="keywordflow">if</span> (num_bytes_copied == num_bytes_to_copy) <span class="keywordflow">break</span>;
+      <span class="keywordflow">if</span> (num_bytes_copied + buffer_size &gt; num_bytes_to_copy) {
+        buffer_size = num_bytes_to_copy - num_bytes_copied;
+      }
+    }
+  }
+  <span class="keywordflow">if</span> (newline_end) <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(last_char == <span class="charliteral">&#39;\n&#39;</span>);
+  <span class="keyword">delete</span>[] chunk;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4c1d7ef19d7917740f1034980d0876fc"></a><!-- doxytag: member="tesseract::TessdataManager::DebugLevel" ref="a4c1d7ef19d7917740f1034980d0876fc" args="()" -->
@@ -245,6 +338,9 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tessdatamanager_8h_source.html#l00141">141</a> of file <a class="el" href="tessdatamanager_8h_source.html">tessdatamanager.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> debug_level_; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a0ae65528c20fa00ca26c1899f9edd30b"></a><!-- doxytag: member="tesseract::TessdataManager::End" ref="a0ae65528c20fa00ca26c1899f9edd30b" args="()" -->
@@ -262,6 +358,14 @@ Static Public Member Functions</h2></td></tr>
 <div class="memdoc">
 <p>Closes data_file_ (if it was opened by <a class="el" href="classtesseract_1_1_tessdata_manager.html#a00b72ae89511f2439887c4a48727ad75">Init()</a>). </p>
 
+<p>Definition at line <a class="el" href="tessdatamanager_8h_source.html#l00187">187</a> of file <a class="el" href="tessdatamanager_8h_source.html">tessdatamanager.h</a>.</p>
+<div class="fragment"><pre class="fragment">                    {
+    <span class="keywordflow">if</span> (data_file_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      fclose(data_file_);
+      data_file_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    }
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a735169c99fb52b985aeed260bf52681c"></a><!-- doxytag: member="tesseract::TessdataManager::ExtractToFile" ref="a735169c99fb52b985aeed260bf52681c" args="(const char *filename)" -->
@@ -281,6 +385,28 @@ Static Public Member Functions</h2></td></tr>
 <p>Extracts tessdata component implied by the name of the input file from the combined traineddata loaded into <a class="el" href="classtesseract_1_1_tessdata_manager.html">TessdataManager</a>. Writes the extracted component to the file indicated by the file name. E.g. if the filename given is somepath/somelang.unicharset, unicharset will be extracted from the data loaded into the <a class="el" href="classtesseract_1_1_tessdata_manager.html">TessdataManager</a> and will be written to somepath/somelang.unicharset. </p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>true if the component was successfully extracted, false if the component was not present in the traineddata loaded into <a class="el" href="classtesseract_1_1_tessdata_manager.html">TessdataManager</a>. </dd></dl>
 
+<p>Definition at line <a class="el" href="tessdatamanager_8cpp_source.html#l00233">233</a> of file <a class="el" href="tessdatamanager_8cpp_source.html">tessdatamanager.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                        {
+  <a class="code" href="namespacetesseract.html#a5f278974ef80900b460194614d4f1899">TessdataType</a> type = <a class="code" href="namespacetesseract.html#a5f278974ef80900b460194614d4f1899ae23733dd332d50ddb3b0be7990b1538c">TESSDATA_NUM_ENTRIES</a>;
+  <span class="keywordtype">bool</span> text_file = <span class="keyword">false</span>;
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(<a class="code" href="classtesseract_1_1_tessdata_manager.html#a3171a99cf61d5f3994a5abf2911161da">tesseract::TessdataManager::TessdataTypeFromFileName</a>(
+      filename, &amp;type, &amp;text_file));
+  <span class="keywordflow">if</span> (!<a class="code" href="classtesseract_1_1_tessdata_manager.html#a303e0f9733b2a55796b0178ba184f6b2">SeekToStart</a>(type)) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+
+  FILE *output_file = fopen(filename, <span class="stringliteral">&quot;wb&quot;</span>);
+  <span class="keywordflow">if</span> (output_file == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    printf(<span class="stringliteral">&quot;Error openning %s\n&quot;</span>, filename);
+    exit(1);
+  }
+  <a class="code" href="host_8h.html#ac53c9cafaf7fe16f985994c49f6b0964">inT64</a> begin_offset = ftell(<a class="code" href="classtesseract_1_1_tessdata_manager.html#ad5be8f7fcf884390b22f02788330d82f">GetDataFilePtr</a>());
+  <a class="code" href="host_8h.html#ac53c9cafaf7fe16f985994c49f6b0964">inT64</a> end_offset = <a class="code" href="classtesseract_1_1_tessdata_manager.html#a89a94291dc1a6bb20fd28c04bfc0c1c4">GetEndOffset</a>(type);
+  <a class="code" href="classtesseract_1_1_tessdata_manager.html#aaf4f11b6c7168a84a31b301e679f2c51">tesseract::TessdataManager::CopyFile</a>(
+      <a class="code" href="classtesseract_1_1_tessdata_manager.html#ad5be8f7fcf884390b22f02788330d82f">GetDataFilePtr</a>(), output_file, text_file,
+      end_offset - begin_offset + 1);
+  fclose(output_file);
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad5be8f7fcf884390b22f02788330d82f"></a><!-- doxytag: member="tesseract::TessdataManager::GetDataFilePtr" ref="ad5be8f7fcf884390b22f02788330d82f" args="() const " -->
@@ -298,6 +424,9 @@ Static Public Member Functions</h2></td></tr>
 <div class="memdoc">
 <p>Returns data file pointer. </p>
 
+<p>Definition at line <a class="el" href="tessdatamanager_8h_source.html#l00150">150</a> of file <a class="el" href="tessdatamanager_8h_source.html">tessdatamanager.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> data_file_; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a89a94291dc1a6bb20fd28c04bfc0c1c4"></a><!-- doxytag: member="tesseract::TessdataManager::GetEndOffset" ref="a89a94291dc1a6bb20fd28c04bfc0c1c4" args="(TessdataType tessdata_type) const " -->
@@ -316,6 +445,21 @@ Static Public Member Functions</h2></td></tr>
 <div class="memdoc">
 <p>Returns the end offset for the given tesseract data file type. </p>
 
+<p>Definition at line <a class="el" href="tessdatamanager_8h_source.html#l00173">173</a> of file <a class="el" href="tessdatamanager_8h_source.html">tessdatamanager.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                              {
+    <span class="keywordtype">int</span> index = tessdata_type + 1;
+    <span class="keywordflow">while</span> (index &lt; actual_tessdata_num_entries_ &amp;&amp; offset_table_[index] == -1) {
+      ++index;  <span class="comment">// skip tessdata types not present in the combined file</span>
+    }
+    <span class="keywordflow">if</span> (debug_level_) {
+      <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;TessdataManager: end offset for type %d is %lld\n&quot;</span>,
+              tessdata_type,
+              (index == actual_tessdata_num_entries_) ? -1
+              : offset_table_[index]);
+    }
+    <span class="keywordflow">return</span> (index == actual_tessdata_num_entries_) ? -1 : offset_table_[index] - 1;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a00b72ae89511f2439887c4a48727ad75"></a><!-- doxytag: member="tesseract::TessdataManager::Init" ref="a00b72ae89511f2439887c4a48727ad75" args="(const char *data_file_name, int debug_level)" -->
@@ -344,6 +488,40 @@ Static Public Member Functions</h2></td></tr>
 <div class="memdoc">
 <p>Opens the given data file and reads the offset table. Returns true on success. </p>
 
+<p>Definition at line <a class="el" href="tessdatamanager_8cpp_source.html#l00035">35</a> of file <a class="el" href="tessdatamanager_8cpp_source.html">tessdatamanager.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                      {
+  <span class="keywordtype">int</span> i;
+  debug_level_ = debug_level;
+  data_file_ = fopen(data_file_name, <span class="stringliteral">&quot;rb&quot;</span>);
+  <span class="keywordflow">if</span> (data_file_ == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Error opening data file %s\n&quot;</span>, data_file_name);
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Please make sure the TESSDATA_PREFIX environment variable is set &quot;</span>
+            <span class="stringliteral">&quot;to the parent directory of your \&quot;tessdata\&quot; directory.\n&quot;</span>);
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+  fread(&amp;actual_tessdata_num_entries_, <span class="keyword">sizeof</span>(<a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a>), 1, data_file_);
+  swap_ = (actual_tessdata_num_entries_ &gt; kMaxNumTessdataEntries);
+  <span class="keywordflow">if</span> (swap_) {
+    actual_tessdata_num_entries_ = <a class="code" href="serialis_8cpp.html#a3cf24d4c383f7f23010c69192042719c">reverse32</a>(actual_tessdata_num_entries_);
+  }
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(actual_tessdata_num_entries_ &lt;= <a class="code" href="namespacetesseract.html#a5f278974ef80900b460194614d4f1899ae23733dd332d50ddb3b0be7990b1538c">TESSDATA_NUM_ENTRIES</a>);
+  fread(offset_table_, <span class="keyword">sizeof</span>(<a class="code" href="host_8h.html#ac53c9cafaf7fe16f985994c49f6b0964">inT64</a>),
+        actual_tessdata_num_entries_, data_file_);
+  <span class="keywordflow">if</span> (swap_) {
+    <span class="keywordflow">for</span> (i = 0 ; i &lt; actual_tessdata_num_entries_; ++i) {
+      offset_table_[i] = <a class="code" href="serialis_8cpp.html#a886bbcaa100c3bd8434a81b9d1677c7d">reverse64</a>(offset_table_[i]);
+    }
+  }
+  <span class="keywordflow">if</span> (debug_level_) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;TessdataManager loaded %d types of tesseract data files.\n&quot;</span>,
+            actual_tessdata_num_entries_);
+    <span class="keywordflow">for</span> (i = 0; i &lt; actual_tessdata_num_entries_; ++i) {
+      <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Offset for type %d is %lld\n&quot;</span>, i, offset_table_[i]);
+    }
+  }
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a636c6e1a2844027ff940868d8460bfd9"></a><!-- doxytag: member="tesseract::TessdataManager::OverwriteComponents" ref="a636c6e1a2844027ff940868d8460bfd9" args="(const char *new_traineddata_filename, char **component_filenames, int num_new_components)" -->
@@ -378,6 +556,55 @@ Static Public Member Functions</h2></td></tr>
 <div class="memdoc">
 <p>Gets the individual components from the data_file_ with which the class was initialized. Overwrites the components specified by component_filenames. Writes the updated traineddata file to new_traineddata_filename. </p>
 
+<p>Definition at line <a class="el" href="tessdatamanager_8cpp_source.html#l00160">160</a> of file <a class="el" href="tessdatamanager_8cpp_source.html">tessdatamanager.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                            {
+  <span class="keywordtype">int</span> i;
+  <a class="code" href="host_8h.html#ac53c9cafaf7fe16f985994c49f6b0964">inT64</a> offset_table[<a class="code" href="namespacetesseract.html#a5f278974ef80900b460194614d4f1899ae23733dd332d50ddb3b0be7990b1538c">TESSDATA_NUM_ENTRIES</a>];
+  <a class="code" href="namespacetesseract.html#a5f278974ef80900b460194614d4f1899">TessdataType</a> type = <a class="code" href="namespacetesseract.html#a5f278974ef80900b460194614d4f1899ae23733dd332d50ddb3b0be7990b1538c">TESSDATA_NUM_ENTRIES</a>;
+  <span class="keywordtype">bool</span> text_file = <span class="keyword">false</span>;
+  FILE *file_ptr[<a class="code" href="namespacetesseract.html#a5f278974ef80900b460194614d4f1899ae23733dd332d50ddb3b0be7990b1538c">TESSDATA_NUM_ENTRIES</a>];
+  <span class="keywordflow">for</span> (i = 0; i &lt; <a class="code" href="namespacetesseract.html#a5f278974ef80900b460194614d4f1899ae23733dd332d50ddb3b0be7990b1538c">TESSDATA_NUM_ENTRIES</a>; ++i) {
+    offset_table[i] = -1;
+    file_ptr[i] = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  FILE *output_file = fopen(new_traineddata_filename, <span class="stringliteral">&quot;wb&quot;</span>);
+  <span class="keywordflow">if</span> (output_file == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Error opening %s for writing\n&quot;</span>, new_traineddata_filename);
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+
+  <span class="comment">// Leave some space for recording the offset_table.</span>
+  fseek(output_file,
+        <span class="keyword">sizeof</span>(<a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a>) + <span class="keyword">sizeof</span>(<a class="code" href="host_8h.html#ac53c9cafaf7fe16f985994c49f6b0964">inT64</a>) * TESSDATA_NUM_ENTRIES, SEEK_SET);
+
+  <span class="comment">// Open the files with the new components.</span>
+  <span class="keywordflow">for</span> (i = 0; i &lt; num_new_components; ++i) {
+    <a class="code" href="classtesseract_1_1_tessdata_manager.html#a3171a99cf61d5f3994a5abf2911161da">TessdataTypeFromFileName</a>(component_filenames[i], &amp;type, &amp;text_file);
+    file_ptr[type] = fopen(component_filenames[i], <span class="stringliteral">&quot;rb&quot;</span>);
+  }
+
+  <span class="comment">// Write updated data to the output traineddata file.</span>
+  <span class="keywordflow">for</span> (i = 0; i &lt; <a class="code" href="namespacetesseract.html#a5f278974ef80900b460194614d4f1899ae23733dd332d50ddb3b0be7990b1538c">TESSDATA_NUM_ENTRIES</a>; ++i) {
+    <span class="keywordflow">if</span> (file_ptr[i] != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      <span class="comment">// Get the data from the opened component file.</span>
+      offset_table[i] = ftell(output_file);
+      <a class="code" href="classtesseract_1_1_tessdata_manager.html#aaf4f11b6c7168a84a31b301e679f2c51">CopyFile</a>(file_ptr[i], output_file, kTessdataFileIsText[i], -1);
+      fclose(file_ptr[i]);
+    } <span class="keywordflow">else</span> {
+      <span class="comment">// Get this data component from the loaded data file.</span>
+      <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tessdata_manager.html#a303e0f9733b2a55796b0178ba184f6b2">SeekToStart</a>(static_cast&lt;TessdataType&gt;(i))) {
+        offset_table[i] = ftell(output_file);
+        <a class="code" href="classtesseract_1_1_tessdata_manager.html#aaf4f11b6c7168a84a31b301e679f2c51">CopyFile</a>(data_file_, output_file, kTessdataFileIsText[i],
+                 <a class="code" href="classtesseract_1_1_tessdata_manager.html#a89a94291dc1a6bb20fd28c04bfc0c1c4">GetEndOffset</a>(static_cast&lt;TessdataType&gt;(i)) -
+                 ftell(data_file_) + 1);
+      }
+    }
+  }
+
+  <a class="code" href="classtesseract_1_1_tessdata_manager.html#ab2416accf8953092865410829761b95f">WriteMetadata</a>(offset_table, output_file);
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a303e0f9733b2a55796b0178ba184f6b2"></a><!-- doxytag: member="tesseract::TessdataManager::SeekToStart" ref="a303e0f9733b2a55796b0178ba184f6b2" args="(TessdataType tessdata_type)" -->
@@ -396,6 +623,23 @@ Static Public Member Functions</h2></td></tr>
 <div class="memdoc">
 <p>Returns false if there is no data of the given type. Otherwise does a seek on the data_file_ to position the pointer at the start of the data of the given type. </p>
 
+<p>Definition at line <a class="el" href="tessdatamanager_8h_source.html#l00157">157</a> of file <a class="el" href="tessdatamanager_8h_source.html">tessdatamanager.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                      {
+    <span class="keywordflow">if</span> (debug_level_) {
+      <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;TessdataManager: seek to offset %lld - start of tessdata&quot;</span>
+              <span class="stringliteral">&quot;type %d (%s))\n&quot;</span>, offset_table_[tessdata_type],
+              tessdata_type, kTessdataFileSuffixes[tessdata_type]);
+    }
+    <span class="keywordflow">if</span> (offset_table_[tessdata_type] &lt; 0) {
+      <span class="keywordflow">return</span> <span class="keyword">false</span>;
+    } <span class="keywordflow">else</span> {
+      <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(fseek(data_file_,
+                        static_cast&lt;size_t&gt;(offset_table_[tessdata_type]),
+                        SEEK_SET) == 0);
+      <span class="keywordflow">return</span> <span class="keyword">true</span>;
+    }
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a47ec55378864d4e0a97793c08aea75c0"></a><!-- doxytag: member="tesseract::TessdataManager::swap" ref="a47ec55378864d4e0a97793c08aea75c0" args="() const " -->
@@ -412,6 +656,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tessdatamanager_8h_source.html#l00193">193</a> of file <a class="el" href="tessdatamanager_8h_source.html">tessdatamanager.h</a>.</p>
+<div class="fragment"><pre class="fragment">                    {
+    <span class="keywordflow">return</span> swap_;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3171a99cf61d5f3994a5abf2911161da"></a><!-- doxytag: member="tesseract::TessdataManager::TessdataTypeFromFileName" ref="a3171a99cf61d5f3994a5abf2911161da" args="(const char *filename, TessdataType *type, bool *text_file)" -->
@@ -446,6 +695,14 @@ Static Public Member Functions</h2></td></tr>
 <div class="memdoc">
 <p>Tries to determine tessdata component file suffix from filename, returns true on success. </p>
 
+<p>Definition at line <a class="el" href="tessdatamanager_8cpp_source.html#l00225">225</a> of file <a class="el" href="tessdatamanager_8cpp_source.html">tessdatamanager.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                               {
+  <span class="comment">// Get the file suffix (extension)</span>
+  <span class="keyword">const</span> <span class="keywordtype">char</span> *suffix = strrchr(filename, <span class="charliteral">&#39;.&#39;</span>);
+  <span class="keywordflow">if</span> (suffix == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> || *(++suffix) == <span class="charliteral">&#39;\0&#39;</span>) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_tessdata_manager.html#ac6b082ed8a3100a594a3198d26807aef">TessdataTypeFromFileSuffix</a>(suffix, type, text_file);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac6b082ed8a3100a594a3198d26807aef"></a><!-- doxytag: member="tesseract::TessdataManager::TessdataTypeFromFileSuffix" ref="ac6b082ed8a3100a594a3198d26807aef" args="(const char *suffix, TessdataType *type, bool *text_file)" -->
@@ -481,6 +738,20 @@ Static Public Member Functions</h2></td></tr>
 <p>Fills type with TessdataType of the tessdata component represented by the given file name. E.g. tessdata/eng.unicharset -&gt; TESSDATA_UNICHARSET. Sets *text_file to true if the component is in text format (e.g. unicharset, unichar ambigs, config, etc). </p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>true if the tessdata component type could be determined from the given file name. </dd></dl>
 
+<p>Definition at line <a class="el" href="tessdatamanager_8cpp_source.html#l00211">211</a> of file <a class="el" href="tessdatamanager_8cpp_source.html">tessdatamanager.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                             {
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="namespacetesseract.html#a5f278974ef80900b460194614d4f1899ae23733dd332d50ddb3b0be7990b1538c">TESSDATA_NUM_ENTRIES</a>; ++i) {
+    <span class="keywordflow">if</span> (strcmp(kTessdataFileSuffixes[i], suffix) == 0) {
+      *type = <span class="keyword">static_cast&lt;</span><a class="code" href="namespacetesseract.html#a5f278974ef80900b460194614d4f1899">TessdataType</a><span class="keyword">&gt;</span>(i);
+      *text_file = kTessdataFileIsText[i];
+      <span class="keywordflow">return</span> <span class="keyword">true</span>;
+    }
+  }
+  printf(<span class="stringliteral">&quot;TessdataManager can&#39;t determine which tessdata&quot;</span>
+         <span class="stringliteral">&quot; component is represented by %s\n&quot;</span>, suffix);
+  <span class="keywordflow">return</span> <span class="keyword">false</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab2416accf8953092865410829761b95f"></a><!-- doxytag: member="tesseract::TessdataManager::WriteMetadata" ref="ab2416accf8953092865410829761b95f" args="(inT64 *offset_table, FILE *output_file)" -->
@@ -509,11 +780,25 @@ Static Public Member Functions</h2></td></tr>
 <div class="memdoc">
 <p>Writes the number of entries and the given offset table to output_file. </p>
 
+<p>Definition at line <a class="el" href="tessdatamanager_8cpp_source.html#l00095">95</a> of file <a class="el" href="tessdatamanager_8cpp_source.html">tessdatamanager.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                          {
+  fseek(output_file, 0, SEEK_SET);
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> num_entries = <a class="code" href="namespacetesseract.html#a5f278974ef80900b460194614d4f1899ae23733dd332d50ddb3b0be7990b1538c">TESSDATA_NUM_ENTRIES</a>;
+  fwrite(&amp;num_entries, <span class="keyword">sizeof</span>(<a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a>), 1, output_file);
+  fwrite(offset_table, <span class="keyword">sizeof</span>(<a class="code" href="host_8h.html#ac53c9cafaf7fe16f985994c49f6b0964">inT64</a>), <a class="code" href="namespacetesseract.html#a5f278974ef80900b460194614d4f1899ae23733dd332d50ddb3b0be7990b1538c">TESSDATA_NUM_ENTRIES</a>, output_file);
+  fclose(output_file);
+
+  <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;TessdataManager combined tesseract data files.\n&quot;</span>);
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="namespacetesseract.html#a5f278974ef80900b460194614d4f1899ae23733dd332d50ddb3b0be7990b1538c">TESSDATA_NUM_ENTRIES</a>; ++i) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Offset for type %d is %lld\n&quot;</span>, i, offset_table[i]);
+  }
+}
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/ccutil/<a class="el" href="tessdatamanager_8h_source.html">tessdatamanager.h</a></li>
-<li>tesseract-ocr/ccutil/<a class="el" href="tessdatamanager_8cpp.html">tessdatamanager.cpp</a></li>
+<li>tesseract-ocr/ccutil/<a class="el" href="tessdatamanager_8cpp_source.html">tessdatamanager.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -536,7 +821,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:15 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:50 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

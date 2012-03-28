@@ -128,7 +128,10 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_tess_lang_model.html#a69d61128a73ddf1e9ce709a3808c6530">IsDigit</a> (<a class="el" href="namespacetesseract.html#aea2c6172b0ca77907e29cd018595b425">char_32</a> ch)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_tess_lang_model.html#a1fc3e4c81803a84dba0ff7dd1e0ec936">RemoveInvalidCharacters</a> (string *lm_str)</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="tess__lang__model_8h_source.html#l00038">38</a> of file <a class="el" href="tess__lang__model_8h_source.html">tess_lang_model.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a23d5290b102bb43428957c4c4a96e6d6"></a><!-- doxytag: member="tesseract::TessLangModel::TessLangModel" ref="a23d5290b102bb43428957c4c4a96e6d6" args="(const string &amp;lm_params, const string &amp;data_file_path, bool load_system_dawg, TessdataManager *tessdata_manager, CubeRecoContext *cntxt)" -->
 <div class="memitem">
 <div class="memproto">
@@ -172,6 +175,29 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tess__lang__model_8cpp_source.html#l00060">60</a> of file <a class="el" href="tess__lang__model_8cpp_source.html">tess_lang_model.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                     {
+  cntxt_ = cntxt;
+  has_case_ = cntxt_-&gt;HasCase();
+  <span class="comment">// Load the rest of the language model elements from file</span>
+  LoadLangModelElements(lm_params);
+  <span class="comment">// Load word_dawgs_ if needed.</span>
+  <span class="keywordflow">if</span> (tessdata_manager-&gt;SeekToStart(<a class="code" href="namespacetesseract.html#a5f278974ef80900b460194614d4f1899a87310a274403592ee7b1bd07e8b29973">TESSDATA_CUBE_UNICHARSET</a>)) {
+    word_dawgs_ = <span class="keyword">new</span> <a class="code" href="namespacetesseract.html#a8dc259fa09d9302b96f5b3d2aad10c9f">DawgVector</a>();
+    <span class="keywordflow">if</span> (load_system_dawg &amp;&amp;
+        tessdata_manager-&gt;SeekToStart(<a class="code" href="namespacetesseract.html#a5f278974ef80900b460194614d4f1899a445f2a31c9940f2027a67ba8f8630f9f">TESSDATA_CUBE_SYSTEM_DAWG</a>)) {
+      <span class="comment">// The last parameter to the Dawg constructor (the debug level) is set to</span>
+      <span class="comment">// false, until Cube has a way to express its preferred debug level.</span>
+      *word_dawgs_ +=  <span class="keyword">new</span> SquishedDawg(tessdata_manager-&gt;GetDataFilePtr(),
+                                        <a class="code" href="namespacetesseract.html#a07c41f251f1782c60df4e626c35d2151a9c67e397ff6d57a705cd4cd4524a2b34">DAWG_TYPE_WORD</a>,
+                                        cntxt_-&gt;Lang().c_str(),
+                                        SYSTEM_DAWG_PERM, <span class="keyword">false</span>);
+    }
+  } <span class="keywordflow">else</span> {
+    word_dawgs_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3976ab4c324b005b9165609e3b077dbc"></a><!-- doxytag: member="tesseract::TessLangModel::~TessLangModel" ref="a3976ab4c324b005b9165609e3b077dbc" args="()" -->
@@ -188,6 +214,14 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tess__lang__model_8h_source.html#l00045">45</a> of file <a class="el" href="tess__lang__model_8h_source.html">tess_lang_model.h</a>.</p>
+<div class="fragment"><pre class="fragment">                   {
+    <span class="keywordflow">if</span> (word_dawgs_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      word_dawgs_-&gt;delete_data_pointers();
+      <span class="keyword">delete</span> word_dawgs_;
+    }
+  }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -224,6 +258,65 @@ Public Member Functions</h2></td></tr>
 
 <p>Implements <a class="el" href="classtesseract_1_1_lang_model.html#a61071a0736427f808d7134aeeb456701">tesseract::LangModel</a>.</p>
 
+<p>Definition at line <a class="el" href="tess__lang__model_8cpp_source.html#l00169">169</a> of file <a class="el" href="tess__lang__model_8cpp_source.html">tess_lang_model.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                      {
+  TessLangModEdge *tess_lm_edge =
+      <span class="keyword">reinterpret_cast&lt;</span>TessLangModEdge *<span class="keyword">&gt;</span>(lang_mod_edge);
+  LangModEdge **edge_array = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  (*edge_cnt) = 0;
+
+  <span class="comment">// if we are starting from the root, we&#39;ll instantiate every DAWG</span>
+  <span class="comment">// and get the all the edges that emerge from the root</span>
+  <span class="keywordflow">if</span> (tess_lm_edge == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="comment">// get DAWG count from Tesseract</span>
+    <span class="keywordtype">int</span> dawg_cnt = NumDawgs();
+    <span class="comment">// preallocate the edge buffer</span>
+    (*edge_cnt) = dawg_cnt * max_edge_;
+    edge_array = <span class="keyword">new</span> LangModEdge *[(*edge_cnt)];
+    <span class="keywordflow">if</span> (edge_array == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    }
+
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> dawg_idx = (*edge_cnt) = 0; dawg_idx &lt; dawg_cnt; dawg_idx++) {
+      <span class="keyword">const</span> Dawg *curr_dawg = GetDawg(dawg_idx);
+      <span class="comment">// Only look through word Dawgs (since there is a special way of</span>
+      <span class="comment">// handling numbers and punctuation).</span>
+      <span class="keywordflow">if</span> (curr_dawg-&gt;type() == <a class="code" href="namespacetesseract.html#a07c41f251f1782c60df4e626c35d2151a9c67e397ff6d57a705cd4cd4524a2b34">DAWG_TYPE_WORD</a>) {
+        (*edge_cnt) += FanOut(alt_list, curr_dawg, 0, 0, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, <span class="keyword">true</span>,
+                              edge_array + (*edge_cnt));
+      }
+    }  <span class="comment">// dawg</span>
+
+    (*edge_cnt) += FanOut(alt_list, number_dawg_, 0, 0, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, <span class="keyword">true</span>,
+                          edge_array + (*edge_cnt));
+
+    <span class="comment">// OOD: it is intentionally not added to the list to make sure it comes</span>
+    <span class="comment">// at the end</span>
+    (*edge_cnt) += FanOut(alt_list, ood_dawg_, 0, 0, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, <span class="keyword">true</span>,
+                          edge_array + (*edge_cnt));
+
+    <span class="comment">// set the root flag for all root edges</span>
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> edge_idx = 0; edge_idx &lt; (*edge_cnt); edge_idx++) {
+      edge_array[edge_idx]-&gt;SetRoot(<span class="keyword">true</span>);
+    }
+  } <span class="keywordflow">else</span> {  <span class="comment">// not starting at the root</span>
+    <span class="comment">// preallocate the edge buffer</span>
+    (*edge_cnt) = max_edge_;
+    <span class="comment">// allocate memory for edges</span>
+    edge_array = <span class="keyword">new</span> LangModEdge *[(*edge_cnt)];
+    <span class="keywordflow">if</span> (edge_array == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    }
+
+    <span class="comment">// get the FanOut edges from the root of each dawg</span>
+    (*edge_cnt) = FanOut(alt_list,
+                         tess_lm_edge-&gt;GetDawg(),
+                         tess_lm_edge-&gt;EndEdge(), tess_lm_edge-&gt;EdgeMask(),
+                         tess_lm_edge-&gt;EdgeString(), <span class="keyword">false</span>, edge_array);
+  }
+  <span class="keywordflow">return</span> edge_array;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a69d61128a73ddf1e9ce709a3808c6530"></a><!-- doxytag: member="tesseract::TessLangModel::IsDigit" ref="a69d61128a73ddf1e9ce709a3808c6530" args="(char_32 ch)" -->
@@ -243,6 +336,11 @@ Public Member Functions</h2></td></tr>
 
 <p>Implements <a class="el" href="classtesseract_1_1_lang_model.html#aae119709c73d00d731c65588be763a1d">tesseract::LangModel</a>.</p>
 
+<p>Definition at line <a class="el" href="tess__lang__model_8cpp_source.html#l00162">162</a> of file <a class="el" href="tess__lang__model_8cpp_source.html">tess_lang_model.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                            {
+  <span class="keywordflow">return</span> digits_.find(ch) != string::npos;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae012b6f6dec52e66ccc7b78fa8975b10"></a><!-- doxytag: member="tesseract::TessLangModel::IsLeadingPunc" ref="ae012b6f6dec52e66ccc7b78fa8975b10" args="(char_32 ch)" -->
@@ -262,6 +360,11 @@ Public Member Functions</h2></td></tr>
 
 <p>Implements <a class="el" href="classtesseract_1_1_lang_model.html#ade13ad9a3c3f6bb19a1071aa20bffb4b">tesseract::LangModel</a>.</p>
 
+<p>Definition at line <a class="el" href="tess__lang__model_8cpp_source.html#l00154">154</a> of file <a class="el" href="tess__lang__model_8cpp_source.html">tess_lang_model.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                  {
+  <span class="keywordflow">return</span> lead_punc_.find(ch) != string::npos;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aed986e1547e8faf18a522ef074e0413a"></a><!-- doxytag: member="tesseract::TessLangModel::IsTrailingPunc" ref="aed986e1547e8faf18a522ef074e0413a" args="(char_32 ch)" -->
@@ -281,6 +384,11 @@ Public Member Functions</h2></td></tr>
 
 <p>Implements <a class="el" href="classtesseract_1_1_lang_model.html#a0235bd607e1d0cd00082661e0b71d495">tesseract::LangModel</a>.</p>
 
+<p>Definition at line <a class="el" href="tess__lang__model_8cpp_source.html#l00158">158</a> of file <a class="el" href="tess__lang__model_8cpp_source.html">tess_lang_model.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                   {
+  <span class="keywordflow">return</span> trail_punc_.find(ch) != string::npos;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2c303d6052f7b99c6b65a497592e5e2e"></a><!-- doxytag: member="tesseract::TessLangModel::IsValidSequence" ref="a2c303d6052f7b99c6b65a497592e5e2e" args="(const char_32 *sequence, bool eow_flag, LangModEdge **final_edge=NULL)" -->
@@ -316,6 +424,15 @@ Public Member Functions</h2></td></tr>
 
 <p>Implements <a class="el" href="classtesseract_1_1_lang_model.html#a8b2edb01fa6b82d7a0eba6fb28717494">tesseract::LangModel</a>.</p>
 
+<p>Definition at line <a class="el" href="tess__lang__model_8cpp_source.html#l00145">145</a> of file <a class="el" href="tess__lang__model_8cpp_source.html">tess_lang_model.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                              {
+  <span class="keywordflow">if</span> (final_edge != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    (*final_edge) = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_tess_lang_model.html#a2c303d6052f7b99c6b65a497592e5e2e">IsValidSequence</a>(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, sequence, eow_flag, final_edge);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a1fc3e4c81803a84dba0ff7dd1e0ec936"></a><!-- doxytag: member="tesseract::TessLangModel::RemoveInvalidCharacters" ref="a1fc3e4c81803a84dba0ff7dd1e0ec936" args="(string *lm_str)" -->
@@ -333,6 +450,32 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tess__lang__model_8cpp_source.html#l00482">482</a> of file <a class="el" href="tess__lang__model_8cpp_source.html">tess_lang_model.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                          {
+  CharSet *char_set = cntxt_-&gt;CharacterSet();
+  <a class="code" href="namespacetesseract.html#a5e51e225e3ac13c918ed9f77715fa041">tesseract::string_32</a> lm_str32;
+  <a class="code" href="classtesseract_1_1_cube_utils.html#a911ee12931d18c46e7db79c6758a91cc">CubeUtils::UTF8ToUTF32</a>(lm_str-&gt;c_str(), &amp;lm_str32);
+
+  <span class="keywordtype">int</span> len = <a class="code" href="classtesseract_1_1_cube_utils.html#a88fe596e3dcadab7909c0bff64f61f59">CubeUtils::StrLen</a>(lm_str32.c_str());
+  <a class="code" href="namespacetesseract.html#aea2c6172b0ca77907e29cd018595b425">char_32</a> *clean_str32 = <span class="keyword">new</span> <a class="code" href="namespacetesseract.html#aea2c6172b0ca77907e29cd018595b425">char_32</a>[len + 1];
+  <span class="keywordflow">if</span> (!clean_str32)
+    <span class="keywordflow">return</span>;
+  <span class="keywordtype">int</span> clean_len = 0;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; len; ++i) {
+    <span class="keywordtype">int</span> class_id = char_set-&gt;ClassID((<a class="code" href="namespacetesseract.html#aea2c6172b0ca77907e29cd018595b425">char_32</a>)lm_str32[i]);
+    <span class="keywordflow">if</span> (class_id != INVALID_UNICHAR_ID) {
+      clean_str32[clean_len] = lm_str32[i];
+      ++clean_len;
+    }
+  }
+  clean_str32[clean_len] = 0;
+  <span class="keywordflow">if</span> (clean_len &lt; len) {
+    lm_str-&gt;clear();
+    <a class="code" href="classtesseract_1_1_cube_utils.html#a30c20693fc79e49a67c9694700f1d0b5">CubeUtils::UTF32ToUTF8</a>(clean_str32, lm_str);
+  }
+  <span class="keyword">delete</span> [] clean_str32;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a939ea7ad8b064d8167b3c7019bf82d9f"></a><!-- doxytag: member="tesseract::TessLangModel::Root" ref="a939ea7ad8b064d8167b3c7019bf82d9f" args="()" -->
@@ -351,11 +494,16 @@ Public Member Functions</h2></td></tr>
 
 <p>Implements <a class="el" href="classtesseract_1_1_lang_model.html#a46178bf09d08aa9c8048adb0a8561b75">tesseract::LangModel</a>.</p>
 
+<p>Definition at line <a class="el" href="tess__lang__model_8h_source.html#l00053">53</a> of file <a class="el" href="tess__lang__model_8h_source.html">tess_lang_model.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                 {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/cube/<a class="el" href="tess__lang__model_8h_source.html">tess_lang_model.h</a></li>
-<li>tesseract-ocr/cube/<a class="el" href="tess__lang__model_8cpp.html">tess_lang_model.cpp</a></li>
+<li>tesseract-ocr/cube/<a class="el" href="tess__lang__model_8cpp_source.html">tess_lang_model.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -378,7 +526,7 @@ Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:15 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:51 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

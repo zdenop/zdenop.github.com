@@ -134,6 +134,55 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="reject_8cpp_source.html#l00370">370</a> of file <a class="el" href="reject_8cpp_source.html">reject.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                     {
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> index;                   <span class="comment">//to ratings</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> blob_count;              <span class="comment">//no of blobs in word</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> ok_blob_count = 0;       <span class="comment">//non TESS rej blobs in word</span>
+  <span class="keywordtype">float</span> *ratings;                <span class="comment">//array of confidences</span>
+  <span class="keywordtype">float</span> threshold;               <span class="comment">//rejection threshold</span>
+  <span class="keywordtype">float</span> bestgap;                 <span class="comment">//biggest gap</span>
+  <span class="keywordtype">float</span> gapstart;                <span class="comment">//bottom of gap</span>
+                                 <span class="comment">//super iterator</span>
+  BLOB_CHOICE_LIST_C_IT list_it = blob_choices;
+  BLOB_CHOICE_IT choice_it;      <span class="comment">//real iterator</span>
+
+  blob_count = blob_choices-&gt;length ();
+  ratings = (<span class="keywordtype">float</span> *) <a class="code" href="memry_8cpp.html#a4c14b091498fb7866a1dd0af51a591fe">alloc_mem</a> (blob_count * <span class="keyword">sizeof</span> (<span class="keywordtype">float</span>));
+  <span class="keywordflow">for</span> (list_it.mark_cycle_pt (), index = 0;
+  !list_it.cycled_list (); list_it.forward (), index++) {
+    choice_it.set_to_list (list_it.data ());
+    <span class="keywordflow">if</span> (choice_it.length () &gt; 0) {
+      ratings[ok_blob_count] = choice_it.data ()-&gt;certainty ();
+      <span class="comment">//get in an array</span>
+      <span class="comment">//                 tprintf(&quot;Rating[%d]=%c %g %g\n&quot;,</span>
+      <span class="comment">//                         index,choice_it.data()-&gt;char_class(),</span>
+      <span class="comment">//                         choice_it.data()-&gt;rating(),choice_it.data()-&gt;certainty());</span>
+      ok_blob_count++;
+    }
+  }
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a> (index == blob_count);
+  qsort (ratings, ok_blob_count, <span class="keyword">sizeof</span> (<span class="keywordtype">float</span>), <a class="code" href="helpers_8h.html#a975e556a833acc19d7e6e21587366974">sort_floats</a>);
+  <span class="comment">//sort them</span>
+  bestgap = 0;
+  gapstart = ratings[0] - 1;     <span class="comment">//all reject if none better</span>
+  <span class="keywordflow">if</span> (ok_blob_count &gt;= 3) {
+    <span class="keywordflow">for</span> (index = 0; index &lt; ok_blob_count - 1; index++) {
+      <span class="keywordflow">if</span> (ratings[index + 1] - ratings[index] &gt; bestgap) {
+        bestgap = ratings[index + 1] - ratings[index];
+        <span class="comment">//find biggest</span>
+        gapstart = ratings[index];
+      }
+    }
+  }
+  threshold = gapstart + bestgap / 2;
+  <span class="comment">//      tprintf(&quot;First=%g, last=%g, gap=%g, threshold=%g\n&quot;,</span>
+  <span class="comment">//              ratings[0],ratings[index],bestgap,threshold);</span>
+
+  <a class="code" href="memry_8cpp.html#a9ef1862b8e026e23eef238af032858e4">free_mem</a>(ratings);
+  <span class="keywordflow">return</span> threshold;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad83dc1005097e689a58b493e14b943a6"></a><!-- doxytag: member="reject.h::dont_allow_1Il" ref="ad83dc1005097e689a58b493e14b943a6" args="(WERD_RES *word)" -->
@@ -229,6 +278,19 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="reject_8cpp_source.html#l00290">290</a> of file <a class="el" href="reject_8cpp_source.html">reject.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                   {
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> i;
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> offset;
+
+  <span class="keywordflow">for</span> (i = 0, offset = 0; word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a41d740f0accccdfb245d34d554122116">unichar_string</a>()[offset] != <span class="charliteral">&#39;\0&#39;</span>;
+       offset += word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a93ab94b6fa6d5c0469fb52d66c62968c">unichar_lengths</a>()[i], i += 1) {
+    <span class="keywordflow">if</span> (word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a41d740f0accccdfb245d34d554122116">unichar_string</a>()[offset] == <span class="charliteral">&#39; &#39;</span>)
+                                 <span class="comment">//rej unrecognised blobs</span>
+      word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#ae24eb58be06cf275aee411d947fd31ef">reject_map</a>[i].setrej_tess_failure ();
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a02f131119330da54bfb3b91f96c01dd4"></a><!-- doxytag: member="reject.h::reject_poor_matches" ref="a02f131119330da54bfb3b91f96c01dd4" args="(WERD_RES *word, BLOB_CHOICE_LIST_CLIST *blob_choices)" -->
@@ -256,6 +318,47 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="reject_8cpp_source.html#l00319">319</a> of file <a class="el" href="reject_8cpp_source.html">reject.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                               {
+  <span class="keywordtype">float</span> threshold;
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> i = 0;
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> offset = 0;
+                                 <span class="comment">//super iterator</span>
+  BLOB_CHOICE_LIST_C_IT list_it = blob_choices;
+  BLOB_CHOICE_IT choice_it;      <span class="comment">//real iterator</span>
+
+<span class="preprocessor">  #ifndef SECURE_NAMES</span>
+<span class="preprocessor"></span>  <span class="keywordflow">if</span> (strlen(word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a93ab94b6fa6d5c0469fb52d66c62968c">unichar_lengths</a>().<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a>()) !=
+      list_it.length()) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>
+      (<span class="stringliteral">&quot;ASSERT FAIL string:\&quot;%s\&quot;; strlen=%d; choices len=%d; blob len=%d\n&quot;</span>,
+      word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a41d740f0accccdfb245d34d554122116">unichar_string</a>().<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a>(),
+      strlen (word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a93ab94b6fa6d5c0469fb52d66c62968c">unichar_lengths</a>().<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a>()), list_it.length(),
+      word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3a92c8c9750d78631d75998f008f366a">box_word</a>-&gt;<a class="code" href="classtesseract_1_1_box_word.html#afe001fe8fb7f2d3725b2ac2f542e9878">length</a>());
+  }
+<span class="preprocessor">  #endif</span>
+<span class="preprocessor"></span>  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a> (strlen (word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a93ab94b6fa6d5c0469fb52d66c62968c">unichar_lengths</a>().<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a> ()) ==
+    list_it.length ());
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3a92c8c9750d78631d75998f008f366a">box_word</a>-&gt;<a class="code" href="classtesseract_1_1_box_word.html#afe001fe8fb7f2d3725b2ac2f542e9878">length</a>() == list_it.length());
+  threshold = <a class="code" href="reject_8cpp.html#aa4e2bbe7bf554eb7a6fbf05c4817c30b">compute_reject_threshold</a> (blob_choices);
+
+  <span class="keywordflow">for</span> (list_it.mark_cycle_pt ();
+  !list_it.cycled_list (); list_it.forward (), i++,
+           offset += word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a93ab94b6fa6d5c0469fb52d66c62968c">unichar_lengths</a>()[i]) {
+    <span class="comment">/* NB - only compares the threshold against the TOP choice char in the</span>
+<span class="comment">      choices list for a blob !! - the selected one may be below the threshold</span>
+<span class="comment">    */</span>
+    choice_it.set_to_list (list_it.data ());
+    <span class="keywordflow">if</span> ((word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a41d740f0accccdfb245d34d554122116">unichar_string</a>()[offset] == <span class="charliteral">&#39; &#39;</span>) ||
+      (choice_it.length () == 0))
+                                 <span class="comment">//rej unrecognised blobs</span>
+      word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#ae24eb58be06cf275aee411d947fd31ef">reject_map</a>[i].setrej_tess_failure ();
+    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (choice_it.data ()-&gt;certainty () &lt; threshold)
+                                 <span class="comment">//rej poor score blob</span>
+      word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#ae24eb58be06cf275aee411d947fd31ef">reject_map</a>[i].setrej_poor_match ();
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6d609b0738a36642da8760d23bbbddae"></a><!-- doxytag: member="reject.h::word_contains_non_1_digit" ref="a6d609b0738a36642da8760d23bbbddae" args="(const char *word, const char *word_lengths)" -->
@@ -305,7 +408,7 @@ Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:08 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:40 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

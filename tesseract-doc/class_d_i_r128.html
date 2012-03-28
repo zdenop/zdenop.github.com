@@ -119,7 +119,10 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="host_8h.html#a2ba4d271e85baf0d333318985cb3bced">inT8</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_d_i_r128.html#a20420b3fa5c0968a2ebb0763c7e43c2f">get_dir</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_i_c_o_o_r_d.html">ICOORD</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_d_i_r128.html#aeec6816172c9e7491ff2788ad5cf0337">vector</a> () const </td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="mod128_8h_source.html#l00029">29</a> of file <a class="el" href="mod128_8h_source.html">mod128.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a28b0ddf2d5d91eec6939c6a243b5e466"></a><!-- doxytag: member="DIR128::DIR128" ref="a28b0ddf2d5d91eec6939c6a243b5e466" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -134,6 +137,10 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mod128_8h_source.html#l00032">32</a> of file <a class="el" href="mod128_8h_source.html">mod128.h</a>.</p>
+<div class="fragment"><pre class="fragment">             {
+    }                            <span class="comment">//empty constructor</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2b4cb07b98110d5d8b46dd9581c571e5"></a><!-- doxytag: member="DIR128::DIR128" ref="a2b4cb07b98110d5d8b46dd9581c571e5" args="(inT16 value)" -->
@@ -151,6 +158,14 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mod128_8h_source.html#l00035">35</a> of file <a class="el" href="mod128_8h_source.html">mod128.h</a>.</p>
+<div class="fragment"><pre class="fragment">                        {  <span class="comment">//value to assign</span>
+      value %= <a class="code" href="mod128_8h.html#a9bc1fe94bf8c1b9aaef3dade106b6304">MODULUS</a>;          <span class="comment">//modulo arithmetic</span>
+      <span class="keywordflow">if</span> (value &lt; 0)
+        value += <a class="code" href="mod128_8h.html#a9bc1fe94bf8c1b9aaef3dade106b6304">MODULUS</a>;        <span class="comment">//done properly</span>
+      dir = (<a class="code" href="host_8h.html#a2ba4d271e85baf0d333318985cb3bced">inT8</a>) value;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3205d8518dd0ffd6df641a910d979774"></a><!-- doxytag: member="DIR128::DIR128" ref="a3205d8518dd0ffd6df641a910d979774" args="(const FCOORD fc)" -->
@@ -168,6 +183,30 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mod128_8cpp_source.html#l00066">66</a> of file <a class="el" href="mod128_8cpp_source.html">mod128.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                {
+  <span class="keywordtype">int</span> high, low, current;        <span class="comment">//binary search</span>
+
+  low = 0;
+  <span class="keywordflow">if</span> (fc.<a class="code" href="class_f_c_o_o_r_d.html#a397f7ce997b246df18e7bd5a20cc422e">y</a> () == 0) {
+    <span class="keywordflow">if</span> (fc.<a class="code" href="class_f_c_o_o_r_d.html#a9edadbfc357c730f62fa3c92677b0d58">x</a> () &gt;= 0)
+      dir = 0;
+    <span class="keywordflow">else</span>
+      dir = <a class="code" href="mod128_8h.html#a9bc1fe94bf8c1b9aaef3dade106b6304">MODULUS</a> / 2;
+    <span class="keywordflow">return</span>;
+  }
+  high = <a class="code" href="mod128_8h.html#a9bc1fe94bf8c1b9aaef3dade106b6304">MODULUS</a>;
+  <span class="keywordflow">do</span> {
+    current = (high + low) / 2;
+    <span class="keywordflow">if</span> (<a class="code" href="mod128_8cpp.html#a7a7e1c74bf8c2afcfedc71df593e8d39">dirtab</a>[current] * fc &gt;= 0)
+      low = current;
+    <span class="keywordflow">else</span>
+      high = current;
+  }
+  <span class="keywordflow">while</span> (high - low &gt; 1);
+  dir = low;
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -185,6 +224,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mod128_8h_source.html#l00077">77</a> of file <a class="el" href="mod128_8h_source.html">mod128.h</a>.</p>
+<div class="fragment"><pre class="fragment">                         {  <span class="comment">//access function</span>
+      <span class="keywordflow">return</span> dir;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a88ad5868d31e3769802964a2b2c618e2"></a><!-- doxytag: member="DIR128::operator+" ref="a88ad5868d31e3769802964a2b2c618e2" args="(const DIR128 &amp;add) const " -->
@@ -202,6 +246,14 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mod128_8h_source.html#l00064">64</a> of file <a class="el" href="mod128_8h_source.html">mod128.h</a>.</p>
+<div class="fragment"><pre class="fragment">    {
+      <a class="code" href="class_d_i_r128.html">DIR128</a> result;             <span class="comment">//sum</span>
+
+      result = dir + add.dir;    <span class="comment">//let = do the work</span>
+      <span class="keywordflow">return</span> result;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad438ee7fc1e5b9e4b76c83cdeabf61f6"></a><!-- doxytag: member="DIR128::operator+=" ref="ad438ee7fc1e5b9e4b76c83cdeabf61f6" args="(const DIR128 &amp;add)" -->
@@ -219,6 +271,12 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mod128_8h_source.html#l00072">72</a> of file <a class="el" href="mod128_8h_source.html">mod128.h</a>.</p>
+<div class="fragment"><pre class="fragment">                        {
+      *<span class="keyword">this</span> = dir + add.dir;     <span class="comment">//let = do the work</span>
+      <span class="keywordflow">return</span> *<span class="keyword">this</span>;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aec5839707c95489e991d4a8d2d96a6ed"></a><!-- doxytag: member="DIR128::operator&#45;" ref="aec5839707c95489e991d4a8d2d96a6ed" args="(const DIR128 &amp;minus) const " -->
@@ -236,6 +294,18 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mod128_8h_source.html#l00052">52</a> of file <a class="el" href="mod128_8h_source.html">mod128.h</a>.</p>
+<div class="fragment"><pre class="fragment">    {
+                                 <span class="comment">//result</span>
+      <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> result = dir - minus.dir;
+
+      <span class="keywordflow">if</span> (result &gt; <a class="code" href="mod128_8h.html#a9bc1fe94bf8c1b9aaef3dade106b6304">MODULUS</a> / 2)
+        result -= <a class="code" href="mod128_8h.html#a9bc1fe94bf8c1b9aaef3dade106b6304">MODULUS</a>;       <span class="comment">//get in range</span>
+      <span class="keywordflow">else</span> <span class="keywordflow">if</span> (result &lt; -<a class="code" href="mod128_8h.html#a9bc1fe94bf8c1b9aaef3dade106b6304">MODULUS</a> / 2)
+        result += <a class="code" href="mod128_8h.html#a9bc1fe94bf8c1b9aaef3dade106b6304">MODULUS</a>;
+      <span class="keywordflow">return</span> (<a class="code" href="host_8h.html#a2ba4d271e85baf0d333318985cb3bced">inT8</a>) result;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae2d7d5b99f4dede0045c8a7e2b9f221b"></a><!-- doxytag: member="DIR128::operator=" ref="ae2d7d5b99f4dede0045c8a7e2b9f221b" args="(inT16 value)" -->
@@ -253,6 +323,15 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mod128_8h_source.html#l00044">44</a> of file <a class="el" href="mod128_8h_source.html">mod128.h</a>.</p>
+<div class="fragment"><pre class="fragment">                 {               <span class="comment">//value to assign</span>
+      value %= <a class="code" href="mod128_8h.html#a9bc1fe94bf8c1b9aaef3dade106b6304">MODULUS</a>;          <span class="comment">//modulo arithmetic</span>
+      <span class="keywordflow">if</span> (value &lt; 0)
+        value += <a class="code" href="mod128_8h.html#a9bc1fe94bf8c1b9aaef3dade106b6304">MODULUS</a>;        <span class="comment">//done properly</span>
+      dir = (<a class="code" href="host_8h.html#a2ba4d271e85baf0d333318985cb3bced">inT8</a>) value;
+      <span class="keywordflow">return</span> *<span class="keyword">this</span>;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aeec6816172c9e7491ff2788ad5cf0337"></a><!-- doxytag: member="DIR128::vector" ref="aeec6816172c9e7491ff2788ad5cf0337" args="() const " -->
@@ -269,11 +348,16 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mod128_8cpp_source.html#l00098">98</a> of file <a class="el" href="mod128_8cpp_source.html">mod128.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                            {  <span class="comment">//convert to vector</span>
+  <span class="keywordflow">return</span> <a class="code" href="mod128_8cpp.html#a7a7e1c74bf8c2afcfedc71df593e8d39">dirtab</a>[dir];            <span class="comment">//easy really</span>
+}
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/ccstruct/<a class="el" href="mod128_8h_source.html">mod128.h</a></li>
-<li>tesseract-ocr/ccstruct/<a class="el" href="mod128_8cpp.html">mod128.cpp</a></li>
+<li>tesseract-ocr/ccstruct/<a class="el" href="mod128_8cpp_source.html">mod128.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -295,7 +379,7 @@ Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:12 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:45 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

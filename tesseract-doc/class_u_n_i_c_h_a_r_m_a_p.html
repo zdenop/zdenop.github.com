@@ -123,7 +123,10 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_n_i_c_h_a_r_m_a_p.html#a6295b2e22ddf302e81d81d1151ac4a8f">minmatch</a> (const char *const unichar_repr) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_n_i_c_h_a_r_m_a_p.html#a03d0b5a94f3b73fb17183e4bbf6a90d4">clear</a> ()</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="unicharmap_8h_source.html#l00027">27</a> of file <a class="el" href="unicharmap_8h_source.html">unicharmap.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a1d967e078291984427cc95d60ad61c11"></a><!-- doxytag: member="UNICHARMAP::UNICHARMAP" ref="a1d967e078291984427cc95d60ad61c11" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -138,6 +141,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="unicharmap_8cpp_source.html#l00025">25</a> of file <a class="el" href="unicharmap_8cpp_source.html">unicharmap.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                       :
+nodes(0) {
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="acb69ce2363844e6082995a1c4c4832e0"></a><!-- doxytag: member="UNICHARMAP::~UNICHARMAP" ref="acb69ce2363844e6082995a1c4c4832e0" args="()" -->
@@ -154,6 +162,12 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="unicharmap_8cpp_source.html#l00029">29</a> of file <a class="el" href="unicharmap_8cpp_source.html">unicharmap.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                        {
+  <span class="keywordflow">if</span> (nodes != 0)
+    <span class="keyword">delete</span>[] nodes;
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -171,6 +185,15 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="unicharmap_8cpp_source.html#l00154">154</a> of file <a class="el" href="unicharmap_8cpp_source.html">unicharmap.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                       {
+  <span class="keywordflow">if</span> (nodes != 0)
+  {
+    <span class="keyword">delete</span>[] nodes;
+    nodes = 0;
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7b62f14a3fc81145f3e4df6fe7ae64ce"></a><!-- doxytag: member="UNICHARMAP::contains" ref="a7b62f14a3fc81145f3e4df6fe7ae64ce" args="(const char *const unichar_repr) const " -->
@@ -188,6 +211,22 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="unicharmap_8cpp_source.html#l00101">101</a> of file <a class="el" href="unicharmap_8cpp_source.html">unicharmap.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                              {
+  <span class="keyword">const</span> <span class="keywordtype">char</span>* current_char = unichar_repr;
+  UNICHARMAP_NODE* current_nodes = nodes;
+
+  assert(*unichar_repr != <span class="charliteral">&#39;\0&#39;</span>);
+
+  <span class="keywordflow">while</span> (current_nodes != 0 &amp;&amp; *(current_char + 1) != <span class="charliteral">&#39;\0&#39;</span>) {
+    current_nodes =
+        current_nodes[<span class="keyword">static_cast&lt;</span><span class="keywordtype">unsigned</span> <span class="keywordtype">char</span><span class="keyword">&gt;</span>(*current_char)].children;
+    ++current_char;
+  }
+  <span class="keywordflow">return</span> current_nodes != 0 &amp;&amp; *(current_char + 1) == <span class="charliteral">&#39;\0&#39;</span> &amp;&amp;
+      current_nodes[static_cast&lt;unsigned char&gt;(*current_char)].id &gt;= 0;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2281c0e6a000baa298c8086b3b56b8b4"></a><!-- doxytag: member="UNICHARMAP::contains" ref="a2281c0e6a000baa298c8086b3b56b8b4" args="(const char *const unichar_repr, int length) const " -->
@@ -215,6 +254,24 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="unicharmap_8cpp_source.html#l00120">120</a> of file <a class="el" href="unicharmap_8cpp_source.html">unicharmap.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                            {
+  <span class="keyword">const</span> <span class="keywordtype">char</span>* current_char = unichar_repr;
+  UNICHARMAP_NODE* current_nodes = nodes;
+
+  assert(*unichar_repr != <span class="charliteral">&#39;\0&#39;</span>);
+  assert(length &gt; 0 &amp;&amp; length &lt;= <a class="code" href="unichar_8h.html#a902bc40c9d89802bc063afe30ce9e708">UNICHAR_LEN</a>);
+
+  <span class="keywordflow">while</span> (current_nodes != 0 &amp;&amp; (length &gt; 1 &amp;&amp; *(current_char + 1) != <span class="charliteral">&#39;\0&#39;</span>)) {
+    current_nodes =
+        current_nodes[<span class="keyword">static_cast&lt;</span><span class="keywordtype">unsigned</span> <span class="keywordtype">char</span><span class="keyword">&gt;</span>(*current_char)].children;
+    --length;
+    ++current_char;
+  }
+  <span class="keywordflow">return</span> current_nodes != 0 &amp;&amp; (length == 1 || *(current_char + 1) == <span class="charliteral">&#39;\0&#39;</span>) &amp;&amp;
+      current_nodes[<span class="keyword">static_cast&lt;</span><span class="keywordtype">unsigned</span> <span class="keywordtype">char</span><span class="keyword">&gt;</span>(*current_char)].id &gt;= 0;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a83ec56c382b3f94f31400ff884bbcf87"></a><!-- doxytag: member="UNICHARMAP::insert" ref="a83ec56c382b3f94f31400ff884bbcf87" args="(const char *const unichar_repr, UNICHAR_ID id)" -->
@@ -242,6 +299,29 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="unicharmap_8cpp_source.html#l00076">76</a> of file <a class="el" href="unicharmap_8cpp_source.html">unicharmap.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                     {
+  <span class="keyword">const</span> <span class="keywordtype">char</span>* current_char = unichar_repr;
+  UNICHARMAP_NODE** current_nodes_pointer = &amp;nodes;
+
+  assert(*unichar_repr != <span class="charliteral">&#39;\0&#39;</span>);
+  assert(<span class="keywordtype">id</span> &gt;= 0);
+
+  <span class="keywordflow">do</span> {
+    <span class="keywordflow">if</span> (*current_nodes_pointer == 0)
+      *current_nodes_pointer = <span class="keyword">new</span> UNICHARMAP_NODE[256];
+    <span class="keywordflow">if</span> (*(current_char + 1) == <span class="charliteral">&#39;\0&#39;</span>) {
+      (*current_nodes_pointer)
+          [<span class="keyword">static_cast&lt;</span><span class="keywordtype">unsigned</span> <span class="keywordtype">char</span><span class="keyword">&gt;</span>(*current_char)].id = id;
+      <span class="keywordflow">return</span>;
+    }
+    current_nodes_pointer =
+        &amp;((*current_nodes_pointer)
+          [<span class="keyword">static_cast&lt;</span><span class="keywordtype">unsigned</span> <span class="keywordtype">char</span><span class="keyword">&gt;</span>(*current_char)].children);
+    ++current_char;
+  } <span class="keywordflow">while</span> (<span class="keyword">true</span>);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6295b2e22ddf302e81d81d1151ac4a8f"></a><!-- doxytag: member="UNICHARMAP::minmatch" ref="a6295b2e22ddf302e81d81d1151ac4a8f" args="(const char *const unichar_repr) const " -->
@@ -259,6 +339,21 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="unicharmap_8cpp_source.html#l00140">140</a> of file <a class="el" href="unicharmap_8cpp_source.html">unicharmap.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                             {
+  <span class="keyword">const</span> <span class="keywordtype">char</span>* current_char = unichar_repr;
+  UNICHARMAP_NODE* current_nodes = nodes;
+
+  <span class="keywordflow">while</span> (current_nodes != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp; *current_char != <span class="charliteral">&#39;\0&#39;</span>) {
+    <span class="keywordflow">if</span> (current_nodes[static_cast&lt;unsigned char&gt;(*current_char)].<span class="keywordtype">id</span> &gt;= 0)
+      <span class="keywordflow">return</span> current_char + 1 - unichar_repr;
+    current_nodes =
+        current_nodes[<span class="keyword">static_cast&lt;</span><span class="keywordtype">unsigned</span> <span class="keywordtype">char</span><span class="keyword">&gt;</span>(*current_char)].children;
+    ++current_char;
+  }
+  <span class="keywordflow">return</span> 0;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="afda8d7b17ca0741a12edab53da366bd4"></a><!-- doxytag: member="UNICHARMAP::unichar_to_id" ref="afda8d7b17ca0741a12edab53da366bd4" args="(const char *const unichar_repr) const " -->
@@ -276,6 +371,22 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="unicharmap_8cpp_source.html#l00036">36</a> of file <a class="el" href="unicharmap_8cpp_source.html">unicharmap.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                         {
+  <span class="keyword">const</span> <span class="keywordtype">char</span>* current_char = unichar_repr;
+  UNICHARMAP_NODE* current_nodes = nodes;
+
+  assert(*unichar_repr != <span class="charliteral">&#39;\0&#39;</span>);
+
+  <span class="keywordflow">do</span> {
+    <span class="keywordflow">if</span> (*(current_char + 1) == <span class="charliteral">&#39;\0&#39;</span>)
+      <span class="keywordflow">return</span> current_nodes[<span class="keyword">static_cast&lt;</span><span class="keywordtype">unsigned</span> <span class="keywordtype">char</span><span class="keyword">&gt;</span>(*current_char)].id;
+    current_nodes =
+        current_nodes[<span class="keyword">static_cast&lt;</span><span class="keywordtype">unsigned</span> <span class="keywordtype">char</span><span class="keyword">&gt;</span>(*current_char)].children;
+    ++current_char;
+  } <span class="keywordflow">while</span> (<span class="keyword">true</span>);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a8b6baa108da41d022550da6ac1224d47"></a><!-- doxytag: member="UNICHARMAP::unichar_to_id" ref="a8b6baa108da41d022550da6ac1224d47" args="(const char *const unichar_repr, int length) const " -->
@@ -303,11 +414,29 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="unicharmap_8cpp_source.html#l00054">54</a> of file <a class="el" href="unicharmap_8cpp_source.html">unicharmap.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                       {
+  <span class="keyword">const</span> <span class="keywordtype">char</span>* current_char = unichar_repr;
+  UNICHARMAP_NODE* current_nodes = nodes;
+
+  assert(*unichar_repr != <span class="charliteral">&#39;\0&#39;</span>);
+  assert(length &gt; 0 &amp;&amp; length &lt;= <a class="code" href="unichar_8h.html#a902bc40c9d89802bc063afe30ce9e708">UNICHAR_LEN</a>);
+
+  <span class="keywordflow">do</span> {
+    <span class="keywordflow">if</span> (length == 1 || *(current_char + 1) == <span class="charliteral">&#39;\0&#39;</span>)
+      <span class="keywordflow">return</span> current_nodes[<span class="keyword">static_cast&lt;</span><span class="keywordtype">unsigned</span> <span class="keywordtype">char</span><span class="keyword">&gt;</span>(*current_char)].id;
+    current_nodes =
+        current_nodes[<span class="keyword">static_cast&lt;</span><span class="keywordtype">unsigned</span> <span class="keywordtype">char</span><span class="keyword">&gt;</span>(*current_char)].children;
+    ++current_char;
+    --length;
+  } <span class="keywordflow">while</span> (<span class="keyword">true</span>);
+}
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/ccutil/<a class="el" href="unicharmap_8h_source.html">unicharmap.h</a></li>
-<li>tesseract-ocr/ccutil/<a class="el" href="unicharmap_8cpp.html">unicharmap.cpp</a></li>
+<li>tesseract-ocr/ccutil/<a class="el" href="unicharmap_8cpp_source.html">unicharmap.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -329,7 +458,7 @@ Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:14 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:48 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

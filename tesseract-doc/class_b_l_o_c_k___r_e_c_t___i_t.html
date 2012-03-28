@@ -120,7 +120,10 @@ Public Member Functions</h2></td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">test end  <a href="#af8914c72cc93eeb96ed231db37ab5043"></a><br/></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_b_l_o_c_k___r_e_c_t___i_t.html#a1e3195249b6b6934be9060f1d5ee60c2">bounding_box</a> (<a class="el" href="class_i_c_o_o_r_d.html">ICOORD</a> &amp;bleft, <a class="el" href="class_i_c_o_o_r_d.html">ICOORD</a> &amp;tright)</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="pdblock_8h_source.html#l00122">122</a> of file <a class="el" href="pdblock_8h_source.html">pdblock.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a1344f314e5e85908725bac7a15726802"></a><!-- doxytag: member="BLOCK_RECT_IT::BLOCK_RECT_IT" ref="a1344f314e5e85908725bac7a15726802" args="(PDBLK *blkptr)" -->
 <div class="memitem">
 <div class="memproto">
@@ -143,6 +146,15 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="pdblock_8cpp_source.html#l00290">290</a> of file <a class="el" href="pdblock_8cpp_source.html">pdblock.cpp</a>.</p>
+<div class="fragment"><pre class="fragment"> :left_it (&amp;blkptr-&gt;<a class="code" href="class_p_d_b_l_k.html#af00bb4a4ee2e805324672b19e088e06a">leftside</a>), right_it (&amp;blkptr-&gt;<a class="code" href="class_p_d_b_l_k.html#a87a08537c120e669c825d147a5650a55">rightside</a>) {
+  block = blkptr;                <span class="comment">//remember block</span>
+                                 <span class="comment">//non empty list</span>
+  <span class="keywordflow">if</span> (!blkptr-&gt;<a class="code" href="class_p_d_b_l_k.html#af00bb4a4ee2e805324672b19e088e06a">leftside</a>.empty ()) {
+    <a class="code" href="class_b_l_o_c_k___r_e_c_t___i_t.html#a74b1d75085d9f1ba313439ddbd9bc320" title="start iteration">start_block</a>();  <span class="comment">//ready for iteration</span>
+  }
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -179,6 +191,14 @@ Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="pdblock_8h_source.html#l00147">147</a> of file <a class="el" href="pdblock_8h_source.html">pdblock.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                      {
+                                 <span class="comment">//bottom left</span>
+      bleft = <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> (left_it.data ()-&gt;x (), ymin);
+                                 <span class="comment">//top right</span>
+      tright = <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> (right_it.data ()-&gt;x (), ymax);
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="af8914c72cc93eeb96ed231db37ab5043"></a><!-- doxytag: member="BLOCK_RECT_IT::cycled_rects" ref="af8914c72cc93eeb96ed231db37ab5043" args="()" -->
@@ -197,6 +217,11 @@ Public Member Functions</h2></td></tr>
 
 <p>test end </p>
 
+<p>Definition at line <a class="el" href="pdblock_8h_source.html#l00140">140</a> of file <a class="el" href="pdblock_8h_source.html">pdblock.h</a>.</p>
+<div class="fragment"><pre class="fragment">                         {
+      <span class="keywordflow">return</span> left_it.cycled_list () &amp;&amp; right_it.cycled_list ();
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab56b686d27e5eea704424470024456f4"></a><!-- doxytag: member="BLOCK_RECT_IT::forward" ref="ab56b686d27e5eea704424470024456f4" args="()" -->
@@ -215,6 +240,31 @@ Public Member Functions</h2></td></tr>
 
 <p>next rectangle </p>
 
+<p>Definition at line <a class="el" href="pdblock_8cpp_source.html#l00344">344</a> of file <a class="el" href="pdblock_8cpp_source.html">pdblock.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                            {  <span class="comment">//next rectangle</span>
+  <span class="keywordflow">if</span> (!left_it.empty ()) {       <span class="comment">//non-empty list</span>
+    <span class="keywordflow">if</span> (left_it.data_relative (1)-&gt;y () == ymax)
+      left_it.forward ();        <span class="comment">//move to meet top</span>
+    <span class="keywordflow">if</span> (right_it.data_relative (1)-&gt;y () == ymax)
+      right_it.forward ();
+                                 <span class="comment">//last is special</span>
+    <span class="keywordflow">if</span> (left_it.at_last () || right_it.at_last ()) {
+      left_it.move_to_first ();  <span class="comment">//restart</span>
+      right_it.move_to_first ();
+                                 <span class="comment">//now at bottom</span>
+      ymin = left_it.data ()-&gt;y ();
+    }
+    <span class="keywordflow">else</span> {
+      ymin = ymax;               <span class="comment">//new bottom</span>
+    }
+                                 <span class="comment">//next point</span>
+    ymax = left_it.data_relative (1)-&gt;y ();
+    <span class="keywordflow">if</span> (right_it.data_relative (1)-&gt;y () &lt; ymax)
+                                 <span class="comment">//least step forward</span>
+      ymax = right_it.data_relative (1)-&gt;y ();
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a67e8a119f8c28be404bd1770fa22ce7f"></a><!-- doxytag: member="BLOCK_RECT_IT::set_to_block" ref="a67e8a119f8c28be404bd1770fa22ce7f" args="(PDBLK *blkptr)" -->
@@ -234,6 +284,16 @@ Public Member Functions</h2></td></tr>
 
 <p>start (new) block </p>
 
+<p>Definition at line <a class="el" href="pdblock_8cpp_source.html#l00308">308</a> of file <a class="el" href="pdblock_8cpp_source.html">pdblock.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                {  <span class="comment">//block to start</span>
+  block = blkptr;                <span class="comment">//remember block</span>
+                                 <span class="comment">//set iterators</span>
+  left_it.set_to_list (&amp;blkptr-&gt;<a class="code" href="class_p_d_b_l_k.html#af00bb4a4ee2e805324672b19e088e06a">leftside</a>);
+  right_it.set_to_list (&amp;blkptr-&gt;<a class="code" href="class_p_d_b_l_k.html#a87a08537c120e669c825d147a5650a55">rightside</a>);
+  <span class="keywordflow">if</span> (!blkptr-&gt;<a class="code" href="class_p_d_b_l_k.html#af00bb4a4ee2e805324672b19e088e06a">leftside</a>.empty ())
+    <a class="code" href="class_b_l_o_c_k___r_e_c_t___i_t.html#a74b1d75085d9f1ba313439ddbd9bc320" title="start iteration">start_block</a>();  <span class="comment">//ready for iteration</span>
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a74b1d75085d9f1ba313439ddbd9bc320"></a><!-- doxytag: member="BLOCK_RECT_IT::start_block" ref="a74b1d75085d9f1ba313439ddbd9bc320" args="()" -->
@@ -252,11 +312,24 @@ Public Member Functions</h2></td></tr>
 
 <p>start iteration </p>
 
+<p>Definition at line <a class="el" href="pdblock_8cpp_source.html#l00325">325</a> of file <a class="el" href="pdblock_8cpp_source.html">pdblock.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                {  <span class="comment">//start (new) block</span>
+  left_it.move_to_first ();
+  right_it.move_to_first ();
+  left_it.mark_cycle_pt ();
+  right_it.mark_cycle_pt ();
+  ymin = left_it.data ()-&gt;y ();  <span class="comment">//bottom of first box</span>
+  ymax = left_it.data_relative (1)-&gt;y ();
+  <span class="keywordflow">if</span> (right_it.data_relative (1)-&gt;y () &lt; ymax)
+                                 <span class="comment">//smallest step</span>
+    ymax = right_it.data_relative (1)-&gt;y ();
+}
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/ccstruct/<a class="el" href="pdblock_8h_source.html">pdblock.h</a></li>
-<li>tesseract-ocr/ccstruct/<a class="el" href="pdblock_8cpp.html">pdblock.cpp</a></li>
+<li>tesseract-ocr/ccstruct/<a class="el" href="pdblock_8cpp_source.html">pdblock.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -278,7 +351,7 @@ Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:11 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:45 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

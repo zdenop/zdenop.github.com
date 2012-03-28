@@ -103,7 +103,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="mfcpch_8h_source.html">mfcpch.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="hashfn_8h_source.html">hashfn.h</a>&quot;</code><br/>
-</div><table class="memberdecls">
+</div>
+<p><a href="hashfn_8cpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="hashfn_8cpp.html#aac1011e548789d4541824e884c1206d2">hash</a> (<a class="el" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> bits, void *key, <a class="el" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> keysize)</td></tr>
@@ -140,6 +142,32 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="hashfn_8cpp_source.html#l00030">30</a> of file <a class="el" href="hashfn_8cpp_source.html">hashfn.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">            {
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> bitindex;                <span class="comment">//current bit count</span>
+  <a class="code" href="host_8h.html#afc8530b39ebe0b6df1e19159d2508d15">uinT32</a> keybits;                <span class="comment">//bit buffer</span>
+  <a class="code" href="host_8h.html#afc8530b39ebe0b6df1e19159d2508d15">uinT32</a> hcode;                  <span class="comment">//current hash code</span>
+  <a class="code" href="host_8h.html#afc8530b39ebe0b6df1e19159d2508d15">uinT32</a> mask;                   <span class="comment">//bit mask</span>
+
+  mask = (1 &lt;&lt; bits) - 1;
+  keysize *= 8;                  <span class="comment">//in bits</span>
+  bitindex = 0;
+  keybits = 0;
+  hcode = 0;
+  <span class="keywordflow">do</span> {
+    <span class="keywordflow">while</span> (keysize &gt; 0 &amp;&amp; bitindex &lt;= 24) {
+      keybits |= *((<a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a> *) key) &lt;&lt; bitindex;
+      key = (<a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a> *) key + 1;
+      bitindex += 8;
+      keysize -= 8;
+    }
+    hcode ^= keybits &amp; mask;     <span class="comment">//key new key</span>
+    keybits &gt;&gt;= bits;
+  }
+  <span class="keywordflow">while</span> (keysize &gt; 0);
+  <span class="keywordflow">return</span> hcode;                  <span class="comment">//initial hash</span>
+}
+</pre></div>
 </div>
 </div>
 </div>
@@ -162,7 +190,7 @@ Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:09 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:40 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

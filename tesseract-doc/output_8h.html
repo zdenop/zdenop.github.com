@@ -159,6 +159,34 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="output_8cpp_source.html#l00311">311</a> of file <a class="el" href="output_8cpp_source.html">output.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                             {
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> end_gap;                 <span class="comment">//to right edge</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> width;                   <span class="comment">//of next word</span>
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> word_box;                  <span class="comment">//bounding</span>
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> next_box;                  <span class="comment">//next word</span>
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> block_box;                 <span class="comment">//block bounding</span>
+
+  <span class="keywordflow">if</span> (!word-&gt;<a class="code" href="class_w_e_r_d.html#a81edde8597a3d9fd8a664d703d332c41">flag</a> (<a class="code" href="werd_8h.html#ad6968adbf8f2cc44adf333ec96efb0bea62efb985a62d85e014ee5ab039dd50ce">W_EOL</a>))
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;                <span class="comment">//not end of line</span>
+  <span class="keywordflow">if</span> (next_word == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> || next_block == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> || block != next_block)
+    <span class="keywordflow">return</span> <a class="code" href="output_8cpp.html#a124c113d0437142a4c8d8c5412c65690">CTRL_NEWLINE</a>;
+  <span class="keywordflow">if</span> (next_word-&gt;<a class="code" href="class_w_e_r_d.html#ab2979974cf23f5c66f4e77cc51f2e189">space</a> () &gt; 0)
+    <span class="keywordflow">return</span> <a class="code" href="output_8cpp.html#ab6892379dea0cd119bb14c2678b65c55">CTRL_HARDLINE</a>;        <span class="comment">//it is tabbed</span>
+  word_box = word-&gt;<a class="code" href="class_w_e_r_d.html#a151bbfb39ecdef93ab1a14b0f9e4ac74">bounding_box</a> ();
+  next_box = next_word-&gt;<a class="code" href="class_w_e_r_d.html#a151bbfb39ecdef93ab1a14b0f9e4ac74">bounding_box</a> ();
+  block_box = block-&gt;<a class="code" href="class_p_d_b_l_k.html#a91950a96127b4a0bb9b237e1f5f889a4" title="get box">bounding_box</a> ();
+                                 <span class="comment">//gap to eol</span>
+  end_gap = block_box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a> () - word_box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a> ();
+  end_gap -= (<a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a>) block-&gt;<a class="code" href="class_b_l_o_c_k.html#a421d1cc1e230f8598de6ceacb6e43e51" title="return spacing">space</a> ();
+  width = next_box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a> () - next_box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a> ();
+  <span class="comment">//      tprintf(&quot;end_gap=%d-%d=%d, width=%d-%d=%d, nl=%d\n&quot;,</span>
+  <span class="comment">//              block_box.right(),word_box.right(),end_gap,</span>
+  <span class="comment">//              next_box.right(),next_box.left(),width,</span>
+  <span class="comment">//              end_gap&gt;width ? CTRL_HARDLINE : CTRL_NEWLINE);</span>
+  <span class="keywordflow">return</span> end_gap &gt; width ? <a class="code" href="output_8cpp.html#ab6892379dea0cd119bb14c2678b65c55">CTRL_HARDLINE</a> : <a class="code" href="output_8cpp.html#a124c113d0437142a4c8d8c5412c65690">CTRL_NEWLINE</a>;
+}
+</pre></div>
 </div>
 </div>
 </div>
@@ -181,7 +209,7 @@ Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:08 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:40 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

@@ -120,7 +120,10 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_search_column.html#a5aa407d2e7553e6dab9cc7910b8a7807">Sort</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_search_column.html#a98a8b0188debb17fb07eea6ec96660d4">FreeHashTable</a> ()</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="search__column_8h_source.html#l00037">37</a> of file <a class="el" href="search__column_8h_source.html">search_column.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="acd04ea89962103de43b999cdb9ad3f9b"></a><!-- doxytag: member="tesseract::SearchColumn::SearchColumn" ref="acd04ea89962103de43b999cdb9ad3f9b" args="(int col_idx, int max_node_cnt)" -->
 <div class="memitem">
 <div class="memproto">
@@ -146,6 +149,18 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="search__column_8cpp_source.html#l00025">25</a> of file <a class="el" href="search__column_8cpp_source.html">search_column.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                    {
+  col_idx_ = col_idx;
+  node_cnt_ = 0;
+  node_array_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  max_node_cnt_ = max_node;
+  node_hash_table_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  init_ = <span class="keyword">false</span>;
+  min_cost_ = INT_MAX;
+  max_cost_ = 0;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad9a2868e392eaf136264de6e40787453"></a><!-- doxytag: member="tesseract::SearchColumn::~SearchColumn" ref="ad9a2868e392eaf136264de6e40787453" args="()" -->
@@ -162,6 +177,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="search__column_8cpp_source.html#l00052">52</a> of file <a class="el" href="search__column_8cpp_source.html">search_column.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                            {
+  Cleanup();
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -202,6 +222,89 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="search__column_8cpp_source.html#l00133">133</a> of file <a class="el" href="search__column_8cpp_source.html">search_column.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                          {
+  <span class="comment">// init if necessary</span>
+  <span class="keywordflow">if</span> (init_ == <span class="keyword">false</span> &amp;&amp; Init() == <span class="keyword">false</span>) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="comment">// find out if we have an node with the same edge</span>
+  <span class="comment">// look in the hash table</span>
+  SearchNode *new_node = node_hash_table_-&gt;Lookup(edge, parent_node);
+  <span class="comment">// node does not exist</span>
+  <span class="keywordflow">if</span> (new_node == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    new_node = <span class="keyword">new</span> SearchNode(cntxt, parent_node, reco_cost, edge, col_idx_);
+    <span class="keywordflow">if</span> (new_node == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    }
+
+    <span class="comment">// if the max node count has already been reached, check if the cost of</span>
+    <span class="comment">// the new node exceeds the max cost. This indicates that it will be pruned</span>
+    <span class="comment">// and so there is no point adding it</span>
+    <span class="keywordflow">if</span> (node_cnt_ &gt;= max_node_cnt_ &amp;&amp; new_node-&gt;BestCost() &gt; max_cost_) {
+      <span class="keyword">delete</span> new_node;
+      <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    }
+
+    <span class="comment">// expand the node buffer if necc</span>
+    <span class="keywordflow">if</span> ((node_cnt_ % kNodeAllocChunk) == 0) {
+      <span class="comment">// alloc a new buff</span>
+      SearchNode **new_node_buff =
+          <span class="keyword">new</span> SearchNode *[node_cnt_ + kNodeAllocChunk];
+      <span class="keywordflow">if</span> (new_node_buff == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+        <span class="keyword">delete</span> new_node;
+        <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+      }
+
+      <span class="comment">// free existing after copying contents</span>
+      <span class="keywordflow">if</span> (node_array_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+        memcpy(new_node_buff, node_array_, node_cnt_ * <span class="keyword">sizeof</span>(*new_node_buff));
+        <span class="keyword">delete</span> []node_array_;
+      }
+
+      node_array_ = new_node_buff;
+    }
+
+    <span class="comment">// add the node to the hash table only if it is non-OOD edge</span>
+    <span class="comment">// because the langmod state is not unique</span>
+    <span class="keywordflow">if</span> (edge-&gt;IsOOD() == <span class="keyword">false</span>) {
+      <span class="keywordflow">if</span> (!node_hash_table_-&gt;Insert(edge, new_node)) {
+        printf(<span class="stringliteral">&quot;Hash table full!!!&quot;</span>);
+        <span class="keyword">delete</span> new_node;
+        <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+      }
+    }
+
+    node_array_[node_cnt_++] = new_node;
+
+  } <span class="keywordflow">else</span> {
+    <span class="comment">// node exists before</span>
+    <span class="comment">// if no update occurred, return NULL</span>
+    <span class="keywordflow">if</span> (new_node-&gt;UpdateParent(parent_node, reco_cost, edge) == <span class="keyword">false</span>) {
+      new_node = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    }
+
+    <span class="comment">// free the edge</span>
+    <span class="keywordflow">if</span> (edge != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      <span class="keyword">delete</span> edge;
+    }
+  }
+
+  <span class="comment">// update Min and Max Costs</span>
+  <span class="keywordflow">if</span> (new_node != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">if</span> (min_cost_ &gt; new_node-&gt;BestCost()) {
+      min_cost_ = new_node-&gt;BestCost();
+    }
+
+    <span class="keywordflow">if</span> (max_cost_ &lt; new_node-&gt;BestCost()) {
+      max_cost_ = new_node-&gt;BestCost();
+    }
+  }
+
+  <span class="keywordflow">return</span> new_node;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9d1c018b6c1d473b483e11e330071589"></a><!-- doxytag: member="tesseract::SearchColumn::BestNode" ref="a9d1c018b6c1d473b483e11e330071589" args="()" -->
@@ -218,6 +321,20 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="search__column_8cpp_source.html#l00217">217</a> of file <a class="el" href="search__column_8cpp_source.html">search_column.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                   {
+  SearchNode *best_node = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> node_idx = 0; node_idx &lt; node_cnt_; node_idx++) {
+    <span class="keywordflow">if</span> (best_node == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> ||
+        best_node-&gt;BestCost() &gt; node_array_[node_idx]-&gt;BestCost()) {
+      best_node = node_array_[node_idx];
+    }
+  }
+
+  <span class="keywordflow">return</span> best_node;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="abd8a49bd16e8d6ae3c3d92dd296ec8f6"></a><!-- doxytag: member="tesseract::SearchColumn::ColIdx" ref="abd8a49bd16e8d6ae3c3d92dd296ec8f6" args="() const " -->
@@ -234,6 +351,9 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="search__column_8h_source.html#l00042">42</a> of file <a class="el" href="search__column_8h_source.html">search_column.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> col_idx_; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a98a8b0188debb17fb07eea6ec96660d4"></a><!-- doxytag: member="tesseract::SearchColumn::FreeHashTable" ref="a98a8b0188debb17fb07eea6ec96660d4" args="()" -->
@@ -250,6 +370,14 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="search__column_8h_source.html#l00057">57</a> of file <a class="el" href="search__column_8h_source.html">search_column.h</a>.</p>
+<div class="fragment"><pre class="fragment">                       {
+    <span class="keywordflow">if</span> (node_hash_table_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      <span class="keyword">delete</span> node_hash_table_;
+      node_hash_table_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    }
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9a102cd86f201dee6abc1f90f5a5ef1e"></a><!-- doxytag: member="tesseract::SearchColumn::NodeCount" ref="a9a102cd86f201dee6abc1f90f5a5ef1e" args="() const " -->
@@ -266,6 +394,9 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="search__column_8h_source.html#l00043">43</a> of file <a class="el" href="search__column_8h_source.html">search_column.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> node_cnt_; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a57c10b151d3565c752c80bbf225cb834"></a><!-- doxytag: member="tesseract::SearchColumn::Nodes" ref="a57c10b151d3565c752c80bbf225cb834" args="() const " -->
@@ -282,6 +413,9 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="search__column_8h_source.html#l00044">44</a> of file <a class="el" href="search__column_8h_source.html">search_column.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> node_array_; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="af59882506aaf9becbfa8bfeff325a08f"></a><!-- doxytag: member="tesseract::SearchColumn::Prune" ref="af59882506aaf9becbfa8bfeff325a08f" args="()" -->
@@ -298,6 +432,54 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="search__column_8cpp_source.html#l00077">77</a> of file <a class="el" href="search__column_8cpp_source.html">search_column.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                         {
+  <span class="comment">// no need to prune</span>
+  <span class="keywordflow">if</span> (node_cnt_ &lt;= max_node_cnt_) {
+    <span class="keywordflow">return</span>;
+  }
+
+  <span class="comment">// compute the cost histogram</span>
+  memset(score_bins_, 0, <span class="keyword">sizeof</span>(score_bins_));
+  <span class="keywordtype">int</span> cost_range = max_cost_ - min_cost_ + 1;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> node_idx = 0; node_idx &lt; node_cnt_; node_idx++) {
+    <span class="keywordtype">int</span> cost_bin = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(
+        ((node_array_[node_idx]-&gt;BestCost() - min_cost_) *
+         kScoreBins) / <span class="keyword">static_cast&lt;</span><span class="keywordtype">double</span><span class="keyword">&gt;</span>(cost_range));
+    <span class="keywordflow">if</span> (cost_bin &gt;= kScoreBins) {
+      cost_bin = kScoreBins - 1;
+    }
+    score_bins_[cost_bin]++;
+  }
+
+  <span class="comment">// determine the pruning cost by scanning the cost histogram from</span>
+  <span class="comment">// least to greatest cost bins and finding the cost at which the</span>
+  <span class="comment">// max number of nodes is exceeded</span>
+  <span class="keywordtype">int</span> pruning_cost = 0;
+  <span class="keywordtype">int</span> new_node_cnt = 0;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> cost_bin = 0; cost_bin &lt; kScoreBins; cost_bin++) {
+    <span class="keywordflow">if</span> (new_node_cnt &gt; 0 &amp;&amp;
+        (new_node_cnt + score_bins_[cost_bin]) &gt; max_node_cnt_) {
+      pruning_cost = min_cost_ + ((cost_bin * cost_range) / kScoreBins);
+      <span class="keywordflow">break</span>;
+    }
+    new_node_cnt += score_bins_[cost_bin];
+  }
+
+  <span class="comment">// prune out all the nodes above this cost</span>
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> node_idx = new_node_cnt = 0; node_idx &lt; node_cnt_; node_idx++) {
+    <span class="comment">// prune this node out</span>
+    <span class="keywordflow">if</span> (node_array_[node_idx]-&gt;BestCost() &gt; pruning_cost ||
+        new_node_cnt &gt; max_node_cnt_) {
+      <span class="keyword">delete</span> node_array_[node_idx];
+    } <span class="keywordflow">else</span> {
+      <span class="comment">// keep it</span>
+      node_array_[new_node_cnt++] = node_array_[node_idx];
+    }
+  }
+  node_cnt_ = new_node_cnt;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a5aa407d2e7553e6dab9cc7910b8a7807"></a><!-- doxytag: member="tesseract::SearchColumn::Sort" ref="a5aa407d2e7553e6dab9cc7910b8a7807" args="()" -->
@@ -314,11 +496,19 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="search__column_8cpp_source.html#l00125">125</a> of file <a class="el" href="search__column_8cpp_source.html">search_column.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                        {
+  <span class="keywordflow">if</span> (node_cnt_ &gt; 0 &amp;&amp; node_array_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    qsort(node_array_, node_cnt_, <span class="keyword">sizeof</span>(*node_array_),
+          <a class="code" href="classtesseract_1_1_search_node.html#a9f2ac1e83884b6b143174d2966d4dbcf">SearchNode::SearchNodeComparer</a>);
+  }
+}
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/cube/<a class="el" href="search__column_8h_source.html">search_column.h</a></li>
-<li>tesseract-ocr/cube/<a class="el" href="search__column_8cpp.html">search_column.cpp</a></li>
+<li>tesseract-ocr/cube/<a class="el" href="search__column_8cpp_source.html">search_column.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -341,7 +531,7 @@ Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:15 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:51 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

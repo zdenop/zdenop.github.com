@@ -121,7 +121,10 @@ Public Member Functions</h2></td></tr>
 Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_u_n_i_c_h_a_r.html#a8182a4663f6c1df9f097700f1009ab22">utf8_step</a> (const char *utf8_str)</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="unichar_8h_source.html#l00042">42</a> of file <a class="el" href="unichar_8h_source.html">unichar.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a7fb65b084f53bcf45ba1cefd1eb88398"></a><!-- doxytag: member="UNICHAR::UNICHAR" ref="a7fb65b084f53bcf45ba1cefd1eb88398" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -136,6 +139,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="unichar_8h_source.html#l00044">44</a> of file <a class="el" href="unichar_8h_source.html">unichar.h</a>.</p>
+<div class="fragment"><pre class="fragment">            {
+    memset(chars, 0, <a class="code" href="unichar_8h.html#a902bc40c9d89802bc063afe30ce9e708">UNICHAR_LEN</a>);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3d21067938609802ec2284a1cfcea48f"></a><!-- doxytag: member="UNICHAR::UNICHAR" ref="a3d21067938609802ec2284a1cfcea48f" args="(const char *utf8_str, int len)" -->
@@ -163,6 +171,34 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="unichar_8cpp_source.html#l00028">28</a> of file <a class="el" href="unichar_8cpp_source.html">unichar.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                              {
+  <span class="keywordtype">int</span> total_len = 0;
+  <span class="keywordtype">int</span> step = 0;
+  <span class="keywordflow">if</span> (len &lt; 0) {
+    <span class="keywordflow">for</span> (len = 0; <a class="code" href="class_u_n_i_c_h_a_r.html#a06c2f8824d2f49385ca8cbcf5434e918">utf8_str</a>[len] != 0 &amp;&amp; len &lt; <a class="code" href="unichar_8h.html#a902bc40c9d89802bc063afe30ce9e708">UNICHAR_LEN</a>; ++len);
+  }
+  <span class="keywordflow">for</span> (total_len = 0; total_len &lt; len; total_len += step) {
+    step = <a class="code" href="class_u_n_i_c_h_a_r.html#a8182a4663f6c1df9f097700f1009ab22">utf8_step</a>(<a class="code" href="class_u_n_i_c_h_a_r.html#a06c2f8824d2f49385ca8cbcf5434e918">utf8_str</a> + total_len);
+    <span class="keywordflow">if</span> (total_len + step &gt; <a class="code" href="unichar_8h.html#a902bc40c9d89802bc063afe30ce9e708">UNICHAR_LEN</a>)
+      <span class="keywordflow">break</span>;  <span class="comment">// Too long.</span>
+    <span class="keywordflow">if</span> (step == 0)
+      <span class="keywordflow">break</span>;  <span class="comment">// Illegal first byte.</span>
+    <span class="keywordtype">int</span> i;
+    <span class="keywordflow">for</span> (i = 1; i &lt; step; ++i)
+      <span class="keywordflow">if</span> ((<a class="code" href="class_u_n_i_c_h_a_r.html#a06c2f8824d2f49385ca8cbcf5434e918">utf8_str</a>[total_len + i] &amp; 0xc0) != 0x80)
+        <span class="keywordflow">break</span>;
+    <span class="keywordflow">if</span> (i &lt; step)
+      <span class="keywordflow">break</span>;  <span class="comment">// Illegal surrogate</span>
+  }
+  memcpy(chars, <a class="code" href="class_u_n_i_c_h_a_r.html#a06c2f8824d2f49385ca8cbcf5434e918">utf8_str</a>, total_len);
+  <span class="keywordflow">if</span> (total_len &lt; <a class="code" href="unichar_8h.html#a902bc40c9d89802bc063afe30ce9e708">UNICHAR_LEN</a>) {
+    chars[<a class="code" href="unichar_8h.html#a902bc40c9d89802bc063afe30ce9e708">UNICHAR_LEN</a> - 1] = total_len;
+    <span class="keywordflow">while</span> (total_len &lt; <a class="code" href="unichar_8h.html#a902bc40c9d89802bc063afe30ce9e708">UNICHAR_LEN</a> - 1)
+      chars[total_len++] = 0;
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6793ad5d9ed95380e92bbec2aabf9255"></a><!-- doxytag: member="UNICHAR::UNICHAR" ref="a6793ad5d9ed95380e92bbec2aabf9255" args="(int unicode)" -->
@@ -180,6 +216,43 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="unichar_8cpp_source.html#l00057">57</a> of file <a class="el" href="unichar_8cpp_source.html">unichar.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                            {
+  <span class="keyword">const</span> <span class="keywordtype">int</span> bytemask = 0xBF;
+  <span class="keyword">const</span> <span class="keywordtype">int</span> bytemark = 0x80;
+
+  <span class="keywordflow">if</span> (unicode &lt; 0x80) {
+    chars[<a class="code" href="unichar_8h.html#a902bc40c9d89802bc063afe30ce9e708">UNICHAR_LEN</a> - 1] = 1;
+    chars[2] = 0;
+    chars[1] = 0;
+    chars[0] = <span class="keyword">static_cast&lt;</span><span class="keywordtype">char</span><span class="keyword">&gt;</span>(unicode);
+  } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (unicode &lt; 0x800) {
+    chars[<a class="code" href="unichar_8h.html#a902bc40c9d89802bc063afe30ce9e708">UNICHAR_LEN</a> - 1] = 2;
+    chars[2] = 0;
+    chars[1] = <span class="keyword">static_cast&lt;</span><span class="keywordtype">char</span><span class="keyword">&gt;</span>((unicode | bytemark) &amp; bytemask);
+    unicode &gt;&gt;= 6;
+    chars[0] = <span class="keyword">static_cast&lt;</span><span class="keywordtype">char</span><span class="keyword">&gt;</span>(unicode | 0xc0);
+  } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (unicode &lt; 0x10000) {
+    chars[<a class="code" href="unichar_8h.html#a902bc40c9d89802bc063afe30ce9e708">UNICHAR_LEN</a> - 1] = 3;
+    chars[2] = <span class="keyword">static_cast&lt;</span><span class="keywordtype">char</span><span class="keyword">&gt;</span>((unicode | bytemark) &amp; bytemask);
+    unicode &gt;&gt;= 6;
+    chars[1] = <span class="keyword">static_cast&lt;</span><span class="keywordtype">char</span><span class="keyword">&gt;</span>((unicode | bytemark) &amp; bytemask);
+    unicode &gt;&gt;= 6;
+    chars[0] = <span class="keyword">static_cast&lt;</span><span class="keywordtype">char</span><span class="keyword">&gt;</span>(unicode | 0xe0);
+  } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (unicode &lt;= <a class="code" href="unichar_8cpp.html#a98a2f50a1ca513613316ffd384dd1bfb">UNI_MAX_LEGAL_UTF32</a>) {
+    chars[<a class="code" href="unichar_8h.html#a902bc40c9d89802bc063afe30ce9e708">UNICHAR_LEN</a> - 1] = 4;
+    chars[3] = <span class="keyword">static_cast&lt;</span><span class="keywordtype">char</span><span class="keyword">&gt;</span>((unicode | bytemark) &amp; bytemask);
+    unicode &gt;&gt;= 6;
+    chars[2] = <span class="keyword">static_cast&lt;</span><span class="keywordtype">char</span><span class="keyword">&gt;</span>((unicode | bytemark) &amp; bytemask);
+    unicode &gt;&gt;= 6;
+    chars[1] = <span class="keyword">static_cast&lt;</span><span class="keywordtype">char</span><span class="keyword">&gt;</span>((unicode | bytemark) &amp; bytemask);
+    unicode &gt;&gt;= 6;
+    chars[0] = <span class="keyword">static_cast&lt;</span><span class="keywordtype">char</span><span class="keyword">&gt;</span>(unicode | 0xf0);
+  } <span class="keywordflow">else</span> {
+    memset(chars, 0, <a class="code" href="unichar_8h.html#a902bc40c9d89802bc063afe30ce9e708">UNICHAR_LEN</a>);
+  }
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -197,6 +270,34 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="unichar_8cpp_source.html#l00094">94</a> of file <a class="el" href="unichar_8cpp_source.html">unichar.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                             {
+  <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">int</span> utf8_offsets[5] = {
+    0, 0, 0x3080, 0xE2080, 0x3C82080
+  };
+  <span class="keywordtype">int</span> uni = 0;
+  <span class="keywordtype">int</span> len = <a class="code" href="class_u_n_i_c_h_a_r.html#a8182a4663f6c1df9f097700f1009ab22">utf8_step</a>(chars);
+  <span class="keyword">const</span> <span class="keywordtype">char</span>* src = chars;
+
+  <span class="keywordflow">switch</span> (len) {
+  <span class="keywordflow">default</span>:
+    <span class="keywordflow">break</span>;
+  <span class="keywordflow">case</span> 4:
+    uni += <span class="keyword">static_cast&lt;</span><span class="keywordtype">unsigned</span> <span class="keywordtype">char</span><span class="keyword">&gt;</span>(*src++);
+    uni &lt;&lt;= 6;
+  <span class="keywordflow">case</span> 3:
+    uni += <span class="keyword">static_cast&lt;</span><span class="keywordtype">unsigned</span> <span class="keywordtype">char</span><span class="keyword">&gt;</span>(*src++);
+    uni &lt;&lt;= 6;
+  <span class="keywordflow">case</span> 2:
+    uni += <span class="keyword">static_cast&lt;</span><span class="keywordtype">unsigned</span> <span class="keywordtype">char</span><span class="keyword">&gt;</span>(*src++);
+    uni &lt;&lt;= 6;
+  <span class="keywordflow">case</span> 1:
+    uni += <span class="keyword">static_cast&lt;</span><span class="keywordtype">unsigned</span> <span class="keywordtype">char</span><span class="keyword">&gt;</span>(*src++);
+  }
+  uni -= utf8_offsets[len];
+  <span class="keywordflow">return</span> uni;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a53272d41ca98377c2342ed091b1a17be"></a><!-- doxytag: member="UNICHAR::utf8" ref="a53272d41ca98377c2342ed091b1a17be" args="() const " -->
@@ -213,6 +314,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="unichar_8h_source.html#l00068">68</a> of file <a class="el" href="unichar_8h_source.html">unichar.h</a>.</p>
+<div class="fragment"><pre class="fragment">                           {
+    <span class="keywordflow">return</span> chars;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7726199d64a4f8afa0aa5c831bbcf155"></a><!-- doxytag: member="UNICHAR::utf8_len" ref="a7726199d64a4f8afa0aa5c831bbcf155" args="() const " -->
@@ -229,6 +335,12 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="unichar_8h_source.html#l00062">62</a> of file <a class="el" href="unichar_8h_source.html">unichar.h</a>.</p>
+<div class="fragment"><pre class="fragment">                       {
+    <span class="keywordtype">int</span> len = chars[<a class="code" href="unichar_8h.html#a902bc40c9d89802bc063afe30ce9e708">UNICHAR_LEN</a> - 1];
+    <span class="keywordflow">return</span> len &gt;=0 &amp;&amp; len &lt; <a class="code" href="unichar_8h.html#a902bc40c9d89802bc063afe30ce9e708">UNICHAR_LEN</a> ? len : <a class="code" href="unichar_8h.html#a902bc40c9d89802bc063afe30ce9e708">UNICHAR_LEN</a>;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a8182a4663f6c1df9f097700f1009ab22"></a><!-- doxytag: member="UNICHAR::utf8_step" ref="a8182a4663f6c1df9f097700f1009ab22" args="(const char *utf8_str)" -->
@@ -246,6 +358,22 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="unichar_8cpp_source.html#l00131">131</a> of file <a class="el" href="unichar_8cpp_source.html">unichar.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                           {
+  <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">char</span> utf8_bytes[256] = {
+    1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1, 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+    1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1, 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+    1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1, 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+    1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1, 1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+    0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+    2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2, 2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,
+    3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3, 4,4,4,4,4,4,4,4,0,0,0,0,0,0,0,0
+  };
+
+  <span class="keywordflow">return</span> utf8_bytes[<span class="keyword">static_cast&lt;</span><span class="keywordtype">unsigned</span> <span class="keywordtype">char</span><span class="keyword">&gt;</span>(*utf8_str)];
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a06c2f8824d2f49385ca8cbcf5434e918"></a><!-- doxytag: member="UNICHAR::utf8_str" ref="a06c2f8824d2f49385ca8cbcf5434e918" args="() const " -->
@@ -262,11 +390,20 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="unichar_8cpp_source.html#l00122">122</a> of file <a class="el" href="unichar_8cpp_source.html">unichar.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                              {
+  <span class="keywordtype">int</span> len = <a class="code" href="class_u_n_i_c_h_a_r.html#a7726199d64a4f8afa0aa5c831bbcf155">utf8_len</a>();
+  <span class="keywordtype">char</span>* str = <span class="keyword">new</span> <span class="keywordtype">char</span>[len + 1];
+  memcpy(str, chars, len);
+  str[len] = 0;
+  <span class="keywordflow">return</span> str;
+}
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/ccutil/<a class="el" href="unichar_8h_source.html">unichar.h</a></li>
-<li>tesseract-ocr/ccutil/<a class="el" href="unichar_8cpp.html">unichar.cpp</a></li>
+<li>tesseract-ocr/ccutil/<a class="el" href="unichar_8cpp_source.html">unichar.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -288,7 +425,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:14 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:48 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

@@ -155,6 +155,48 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tordmain_8cpp_source.html#l00156">156</a> of file <a class="el" href="tordmain_8cpp_source.html">tordmain.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                         {  <span class="comment">// output list</span>
+  <a class="code" href="class_b_l_o_c_k.html">BLOCK</a> *block;                  <span class="comment">// current block</span>
+  <a class="code" href="class_b_l_o_b_n_b_o_x.html">BLOBNBOX</a> *newblob;             <span class="comment">// created blob</span>
+  <a class="code" href="class_c___b_l_o_b.html">C_BLOB</a> *blob;                  <span class="comment">// current blob</span>
+  BLOCK_IT block_it = blocks;
+  C_BLOB_IT blob_it;             <span class="comment">// iterator</span>
+  BLOBNBOX_IT port_box_it;       <span class="comment">// iterator</span>
+                                 <span class="comment">// destination iterator</span>
+  TO_BLOCK_IT port_block_it = port_blocks;
+  <a class="code" href="class_t_o___b_l_o_c_k.html">TO_BLOCK</a> *port_block;          <span class="comment">// created block</span>
+
+  <span class="keywordflow">for</span> (block_it.mark_cycle_pt(); !block_it.cycled_list(); block_it.forward()) {
+    block = block_it.data();
+    port_block = <span class="keyword">new</span> <a class="code" href="class_t_o___b_l_o_c_k.html">TO_BLOCK</a>(block);
+
+    <span class="comment">// Convert the good outlines to block-&gt;blob_list</span>
+    port_box_it.set_to_list(&amp;port_block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#a5dd67c54162a6b60b0fd11500d4a3025">blobs</a>);
+    blob_it.set_to_list(block-&gt;<a class="code" href="class_b_l_o_c_k.html#a23196fe0d7230572b44aa77031a1d72a" title="get blobs">blob_list</a>());
+    <span class="keywordflow">for</span> (blob_it.mark_cycle_pt(); !blob_it.cycled_list(); blob_it.forward()) {
+      blob = blob_it.extract();
+      newblob = <span class="keyword">new</span> <a class="code" href="class_b_l_o_b_n_b_o_x.html">BLOBNBOX</a>(blob);  <span class="comment">// Convert blob to BLOBNBOX.</span>
+      <a class="code" href="tordmain_8cpp.html#a741e546e0ade9bf78395d663731a4b64">SetBlobStrokeWidth</a>(pix, newblob);
+      port_box_it.add_after_then_move(newblob);
+    }
+
+    <span class="comment">// Put the rejected outlines in block-&gt;noise_blobs, which allows them to</span>
+    <span class="comment">// be reconsidered and sorted back into rows and recover outlines mistakenly</span>
+    <span class="comment">// rejected.</span>
+    port_box_it.set_to_list(&amp;port_block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#aa6a3757d385e79ab76f34afb6e8fc684">noise_blobs</a>);
+    blob_it.set_to_list(block-&gt;<a class="code" href="class_b_l_o_c_k.html#a08f23fffc748fbb0e7ae8804b7c0c90e">reject_blobs</a>());
+    <span class="keywordflow">for</span> (blob_it.mark_cycle_pt(); !blob_it.cycled_list(); blob_it.forward()) {
+      blob = blob_it.extract();
+      newblob = <span class="keyword">new</span> <a class="code" href="class_b_l_o_b_n_b_o_x.html">BLOBNBOX</a>(blob);  <span class="comment">// Convert blob to BLOBNBOX.</span>
+      <a class="code" href="tordmain_8cpp.html#a741e546e0ade9bf78395d663731a4b64">SetBlobStrokeWidth</a>(pix, newblob);
+      port_box_it.add_after_then_move(newblob);
+    }
+
+    port_block_it.add_after_then_move(port_block);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a468e4fe0f28b1a8c1ac7162bf83f1a91"></a><!-- doxytag: member="tordmain.h::blob_y_order" ref="a468e4fe0f28b1a8c1ac7162bf83f1a91" args="(void *item1, void *item2)" -->
@@ -182,6 +224,29 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tordmain_8cpp_source.html#l00793">793</a> of file <a class="el" href="tordmain_8cpp_source.html">tordmain.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                {
+                                 <span class="comment">//converted ptr</span>
+  <a class="code" href="class_b_l_o_b_n_b_o_x.html">BLOBNBOX</a> *blob1 = *(<a class="code" href="class_b_l_o_b_n_b_o_x.html">BLOBNBOX</a> **) item1;
+                                 <span class="comment">//converted ptr</span>
+  <a class="code" href="class_b_l_o_b_n_b_o_x.html">BLOBNBOX</a> *blob2 = *(<a class="code" href="class_b_l_o_b_n_b_o_x.html">BLOBNBOX</a> **) item2;
+
+  <span class="keywordflow">if</span> (blob1-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a7b97b8bc16b1473a28f9c44011522f4e">bounding_box</a> ().<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a> () &gt; blob2-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a7b97b8bc16b1473a28f9c44011522f4e">bounding_box</a> ().<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a> ())
+    <span class="keywordflow">return</span> -1;
+  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (blob1-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a7b97b8bc16b1473a28f9c44011522f4e">bounding_box</a> ().<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a> () &lt;
+    blob2-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a7b97b8bc16b1473a28f9c44011522f4e">bounding_box</a> ().<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a> ())
+    <span class="keywordflow">return</span> 1;
+  <span class="keywordflow">else</span> {
+    <span class="keywordflow">if</span> (blob1-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a7b97b8bc16b1473a28f9c44011522f4e">bounding_box</a> ().<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a> () &lt; blob2-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a7b97b8bc16b1473a28f9c44011522f4e">bounding_box</a> ().<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a> ())
+      <span class="keywordflow">return</span> -1;
+    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (blob1-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a7b97b8bc16b1473a28f9c44011522f4e">bounding_box</a> ().<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a> () &gt;
+      blob2-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a7b97b8bc16b1473a28f9c44011522f4e">bounding_box</a> ().<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a> ())
+      <span class="keywordflow">return</span> 1;
+    <span class="keywordflow">else</span>
+      <span class="keywordflow">return</span> 0;
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae3f42ba83c3fdc41b4efb434b075dece"></a><!-- doxytag: member="tordmain.h::make_blocks_from_blobs" ref="ae3f42ba83c3fdc41b4efb434b075dece" args="(TBLOB *tessblobs, const char *filename, ICOORD page_tr, BOOL8 do_shift, BLOCK_LIST *blocks)" -->
@@ -254,6 +319,100 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tordmain_8cpp_source.html#l00056">56</a> of file <a class="el" href="tordmain_8cpp_source.html">tordmain.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                  {
+  <span class="comment">// Cut the blob rectangle into a Pix.</span>
+  <span class="keywordtype">int</span> pix_height = pixGetHeight(pix);
+  <span class="keyword">const</span> <a class="code" href="class_t_b_o_x.html">TBOX</a>&amp; box = blob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a7b97b8bc16b1473a28f9c44011522f4e">bounding_box</a>();
+  <span class="keywordtype">int</span> width = box.<a class="code" href="class_t_b_o_x.html#af95494a2ccacc70cc2b83820b2948619">width</a>();
+  <span class="keywordtype">int</span> height = box.<a class="code" href="class_t_b_o_x.html#a8379d4bbc72bdbb1f069fc14790e632d">height</a>();
+  Box* blob_pix_box = boxCreate(box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>(), pix_height - box.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>(),
+                                width, height);
+  Pix* pix_blob = pixClipRectangle(pix, blob_pix_box, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  boxDestroy(&amp;blob_pix_box);
+  Pix* dist_pix = pixDistanceFunction(pix_blob, 4, 8, L_BOUNDARY_BG);
+  pixDestroy(&amp;pix_blob);
+  <span class="comment">// Compute the stroke widths.</span>
+  <a class="code" href="host_8h.html#afc8530b39ebe0b6df1e19159d2508d15">uinT32</a>* data = pixGetData(dist_pix);
+  <span class="keywordtype">int</span> wpl = pixGetWpl(dist_pix);
+  <span class="comment">// Horizontal width of stroke.</span>
+  <a class="code" href="class_s_t_a_t_s.html">STATS</a> h_stats(0, width + 1);
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> y = 0; y &lt; height; ++y) {
+    <a class="code" href="host_8h.html#afc8530b39ebe0b6df1e19159d2508d15">uinT32</a>* pixels = data + y*wpl;
+    <span class="keywordtype">int</span> prev_pixel = 0;
+    <span class="keywordtype">int</span> pixel = GET_DATA_BYTE(pixels, 0);
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> x = 1; x &lt; width; ++x) {
+      <span class="keywordtype">int</span> next_pixel = GET_DATA_BYTE(pixels, x);
+      <span class="comment">// We are looking for a pixel that is equal to its vertical neighbours,</span>
+      <span class="comment">// yet greater than its left neighbour.</span>
+      <span class="keywordflow">if</span> (prev_pixel &lt; pixel &amp;&amp;
+          (y == 0 || pixel == GET_DATA_BYTE(pixels - wpl, x - 1)) &amp;&amp;
+          (y == height - 1 || pixel == GET_DATA_BYTE(pixels + wpl, x - 1))) {
+        <span class="keywordflow">if</span> (pixel &gt; next_pixel) {
+          <span class="comment">// Single local max, so an odd width.</span>
+          h_stats.add(pixel * 2 - 1, 1);
+        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (pixel == next_pixel &amp;&amp; x + 1 &lt; width &amp;&amp;
+                 pixel &gt; GET_DATA_BYTE(pixels, x + 1)) {
+          <span class="comment">// Double local max, so an even width.</span>
+          h_stats.add(pixel * 2, 1);
+        }
+      }
+      prev_pixel = pixel;
+      pixel = next_pixel;
+    }
+  }
+  <span class="comment">// Vertical width of stroke.</span>
+  <a class="code" href="class_s_t_a_t_s.html">STATS</a> v_stats(0, height + 1);
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> x = 0; x &lt; width; ++x) {
+    <span class="keywordtype">int</span> prev_pixel = 0;
+    <span class="keywordtype">int</span> pixel = GET_DATA_BYTE(data, x);
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> y = 1; y &lt; height; ++y) {
+      <a class="code" href="host_8h.html#afc8530b39ebe0b6df1e19159d2508d15">uinT32</a>* pixels = data + y*wpl;
+      <span class="keywordtype">int</span> next_pixel = GET_DATA_BYTE(pixels, x);
+      <span class="comment">// We are looking for a pixel that is equal to its horizontal neighbours,</span>
+      <span class="comment">// yet greater than its upper neighbour.</span>
+      <span class="keywordflow">if</span> (prev_pixel &lt; pixel &amp;&amp;
+          (x == 0 || pixel == GET_DATA_BYTE(pixels - wpl, x - 1)) &amp;&amp;
+          (x == width - 1 || pixel == GET_DATA_BYTE(pixels - wpl, x + 1))) {
+        <span class="keywordflow">if</span> (pixel &gt; next_pixel) {
+          <span class="comment">// Single local max, so an odd width.</span>
+          v_stats.add(pixel * 2 - 1, 1);
+        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (pixel == next_pixel &amp;&amp; y + 1 &lt; height &amp;&amp;
+                 pixel &gt; GET_DATA_BYTE(pixels + wpl, x)) {
+          <span class="comment">// Double local max, so an even width.</span>
+          v_stats.add(pixel * 2, 1);
+        }
+      }
+      prev_pixel = pixel;
+      pixel = next_pixel;
+    }
+  }
+  pixDestroy(&amp;dist_pix);
+  <span class="comment">// Store the horizontal and vertical width in the blob, keeping both</span>
+  <span class="comment">// widths if there is enough information, otherwse only the one with</span>
+  <span class="comment">// the most samples.</span>
+  <span class="comment">// If there are insufficent samples, store zero, rather than using</span>
+  <span class="comment">// 2*area/perimeter, as the numbers that gives do not match the numbers</span>
+  <span class="comment">// from the distance method.</span>
+  <span class="keywordflow">if</span> (h_stats.get_total() &gt;= (width + height) / 4) {
+    blob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#ab8e3703ad9c72b61dedafb61c4b32358">set_horz_stroke_width</a>(h_stats.ile(0.5f));
+    <span class="keywordflow">if</span> (v_stats.get_total() &gt;= (width + height) / 4)
+      blob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#aeb808226b8dd08e875eb3cf38a61a6d5">set_vert_stroke_width</a>(v_stats.ile(0.5f));
+    <span class="keywordflow">else</span>
+      blob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#aeb808226b8dd08e875eb3cf38a61a6d5">set_vert_stroke_width</a>(0.0<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>);
+  } <span class="keywordflow">else</span> {
+    <span class="keywordflow">if</span> (v_stats.get_total() &gt;= (width + height) / 4 ||
+        v_stats.get_total() &gt; h_stats.get_total()) {
+      blob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#ab8e3703ad9c72b61dedafb61c4b32358">set_horz_stroke_width</a>(0.0<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>);
+      blob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#aeb808226b8dd08e875eb3cf38a61a6d5">set_vert_stroke_width</a>(v_stats.ile(0.5f));
+    } <span class="keywordflow">else</span> {
+      blob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#ab8e3703ad9c72b61dedafb61c4b32358">set_horz_stroke_width</a>(h_stats.get_total() &gt; 2 ? h_stats.ile(0.5<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>)
+                                                          : 0.0f);
+      blob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#aeb808226b8dd08e875eb3cf38a61a6d5">set_vert_stroke_width</a>(0.0<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>);
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab5e965c0f16e32fa7bc0f1e33d412ca5"></a><!-- doxytag: member="tordmain.h::textord_page" ref="ab5e965c0f16e32fa7bc0f1e33d412ca5" args="(ICOORD page_tr, BLOCK_LIST *blocks, TO_BLOCK_LIST *land_blocks, TO_BLOCK_LIST *port_blocks, tesseract::Tesseract *)" -->
@@ -332,6 +491,112 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tordmain_8cpp_source.html#l00680">680</a> of file <a class="el" href="tordmain_8cpp_source.html">tordmain.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                  {
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> blob_box;                 <span class="comment">//bounding box</span>
+  <a class="code" href="class_c___b_l_o_b.html">C_BLOB</a> *blob;                  <span class="comment">//current blob</span>
+  <a class="code" href="class_w_e_r_d.html">WERD</a> *word;                    <span class="comment">//current word</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> blob_count;              <span class="comment">//no of blobs</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> src_index;               <span class="comment">//source segment</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> dest_index;              <span class="comment">//destination segment</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> *xstarts;                <span class="comment">//spline segments</span>
+  <span class="keywordtype">double</span> *coeffs;                <span class="comment">//spline coeffs</span>
+  <span class="keywordtype">float</span> ydiff;                   <span class="comment">//baseline error</span>
+  <span class="keywordtype">float</span> x_centre;                <span class="comment">//centre of blob</span>
+                                 <span class="comment">//words of row</span>
+  WERD_IT word_it = row-&gt;<a class="code" href="class_r_o_w.html#ac9d07f978420b3564bf5508ad294fb70">word_list</a> ();
+  C_BLOB_IT blob_it;             <span class="comment">//blob iterator</span>
+
+  blob_count = 0;
+  <span class="keywordflow">for</span> (word_it.mark_cycle_pt (); !word_it.cycled_list (); word_it.forward ()) {
+    word = word_it.data ();      <span class="comment">//current word</span>
+                                 <span class="comment">//get total blobs</span>
+    blob_count += word-&gt;<a class="code" href="class_w_e_r_d.html#a174baefaa99afbfdbf444e4199f3b529">cblob_list</a> ()-&gt;length ();
+  }
+  <span class="keywordflow">if</span> (blob_count == 0)
+    <span class="keywordflow">return</span>;
+  xstarts =
+    (<a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> *) <a class="code" href="memry_8cpp.html#a4c14b091498fb7866a1dd0af51a591fe">alloc_mem</a> ((blob_count + row-&gt;baseline.segments + 1) *
+    <span class="keyword">sizeof</span> (<a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a>));
+  coeffs =
+    (<span class="keywordtype">double</span> *) <a class="code" href="memry_8cpp.html#a4c14b091498fb7866a1dd0af51a591fe">alloc_mem</a> ((blob_count + row-&gt;baseline.segments) * 3 *
+    <span class="keyword">sizeof</span> (double));
+
+  src_index = 0;
+  dest_index = 0;
+  xstarts[0] = row-&gt;baseline.xcoords[0];
+  <span class="keywordflow">for</span> (word_it.mark_cycle_pt (); !word_it.cycled_list (); word_it.forward ()) {
+    word = word_it.data ();      <span class="comment">//current word</span>
+                                 <span class="comment">//blobs in word</span>
+    blob_it.set_to_list (word-&gt;<a class="code" href="class_w_e_r_d.html#a174baefaa99afbfdbf444e4199f3b529">cblob_list</a> ());
+    <span class="keywordflow">for</span> (blob_it.mark_cycle_pt (); !blob_it.cycled_list ();
+    blob_it.forward ()) {
+      blob = blob_it.data ();
+      blob_box = blob-&gt;<a class="code" href="class_c___b_l_o_b.html#a77e52e29e2c622a3a63bb7edb110f6ab">bounding_box</a> ();
+      x_centre = (blob_box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a> () + blob_box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a> ()) / 2.0;
+      ydiff = blob_box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a> () - row-&gt;<a class="code" href="class_r_o_w.html#a097b3543fa3ca5768eb50033d4c4db9c">base_line</a> (x_centre);
+      <span class="keywordflow">if</span> (ydiff &lt; 0)
+        ydiff = -ydiff / row-&gt;<a class="code" href="class_r_o_w.html#a2954f94ec4eefe1e3729912e5b8ea779">x_height</a> ();
+      <span class="keywordflow">else</span>
+        ydiff = ydiff / row-&gt;<a class="code" href="class_r_o_w.html#a2954f94ec4eefe1e3729912e5b8ea779">x_height</a> ();
+      <span class="keywordflow">if</span> (ydiff &lt; blshift_maxshift
+        &amp;&amp; blob_box.<a class="code" href="class_t_b_o_x.html#a8379d4bbc72bdbb1f069fc14790e632d">height</a> () / row-&gt;<a class="code" href="class_r_o_w.html#a2954f94ec4eefe1e3729912e5b8ea779">x_height</a> () &gt; blshift_xfraction) {
+        <span class="keywordflow">if</span> (xstarts[dest_index] &gt;= x_centre)
+          xstarts[dest_index] = blob_box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a> ();
+        coeffs[dest_index * 3] = 0;
+        coeffs[dest_index * 3 + 1] = 0;
+        coeffs[dest_index * 3 + 2] = blob_box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a> ();
+        <span class="comment">//shift it</span>
+        dest_index++;
+        xstarts[dest_index] = blob_box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a> () + 1;
+      }
+      <span class="keywordflow">else</span> {
+        <span class="keywordflow">if</span> (xstarts[dest_index] &lt;= x_centre) {
+          <span class="keywordflow">while</span> (row-&gt;baseline.xcoords[src_index + 1] &lt;= x_centre
+          &amp;&amp; src_index &lt; row-&gt;<a class="code" href="mfoutline_8h.html#a2a4b69f9a2827dc98bc4cbc233118865a83297de004f4e58b9be2108c6cd08a23">baseline</a>.segments - 1) {
+            <span class="keywordflow">if</span> (row-&gt;baseline.xcoords[src_index + 1] &gt;
+            xstarts[dest_index]) {
+              coeffs[dest_index * 3] =
+                row-&gt;baseline.quadratics[src_index].<a class="code" href="class_q_u_a_d___c_o_e_f_f_s.html#aa9ab5e8947242fa1de50d9863165e032">a</a>;
+              coeffs[dest_index * 3 + 1] =
+                row-&gt;baseline.quadratics[src_index].<a class="code" href="class_q_u_a_d___c_o_e_f_f_s.html#a58eae9f9c9aa7b738c5493b8da560747">b</a>;
+              coeffs[dest_index * 3 + 2] =
+                row-&gt;baseline.quadratics[src_index].<a class="code" href="class_q_u_a_d___c_o_e_f_f_s.html#a7f5483bdd3103b7f4a732c8fbc0faa91">c</a>;
+              dest_index++;
+              xstarts[dest_index] =
+                row-&gt;baseline.xcoords[src_index + 1];
+            }
+            src_index++;
+          }
+          coeffs[dest_index * 3] =
+            row-&gt;baseline.quadratics[src_index].<a class="code" href="class_q_u_a_d___c_o_e_f_f_s.html#aa9ab5e8947242fa1de50d9863165e032">a</a>;
+          coeffs[dest_index * 3 + 1] =
+            row-&gt;baseline.quadratics[src_index].<a class="code" href="class_q_u_a_d___c_o_e_f_f_s.html#a58eae9f9c9aa7b738c5493b8da560747">b</a>;
+          coeffs[dest_index * 3 + 2] =
+            row-&gt;baseline.quadratics[src_index].<a class="code" href="class_q_u_a_d___c_o_e_f_f_s.html#a7f5483bdd3103b7f4a732c8fbc0faa91">c</a>;
+          dest_index++;
+          xstarts[dest_index] = row-&gt;baseline.xcoords[src_index + 1];
+        }
+      }
+    }
+  }
+  <span class="keywordflow">while</span> (src_index &lt; row-&gt;<a class="code" href="mfoutline_8h.html#a2a4b69f9a2827dc98bc4cbc233118865a83297de004f4e58b9be2108c6cd08a23">baseline</a>.segments
+    &amp;&amp; row-&gt;baseline.xcoords[src_index + 1] &lt;= xstarts[dest_index])
+    src_index++;
+  <span class="keywordflow">while</span> (src_index &lt; row-&gt;<a class="code" href="mfoutline_8h.html#a2a4b69f9a2827dc98bc4cbc233118865a83297de004f4e58b9be2108c6cd08a23">baseline</a>.segments) {
+    coeffs[dest_index * 3] = row-&gt;baseline.quadratics[src_index].<a class="code" href="class_q_u_a_d___c_o_e_f_f_s.html#aa9ab5e8947242fa1de50d9863165e032">a</a>;
+    coeffs[dest_index * 3 + 1] = row-&gt;baseline.quadratics[src_index].<a class="code" href="class_q_u_a_d___c_o_e_f_f_s.html#a58eae9f9c9aa7b738c5493b8da560747">b</a>;
+    coeffs[dest_index * 3 + 2] = row-&gt;baseline.quadratics[src_index].<a class="code" href="class_q_u_a_d___c_o_e_f_f_s.html#a7f5483bdd3103b7f4a732c8fbc0faa91">c</a>;
+    dest_index++;
+    src_index++;
+    xstarts[dest_index] = row-&gt;baseline.xcoords[src_index];
+  }
+                                 <span class="comment">//turn to spline</span>
+  row-&gt;baseline = <a class="code" href="class_q_s_p_l_i_n_e.html">QSPLINE</a> (dest_index, xstarts, coeffs);
+  <a class="code" href="memry_8cpp.html#a9ef1862b8e026e23eef238af032858e4">free_mem</a>(xstarts);
+  <a class="code" href="memry_8cpp.html#a9ef1862b8e026e23eef238af032858e4">free_mem</a>(coeffs);
+}
+</pre></div>
 </div>
 </div>
 </div>
@@ -354,7 +619,7 @@ Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:10 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:43 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

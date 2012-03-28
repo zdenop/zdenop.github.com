@@ -169,6 +169,16 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="xform2d_8cpp_source.html#l00037">37</a> of file <a class="el" href="xform2d_8cpp_source.html">xform2d.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                            {
+  B-&gt;<a class="code" href="struct_m_a_t_r_i_x__2_d.html#a3d940195088d8529b14c9d5384f60dff">a</a> = A-&gt;<a class="code" href="struct_m_a_t_r_i_x__2_d.html#a3d940195088d8529b14c9d5384f60dff">a</a>;
+  B-&gt;<a class="code" href="struct_m_a_t_r_i_x__2_d.html#a23f5a728f4f0d3fe18e7023d3be705ac">b</a> = A-&gt;<a class="code" href="struct_m_a_t_r_i_x__2_d.html#a23f5a728f4f0d3fe18e7023d3be705ac">b</a>;
+  B-&gt;<a class="code" href="struct_m_a_t_r_i_x__2_d.html#a60a43a7c446fdb8166ee92d7d96c3270">c</a> = A-&gt;<a class="code" href="struct_m_a_t_r_i_x__2_d.html#a60a43a7c446fdb8166ee92d7d96c3270">c</a>;
+  B-&gt;<a class="code" href="struct_m_a_t_r_i_x__2_d.html#a23cc385f006cb32880b7619c549f8df1">d</a> = A-&gt;<a class="code" href="struct_m_a_t_r_i_x__2_d.html#a23cc385f006cb32880b7619c549f8df1">d</a>;
+  B-&gt;<a class="code" href="struct_m_a_t_r_i_x__2_d.html#a81707dd66d385bf25653b80437b77e60">tx</a> = A-&gt;<a class="code" href="struct_m_a_t_r_i_x__2_d.html#a81707dd66d385bf25653b80437b77e60">tx</a>;
+  B-&gt;<a class="code" href="struct_m_a_t_r_i_x__2_d.html#a180cad12b203f13c2f1a3af3253eaddb">ty</a> = A-&gt;<a class="code" href="struct_m_a_t_r_i_x__2_d.html#a180cad12b203f13c2f1a3af3253eaddb">ty</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a983dca2167a3fa13a47ce8f8afc9874c"></a><!-- doxytag: member="xform2d.h::InitMatrix" ref="a983dca2167a3fa13a47ce8f8afc9874c" args="(MATRIX_2D *M)" -->
@@ -188,6 +198,16 @@ Functions</h2></td></tr>
 <p>---------------------------------------------------------------------------- Public Function Prototypes ----------------------------------------------------------------------------</p>
 <p>---------------------------------------------------------------------------- Include Files and Type Defines ---------------------------------------------------------------------------- ---------------------------------------------------------------------------- Public Code ---------------------------------------------------------------------------- </p>
 
+<p>Definition at line <a class="el" href="xform2d_8cpp_source.html#l00028">28</a> of file <a class="el" href="xform2d_8cpp_source.html">xform2d.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                              {
+  M-&gt;<a class="code" href="struct_m_a_t_r_i_x__2_d.html#a3d940195088d8529b14c9d5384f60dff">a</a> = 1;
+  M-&gt;<a class="code" href="struct_m_a_t_r_i_x__2_d.html#a23f5a728f4f0d3fe18e7023d3be705ac">b</a> = 0;
+  M-&gt;<a class="code" href="struct_m_a_t_r_i_x__2_d.html#a60a43a7c446fdb8166ee92d7d96c3270">c</a> = 0;
+  M-&gt;<a class="code" href="struct_m_a_t_r_i_x__2_d.html#a23cc385f006cb32880b7619c549f8df1">d</a> = 1;
+  M-&gt;<a class="code" href="struct_m_a_t_r_i_x__2_d.html#a81707dd66d385bf25653b80437b77e60">tx</a> = 0;
+  M-&gt;<a class="code" href="struct_m_a_t_r_i_x__2_d.html#a180cad12b203f13c2f1a3af3253eaddb">ty</a> = 0;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a031c1472c778a7612699d81493bc71de"></a><!-- doxytag: member="xform2d.h::MapDx" ref="a031c1472c778a7612699d81493bc71de" args="(MATRIX_2D *M, FLOAT32 DX, FLOAT32 DY)" -->
@@ -221,6 +241,11 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="xform2d_8cpp_source.html#l00075">75</a> of file <a class="el" href="xform2d_8cpp_source.html">xform2d.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                    {
+  <span class="keywordflow">return</span> M-&gt;<a class="code" href="struct_m_a_t_r_i_x__2_d.html#a3d940195088d8529b14c9d5384f60dff">a</a> * DX + M-&gt;<a class="code" href="struct_m_a_t_r_i_x__2_d.html#a60a43a7c446fdb8166ee92d7d96c3270">c</a> * DY;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="adce5da6854329847a775d5a69d54f15e"></a><!-- doxytag: member="xform2d.h::MapDy" ref="adce5da6854329847a775d5a69d54f15e" args="(MATRIX_2D M, FLOAT32 DX, FLOAT32 DY)" -->
@@ -287,6 +312,12 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="xform2d_8cpp_source.html#l00070">70</a> of file <a class="el" href="xform2d_8cpp_source.html">xform2d.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                        {
+  B-&gt;<a class="code" href="struct_f_p_o_i_n_t.html#a96c1f94ff16244b06cb59b79152dc8ae">x</a> = <a class="code" href="xform2d_8cpp.html#a1335bb880128d6e360a5702c677ed480">MapX</a>(M, A.<a class="code" href="struct_f_p_o_i_n_t.html#a96c1f94ff16244b06cb59b79152dc8ae">x</a>, A.<a class="code" href="struct_f_p_o_i_n_t.html#a119bd5a9f0b29cabb3987fd94c5d4ca8">y</a>);
+  B-&gt;<a class="code" href="struct_f_p_o_i_n_t.html#a119bd5a9f0b29cabb3987fd94c5d4ca8">y</a> = <a class="code" href="xform2d_8cpp.html#a451bbe41416d7c3bcf8bb965089895b4">MapY</a>(M, A.<a class="code" href="struct_f_p_o_i_n_t.html#a96c1f94ff16244b06cb59b79152dc8ae">x</a>, A.<a class="code" href="struct_f_p_o_i_n_t.html#a119bd5a9f0b29cabb3987fd94c5d4ca8">y</a>);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a1335bb880128d6e360a5702c677ed480"></a><!-- doxytag: member="xform2d.h::MapX" ref="a1335bb880128d6e360a5702c677ed480" args="(MATRIX_2D *M, FLOAT32 X, FLOAT32 Y)" -->
@@ -320,6 +351,11 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="xform2d_8cpp_source.html#l00062">62</a> of file <a class="el" href="xform2d_8cpp_source.html">xform2d.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                 {
+  <span class="keywordflow">return</span> M-&gt;<a class="code" href="struct_m_a_t_r_i_x__2_d.html#a3d940195088d8529b14c9d5384f60dff">a</a> * (X) + (M)-&gt;c * (Y) + (M)-&gt;tx;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a451bbe41416d7c3bcf8bb965089895b4"></a><!-- doxytag: member="xform2d.h::MapY" ref="a451bbe41416d7c3bcf8bb965089895b4" args="(MATRIX_2D *M, FLOAT32 X, FLOAT32 Y)" -->
@@ -353,6 +389,11 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="xform2d_8cpp_source.html#l00066">66</a> of file <a class="el" href="xform2d_8cpp_source.html">xform2d.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                 {
+  <span class="keywordflow">return</span> M-&gt;<a class="code" href="struct_m_a_t_r_i_x__2_d.html#a23f5a728f4f0d3fe18e7023d3be705ac">b</a> * X + M-&gt;<a class="code" href="struct_m_a_t_r_i_x__2_d.html#a23cc385f006cb32880b7619c549f8df1">d</a> * Y + M-&gt;<a class="code" href="struct_m_a_t_r_i_x__2_d.html#a180cad12b203f13c2f1a3af3253eaddb">ty</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa7a4efa6ff84f08eef1d5d3c1b170e7b"></a><!-- doxytag: member="xform2d.h::MirrorMatrixInX" ref="aa7a4efa6ff84f08eef1d5d3c1b170e7b" args="(MATRIX_2D *M)" -->
@@ -370,6 +411,9 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="xform2d_8cpp_source.html#l00058">58</a> of file <a class="el" href="xform2d_8cpp_source.html">xform2d.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">{<a class="code" href="xform2d_8cpp.html#aad60f36ecc3638874dbc7cb9ee9d5122">ScaleMatrix</a>(M, -1, 1);}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae04e670396a293337ac3b845536e1e65"></a><!-- doxytag: member="xform2d.h::MirrorMatrixInXY" ref="ae04e670396a293337ac3b845536e1e65" args="(MATRIX_2D *M)" -->
@@ -387,6 +431,9 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="xform2d_8cpp_source.html#l00060">60</a> of file <a class="el" href="xform2d_8cpp_source.html">xform2d.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">{<a class="code" href="xform2d_8cpp.html#aad60f36ecc3638874dbc7cb9ee9d5122">ScaleMatrix</a>(M, -1, -1);}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6cf55b08d011b62177650fb98c19de00"></a><!-- doxytag: member="xform2d.h::MirrorMatrixInY" ref="a6cf55b08d011b62177650fb98c19de00" args="(MATRIX_2D *M)" -->
@@ -404,6 +451,9 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="xform2d_8cpp_source.html#l00059">59</a> of file <a class="el" href="xform2d_8cpp_source.html">xform2d.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">{<a class="code" href="xform2d_8cpp.html#aad60f36ecc3638874dbc7cb9ee9d5122">ScaleMatrix</a>(M, 1, -1);}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aecb8f8611c656f76de3067fec1320ba4"></a><!-- doxytag: member="xform2d.h::RotateMatrix" ref="aecb8f8611c656f76de3067fec1320ba4" args="(MATRIX_2D_PTR Matrix, FLOAT32 Angle)" -->
@@ -431,6 +481,44 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="xform2d_8cpp_source.html#l00085">85</a> of file <a class="el" href="xform2d_8cpp_source.html">xform2d.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                       {
+<span class="comment">/*</span>
+<span class="comment"> ** Parameters:</span>
+<span class="comment"> **   Matrix    transformation matrix to rotate</span>
+<span class="comment"> **   Angle   angle to rotate matrix</span>
+<span class="comment"> ** Globals: none</span>
+<span class="comment"> ** Operation:</span>
+<span class="comment"> **   Rotate the coordinate system (as specified by Matrix) about</span>
+<span class="comment"> **   its origin by Angle radians.  In matrix notation the</span>
+<span class="comment"> **   effect is as follows:</span>
+<span class="comment"> **</span>
+<span class="comment"> **     Matrix = R X Matrix</span>
+<span class="comment"> **</span>
+<span class="comment"> **   where R is the following matrix</span>
+<span class="comment"> **</span>
+<span class="comment"> **     cos Angle sin Angle 0</span>
+<span class="comment"> **     -sin Angle  cos Angle 0</span>
+<span class="comment"> **     0   0   1</span>
+<span class="comment"> ** Return: none</span>
+<span class="comment"> ** Exceptions: none</span>
+<span class="comment"> ** History: 7/27/89, DSJ, Create.</span>
+<span class="comment"> */</span>
+  <a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a> Cos, Sin;
+  <a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a> NewA, NewB;
+
+  Cos = cos ((<span class="keywordtype">double</span>) Angle);
+  Sin = sin ((<span class="keywordtype">double</span>) Angle);
+
+  NewA = Matrix-&gt;<a class="code" href="struct_m_a_t_r_i_x__2_d.html#a3d940195088d8529b14c9d5384f60dff">a</a> * Cos + Matrix-&gt;<a class="code" href="struct_m_a_t_r_i_x__2_d.html#a60a43a7c446fdb8166ee92d7d96c3270">c</a> * Sin;
+  NewB = Matrix-&gt;<a class="code" href="struct_m_a_t_r_i_x__2_d.html#a23f5a728f4f0d3fe18e7023d3be705ac">b</a> * Cos + Matrix-&gt;<a class="code" href="struct_m_a_t_r_i_x__2_d.html#a23cc385f006cb32880b7619c549f8df1">d</a> * Sin;
+  Matrix-&gt;<a class="code" href="struct_m_a_t_r_i_x__2_d.html#a60a43a7c446fdb8166ee92d7d96c3270">c</a> = Matrix-&gt;<a class="code" href="struct_m_a_t_r_i_x__2_d.html#a3d940195088d8529b14c9d5384f60dff">a</a> * -Sin + Matrix-&gt;<a class="code" href="struct_m_a_t_r_i_x__2_d.html#a60a43a7c446fdb8166ee92d7d96c3270">c</a> * Cos;
+  Matrix-&gt;<a class="code" href="struct_m_a_t_r_i_x__2_d.html#a23cc385f006cb32880b7619c549f8df1">d</a> = Matrix-&gt;<a class="code" href="struct_m_a_t_r_i_x__2_d.html#a23f5a728f4f0d3fe18e7023d3be705ac">b</a> * -Sin + Matrix-&gt;<a class="code" href="struct_m_a_t_r_i_x__2_d.html#a23cc385f006cb32880b7619c549f8df1">d</a> * Cos;
+  Matrix-&gt;<a class="code" href="struct_m_a_t_r_i_x__2_d.html#a3d940195088d8529b14c9d5384f60dff">a</a> = NewA;
+  Matrix-&gt;<a class="code" href="struct_m_a_t_r_i_x__2_d.html#a23f5a728f4f0d3fe18e7023d3be705ac">b</a> = NewB;
+
+}                                <span class="comment">/* RotateMatrix */</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aad60f36ecc3638874dbc7cb9ee9d5122"></a><!-- doxytag: member="xform2d.h::ScaleMatrix" ref="aad60f36ecc3638874dbc7cb9ee9d5122" args="(MATRIX_2D *M, FLOAT32 X, FLOAT32 Y)" -->
@@ -464,6 +552,14 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="xform2d_8cpp_source.html#l00051">51</a> of file <a class="el" href="xform2d_8cpp_source.html">xform2d.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                     {
+  M-&gt;<a class="code" href="struct_m_a_t_r_i_x__2_d.html#a3d940195088d8529b14c9d5384f60dff">a</a> *= X;
+  M-&gt;<a class="code" href="struct_m_a_t_r_i_x__2_d.html#a23f5a728f4f0d3fe18e7023d3be705ac">b</a> *= X;
+  M-&gt;<a class="code" href="struct_m_a_t_r_i_x__2_d.html#a60a43a7c446fdb8166ee92d7d96c3270">c</a> *= Y;
+  M-&gt;<a class="code" href="struct_m_a_t_r_i_x__2_d.html#a23cc385f006cb32880b7619c549f8df1">d</a> *= Y;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a5dfdad913065e96e4120269d50b11b57"></a><!-- doxytag: member="xform2d.h::TranslateMatrix" ref="a5dfdad913065e96e4120269d50b11b57" args="(MATRIX_2D *M, FLOAT32 X, FLOAT32 Y)" -->
@@ -497,6 +593,12 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="xform2d_8cpp_source.html#l00046">46</a> of file <a class="el" href="xform2d_8cpp_source.html">xform2d.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                         {
+  M-&gt;<a class="code" href="struct_m_a_t_r_i_x__2_d.html#a81707dd66d385bf25653b80437b77e60">tx</a> += M-&gt;<a class="code" href="struct_m_a_t_r_i_x__2_d.html#a3d940195088d8529b14c9d5384f60dff">a</a> * X + M-&gt;<a class="code" href="struct_m_a_t_r_i_x__2_d.html#a60a43a7c446fdb8166ee92d7d96c3270">c</a> * Y;
+  M-&gt;<a class="code" href="struct_m_a_t_r_i_x__2_d.html#a180cad12b203f13c2f1a3af3253eaddb">ty</a> += M-&gt;<a class="code" href="struct_m_a_t_r_i_x__2_d.html#a23f5a728f4f0d3fe18e7023d3be705ac">b</a> * X + M-&gt;<a class="code" href="struct_m_a_t_r_i_x__2_d.html#a23cc385f006cb32880b7619c549f8df1">d</a> * Y;
+}
+</pre></div>
 </div>
 </div>
 </div>
@@ -519,7 +621,7 @@ Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:09 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:41 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

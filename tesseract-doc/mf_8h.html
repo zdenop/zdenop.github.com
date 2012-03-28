@@ -140,6 +140,8 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mf_8h_source.html#l00033">33</a> of file <a class="el" href="mf_8h_source.html">mf.h</a>.</p>
+
 </div>
 </div>
 <hr/><h2>Enumeration Type Documentation</h2>
@@ -173,6 +175,13 @@ Functions</h2></td></tr>
 </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="mf_8h_source.html#l00027">27</a> of file <a class="el" href="mf_8h_source.html">mf.h</a>.</p>
+<div class="fragment"><pre class="fragment">             {
+  <a class="code" href="mf_8h.html#a0ae9eb66d190c70000f710f7c11977afa6e5b6d39513820252795a81c22a85094">MFXPosition</a>, <a class="code" href="mf_8h.html#a0ae9eb66d190c70000f710f7c11977afa86c3fede274bd6e6fad789032ba86695">MFYPosition</a>,
+  <a class="code" href="mf_8h.html#a0ae9eb66d190c70000f710f7c11977afa29b85f8df2366e185699f12117ed1b54">MFLength</a>, <a class="code" href="mf_8h.html#a0ae9eb66d190c70000f710f7c11977afa6bbdda7793b58667c8ffbf57a38e7436">MFDirection</a>, <a class="code" href="mf_8h.html#a0ae9eb66d190c70000f710f7c11977afa84f738cc38f82afce789bb6e9908a2cd">MFBulge1</a>, <a class="code" href="mf_8h.html#a0ae9eb66d190c70000f710f7c11977afa11c81e882c3753f597780e69582c06b1">MFBulge2</a>,
+  <a class="code" href="mf_8h.html#a0ae9eb66d190c70000f710f7c11977afa1c44793580a78fadeffdefc28065e682">MFCount</a>  <span class="comment">// For array sizes.</span>
+} <a class="code" href="mf_8h.html#a0ae9eb66d190c70000f710f7c11977af">MF_PARAM_NAME</a>;
+</pre></div>
 </div>
 </div>
 <hr/><h2>Function Documentation</h2>
@@ -202,6 +211,60 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>---------------------------------------------------------------------------- Include Files and Type Defines ---------------------------------------------------------------------------- ---------------------------------------------------------------------------- Global Data Definitions and Declarations ---------------------------------------------------------------------------- ---------------------------------------------------------------------------- Private Code ---------------------------------------------------------------------------- </p>
 
+<p>Definition at line <a class="el" href="mf_8cpp_source.html#l00036">36</a> of file <a class="el" href="mf_8cpp_source.html">mf.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                             {
+<span class="comment">/*</span>
+<span class="comment"> **     Parameters:</span>
+<span class="comment"> **             Blob            blob to extract micro-features from</span>
+<span class="comment"> **             denorm  control parameter to feature extractor.</span>
+<span class="comment"> **     Globals: none</span>
+<span class="comment"> **     Operation: Call the old micro-feature extractor and then copy</span>
+<span class="comment"> **             the features into the new format.  Then deallocate the</span>
+<span class="comment"> **             old micro-features.</span>
+<span class="comment"> **     Return: Micro-features for Blob.</span>
+<span class="comment"> **     Exceptions: none</span>
+<span class="comment"> **     History: Wed May 23 18:06:38 1990, DSJ, Created.</span>
+<span class="comment"> */</span>
+  <span class="keywordtype">int</span> NumFeatures;
+  <a class="code" href="structlist__rec.html">MICROFEATURES</a> Features, OldFeatures;
+  <a class="code" href="struct_f_e_a_t_u_r_e___s_e_t___s_t_r_u_c_t.html">FEATURE_SET</a> FeatureSet;
+  <a class="code" href="struct_f_e_a_t_u_r_e___s_t_r_u_c_t.html">FEATURE</a> Feature;
+  <a class="code" href="mfdefs_8h.html#acf6b2e47a8872409e85b7bfeee9961dc">MICROFEATURE</a> OldFeature;
+
+  OldFeatures = (<a class="code" href="mfdefs_8h.html#a3fdd61e86cfc2b48248239e49fd1befe">MICROFEATURES</a>)<a class="code" href="mfx_8cpp.html#a44858b705e49d8302df159c6d62dd5e5">BlobMicroFeatures</a>(Blob, denorm);
+  <span class="keywordflow">if</span> (OldFeatures == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  NumFeatures = <a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a> (OldFeatures);
+  FeatureSet = <a class="code" href="ocrfeatures_8cpp.html#acdf1bcf73857cfc37fe8d667203bc875">NewFeatureSet</a> (NumFeatures);
+
+  Features = OldFeatures;
+  <a class="code" href="oldlist_8h.html#a2cf19ba78be6b54f66823d58f34f2a53">iterate</a>(Features) {
+    OldFeature = (<a class="code" href="mfdefs_8h.html#acf6b2e47a8872409e85b7bfeee9961dc">MICROFEATURE</a>) <a class="code" href="oldlist_8h.html#a69547be764424f18b0be535400747978">first_node</a> (Features);
+    Feature = <a class="code" href="ocrfeatures_8cpp.html#a32a08c42617c8dd6a156c1c8d7fb2cbb">NewFeature</a> (&amp;MicroFeatureDesc);
+    Feature-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_t_r_u_c_t.html#ace52f36cfcba955504f4a24f86a897b4">Params</a>[<a class="code" href="mf_8h.html#a0ae9eb66d190c70000f710f7c11977afa6bbdda7793b58667c8ffbf57a38e7436">MFDirection</a>] = OldFeature[<a class="code" href="mfdefs_8h.html#ac815b03ec48abf99301f44140ff0b0a9">ORIENTATION</a>];
+    Feature-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_t_r_u_c_t.html#ace52f36cfcba955504f4a24f86a897b4">Params</a>[<a class="code" href="mf_8h.html#a0ae9eb66d190c70000f710f7c11977afa6e5b6d39513820252795a81c22a85094">MFXPosition</a>] = OldFeature[<a class="code" href="mfdefs_8h.html#aa14d8a5c035963734f527261a209c402">XPOSITION</a>];
+    Feature-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_t_r_u_c_t.html#ace52f36cfcba955504f4a24f86a897b4">Params</a>[<a class="code" href="mf_8h.html#a0ae9eb66d190c70000f710f7c11977afa86c3fede274bd6e6fad789032ba86695">MFYPosition</a>] = OldFeature[<a class="code" href="mfdefs_8h.html#ab4a43f7e9f215f0fb311fdb0f54fe1bf">YPOSITION</a>];
+    Feature-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_t_r_u_c_t.html#ace52f36cfcba955504f4a24f86a897b4">Params</a>[<a class="code" href="mf_8h.html#a0ae9eb66d190c70000f710f7c11977afa29b85f8df2366e185699f12117ed1b54">MFLength</a>] = OldFeature[<a class="code" href="mfdefs_8h.html#aab9af949da5ae4ae116df014c0d22d1e">MFLENGTH</a>];
+
+    <span class="comment">// Bulge features are deprecated and should not be used.  Set to 0.</span>
+    Feature-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_t_r_u_c_t.html#ace52f36cfcba955504f4a24f86a897b4">Params</a>[<a class="code" href="mf_8h.html#a0ae9eb66d190c70000f710f7c11977afa84f738cc38f82afce789bb6e9908a2cd">MFBulge1</a>] = 0.0f;
+    Feature-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_t_r_u_c_t.html#ace52f36cfcba955504f4a24f86a897b4">Params</a>[<a class="code" href="mf_8h.html#a0ae9eb66d190c70000f710f7c11977afa11c81e882c3753f597780e69582c06b1">MFBulge2</a>] = 0.0f;
+
+<span class="preprocessor">#ifndef _WIN32</span>
+<span class="preprocessor"></span>    <span class="comment">// Assert that feature parameters are well defined.</span>
+    <span class="keywordtype">int</span> i;
+    <span class="keywordflow">for</span> (i = 0; i &lt; Feature-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_t_r_u_c_t.html#a1a034f275ff504afd63bd99643fae589">Type</a>-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___d_e_s_c___s_t_r_u_c_t.html#a0edbab02900ae01549f742582236eb6d">NumParams</a>; i++) {
+      assert (!isnan(Feature-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_t_r_u_c_t.html#ace52f36cfcba955504f4a24f86a897b4">Params</a>[i]));
+    }
+<span class="preprocessor">#endif</span>
+<span class="preprocessor"></span>
+    <a class="code" href="ocrfeatures_8cpp.html#a09f4fe91126bd64e3c8dcd3327343639">AddFeature</a>(FeatureSet, Feature);
+  }
+  <a class="code" href="mfdefs_8cpp.html#afd75dd0b29a6b9bf0c5a31b3484bd0d9">FreeMicroFeatures</a>(OldFeatures);
+  <span class="keywordflow">return</span> (FeatureSet);
+
+}                                <span class="comment">/* ExtractMicros */</span>
+</pre></div>
 </div>
 </div>
 </div>
@@ -224,7 +287,7 @@ Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:09 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:41 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

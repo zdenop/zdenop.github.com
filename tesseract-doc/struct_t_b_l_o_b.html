@@ -135,7 +135,10 @@ Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_t_e_s_s_l_i_n_e.html">TESSLINE</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_t_b_l_o_b.html">TBLOB</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_t_b_l_o_b.html#a88a541f55c8bfd63a9f0c419189499bb">next</a></td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="blobs_8h_source.html#l00172">172</a> of file <a class="el" href="blobs_8h_source.html">blobs.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="aba17a476d90e090c542229a7930468ee"></a><!-- doxytag: member="TBLOB::TBLOB" ref="aba17a476d90e090c542229a7930468ee" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -150,6 +153,9 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8h_source.html#l00173">173</a> of file <a class="el" href="blobs_8h_source.html">blobs.h</a>.</p>
+<div class="fragment"><pre class="fragment">: <a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a>(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>), <a class="code" href="struct_t_b_l_o_b.html#a88a541f55c8bfd63a9f0c419189499bb">next</a>(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aeb2e182abaf10ee3dceed486878e3c72"></a><!-- doxytag: member="TBLOB::TBLOB" ref="aeb2e182abaf10ee3dceed486878e3c72" args="(const TBLOB &amp;src)" -->
@@ -167,6 +173,11 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8h_source.html#l00174">174</a> of file <a class="el" href="blobs_8h_source.html">blobs.h</a>.</p>
+<div class="fragment"><pre class="fragment">                          : <a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a>(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>), <a class="code" href="struct_t_b_l_o_b.html#a88a541f55c8bfd63a9f0c419189499bb">next</a>(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="struct_t_b_l_o_b.html#a7ad2a4dac12684b1993868f88f77d200">CopyFrom</a>(src);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6c0d7e46245cee1be0bb4410ff6f3542"></a><!-- doxytag: member="TBLOB::~TBLOB" ref="a6c0d7e46245cee1be0bb4410ff6f3542" args="()" -->
@@ -183,6 +194,11 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8h_source.html#l00177">177</a> of file <a class="el" href="blobs_8h_source.html">blobs.h</a>.</p>
+<div class="fragment"><pre class="fragment">           {
+    <a class="code" href="struct_t_b_l_o_b.html#a3027cf384580fa412270a37fb78395cd">Clear</a>();
+  }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -200,6 +216,14 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8h_source.html#l00216">216</a> of file <a class="el" href="blobs_8h_source.html">blobs.h</a>.</p>
+<div class="fragment"><pre class="fragment">                     {
+    <span class="keywordtype">int</span> total_area = 0;
+    <span class="keywordflow">for</span> (<a class="code" href="struct_t_e_s_s_l_i_n_e.html">TESSLINE</a>* outline = <a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a>; outline != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>; outline = outline-&gt;next)
+      total_area += outline-&gt;BBArea();
+    <span class="keywordflow">return</span> total_area;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a8f1f8f110170fe12cf8147d504cd0ea2"></a><!-- doxytag: member="TBLOB::bounding_box" ref="a8f1f8f110170fe12cf8147d504cd0ea2" args="() const " -->
@@ -216,6 +240,18 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8cpp_source.html#l00379">379</a> of file <a class="el" href="blobs_8cpp_source.html">blobs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                               {
+  <span class="keywordflow">if</span> (<a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <span class="keywordflow">return</span> <a class="code" href="class_t_b_o_x.html">TBOX</a>(0, 0, 0, 0);
+  <a class="code" href="struct_t_e_s_s_l_i_n_e.html">TESSLINE</a> *outline = <a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a>;
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> box = outline-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#af3c73d6ff3d1819730731391c5701778">bounding_box</a>();
+  <span class="keywordflow">for</span> (outline = outline-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0fb224d43ea53a791f0957fa92793bef">next</a>; outline != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>; outline = outline-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0fb224d43ea53a791f0957fa92793bef">next</a>) {
+    box += outline-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#af3c73d6ff3d1819730731391c5701778">bounding_box</a>();
+  }
+  <span class="keywordflow">return</span> box;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a01a7a878b92170eaa04d65435b0ef4cc"></a><!-- doxytag: member="TBLOB::ClassifyNormalizeIfNeeded" ref="a01a7a878b92170eaa04d65435b0ef4cc" args="(const DENORM **denorm) const " -->
@@ -233,6 +269,32 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8cpp_source.html#l00276">276</a> of file <a class="el" href="blobs_8cpp_source.html">blobs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                   {
+  <a class="code" href="struct_t_b_l_o_b.html">TBLOB</a>* rotated_blob = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="comment">// If necessary, copy the blob and rotate it. The rotation is always</span>
+  <span class="comment">// +/- 90 degrees, as 180 was already taken care of.</span>
+  <span class="keywordflow">if</span> ((*denorm)-&gt;block() != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp;
+      (*denorm)-&gt;block()-&gt;classify_rotation().y() != 0.0) {
+    <a class="code" href="class_t_b_o_x.html">TBOX</a> box = <a class="code" href="struct_t_b_l_o_b.html#a8f1f8f110170fe12cf8147d504cd0ea2">bounding_box</a>();
+    <span class="keywordtype">int</span> x_middle = (box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>() + box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>()) / 2;
+    <span class="keywordtype">int</span> y_middle = (box.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>() + box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>()) / 2;
+    rotated_blob = <span class="keyword">new</span> <a class="code" href="struct_t_b_l_o_b.html#aba17a476d90e090c542229a7930468ee">TBLOB</a>(*<span class="keyword">this</span>);
+    <span class="keyword">const</span> <a class="code" href="class_f_c_o_o_r_d.html">FCOORD</a>&amp; rotation = (*denorm)-&gt;block()-&gt;classify_rotation();
+    <a class="code" href="class_d_e_n_o_r_m.html">DENORM</a>* norm = <span class="keyword">new</span> <a class="code" href="class_d_e_n_o_r_m.html">DENORM</a>;
+    <span class="comment">// Move the rotated blob back to the same y-position so that we</span>
+    <span class="comment">// can still distinguish similar glyphs with differeny y-position.</span>
+    <span class="keywordtype">float</span> target_y = <a class="code" href="normalis_8h.html#abe10ce41bf7240ae8a053dea471d6ed5">kBlnBaselineOffset</a> +
+        (rotation.<a class="code" href="class_f_c_o_o_r_d.html#a397f7ce997b246df18e7bd5a20cc422e">y</a>() &gt; 0 ? x_middle - box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>() : box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>() - x_middle);
+    norm-&gt;<a class="code" href="class_d_e_n_o_r_m.html#ac667a208c574b073db800890e4e31255">SetupNormalization</a>(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, &amp;rotation, *denorm, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, 0,
+                             x_middle, y_middle, 1.0<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>, 1.0<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>, 0.0<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>, target_y);
+    <span class="comment">//                             x_middle, y_middle, 1.0f, 1.0f, 0.0f, y_middle);</span>
+    rotated_blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a6c4c913279ff695055baf11bedd4158d">Normalize</a>(*norm);
+    *denorm = norm;
+  }
+  <span class="keywordflow">return</span> rotated_blob;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3027cf384580fa412270a37fb78395cd"></a><!-- doxytag: member="TBLOB::Clear" ref="a3027cf384580fa412270a37fb78395cd" args="()" -->
@@ -249,6 +311,15 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8cpp_source.html#l00317">317</a> of file <a class="el" href="blobs_8cpp_source.html">blobs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                  {
+  <span class="keywordflow">for</span> (<a class="code" href="struct_t_e_s_s_l_i_n_e.html">TESSLINE</a>* next_outline = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>; <a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+       <a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a> = next_outline) {
+    next_outline = <a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a>-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0fb224d43ea53a791f0957fa92793bef">next</a>;
+    <span class="keyword">delete</span> <a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a>;
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7725f8aebcae59473e980b7e2aa5d0b0"></a><!-- doxytag: member="TBLOB::ComputeBoundingBoxes" ref="a7725f8aebcae59473e980b7e2aa5d0b0" args="()" -->
@@ -265,6 +336,13 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8cpp_source.html#l00359">359</a> of file <a class="el" href="blobs_8cpp_source.html">blobs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                 {
+  <span class="keywordflow">for</span> (<a class="code" href="struct_t_e_s_s_l_i_n_e.html">TESSLINE</a>* outline = <a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a>; outline != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>; outline = outline-&gt;next) {
+    outline-&gt;ComputeBoundingBox();
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7ad2a4dac12684b1993868f88f77d200"></a><!-- doxytag: member="TBLOB::CopyFrom" ref="a7ad2a4dac12684b1993868f88f77d200" args="(const TBLOB &amp;src)" -->
@@ -282,6 +360,21 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8cpp_source.html#l00302">302</a> of file <a class="el" href="blobs_8cpp_source.html">blobs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                     {
+  <a class="code" href="struct_t_b_l_o_b.html#a3027cf384580fa412270a37fb78395cd">Clear</a>();
+  <a class="code" href="struct_t_e_s_s_l_i_n_e.html">TESSLINE</a>* prev_outline = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordflow">for</span> (<a class="code" href="struct_t_e_s_s_l_i_n_e.html">TESSLINE</a>* srcline = src.<a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a>; srcline != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+       srcline = srcline-&gt;next) {
+    <a class="code" href="struct_t_e_s_s_l_i_n_e.html">TESSLINE</a>* new_outline = <span class="keyword">new</span> <a class="code" href="struct_t_e_s_s_l_i_n_e.html">TESSLINE</a>(*srcline);
+    <span class="keywordflow">if</span> (<a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+      <a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a> = new_outline;
+    <span class="keywordflow">else</span>
+      prev_outline-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0fb224d43ea53a791f0957fa92793bef">next</a> = new_outline;
+    prev_outline = new_outline;
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2791f69f39f81c9e350abca4bb3fa87d"></a><!-- doxytag: member="TBLOB::Move" ref="a2791f69f39f81c9e350abca4bb3fa87d" args="(const ICOORD vec)" -->
@@ -299,6 +392,13 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8cpp_source.html#l00345">345</a> of file <a class="el" href="blobs_8cpp_source.html">blobs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                 {
+  <span class="keywordflow">for</span> (<a class="code" href="struct_t_e_s_s_l_i_n_e.html">TESSLINE</a>* outline = <a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a>; outline != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>; outline = outline-&gt;next) {
+    outline-&gt;Move(vec);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6c4c913279ff695055baf11bedd4158d"></a><!-- doxytag: member="TBLOB::Normalize" ref="a6c4c913279ff695055baf11bedd4158d" args="(const DENORM &amp;denorm)" -->
@@ -316,6 +416,19 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8cpp_source.html#l00325">325</a> of file <a class="el" href="blobs_8cpp_source.html">blobs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                          {
+  <span class="comment">// TODO(rays) outline-&gt;Normalize is more accurate, but breaks tests due</span>
+  <span class="comment">// the changes it makes. Reinstate this code with a retraining.</span>
+<span class="preprocessor">#if 1</span>
+<span class="preprocessor"></span>  <span class="keywordflow">for</span> (<a class="code" href="struct_t_e_s_s_l_i_n_e.html">TESSLINE</a>* outline = <a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a>; outline != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>; outline = outline-&gt;next) {
+    outline-&gt;Normalize(denorm);
+  }
+<span class="preprocessor">#else</span>
+<span class="preprocessor"></span>  denorm.<a class="code" href="class_d_e_n_o_r_m.html#a839db5a7d3cea12c736dcea5e42c16b0">LocalNormBlob</a>(<span class="keyword">this</span>);
+<span class="preprocessor">#endif</span>
+<span class="preprocessor"></span>}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7cc7be71e17444d728e9c68204bca007"></a><!-- doxytag: member="TBLOB::NumOutlines" ref="a7cc7be71e17444d728e9c68204bca007" args="() const " -->
@@ -332,6 +445,14 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8cpp_source.html#l00366">366</a> of file <a class="el" href="blobs_8cpp_source.html">blobs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                             {
+  <span class="keywordtype">int</span> result = 0;
+  <span class="keywordflow">for</span> (<a class="code" href="struct_t_e_s_s_l_i_n_e.html">TESSLINE</a>* outline = <a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a>; outline != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>; outline = outline-&gt;next)
+    ++result;
+  <span class="keywordflow">return</span> result;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="af41de6d3763d2d894b9dd77bfce3f5af"></a><!-- doxytag: member="TBLOB::operator=" ref="af41de6d3763d2d894b9dd77bfce3f5af" args="(const TBLOB &amp;src)" -->
@@ -349,6 +470,12 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8h_source.html#l00180">180</a> of file <a class="el" href="blobs_8h_source.html">blobs.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                     {
+    <a class="code" href="struct_t_b_l_o_b.html#a7ad2a4dac12684b1993868f88f77d200">CopyFrom</a>(src);
+    <span class="keywordflow">return</span> *<span class="keyword">this</span>;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aea2abdf5701d97f2aece1a5fbabaf77e"></a><!-- doxytag: member="TBLOB::plot" ref="aea2abdf5701d97f2aece1a5fbabaf77e" args="(ScrollView *window, ScrollView::Color color, ScrollView::Color child_color)" -->
@@ -382,6 +509,12 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8cpp_source.html#l00390">390</a> of file <a class="el" href="blobs_8cpp_source.html">blobs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                              {
+  <span class="keywordflow">for</span> (<a class="code" href="struct_t_e_s_s_l_i_n_e.html">TESSLINE</a>* outline = <a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a>; outline != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>; outline = outline-&gt;next)
+    outline-&gt;plot(window, color, child_color);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a49b1279a5ff4e05d6dd0beacd2d99395"></a><!-- doxytag: member="TBLOB::PolygonalCopy" ref="a49b1279a5ff4e05d6dd0beacd2d99395" args="(C_BLOB *src)" -->
@@ -399,6 +532,14 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8cpp_source.html#l00264">264</a> of file <a class="el" href="blobs_8cpp_source.html">blobs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                       {
+  C_OUTLINE_IT ol_it = src-&gt;<a class="code" href="class_c___b_l_o_b.html#ae510f3d0e7398fbb46608082429eac89">out_list</a>();
+  <a class="code" href="struct_t_b_l_o_b.html">TBLOB</a>* tblob = <span class="keyword">new</span> <a class="code" href="struct_t_b_l_o_b.html#aba17a476d90e090c542229a7930468ee">TBLOB</a>;
+  ApproximateOutlineList(src-&gt;<a class="code" href="class_c___b_l_o_b.html#ae510f3d0e7398fbb46608082429eac89">out_list</a>(), <span class="keyword">false</span>, &amp;tblob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a>);
+  <span class="keywordflow">return</span> tblob;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6265072e245d6cc1ba1d03f1f1780145"></a><!-- doxytag: member="TBLOB::Rotate" ref="a6265072e245d6cc1ba1d03f1f1780145" args="(const FCOORD rotation)" -->
@@ -416,6 +557,13 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8cpp_source.html#l00338">338</a> of file <a class="el" href="blobs_8cpp_source.html">blobs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                        {
+  <span class="keywordflow">for</span> (<a class="code" href="struct_t_e_s_s_l_i_n_e.html">TESSLINE</a>* outline = <a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a>; outline != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>; outline = outline-&gt;next) {
+    outline-&gt;Rotate(rotation);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab4ca2b4e8d967347a522e77d27a7cda7"></a><!-- doxytag: member="TBLOB::Scale" ref="ab4ca2b4e8d967347a522e77d27a7cda7" args="(float factor)" -->
@@ -433,6 +581,13 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8cpp_source.html#l00352">352</a> of file <a class="el" href="blobs_8cpp_source.html">blobs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                              {
+  <span class="keywordflow">for</span> (<a class="code" href="struct_t_e_s_s_l_i_n_e.html">TESSLINE</a>* outline = <a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a>; outline != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>; outline = outline-&gt;next) {
+    outline-&gt;Scale(factor);
+  }
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
@@ -447,6 +602,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8h_source.html#l00224">224</a> of file <a class="el" href="blobs_8h_source.html">blobs.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a3c9282cad4102157d214bcc6311cda07"></a><!-- doxytag: member="TBLOB::outlines" ref="a3c9282cad4102157d214bcc6311cda07" args="" -->
@@ -460,11 +617,13 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8h_source.html#l00223">223</a> of file <a class="el" href="blobs_8h_source.html">blobs.h</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following files:<ul>
 <li>tesseract-ocr/ccstruct/<a class="el" href="blobs_8h_source.html">blobs.h</a></li>
-<li>tesseract-ocr/ccstruct/<a class="el" href="blobs_8cpp.html">blobs.cpp</a></li>
+<li>tesseract-ocr/ccstruct/<a class="el" href="blobs_8cpp_source.html">blobs.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -486,7 +645,7 @@ Public Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:13 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:47 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

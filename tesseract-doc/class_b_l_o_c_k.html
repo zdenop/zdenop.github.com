@@ -179,7 +179,10 @@ Public Member Functions</h2></td></tr>
 Friends</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_b_l_o_c_k.html#ad858d9adefd50f00fb20c85fcdfb0c95">BLOCK_RECT_IT</a></td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="ocrblock_8h_source.html#l00031">31</a> of file <a class="el" href="ocrblock_8h_source.html">ocrblock.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="aeb22fbc4bebf9b6c92d18c318acf648f"></a><!-- doxytag: member="BLOCK::BLOCK" ref="aeb22fbc4bebf9b6c92d18c318acf648f" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -194,6 +197,14 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrblock_8h_source.html#l00037">37</a> of file <a class="el" href="ocrblock_8h_source.html">ocrblock.h</a>.</p>
+<div class="fragment"><pre class="fragment">    : re_rotation_(1.0<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>, 0.0<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>),
+      classify_rotation_(1.0<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>, 0.0<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>),
+      skew_(1.0<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>, 0.0<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>) {
+    right_to_left_ = <span class="keyword">false</span>;
+    <a class="code" href="class_p_d_b_l_k.html#a4c1b3a88242771bf55372f44c0d4ca88">hand_poly</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4b53dbdf5399237e489d997f6a2eaad5"></a><!-- doxytag: member="BLOCK::BLOCK" ref="a4b53dbdf5399237e489d997f6a2eaad5" args="(const char *name, BOOL8 prop, inT16 kern, inT16 space, inT16 xmin, inT16 ymin, inT16 xmax, inT16 ymax)" -->
@@ -259,6 +270,31 @@ Friends</h2></td></tr>
 <p><a class="el" href="class_b_l_o_c_k.html#aeb22fbc4bebf9b6c92d18c318acf648f">BLOCK::BLOCK</a></p>
 <p>Constructor for a simple rectangular block. </p>
 
+<p>Definition at line <a class="el" href="ocrblock_8cpp_source.html#l00035">35</a> of file <a class="el" href="ocrblock_8cpp_source.html">ocrblock.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">  : <a class="code" href="class_p_d_b_l_k.html#ae31312e99565038e54d111a644060b53" title="empty constructor">PDBLK</a> (xmin, ymin, xmax, ymax),
+    filename(<a class="code" href="class_b_l_o_c_k.html#a4859981b86d21d7dba29ad1788ec245c" title="return filename">name</a>),
+    re_rotation_(1.0<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>, 0.0<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>),
+    classify_rotation_(1.0<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>, 0.0<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>),
+    skew_(1.0<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>, 0.0<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>) {
+  ICOORDELT_IT left_it = &amp;<a class="code" href="class_p_d_b_l_k.html#af00bb4a4ee2e805324672b19e088e06a">leftside</a>;
+  ICOORDELT_IT right_it = &amp;<a class="code" href="class_p_d_b_l_k.html#a87a08537c120e669c825d147a5650a55">rightside</a>;
+
+  proportional = <a class="code" href="class_b_l_o_c_k.html#aec85b170b2c80345a5e2cc92d20c7ed5" title="return proportional">prop</a>;
+  right_to_left_ = <span class="keyword">false</span>;
+  kerning = <a class="code" href="class_b_l_o_c_k.html#ac13db38f988ab1cb820dbc1babdb21bd" title="return kerning">kern</a>;
+  spacing = <a class="code" href="class_b_l_o_c_k.html#a421d1cc1e230f8598de6ceacb6e43e51" title="return spacing">space</a>;
+  font_class = -1;               <span class="comment">//not assigned</span>
+  cell_over_xheight_ = 2.0f;
+  <a class="code" href="class_p_d_b_l_k.html#a4c1b3a88242771bf55372f44c0d4ca88">hand_poly</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  left_it.set_to_list (&amp;<a class="code" href="class_p_d_b_l_k.html#af00bb4a4ee2e805324672b19e088e06a">leftside</a>);
+  right_it.set_to_list (&amp;<a class="code" href="class_p_d_b_l_k.html#a87a08537c120e669c825d147a5650a55">rightside</a>);
+                                 <span class="comment">//make default box</span>
+  left_it.add_to_end (<span class="keyword">new</span> <a class="code" href="class_i_c_o_o_r_d_e_l_t.html">ICOORDELT</a> (xmin, ymin));
+  left_it.add_to_end (<span class="keyword">new</span> <a class="code" href="class_i_c_o_o_r_d_e_l_t.html">ICOORDELT</a> (xmin, ymax));
+  right_it.add_to_end (<span class="keyword">new</span> <a class="code" href="class_i_c_o_o_r_d_e_l_t.html">ICOORDELT</a> (xmax, ymin));
+  right_it.add_to_end (<span class="keyword">new</span> <a class="code" href="class_i_c_o_o_r_d_e_l_t.html">ICOORDELT</a> (xmax, ymax));
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab37844e1abea11d1e05725b0673655a8"></a><!-- doxytag: member="BLOCK::~BLOCK" ref="ab37844e1abea11d1e05725b0673655a8" args="()" -->
@@ -275,6 +311,10 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrblock_8h_source.html#l00053">53</a> of file <a class="el" href="ocrblock_8h_source.html">ocrblock.h</a>.</p>
+<div class="fragment"><pre class="fragment">            {
+  }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -294,6 +334,11 @@ Friends</h2></td></tr>
 
 <p>get blobs </p>
 
+<p>Definition at line <a class="el" href="ocrblock_8h_source.html#l00133">133</a> of file <a class="el" href="ocrblock_8h_source.html">ocrblock.h</a>.</p>
+<div class="fragment"><pre class="fragment">                           {
+    <span class="keywordflow">return</span> &amp;c_blobs;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aceb41c055165db283f84c80d0bfff216"></a><!-- doxytag: member="BLOCK::cell_over_xheight" ref="aceb41c055165db283f84c80d0bfff216" args="() const " -->
@@ -310,6 +355,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrblock_8h_source.html#l00114">114</a> of file <a class="el" href="ocrblock_8h_source.html">ocrblock.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                  {
+    <span class="keywordflow">return</span> cell_over_xheight_;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa666ec6e487f45df87bd188ed376d858"></a><!-- doxytag: member="BLOCK::check_pitch" ref="aa666ec6e487f45df87bd188ed376d858" args="()" -->
@@ -330,6 +380,12 @@ Friends</h2></td></tr>
 <p><a class="el" href="class_b_l_o_c_k.html#aa666ec6e487f45df87bd188ed376d858" title="check proportional">BLOCK::check_pitch</a></p>
 <p>Check whether the block is fixed or prop, set the flag, and set the pitch if it is fixed. </p>
 
+<p>Definition at line <a class="el" href="ocrblock_8cpp_source.html#l00159">159</a> of file <a class="el" href="ocrblock_8cpp_source.html">ocrblock.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                        {  <span class="comment">// check prop</span>
+  <span class="comment">//      tprintf(&quot;Missing FFT fixed pitch stuff!\n&quot;);</span>
+  pitch = -1;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a34b02293bd58bf10ce6e62fd7d3953ef"></a><!-- doxytag: member="BLOCK::classify_rotation" ref="a34b02293bd58bf10ce6e62fd7d3953ef" args="() const " -->
@@ -346,6 +402,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrblock_8h_source.html#l00145">145</a> of file <a class="el" href="ocrblock_8h_source.html">ocrblock.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                   {
+    <span class="keywordflow">return</span> classify_rotation_;   <span class="comment">// Apply this before classifying.</span>
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a87d8245c5020006d18aebf79377e5d26"></a><!-- doxytag: member="BLOCK::compress" ref="a87d8245c5020006d18aebf79377e5d26" args="()" -->
@@ -366,6 +427,37 @@ Friends</h2></td></tr>
 <p><a class="el" href="class_b_l_o_c_k.html#a87d8245c5020006d18aebf79377e5d26" title="shrink white space">BLOCK::compress</a></p>
 <p>Delete space between the rows. (And maybe one day, compress the rows) Fill space of block from top down, left aligning rows. </p>
 
+<p>Definition at line <a class="el" href="ocrblock_8cpp_source.html#l00121">121</a> of file <a class="el" href="ocrblock_8cpp_source.html">ocrblock.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                     {  <span class="comment">// squash it up</span>
+<span class="preprocessor">  #define           ROW_SPACING 5</span>
+<span class="preprocessor"></span>
+  ROW_IT row_it(&amp;rows);
+  <a class="code" href="class_r_o_w.html">ROW</a> *row;
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> row_spacing (0, ROW_SPACING);
+
+  ICOORDELT_IT icoordelt_it;
+
+  <a class="code" href="class_b_l_o_c_k.html#a1700ff303aaa1e8e683dc396e2fba1a7" title="decreasing y order">sort_rows</a>();
+
+  <a class="code" href="class_p_d_b_l_k.html#ac59bc5dc2b038f44294271a6356cbff6">box</a> = <a class="code" href="class_t_b_o_x.html">TBOX</a> (<a class="code" href="class_p_d_b_l_k.html#ac59bc5dc2b038f44294271a6356cbff6">box</a>.<a class="code" href="class_t_b_o_x.html#ad6f19fe78e5fcc3a824310d3f75ad358">topleft</a> (), <a class="code" href="class_p_d_b_l_k.html#ac59bc5dc2b038f44294271a6356cbff6">box</a>.<a class="code" href="class_t_b_o_x.html#ad6f19fe78e5fcc3a824310d3f75ad358">topleft</a> ());
+  <a class="code" href="class_p_d_b_l_k.html#ac59bc5dc2b038f44294271a6356cbff6">box</a>.<a class="code" href="class_t_b_o_x.html#a0f635179085dbef57b8ee2cb93299fe6">move_bottom_edge</a> (ROW_SPACING);
+  <span class="keywordflow">for</span> (row_it.mark_cycle_pt (); !row_it.cycled_list (); row_it.forward ()) {
+    row = row_it.data ();
+    row-&gt;<a class="code" href="class_r_o_w.html#a857fb9d5a7bd6b928e2beb4a2af30039">move</a> (<a class="code" href="class_p_d_b_l_k.html#ac59bc5dc2b038f44294271a6356cbff6">box</a>.<a class="code" href="class_t_b_o_x.html#a9f46d9e51b8b69c5cb6d031e9ac34978">botleft</a> () - row_spacing -
+      row-&gt;<a class="code" href="class_r_o_w.html#a7bb838e55056e39e15d7e2cea8ebebb0">bounding_box</a> ().<a class="code" href="class_t_b_o_x.html#ad6f19fe78e5fcc3a824310d3f75ad358">topleft</a> ());
+    <a class="code" href="class_p_d_b_l_k.html#ac59bc5dc2b038f44294271a6356cbff6">box</a> += row-&gt;<a class="code" href="class_r_o_w.html#a7bb838e55056e39e15d7e2cea8ebebb0">bounding_box</a> ();
+  }
+
+  <a class="code" href="class_p_d_b_l_k.html#af00bb4a4ee2e805324672b19e088e06a">leftside</a>.clear ();
+  icoordelt_it.set_to_list (&amp;<a class="code" href="class_p_d_b_l_k.html#af00bb4a4ee2e805324672b19e088e06a">leftside</a>);
+  icoordelt_it.add_to_end (<span class="keyword">new</span> <a class="code" href="class_i_c_o_o_r_d_e_l_t.html">ICOORDELT</a> (<a class="code" href="class_p_d_b_l_k.html#ac59bc5dc2b038f44294271a6356cbff6">box</a>.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a> (), <a class="code" href="class_p_d_b_l_k.html#ac59bc5dc2b038f44294271a6356cbff6">box</a>.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a> ()));
+  icoordelt_it.add_to_end (<span class="keyword">new</span> <a class="code" href="class_i_c_o_o_r_d_e_l_t.html">ICOORDELT</a> (<a class="code" href="class_p_d_b_l_k.html#ac59bc5dc2b038f44294271a6356cbff6">box</a>.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a> (), <a class="code" href="class_p_d_b_l_k.html#ac59bc5dc2b038f44294271a6356cbff6">box</a>.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a> ()));
+  <a class="code" href="class_p_d_b_l_k.html#a87a08537c120e669c825d147a5650a55">rightside</a>.clear ();
+  icoordelt_it.set_to_list (&amp;<a class="code" href="class_p_d_b_l_k.html#a87a08537c120e669c825d147a5650a55">rightside</a>);
+  icoordelt_it.add_to_end (<span class="keyword">new</span> <a class="code" href="class_i_c_o_o_r_d_e_l_t.html">ICOORDELT</a> (<a class="code" href="class_p_d_b_l_k.html#ac59bc5dc2b038f44294271a6356cbff6">box</a>.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a> (), <a class="code" href="class_p_d_b_l_k.html#ac59bc5dc2b038f44294271a6356cbff6">box</a>.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a> ()));
+  icoordelt_it.add_to_end (<span class="keyword">new</span> <a class="code" href="class_i_c_o_o_r_d_e_l_t.html">ICOORDELT</a> (<a class="code" href="class_p_d_b_l_k.html#ac59bc5dc2b038f44294271a6356cbff6">box</a>.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a> (), <a class="code" href="class_p_d_b_l_k.html#ac59bc5dc2b038f44294271a6356cbff6">box</a>.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a> ()));
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a46675ca554f7469d3b9f2f0debeda36d"></a><!-- doxytag: member="BLOCK::compress" ref="a46675ca554f7469d3b9f2f0debeda36d" args="(const ICOORD vec)" -->
@@ -387,6 +479,12 @@ Friends</h2></td></tr>
 <p><a class="el" href="class_b_l_o_c_k.html#a87d8245c5020006d18aebf79377e5d26" title="shrink white space">BLOCK::compress</a></p>
 <p>Compress and move in a single operation. </p>
 
+<p>Definition at line <a class="el" href="ocrblock_8cpp_source.html#l00171">171</a> of file <a class="el" href="ocrblock_8cpp_source.html">ocrblock.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                      {
+  <a class="code" href="class_p_d_b_l_k.html#ac59bc5dc2b038f44294271a6356cbff6">box</a>.<a class="code" href="class_t_b_o_x.html#a5fb1ce0d624392f72f82933e63f20e71">move</a> (vec);
+  <a class="code" href="class_b_l_o_c_k.html#a87d8245c5020006d18aebf79377e5d26" title="shrink white space">compress</a>();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ace98ff732aadb019c901973aabffa155"></a><!-- doxytag: member="BLOCK::compute_row_margins" ref="ace98ff732aadb019c901973aabffa155" args="()" -->
@@ -403,6 +501,79 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrblock_8cpp_source.html#l00322">322</a> of file <a class="el" href="ocrblock_8cpp_source.html">ocrblock.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                {
+  <span class="keywordflow">if</span> (<a class="code" href="class_b_l_o_c_k.html#ae9826e422b0bf17a7592dee8db3fe058" title="get rows">row_list</a>()-&gt;empty() || <a class="code" href="class_b_l_o_c_k.html#ae9826e422b0bf17a7592dee8db3fe058" title="get rows">row_list</a>()-&gt;singleton()) {
+    <span class="keywordflow">return</span>;
+  }
+
+  <span class="comment">// If Layout analysis was not called, default to this.</span>
+  <a class="code" href="class_p_o_l_y___b_l_o_c_k.html">POLY_BLOCK</a> rect_block(<a class="code" href="class_p_d_b_l_k.html#ab853b2715d8914f39603a2fd163adf03" title="get real box">bounding_box</a>(), <a class="code" href="publictypes_8h.html#a03566528a98c079dafeebf00502f2b60aaa63d8d8a99ddc2b3957f8e8787b4eca">PT_FLOWING_TEXT</a>);
+  <a class="code" href="class_p_o_l_y___b_l_o_c_k.html">POLY_BLOCK</a> *pblock = &amp;rect_block;
+  <span class="keywordflow">if</span> (<a class="code" href="class_p_d_b_l_k.html#a6670779c69aca2d574e4a0590d9b3939">poly_block</a>() != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    pblock = <a class="code" href="class_p_d_b_l_k.html#a6670779c69aca2d574e4a0590d9b3939">poly_block</a>();
+  }
+
+  <span class="comment">// Step One: Determine if there is a drop-cap.</span>
+  <span class="comment">//           TODO(eger): Fix up drop cap code for RTL languages.</span>
+  ROW_IT r_it(<a class="code" href="class_b_l_o_c_k.html#ae9826e422b0bf17a7592dee8db3fe058" title="get rows">row_list</a>());
+  <a class="code" href="class_r_o_w.html">ROW</a> *first_row = r_it.data();
+  <a class="code" href="class_r_o_w.html">ROW</a> *second_row = r_it.data_relative(1);
+
+  <span class="comment">// initialize the bottom of a fictitious drop cap far above the first line.</span>
+  <span class="keywordtype">int</span> drop_cap_bottom = first_row-&gt;<a class="code" href="class_r_o_w.html#a7bb838e55056e39e15d7e2cea8ebebb0">bounding_box</a>().<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>() +
+                        first_row-&gt;<a class="code" href="class_r_o_w.html#a7bb838e55056e39e15d7e2cea8ebebb0">bounding_box</a>().<a class="code" href="class_t_b_o_x.html#a8379d4bbc72bdbb1f069fc14790e632d">height</a>();
+  <span class="keywordtype">int</span> drop_cap_right = first_row-&gt;<a class="code" href="class_r_o_w.html#a7bb838e55056e39e15d7e2cea8ebebb0">bounding_box</a>().<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>();
+  <span class="keywordtype">int</span> mid_second_line = second_row-&gt;<a class="code" href="class_r_o_w.html#a7bb838e55056e39e15d7e2cea8ebebb0">bounding_box</a>().<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>() -
+                        second_row-&gt;<a class="code" href="class_r_o_w.html#a7bb838e55056e39e15d7e2cea8ebebb0">bounding_box</a>().<a class="code" href="class_t_b_o_x.html#a8379d4bbc72bdbb1f069fc14790e632d">height</a>() / 2;
+  WERD_IT werd_it(r_it.data()-&gt;word_list());  <span class="comment">// words of line one</span>
+  <span class="keywordflow">if</span> (!werd_it.empty()) {
+    C_BLOB_IT cblob_it(werd_it.data()-&gt;cblob_list());
+    <span class="keywordflow">for</span> (cblob_it.mark_cycle_pt(); !cblob_it.cycled_list();
+         cblob_it.forward()) {
+      <a class="code" href="class_t_b_o_x.html">TBOX</a> bbox = cblob_it.data()-&gt;bounding_box();
+      <span class="keywordflow">if</span> (bbox.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>() &lt;= mid_second_line) {
+        <span class="comment">// we found a real drop cap</span>
+        first_row-&gt;<a class="code" href="class_r_o_w.html#a1a289c49e757d42605fa4448fbeb5b08">set_has_drop_cap</a>(<span class="keyword">true</span>);
+        <span class="keywordflow">if</span> (drop_cap_bottom &gt;  bbox.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>())
+          drop_cap_bottom = bbox.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>();
+        <span class="keywordflow">if</span> (drop_cap_right &lt; bbox.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>())
+          drop_cap_right = bbox.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>();
+      }
+    }
+  }
+
+  <span class="comment">// Step Two: Calculate the margin from the text of each row to the block</span>
+  <span class="comment">//           (or drop-cap) boundaries.</span>
+  <a class="code" href="class_p_b___l_i_n_e___i_t.html">PB_LINE_IT</a> lines(pblock);
+  r_it.set_to_list(<a class="code" href="class_b_l_o_c_k.html#ae9826e422b0bf17a7592dee8db3fe058" title="get rows">row_list</a>());
+  <span class="keywordflow">for</span> (r_it.mark_cycle_pt(); !r_it.cycled_list(); r_it.forward()) {
+    <a class="code" href="class_r_o_w.html">ROW</a> *row = r_it.data();
+    <a class="code" href="class_t_b_o_x.html">TBOX</a> row_box = row-&gt;<a class="code" href="class_r_o_w.html#a7bb838e55056e39e15d7e2cea8ebebb0">bounding_box</a>();
+    <span class="keywordtype">int</span> left_y = row-&gt;<a class="code" href="class_r_o_w.html#a097b3543fa3ca5768eb50033d4c4db9c">base_line</a>(row_box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>()) + row-&gt;<a class="code" href="class_r_o_w.html#a2954f94ec4eefe1e3729912e5b8ea779">x_height</a>();
+    <span class="keywordtype">int</span> left_margin;
+    ICOORDELT_LIST *segments = lines.get_line(left_y);
+    <a class="code" href="ocrblock_8cpp.html#ae96294df3ba42a4344755ce6a7220652">LeftMargin</a>(segments, row_box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>(), &amp;left_margin);
+    <span class="keyword">delete</span> segments;
+
+    <span class="keywordflow">if</span> (row_box.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>() &gt;= drop_cap_bottom) {
+      <span class="keywordtype">int</span> drop_cap_distance = row_box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>() - row-&gt;<a class="code" href="class_r_o_w.html#a9914801656b049fbe16ca593f571f4b4">space</a>() - drop_cap_right;
+      <span class="keywordflow">if</span> (drop_cap_distance &lt; 0)
+        drop_cap_distance = 0;
+      <span class="keywordflow">if</span> (drop_cap_distance &lt; left_margin)
+        left_margin = drop_cap_distance;
+    }
+
+    <span class="keywordtype">int</span> right_y = row-&gt;<a class="code" href="class_r_o_w.html#a097b3543fa3ca5768eb50033d4c4db9c">base_line</a>(row_box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>()) + row-&gt;<a class="code" href="class_r_o_w.html#a2954f94ec4eefe1e3729912e5b8ea779">x_height</a>();
+    <span class="keywordtype">int</span> right_margin;
+    segments = lines.get_line(right_y);
+    <a class="code" href="ocrblock_8cpp.html#ae85a4fad06cd7308595bda498a8e78e2">RightMargin</a>(segments, row_box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>(), &amp;right_margin);
+    <span class="keyword">delete</span> segments;
+    row-&gt;<a class="code" href="class_r_o_w.html#a7c9c43de4dde741e67ab6d9f45bc2e07">set_lmargin</a>(left_margin);
+    row-&gt;<a class="code" href="class_r_o_w.html#a92d0d6671a28f8d6a19082b04039db1a">set_rmargin</a>(right_margin);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae27754b55cd58ed702f41b8715a0f74c"></a><!-- doxytag: member="BLOCK::fixed_pitch" ref="ae27754b55cd58ed702f41b8715a0f74c" args="() const " -->
@@ -421,6 +592,11 @@ Friends</h2></td></tr>
 
 <p>return pitch </p>
 
+<p>Definition at line <a class="el" href="ocrblock_8h_source.html#l00091">91</a> of file <a class="el" href="ocrblock_8h_source.html">ocrblock.h</a>.</p>
+<div class="fragment"><pre class="fragment">                            {
+    <span class="keywordflow">return</span> pitch;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa181af4f5366d80eca4dc2a09891f099"></a><!-- doxytag: member="BLOCK::font" ref="aa181af4f5366d80eca4dc2a09891f099" args="() const " -->
@@ -439,6 +615,11 @@ Friends</h2></td></tr>
 
 <p>return font class </p>
 
+<p>Definition at line <a class="el" href="ocrblock_8h_source.html#l00099">99</a> of file <a class="el" href="ocrblock_8h_source.html">ocrblock.h</a>.</p>
+<div class="fragment"><pre class="fragment">                     {
+    <span class="keywordflow">return</span> font_class;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac13db38f988ab1cb820dbc1babdb21bd"></a><!-- doxytag: member="BLOCK::kern" ref="ac13db38f988ab1cb820dbc1babdb21bd" args="() const " -->
@@ -457,6 +638,11 @@ Friends</h2></td></tr>
 
 <p>return kerning </p>
 
+<p>Definition at line <a class="el" href="ocrblock_8h_source.html#l00095">95</a> of file <a class="el" href="ocrblock_8h_source.html">ocrblock.h</a>.</p>
+<div class="fragment"><pre class="fragment">                     {
+    <span class="keywordflow">return</span> kerning;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a77cad3caccc9226ba3333638a87ec26f"></a><!-- doxytag: member="BLOCK::median_size" ref="a77cad3caccc9226ba3333638a87ec26f" args="() const " -->
@@ -473,6 +659,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrblock_8h_source.html#l00157">157</a> of file <a class="el" href="ocrblock_8h_source.html">ocrblock.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                    {
+    <span class="keywordflow">return</span> median_size_;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4859981b86d21d7dba29ad1788ec245c"></a><!-- doxytag: member="BLOCK::name" ref="a4859981b86d21d7dba29ad1788ec245c" args="() const " -->
@@ -491,6 +682,11 @@ Friends</h2></td></tr>
 
 <p>return filename </p>
 
+<p>Definition at line <a class="el" href="ocrblock_8h_source.html#l00107">107</a> of file <a class="el" href="ocrblock_8h_source.html">ocrblock.h</a>.</p>
+<div class="fragment"><pre class="fragment">                           {
+    <span class="keywordflow">return</span> filename.<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a> ();
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a14b8aec10599ac57c5ef9938a59fff27"></a><!-- doxytag: member="BLOCK::operator=" ref="a14b8aec10599ac57c5ef9938a59fff27" args="(const BLOCK &amp;source)" -->
@@ -510,6 +706,22 @@ Friends</h2></td></tr>
 <p><a class="el" href="class_b_l_o_c_k.html#a14b8aec10599ac57c5ef9938a59fff27">BLOCK::operator=</a></p>
 <p>Assignment - duplicate the block structure, but with an EMPTY row list. </p>
 
+<p>Definition at line <a class="el" href="ocrblock_8cpp_source.html#l00217">217</a> of file <a class="el" href="ocrblock_8cpp_source.html">ocrblock.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">  {
+  this-&gt;<a class="code" href="class_b_l_o_c_k.html#a14b8aec10599ac57c5ef9938a59fff27">ELIST_LINK::operator= </a>(source);
+  this-&gt;<a class="code" href="class_b_l_o_c_k.html#a14b8aec10599ac57c5ef9938a59fff27">PDBLK::operator= </a>(source);
+  proportional = source.proportional;
+  kerning = source.kerning;
+  spacing = source.spacing;
+  filename = source.filename;    <span class="comment">//STRINGs assign ok</span>
+  <span class="keywordflow">if</span> (!rows.empty ())
+    rows.clear ();
+  re_rotation_ = source.re_rotation_;
+  classify_rotation_ = source.classify_rotation_;
+  skew_ = source.skew_;
+  <span class="keywordflow">return</span> *<span class="keyword">this</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="abd6dfaae322a74d32ae95c55dd1ca173"></a><!-- doxytag: member="BLOCK::para_list" ref="abd6dfaae322a74d32ae95c55dd1ca173" args="()" -->
@@ -526,6 +738,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrblock_8h_source.html#l00129">129</a> of file <a class="el" href="ocrblock_8h_source.html">ocrblock.h</a>.</p>
+<div class="fragment"><pre class="fragment">                         {
+    <span class="keywordflow">return</span> &amp;paras_;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="afb9e61b4a9a892b00e56530652a5c2c4"></a><!-- doxytag: member="BLOCK::print" ref="afb9e61b4a9a892b00e56530652a5c2c4" args="(FILE *fp, BOOL8 dump)" -->
@@ -557,6 +774,30 @@ Friends</h2></td></tr>
 <p><a class="el" href="class_b_l_o_c_k.html#afb9e61b4a9a892b00e56530652a5c2c4" title="dump whole table">BLOCK::print</a></p>
 <p>Print the info on a block </p>
 
+<p>Definition at line <a class="el" href="ocrblock_8cpp_source.html#l00185">185</a> of file <a class="el" href="ocrblock_8cpp_source.html">ocrblock.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                   {
+  ICOORDELT_IT it = &amp;<a class="code" href="class_p_d_b_l_k.html#af00bb4a4ee2e805324672b19e088e06a">leftside</a>;   <span class="comment">//iterator</span>
+
+  <a class="code" href="class_p_d_b_l_k.html#ac59bc5dc2b038f44294271a6356cbff6">box</a>.<a class="code" href="class_t_b_o_x.html#a2e753aa9943276301d68e9f9cad99620">print</a> ();
+  <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a> (<span class="stringliteral">&quot;Proportional= %s\n&quot;</span>, proportional ? <span class="stringliteral">&quot;TRUE&quot;</span> : <span class="stringliteral">&quot;FALSE&quot;</span>);
+  <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a> (<span class="stringliteral">&quot;Kerning= %d\n&quot;</span>, kerning);
+  <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a> (<span class="stringliteral">&quot;Spacing= %d\n&quot;</span>, spacing);
+  <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a> (<span class="stringliteral">&quot;Fixed_pitch=%d\n&quot;</span>, pitch);
+  <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a> (<span class="stringliteral">&quot;Filename= %s\n&quot;</span>, filename.<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a> ());
+
+  <span class="keywordflow">if</span> (dump) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a> (<span class="stringliteral">&quot;Left side coords are:\n&quot;</span>);
+    <span class="keywordflow">for</span> (it.mark_cycle_pt (); !it.cycled_list (); it.forward ())
+      <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a> (<span class="stringliteral">&quot;(%d,%d) &quot;</span>, it.data ()-&gt;x (), it.data ()-&gt;y ());
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a> (<span class="stringliteral">&quot;\n&quot;</span>);
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a> (<span class="stringliteral">&quot;Right side coords are:\n&quot;</span>);
+    it.set_to_list (&amp;<a class="code" href="class_p_d_b_l_k.html#a87a08537c120e669c825d147a5650a55">rightside</a>);
+    <span class="keywordflow">for</span> (it.mark_cycle_pt (); !it.cycled_list (); it.forward ())
+      <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a> (<span class="stringliteral">&quot;(%d,%d) &quot;</span>, it.data ()-&gt;x (), it.data ()-&gt;y ());
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a> (<span class="stringliteral">&quot;\n&quot;</span>);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aec85b170b2c80345a5e2cc92d20c7ed5"></a><!-- doxytag: member="BLOCK::prop" ref="aec85b170b2c80345a5e2cc92d20c7ed5" args="() const " -->
@@ -575,6 +816,11 @@ Friends</h2></td></tr>
 
 <p>return proportional </p>
 
+<p>Definition at line <a class="el" href="ocrblock_8h_source.html#l00081">81</a> of file <a class="el" href="ocrblock_8h_source.html">ocrblock.h</a>.</p>
+<div class="fragment"><pre class="fragment">                     {
+    <span class="keywordflow">return</span> proportional;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a820d5ff979ad26219ad3914551d70881"></a><!-- doxytag: member="BLOCK::re_rotation" ref="a820d5ff979ad26219ad3914551d70881" args="() const " -->
@@ -591,6 +837,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrblock_8h_source.html#l00139">139</a> of file <a class="el" href="ocrblock_8h_source.html">ocrblock.h</a>.</p>
+<div class="fragment"><pre class="fragment">                             {
+    <span class="keywordflow">return</span> re_rotation_;         <span class="comment">// How to transform coords back to image.</span>
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2059ad777d16fd501cb61c8fb2a9d032"></a><!-- doxytag: member="BLOCK::reflect_polygon_in_y_axis" ref="a2059ad777d16fd501cb61c8fb2a9d032" args="()" -->
@@ -609,6 +860,12 @@ Friends</h2></td></tr>
 <p><a class="el" href="class_b_l_o_c_k.html#a2059ad777d16fd501cb61c8fb2a9d032">BLOCK::reflect_polygon_in_y_axis</a></p>
 <p>Reflects the polygon in the y-axis and recompute the bounding_box. Does nothing to any contained rows/words/blobs etc. </p>
 
+<p>Definition at line <a class="el" href="ocrblock_8cpp_source.html#l00096">96</a> of file <a class="el" href="ocrblock_8cpp_source.html">ocrblock.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                      {
+  <a class="code" href="class_p_d_b_l_k.html#a6670779c69aca2d574e4a0590d9b3939">poly_block</a>()-&gt;<a class="code" href="class_p_o_l_y___b_l_o_c_k.html#a0bd6c09f15f0b00f45a3abed40815c67">reflect_in_y_axis</a>();
+  <a class="code" href="class_p_d_b_l_k.html#ac59bc5dc2b038f44294271a6356cbff6">box</a> = *<a class="code" href="class_p_d_b_l_k.html#a6670779c69aca2d574e4a0590d9b3939">poly_block</a>()-&gt;<a class="code" href="class_p_o_l_y___b_l_o_c_k.html#a093b9ddca1b40d5eae1b211bed47da09">bounding_box</a>();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a08f23fffc748fbb0e7ae8804b7c0c90e"></a><!-- doxytag: member="BLOCK::reject_blobs" ref="a08f23fffc748fbb0e7ae8804b7c0c90e" args="()" -->
@@ -625,6 +882,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrblock_8h_source.html#l00136">136</a> of file <a class="el" href="ocrblock_8h_source.html">ocrblock.h</a>.</p>
+<div class="fragment"><pre class="fragment">                              {
+    <span class="keywordflow">return</span> &amp;rej_blobs;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa21af645b311d9728d9299199959dd3f"></a><!-- doxytag: member="BLOCK::render_mask" ref="aa21af645b311d9728d9299199959dd3f" args="()" -->
@@ -641,6 +903,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrblock_8h_source.html#l00165">165</a> of file <a class="el" href="ocrblock_8h_source.html">ocrblock.h</a>.</p>
+<div class="fragment"><pre class="fragment">                     {
+    <span class="keywordflow">return</span> <a class="code" href="class_b_l_o_c_k.html#aa21af645b311d9728d9299199959dd3f">PDBLK::render_mask</a>(re_rotation_);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a63887af77bac6353507e4ee2d87a1237"></a><!-- doxytag: member="BLOCK::right_to_left" ref="a63887af77bac6353507e4ee2d87a1237" args="() const " -->
@@ -657,6 +924,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrblock_8h_source.html#l00084">84</a> of file <a class="el" href="ocrblock_8h_source.html">ocrblock.h</a>.</p>
+<div class="fragment"><pre class="fragment">                             {
+    <span class="keywordflow">return</span> right_to_left_;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a70bff81f89d9bf771cfd09952f043b03"></a><!-- doxytag: member="BLOCK::rotate" ref="a70bff81f89d9bf771cfd09952f043b03" args="(const FCOORD &amp;rotation)" -->
@@ -676,6 +948,12 @@ Friends</h2></td></tr>
 <p><a class="el" href="class_b_l_o_c_k.html#a70bff81f89d9bf771cfd09952f043b03">BLOCK::rotate</a></p>
 <p>Rotate the polygon by the given rotation and recompute the bounding_box. </p>
 
+<p>Definition at line <a class="el" href="ocrblock_8cpp_source.html#l00085">85</a> of file <a class="el" href="ocrblock_8cpp_source.html">ocrblock.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                         {
+  <a class="code" href="class_p_d_b_l_k.html#a6670779c69aca2d574e4a0590d9b3939">poly_block</a>()-&gt;<a class="code" href="class_p_o_l_y___b_l_o_c_k.html#af93c6f325d6a4d981e884dc0c5d77819">rotate</a>(rotation);
+  <a class="code" href="class_p_d_b_l_k.html#ac59bc5dc2b038f44294271a6356cbff6">box</a> = *<a class="code" href="class_p_d_b_l_k.html#a6670779c69aca2d574e4a0590d9b3939">poly_block</a>()-&gt;<a class="code" href="class_p_o_l_y___b_l_o_c_k.html#a093b9ddca1b40d5eae1b211bed47da09">bounding_box</a>();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae9826e422b0bf17a7592dee8db3fe058"></a><!-- doxytag: member="BLOCK::row_list" ref="ae9826e422b0bf17a7592dee8db3fe058" args="()" -->
@@ -694,6 +972,11 @@ Friends</h2></td></tr>
 
 <p>get rows </p>
 
+<p>Definition at line <a class="el" href="ocrblock_8h_source.html#l00121">121</a> of file <a class="el" href="ocrblock_8h_source.html">ocrblock.h</a>.</p>
+<div class="fragment"><pre class="fragment">                       {
+    <span class="keywordflow">return</span> &amp;rows;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa35e87420154d9fd935a2df0610b7ab4"></a><!-- doxytag: member="BLOCK::set_cell_over_xheight" ref="aa35e87420154d9fd935a2df0610b7ab4" args="(float ratio)" -->
@@ -711,6 +994,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrblock_8h_source.html#l00117">117</a> of file <a class="el" href="ocrblock_8h_source.html">ocrblock.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                          {
+    cell_over_xheight_ = ratio;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a43c63eaacdd0c10688846a03bfe31ef2"></a><!-- doxytag: member="BLOCK::set_classify_rotation" ref="a43c63eaacdd0c10688846a03bfe31ef2" args="(const FCOORD &amp;rotation)" -->
@@ -728,6 +1016,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrblock_8h_source.html#l00148">148</a> of file <a class="el" href="ocrblock_8h_source.html">ocrblock.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                     {
+    classify_rotation_ = rotation;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a900d5c55947c7f0e0276183be602b387"></a><!-- doxytag: member="BLOCK::set_font_class" ref="a900d5c55947c7f0e0276183be602b387" args="(inT16 font)" -->
@@ -747,6 +1040,11 @@ Friends</h2></td></tr>
 
 <p>set font class </p>
 
+<p>Definition at line <a class="el" href="ocrblock_8h_source.html#l00077">77</a> of file <a class="el" href="ocrblock_8h_source.html">ocrblock.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                  {
+    font_class = <a class="code" href="class_b_l_o_c_k.html#aa181af4f5366d80eca4dc2a09891f099" title="return font class">font</a>;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9ebbb6f7072ddf986d32a93b19fe5d44"></a><!-- doxytag: member="BLOCK::set_median_size" ref="a9ebbb6f7072ddf986d32a93b19fe5d44" args="(int x, int y)" -->
@@ -774,6 +1072,12 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrblock_8h_source.html#l00160">160</a> of file <a class="el" href="ocrblock_8h_source.html">ocrblock.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                     {
+    median_size_.<a class="code" href="class_i_c_o_o_r_d.html#a94c586039b3a003b35cf659b33b938f3" title="rewrite function">set_x</a>(x);
+    median_size_.<a class="code" href="class_i_c_o_o_r_d.html#aa9fb418d1c602c0533e426759da43d67" title="rewrite function">set_y</a>(y);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a006129cb98cd6e780049f157066bc03e"></a><!-- doxytag: member="BLOCK::set_re_rotation" ref="a006129cb98cd6e780049f157066bc03e" args="(const FCOORD &amp;rotation)" -->
@@ -791,6 +1095,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrblock_8h_source.html#l00142">142</a> of file <a class="el" href="ocrblock_8h_source.html">ocrblock.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                               {
+    re_rotation_ = rotation;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac7c7e1c504a24275c04b27366f94618e"></a><!-- doxytag: member="BLOCK::set_right_to_left" ref="ac7c7e1c504a24275c04b27366f94618e" args="(bool value)" -->
@@ -808,6 +1117,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrblock_8h_source.html#l00087">87</a> of file <a class="el" href="ocrblock_8h_source.html">ocrblock.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                     {
+    right_to_left_ = value;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="afa8f7d48accd89dccce227cecbc0c962"></a><!-- doxytag: member="BLOCK::set_skew" ref="afa8f7d48accd89dccce227cecbc0c962" args="(const FCOORD &amp;skew)" -->
@@ -825,6 +1139,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrblock_8h_source.html#l00154">154</a> of file <a class="el" href="ocrblock_8h_source.html">ocrblock.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                    {
+    skew_ = <a class="code" href="class_b_l_o_c_k.html#a64702b7109201949e9e82025656f783f">skew</a>;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a1dec509cf931f6fcf3e33ef67edcd918"></a><!-- doxytag: member="BLOCK::set_stats" ref="a1dec509cf931f6fcf3e33ef67edcd918" args="(BOOL8 prop, inT16 kern, inT16 space, inT16 ch_pitch)" -->
@@ -874,6 +1193,14 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="ocrblock_8h_source.html#l00063">63</a> of file <a class="el" href="ocrblock_8h_source.html">ocrblock.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                 {
+    proportional = <a class="code" href="class_b_l_o_c_k.html#aec85b170b2c80345a5e2cc92d20c7ed5" title="return proportional">prop</a>;
+    kerning = (<a class="code" href="host_8h.html#a2ba4d271e85baf0d333318985cb3bced">inT8</a>) <a class="code" href="class_b_l_o_c_k.html#ac13db38f988ab1cb820dbc1babdb21bd" title="return kerning">kern</a>;
+    spacing = <a class="code" href="class_b_l_o_c_k.html#a421d1cc1e230f8598de6ceacb6e43e51" title="return spacing">space</a>;
+    pitch = ch_pitch;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a761f9b58bfeef6d485001b707fb9939b"></a><!-- doxytag: member="BLOCK::set_xheight" ref="a761f9b58bfeef6d485001b707fb9939b" args="(inT32 height)" -->
@@ -893,6 +1220,11 @@ Friends</h2></td></tr>
 
 <p>set char size </p>
 
+<p>Definition at line <a class="el" href="ocrblock_8h_source.html#l00073">73</a> of file <a class="el" href="ocrblock_8h_source.html">ocrblock.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                 {
+    xheight = height;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a64702b7109201949e9e82025656f783f"></a><!-- doxytag: member="BLOCK::skew" ref="a64702b7109201949e9e82025656f783f" args="() const " -->
@@ -909,6 +1241,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrblock_8h_source.html#l00151">151</a> of file <a class="el" href="ocrblock_8h_source.html">ocrblock.h</a>.</p>
+<div class="fragment"><pre class="fragment">                      {
+    <span class="keywordflow">return</span> skew_;                <span class="comment">// Direction of true horizontal.</span>
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a1700ff303aaa1e8e683dc396e2fba1a7"></a><!-- doxytag: member="BLOCK::sort_rows" ref="a1700ff303aaa1e8e683dc396e2fba1a7" args="()" -->
@@ -929,6 +1266,13 @@ Friends</h2></td></tr>
 <p><a class="el" href="class_b_l_o_c_k.html#a1700ff303aaa1e8e683dc396e2fba1a7" title="decreasing y order">BLOCK::sort_rows</a></p>
 <p>Order rows so that they are in order of decreasing Y coordinate </p>
 
+<p>Definition at line <a class="el" href="ocrblock_8cpp_source.html#l00107">107</a> of file <a class="el" href="ocrblock_8cpp_source.html">ocrblock.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                      {  <span class="comment">// order on &quot;top&quot;</span>
+  ROW_IT row_it(&amp;rows);
+
+  row_it.sort (<a class="code" href="ocrblock_8cpp.html#a653fb765bd7b90bf65d53f6ffe356955">decreasing_top_order</a>);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a421d1cc1e230f8598de6ceacb6e43e51"></a><!-- doxytag: member="BLOCK::space" ref="a421d1cc1e230f8598de6ceacb6e43e51" args="() const " -->
@@ -947,6 +1291,11 @@ Friends</h2></td></tr>
 
 <p>return spacing </p>
 
+<p>Definition at line <a class="el" href="ocrblock_8h_source.html#l00103">103</a> of file <a class="el" href="ocrblock_8h_source.html">ocrblock.h</a>.</p>
+<div class="fragment"><pre class="fragment">                      {
+    <span class="keywordflow">return</span> spacing;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4dc15e15362c3b2ee04d480b7c5695c3"></a><!-- doxytag: member="BLOCK::x_height" ref="a4dc15e15362c3b2ee04d480b7c5695c3" args="() const " -->
@@ -965,6 +1314,11 @@ Friends</h2></td></tr>
 
 <p>return xheight </p>
 
+<p>Definition at line <a class="el" href="ocrblock_8h_source.html#l00111">111</a> of file <a class="el" href="ocrblock_8h_source.html">ocrblock.h</a>.</p>
+<div class="fragment"><pre class="fragment">                         {
+    <span class="keywordflow">return</span> xheight;
+  }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Friends And Related Function Documentation</h2>
@@ -981,11 +1335,13 @@ Friends</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="class_p_d_b_l_k.html#ad858d9adefd50f00fb20c85fcdfb0c95">PDBLK</a>.</p>
 
+<p>Definition at line <a class="el" href="ocrblock_8h_source.html#l00034">34</a> of file <a class="el" href="ocrblock_8h_source.html">ocrblock.h</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/ccstruct/<a class="el" href="ocrblock_8h_source.html">ocrblock.h</a></li>
-<li>tesseract-ocr/ccstruct/<a class="el" href="ocrblock_8cpp.html">ocrblock.cpp</a></li>
+<li>tesseract-ocr/ccstruct/<a class="el" href="ocrblock_8cpp_source.html">ocrblock.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -1007,7 +1363,7 @@ Friends</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:11 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:45 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

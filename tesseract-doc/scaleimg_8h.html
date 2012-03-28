@@ -135,6 +135,298 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="scaleimg_8cpp_source.html#l00042">42</a> of file <a class="el" href="scaleimg_8cpp_source.html">scaleimg.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                  {
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> xsize, ysize, new_xsize, new_ysize;
+  <a class="code" href="class_i_m_a_g_e_l_i_n_e.html">IMAGELINE</a> line, <a class="code" href="cutil_8h.html#a1185f064cc7bdd3f2a433da85a834c37">new_line</a>;
+  <span class="keywordtype">int</span> *hires, *lores, *oldhires, *oldlores;
+  <span class="keywordtype">int</span> i, j, n, oldn, row, col;
+  <span class="keywordtype">int</span> offset = 0;                <span class="comment">//not used here</span>
+  <span class="keywordtype">float</span> factor;
+  <a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a> curr_colour, new_colour;
+  <span class="keywordtype">int</span> dummy = -1;
+  <a class="code" href="class_i_m_a_g_e.html">IMAGE</a> image2;                  <span class="comment">//horiz scaled image</span>
+
+  xsize = image.<a class="code" href="class_i_m_a_g_e.html#aee6f16416203f7d678fc61ae22dedc6e">get_xsize</a> ();
+  ysize = image.<a class="code" href="class_i_m_a_g_e.html#a3f8caf7062bd65eea2fc068fb3ec7c10">get_ysize</a> ();
+  new_xsize = target_image.<a class="code" href="class_i_m_a_g_e.html#aee6f16416203f7d678fc61ae22dedc6e">get_xsize</a> ();
+  new_ysize = target_image.<a class="code" href="class_i_m_a_g_e.html#a3f8caf7062bd65eea2fc068fb3ec7c10">get_ysize</a> ();
+  <span class="keywordflow">if</span> (new_ysize &gt; new_xsize)
+    new_line.<a class="code" href="class_i_m_a_g_e_l_i_n_e.html#a4cc90adaaa649d7fd24b35f57c517b7c">init</a> (new_ysize);
+  <span class="keywordflow">else</span>
+    new_line.<a class="code" href="class_i_m_a_g_e_l_i_n_e.html#a4cc90adaaa649d7fd24b35f57c517b7c">init</a> (new_xsize);
+
+  factor = (float) xsize / (<span class="keywordtype">float</span>) new_xsize;
+
+  hires = (<span class="keywordtype">int</span> *) calloc (xsize, <span class="keyword">sizeof</span> (<span class="keywordtype">int</span>));
+  lores = (<span class="keywordtype">int</span> *) calloc (new_xsize, <span class="keyword">sizeof</span> (<span class="keywordtype">int</span>));
+  oldhires = (<span class="keywordtype">int</span> *) calloc (xsize, <span class="keyword">sizeof</span> (<span class="keywordtype">int</span>));
+  oldlores = (<span class="keywordtype">int</span> *) calloc (new_xsize, <span class="keyword">sizeof</span> (<span class="keywordtype">int</span>));
+  <span class="keywordflow">if</span> ((hires == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) || (lores == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) || (oldhires == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+  || (oldlores == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)) {
+    fprintf (stderr, <span class="stringliteral">&quot;Calloc error in scale_image\n&quot;</span>);
+    <a class="code" href="errcode_8h.html#a7da97df8ad833cd9bbae484fa4fc4f9a">err_exit</a>();
+  }
+
+  image2.<a class="code" href="class_i_m_a_g_e.html#aa827c8e72da25720295706017eda3d81">create</a> (new_xsize, ysize, image.<a class="code" href="class_i_m_a_g_e.html#adc989f275743a36c9a9bce4b83c48c72">get_bpp</a> ());
+
+  oldn = 0;
+  <span class="comment">/* do first row separately because hires[col-1] doesn&#39;t make sense here */</span>
+  image.<a class="code" href="class_i_m_a_g_e.html#a44de5c052ec0829de2aff958756beb0f">fast_get_line</a> (0, 0, xsize, &amp;line);
+  <span class="comment">/* each line nominally begins with white */</span>
+  curr_colour = 1;
+  n = 0;
+  <span class="keywordflow">for</span> (i = 0; i &lt; xsize; i++) {
+    new_colour = *(line.<a class="code" href="class_i_m_a_g_e_l_i_n_e.html#a0bf967eba44b6352a126f74c1a057172" title="image pixels">pixels</a> + i);
+    <span class="keywordflow">if</span> (new_colour != curr_colour) {
+      hires[n] = i;
+      n++;
+      curr_colour = new_colour;
+    }
+  }
+  <span class="keywordflow">if</span> (offset != 0)
+    <span class="keywordflow">for</span> (i = 0; i &lt; n; i++)
+      hires[i] += offset;
+
+  <span class="keywordflow">if</span> (n &gt; new_xsize) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a> (<span class="stringliteral">&quot;Too many transitions (%d) on line 0\n&quot;</span>, n);
+    <a class="code" href="scaleimg_8cpp.html#af19246e01ebcdd1ace590121e87ffbc6">scale_image_cop_out</a>(image,
+                        target_image,
+                        factor,
+                        hires,
+                        lores,
+                        oldhires,
+                        oldlores);
+    <span class="keywordflow">return</span>;
+  }
+  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (n &gt; 0)
+    <a class="code" href="imgscale_8cpp.html#abeb0f81f9bb30510a52213f487917d89">dyn_prog</a> (n, hires, lores, new_xsize, &amp;dummy, &amp;dummy, 0, factor);
+  <span class="keywordflow">else</span>
+    lores[0] = new_xsize;
+
+  curr_colour = 1;
+  j = 0;
+  <span class="keywordflow">for</span> (i = 0; i &lt; new_xsize; i++) {
+    <span class="keywordflow">if</span> (lores[j] == i) {
+      curr_colour = 1 - curr_colour;
+      j++;
+    }
+    *(new_line.<a class="code" href="class_i_m_a_g_e_l_i_n_e.html#a0bf967eba44b6352a126f74c1a057172" title="image pixels">pixels</a> + i) = curr_colour;
+  }
+  image2.<a class="code" href="class_i_m_a_g_e.html#afbea9591218792f2be5e805a77ee167d">put_line</a> (0, 0, new_xsize, &amp;new_line, 0);
+
+  <span class="keywordflow">for</span> (i = 0; i &lt; n; i++) {
+    oldhires[i] = hires[i];
+    oldlores[i] = lores[i];
+  }
+
+  <span class="keywordflow">for</span> (i = n; i &lt; oldn; i++) {
+    oldhires[i] = 0;
+    oldlores[i] = 0;
+  }
+  oldn = n;
+
+  <span class="keywordflow">for</span> (row = 1; row &lt; ysize; row++) {
+    image.<a class="code" href="class_i_m_a_g_e.html#a44de5c052ec0829de2aff958756beb0f">fast_get_line</a> (0, row, xsize, &amp;line);
+    <span class="comment">/* each line nominally begins with white */</span>
+    curr_colour = 1;
+    n = 0;
+    <span class="keywordflow">for</span> (i = 0; i &lt; xsize; i++) {
+      new_colour = *(line.<a class="code" href="class_i_m_a_g_e_l_i_n_e.html#a0bf967eba44b6352a126f74c1a057172" title="image pixels">pixels</a> + i);
+      <span class="keywordflow">if</span> (new_colour != curr_colour) {
+        hires[n] = i;
+        n++;
+        curr_colour = new_colour;
+      }
+    }
+    <span class="keywordflow">for</span> (i = n; i &lt; oldn; i++) {
+      hires[i] = 0;
+      lores[i] = 0;
+    }
+    <span class="keywordflow">if</span> (offset != 0)
+      <span class="keywordflow">for</span> (i = 0; i &lt; n; i++)
+        hires[i] += offset;
+
+    <span class="keywordflow">if</span> (n &gt; new_xsize) {
+      <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a> (<span class="stringliteral">&quot;Too many transitions (%d) on line %d\n&quot;</span>, n, row);
+      <a class="code" href="scaleimg_8cpp.html#af19246e01ebcdd1ace590121e87ffbc6">scale_image_cop_out</a>(image,
+                          target_image,
+                          factor,
+                          hires,
+                          lores,
+                          oldhires,
+                          oldlores);
+      <span class="keywordflow">return</span>;
+    }
+    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (n &gt; 0)
+      <a class="code" href="imgscale_8cpp.html#abeb0f81f9bb30510a52213f487917d89">dyn_prog</a>(n, hires, lores, new_xsize, oldhires, oldlores, oldn, factor);
+    <span class="keywordflow">else</span>
+      lores[0] = new_xsize;
+
+    curr_colour = 1;
+    j = 0;
+    <span class="keywordflow">for</span> (i = 0; i &lt; new_xsize; i++) {
+      <span class="keywordflow">if</span> (lores[j] == i) {
+        curr_colour = 1 - curr_colour;
+        j++;
+      }
+      *(new_line.<a class="code" href="class_i_m_a_g_e_l_i_n_e.html#a0bf967eba44b6352a126f74c1a057172" title="image pixels">pixels</a> + i) = curr_colour;
+    }
+    image2.<a class="code" href="class_i_m_a_g_e.html#afbea9591218792f2be5e805a77ee167d">put_line</a> (0, row, new_xsize, &amp;new_line, 0);
+
+    <span class="keywordflow">for</span> (i = 0; i &lt; n; i++) {
+      oldhires[i] = hires[i];
+      oldlores[i] = lores[i];
+    }
+    <span class="keywordflow">for</span> (i = n; i &lt; oldn; i++) {
+      oldhires[i] = 0;
+      oldlores[i] = 0;
+    }
+    oldn = n;
+  }
+
+  free(hires);
+  free(lores);
+  free(oldhires);
+  free(oldlores);
+
+  <span class="comment">/* NOW DO THE VERTICAL SCALING from image2 to target_image*/</span>
+
+  xsize = new_xsize;
+  factor = (float) ysize / (<span class="keywordtype">float</span>) new_ysize;
+  offset = 0;
+
+  hires = (<span class="keywordtype">int</span> *) calloc (ysize, <span class="keyword">sizeof</span> (<span class="keywordtype">int</span>));
+  lores = (<span class="keywordtype">int</span> *) calloc (new_ysize, <span class="keyword">sizeof</span> (<span class="keywordtype">int</span>));
+  oldhires = (<span class="keywordtype">int</span> *) calloc (ysize, <span class="keyword">sizeof</span> (<span class="keywordtype">int</span>));
+  oldlores = (<span class="keywordtype">int</span> *) calloc (new_ysize, <span class="keyword">sizeof</span> (<span class="keywordtype">int</span>));
+  <span class="keywordflow">if</span> ((hires == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) || (lores == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) || (oldhires == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+  || (oldlores == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)) {
+    fprintf (stderr, <span class="stringliteral">&quot;Calloc error in scale_image (vert)\n&quot;</span>);
+    <a class="code" href="errcode_8h.html#a7da97df8ad833cd9bbae484fa4fc4f9a">err_exit</a>();
+  }
+
+  oldn = 0;
+  <span class="comment">/* do first col separately because hires[col-1] doesn&#39;t make sense here */</span>
+  image2.<a class="code" href="class_i_m_a_g_e.html#ab528771e88deece5a5d153c619fc3593">get_column</a> (0, 0, ysize, &amp;line, 0);
+  <span class="comment">/* each line nominally begins with white */</span>
+  curr_colour = 1;
+  n = 0;
+  <span class="keywordflow">for</span> (i = 0; i &lt; ysize; i++) {
+    new_colour = *(line.<a class="code" href="class_i_m_a_g_e_l_i_n_e.html#a0bf967eba44b6352a126f74c1a057172" title="image pixels">pixels</a> + i);
+    <span class="keywordflow">if</span> (new_colour != curr_colour) {
+      hires[n] = i;
+      n++;
+      curr_colour = new_colour;
+    }
+  }
+
+  <span class="keywordflow">if</span> (offset != 0)
+    <span class="keywordflow">for</span> (i = 0; i &lt; n; i++)
+      hires[i] += offset;
+
+  <span class="keywordflow">if</span> (n &gt; new_ysize) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a> (<span class="stringliteral">&quot;Too many transitions (%d) on column 0\n&quot;</span>, n);
+    <a class="code" href="scaleimg_8cpp.html#af19246e01ebcdd1ace590121e87ffbc6">scale_image_cop_out</a>(image,
+                        target_image,
+                        factor,
+                        hires,
+                        lores,
+                        oldhires,
+                        oldlores);
+    <span class="keywordflow">return</span>;
+  }
+  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (n &gt; 0)
+    <a class="code" href="imgscale_8cpp.html#abeb0f81f9bb30510a52213f487917d89">dyn_prog</a> (n, hires, lores, new_ysize, &amp;dummy, &amp;dummy, 0, factor);
+  <span class="keywordflow">else</span>
+    lores[0] = new_ysize;
+
+  curr_colour = 1;
+  j = 0;
+  <span class="keywordflow">for</span> (i = 0; i &lt; new_ysize; i++) {
+    <span class="keywordflow">if</span> (lores[j] == i) {
+      curr_colour = 1 - curr_colour;
+      j++;
+    }
+    *(new_line.<a class="code" href="class_i_m_a_g_e_l_i_n_e.html#a0bf967eba44b6352a126f74c1a057172" title="image pixels">pixels</a> + i) = curr_colour;
+  }
+  target_image.<a class="code" href="class_i_m_a_g_e.html#a96f1d5eb41ec389c298ca7c386a49c41">put_column</a> (0, 0, new_ysize, &amp;new_line, 0);
+
+  <span class="keywordflow">for</span> (i = 0; i &lt; n; i++) {
+    oldhires[i] = hires[i];
+    oldlores[i] = lores[i];
+  }
+  <span class="keywordflow">for</span> (i = n; i &lt; oldn; i++) {
+    oldhires[i] = 0;
+    oldlores[i] = 0;
+  }
+  oldn = n;
+
+  <span class="keywordflow">for</span> (col = 1; col &lt; xsize; col++) {
+    image2.<a class="code" href="class_i_m_a_g_e.html#ab528771e88deece5a5d153c619fc3593">get_column</a> (col, 0, ysize, &amp;line, 0);
+    <span class="comment">/* each line nominally begins with white */</span>
+    curr_colour = 1;
+    n = 0;
+    <span class="keywordflow">for</span> (i = 0; i &lt; ysize; i++) {
+      new_colour = *(line.<a class="code" href="class_i_m_a_g_e_l_i_n_e.html#a0bf967eba44b6352a126f74c1a057172" title="image pixels">pixels</a> + i);
+      <span class="keywordflow">if</span> (new_colour != curr_colour) {
+        hires[n] = i;
+        n++;
+        curr_colour = new_colour;
+      }
+    }
+    <span class="keywordflow">for</span> (i = n; i &lt; oldn; i++) {
+      hires[i] = 0;
+      lores[i] = 0;
+    }
+
+    <span class="keywordflow">if</span> (offset != 0)
+      <span class="keywordflow">for</span> (i = 0; i &lt; n; i++)
+        hires[i] += offset;
+
+    <span class="keywordflow">if</span> (n &gt; new_ysize) {
+      <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a> (<span class="stringliteral">&quot;Too many transitions (%d) on column %d\n&quot;</span>, n, col);
+      <a class="code" href="scaleimg_8cpp.html#af19246e01ebcdd1ace590121e87ffbc6">scale_image_cop_out</a>(image,
+                          target_image,
+                          factor,
+                          hires,
+                          lores,
+                          oldhires,
+                          oldlores);
+      <span class="keywordflow">return</span>;
+    }
+    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (n &gt; 0)
+      <a class="code" href="imgscale_8cpp.html#abeb0f81f9bb30510a52213f487917d89">dyn_prog</a>(n, hires, lores, new_ysize, oldhires, oldlores, oldn, factor);
+    <span class="keywordflow">else</span>
+      lores[0] = new_ysize;
+
+    curr_colour = 1;
+    j = 0;
+    <span class="keywordflow">for</span> (i = 0; i &lt; new_ysize; i++) {
+      <span class="keywordflow">if</span> (lores[j] == i) {
+        curr_colour = 1 - curr_colour;
+        j++;
+      }
+      *(new_line.<a class="code" href="class_i_m_a_g_e_l_i_n_e.html#a0bf967eba44b6352a126f74c1a057172" title="image pixels">pixels</a> + i) = curr_colour;
+    }
+    target_image.<a class="code" href="class_i_m_a_g_e.html#a96f1d5eb41ec389c298ca7c386a49c41">put_column</a> (col, 0, new_ysize, &amp;new_line, 0);
+
+    <span class="keywordflow">for</span> (i = 0; i &lt; n; i++) {
+      oldhires[i] = hires[i];
+      oldlores[i] = lores[i];
+    }
+    <span class="keywordflow">for</span> (i = n; i &lt; oldn; i++) {
+      oldhires[i] = 0;
+      oldlores[i] = 0;
+    }
+    oldn = n;
+  }
+  free(hires);
+  free(lores);
+  free(oldhires);
+  free(oldlores);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="af19246e01ebcdd1ace590121e87ffbc6"></a><!-- doxytag: member="scaleimg.h::scale_image_cop_out" ref="af19246e01ebcdd1ace590121e87ffbc6" args="(IMAGE &amp;image, IMAGE &amp;target_image, float factor, int *hires, int *lores, int *oldhires, int *oldlores)" -->
@@ -192,6 +484,29 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="scaleimg_8cpp_source.html#l00343">343</a> of file <a class="el" href="scaleimg_8cpp_source.html">scaleimg.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                        {
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> xsize, ysize, new_xsize, new_ysize;
+
+  xsize = image.<a class="code" href="class_i_m_a_g_e.html#aee6f16416203f7d678fc61ae22dedc6e">get_xsize</a> ();
+  ysize = image.<a class="code" href="class_i_m_a_g_e.html#a3f8caf7062bd65eea2fc068fb3ec7c10">get_ysize</a> ();
+  new_xsize = target_image.<a class="code" href="class_i_m_a_g_e.html#aee6f16416203f7d678fc61ae22dedc6e">get_xsize</a> ();
+  new_ysize = target_image.<a class="code" href="class_i_m_a_g_e.html#a3f8caf7062bd65eea2fc068fb3ec7c10">get_ysize</a> ();
+
+  <span class="keywordflow">if</span> (factor &lt;= 0.5)
+    <a class="code" href="imgs_8cpp.html#a987ea5c1e5f652311b99892283211a79">reduce_sub_image</a> (&amp;image, 0, 0, xsize, ysize,
+      &amp;target_image, 0, 0, (<a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a>) (1.0 / factor), <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>);
+  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (factor &gt;= 2)
+    <a class="code" href="imgs_8cpp.html#ad524b64ac508eee1576a4787e1f5f457">enlarge_sub_image</a> (&amp;image, 0, 0, &amp;target_image,
+        0, 0, new_xsize, new_ysize, (<a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a>) factor, <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>);
+  <span class="keywordflow">else</span>
+    <a class="code" href="imgs_8cpp.html#adf532c19ebf5ba5ec70086035b874dbc">copy_sub_image</a> (&amp;image, 0, 0, xsize, ysize, &amp;target_image, 0, 0, <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>);
+  free(hires);
+  free(lores);
+  free(oldhires);
+  free(oldlores);
+}
+</pre></div>
 </div>
 </div>
 </div>
@@ -214,7 +529,7 @@ Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:08 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:40 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

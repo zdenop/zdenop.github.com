@@ -136,6 +136,45 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cjkpitch_8cpp_source.html#l01057">1057</a> of file <a class="el" href="cjkpitch_8cpp_source.html">cjkpitch.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                         {
+  FPAnalyzer analyzer;
+  analyzer.Init(page_tr, port_blocks);
+  <span class="keywordflow">if</span> (analyzer.num_rows() == 0) <span class="keywordflow">return</span>;
+
+  analyzer.Pass1Analyze();
+  analyzer.EstimatePitch(<span class="keyword">true</span>);
+
+  <span class="comment">// Perform pass1 analysis again with the initial estimation of row</span>
+  <span class="comment">// pitches, for better estimation.</span>
+  analyzer.Pass1Analyze();
+  analyzer.EstimatePitch(<span class="keyword">true</span>);
+
+  <span class="comment">// Early exit if the page doesn&#39;t seem to contain fixed pitch rows.</span>
+  <span class="keywordflow">if</span> (!analyzer.maybe_fixed_pitch()) {
+    <span class="keywordflow">if</span> (<a class="code" href="topitch_8cpp.html#ad764b0bdba3585a8abdceb60288e54f0">textord_debug_pitch_test</a>) {
+      <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Page doesn&#39;t seem to contain fixed pitch rows\n&quot;</span>);
+    }
+    <span class="keywordflow">return</span>;
+  }
+
+  <span class="keywordtype">int</span> iteration = 0;
+  <span class="keywordflow">do</span> {
+    analyzer.MergeFragments();
+    analyzer.FinalizeLargeChars();
+    analyzer.EstimatePitch(<span class="keyword">false</span>);
+    iteration++;
+  } <span class="keywordflow">while</span> (analyzer.Pass2Analyze() &amp;&amp; iteration &lt; analyzer.max_iteration());
+
+  <span class="keywordflow">if</span> (<a class="code" href="topitch_8cpp.html#ad764b0bdba3585a8abdceb60288e54f0">textord_debug_pitch_test</a>) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;compute_fixed_pitch_cjk finished after %d iteration (limit=%d)\n&quot;</span>,
+            iteration, analyzer.max_iteration());
+  }
+
+  analyzer.OutputEstimations();
+  <span class="keywordflow">if</span> (<a class="code" href="topitch_8cpp.html#ad764b0bdba3585a8abdceb60288e54f0">textord_debug_pitch_test</a>) analyzer.DebugOutputResult();
+}
+</pre></div>
 </div>
 </div>
 </div>
@@ -158,7 +197,7 @@ Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:10 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:42 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

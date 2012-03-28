@@ -114,7 +114,10 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_search_node_hash_table.html#aae7833296f799fb4577fe1d25ee76f28">Insert</a> (<a class="el" href="classtesseract_1_1_lang_mod_edge.html">LangModEdge</a> *lang_mod_edge, <a class="el" href="classtesseract_1_1_search_node.html">SearchNode</a> *srch_node)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtesseract_1_1_search_node.html">SearchNode</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_search_node_hash_table.html#a2f437ed6409f38572913c64bf45b1249">Lookup</a> (<a class="el" href="classtesseract_1_1_lang_mod_edge.html">LangModEdge</a> *lang_mod_edge, <a class="el" href="classtesseract_1_1_search_node.html">SearchNode</a> *parent_node)</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="search__node_8h_source.html#l00109">109</a> of file <a class="el" href="search__node_8h_source.html">search_node.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a562bdd5876b9292deb9584e8c4ad4ab4"></a><!-- doxytag: member="tesseract::SearchNodeHashTable::SearchNodeHashTable" ref="a562bdd5876b9292deb9584e8c4ad4ab4" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -129,6 +132,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="search__node_8h_source.html#l00111">111</a> of file <a class="el" href="search__node_8h_source.html">search_node.h</a>.</p>
+<div class="fragment"><pre class="fragment">                        {
+    memset(bin_size_array_, 0, <span class="keyword">sizeof</span>(bin_size_array_));
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6101916ebcbb560f6f2f2382aa9dab6d"></a><!-- doxytag: member="tesseract::SearchNodeHashTable::~SearchNodeHashTable" ref="a6101916ebcbb560f6f2f2382aa9dab6d" args="()" -->
@@ -145,6 +153,10 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="search__node_8h_source.html#l00115">115</a> of file <a class="el" href="search__node_8h_source.html">search_node.h</a>.</p>
+<div class="fragment"><pre class="fragment">                         {
+  }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -173,6 +185,24 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="search__node_8h_source.html#l00119">119</a> of file <a class="el" href="search__node_8h_source.html">search_node.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                        {
+    <span class="comment">// compute hash based on the edge and its parent node edge</span>
+    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> edge_hash = lang_mod_edge-&gt;Hash();
+    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> parent_hash = (srch_node-&gt;ParentNode() == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> ?
+        0 : srch_node-&gt;ParentNode()-&gt;LangModelEdge()-&gt;Hash());
+    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> hash_bin = (edge_hash + parent_hash) % kSearchNodeHashBins;
+
+    <span class="comment">// already maxed out, just fail</span>
+    <span class="keywordflow">if</span> (bin_size_array_[hash_bin] &gt;= kMaxSearchNodePerBin) {
+      <span class="keywordflow">return</span> <span class="keyword">false</span>;
+    }
+
+    bin_array_[hash_bin][bin_size_array_[hash_bin]++] = srch_node;
+
+    <span class="keywordflow">return</span> <span class="keyword">true</span>;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2f437ed6409f38572913c64bf45b1249"></a><!-- doxytag: member="tesseract::SearchNodeHashTable::Lookup" ref="a2f437ed6409f38572913c64bf45b1249" args="(LangModEdge *lang_mod_edge, SearchNode *parent_node)" -->
@@ -200,6 +230,27 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="search__node_8h_source.html#l00137">137</a> of file <a class="el" href="search__node_8h_source.html">search_node.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                     {
+    <span class="comment">// compute hash based on the edge and its parent node edge</span>
+    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> edge_hash = lang_mod_edge-&gt;Hash();
+    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> parent_hash = (parent_node == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> ?
+        0 : parent_node-&gt;LangModelEdge()-&gt;Hash());
+    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> hash_bin = (edge_hash + parent_hash) % kSearchNodeHashBins;
+
+    <span class="comment">// lookup the entries in the hash bin</span>
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> node_idx = 0; node_idx &lt; bin_size_array_[hash_bin]; node_idx++) {
+      <span class="keywordflow">if</span> (lang_mod_edge-&gt;IsIdentical(
+          bin_array_[hash_bin][node_idx]-&gt;LangModelEdge()) == <span class="keyword">true</span> &amp;&amp;
+          <a class="code" href="classtesseract_1_1_search_node.html#a42d7aa92df8f0862d2401d5c165e57fe">SearchNode::IdenticalPath</a>(
+          bin_array_[hash_bin][node_idx]-&gt;ParentNode(), parent_node) == <span class="keyword">true</span>) {
+        <span class="keywordflow">return</span> bin_array_[hash_bin][node_idx];
+      }
+    }
+
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
@@ -226,7 +277,7 @@ Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:15 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:51 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

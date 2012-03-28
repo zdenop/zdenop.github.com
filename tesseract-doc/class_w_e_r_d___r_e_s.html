@@ -207,7 +207,10 @@ Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="host_8h.html#a7712a7e28433d0ade59219a129549b6f">BOOL8</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_w_e_r_d___r_e_s.html#a6164dbe5d7d34658c64682be24ea257a">reject_spaces</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_generic_vector.html">GenericVector</a>&lt; <a class="el" href="host_8h.html#a2ba4d271e85baf0d333318985cb3bced">inT8</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_w_e_r_d___r_e_s.html#ac7e10f55dbc59bf8885a78245a67c158">best_choice_fontinfo_ids</a></td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00314">314</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="af6c854864f57214c1d75d4572c0ef7fd"></a><!-- doxytag: member="WERD_RES::WERD_RES" ref="af6c854864f57214c1d75d4572c0ef7fd" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -222,6 +225,12 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00456">456</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
+<div class="fragment"><pre class="fragment">             {
+    <a class="code" href="class_w_e_r_d___r_e_s.html#a9c2e7bb3115fdba65cf43a19b88a70e7">InitNonPointers</a>();
+    <a class="code" href="class_w_e_r_d___r_e_s.html#a265824bb3b45aca29f5cdbde7347f50d">InitPointers</a>();
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9df87ba21da43e8edc81c491f30ab3b1"></a><!-- doxytag: member="WERD_RES::WERD_RES" ref="a9df87ba21da43e8edc81c491f30ab3b1" args="(WERD *the_word)" -->
@@ -239,6 +248,13 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00460">460</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
+<div class="fragment"><pre class="fragment">                           {
+    <a class="code" href="class_w_e_r_d___r_e_s.html#a9c2e7bb3115fdba65cf43a19b88a70e7">InitNonPointers</a>();
+    <a class="code" href="class_w_e_r_d___r_e_s.html#a265824bb3b45aca29f5cdbde7347f50d">InitPointers</a>();
+    <a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a> = the_word;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a8c9082c56096f57c4607187438004397"></a><!-- doxytag: member="WERD_RES::WERD_RES" ref="a8c9082c56096f57c4607187438004397" args="(const WERD_RES &amp;source)" -->
@@ -256,6 +272,12 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00465">465</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                   {
+    <a class="code" href="class_w_e_r_d___r_e_s.html#a265824bb3b45aca29f5cdbde7347f50d">InitPointers</a>();
+    *<span class="keyword">this</span> = source;            <span class="comment">// see operator=</span>
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a079872d5cccb1341c8770d645c2d224f"></a><!-- doxytag: member="WERD_RES::~WERD_RES" ref="a079872d5cccb1341c8770d645c2d224f" args="()" -->
@@ -272,6 +294,11 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8cpp_source.html#l00746">746</a> of file <a class="el" href="pageres_8cpp_source.html">pageres.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                     {
+  <a class="code" href="class_w_e_r_d___r_e_s.html#af7f510e801e9afcd31e28a7ec0866088">Clear</a>();
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -289,6 +316,21 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00523">523</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                 {
+    <span class="keywordflow">if</span> (<a class="code" href="class_w_e_r_d___r_e_s.html#a053a2aeeddc26a93a41a04fa08dd688a">uch_set</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> || <a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> || <a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a7be59abe97b052dd3aaa324aea8c4a6c">length</a>() &lt; 1)
+      <span class="keywordflow">return</span> <span class="keyword">false</span>;
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> <span class="keywordtype">id</span> = 0; <span class="keywordtype">id</span> &lt; <a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a7be59abe97b052dd3aaa324aea8c4a6c">length</a>(); <span class="keywordtype">id</span>++) {
+      <span class="keywordtype">int</span> unichar_id = <a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a6b917b2e6157f7956ff53ca230425ed3">unichar_id</a>(<span class="keywordtype">id</span>);
+      <span class="keywordflow">if</span> (unichar_id &lt; 0 || unichar_id &gt;= <a class="code" href="class_w_e_r_d___r_e_s.html#a053a2aeeddc26a93a41a04fa08dd688a">uch_set</a>-&gt;<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#aa3e8073ebaf3e0022654c45f27135032">size</a>())
+        <span class="keywordflow">continue</span>;  <span class="comment">// Ignore illegal chars.</span>
+      <a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a31e06ec0b942a9d392db21b49cf40078">UNICHARSET::Direction</a> dir = <a class="code" href="class_w_e_r_d___r_e_s.html#a053a2aeeddc26a93a41a04fa08dd688a">uch_set</a>-&gt;<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a9f483f40e0030e839c614b9656bdb32c">get_direction</a>(unichar_id);
+      <span class="keywordflow">if</span> (dir == <a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a31e06ec0b942a9d392db21b49cf40078aea057cec3044e6ec313ffc0c0d85e0db">UNICHARSET::U_LEFT_TO_RIGHT</a>)
+        <span class="keywordflow">return</span> <span class="keyword">true</span>;
+    }
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6733122ff7980ca4774e2f5ee856df93"></a><!-- doxytag: member="WERD_RES::AnyRtlCharsInWord" ref="a6733122ff7980ca4774e2f5ee856df93" args="() const " -->
@@ -305,6 +347,24 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00506">506</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                 {
+    <span class="keywordflow">if</span> (<a class="code" href="class_w_e_r_d___r_e_s.html#a053a2aeeddc26a93a41a04fa08dd688a">uch_set</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> || <a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> || <a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a7be59abe97b052dd3aaa324aea8c4a6c">length</a>() &lt; 1)
+      <span class="keywordflow">return</span> <span class="keyword">false</span>;
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> <span class="keywordtype">id</span> = 0; <span class="keywordtype">id</span> &lt; <a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a7be59abe97b052dd3aaa324aea8c4a6c">length</a>(); <span class="keywordtype">id</span>++) {
+      <span class="keywordtype">int</span> unichar_id = <a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a6b917b2e6157f7956ff53ca230425ed3">unichar_id</a>(<span class="keywordtype">id</span>);
+      <span class="keywordflow">if</span> (unichar_id &lt; 0 || unichar_id &gt;= <a class="code" href="class_w_e_r_d___r_e_s.html#a053a2aeeddc26a93a41a04fa08dd688a">uch_set</a>-&gt;<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#aa3e8073ebaf3e0022654c45f27135032">size</a>())
+        <span class="keywordflow">continue</span>;  <span class="comment">// Ignore illegal chars.</span>
+      <a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a31e06ec0b942a9d392db21b49cf40078">UNICHARSET::Direction</a> dir =
+          <a class="code" href="class_w_e_r_d___r_e_s.html#a053a2aeeddc26a93a41a04fa08dd688a">uch_set</a>-&gt;<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a9f483f40e0030e839c614b9656bdb32c">get_direction</a>(unichar_id);
+      <span class="keywordflow">if</span> (dir == <a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a31e06ec0b942a9d392db21b49cf40078ac979da8ecbc0d158b8cb516db7e3824d">UNICHARSET::U_RIGHT_TO_LEFT</a> ||
+          dir == <a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a31e06ec0b942a9d392db21b49cf40078ac6664fbc7421c2ed788911b3f1ba56c8">UNICHARSET::U_RIGHT_TO_LEFT_ARABIC</a> ||
+          dir == <a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a31e06ec0b942a9d392db21b49cf40078a2603bff7a0466ebbb5b9b9abd5a485e5">UNICHARSET::U_ARABIC_NUMBER</a>)
+        <span class="keywordflow">return</span> <span class="keyword">true</span>;
+    }
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a8d4f5c6ed2c60b756a5c63e091cd331c"></a><!-- doxytag: member="WERD_RES::BestChoiceToCorrectText" ref="a8d4f5c6ed2c60b756a5c63e091cd331c" args="()" -->
@@ -321,6 +381,17 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8cpp_source.html#l00572">572</a> of file <a class="el" href="pageres_8cpp_source.html">pageres.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                       {
+  <a class="code" href="class_w_e_r_d___r_e_s.html#ae524416d2398009c92a5678105f3cbfb">correct_text</a>.<a class="code" href="class_generic_vector.html#a9cdbff49b186574b83e43afba606fdd9">clear</a>();
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a7be59abe97b052dd3aaa324aea8c4a6c">length</a>(); ++i) {
+    <a class="code" href="unichar_8h.html#a8578b19fa1ff5ca75080db1a18ecc32e">UNICHAR_ID</a> choice_id = <a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a6b917b2e6157f7956ff53ca230425ed3">unichar_id</a>(i);
+    <span class="keyword">const</span> <span class="keywordtype">char</span>* blob_choice = <a class="code" href="class_w_e_r_d___r_e_s.html#a053a2aeeddc26a93a41a04fa08dd688a">uch_set</a>-&gt;<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a421c0b6ebcbbe7547490252fb688c961">id_to_unichar</a>(choice_id);
+    <a class="code" href="class_w_e_r_d___r_e_s.html#ae524416d2398009c92a5678105f3cbfb">correct_text</a>.<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(<a class="code" href="class_s_t_r_i_n_g.html">STRING</a>(blob_choice));
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a39f033674a1414f031662a9f8af16ee1"></a><!-- doxytag: member="WERD_RES::BestUTF8" ref="a39f033674a1414f031662a9f8af16ee1" args="(int blob_index, bool in_rtl_context) const " -->
@@ -348,6 +419,19 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00477">477</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                        {
+    <span class="keywordflow">if</span> (blob_index &lt; 0 || blob_index &gt;= <a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a7be59abe97b052dd3aaa324aea8c4a6c">length</a>())
+      <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    <a class="code" href="unichar_8h.html#a8578b19fa1ff5ca75080db1a18ecc32e">UNICHAR_ID</a> <span class="keywordtype">id</span> = <a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a6b917b2e6157f7956ff53ca230425ed3">unichar_id</a>(blob_index);
+    <span class="keywordflow">if</span> (id &lt; 0 || id &gt;= <a class="code" href="class_w_e_r_d___r_e_s.html#a053a2aeeddc26a93a41a04fa08dd688a">uch_set</a>-&gt;<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#aa3e8073ebaf3e0022654c45f27135032">size</a>() || <span class="keywordtype">id</span> == INVALID_UNICHAR_ID)
+      <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    <a class="code" href="unichar_8h.html#a8578b19fa1ff5ca75080db1a18ecc32e">UNICHAR_ID</a> mirrored = <a class="code" href="class_w_e_r_d___r_e_s.html#a053a2aeeddc26a93a41a04fa08dd688a">uch_set</a>-&gt;<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a30af8eb685f6e249da0798a7e67bffc7">get_mirror</a>(<span class="keywordtype">id</span>);
+    <span class="keywordflow">if</span> (in_rtl_context &amp;&amp; mirrored &gt; 0 &amp;&amp; mirrored != INVALID_UNICHAR_ID)
+      <span class="keywordtype">id</span> = mirrored;
+    <span class="keywordflow">return</span> <a class="code" href="class_w_e_r_d___r_e_s.html#a053a2aeeddc26a93a41a04fa08dd688a">uch_set</a>-&gt;<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a841e2c7277329f307c9ae8462ddc3ecf">id_to_unichar_ext</a>(<span class="keywordtype">id</span>);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ace8ba2cbca1ce53b644dd83dae643060"></a><!-- doxytag: member="WERD_RES::BothHyphens" ref="ace8ba2cbca1ce53b644dd83dae643060" args="(UNICHAR_ID id1, UNICHAR_ID id2)" -->
@@ -375,6 +459,16 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8cpp_source.html#l00683">683</a> of file <a class="el" href="pageres_8cpp_source.html">pageres.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                               {
+  <span class="keyword">const</span> <span class="keywordtype">char</span> *ch = <a class="code" href="class_w_e_r_d___r_e_s.html#a053a2aeeddc26a93a41a04fa08dd688a">uch_set</a>-&gt;<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a421c0b6ebcbbe7547490252fb688c961">id_to_unichar</a>(id1);
+  <span class="keyword">const</span> <span class="keywordtype">char</span> *next_ch = <a class="code" href="class_w_e_r_d___r_e_s.html#a053a2aeeddc26a93a41a04fa08dd688a">uch_set</a>-&gt;<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a421c0b6ebcbbe7547490252fb688c961">id_to_unichar</a>(id2);
+  <span class="keywordflow">if</span> (strlen(ch) == 1 &amp;&amp; strlen(next_ch) == 1 &amp;&amp;
+      (*ch == <span class="charliteral">&#39;-&#39;</span> || *ch == <span class="charliteral">&#39;~&#39;</span>) &amp;&amp; (*next_ch == <span class="charliteral">&#39;-&#39;</span> || *next_ch == <span class="charliteral">&#39;~&#39;</span>))
+    <span class="keywordflow">return</span> <a class="code" href="class_w_e_r_d___r_e_s.html#a053a2aeeddc26a93a41a04fa08dd688a">uch_set</a>-&gt;<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#ae786fa834962ef4d6dbf8300c6c5d456">unichar_to_id</a>(<span class="stringliteral">&quot;-&quot;</span>);
+  <span class="keywordflow">return</span> INVALID_UNICHAR_ID;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a762f18a12e3ab9ec56f751fc42104922"></a><!-- doxytag: member="WERD_RES::BothQuotes" ref="a762f18a12e3ab9ec56f751fc42104922" args="(UNICHAR_ID id1, UNICHAR_ID id2)" -->
@@ -402,6 +496,16 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8cpp_source.html#l00660">660</a> of file <a class="el" href="pageres_8cpp_source.html">pageres.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                              {
+  <span class="keyword">const</span> <span class="keywordtype">char</span> *ch = <a class="code" href="class_w_e_r_d___r_e_s.html#a053a2aeeddc26a93a41a04fa08dd688a">uch_set</a>-&gt;<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a421c0b6ebcbbe7547490252fb688c961">id_to_unichar</a>(id1);
+  <span class="keyword">const</span> <span class="keywordtype">char</span> *next_ch = <a class="code" href="class_w_e_r_d___r_e_s.html#a053a2aeeddc26a93a41a04fa08dd688a">uch_set</a>-&gt;<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a421c0b6ebcbbe7547490252fb688c961">id_to_unichar</a>(id2);
+  <span class="keywordflow">if</span> (is_simple_quote(ch, strlen(ch)) &amp;&amp;
+      is_simple_quote(next_ch, strlen(next_ch)))
+    <span class="keywordflow">return</span> <a class="code" href="class_w_e_r_d___r_e_s.html#a053a2aeeddc26a93a41a04fa08dd688a">uch_set</a>-&gt;<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#ae786fa834962ef4d6dbf8300c6c5d456">unichar_to_id</a>(<span class="stringliteral">&quot;\&quot;&quot;</span>);
+  <span class="keywordflow">return</span> INVALID_UNICHAR_ID;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a0ae7c6350b28b04d0d8c6267d786560e"></a><!-- doxytag: member="WERD_RES::BothSpaces" ref="a0ae7c6350b28b04d0d8c6267d786560e" args="(UNICHAR_ID id1, UNICHAR_ID id2)" -->
@@ -429,6 +533,14 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8cpp_source.html#l00713">713</a> of file <a class="el" href="pageres_8cpp_source.html">pageres.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                              {
+  <span class="keywordflow">if</span> (id1 == id2 &amp;&amp; id1 == <a class="code" href="class_w_e_r_d___r_e_s.html#a053a2aeeddc26a93a41a04fa08dd688a">uch_set</a>-&gt;<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#ae786fa834962ef4d6dbf8300c6c5d456">unichar_to_id</a>(<span class="stringliteral">&quot; &quot;</span>))
+    <span class="keywordflow">return</span> id1;
+  <span class="keywordflow">else</span>
+    <span class="keywordflow">return</span> INVALID_UNICHAR_ID;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="af7f510e801e9afcd31e28a7ec0866088"></a><!-- doxytag: member="WERD_RES::Clear" ref="af7f510e801e9afcd31e28a7ec0866088" args="()" -->
@@ -445,6 +557,17 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8cpp_source.html#l00789">789</a> of file <a class="el" href="pageres_8cpp_source.html">pageres.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                     {
+  <span class="keywordflow">if</span> (<a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp; <a class="code" href="class_w_e_r_d___r_e_s.html#aa93c58a60bedb04c73e3fbb586f72875">combination</a>) {
+    <span class="keyword">delete</span> <a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a>;
+  }
+  <a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keyword">delete</span> <a class="code" href="class_w_e_r_d___r_e_s.html#a267e5d5e9fe67117e47223c5d336b8ba">blamer_bundle</a>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a267e5d5e9fe67117e47223c5d336b8ba">blamer_bundle</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a6ef9853bc0dca7249a30c897bcba4aba">ClearResults</a>();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6ef9853bc0dca7249a30c897bcba4aba"></a><!-- doxytag: member="WERD_RES::ClearResults" ref="a6ef9853bc0dca7249a30c897bcba4aba" args="()" -->
@@ -461,6 +584,53 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8cpp_source.html#l00799">799</a> of file <a class="el" href="pageres_8cpp_source.html">pageres.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                            {
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a0920859a03bd9b0da26b8a0657d5440d">done</a> = <span class="keyword">false</span>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a37a6c598c67dcbcce6af7fbd6e2c595f">fontinfo</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a42a1961e381f0b4df731321552fe771c">fontinfo2</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#ab8186770379e7fb8651ebc83f5ec232b">fontinfo_id_count</a> = 0;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#ad26afb961839930122881fdffd02ee92">fontinfo_id2_count</a> = 0;
+  <span class="keywordflow">if</span> (<a class="code" href="class_w_e_r_d___r_e_s.html#af171e37da16ed628bf4516e9f934dc08">bln_boxes</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keyword">delete</span> <a class="code" href="class_w_e_r_d___r_e_s.html#af171e37da16ed628bf4516e9f934dc08">bln_boxes</a>;
+    <a class="code" href="class_w_e_r_d___r_e_s.html#af171e37da16ed628bf4516e9f934dc08">bln_boxes</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="keywordflow">if</span> (<a class="code" href="class_w_e_r_d___r_e_s.html#ad1d449f93bb0150bc7ef0d9b59ed27ba">chopped_word</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keyword">delete</span> <a class="code" href="class_w_e_r_d___r_e_s.html#ad1d449f93bb0150bc7ef0d9b59ed27ba">chopped_word</a>;
+    <a class="code" href="class_w_e_r_d___r_e_s.html#ad1d449f93bb0150bc7ef0d9b59ed27ba">chopped_word</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="keywordflow">if</span> (<a class="code" href="class_w_e_r_d___r_e_s.html#a211ab5c5a13123ee7bdc7459d3363f9d">rebuild_word</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keyword">delete</span> <a class="code" href="class_w_e_r_d___r_e_s.html#a211ab5c5a13123ee7bdc7459d3363f9d">rebuild_word</a>;
+    <a class="code" href="class_w_e_r_d___r_e_s.html#a211ab5c5a13123ee7bdc7459d3363f9d">rebuild_word</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="keywordflow">if</span> (<a class="code" href="class_w_e_r_d___r_e_s.html#a3a92c8c9750d78631d75998f008f366a">box_word</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keyword">delete</span> <a class="code" href="class_w_e_r_d___r_e_s.html#a3a92c8c9750d78631d75998f008f366a">box_word</a>;
+    <a class="code" href="class_w_e_r_d___r_e_s.html#a3a92c8c9750d78631d75998f008f366a">box_word</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <a class="code" href="class_w_e_r_d___r_e_s.html#ab3c9354a32a99c3283f4ac411b5f9b93">best_state</a>.<a class="code" href="class_generic_vector.html#a9cdbff49b186574b83e43afba606fdd9">clear</a>();
+  <a class="code" href="class_w_e_r_d___r_e_s.html#ae524416d2398009c92a5678105f3cbfb">correct_text</a>.<a class="code" href="class_generic_vector.html#a9cdbff49b186574b83e43afba606fdd9">clear</a>();
+  <span class="keywordflow">if</span> (<a class="code" href="class_w_e_r_d___r_e_s.html#adefe2273d7f4b36fcbe7ae420bfd077a">seam_array</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="seam_8cpp.html#af3ccc9cfabc13e163f5cd7cee5994e49">free_seam_list</a>(<a class="code" href="class_w_e_r_d___r_e_s.html#adefe2273d7f4b36fcbe7ae420bfd077a">seam_array</a>);
+    <a class="code" href="class_w_e_r_d___r_e_s.html#adefe2273d7f4b36fcbe7ae420bfd077a">seam_array</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="keywordflow">if</span> (<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keyword">delete</span> <a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>;
+    <span class="keyword">delete</span> <a class="code" href="class_w_e_r_d___r_e_s.html#ab4d02a7548dab0a4522f02ed90e48100">raw_choice</a>;
+    <a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    <a class="code" href="class_w_e_r_d___r_e_s.html#ab4d02a7548dab0a4522f02ed90e48100">raw_choice</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="keywordflow">if</span> (!<a class="code" href="class_w_e_r_d___r_e_s.html#a7c4b69c62b42a87e75814abeab2b119a">alt_choices</a>.<a class="code" href="class_generic_vector.html#afb0d8c52a603b6aa965d63bbf06a27dd">empty</a>()) {
+    <a class="code" href="class_w_e_r_d___r_e_s.html#a7c4b69c62b42a87e75814abeab2b119a">alt_choices</a>.<a class="code" href="class_generic_vector.html#a98f62dccd75224a60437c2761bd215cd">delete_data_pointers</a>();
+    <a class="code" href="class_w_e_r_d___r_e_s.html#a7c4b69c62b42a87e75814abeab2b119a">alt_choices</a>.<a class="code" href="class_generic_vector.html#a9cdbff49b186574b83e43afba606fdd9">clear</a>();
+  }
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a2a518e1c690490fe520c26d9acb8b45a">alt_states</a>.<a class="code" href="class_generic_vector.html#a9cdbff49b186574b83e43afba606fdd9">clear</a>();
+  <span class="keywordflow">if</span> (<a class="code" href="class_w_e_r_d___r_e_s.html#ae8327d37b47f9d3726ec102bab7f3982">ep_choice</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keyword">delete</span> <a class="code" href="class_w_e_r_d___r_e_s.html#ae8327d37b47f9d3726ec102bab7f3982">ep_choice</a>;
+    <a class="code" href="class_w_e_r_d___r_e_s.html#ae8327d37b47f9d3726ec102bab7f3982">ep_choice</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="keywordflow">if</span> (<a class="code" href="class_w_e_r_d___r_e_s.html#a267e5d5e9fe67117e47223c5d336b8ba">blamer_bundle</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) <a class="code" href="class_w_e_r_d___r_e_s.html#a267e5d5e9fe67117e47223c5d336b8ba">blamer_bundle</a>-&gt;<a class="code" href="struct_blamer_bundle.html#a2ad3cc727f1fab1765d6eb985d302f6e">ClearResults</a>();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a1c0bbe4f9ec71150e1e06a5023a84707"></a><!-- doxytag: member="WERD_RES::CloneChoppedToRebuild" ref="a1c0bbe4f9ec71150e1e06a5023a84707" args="()" -->
@@ -477,6 +647,21 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8cpp_source.html#l00480">480</a> of file <a class="el" href="pageres_8cpp_source.html">pageres.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                     {
+  <span class="keywordflow">if</span> (<a class="code" href="class_w_e_r_d___r_e_s.html#a211ab5c5a13123ee7bdc7459d3363f9d">rebuild_word</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <span class="keyword">delete</span> <a class="code" href="class_w_e_r_d___r_e_s.html#a211ab5c5a13123ee7bdc7459d3363f9d">rebuild_word</a>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a211ab5c5a13123ee7bdc7459d3363f9d">rebuild_word</a> = <span class="keyword">new</span> <a class="code" href="struct_t_w_e_r_d.html">TWERD</a>(*<a class="code" href="class_w_e_r_d___r_e_s.html#ad1d449f93bb0150bc7ef0d9b59ed27ba">chopped_word</a>);
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a6efe07c079a04a91985f99c71258a193">SetupBoxWord</a>();
+  <span class="keywordtype">int</span> word_len = <a class="code" href="class_w_e_r_d___r_e_s.html#a3a92c8c9750d78631d75998f008f366a">box_word</a>-&gt;<a class="code" href="classtesseract_1_1_box_word.html#afe001fe8fb7f2d3725b2ac2f542e9878">length</a>();
+  <a class="code" href="class_w_e_r_d___r_e_s.html#ab3c9354a32a99c3283f4ac411b5f9b93">best_state</a>.<a class="code" href="class_generic_vector.html#aa225ea3fc9374961482bc804028317eb">reserve</a>(word_len);
+  <a class="code" href="class_w_e_r_d___r_e_s.html#ae524416d2398009c92a5678105f3cbfb">correct_text</a>.<a class="code" href="class_generic_vector.html#aa225ea3fc9374961482bc804028317eb">reserve</a>(word_len);
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; word_len; ++i) {
+    <a class="code" href="class_w_e_r_d___r_e_s.html#ab3c9354a32a99c3283f4ac411b5f9b93">best_state</a>.<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(1);
+    <a class="code" href="class_w_e_r_d___r_e_s.html#ae524416d2398009c92a5678105f3cbfb">correct_text</a>.<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(<a class="code" href="class_s_t_r_i_n_g.html">STRING</a>(<span class="stringliteral">&quot;&quot;</span>));
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a79af8ec0486ea10154739a139bd88e03"></a><!-- doxytag: member="WERD_RES::ConditionalBlobMerge" ref="a79af8ec0486ea10154739a139bd88e03" args="(TessResultCallback2&lt; UNICHAR_ID, UNICHAR_ID, UNICHAR_ID &gt; *class_cb, TessResultCallback2&lt; bool, const TBOX &amp;, const TBOX &amp; &gt; *box_cb, BLOB_CHOICE_LIST_CLIST *blob_choices)" -->
@@ -510,6 +695,54 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8cpp_source.html#l00587">587</a> of file <a class="el" href="pageres_8cpp_source.html">pageres.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                          {
+  <span class="keywordtype">bool</span> modified = <span class="keyword">false</span>;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i + 1 &lt; <a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a7be59abe97b052dd3aaa324aea8c4a6c">length</a>(); ++i) {
+    <a class="code" href="unichar_8h.html#a8578b19fa1ff5ca75080db1a18ecc32e">UNICHAR_ID</a> new_id = class_cb-&gt;<a class="code" href="class_tess_result_callback2.html#a61bd799697bce338fc064326a7b764e3">Run</a>(<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a6b917b2e6157f7956ff53ca230425ed3">unichar_id</a>(i),
+                                      <a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a6b917b2e6157f7956ff53ca230425ed3">unichar_id</a>(i+1));
+    <span class="keywordflow">if</span> (new_id != INVALID_UNICHAR_ID &amp;&amp;
+        (box_cb == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> || box_cb-&gt;<a class="code" href="class_tess_result_callback2.html#a61bd799697bce338fc064326a7b764e3">Run</a>(<a class="code" href="class_w_e_r_d___r_e_s.html#a3a92c8c9750d78631d75998f008f366a">box_word</a>-&gt;<a class="code" href="classtesseract_1_1_box_word.html#a022cfe52a644e9e800595f014b1fbcf5">BlobBox</a>(i),
+                                       <a class="code" href="class_w_e_r_d___r_e_s.html#a3a92c8c9750d78631d75998f008f366a">box_word</a>-&gt;<a class="code" href="classtesseract_1_1_box_word.html#a022cfe52a644e9e800595f014b1fbcf5">BlobBox</a>(i + 1)))) {
+      <span class="keywordflow">if</span> (<a class="code" href="class_w_e_r_d___r_e_s.html#ae24eb58be06cf275aee411d947fd31ef">reject_map</a>.<a class="code" href="class_r_e_j_m_a_p.html#ab3760d96d63b5ca6c4bfeb32ffc8183c">length</a>() == <a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a7be59abe97b052dd3aaa324aea8c4a6c">length</a>())
+        <a class="code" href="class_w_e_r_d___r_e_s.html#ae24eb58be06cf275aee411d947fd31ef">reject_map</a>.<a class="code" href="class_r_e_j_m_a_p.html#a4c9547ef1b7996f830e75136689e34cc">remove_pos</a>(i);
+      <a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a8238d436806c40b2e01b9659dfab5eb3">set_unichar_id</a>(new_id, i);
+      <a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a30ec4e48a346a379ab6900e69f8b12fa">remove_unichar_id</a>(i + 1);
+      <a class="code" href="class_w_e_r_d___r_e_s.html#ab4d02a7548dab0a4522f02ed90e48100">raw_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a8238d436806c40b2e01b9659dfab5eb3">set_unichar_id</a>(new_id, i);
+      <a class="code" href="class_w_e_r_d___r_e_s.html#ab4d02a7548dab0a4522f02ed90e48100">raw_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a30ec4e48a346a379ab6900e69f8b12fa">remove_unichar_id</a>(i + 1);
+      modified = <span class="keyword">true</span>;
+      <a class="code" href="class_w_e_r_d___r_e_s.html#a211ab5c5a13123ee7bdc7459d3363f9d">rebuild_word</a>-&gt;<a class="code" href="struct_t_w_e_r_d.html#a02c386bc29fa18eafabdcef92fe7fed7">MergeBlobs</a>(i, i + 2);
+      <a class="code" href="class_w_e_r_d___r_e_s.html#a3a92c8c9750d78631d75998f008f366a">box_word</a>-&gt;<a class="code" href="classtesseract_1_1_box_word.html#a3a7da282c5432576b36cd7a8ec9702d8">MergeBoxes</a>(i, i + 2);
+      <span class="keywordflow">if</span> (i + 1 &lt; <a class="code" href="class_w_e_r_d___r_e_s.html#ab3c9354a32a99c3283f4ac411b5f9b93">best_state</a>.<a class="code" href="class_generic_vector.html#a690cd403343d371ed7763fdaf3ed71d2">length</a>()) {
+        <a class="code" href="class_w_e_r_d___r_e_s.html#ab3c9354a32a99c3283f4ac411b5f9b93">best_state</a>[i] += <a class="code" href="class_w_e_r_d___r_e_s.html#ab3c9354a32a99c3283f4ac411b5f9b93">best_state</a>[i + 1];
+        <a class="code" href="class_w_e_r_d___r_e_s.html#ab3c9354a32a99c3283f4ac411b5f9b93">best_state</a>.<a class="code" href="class_generic_vector.html#a3fd37a240a42f1c3052e8d28614d3702">remove</a>(i + 1);
+      }
+
+      BLOB_CHOICE_LIST_C_IT blob_choices_it(blob_choices);
+      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; i; ++j)
+        blob_choices_it.forward();
+      BLOB_CHOICE_IT it1(blob_choices_it.data());            <span class="comment">// first choices</span>
+      BLOB_CHOICE_LIST* target_choices = blob_choices_it.data_relative(1);
+      BLOB_CHOICE_IT it2(target_choices);  <span class="comment">// second choices</span>
+      <span class="keywordtype">float</span> certainty = it2.data()-&gt;certainty();
+      <span class="keywordtype">float</span> rating = it2.data()-&gt;rating();
+      <span class="keywordflow">if</span> (it1.data()-&gt;certainty() &lt; certainty) {
+        certainty = it1.data()-&gt;certainty();
+        rating = it1.data()-&gt;rating();
+        target_choices = blob_choices_it.data();
+        blob_choices_it.forward();
+      }
+      <span class="keyword">delete</span> blob_choices_it.extract();  <span class="comment">// get rid of spare</span>
+      <span class="comment">// TODO(rays) Fix the choices so they contain the desired result.</span>
+      <span class="comment">// Do we really need to ? Only needed for fix_quotes, which should be</span>
+      <span class="comment">// going away.</span>
+    }
+  }
+  <span class="keyword">delete</span> class_cb;
+  <span class="keyword">delete</span> box_cb;
+  <span class="keywordflow">return</span> modified;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a67c3636375afdd8b132a31c3aad526de"></a><!-- doxytag: member="WERD_RES::ConsumeWordResults" ref="a67c3636375afdd8b132a31c3aad526de" args="(WERD_RES *word)" -->
@@ -527,6 +760,31 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8cpp_source.html#l00411">411</a> of file <a class="el" href="pageres_8cpp_source.html">pageres.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                {
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a202d9d5d2a462d84012011c689e16605">denorm</a> = word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a202d9d5d2a462d84012011c689e16605">denorm</a>;
+  MovePointerData(&amp;<a class="code" href="class_w_e_r_d___r_e_s.html#ad1d449f93bb0150bc7ef0d9b59ed27ba">chopped_word</a>, &amp;word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#ad1d449f93bb0150bc7ef0d9b59ed27ba">chopped_word</a>);
+  MovePointerData(&amp;<a class="code" href="class_w_e_r_d___r_e_s.html#a211ab5c5a13123ee7bdc7459d3363f9d">rebuild_word</a>, &amp;word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a211ab5c5a13123ee7bdc7459d3363f9d">rebuild_word</a>);
+  MovePointerData(&amp;<a class="code" href="class_w_e_r_d___r_e_s.html#a3a92c8c9750d78631d75998f008f366a">box_word</a>, &amp;word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3a92c8c9750d78631d75998f008f366a">box_word</a>);
+  <span class="keywordflow">if</span> (<a class="code" href="class_w_e_r_d___r_e_s.html#adefe2273d7f4b36fcbe7ae420bfd077a">seam_array</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <a class="code" href="seam_8cpp.html#af3ccc9cfabc13e163f5cd7cee5994e49">free_seam_list</a>(<a class="code" href="class_w_e_r_d___r_e_s.html#adefe2273d7f4b36fcbe7ae420bfd077a">seam_array</a>);
+  <a class="code" href="class_w_e_r_d___r_e_s.html#adefe2273d7f4b36fcbe7ae420bfd077a">seam_array</a> = word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#adefe2273d7f4b36fcbe7ae420bfd077a">seam_array</a>;
+  word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#adefe2273d7f4b36fcbe7ae420bfd077a">seam_array</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#ab3c9354a32a99c3283f4ac411b5f9b93">best_state</a>.<a class="code" href="class_generic_vector.html#abae057ce589be25aae9b80958f84e34c">move</a>(&amp;word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#ab3c9354a32a99c3283f4ac411b5f9b93">best_state</a>);
+  <a class="code" href="class_w_e_r_d___r_e_s.html#ae524416d2398009c92a5678105f3cbfb">correct_text</a>.<a class="code" href="class_generic_vector.html#abae057ce589be25aae9b80958f84e34c">move</a>(&amp;word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#ae524416d2398009c92a5678105f3cbfb">correct_text</a>);
+  MovePointerData(&amp;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>, &amp;word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>);
+  MovePointerData(&amp;<a class="code" href="class_w_e_r_d___r_e_s.html#ab4d02a7548dab0a4522f02ed90e48100">raw_choice</a>, &amp;word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#ab4d02a7548dab0a4522f02ed90e48100">raw_choice</a>);
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a7c4b69c62b42a87e75814abeab2b119a">alt_choices</a>.<a class="code" href="class_generic_vector.html#a98f62dccd75224a60437c2761bd215cd">delete_data_pointers</a>();
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a7c4b69c62b42a87e75814abeab2b119a">alt_choices</a>.<a class="code" href="class_generic_vector.html#abae057ce589be25aae9b80958f84e34c">move</a>(&amp;word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a7c4b69c62b42a87e75814abeab2b119a">alt_choices</a>);
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a2a518e1c690490fe520c26d9acb8b45a">alt_states</a>.<a class="code" href="class_generic_vector.html#abae057ce589be25aae9b80958f84e34c">move</a>(&amp;word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a2a518e1c690490fe520c26d9acb8b45a">alt_states</a>);
+  <a class="code" href="class_w_e_r_d___r_e_s.html#ae24eb58be06cf275aee411d947fd31ef">reject_map</a> = word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#ae24eb58be06cf275aee411d947fd31ef">reject_map</a>;
+  <span class="keywordflow">if</span> (word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a267e5d5e9fe67117e47223c5d336b8ba">blamer_bundle</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    assert(<a class="code" href="class_w_e_r_d___r_e_s.html#a267e5d5e9fe67117e47223c5d336b8ba">blamer_bundle</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+    <a class="code" href="class_w_e_r_d___r_e_s.html#a267e5d5e9fe67117e47223c5d336b8ba">blamer_bundle</a>-&gt;<a class="code" href="struct_blamer_bundle.html#a193962583e69cb4dcf248bb9ce121698">CopyResults</a>(*(word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a267e5d5e9fe67117e47223c5d336b8ba">blamer_bundle</a>));
+  }
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a1bb7e95ce44f4e96c67546bbcbb9e48e">CopySimpleFields</a>(*word);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3badcd252947547aadeb3d2bfe2f980b"></a><!-- doxytag: member="WERD_RES::copy_on" ref="a3badcd252947547aadeb3d2bfe2f980b" args="(WERD_RES *word_res)" -->
@@ -544,6 +802,13 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00674">674</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                   {  <span class="comment">//from this word</span>
+    <a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a>-&gt;<a class="code" href="class_w_e_r_d.html#aa42c9f53794ab51c95503cd277e89c60">set_flag</a>(<a class="code" href="werd_8h.html#ad6968adbf8f2cc44adf333ec96efb0beaff21d7c8c8992120fff35942408a00d2">W_BOL</a>, <a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a>-&gt;<a class="code" href="class_w_e_r_d.html#a81edde8597a3d9fd8a664d703d332c41">flag</a>(<a class="code" href="werd_8h.html#ad6968adbf8f2cc44adf333ec96efb0beaff21d7c8c8992120fff35942408a00d2">W_BOL</a>) || word_res-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a>-&gt;<a class="code" href="class_w_e_r_d.html#a81edde8597a3d9fd8a664d703d332c41">flag</a>(<a class="code" href="werd_8h.html#ad6968adbf8f2cc44adf333ec96efb0beaff21d7c8c8992120fff35942408a00d2">W_BOL</a>));
+    <a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a>-&gt;<a class="code" href="class_w_e_r_d.html#aa42c9f53794ab51c95503cd277e89c60">set_flag</a>(<a class="code" href="werd_8h.html#ad6968adbf8f2cc44adf333ec96efb0bea62efb985a62d85e014ee5ab039dd50ce">W_EOL</a>, <a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a>-&gt;<a class="code" href="class_w_e_r_d.html#a81edde8597a3d9fd8a664d703d332c41">flag</a>(<a class="code" href="werd_8h.html#ad6968adbf8f2cc44adf333ec96efb0bea62efb985a62d85e014ee5ab039dd50ce">W_EOL</a>) || word_res-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a>-&gt;<a class="code" href="class_w_e_r_d.html#a81edde8597a3d9fd8a664d703d332c41">flag</a>(<a class="code" href="werd_8h.html#ad6968adbf8f2cc44adf333ec96efb0bea62efb985a62d85e014ee5ab039dd50ce">W_EOL</a>));
+    <a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a>-&gt;<a class="code" href="class_w_e_r_d.html#ac7ff7b4b07fa3252347f949395238aca">copy_on</a>(word_res-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a>);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a1bb7e95ce44f4e96c67546bbcbb9e48e"></a><!-- doxytag: member="WERD_RES::CopySimpleFields" ref="a1bb7e95ce44f4e96c67546bbcbb9e48e" args="(const WERD_RES &amp;source)" -->
@@ -561,6 +826,29 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8cpp_source.html#l00234">234</a> of file <a class="el" href="pageres_8cpp_source.html">pageres.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                      {
+  <a class="code" href="class_w_e_r_d___r_e_s.html#ae15f8f88b29e06811c9f821b9fb4af1f">tess_failed</a> = source.<a class="code" href="class_w_e_r_d___r_e_s.html#ae15f8f88b29e06811c9f821b9fb4af1f">tess_failed</a>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#aa5509c182ff49d19cd95cd720ddf4d1a">tess_accepted</a> = source.<a class="code" href="class_w_e_r_d___r_e_s.html#aa5509c182ff49d19cd95cd720ddf4d1a">tess_accepted</a>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#ad78596ae5c32eb2806f2e5acc61115a4">tess_would_adapt</a> = source.<a class="code" href="class_w_e_r_d___r_e_s.html#ad78596ae5c32eb2806f2e5acc61115a4">tess_would_adapt</a>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a0920859a03bd9b0da26b8a0657d5440d">done</a> = source.<a class="code" href="class_w_e_r_d___r_e_s.html#a0920859a03bd9b0da26b8a0657d5440d">done</a>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a82d32a9f59bc1c08da9537303c56615b">unlv_crunch_mode</a> = source.<a class="code" href="class_w_e_r_d___r_e_s.html#a82d32a9f59bc1c08da9537303c56615b">unlv_crunch_mode</a>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#ac14d59010b792d434b39e991b0c8a962">small_caps</a> = source.<a class="code" href="class_w_e_r_d___r_e_s.html#ac14d59010b792d434b39e991b0c8a962">small_caps</a>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a208b10b32d50da91f2076675be00eb51">italic</a> = source.<a class="code" href="class_w_e_r_d___r_e_s.html#a208b10b32d50da91f2076675be00eb51">italic</a>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#ade0b31fa9e122ac25de3a246b953a9cb">bold</a> = source.<a class="code" href="class_w_e_r_d___r_e_s.html#ade0b31fa9e122ac25de3a246b953a9cb">bold</a>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a37a6c598c67dcbcce6af7fbd6e2c595f">fontinfo</a> = source.<a class="code" href="class_w_e_r_d___r_e_s.html#a37a6c598c67dcbcce6af7fbd6e2c595f">fontinfo</a>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a42a1961e381f0b4df731321552fe771c">fontinfo2</a> = source.<a class="code" href="class_w_e_r_d___r_e_s.html#a42a1961e381f0b4df731321552fe771c">fontinfo2</a>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#ab8186770379e7fb8651ebc83f5ec232b">fontinfo_id_count</a> = source.<a class="code" href="class_w_e_r_d___r_e_s.html#ab8186770379e7fb8651ebc83f5ec232b">fontinfo_id_count</a>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#ad26afb961839930122881fdffd02ee92">fontinfo_id2_count</a> = source.<a class="code" href="class_w_e_r_d___r_e_s.html#ad26afb961839930122881fdffd02ee92">fontinfo_id2_count</a>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a42ec9dbb998f7da714ace13ee30cb86e">x_height</a> = source.<a class="code" href="class_w_e_r_d___r_e_s.html#a42ec9dbb998f7da714ace13ee30cb86e">x_height</a>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#aea384afb374c13829bfaab3efa5eafa0">caps_height</a> = source.<a class="code" href="class_w_e_r_d___r_e_s.html#aea384afb374c13829bfaab3efa5eafa0">caps_height</a>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a2b28e2f709c702dd73be688c4662d206">guessed_x_ht</a> = source.<a class="code" href="class_w_e_r_d___r_e_s.html#a2b28e2f709c702dd73be688c4662d206">guessed_x_ht</a>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#ab1a79b443c1327c5ab47957a241b41cb">guessed_caps_ht</a> = source.<a class="code" href="class_w_e_r_d___r_e_s.html#ab1a79b443c1327c5ab47957a241b41cb">guessed_caps_ht</a>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a6164dbe5d7d34658c64682be24ea257a">reject_spaces</a> = source.<a class="code" href="class_w_e_r_d___r_e_s.html#a6164dbe5d7d34658c64682be24ea257a">reject_spaces</a>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a053a2aeeddc26a93a41a04fa08dd688a">uch_set</a> = source.<a class="code" href="class_w_e_r_d___r_e_s.html#a053a2aeeddc26a93a41a04fa08dd688a">uch_set</a>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a2e616f878c75833272f3f800827c2db6">tesseract</a> = source.<a class="code" href="class_w_e_r_d___r_e_s.html#a2e616f878c75833272f3f800827c2db6">tesseract</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a11b3e5ebfef7835732e2085742891363"></a><!-- doxytag: member="WERD_RES::deep_copy" ref="a11b3e5ebfef7835732e2085742891363" args="(const WERD_RES *src)" -->
@@ -578,6 +866,11 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00668">668</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                  {
+    <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code" href="class_w_e_r_d___r_e_s.html#af6c854864f57214c1d75d4572c0ef7fd">WERD_RES</a>(*src);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a20305480067627e7ba7a6c0e0d536018"></a><!-- doxytag: member="WERD_RES::FakeClassifyWord" ref="a20305480067627e7ba7a6c0e0d536018" args="(int blob_count, BLOB_CHOICE **choices)" -->
@@ -605,6 +898,29 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8cpp_source.html#l00549">549</a> of file <a class="el" href="pageres_8cpp_source.html">pageres.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                     {
+  <span class="comment">// Setup the WERD_RES.</span>
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(<a class="code" href="class_w_e_r_d___r_e_s.html#a3a92c8c9750d78631d75998f008f366a">box_word</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(blob_count == <a class="code" href="class_w_e_r_d___r_e_s.html#a3a92c8c9750d78631d75998f008f366a">box_word</a>-&gt;<a class="code" href="classtesseract_1_1_box_word.html#afe001fe8fb7f2d3725b2ac2f542e9878">length</a>());
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  BLOB_CHOICE_LIST_CLIST* word_choices = <span class="keyword">new</span> BLOB_CHOICE_LIST_CLIST;
+  BLOB_CHOICE_LIST_C_IT bc_it(word_choices);
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> c = 0; c &lt; blob_count; ++c) {
+    <a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a76b0ea9f9f0d9c08b2e84b7372964001">append_unichar_id</a>(
+        choices[c]-&gt;unichar_id(), 1,
+        choices[c]-&gt;rating(), choices[c]-&gt;certainty());
+    BLOB_CHOICE_LIST* choice_list = <span class="keyword">new</span> BLOB_CHOICE_LIST;
+    BLOB_CHOICE_IT choice_it(choice_list);
+    choice_it.add_after_then_move(choices[c]);
+    bc_it.add_after_then_move(choice_list);
+  }
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#ad25fbd8b04dd1e3def8701fa55f1466d">set_blob_choices</a>(word_choices);
+  <span class="keyword">delete</span> <a class="code" href="class_w_e_r_d___r_e_s.html#ab4d02a7548dab0a4522f02ed90e48100">raw_choice</a>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#ab4d02a7548dab0a4522f02ed90e48100">raw_choice</a> = <span class="keyword">new</span> <a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html">WERD_CHOICE</a>(*<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>);
+  <a class="code" href="class_w_e_r_d___r_e_s.html#ae24eb58be06cf275aee411d947fd31ef">reject_map</a>.<a class="code" href="class_r_e_j_m_a_p.html#a487e7d5d02b1fd1e142578ab4614f05b">initialise</a>(blob_count);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a80ac0936863f7fbbe1aecaf141d84359"></a><!-- doxytag: member="WERD_RES::fix_hyphens" ref="a80ac0936863f7fbbe1aecaf141d84359" args="(BLOB_CHOICE_LIST_CLIST *blob_choices)" -->
@@ -622,6 +938,18 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8cpp_source.html#l00700">700</a> of file <a class="el" href="pageres_8cpp_source.html">pageres.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                               {
+  <span class="keywordflow">if</span> (!<a class="code" href="class_w_e_r_d___r_e_s.html#a053a2aeeddc26a93a41a04fa08dd688a">uch_set</a>-&gt;<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a9f8861ffb917e7341c821928da5865f0">contains_unichar</a>(<span class="stringliteral">&quot;-&quot;</span>) ||
+      !<a class="code" href="class_w_e_r_d___r_e_s.html#a053a2aeeddc26a93a41a04fa08dd688a">uch_set</a>-&gt;<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#aa5f5f5b010151daf76255777aebeea18">get_enabled</a>(<a class="code" href="class_w_e_r_d___r_e_s.html#a053a2aeeddc26a93a41a04fa08dd688a">uch_set</a>-&gt;<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#ae786fa834962ef4d6dbf8300c6c5d456">unichar_to_id</a>(<span class="stringliteral">&quot;-&quot;</span>)))
+    <span class="keywordflow">return</span>;  <span class="comment">// Don&#39;t create it if it is disallowed.</span>
+
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a79af8ec0486ea10154739a139bd88e03">ConditionalBlobMerge</a>(
+      <a class="code" href="tesscallback_8h.html#ad000c6729bae0f97075ca10a0b5bf7d6">NewPermanentTessCallback</a>(<span class="keyword">this</span>, &amp;<a class="code" href="class_w_e_r_d___r_e_s.html#ace8ba2cbca1ce53b644dd83dae643060">WERD_RES::BothHyphens</a>),
+      <a class="code" href="tesscallback_8h.html#ad000c6729bae0f97075ca10a0b5bf7d6">NewPermanentTessCallback</a>(<span class="keyword">this</span>, &amp;<a class="code" href="class_w_e_r_d___r_e_s.html#acd61336cf5d9438ecf720ccdd9991214">WERD_RES::HyphenBoxesOverlap</a>),
+      blob_choices);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6a0ba647d4edf594b554979ae206df4f"></a><!-- doxytag: member="WERD_RES::fix_quotes" ref="a6a0ba647d4edf594b554979ae206df4f" args="(BLOB_CHOICE_LIST_CLIST *blob_choices)" -->
@@ -639,6 +967,18 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8cpp_source.html#l00670">670</a> of file <a class="el" href="pageres_8cpp_source.html">pageres.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                              {
+  <span class="keywordflow">if</span> (!<a class="code" href="class_w_e_r_d___r_e_s.html#a053a2aeeddc26a93a41a04fa08dd688a">uch_set</a>-&gt;<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a9f8861ffb917e7341c821928da5865f0">contains_unichar</a>(<span class="stringliteral">&quot;\&quot;&quot;</span>) ||
+      !<a class="code" href="class_w_e_r_d___r_e_s.html#a053a2aeeddc26a93a41a04fa08dd688a">uch_set</a>-&gt;<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#aa5f5f5b010151daf76255777aebeea18">get_enabled</a>(<a class="code" href="class_w_e_r_d___r_e_s.html#a053a2aeeddc26a93a41a04fa08dd688a">uch_set</a>-&gt;<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#ae786fa834962ef4d6dbf8300c6c5d456">unichar_to_id</a>(<span class="stringliteral">&quot;\&quot;&quot;</span>)))
+    <span class="keywordflow">return</span>;  <span class="comment">// Don&#39;t create it if it is disallowed.</span>
+
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a79af8ec0486ea10154739a139bd88e03">ConditionalBlobMerge</a>(
+      <a class="code" href="tesscallback_8h.html#ad000c6729bae0f97075ca10a0b5bf7d6">NewPermanentTessCallback</a>(<span class="keyword">this</span>, &amp;<a class="code" href="class_w_e_r_d___r_e_s.html#a762f18a12e3ab9ec56f751fc42104922">WERD_RES::BothQuotes</a>),
+      <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>,
+      blob_choices);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="acd61336cf5d9438ecf720ccdd9991214"></a><!-- doxytag: member="WERD_RES::HyphenBoxesOverlap" ref="acd61336cf5d9438ecf720ccdd9991214" args="(const TBOX &amp;box1, const TBOX &amp;box2)" -->
@@ -666,6 +1006,11 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8cpp_source.html#l00694">694</a> of file <a class="el" href="pageres_8cpp_source.html">pageres.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                    {
+  <span class="keywordflow">return</span> box1.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>() &gt;= box2.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="af63cf973974fc961f82fae0af07a635d"></a><!-- doxytag: member="WERD_RES::InitForRetryRecognition" ref="af63cf973974fc961f82fae0af07a635d" args="(const WERD_RES &amp;source)" -->
@@ -683,6 +1028,16 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8cpp_source.html#l00260">260</a> of file <a class="el" href="pageres_8cpp_source.html">pageres.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                             {
+  <a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a> = source.<a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a1bb7e95ce44f4e96c67546bbcbb9e48e">CopySimpleFields</a>(source);
+  <span class="keywordflow">if</span> (source.<a class="code" href="class_w_e_r_d___r_e_s.html#a267e5d5e9fe67117e47223c5d336b8ba">blamer_bundle</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="class_w_e_r_d___r_e_s.html#a267e5d5e9fe67117e47223c5d336b8ba">blamer_bundle</a> = <span class="keyword">new</span> <a class="code" href="struct_blamer_bundle.html">BlamerBundle</a>();
+    <a class="code" href="class_w_e_r_d___r_e_s.html#a267e5d5e9fe67117e47223c5d336b8ba">blamer_bundle</a>-&gt;<a class="code" href="struct_blamer_bundle.html#aa9c239d91fa6c86b5f597addbed06ce1">CopyTruth</a>(*source.<a class="code" href="class_w_e_r_d___r_e_s.html#a267e5d5e9fe67117e47223c5d336b8ba">blamer_bundle</a>);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9c2e7bb3115fdba65cf43a19b88a70e7"></a><!-- doxytag: member="WERD_RES::InitNonPointers" ref="a9c2e7bb3115fdba65cf43a19b88a70e7" args="()" -->
@@ -699,6 +1054,32 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8cpp_source.html#l00750">750</a> of file <a class="el" href="pageres_8cpp_source.html">pageres.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                               {
+  <a class="code" href="class_w_e_r_d___r_e_s.html#ae15f8f88b29e06811c9f821b9fb4af1f">tess_failed</a> = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#aa5509c182ff49d19cd95cd720ddf4d1a">tess_accepted</a> = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#ad78596ae5c32eb2806f2e5acc61115a4">tess_would_adapt</a> = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a0920859a03bd9b0da26b8a0657d5440d">done</a> = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a82d32a9f59bc1c08da9537303c56615b">unlv_crunch_mode</a> = <a class="code" href="pageres_8h.html#affc9a96d31e23e645355e534f11c40e9a1eac25752f2c55f1809d11d4ef917ff9">CR_NONE</a>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#ac14d59010b792d434b39e991b0c8a962">small_caps</a> = <span class="keyword">false</span>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a208b10b32d50da91f2076675be00eb51">italic</a> = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#ade0b31fa9e122ac25de3a246b953a9cb">bold</a> = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+  <span class="comment">// The fontinfos and tesseract count as non-pointers as they point to</span>
+  <span class="comment">// data owned elsewhere.</span>
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a37a6c598c67dcbcce6af7fbd6e2c595f">fontinfo</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a42a1961e381f0b4df731321552fe771c">fontinfo2</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a2e616f878c75833272f3f800827c2db6">tesseract</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#ab8186770379e7fb8651ebc83f5ec232b">fontinfo_id_count</a> = 0;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#ad26afb961839930122881fdffd02ee92">fontinfo_id2_count</a> = 0;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a42ec9dbb998f7da714ace13ee30cb86e">x_height</a> = 0.0;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#aea384afb374c13829bfaab3efa5eafa0">caps_height</a> = 0.0;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a2b28e2f709c702dd73be688c4662d206">guessed_x_ht</a> = <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#ab1a79b443c1327c5ab47957a241b41cb">guessed_caps_ht</a> = <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#aa93c58a60bedb04c73e3fbb586f72875">combination</a> = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a475b98b66ae6678e6cf618ead08d5d02">part_of_combo</a> = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a6164dbe5d7d34658c64682be24ea257a">reject_spaces</a> = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a265824bb3b45aca29f5cdbde7347f50d"></a><!-- doxytag: member="WERD_RES::InitPointers" ref="a265824bb3b45aca29f5cdbde7347f50d" args="()" -->
@@ -715,6 +1096,21 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8cpp_source.html#l00775">775</a> of file <a class="el" href="pageres_8cpp_source.html">pageres.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                            {
+  <a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#af171e37da16ed628bf4516e9f934dc08">bln_boxes</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a053a2aeeddc26a93a41a04fa08dd688a">uch_set</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#ad1d449f93bb0150bc7ef0d9b59ed27ba">chopped_word</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a211ab5c5a13123ee7bdc7459d3363f9d">rebuild_word</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a3a92c8c9750d78631d75998f008f366a">box_word</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#adefe2273d7f4b36fcbe7ae420bfd077a">seam_array</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#ab4d02a7548dab0a4522f02ed90e48100">raw_choice</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#ae8327d37b47f9d3726ec102bab7f3982">ep_choice</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a267e5d5e9fe67117e47223c5d336b8ba">blamer_bundle</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="af092edf58a4a718687aa35c6a458cada"></a><!-- doxytag: member="WERD_RES::merge_tess_fails" ref="af092edf58a4a718687aa35c6a458cada" args="()" -->
@@ -731,6 +1127,17 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8cpp_source.html#l00721">721</a> of file <a class="el" href="pageres_8cpp_source.html">pageres.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                {
+  <span class="keywordflow">if</span> (<a class="code" href="class_w_e_r_d___r_e_s.html#a79af8ec0486ea10154739a139bd88e03">ConditionalBlobMerge</a>(
+      <a class="code" href="tesscallback_8h.html#ad000c6729bae0f97075ca10a0b5bf7d6">NewPermanentTessCallback</a>(<span class="keyword">this</span>, &amp;<a class="code" href="class_w_e_r_d___r_e_s.html#a0ae7c6350b28b04d0d8c6267d786560e">WERD_RES::BothSpaces</a>), <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>,
+      <a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a4c443d01fbb5fcf092f002091d6f78c2">blob_choices</a>())) {
+    <span class="keywordtype">int</span> len = <a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a7be59abe97b052dd3aaa324aea8c4a6c">length</a>();
+    <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(<a class="code" href="class_w_e_r_d___r_e_s.html#ae24eb58be06cf275aee411d947fd31ef">reject_map</a>.<a class="code" href="class_r_e_j_m_a_p.html#ab3760d96d63b5ca6c4bfeb32ffc8183c">length</a>() == len);
+    <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(<a class="code" href="class_w_e_r_d___r_e_s.html#a3a92c8c9750d78631d75998f008f366a">box_word</a>-&gt;<a class="code" href="classtesseract_1_1_box_word.html#afe001fe8fb7f2d3725b2ac2f542e9878">length</a>() == len);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="abee47ad1db823937b0dee1cc43243ed9"></a><!-- doxytag: member="WERD_RES::operator=" ref="abee47ad1db823937b0dee1cc43243ed9" args="(const WERD_RES &amp;source)" -->
@@ -748,6 +1155,62 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8cpp_source.html#l00177">177</a> of file <a class="el" href="pageres_8cpp_source.html">pageres.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                     {
+  this-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#abee47ad1db823937b0dee1cc43243ed9">ELIST_LINK::operator=</a>(source);
+  <a class="code" href="class_w_e_r_d___r_e_s.html#af7f510e801e9afcd31e28a7ec0866088">Clear</a>();
+  <span class="keywordflow">if</span> (source.<a class="code" href="class_w_e_r_d___r_e_s.html#aa93c58a60bedb04c73e3fbb586f72875">combination</a>) {
+    <a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a> = <span class="keyword">new</span> <a class="code" href="class_w_e_r_d.html">WERD</a>;
+    *<a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a> = *(source.<a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a>);      <span class="comment">// deep copy</span>
+  } <span class="keywordflow">else</span> {
+    <a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a> = source.<a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a>;          <span class="comment">// pt to same word</span>
+  }
+  <span class="keywordflow">if</span> (source.<a class="code" href="class_w_e_r_d___r_e_s.html#af171e37da16ed628bf4516e9f934dc08">bln_boxes</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <a class="code" href="class_w_e_r_d___r_e_s.html#af171e37da16ed628bf4516e9f934dc08">bln_boxes</a> = <span class="keyword">new</span> <a class="code" href="classtesseract_1_1_box_word.html">tesseract::BoxWord</a>(*source.<a class="code" href="class_w_e_r_d___r_e_s.html#af171e37da16ed628bf4516e9f934dc08">bln_boxes</a>);
+  <span class="keywordflow">if</span> (source.<a class="code" href="class_w_e_r_d___r_e_s.html#ad1d449f93bb0150bc7ef0d9b59ed27ba">chopped_word</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <a class="code" href="class_w_e_r_d___r_e_s.html#ad1d449f93bb0150bc7ef0d9b59ed27ba">chopped_word</a> = <span class="keyword">new</span> <a class="code" href="struct_t_w_e_r_d.html">TWERD</a>(*source.<a class="code" href="class_w_e_r_d___r_e_s.html#ad1d449f93bb0150bc7ef0d9b59ed27ba">chopped_word</a>);
+  <span class="keywordflow">if</span> (source.<a class="code" href="class_w_e_r_d___r_e_s.html#a211ab5c5a13123ee7bdc7459d3363f9d">rebuild_word</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <a class="code" href="class_w_e_r_d___r_e_s.html#a211ab5c5a13123ee7bdc7459d3363f9d">rebuild_word</a> = <span class="keyword">new</span> <a class="code" href="struct_t_w_e_r_d.html">TWERD</a>(*source.<a class="code" href="class_w_e_r_d___r_e_s.html#a211ab5c5a13123ee7bdc7459d3363f9d">rebuild_word</a>);
+  <span class="comment">// TODO(rays) Do we ever need to copy the seam_array?</span>
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a202d9d5d2a462d84012011c689e16605">denorm</a> = source.<a class="code" href="class_w_e_r_d___r_e_s.html#a202d9d5d2a462d84012011c689e16605">denorm</a>;
+  <span class="keywordflow">if</span> (source.<a class="code" href="class_w_e_r_d___r_e_s.html#a3a92c8c9750d78631d75998f008f366a">box_word</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <a class="code" href="class_w_e_r_d___r_e_s.html#a3a92c8c9750d78631d75998f008f366a">box_word</a> = <span class="keyword">new</span> <a class="code" href="classtesseract_1_1_box_word.html">tesseract::BoxWord</a>(*source.<a class="code" href="class_w_e_r_d___r_e_s.html#a3a92c8c9750d78631d75998f008f366a">box_word</a>);
+  <a class="code" href="class_w_e_r_d___r_e_s.html#ab3c9354a32a99c3283f4ac411b5f9b93">best_state</a> = source.<a class="code" href="class_w_e_r_d___r_e_s.html#ab3c9354a32a99c3283f4ac411b5f9b93">best_state</a>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#ae524416d2398009c92a5678105f3cbfb">correct_text</a> = source.<a class="code" href="class_w_e_r_d___r_e_s.html#ae524416d2398009c92a5678105f3cbfb">correct_text</a>;
+
+  <span class="keywordflow">if</span> (source.<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a> = <span class="keyword">new</span> <a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html">WERD_CHOICE</a>(*source.<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>);
+    <a class="code" href="class_w_e_r_d___r_e_s.html#ab4d02a7548dab0a4522f02ed90e48100">raw_choice</a> = <span class="keyword">new</span> <a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html">WERD_CHOICE</a>(*source.<a class="code" href="class_w_e_r_d___r_e_s.html#ab4d02a7548dab0a4522f02ed90e48100">raw_choice</a>);
+    <a class="code" href="class_w_e_r_d___r_e_s.html#ac7e10f55dbc59bf8885a78245a67c158">best_choice_fontinfo_ids</a> = source.<a class="code" href="class_w_e_r_d___r_e_s.html#ac7e10f55dbc59bf8885a78245a67c158">best_choice_fontinfo_ids</a>;
+  }
+  <span class="keywordflow">else</span> {
+    <a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    <a class="code" href="class_w_e_r_d___r_e_s.html#ab4d02a7548dab0a4522f02ed90e48100">raw_choice</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    <span class="keywordflow">if</span> (!<a class="code" href="class_w_e_r_d___r_e_s.html#ac7e10f55dbc59bf8885a78245a67c158">best_choice_fontinfo_ids</a>.<a class="code" href="class_generic_vector.html#afb0d8c52a603b6aa965d63bbf06a27dd">empty</a>()) {
+      <a class="code" href="class_w_e_r_d___r_e_s.html#ac7e10f55dbc59bf8885a78245a67c158">best_choice_fontinfo_ids</a>.<a class="code" href="class_generic_vector.html#a9cdbff49b186574b83e43afba606fdd9">clear</a>();
+    }
+  }
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; source.<a class="code" href="class_w_e_r_d___r_e_s.html#a7c4b69c62b42a87e75814abeab2b119a">alt_choices</a>.<a class="code" href="class_generic_vector.html#a690cd403343d371ed7763fdaf3ed71d2">length</a>(); ++i) {
+    <span class="keyword">const</span> <a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html">WERD_CHOICE</a> *choice = source.<a class="code" href="class_w_e_r_d___r_e_s.html#a7c4b69c62b42a87e75814abeab2b119a">alt_choices</a>[i];
+    <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(choice != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+    <a class="code" href="class_w_e_r_d___r_e_s.html#a7c4b69c62b42a87e75814abeab2b119a">alt_choices</a>.<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(<span class="keyword">new</span> <a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html">WERD_CHOICE</a>(*choice));
+  }
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a2a518e1c690490fe520c26d9acb8b45a">alt_states</a> = source.<a class="code" href="class_w_e_r_d___r_e_s.html#a2a518e1c690490fe520c26d9acb8b45a">alt_states</a>;
+  <span class="keywordflow">if</span> (source.<a class="code" href="class_w_e_r_d___r_e_s.html#ae8327d37b47f9d3726ec102bab7f3982">ep_choice</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="class_w_e_r_d___r_e_s.html#ae8327d37b47f9d3726ec102bab7f3982">ep_choice</a> = <span class="keyword">new</span> <a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html">WERD_CHOICE</a>(*source.<a class="code" href="class_w_e_r_d___r_e_s.html#ae8327d37b47f9d3726ec102bab7f3982">ep_choice</a>);
+  } <span class="keywordflow">else</span> {
+    <a class="code" href="class_w_e_r_d___r_e_s.html#ae8327d37b47f9d3726ec102bab7f3982">ep_choice</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <a class="code" href="class_w_e_r_d___r_e_s.html#ae24eb58be06cf275aee411d947fd31ef">reject_map</a> = source.<a class="code" href="class_w_e_r_d___r_e_s.html#ae24eb58be06cf275aee411d947fd31ef">reject_map</a>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#aa93c58a60bedb04c73e3fbb586f72875">combination</a> = source.<a class="code" href="class_w_e_r_d___r_e_s.html#aa93c58a60bedb04c73e3fbb586f72875">combination</a>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a475b98b66ae6678e6cf618ead08d5d02">part_of_combo</a> = source.<a class="code" href="class_w_e_r_d___r_e_s.html#a475b98b66ae6678e6cf618ead08d5d02">part_of_combo</a>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a1bb7e95ce44f4e96c67546bbcbb9e48e">CopySimpleFields</a>(source);
+  <span class="keywordflow">if</span> (source.<a class="code" href="class_w_e_r_d___r_e_s.html#a267e5d5e9fe67117e47223c5d336b8ba">blamer_bundle</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="class_w_e_r_d___r_e_s.html#a267e5d5e9fe67117e47223c5d336b8ba">blamer_bundle</a> =  <span class="keyword">new</span> <a class="code" href="struct_blamer_bundle.html">BlamerBundle</a>(*(source.<a class="code" href="class_w_e_r_d___r_e_s.html#a267e5d5e9fe67117e47223c5d336b8ba">blamer_bundle</a>));
+  }
+  <span class="keywordflow">return</span> *<span class="keyword">this</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a96ed4fc2d1583d0e35e088432ab00a21"></a><!-- doxytag: member="WERD_RES::PiecesAllNatural" ref="a96ed4fc2d1583d0e35e088432ab00a21" args="(int start, int count) const " -->
@@ -775,6 +1238,19 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8cpp_source.html#l00733">733</a> of file <a class="el" href="pageres_8cpp_source.html">pageres.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                          {
+  <span class="comment">// all seams must have no splits.</span>
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> index = start; index &lt; start + <a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a> - 1; ++index) {
+    <span class="keywordflow">if</span> (index &gt;= 0 &amp;&amp; index &lt; <a class="code" href="tessarray_8h.html#a89ee8010120771c8612dc7058b327f84">array_count</a>(<a class="code" href="class_w_e_r_d___r_e_s.html#adefe2273d7f4b36fcbe7ae420bfd077a">seam_array</a>)) {
+      <a class="code" href="structseam__record.html">SEAM</a>* seam = <span class="keyword">reinterpret_cast&lt;</span><a class="code" href="structseam__record.html">SEAM</a> *<span class="keyword">&gt;</span>(<a class="code" href="tessarray_8h.html#a290cd2ea119e279ad48b57fbe5ca1aad">array_value</a>(<a class="code" href="class_w_e_r_d___r_e_s.html#adefe2273d7f4b36fcbe7ae420bfd077a">seam_array</a>, index));
+      <span class="keywordflow">if</span> (seam != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp; seam-&gt;<a class="code" href="structseam__record.html#a4161a1874921a7854bdd3d7a9f930729">split1</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+        <span class="keywordflow">return</span> <span class="keyword">false</span>;
+    }
+  }
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a59927275863d597a937690f01c298ecc"></a><!-- doxytag: member="WERD_RES::RawUTF8" ref="a59927275863d597a937690f01c298ecc" args="(int blob_index) const " -->
@@ -792,6 +1268,16 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00489">489</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                  {
+    <span class="keywordflow">if</span> (blob_index &lt; 0 || blob_index &gt;= <a class="code" href="class_w_e_r_d___r_e_s.html#ab4d02a7548dab0a4522f02ed90e48100">raw_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a7be59abe97b052dd3aaa324aea8c4a6c">length</a>())
+      <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    <a class="code" href="unichar_8h.html#a8578b19fa1ff5ca75080db1a18ecc32e">UNICHAR_ID</a> <span class="keywordtype">id</span> = <a class="code" href="class_w_e_r_d___r_e_s.html#ab4d02a7548dab0a4522f02ed90e48100">raw_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a6b917b2e6157f7956ff53ca230425ed3">unichar_id</a>(blob_index);
+    <span class="keywordflow">if</span> (id &lt; 0 || id &gt;= <a class="code" href="class_w_e_r_d___r_e_s.html#a053a2aeeddc26a93a41a04fa08dd688a">uch_set</a>-&gt;<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#aa3e8073ebaf3e0022654c45f27135032">size</a>() || <span class="keywordtype">id</span> == INVALID_UNICHAR_ID)
+      <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    <span class="keywordflow">return</span> <a class="code" href="class_w_e_r_d___r_e_s.html#a053a2aeeddc26a93a41a04fa08dd688a">uch_set</a>-&gt;<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a421c0b6ebcbbe7547490252fb688c961">id_to_unichar</a>(<span class="keywordtype">id</span>);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae57ef3e90db1cb0bcdf96f4b32dee362"></a><!-- doxytag: member="WERD_RES::RebuildBestState" ref="ae57ef3e90db1cb0bcdf96f4b32dee362" args="()" -->
@@ -808,6 +1294,33 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8cpp_source.html#l00452">452</a> of file <a class="el" href="pageres_8cpp_source.html">pageres.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                {
+  <span class="keywordflow">if</span> (<a class="code" href="class_w_e_r_d___r_e_s.html#a211ab5c5a13123ee7bdc7459d3363f9d">rebuild_word</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <span class="keyword">delete</span> <a class="code" href="class_w_e_r_d___r_e_s.html#a211ab5c5a13123ee7bdc7459d3363f9d">rebuild_word</a>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a211ab5c5a13123ee7bdc7459d3363f9d">rebuild_word</a> = <span class="keyword">new</span> <a class="code" href="struct_t_w_e_r_d.html">TWERD</a>;
+  <span class="keywordflow">if</span> (<a class="code" href="class_w_e_r_d___r_e_s.html#adefe2273d7f4b36fcbe7ae420bfd077a">seam_array</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="class_w_e_r_d___r_e_s.html#adefe2273d7f4b36fcbe7ae420bfd077a">seam_array</a> = <a class="code" href="seam_8cpp.html#a748ec120eaad6a5a10d05dd684d90bd5">start_seam_list</a>(<a class="code" href="class_w_e_r_d___r_e_s.html#ad1d449f93bb0150bc7ef0d9b59ed27ba">chopped_word</a>-&gt;<a class="code" href="struct_t_w_e_r_d.html#aeec31d57df04c8dac1cf3e6990d358a7">blobs</a>);
+  }
+  <a class="code" href="struct_t_b_l_o_b.html">TBLOB</a>* prev_blob = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordtype">int</span> start = 0;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="class_w_e_r_d___r_e_s.html#ab3c9354a32a99c3283f4ac411b5f9b93">best_state</a>.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>(); ++i) {
+    <span class="keywordtype">int</span> length = <a class="code" href="class_w_e_r_d___r_e_s.html#ab3c9354a32a99c3283f4ac411b5f9b93">best_state</a>[i];
+    <a class="code" href="seam_8cpp.html#a919dc51833c934e6738e5e18d2dd43f6">join_pieces</a>(<a class="code" href="class_w_e_r_d___r_e_s.html#ad1d449f93bb0150bc7ef0d9b59ed27ba">chopped_word</a>-&gt;<a class="code" href="struct_t_w_e_r_d.html#aeec31d57df04c8dac1cf3e6990d358a7">blobs</a>, <a class="code" href="class_w_e_r_d___r_e_s.html#adefe2273d7f4b36fcbe7ae420bfd077a">seam_array</a>, start, start + length - 1);
+    <a class="code" href="struct_t_b_l_o_b.html">TBLOB</a>* blob = <a class="code" href="class_w_e_r_d___r_e_s.html#ad1d449f93bb0150bc7ef0d9b59ed27ba">chopped_word</a>-&gt;<a class="code" href="struct_t_w_e_r_d.html#aeec31d57df04c8dac1cf3e6990d358a7">blobs</a>;
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; start; ++i)
+      blob = blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a88a541f55c8bfd63a9f0c419189499bb">next</a>;
+    <a class="code" href="struct_t_b_l_o_b.html">TBLOB</a>* copy_blob = <span class="keyword">new</span> <a class="code" href="struct_t_b_l_o_b.html">TBLOB</a>(*blob);
+    <span class="keywordflow">if</span> (prev_blob == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+      <a class="code" href="class_w_e_r_d___r_e_s.html#a211ab5c5a13123ee7bdc7459d3363f9d">rebuild_word</a>-&gt;<a class="code" href="struct_t_w_e_r_d.html#aeec31d57df04c8dac1cf3e6990d358a7">blobs</a> = copy_blob;
+    <span class="keywordflow">else</span>
+      prev_blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a88a541f55c8bfd63a9f0c419189499bb">next</a> = copy_blob;
+    prev_blob = copy_blob;
+    <a class="code" href="seam_8cpp.html#ac76b2d230d4c44cb0346f516b8a7134a">break_pieces</a>(blob, <a class="code" href="class_w_e_r_d___r_e_s.html#adefe2273d7f4b36fcbe7ae420bfd077a">seam_array</a>, start, start + length - 1);
+    start += length;
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a403f88c790b14e45e2fc43a61519e414"></a><!-- doxytag: member="WERD_RES::ReplaceBestChoice" ref="a403f88c790b14e45e2fc43a61519e414" args="(const WERD_CHOICE &amp;choice, const GenericVector&lt; int &gt; &amp;segmentation_state)" -->
@@ -835,6 +1348,20 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8cpp_source.html#l00436">436</a> of file <a class="el" href="pageres_8cpp_source.html">pageres.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                  {
+  <span class="keyword">delete</span> <a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a> = <span class="keyword">new</span> <a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html">WERD_CHOICE</a>(choice);
+  <a class="code" href="class_w_e_r_d___r_e_s.html#ab3c9354a32a99c3283f4ac411b5f9b93">best_state</a> = segmentation_state;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#ae57ef3e90db1cb0bcdf96f4b32dee362">RebuildBestState</a>();
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a6efe07c079a04a91985f99c71258a193">SetupBoxWord</a>();
+  <span class="comment">// Make up a fake reject map of the right length to keep the</span>
+  <span class="comment">// rejection pass happy.</span>
+  <a class="code" href="class_w_e_r_d___r_e_s.html#ae24eb58be06cf275aee411d947fd31ef">reject_map</a>.<a class="code" href="class_r_e_j_m_a_p.html#a487e7d5d02b1fd1e142578ab4614f05b">initialise</a>(segmentation_state.<a class="code" href="class_generic_vector.html#a690cd403343d371ed7763fdaf3ed71d2">length</a>());
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a0920859a03bd9b0da26b8a0657d5440d">done</a> = <a class="code" href="class_w_e_r_d___r_e_s.html#aa5509c182ff49d19cd95cd720ddf4d1a">tess_accepted</a> = <a class="code" href="class_w_e_r_d___r_e_s.html#ad78596ae5c32eb2806f2e5acc61115a4">tess_would_adapt</a> = <span class="keyword">true</span>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a9396676a933d148c488dcc0a723bb199">SetScriptPositions</a>();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9396676a933d148c488dcc0a723bb199"></a><!-- doxytag: member="WERD_RES::SetScriptPositions" ref="a9396676a933d148c488dcc0a723bb199" args="()" -->
@@ -851,6 +1378,12 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8cpp_source.html#l00505">505</a> of file <a class="el" href="pageres_8cpp_source.html">pageres.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                  {
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a3a92c8c9750d78631d75998f008f366a">box_word</a>-&gt;<a class="code" href="classtesseract_1_1_box_word.html#a9485999c9e0f1f1a9996229349417810">SetScriptPositions</a>(*<a class="code" href="class_w_e_r_d___r_e_s.html#a053a2aeeddc26a93a41a04fa08dd688a">uch_set</a>, <a class="code" href="class_w_e_r_d___r_e_s.html#ac14d59010b792d434b39e991b0c8a962">small_caps</a>, <a class="code" href="class_w_e_r_d___r_e_s.html#a211ab5c5a13123ee7bdc7459d3363f9d">rebuild_word</a>,
+                               <a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a289babb19268f81c7bb95a56469b3811"></a><!-- doxytag: member="WERD_RES::SetupBlamerBundle" ref="a289babb19268f81c7bb95a56469b3811" args="()" -->
@@ -867,6 +1400,29 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8cpp_source.html#l00379">379</a> of file <a class="el" href="pageres_8cpp_source.html">pageres.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                 {
+  <span class="keywordflow">if</span> (<a class="code" href="class_w_e_r_d___r_e_s.html#a267e5d5e9fe67117e47223c5d336b8ba">blamer_bundle</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="class_w_e_r_d___r_e_s.html#a267e5d5e9fe67117e47223c5d336b8ba">blamer_bundle</a>-&gt;<a class="code" href="struct_blamer_bundle.html#a4df5a4ea5a4ba6f973b3c987c95a8a39">norm_box_tolerance</a> = kBlamerBoxTolerance * <a class="code" href="class_w_e_r_d___r_e_s.html#a202d9d5d2a462d84012011c689e16605">denorm</a>.<a class="code" href="class_d_e_n_o_r_m.html#ab56e941803c5d7ebf34a93cb453d3c8d">x_scale</a>();
+    <a class="code" href="struct_t_p_o_i_n_t.html">TPOINT</a> topleft;
+    <a class="code" href="struct_t_p_o_i_n_t.html">TPOINT</a> botright;
+    <a class="code" href="struct_t_p_o_i_n_t.html">TPOINT</a> norm_topleft;
+    <a class="code" href="struct_t_p_o_i_n_t.html">TPOINT</a> norm_botright;
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> b = 0; b &lt; <a class="code" href="class_w_e_r_d___r_e_s.html#a267e5d5e9fe67117e47223c5d336b8ba">blamer_bundle</a>-&gt;<a class="code" href="struct_blamer_bundle.html#aa31fe25062ddbd8f59bb4eadcca6ec2f">truth_word</a>.<a class="code" href="classtesseract_1_1_box_word.html#afe001fe8fb7f2d3725b2ac2f542e9878">length</a>(); ++b) {
+      <span class="keyword">const</span> <a class="code" href="class_t_b_o_x.html">TBOX</a> &amp;box = <a class="code" href="class_w_e_r_d___r_e_s.html#a267e5d5e9fe67117e47223c5d336b8ba">blamer_bundle</a>-&gt;<a class="code" href="struct_blamer_bundle.html#aa31fe25062ddbd8f59bb4eadcca6ec2f">truth_word</a>.<a class="code" href="classtesseract_1_1_box_word.html#a022cfe52a644e9e800595f014b1fbcf5">BlobBox</a>(b);
+      topleft.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> = box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>();
+      topleft.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a> = box.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>();
+      botright.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> = box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>();
+      botright.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a> = box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>();
+      <a class="code" href="class_w_e_r_d___r_e_s.html#a202d9d5d2a462d84012011c689e16605">denorm</a>.<a class="code" href="class_d_e_n_o_r_m.html#a7b1c9741b597f03f1c37cb6ab2e25420">NormTransform</a>(topleft, &amp;norm_topleft);
+      <a class="code" href="class_w_e_r_d___r_e_s.html#a202d9d5d2a462d84012011c689e16605">denorm</a>.<a class="code" href="class_d_e_n_o_r_m.html#a7b1c9741b597f03f1c37cb6ab2e25420">NormTransform</a>(botright, &amp;norm_botright);
+      <a class="code" href="class_t_b_o_x.html">TBOX</a> norm_box(norm_topleft.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a>, norm_botright.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a>,
+                    norm_botright.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a>, norm_topleft.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a>);
+      <a class="code" href="class_w_e_r_d___r_e_s.html#a267e5d5e9fe67117e47223c5d336b8ba">blamer_bundle</a>-&gt;<a class="code" href="struct_blamer_bundle.html#a0fac62f7f13e3e684c5ef433bfcf3158">norm_truth_word</a>.<a class="code" href="classtesseract_1_1_box_word.html#a23d6471fdda275e6448db555aecee1f3">InsertBox</a>(b, norm_box);
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6efe07c079a04a91985f99c71258a193"></a><!-- doxytag: member="WERD_RES::SetupBoxWord" ref="a6efe07c079a04a91985f99c71258a193" args="()" -->
@@ -883,6 +1439,15 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8cpp_source.html#l00495">495</a> of file <a class="el" href="pageres_8cpp_source.html">pageres.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                            {
+  <span class="keywordflow">if</span> (<a class="code" href="class_w_e_r_d___r_e_s.html#a3a92c8c9750d78631d75998f008f366a">box_word</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <span class="keyword">delete</span> <a class="code" href="class_w_e_r_d___r_e_s.html#a3a92c8c9750d78631d75998f008f366a">box_word</a>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a211ab5c5a13123ee7bdc7459d3363f9d">rebuild_word</a>-&gt;<a class="code" href="struct_t_w_e_r_d.html#ab8aa2a1f2a0455c2fc353ea2748cff97">ComputeBoundingBoxes</a>();
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a3a92c8c9750d78631d75998f008f366a">box_word</a> = <a class="code" href="classtesseract_1_1_box_word.html#a326015b2c38fb45c0f5e47e120c02e5d">tesseract::BoxWord::CopyFromNormalized</a>(&amp;<a class="code" href="class_w_e_r_d___r_e_s.html#a202d9d5d2a462d84012011c689e16605">denorm</a>, <a class="code" href="class_w_e_r_d___r_e_s.html#a211ab5c5a13123ee7bdc7459d3363f9d">rebuild_word</a>);
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a3a92c8c9750d78631d75998f008f366a">box_word</a>-&gt;<a class="code" href="classtesseract_1_1_box_word.html#af74a52ee479f2e2172b5fb15d680f9fa">ClipToOriginalWord</a>(<a class="code" href="class_w_e_r_d___r_e_s.html#a202d9d5d2a462d84012011c689e16605">denorm</a>.<a class="code" href="class_d_e_n_o_r_m.html#aa6fdb529be1b3d0ce4849989e7d8a72f">block</a>(), <a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a>);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a32f407a6bcc00a06118e83ec0531475a"></a><!-- doxytag: member="WERD_RES::SetupFake" ref="a32f407a6bcc00a06118e83ec0531475a" args="(const UNICHARSET &amp;uch)" -->
@@ -900,6 +1465,37 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8cpp_source.html#l00340">340</a> of file <a class="el" href="pageres_8cpp_source.html">pageres.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                        {
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a6ef9853bc0dca7249a30c897bcba4aba">ClearResults</a>();
+  <a class="code" href="class_w_e_r_d___r_e_s.html#ab09a79490943ffc8c348f0b4f4d0ed14">SetupWordScript</a>(unicharset_in);
+  <a class="code" href="class_w_e_r_d___r_e_s.html#ad1d449f93bb0150bc7ef0d9b59ed27ba">chopped_word</a> = <span class="keyword">new</span> <a class="code" href="struct_t_w_e_r_d.html">TWERD</a>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a211ab5c5a13123ee7bdc7459d3363f9d">rebuild_word</a> = <span class="keyword">new</span> <a class="code" href="struct_t_w_e_r_d.html">TWERD</a>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#af171e37da16ed628bf4516e9f934dc08">bln_boxes</a> = <span class="keyword">new</span> <a class="code" href="classtesseract_1_1_box_word.html">tesseract::BoxWord</a>;
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a3a92c8c9750d78631d75998f008f366a">box_word</a> = <span class="keyword">new</span> <a class="code" href="classtesseract_1_1_box_word.html">tesseract::BoxWord</a>;
+  <span class="keywordtype">int</span> blob_count = <a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a>-&gt;<a class="code" href="class_w_e_r_d.html#a174baefaa99afbfdbf444e4199f3b529">cblob_list</a>()-&gt;length();
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a> = <span class="keyword">new</span> <a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html">WERD_CHOICE</a>(<span class="stringliteral">&quot;&quot;</span>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, 10.0<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>, -1.0<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>,
+                                TOP_CHOICE_PERM, unicharset_in);
+  <a class="code" href="class_w_e_r_d___r_e_s.html#ab4d02a7548dab0a4522f02ed90e48100">raw_choice</a> = <span class="keyword">new</span> <a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html">WERD_CHOICE</a>(<span class="stringliteral">&quot;&quot;</span>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, 10.0<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>, -1.0<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>,
+                               TOP_CHOICE_PERM, unicharset_in);
+  <span class="keywordflow">if</span> (blob_count &gt; 0) {
+    <a class="code" href="class_b_l_o_b___c_h_o_i_c_e.html">BLOB_CHOICE</a>** fake_choices = <span class="keyword">new</span> <a class="code" href="class_b_l_o_b___c_h_o_i_c_e.html">BLOB_CHOICE</a>*[blob_count];
+    <span class="comment">// For non-text blocks, just pass any blobs through to the box_word</span>
+    <span class="comment">// and call the word failed with a fake classification.</span>
+    C_BLOB_IT b_it(<a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a>-&gt;<a class="code" href="class_w_e_r_d.html#a174baefaa99afbfdbf444e4199f3b529">cblob_list</a>());
+    <span class="keywordtype">int</span> blob_id = 0;
+    <span class="keywordflow">for</span> (b_it.mark_cycle_pt(); !b_it.cycled_list(); b_it.forward()) {
+      <a class="code" href="class_t_b_o_x.html">TBOX</a> box = b_it.data()-&gt;bounding_box();
+      <a class="code" href="class_w_e_r_d___r_e_s.html#a3a92c8c9750d78631d75998f008f366a">box_word</a>-&gt;<a class="code" href="classtesseract_1_1_box_word.html#a23d6471fdda275e6448db555aecee1f3">InsertBox</a>(<a class="code" href="class_w_e_r_d___r_e_s.html#a3a92c8c9750d78631d75998f008f366a">box_word</a>-&gt;<a class="code" href="classtesseract_1_1_box_word.html#afe001fe8fb7f2d3725b2ac2f542e9878">length</a>(), box);
+      fake_choices[blob_id++] = <span class="keyword">new</span> <a class="code" href="class_b_l_o_b___c_h_o_i_c_e.html">BLOB_CHOICE</a>(0, 10.0<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>, -1.0<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>,
+                                                -1, -1, -1, 0, 0, <span class="keyword">false</span>);
+    }
+    <a class="code" href="class_w_e_r_d___r_e_s.html#a20305480067627e7ba7a6c0e0d536018">FakeClassifyWord</a>(blob_count, fake_choices);
+    <span class="keyword">delete</span> [] fake_choices;
+  }
+  <a class="code" href="class_w_e_r_d___r_e_s.html#ae15f8f88b29e06811c9f821b9fb4af1f">tess_failed</a> = <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a87395e885f187f07e7c906e3e9c3d51e"></a><!-- doxytag: member="WERD_RES::SetupForCubeRecognition" ref="a87395e885f187f07e7c906e3e9c3d51e" args="(const UNICHARSET &amp;unicharset_in, tesseract::Tesseract *tesseract, const BLOCK *block)" -->
@@ -933,6 +1529,26 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8cpp_source.html#l00317">317</a> of file <a class="el" href="pageres_8cpp_source.html">pageres.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                           {
+  tesseract = tess;
+  <a class="code" href="class_p_o_l_y___b_l_o_c_k.html">POLY_BLOCK</a>* pb = block != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> ? block-&gt;<a class="code" href="class_p_d_b_l_k.html#a6670779c69aca2d574e4a0590d9b3939">poly_block</a>() : <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordflow">if</span> (pb != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp; !pb-&gt;<a class="code" href="class_p_o_l_y___b_l_o_c_k.html#abd32dee532afe634cdbacffc0b53e660">IsText</a>()) {
+    <span class="comment">// Ignore words in graphic regions.</span>
+    <a class="code" href="class_w_e_r_d___r_e_s.html#a32f407a6bcc00a06118e83ec0531475a">SetupFake</a>(unicharset_in);
+    <a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a>-&gt;<a class="code" href="class_w_e_r_d.html#aa42c9f53794ab51c95503cd277e89c60">set_flag</a>(<a class="code" href="werd_8h.html#ad6968adbf8f2cc44adf333ec96efb0beaa20dcde8552519bb81c4206b0e57a8ce">W_REP_CHAR</a>, <span class="keyword">false</span>);
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a6ef9853bc0dca7249a30c897bcba4aba">ClearResults</a>();
+  <a class="code" href="class_w_e_r_d___r_e_s.html#ab09a79490943ffc8c348f0b4f4d0ed14">SetupWordScript</a>(unicharset_in);
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> word_box = <a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a>-&gt;<a class="code" href="class_w_e_r_d.html#a151bbfb39ecdef93ab1a14b0f9e4ac74">bounding_box</a>();
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a202d9d5d2a462d84012011c689e16605">denorm</a>.<a class="code" href="class_d_e_n_o_r_m.html#ac667a208c574b073db800890e4e31255">SetupNormalization</a>(block, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, 0,
+                            word_box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>(), word_box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>(),
+                            1.0f, 1.0f, 0.0f, 0.0f);
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a289babb19268f81c7bb95a56469b3811">SetupBlamerBundle</a>();
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a48538bd850eedc3adfc901f4aee1a216"></a><!-- doxytag: member="WERD_RES::SetupForTessRecognition" ref="a48538bd850eedc3adfc901f4aee1a216" args="(const UNICHARSET &amp;unicharset_in, tesseract::Tesseract *tesseract, Pix *pix, bool numeric_mode, bool use_body_size, ROW *row, BLOCK *block)" -->
@@ -990,6 +1606,45 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8cpp_source.html#l00272">272</a> of file <a class="el" href="pageres_8cpp_source.html">pageres.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                           {
+  tesseract = tess;
+  <a class="code" href="class_p_o_l_y___b_l_o_c_k.html">POLY_BLOCK</a>* pb = block != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> ? block-&gt;<a class="code" href="class_p_d_b_l_k.html#a6670779c69aca2d574e4a0590d9b3939">poly_block</a>() : <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordflow">if</span> (<a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a>-&gt;<a class="code" href="class_w_e_r_d.html#a174baefaa99afbfdbf444e4199f3b529">cblob_list</a>()-&gt;empty() || (pb != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp; !pb-&gt;<a class="code" href="class_p_o_l_y___b_l_o_c_k.html#abd32dee532afe634cdbacffc0b53e660">IsText</a>())) {
+    <span class="comment">// Empty words occur when all the blobs have been moved to the rej_blobs</span>
+    <span class="comment">// list, which seems to occur frequently in junk.</span>
+    <a class="code" href="class_w_e_r_d___r_e_s.html#a32f407a6bcc00a06118e83ec0531475a">SetupFake</a>(unicharset_in);
+    <a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a>-&gt;<a class="code" href="class_w_e_r_d.html#aa42c9f53794ab51c95503cd277e89c60">set_flag</a>(<a class="code" href="werd_8h.html#ad6968adbf8f2cc44adf333ec96efb0beaa20dcde8552519bb81c4206b0e57a8ce">W_REP_CHAR</a>, <span class="keyword">false</span>);
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a6ef9853bc0dca7249a30c897bcba4aba">ClearResults</a>();
+  <a class="code" href="class_w_e_r_d___r_e_s.html#ab09a79490943ffc8c348f0b4f4d0ed14">SetupWordScript</a>(unicharset_in);
+  <a class="code" href="class_w_e_r_d___r_e_s.html#ad1d449f93bb0150bc7ef0d9b59ed27ba">chopped_word</a> = <a class="code" href="struct_t_w_e_r_d.html#abbfaec0bb3aeb77965350aede324cb79">TWERD::PolygonalCopy</a>(<a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a>);
+  <span class="keywordflow">if</span> (use_body_size &amp;&amp; row-&gt;<a class="code" href="class_r_o_w.html#ab657f290bd4e99106c7ea8868ce7072f">body_size</a>() &gt; 0.0f) {
+    <a class="code" href="class_w_e_r_d___r_e_s.html#ad1d449f93bb0150bc7ef0d9b59ed27ba">chopped_word</a>-&gt;<a class="code" href="struct_t_w_e_r_d.html#afbd0a7b21dd6c9fcbc265fb4b5117265">SetupBLNormalize</a>(block, row, row-&gt;<a class="code" href="class_r_o_w.html#ab657f290bd4e99106c7ea8868ce7072f">body_size</a>(),
+                                   numeric_mode, &amp;<a class="code" href="class_w_e_r_d___r_e_s.html#a202d9d5d2a462d84012011c689e16605">denorm</a>);
+  } <span class="keywordflow">else</span> {
+    <a class="code" href="class_w_e_r_d___r_e_s.html#ad1d449f93bb0150bc7ef0d9b59ed27ba">chopped_word</a>-&gt;<a class="code" href="struct_t_w_e_r_d.html#afbd0a7b21dd6c9fcbc265fb4b5117265">SetupBLNormalize</a>(block, row, <a class="code" href="class_w_e_r_d___r_e_s.html#a42ec9dbb998f7da714ace13ee30cb86e">x_height</a>, numeric_mode, &amp;<a class="code" href="class_w_e_r_d___r_e_s.html#a202d9d5d2a462d84012011c689e16605">denorm</a>);
+  }
+  <span class="comment">// The image will be 8-bit grey if the input was grey or color. Note that in</span>
+  <span class="comment">// a grey image 0 is black and 255 is white. If the input was binary, then</span>
+  <span class="comment">// the pix will be binary and 0 is white, with 1 being black.</span>
+  <span class="comment">// To tell the difference pixGetDepth() will return 8 or 1.</span>
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a202d9d5d2a462d84012011c689e16605">denorm</a>.<a class="code" href="class_d_e_n_o_r_m.html#a2d1d9627a2a6c8034f4cdf9c2f7f6880">set_pix</a>(pix);
+  <span class="comment">// The inverse flag will be true iff the word has been determined to be white</span>
+  <span class="comment">// on black, and is independent of whether the pix is 8 bit or 1 bit.</span>
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a202d9d5d2a462d84012011c689e16605">denorm</a>.<a class="code" href="class_d_e_n_o_r_m.html#a42bd60d852af878cb0e85afda6f64f38">set_inverse</a>(<a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a>-&gt;<a class="code" href="class_w_e_r_d.html#a81edde8597a3d9fd8a664d703d332c41">flag</a>(<a class="code" href="werd_8h.html#ad6968adbf8f2cc44adf333ec96efb0beaecff222839a9a16c19d63463bfeb9ca7">W_INVERSE</a>));
+  <a class="code" href="class_w_e_r_d___r_e_s.html#ad1d449f93bb0150bc7ef0d9b59ed27ba">chopped_word</a>-&gt;<a class="code" href="struct_t_w_e_r_d.html#a830ae54d262e8348e098b5bab2aa4985">Normalize</a>(<a class="code" href="class_w_e_r_d___r_e_s.html#a202d9d5d2a462d84012011c689e16605">denorm</a>);
+  <a class="code" href="class_w_e_r_d___r_e_s.html#af171e37da16ed628bf4516e9f934dc08">bln_boxes</a> = <a class="code" href="classtesseract_1_1_box_word.html#a326015b2c38fb45c0f5e47e120c02e5d">tesseract::BoxWord::CopyFromNormalized</a>(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, <a class="code" href="class_w_e_r_d___r_e_s.html#ad1d449f93bb0150bc7ef0d9b59ed27ba">chopped_word</a>);
+  <a class="code" href="class_w_e_r_d___r_e_s.html#adefe2273d7f4b36fcbe7ae420bfd077a">seam_array</a> = <a class="code" href="seam_8cpp.html#a748ec120eaad6a5a10d05dd684d90bd5">start_seam_list</a>(<a class="code" href="class_w_e_r_d___r_e_s.html#ad1d449f93bb0150bc7ef0d9b59ed27ba">chopped_word</a>-&gt;<a class="code" href="struct_t_w_e_r_d.html#aeec31d57df04c8dac1cf3e6990d358a7">blobs</a>);
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a> = <span class="keyword">new</span> <a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html">WERD_CHOICE</a>(&amp;unicharset_in);
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#aad71e860a573a615ce8958898b2657fb" title="Set the fields in this choice to be default (bad) values.">make_bad</a>();
+  <a class="code" href="class_w_e_r_d___r_e_s.html#ab4d02a7548dab0a4522f02ed90e48100">raw_choice</a> = <span class="keyword">new</span> <a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html">WERD_CHOICE</a>(&amp;unicharset_in);
+  <a class="code" href="class_w_e_r_d___r_e_s.html#ab4d02a7548dab0a4522f02ed90e48100">raw_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#aad71e860a573a615ce8958898b2657fb" title="Set the fields in this choice to be default (bad) values.">make_bad</a>();
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a289babb19268f81c7bb95a56469b3811">SetupBlamerBundle</a>();
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab09a79490943ffc8c348f0b4f4d0ed14"></a><!-- doxytag: member="WERD_RES::SetupWordScript" ref="ab09a79490943ffc8c348f0b4f4d0ed14" args="(const UNICHARSET &amp;unicharset_in)" -->
@@ -1007,6 +1662,15 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8cpp_source.html#l00370">370</a> of file <a class="el" href="pageres_8cpp_source.html">pageres.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                    {
+  <a class="code" href="class_w_e_r_d___r_e_s.html#a053a2aeeddc26a93a41a04fa08dd688a">uch_set</a> = &amp;uch;
+  <span class="keywordtype">int</span> script = uch.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a60d24058a4f5184ea7a782f62ec9b348">default_sid</a>();
+  <a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a>-&gt;<a class="code" href="class_w_e_r_d.html#a041e0101d1fda8025526f3c878b4e692">set_script_id</a>(script);
+  <a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a>-&gt;<a class="code" href="class_w_e_r_d.html#aa42c9f53794ab51c95503cd277e89c60">set_flag</a>(<a class="code" href="werd_8h.html#ad6968adbf8f2cc44adf333ec96efb0bea3f41a0c5d64002c322177a4243a13aae">W_SCRIPT_HAS_XHEIGHT</a>, uch.script_has_xheight());
+  <a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a>-&gt;<a class="code" href="class_w_e_r_d.html#aa42c9f53794ab51c95503cd277e89c60">set_flag</a>(<a class="code" href="werd_8h.html#ad6968adbf8f2cc44adf333ec96efb0bea8c3664a200b620de34a3cb691cb1e71c">W_SCRIPT_IS_LATIN</a>, script == uch.latin_sid());
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="add1555b9fc1e6e5ef68d271427e57060"></a><!-- doxytag: member="WERD_RES::SymbolDirection" ref="add1555b9fc1e6e5ef68d271427e57060" args="(int blob_index) const " -->
@@ -1024,6 +1688,15 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00498">498</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                            {
+    <span class="keywordflow">if</span> (<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> ||
+        blob_index &gt;= <a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a7be59abe97b052dd3aaa324aea8c4a6c">length</a>() ||
+        blob_index &lt; 0)
+      <span class="keywordflow">return</span> <a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a31e06ec0b942a9d392db21b49cf40078a5a183c9262a1161b5d34cf3d7c950cac">UNICHARSET::U_OTHER_NEUTRAL</a>;
+    <span class="keywordflow">return</span> <a class="code" href="class_w_e_r_d___r_e_s.html#a053a2aeeddc26a93a41a04fa08dd688a">uch_set</a>-&gt;<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a9f483f40e0030e839c614b9656bdb32c">get_direction</a>(<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a6b917b2e6157f7956ff53ca230425ed3">unichar_id</a>(blob_index));
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aab1e64611e1a9e3105e54e85cd18fb2f"></a><!-- doxytag: member="WERD_RES::UnicharsInReadingOrder" ref="aab1e64611e1a9e3105e54e85cd18fb2f" args="() const " -->
@@ -1040,6 +1713,11 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00540">540</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                      {
+    <span class="keywordflow">return</span> <a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#ab4e18807aad3dfba747b5b949da2631e">unichars_in_script_order</a>();
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa48b608646a051f14ff283adfe46dc0c"></a><!-- doxytag: member="WERD_RES::WithoutFootnoteSpan" ref="aa48b608646a051f14ff283adfe46dc0c" args="(int *start, int *end) const " -->
@@ -1067,6 +1745,24 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8cpp_source.html#l00510">510</a> of file <a class="el" href="pageres_8cpp_source.html">pageres.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                               {
+  <span class="keywordtype">int</span> end = <a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a7be59abe97b052dd3aaa324aea8c4a6c">length</a>();
+  <span class="keywordflow">while</span> (end &gt; 0 &amp;&amp;
+         <a class="code" href="class_w_e_r_d___r_e_s.html#a053a2aeeddc26a93a41a04fa08dd688a">uch_set</a>-&gt;<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a5951dde3ab90c12c309d776570a10725">get_isdigit</a>(<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a1f37c5559c8e72c4bd2d0ed40388a72b">unichar_ids</a>()[end - 1]) &amp;&amp;
+         <a class="code" href="class_w_e_r_d___r_e_s.html#a3a92c8c9750d78631d75998f008f366a">box_word</a>-&gt;<a class="code" href="classtesseract_1_1_box_word.html#a64adbae1419bff690506f6b3a2dc7930">BlobPosition</a>(end - 1) == <a class="code" href="namespacetesseract.html#a496c25ad3b69eb36c48ae9cbf15f2fe2a6160fc6d2a9bba3b56e3f673f84b24b8">tesseract::SP_SUPERSCRIPT</a>) {
+    end--;
+  }
+  <span class="keywordtype">int</span> start = 0;
+  <span class="keywordflow">while</span> (start &lt; end &amp;&amp;
+         <a class="code" href="class_w_e_r_d___r_e_s.html#a053a2aeeddc26a93a41a04fa08dd688a">uch_set</a>-&gt;<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a5951dde3ab90c12c309d776570a10725">get_isdigit</a>(<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a1f37c5559c8e72c4bd2d0ed40388a72b">unichar_ids</a>()[start]) &amp;&amp;
+         <a class="code" href="class_w_e_r_d___r_e_s.html#a3a92c8c9750d78631d75998f008f366a">box_word</a>-&gt;<a class="code" href="classtesseract_1_1_box_word.html#a64adbae1419bff690506f6b3a2dc7930">BlobPosition</a>(start) == <a class="code" href="namespacetesseract.html#a496c25ad3b69eb36c48ae9cbf15f2fe2a6160fc6d2a9bba3b56e3f673f84b24b8">tesseract::SP_SUPERSCRIPT</a>) {
+    start++;
+  }
+  *pstart = start;
+  *pend = end;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a85580a8eb4b10b9a915f1216ec2672bf"></a><!-- doxytag: member="WERD_RES::WithoutFootnoteSpan" ref="a85580a8eb4b10b9a915f1216ec2672bf" args="(const WERD_CHOICE &amp;choice, const GenericVector&lt; int &gt; &amp;state, int *start, int *end) const " -->
@@ -1106,6 +1802,22 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8cpp_source.html#l00527">527</a> of file <a class="el" href="pageres_8cpp_source.html">pageres.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                  {
+  <span class="keywordtype">int</span> len = <a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a>.length();
+  *pstart = 0;
+  *pend = len;
+  <span class="keywordflow">if</span> (len &lt; 2) <span class="keywordflow">return</span>;
+  <span class="keywordflow">if</span> (!<a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a>.unicharset()-&gt;get_isdigit(<a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a>.unichar_ids()[len - 1]) &amp;&amp;
+      !<a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a>.unicharset()-&gt;get_isdigit(<a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a>.unichar_ids()[0])) <span class="keywordflow">return</span>;
+
+  <span class="comment">// ok, now that we know the word ends in digits, do the expensive bit of</span>
+  <span class="comment">// figuring out if they&#39;re superscript.</span>
+  <a class="code" href="class_w_e_r_d___r_e_s.html">WERD_RES</a> copy(*<span class="keyword">this</span>);
+  copy.ReplaceBestChoice(<a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a>, state);
+  copy.WithoutFootnoteSpan(pstart, pend);
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
@@ -1120,6 +1832,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00363">363</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a2a518e1c690490fe520c26d9acb8b45a"></a><!-- doxytag: member="WERD_RES::alt_states" ref="a2a518e1c690490fe520c26d9acb8b45a" args="" -->
@@ -1132,6 +1846,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00364">364</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
 
 </div>
 </div>
@@ -1146,6 +1862,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00359">359</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ac7e10f55dbc59bf8885a78245a67c158"></a><!-- doxytag: member="WERD_RES::best_choice_fontinfo_ids" ref="ac7e10f55dbc59bf8885a78245a67c158" args="" -->
@@ -1158,6 +1876,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00454">454</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
 
 </div>
 </div>
@@ -1172,6 +1892,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00392">392</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a267e5d5e9fe67117e47223c5d336b8ba"></a><!-- doxytag: member="WERD_RES::blamer_bundle" ref="a267e5d5e9fe67117e47223c5d336b8ba" args="" -->
@@ -1184,6 +1906,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00367">367</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
 
 </div>
 </div>
@@ -1198,6 +1922,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00343">343</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ade0b31fa9e122ac25de3a246b953a9cb"></a><!-- doxytag: member="WERD_RES::bold" ref="ade0b31fa9e122ac25de3a246b953a9cb" args="" -->
@@ -1210,6 +1936,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00422">422</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
 
 </div>
 </div>
@@ -1224,6 +1952,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00387">387</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="aea384afb374c13829bfaab3efa5eafa0"></a><!-- doxytag: member="WERD_RES::caps_height" ref="aea384afb374c13829bfaab3efa5eafa0" args="" -->
@@ -1236,6 +1966,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00432">432</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
 
 </div>
 </div>
@@ -1250,6 +1982,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00357">357</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="aa93c58a60bedb04c73e3fbb586f72875"></a><!-- doxytag: member="WERD_RES::combination" ref="aa93c58a60bedb04c73e3fbb586f72875" args="" -->
@@ -1262,6 +1996,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00450">450</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
 
 </div>
 </div>
@@ -1276,6 +2012,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00396">396</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a202d9d5d2a462d84012011c689e16605"></a><!-- doxytag: member="WERD_RES::denorm" ref="a202d9d5d2a462d84012011c689e16605" args="" -->
@@ -1288,6 +2026,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00346">346</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
 
 </div>
 </div>
@@ -1302,6 +2042,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00419">419</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ae8327d37b47f9d3726ec102bab7f3982"></a><!-- doxytag: member="WERD_RES::ep_choice" ref="ae8327d37b47f9d3726ec102bab7f3982" args="" -->
@@ -1314,6 +2056,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00407">407</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
 
 </div>
 </div>
@@ -1328,6 +2072,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00424">424</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a42a1961e381f0b4df731321552fe771c"></a><!-- doxytag: member="WERD_RES::fontinfo2" ref="a42a1961e381f0b4df731321552fe771c" args="" -->
@@ -1340,6 +2086,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00425">425</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
 
 </div>
 </div>
@@ -1354,6 +2102,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00427">427</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ab8186770379e7fb8651ebc83f5ec232b"></a><!-- doxytag: member="WERD_RES::fontinfo_id_count" ref="ab8186770379e7fb8651ebc83f5ec232b" args="" -->
@@ -1366,6 +2116,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00426">426</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
 
 </div>
 </div>
@@ -1380,6 +2132,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00429">429</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a2b28e2f709c702dd73be688c4662d206"></a><!-- doxytag: member="WERD_RES::guessed_x_ht" ref="a2b28e2f709c702dd73be688c4662d206" args="" -->
@@ -1392,6 +2146,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00428">428</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
 
 </div>
 </div>
@@ -1406,6 +2162,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00421">421</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a475b98b66ae6678e6cf618ead08d5d02"></a><!-- doxytag: member="WERD_RES::part_of_combo" ref="a475b98b66ae6678e6cf618ead08d5d02" args="" -->
@@ -1418,6 +2176,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00451">451</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
 
 </div>
 </div>
@@ -1432,6 +2192,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00360">360</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a211ab5c5a13123ee7bdc7459d3363f9d"></a><!-- doxytag: member="WERD_RES::rebuild_word" ref="a211ab5c5a13123ee7bdc7459d3363f9d" args="" -->
@@ -1444,6 +2206,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00381">381</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
 
 </div>
 </div>
@@ -1458,6 +2222,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00408">408</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a6164dbe5d7d34658c64682be24ea257a"></a><!-- doxytag: member="WERD_RES::reject_spaces" ref="a6164dbe5d7d34658c64682be24ea257a" args="" -->
@@ -1470,6 +2236,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00452">452</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
 
 </div>
 </div>
@@ -1484,6 +2252,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00358">358</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ac14d59010b792d434b39e991b0c8a962"></a><!-- doxytag: member="WERD_RES::small_caps" ref="ac14d59010b792d434b39e991b0c8a962" args="" -->
@@ -1496,6 +2266,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00420">420</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
 
 </div>
 </div>
@@ -1510,6 +2282,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00417">417</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ae15f8f88b29e06811c9f821b9fb4af1f"></a><!-- doxytag: member="WERD_RES::tess_failed" ref="ae15f8f88b29e06811c9f821b9fb4af1f" args="" -->
@@ -1522,6 +2296,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00409">409</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
 
 </div>
 </div>
@@ -1536,6 +2312,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00418">418</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a2e616f878c75833272f3f800827c2db6"></a><!-- doxytag: member="WERD_RES::tesseract" ref="a2e616f878c75833272f3f800827c2db6" args="" -->
@@ -1548,6 +2326,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00403">403</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
 
 </div>
 </div>
@@ -1562,6 +2342,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00348">348</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a82d32a9f59bc1c08da9537303c56615b"></a><!-- doxytag: member="WERD_RES::unlv_crunch_mode" ref="a82d32a9f59bc1c08da9537303c56615b" args="" -->
@@ -1574,6 +2356,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00430">430</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
 
 </div>
 </div>
@@ -1588,6 +2372,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00334">334</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a42ec9dbb998f7da714ace13ee30cb86e"></a><!-- doxytag: member="WERD_RES::x_height" ref="a42ec9dbb998f7da714ace13ee30cb86e" args="" -->
@@ -1601,11 +2387,13 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00431">431</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/ccstruct/<a class="el" href="pageres_8h_source.html">pageres.h</a></li>
-<li>tesseract-ocr/ccstruct/<a class="el" href="pageres_8cpp.html">pageres.cpp</a></li>
+<li>tesseract-ocr/ccstruct/<a class="el" href="pageres_8cpp_source.html">pageres.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -1627,7 +2415,7 @@ Public Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:14 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:48 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

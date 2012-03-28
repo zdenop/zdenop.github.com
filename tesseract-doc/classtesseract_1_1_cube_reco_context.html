@@ -152,7 +152,10 @@ Public Member Functions</h2></td></tr>
 Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classtesseract_1_1_cube_reco_context.html">CubeRecoContext</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_cube_reco_context.html#ac513bc107db9dd938464bcecc50ad61b">Create</a> (<a class="el" href="classtesseract_1_1_tesseract.html">Tesseract</a> *tess_obj, <a class="el" href="classtesseract_1_1_tessdata_manager.html">TessdataManager</a> *tessdata_manager, <a class="el" href="class_u_n_i_c_h_a_r_s_e_t.html">UNICHARSET</a> *tess_unicharset)</td></tr>
 </table>
-<hr/><h2>Member Enumeration Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="cube__reco__context_8h_source.html#l00043">43</a> of file <a class="el" href="cube__reco__context_8h_source.html">cube_reco_context.h</a>.</p>
+</div><hr/><h2>Member Enumeration Documentation</h2>
 <a class="anchor" id="ab885faf434ff0ab68d81e98d09486789"></a><!-- doxytag: member="tesseract::CubeRecoContext::ReadOrder" ref="ab885faf434ff0ab68d81e98d09486789" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -172,6 +175,12 @@ Static Public Member Functions</h2></td></tr>
 </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="cube__reco__context_8h_source.html#l00046">46</a> of file <a class="el" href="cube__reco__context_8h_source.html">cube_reco_context.h</a>.</p>
+<div class="fragment"><pre class="fragment">                 {
+   <a class="code" href="classtesseract_1_1_cube_reco_context.html#ab885faf434ff0ab68d81e98d09486789a9a3f018db26da282dfc6608d6f1219a1">L2R</a>,
+   <a class="code" href="classtesseract_1_1_cube_reco_context.html#ab885faf434ff0ab68d81e98d09486789ad086d7c90c84e60ff11c1363865d82b6">R2L</a>
+  };
+</pre></div>
 </div>
 </div>
 <hr/><h2>Constructor &amp; Destructor Documentation</h2>
@@ -190,6 +199,22 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__reco__context_8cpp_source.html#l00040">40</a> of file <a class="el" href="cube__reco__context_8cpp_source.html">cube_reco_context.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                    {
+  tess_obj_ = tess_obj;
+  lang_ = <span class="stringliteral">&quot;&quot;</span>;
+  loaded_ = <span class="keyword">false</span>;
+  lang_mod_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  params_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  char_classifier_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  char_set_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  word_size_model_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  char_bigrams_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  word_unigrams_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  noisy_input_ = <span class="keyword">false</span>;
+  size_normalization_ = <span class="keyword">false</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a63b530c52ed9c70907b0601c125f4596"></a><!-- doxytag: member="tesseract::CubeRecoContext::~CubeRecoContext" ref="a63b530c52ed9c70907b0601c125f4596" args="()" -->
@@ -206,6 +231,44 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__reco__context_8cpp_source.html#l00055">55</a> of file <a class="el" href="cube__reco__context_8cpp_source.html">cube_reco_context.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                  {
+  <span class="keywordflow">if</span> (char_classifier_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keyword">delete</span> char_classifier_;
+    char_classifier_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="keywordflow">if</span> (word_size_model_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keyword">delete</span> word_size_model_;
+    word_size_model_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="keywordflow">if</span> (char_set_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keyword">delete</span> char_set_;
+    char_set_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="keywordflow">if</span> (char_bigrams_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keyword">delete</span> char_bigrams_;
+    char_bigrams_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="keywordflow">if</span> (word_unigrams_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keyword">delete</span> word_unigrams_;
+    word_unigrams_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="keywordflow">if</span> (lang_mod_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keyword">delete</span> lang_mod_;
+    lang_mod_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="keywordflow">if</span> (params_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keyword">delete</span> params_;
+    params_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -223,6 +286,9 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__reco__context_8h_source.html#l00062">62</a> of file <a class="el" href="cube__reco__context_8h_source.html">cube_reco_context.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> char_bigrams_; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a99b5b0087a161dc1d94eea2c79604bf7"></a><!-- doxytag: member="tesseract::CubeRecoContext::CaseSensitive" ref="a99b5b0087a161dc1d94eea2c79604bf7" args="() const " -->
@@ -239,6 +305,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__reco__context_8h_source.html#l00096">96</a> of file <a class="el" href="cube__reco__context_8h_source.html">cube_reco_context.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                    {
+    <span class="keywordflow">return</span> char_classifier_-&gt;CaseSensitive();
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab9c6b5f85ef4baa38ad8ef9c949b8dee"></a><!-- doxytag: member="tesseract::CubeRecoContext::CharacterSet" ref="ab9c6b5f85ef4baa38ad8ef9c949b8dee" args="() const " -->
@@ -255,6 +326,9 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__reco__context_8h_source.html#l00058">58</a> of file <a class="el" href="cube__reco__context_8h_source.html">cube_reco_context.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> char_set_; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a0082866480a9704fef561c90ceaf06e5"></a><!-- doxytag: member="tesseract::CubeRecoContext::Classifier" ref="a0082866480a9704fef561c90ceaf06e5" args="() const " -->
@@ -271,6 +345,9 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__reco__context_8h_source.html#l00060">60</a> of file <a class="el" href="cube__reco__context_8h_source.html">cube_reco_context.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> char_classifier_; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3a1787fddfdefb105fe5274de4be7074"></a><!-- doxytag: member="tesseract::CubeRecoContext::Contextual" ref="a3a1787fddfdefb105fe5274de4be7074" args="() const " -->
@@ -287,6 +364,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__reco__context_8h_source.html#l00085">85</a> of file <a class="el" href="cube__reco__context_8h_source.html">cube_reco_context.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                 {
+    <span class="keywordflow">return</span> (lang_ == <span class="stringliteral">&quot;ara&quot;</span>);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac513bc107db9dd938464bcecc50ad61b"></a><!-- doxytag: member="tesseract::CubeRecoContext::Create" ref="ac513bc107db9dd938464bcecc50ad61b" args="(Tesseract *tess_obj, TessdataManager *tessdata_manager, UNICHARSET *tess_unicharset)" -->
@@ -320,6 +402,26 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__reco__context_8cpp_source.html#l00182">182</a> of file <a class="el" href="cube__reco__context_8cpp_source.html">cube_reco_context.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                       {
+  <span class="comment">// create the object</span>
+  <a class="code" href="classtesseract_1_1_cube_reco_context.html#a2c22725a39647f70c87fce57ce97e5d1">CubeRecoContext</a> *cntxt = <span class="keyword">new</span> <a class="code" href="classtesseract_1_1_cube_reco_context.html#a2c22725a39647f70c87fce57ce97e5d1">CubeRecoContext</a>(tess_obj);
+  <span class="keywordflow">if</span> (cntxt == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    fprintf(stderr, <span class="stringliteral">&quot;Cube ERROR (CubeRecoContext::Create): unable to create &quot;</span>
+            <span class="stringliteral">&quot;CubeRecoContext object\n&quot;</span>);
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="comment">// load the necessary components</span>
+  <span class="keywordflow">if</span> (cntxt-&gt;Load(tessdata_manager, tess_unicharset) == <span class="keyword">false</span>) {
+    fprintf(stderr, <span class="stringliteral">&quot;Cube ERROR (CubeRecoContext::Create): unable to init &quot;</span>
+            <span class="stringliteral">&quot;CubeRecoContext object\n&quot;</span>);
+    <span class="keyword">delete</span> cntxt;
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="comment">// success</span>
+  <span class="keywordflow">return</span> cntxt;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7869e1e5cfe65dbfa4ca22940182749b"></a><!-- doxytag: member="tesseract::CubeRecoContext::Cursive" ref="a7869e1e5cfe65dbfa4ca22940182749b" args="() const " -->
@@ -336,6 +438,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__reco__context_8h_source.html#l00077">77</a> of file <a class="el" href="cube__reco__context_8h_source.html">cube_reco_context.h</a>.</p>
+<div class="fragment"><pre class="fragment">                              {
+    <span class="keywordflow">return</span> (lang_ == <span class="stringliteral">&quot;ara&quot;</span>);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa574aa3fc2ada13261a7f4228b474638"></a><!-- doxytag: member="tesseract::CubeRecoContext::GetDataFilePath" ref="aa574aa3fc2ada13261a7f4228b474638" args="(string *path) const " -->
@@ -353,6 +460,12 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__reco__context_8cpp_source.html#l00094">94</a> of file <a class="el" href="cube__reco__context_8cpp_source.html">cube_reco_context.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                        {
+  *path = tess_obj_-&gt;datadir.string();
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a935e5758a4674f439814ec57b8c4d42b"></a><!-- doxytag: member="tesseract::CubeRecoContext::HasCase" ref="a935e5758a4674f439814ec57b8c4d42b" args="() const " -->
@@ -369,6 +482,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__reco__context_8h_source.html#l00073">73</a> of file <a class="el" href="cube__reco__context_8h_source.html">cube_reco_context.h</a>.</p>
+<div class="fragment"><pre class="fragment">                              {
+    <span class="keywordflow">return</span> (lang_ != <span class="stringliteral">&quot;ara&quot;</span> &amp;&amp; lang_ != <span class="stringliteral">&quot;hin&quot;</span>);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="abcf861d3058bdb77d0f415e0ae1eba55"></a><!-- doxytag: member="tesseract::CubeRecoContext::HasItalics" ref="abcf861d3058bdb77d0f415e0ae1eba55" args="() const " -->
@@ -385,6 +503,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__reco__context_8h_source.html#l00081">81</a> of file <a class="el" href="cube__reco__context_8h_source.html">cube_reco_context.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                 {
+    <span class="keywordflow">return</span> (lang_ != <span class="stringliteral">&quot;ara&quot;</span> &amp;&amp; lang_ != <span class="stringliteral">&quot;hin&quot;</span> &amp;&amp; lang_ != <span class="stringliteral">&quot;uk&quot;</span>);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a5e8e654a7db7d086d7e05d08bb53fa97"></a><!-- doxytag: member="tesseract::CubeRecoContext::Lang" ref="a5e8e654a7db7d086d7e05d08bb53fa97" args="() const " -->
@@ -401,6 +524,9 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__reco__context_8h_source.html#l00057">57</a> of file <a class="el" href="cube__reco__context_8h_source.html">cube_reco_context.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> lang_; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab73cfe645a5071f5ccfef060d1faf3f1"></a><!-- doxytag: member="tesseract::CubeRecoContext::LangMod" ref="ab73cfe645a5071f5ccfef060d1faf3f1" args="() const " -->
@@ -417,6 +543,9 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__reco__context_8h_source.html#l00065">65</a> of file <a class="el" href="cube__reco__context_8h_source.html">cube_reco_context.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> lang_mod_; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="af95c2581e9637615564b9062ba03ee71"></a><!-- doxytag: member="tesseract::CubeRecoContext::NoisyInput" ref="af95c2581e9637615564b9062ba03ee71" args="() const " -->
@@ -433,6 +562,9 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__reco__context_8h_source.html#l00091">91</a> of file <a class="el" href="cube__reco__context_8h_source.html">cube_reco_context.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> noisy_input_; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a0e0b3e8d4d57e57835c3a5075897b641"></a><!-- doxytag: member="tesseract::CubeRecoContext::Numeric" ref="a0e0b3e8d4d57e57835c3a5075897b641" args="() const " -->
@@ -449,6 +581,9 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__reco__context_8h_source.html#l00093">93</a> of file <a class="el" href="cube__reco__context_8h_source.html">cube_reco_context.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> lang_mod_-&gt;Numeric(); }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4708cd3baf10bec92cc93737bb6f0cec"></a><!-- doxytag: member="tesseract::CubeRecoContext::OOD" ref="a4708cd3baf10bec92cc93737bb6f0cec" args="() const " -->
@@ -465,6 +600,9 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__reco__context_8h_source.html#l00092">92</a> of file <a class="el" href="cube__reco__context_8h_source.html">cube_reco_context.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> lang_mod_-&gt;OOD(); }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="addac767dbdf8405f9026848a17561556"></a><!-- doxytag: member="tesseract::CubeRecoContext::Params" ref="addac767dbdf8405f9026848a17561556" args="() const " -->
@@ -481,6 +619,9 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__reco__context_8h_source.html#l00064">64</a> of file <a class="el" href="cube__reco__context_8h_source.html">cube_reco_context.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> params_; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab90944a47dae75d2b7145ad2646dc278"></a><!-- doxytag: member="tesseract::CubeRecoContext::Punc" ref="ab90944a47dae75d2b7145ad2646dc278" args="() const " -->
@@ -497,6 +638,9 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__reco__context_8h_source.html#l00095">95</a> of file <a class="el" href="cube__reco__context_8h_source.html">cube_reco_context.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> lang_mod_-&gt;Punc(); }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7785b21e1f34ad3a5ca6f3c9f7b7d721"></a><!-- doxytag: member="tesseract::CubeRecoContext::ReadingOrder" ref="a7785b21e1f34ad3a5ca6f3c9f7b7d721" args="() const " -->
@@ -513,6 +657,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__reco__context_8h_source.html#l00068">68</a> of file <a class="el" href="cube__reco__context_8h_source.html">cube_reco_context.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                        {
+    <span class="keywordflow">return</span> ((lang_ == <span class="stringliteral">&quot;ara&quot;</span>) ? <a class="code" href="classtesseract_1_1_cube_reco_context.html#ab885faf434ff0ab68d81e98d09486789ad086d7c90c84e60ff11c1363865d82b6">R2L</a> : <a class="code" href="classtesseract_1_1_cube_reco_context.html#ab885faf434ff0ab68d81e98d09486789a9a3f018db26da282dfc6608d6f1219a1">L2R</a>);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a645c457747c0c9c3bba537103d5a0791"></a><!-- doxytag: member="tesseract::CubeRecoContext::SetCaseSensitive" ref="a645c457747c0c9c3bba537103d5a0791" args="(bool case_sensitive)" -->
@@ -530,6 +679,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__reco__context_8h_source.html#l00118">118</a> of file <a class="el" href="cube__reco__context_8h_source.html">cube_reco_context.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                    {
+    char_classifier_-&gt;SetCaseSensitive(case_sensitive);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a32922eed072bc61ae114fb173bdc102f"></a><!-- doxytag: member="tesseract::CubeRecoContext::SetNoisyInput" ref="a32922eed072bc61ae114fb173bdc102f" args="(bool noisy_input)" -->
@@ -547,6 +701,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__reco__context_8h_source.html#l00103">103</a> of file <a class="el" href="cube__reco__context_8h_source.html">cube_reco_context.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                              {
+    noisy_input_ = noisy_input;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a0eb9a93c7aa08623a4cc82fb4fb4c936"></a><!-- doxytag: member="tesseract::CubeRecoContext::SetNumeric" ref="a0eb9a93c7aa08623a4cc82fb4fb4c936" args="(bool numeric_enabled)" -->
@@ -564,6 +723,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__reco__context_8h_source.html#l00109">109</a> of file <a class="el" href="cube__reco__context_8h_source.html">cube_reco_context.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                               {
+    lang_mod_-&gt;SetNumeric(numeric_enabled);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a59676b3720225b08611f93b5082da3f1"></a><!-- doxytag: member="tesseract::CubeRecoContext::SetOOD" ref="a59676b3720225b08611f93b5082da3f1" args="(bool ood_enabled)" -->
@@ -581,6 +745,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__reco__context_8h_source.html#l00106">106</a> of file <a class="el" href="cube__reco__context_8h_source.html">cube_reco_context.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                       {
+    lang_mod_-&gt;SetOOD(ood_enabled);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a65c1927a38adec5d60c3b2144b32c3e4"></a><!-- doxytag: member="tesseract::CubeRecoContext::SetPunc" ref="a65c1927a38adec5d60c3b2144b32c3e4" args="(bool punc_enabled)" -->
@@ -598,6 +767,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__reco__context_8h_source.html#l00115">115</a> of file <a class="el" href="cube__reco__context_8h_source.html">cube_reco_context.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                         {
+    lang_mod_-&gt;SetPunc(punc_enabled);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a445b4ca5c334350d09de2e82bf6fa180"></a><!-- doxytag: member="tesseract::CubeRecoContext::SetSizeNormalization" ref="a445b4ca5c334350d09de2e82bf6fa180" args="(bool size_normalization)" -->
@@ -615,6 +789,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__reco__context_8h_source.html#l00100">100</a> of file <a class="el" href="cube__reco__context_8h_source.html">cube_reco_context.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                            {
+    size_normalization_ = size_normalization;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab9383af8f6fb3a3c844e2e8cce5e7228"></a><!-- doxytag: member="tesseract::CubeRecoContext::SetWordList" ref="ab9383af8f6fb3a3c844e2e8cce5e7228" args="(bool word_list_enabled)" -->
@@ -632,6 +811,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__reco__context_8h_source.html#l00112">112</a> of file <a class="el" href="cube__reco__context_8h_source.html">cube_reco_context.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                  {
+    lang_mod_-&gt;SetWordList(word_list_enabled);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a12bb2ed799fdad0682bf889d188784e5"></a><!-- doxytag: member="tesseract::CubeRecoContext::SizeModel" ref="a12bb2ed799fdad0682bf889d188784e5" args="() const " -->
@@ -648,6 +832,9 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__reco__context_8h_source.html#l00061">61</a> of file <a class="el" href="cube__reco__context_8h_source.html">cube_reco_context.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> word_size_model_; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae457d9aa8f44f80f30c55170c0a8220e"></a><!-- doxytag: member="tesseract::CubeRecoContext::SizeNormalization" ref="ae457d9aa8f44f80f30c55170c0a8220e" args="() const " -->
@@ -664,6 +851,9 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__reco__context_8h_source.html#l00090">90</a> of file <a class="el" href="cube__reco__context_8h_source.html">cube_reco_context.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> size_normalization_; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9dbf36a8e91bc7f2f9055c34d1ae1604"></a><!-- doxytag: member="tesseract::CubeRecoContext::TesseractObject" ref="a9dbf36a8e91bc7f2f9055c34d1ae1604" args="() const " -->
@@ -680,6 +870,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__reco__context_8h_source.html#l00121">121</a> of file <a class="el" href="cube__reco__context_8h_source.html">cube_reco_context.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                     {
+    <span class="keywordflow">return</span> tess_obj_;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="acf3a7b43d154ec18754b6c4a023e2134"></a><!-- doxytag: member="tesseract::CubeRecoContext::TessUnicharset" ref="acf3a7b43d154ec18754b6c4a023e2134" args="() const " -->
@@ -696,6 +891,9 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__reco__context_8h_source.html#l00059">59</a> of file <a class="el" href="cube__reco__context_8h_source.html">cube_reco_context.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> tess_unicharset_; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6cabf3b5d1c1603585808da19c19e09d"></a><!-- doxytag: member="tesseract::CubeRecoContext::WordList" ref="a6cabf3b5d1c1603585808da19c19e09d" args="() const " -->
@@ -712,6 +910,9 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__reco__context_8h_source.html#l00094">94</a> of file <a class="el" href="cube__reco__context_8h_source.html">cube_reco_context.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> lang_mod_-&gt;WordList(); }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab95b871efd568d44d69656bbdcdce167"></a><!-- doxytag: member="tesseract::CubeRecoContext::WordUnigramsObj" ref="ab95b871efd568d44d69656bbdcdce167" args="() const " -->
@@ -728,11 +929,14 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__reco__context_8h_source.html#l00063">63</a> of file <a class="el" href="cube__reco__context_8h_source.html">cube_reco_context.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> word_unigrams_; }
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/ccmain/<a class="el" href="cube__reco__context_8h_source.html">cube_reco_context.h</a></li>
-<li>tesseract-ocr/ccmain/<a class="el" href="cube__reco__context_8cpp.html">cube_reco_context.cpp</a></li>
+<li>tesseract-ocr/ccmain/<a class="el" href="cube__reco__context_8cpp_source.html">cube_reco_context.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -755,7 +959,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:14 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:48 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

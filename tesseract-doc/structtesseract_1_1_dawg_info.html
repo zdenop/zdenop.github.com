@@ -120,6 +120,8 @@ Public Attributes</h2></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="structtesseract_1_1_dawg_info.html">DawgInfo</a> struct and <a class="el" href="classtesseract_1_1_dawg_info_vector.html">DawgInfoVector</a> class are used for storing information about the current <a class="el" href="classtesseract_1_1_dawg.html">Dawg</a> search state. </p>
+
+<p>Definition at line <a class="el" href="dawg_8h_source.html#l00305">305</a> of file <a class="el" href="dawg_8h_source.html">dawg.h</a>.</p>
 </div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a7c74c9ecb156d2990405eb1425064527"></a><!-- doxytag: member="tesseract::DawgInfo::DawgInfo" ref="a7c74c9ecb156d2990405eb1425064527" args="()" -->
 <div class="memitem">
@@ -135,6 +137,9 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="dawg_8h_source.html#l00306">306</a> of file <a class="el" href="dawg_8h_source.html">dawg.h</a>.</p>
+<div class="fragment"><pre class="fragment">: <a class="code" href="structtesseract_1_1_dawg_info.html#a2fe490ad37635ee98c2a833a7c1278fc">dawg_index</a>(-1), <a class="code" href="structtesseract_1_1_dawg_info.html#af80404458445b6c176bd9bfbddae59be">ref</a>(NO_EDGE) {}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a752ed8b1223de5c39adb5e07d886e1df"></a><!-- doxytag: member="tesseract::DawgInfo::DawgInfo" ref="a752ed8b1223de5c39adb5e07d886e1df" args="(int i, EDGE_REF r)" -->
@@ -162,6 +167,9 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="dawg_8h_source.html#l00307">307</a> of file <a class="el" href="dawg_8h_source.html">dawg.h</a>.</p>
+<div class="fragment"><pre class="fragment">: <a class="code" href="structtesseract_1_1_dawg_info.html#a2fe490ad37635ee98c2a833a7c1278fc">dawg_index</a>(i), <a class="code" href="structtesseract_1_1_dawg_info.html#af80404458445b6c176bd9bfbddae59be">ref</a>(r) {}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -180,6 +188,11 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="dawg_8h_source.html#l00308">308</a> of file <a class="el" href="dawg_8h_source.html">dawg.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                         {
+    <span class="keywordflow">return</span> (this-&gt;<a class="code" href="structtesseract_1_1_dawg_info.html#a2fe490ad37635ee98c2a833a7c1278fc">dawg_index</a> == other.dawg_index &amp;&amp; this-&gt;ref == other.ref);
+  }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
@@ -194,6 +207,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="dawg_8h_source.html#l00311">311</a> of file <a class="el" href="dawg_8h_source.html">dawg.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="af80404458445b6c176bd9bfbddae59be"></a><!-- doxytag: member="tesseract::DawgInfo::ref" ref="af80404458445b6c176bd9bfbddae59be" args="" -->
@@ -206,6 +221,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="dawg_8h_source.html#l00312">312</a> of file <a class="el" href="dawg_8h_source.html">dawg.h</a>.</p>
 
 </div>
 </div>
@@ -233,7 +250,7 @@ Public Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:15 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:51 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

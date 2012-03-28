@@ -109,7 +109,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <code>#include &quot;<a class="el" href="mfoutline_8h_source.html">mfoutline.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="ocrfeatures_8h_source.html">ocrfeatures.h</a>&quot;</code><br/>
 <code>#include &lt;stdio.h&gt;</code><br/>
-</div><table class="memberdecls">
+</div>
+<p><a href="outfeat_8cpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr><td colspan="2"><h2><a name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetesseract.html">tesseract</a></td></tr>
@@ -152,6 +154,36 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>---------------------------------------------------------------------------- Private Code ---------------------------------------------------------------------------- </p>
 
+<p>Definition at line <a class="el" href="outfeat_8cpp_source.html#l00078">78</a> of file <a class="el" href="outfeat_8cpp_source.html">outfeat.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                    {
+<span class="comment">/*</span>
+<span class="comment"> **     Parameters:</span>
+<span class="comment"> **             Start           starting point of outline-feature</span>
+<span class="comment"> **             End             ending point of outline-feature</span>
+<span class="comment"> **             FeatureSet      set to add outline-feature to</span>
+<span class="comment"> **     Globals: none</span>
+<span class="comment"> **     Operation: This routine computes the midpoint between Start and</span>
+<span class="comment"> **             End to obtain the x,y position of the outline-feature.  It</span>
+<span class="comment"> **             also computes the direction from Start to End as the</span>
+<span class="comment"> **             direction of the outline-feature and the distance from</span>
+<span class="comment"> **             Start to End as the length of the outline-feature.</span>
+<span class="comment"> **             This feature is then</span>
+<span class="comment"> **             inserted into the next feature slot in FeatureSet.</span>
+<span class="comment"> **     Return: none (results are placed in FeatureSet)</span>
+<span class="comment"> **     Exceptions: none</span>
+<span class="comment"> **     History: 11/13/90, DSJ, Created.</span>
+<span class="comment"> */</span>
+  <a class="code" href="struct_f_e_a_t_u_r_e___s_t_r_u_c_t.html">FEATURE</a> Feature;
+
+  Feature = <a class="code" href="ocrfeatures_8cpp.html#a32a08c42617c8dd6a156c1c8d7fb2cbb">NewFeature</a>(&amp;OutlineFeatDesc);
+  Feature-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_t_r_u_c_t.html#ace52f36cfcba955504f4a24f86a897b4">Params</a>[<a class="code" href="outfeat_8h.html#ab73697b859e4921472c6cf1de43267a1a0bb02f3ddb0f407e51cbf8967c3d78cb">OutlineFeatDir</a>] = <a class="code" href="fpoint_8cpp.html#a64d002c6db7589a73c3fcc0f2e80ad80">NormalizedAngleFrom</a>(Start, End, 1.0);
+  Feature-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_t_r_u_c_t.html#ace52f36cfcba955504f4a24f86a897b4">Params</a>[<a class="code" href="outfeat_8h.html#ab73697b859e4921472c6cf1de43267a1ab72d959dbf0e92bfdb6f3ebf9d0b35e6">OutlineFeatX</a>] = <a class="code" href="mfoutline_8h.html#a3bebacc8131f75b46dc7a107d22fcae2">AverageOf</a>(Start-&gt;<a class="code" href="struct_f_p_o_i_n_t.html#a96c1f94ff16244b06cb59b79152dc8ae">x</a>, End-&gt;<a class="code" href="struct_f_p_o_i_n_t.html#a96c1f94ff16244b06cb59b79152dc8ae">x</a>);
+  Feature-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_t_r_u_c_t.html#ace52f36cfcba955504f4a24f86a897b4">Params</a>[<a class="code" href="outfeat_8h.html#ab73697b859e4921472c6cf1de43267a1ae64bdd03ed6e7dd59482f7e2d8054379">OutlineFeatY</a>] = <a class="code" href="mfoutline_8h.html#a3bebacc8131f75b46dc7a107d22fcae2">AverageOf</a>(Start-&gt;<a class="code" href="struct_f_p_o_i_n_t.html#a119bd5a9f0b29cabb3987fd94c5d4ca8">y</a>, End-&gt;<a class="code" href="struct_f_p_o_i_n_t.html#a119bd5a9f0b29cabb3987fd94c5d4ca8">y</a>);
+  Feature-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_t_r_u_c_t.html#ace52f36cfcba955504f4a24f86a897b4">Params</a>[<a class="code" href="outfeat_8h.html#ab73697b859e4921472c6cf1de43267a1afc77106ded4ebd69ae6c596a2536e741">OutlineFeatLength</a>] = <a class="code" href="fpoint_8cpp.html#a415c805f668844bd4e652968a7978c41">DistanceBetween</a>(*Start, *End);
+  <a class="code" href="ocrfeatures_8cpp.html#a09f4fe91126bd64e3c8dcd3327343639">AddFeature</a>(FeatureSet, Feature);
+
+}                                <span class="comment">/* AddOutlineFeatureToSet */</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a46e551093fc5d100adbb071067948bd9"></a><!-- doxytag: member="outfeat.cpp::ConvertToOutlineFeatures" ref="a46e551093fc5d100adbb071067948bd9" args="(MFOUTLINE Outline, FEATURE_SET FeatureSet)" -->
@@ -179,6 +211,49 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="outfeat_8cpp_source.html#l00111">111</a> of file <a class="el" href="outfeat_8cpp_source.html">outfeat.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                         {
+<span class="comment">/*</span>
+<span class="comment"> **     Parameters:</span>
+<span class="comment"> **             Outline         outline to extract outline-features from</span>
+<span class="comment"> **             FeatureSet      set of features to add outline-features to</span>
+<span class="comment"> **     Globals: none</span>
+<span class="comment"> **     Operation:</span>
+<span class="comment"> **             This routine steps converts each section in the specified</span>
+<span class="comment"> **             outline to a feature described by its x,y position, length</span>
+<span class="comment"> **             and angle.</span>
+<span class="comment"> **     Return: none (results are returned in FeatureSet)</span>
+<span class="comment"> **     Exceptions: none</span>
+<span class="comment"> **     History: 11/13/90, DSJ, Created.</span>
+<span class="comment"> **                     5/24/91, DSJ, Added hidden edge capability.</span>
+<span class="comment"> */</span>
+  <a class="code" href="structlist__rec.html">MFOUTLINE</a> Next;
+  <a class="code" href="structlist__rec.html">MFOUTLINE</a> First;
+  <a class="code" href="struct_f_p_o_i_n_t.html">FPOINT</a> FeatureStart;
+  <a class="code" href="struct_f_p_o_i_n_t.html">FPOINT</a> FeatureEnd;
+
+  <span class="keywordflow">if</span> (<a class="code" href="mfoutline_8h.html#ac8e258367e719e5a22e83af1c2b33e53">DegenerateOutline</a> (Outline))
+    <span class="keywordflow">return</span>;
+
+  First = Outline;
+  Next = First;
+  <span class="keywordflow">do</span> {
+    FeatureStart = <a class="code" href="mfoutline_8h.html#aabb22902a8c1b9a830cb6347a474feea">PointAt</a>(Next)-&gt;Point;
+    Next = <a class="code" href="mfoutline_8h.html#ad2dfef920e57366bab3231610ab39f4d">NextPointAfter</a>(Next);
+
+    <span class="comment">/* note that an edge is hidden if the ending point of the edge is</span>
+<span class="comment">       marked as hidden.  This situation happens because the order of</span>
+<span class="comment">       the outlines is reversed when they are converted from the old</span>
+<span class="comment">       format.  In the old format, a hidden edge is marked by the</span>
+<span class="comment">       starting point for that edge. */</span>
+    <span class="keywordflow">if</span> (!<a class="code" href="mfoutline_8h.html#aabb22902a8c1b9a830cb6347a474feea">PointAt</a>(Next)-&gt;Hidden) {
+      FeatureEnd = <a class="code" href="mfoutline_8h.html#aabb22902a8c1b9a830cb6347a474feea">PointAt</a>(Next)-&gt;Point;
+      <a class="code" href="outfeat_8cpp.html#a7a23f0f713121c5a61e7f96df94d6ced">AddOutlineFeatureToSet</a>(&amp;FeatureStart, &amp;FeatureEnd, FeatureSet);
+    }
+  }
+  <span class="keywordflow">while</span> (Next != First);
+}                                <span class="comment">/* ConvertToOutlineFeatures */</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a31e740a46d077ad41735bbd17b0bef34"></a><!-- doxytag: member="outfeat.cpp::NormalizeOutlineX" ref="a31e740a46d077ad41735bbd17b0bef34" args="(FEATURE_SET FeatureSet)" -->
@@ -196,6 +271,44 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="outfeat_8cpp_source.html#l00155">155</a> of file <a class="el" href="outfeat_8cpp_source.html">outfeat.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                               {
+<span class="comment">/*</span>
+<span class="comment"> **     Parameters:</span>
+<span class="comment"> **             FeatureSet      outline-features to be normalized</span>
+<span class="comment"> **     Globals: none</span>
+<span class="comment"> **     Operation: This routine computes the weighted average x position</span>
+<span class="comment"> **             over all of the outline-features in FeatureSet and then</span>
+<span class="comment"> **             renormalizes the outline-features to force this average</span>
+<span class="comment"> **             to be the x origin (i.e. x=0).</span>
+<span class="comment"> **     Return: none (FeatureSet is changed)</span>
+<span class="comment"> **     Exceptions: none</span>
+<span class="comment"> **     History: 11/13/90, DSJ, Created.</span>
+<span class="comment"> */</span>
+  <span class="keywordtype">int</span> i;
+  <a class="code" href="struct_f_e_a_t_u_r_e___s_t_r_u_c_t.html">FEATURE</a> Feature;
+  <a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a> Length;
+  <a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a> TotalX = 0.0;
+  <a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a> TotalWeight = 0.0;
+  <a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a> Origin;
+
+  <span class="keywordflow">if</span> (FeatureSet-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_e_t___s_t_r_u_c_t.html#a154a6ca419f3f16fccf11b7217351570">NumFeatures</a> &lt;= 0)
+    <span class="keywordflow">return</span>;
+
+  <span class="keywordflow">for</span> (i = 0; i &lt; FeatureSet-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_e_t___s_t_r_u_c_t.html#a154a6ca419f3f16fccf11b7217351570">NumFeatures</a>; i++) {
+    Feature = FeatureSet-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_e_t___s_t_r_u_c_t.html#a4664d6a22a9d12f4011de4d877664c45">Features</a>[i];
+    Length = Feature-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_t_r_u_c_t.html#ace52f36cfcba955504f4a24f86a897b4">Params</a>[<a class="code" href="outfeat_8h.html#ab73697b859e4921472c6cf1de43267a1afc77106ded4ebd69ae6c596a2536e741">OutlineFeatLength</a>];
+    TotalX += Feature-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_t_r_u_c_t.html#ace52f36cfcba955504f4a24f86a897b4">Params</a>[<a class="code" href="outfeat_8h.html#ab73697b859e4921472c6cf1de43267a1ab72d959dbf0e92bfdb6f3ebf9d0b35e6">OutlineFeatX</a>] * Length;
+    TotalWeight += Length;
+  }
+  Origin = TotalX / TotalWeight;
+
+  <span class="keywordflow">for</span> (i = 0; i &lt; FeatureSet-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_e_t___s_t_r_u_c_t.html#a154a6ca419f3f16fccf11b7217351570">NumFeatures</a>; i++) {
+    Feature = FeatureSet-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_e_t___s_t_r_u_c_t.html#a4664d6a22a9d12f4011de4d877664c45">Features</a>[i];
+    Feature-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_t_r_u_c_t.html#ace52f36cfcba955504f4a24f86a897b4">Params</a>[<a class="code" href="outfeat_8h.html#ab73697b859e4921472c6cf1de43267a1ab72d959dbf0e92bfdb6f3ebf9d0b35e6">OutlineFeatX</a>] -= Origin;
+  }
+}                                <span class="comment">/* NormalizeOutlineX */</span>
+</pre></div>
 </div>
 </div>
 </div>
@@ -218,7 +331,7 @@ Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:09 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:41 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

@@ -127,7 +127,10 @@ Public Member Functions</h2></td></tr>
 Protected Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_cube_object.html#ae22cb0e4b62800ad7dbb62c3f4ec4453">Normalize</a> ()</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="cube__object_8h_source.html#l00091">91</a> of file <a class="el" href="cube__object_8h_source.html">cube_object.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a89b0aff8c824fc507400648fcfbfde8a"></a><!-- doxytag: member="tesseract::CubeObject::CubeObject" ref="a89b0aff8c824fc507400648fcfbfde8a" args="(CubeRecoContext *cntxt, CharSamp *char_samp)" -->
 <div class="memitem">
 <div class="memproto">
@@ -153,6 +156,13 @@ Protected Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__object_8cpp_source.html#l00026">26</a> of file <a class="el" href="cube__object_8cpp_source.html">cube_object.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                  {
+  Init();
+  char_samp_ = char_samp;
+  cntxt_ = cntxt;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa89d93d8502185a909e1d22c5d588028"></a><!-- doxytag: member="tesseract::CubeObject::CubeObject" ref="aa89d93d8502185a909e1d22c5d588028" args="(CubeRecoContext *cntxt, IMAGE *img, int left, int top, int wid, int hgt)" -->
@@ -204,6 +214,14 @@ Protected Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__object_8cpp_source.html#l00032">32</a> of file <a class="el" href="cube__object_8cpp_source.html">cube_object.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                            {
+  Init();
+  char_samp_ = <a class="code" href="classtesseract_1_1_cube_utils.html#a41b10535c4e6b215774dedc82fd361af">CubeUtils::CharSampleFromImg</a>(img, left, top, wid, hgt);
+  own_char_samp_ = <span class="keyword">true</span>;
+  cntxt_ = cntxt;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac59b3f43f1e73ae4e322ae890760a913"></a><!-- doxytag: member="tesseract::CubeObject::CubeObject" ref="ac59b3f43f1e73ae4e322ae890760a913" args="(CubeRecoContext *cntxt, Pix *pix, int left, int top, int wid, int hgt)" -->
@@ -255,6 +273,14 @@ Protected Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__object_8cpp_source.html#l00040">40</a> of file <a class="el" href="cube__object_8cpp_source.html">cube_object.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                            {
+  Init();
+  char_samp_ = <a class="code" href="classtesseract_1_1_cube_utils.html#a6a9608a69634af76d33e9d514ac39cad">CubeUtils::CharSampleFromPix</a>(pix, left, top, wid, hgt);
+  own_char_samp_ = <span class="keyword">true</span>;
+  cntxt_ = cntxt;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a5817550d8ae8b003eb66e3caf1681936"></a><!-- doxytag: member="tesseract::CubeObject::~CubeObject" ref="a5817550d8ae8b003eb66e3caf1681936" args="()" -->
@@ -271,6 +297,41 @@ Protected Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__object_8cpp_source.html#l00076">76</a> of file <a class="el" href="cube__object_8cpp_source.html">cube_object.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                        {
+  <span class="keywordflow">if</span> (char_samp_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp; own_char_samp_ == <span class="keyword">true</span>) {
+    <span class="keyword">delete</span> char_samp_;
+    char_samp_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="keywordflow">if</span> (srch_obj_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keyword">delete</span> srch_obj_;
+    srch_obj_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="keywordflow">if</span> (deslanted_srch_obj_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keyword">delete</span> deslanted_srch_obj_;
+    deslanted_srch_obj_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="keywordflow">if</span> (beam_obj_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keyword">delete</span> beam_obj_;
+    beam_obj_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="keywordflow">if</span> (deslanted_beam_obj_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keyword">delete</span> deslanted_beam_obj_;
+    deslanted_beam_obj_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="keywordflow">if</span> (deslanted_char_samp_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keyword">delete</span> deslanted_char_samp_;
+    deslanted_char_samp_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  Cleanup();
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -288,6 +349,11 @@ Protected Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__object_8h_source.html#l00122">122</a> of file <a class="el" href="cube__object_8h_source.html">cube_object.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                            {
+    <span class="keywordflow">return</span> (deslanted_ == <span class="keyword">true</span> ? deslanted_alt_list_ : alt_list_);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a26496fcab290ab89fc22173cea84c881"></a><!-- doxytag: member="tesseract::CubeObject::BeamObj" ref="a26496fcab290ab89fc22173cea84c881" args="() const " -->
@@ -304,6 +370,11 @@ Protected Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__object_8h_source.html#l00117">117</a> of file <a class="el" href="cube__object_8h_source.html">cube_object.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                     {
+    <span class="keywordflow">return</span> (deslanted_ == <span class="keyword">true</span> ? deslanted_beam_obj_ : beam_obj_);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="adcaa18b8dcbc72c7f5c54061a3e5671c"></a><!-- doxytag: member="tesseract::CubeObject::CharSample" ref="adcaa18b8dcbc72c7f5c54061a3e5671c" args="() const " -->
@@ -320,6 +391,11 @@ Protected Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__object_8h_source.html#l00133">133</a> of file <a class="el" href="cube__object_8h_source.html">cube_object.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                      {
+    <span class="keywordflow">return</span> (deslanted_ == <span class="keyword">true</span> ? deslanted_char_samp_ : char_samp_);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae22cb0e4b62800ad7dbb62c3f4ec4453"></a><!-- doxytag: member="tesseract::CubeObject::Normalize" ref="ae22cb0e4b62800ad7dbb62c3f4ec4453" args="()" -->
@@ -336,6 +412,49 @@ Protected Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__object_8cpp_source.html#l00256">256</a> of file <a class="el" href="cube__object_8cpp_source.html">cube_object.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                           {
+  <span class="comment">// create a cube search object</span>
+  CubeSearchObject *srch_obj = <span class="keyword">new</span> CubeSearchObject(cntxt_, char_samp_);
+  <span class="keywordflow">if</span> (srch_obj == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+  <span class="comment">// Perform over-segmentation</span>
+  <span class="keywordtype">int</span> seg_cnt = srch_obj-&gt;SegPtCnt();
+  <span class="comment">// Only perform normalization if segment count is large enough</span>
+  <span class="keywordflow">if</span> (seg_cnt &lt; kMinNormalizationSegmentCnt) {
+    <span class="keyword">delete</span> srch_obj;
+    <span class="keywordflow">return</span> <span class="keyword">true</span>;
+  }
+  <span class="comment">// compute the mean AR of the segments</span>
+  <span class="keywordtype">double</span> ar_mean = 0.0;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> seg_idx = 0; seg_idx &lt;= seg_cnt; seg_idx++) {
+    CharSamp *seg_samp = srch_obj-&gt;CharSample(seg_idx - 1, seg_idx);
+    <span class="keywordflow">if</span> (seg_samp != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp; seg_samp-&gt;Width() &gt; 0) {
+      ar_mean += (1.0 * seg_samp-&gt;Height() / seg_samp-&gt;Width());
+    }
+  }
+  ar_mean /= (seg_cnt + 1);
+  <span class="comment">// perform normalization if segment AR is too high</span>
+  <span class="keywordflow">if</span> (ar_mean &gt; kMinNormalizationAspectRatio) {
+    <span class="comment">// scale down the image in the y-direction to attain AR</span>
+    CharSamp *new_samp = char_samp_-&gt;Scale(char_samp_-&gt;Width(),
+                                           2.0 * char_samp_-&gt;Height() / ar_mean,
+                                           <span class="keyword">false</span>);
+    <span class="keywordflow">if</span> (new_samp != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      <span class="comment">// free existing char samp if owned</span>
+      <span class="keywordflow">if</span> (own_char_samp_) {
+        <span class="keyword">delete</span> char_samp_;
+      }
+      <span class="comment">// update with new scaled charsamp and set ownership flag</span>
+      char_samp_ = new_samp;
+      own_char_samp_ = <span class="keyword">true</span>;
+    }
+  }
+  <span class="keyword">delete</span> srch_obj;
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a81f6bbfded6ee56256213ea3711ec5a5"></a><!-- doxytag: member="tesseract::CubeObject::RecognizeChar" ref="a81f6bbfded6ee56256213ea3711ec5a5" args="()" -->
@@ -352,6 +471,16 @@ Protected Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__object_8cpp_source.html#l00246">246</a> of file <a class="el" href="cube__object_8cpp_source.html">cube_object.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                       {
+  <span class="keywordflow">if</span> (char_samp_ == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  CharAltList* alt_list = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  CharClassifier *char_classifier = cntxt_-&gt;Classifier();
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(char_classifier != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  alt_list = char_classifier-&gt;Classify(char_samp_);
+  <span class="keywordflow">return</span> alt_list;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4f10da7950214b56885db746b31b17e2"></a><!-- doxytag: member="tesseract::CubeObject::RecognizePhrase" ref="a4f10da7950214b56885db746b31b17e2" args="(LangModel *lang_mod=NULL)" -->
@@ -369,6 +498,11 @@ Protected Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__object_8cpp_source.html#l00214">214</a> of file <a class="el" href="cube__object_8cpp_source.html">cube_object.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                            {
+  <span class="keywordflow">return</span> Recognize(lang_mod, <span class="keyword">false</span>);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab6d0a0e600df7283105d9aace07bb35f"></a><!-- doxytag: member="tesseract::CubeObject::RecognizeWord" ref="ab6d0a0e600df7283105d9aace07bb35f" args="(LangModel *lang_mod=NULL)" -->
@@ -386,6 +520,11 @@ Protected Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__object_8cpp_source.html#l00209">209</a> of file <a class="el" href="cube__object_8cpp_source.html">cube_object.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                          {
+  <span class="keywordflow">return</span> Recognize(lang_mod, <span class="keyword">true</span>);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a30b2460908222500b428d02035cc1cbe"></a><!-- doxytag: member="tesseract::CubeObject::SetCharSampOwnership" ref="a30b2460908222500b428d02035cc1cbe" args="(bool own_char_samp)" -->
@@ -403,6 +542,11 @@ Protected Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__object_8h_source.html#l00138">138</a> of file <a class="el" href="cube__object_8h_source.html">cube_object.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                       {
+    own_char_samp_ = own_char_samp;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad7160b69b2316a07a545ca972136ef89"></a><!-- doxytag: member="tesseract::CubeObject::SrchObj" ref="ad7160b69b2316a07a545ca972136ef89" args="() const " -->
@@ -419,6 +563,11 @@ Protected Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__object_8h_source.html#l00127">127</a> of file <a class="el" href="cube__object_8h_source.html">cube_object.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                           {
+    <span class="keywordflow">return</span> (deslanted_ == <span class="keyword">true</span> ? deslanted_srch_obj_ : srch_obj_);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac323f039f5255f195a4c69b08f5259a1"></a><!-- doxytag: member="tesseract::CubeObject::WordCost" ref="ac323f039f5255f195a4c69b08f5259a1" args="(const char *str)" -->
@@ -436,11 +585,37 @@ Protected Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__object_8cpp_source.html#l00220">220</a> of file <a class="el" href="cube__object_8cpp_source.html">cube_object.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                        {
+  WordListLangModel *lang_mod = <span class="keyword">new</span> WordListLangModel(cntxt_);
+  <span class="keywordflow">if</span> (lang_mod == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">return</span> <a class="code" href="cube__const_8h.html#ab15bac3baa4fd3e56ba19eefebe4065f">WORST_COST</a>;
+  }
+
+  <span class="keywordflow">if</span> (lang_mod-&gt;AddString(str) == <span class="keyword">false</span>) {
+    <span class="keyword">delete</span> lang_mod;
+    <span class="keywordflow">return</span> <a class="code" href="cube__const_8h.html#ab15bac3baa4fd3e56ba19eefebe4065f">WORST_COST</a>;
+  }
+
+  <span class="comment">// run a beam search against the single string wordlist model</span>
+  WordAltList *alt_list = <a class="code" href="classtesseract_1_1_cube_object.html#ab6d0a0e600df7283105d9aace07bb35f">RecognizeWord</a>(lang_mod);
+  <span class="keyword">delete</span> lang_mod;
+
+  <span class="keywordtype">int</span> cost = <a class="code" href="cube__const_8h.html#ab15bac3baa4fd3e56ba19eefebe4065f">WORST_COST</a>;
+  <span class="keywordflow">if</span> (alt_list != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">if</span> (alt_list-&gt;AltCount() &gt; 0) {
+      cost = alt_list-&gt;AltCost(0);
+    }
+  }
+
+  <span class="keywordflow">return</span> cost;
+}
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/cube/<a class="el" href="cube__object_8h_source.html">cube_object.h</a></li>
-<li>tesseract-ocr/cube/<a class="el" href="cube__object_8cpp.html">cube_object.cpp</a></li>
+<li>tesseract-ocr/cube/<a class="el" href="cube__object_8cpp_source.html">cube_object.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -463,7 +638,7 @@ Protected Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:15 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:51 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

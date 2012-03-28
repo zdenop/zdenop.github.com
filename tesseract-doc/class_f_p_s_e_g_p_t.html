@@ -135,7 +135,10 @@ Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="host_8h.html#a7712a7e28433d0ade59219a129549b6f">BOOL8</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_p_s_e_g_p_t.html#a5e21f19a9e0d86f3009dc96a776f0199">terminal</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_p_s_e_g_p_t.html#a3174c1dbd5dde6b07482fa5c9d1e1900">fake_count</a></td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="pitsync1_8h_source.html#l00034">34</a> of file <a class="el" href="pitsync1_8h_source.html">pitsync1.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a088aff5c1071d1ee5b4ecea021f8e733"></a><!-- doxytag: member="FPSEGPT::FPSEGPT" ref="a088aff5c1071d1ee5b4ecea021f8e733" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -150,6 +153,10 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pitsync1_8h_source.html#l00037">37</a> of file <a class="el" href="pitsync1_8h_source.html">pitsync1.h</a>.</p>
+<div class="fragment"><pre class="fragment">              {  <span class="comment">//empty</span>
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a5ffecee179a3483cbc9fe4953dc5a4bf"></a><!-- doxytag: member="FPSEGPT::FPSEGPT" ref="a5ffecee179a3483cbc9fe4953dc5a4bf" args="(inT16 x)" -->
@@ -167,6 +174,18 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pitsync1_8cpp_source.html#l00071">71</a> of file <a class="el" href="pitsync1_8cpp_source.html">pitsync1.cpp</a>.</p>
+<div class="fragment"><pre class="fragment"> :xpos (x) {
+  pred = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  mean_sum = 0;
+  sq_sum = 0;
+  cost = 0;
+  <a class="code" href="class_f_p_s_e_g_p_t.html#aad5db657759063c17115abfdd74c0689">faked</a> = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+  <a class="code" href="class_f_p_s_e_g_p_t.html#a5e21f19a9e0d86f3009dc96a776f0199">terminal</a> = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+  <a class="code" href="class_f_p_s_e_g_p_t.html#a3174c1dbd5dde6b07482fa5c9d1e1900">fake_count</a> = 0;
+  mid_cuts = 0;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a8205f3429c45672f6b8e380f5b100d89"></a><!-- doxytag: member="FPSEGPT::FPSEGPT" ref="a8205f3429c45672f6b8e380f5b100d89" args="(inT16 x, BOOL8 faking, inT16 offset, inT16 region_index, inT16 pitch, inT16 pitch_error, FPSEGPT_LIST *prev_list)" -->
@@ -224,6 +243,50 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pitsync1_8cpp_source.html#l00091">91</a> of file <a class="el" href="pitsync1_8cpp_source.html">pitsync1.cpp</a>.</p>
+<div class="fragment"><pre class="fragment"> :xpos (x) {
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> best_fake;               <span class="comment">//on previous</span>
+  <a class="code" href="class_f_p_s_e_g_p_t.html">FPSEGPT</a> *segpt;                <span class="comment">//segment point</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> dist;                    <span class="comment">//from prev segment</span>
+  <span class="keywordtype">double</span> sq_dist;                <span class="comment">//squared distance</span>
+  <span class="keywordtype">double</span> mean;                   <span class="comment">//mean pitch</span>
+  <span class="keywordtype">double</span> total;                  <span class="comment">//total dists</span>
+  <span class="keywordtype">double</span> factor;                 <span class="comment">//cost function</span>
+  FPSEGPT_IT pred_it = prev_list;<span class="comment">//for previuos segment</span>
+
+  cost = <a class="code" href="host_8h.html#a9adcee815220ec9db98062213806ed04">MAX_FLOAT32</a>;
+  pred = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <a class="code" href="class_f_p_s_e_g_p_t.html#aad5db657759063c17115abfdd74c0689">faked</a> = faking;
+  <a class="code" href="class_f_p_s_e_g_p_t.html#a5e21f19a9e0d86f3009dc96a776f0199">terminal</a> = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+  best_fake = <a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a>;
+  mid_cuts = 0;
+  <span class="keywordflow">for</span> (pred_it.mark_cycle_pt (); !pred_it.cycled_list (); pred_it.forward ()) {
+    segpt = pred_it.data ();
+    <span class="keywordflow">if</span> (segpt-&gt;<a class="code" href="class_f_p_s_e_g_p_t.html#a3174c1dbd5dde6b07482fa5c9d1e1900">fake_count</a> &lt; best_fake)
+      best_fake = segpt-&gt;<a class="code" href="class_f_p_s_e_g_p_t.html#a3174c1dbd5dde6b07482fa5c9d1e1900">fake_count</a>;
+    dist = x - segpt-&gt;xpos;
+    <span class="keywordflow">if</span> (dist &gt;= pitch - pitch_error &amp;&amp; dist &lt;= pitch + pitch_error
+    &amp;&amp; !segpt-&gt;<a class="code" href="class_f_p_s_e_g_p_t.html#a5e21f19a9e0d86f3009dc96a776f0199">terminal</a>) {
+      total = segpt-&gt;mean_sum + dist;
+      sq_dist = dist * dist + segpt-&gt;sq_sum + offset * offset;
+      <span class="comment">//sum of squarees</span>
+      mean = total / region_index;
+      factor = mean - pitch;
+      factor *= factor;
+      factor += sq_dist / (region_index) - mean * mean;
+      <span class="keywordflow">if</span> (factor &lt; cost) {
+        cost = factor;           <span class="comment">//find least cost</span>
+        pred = segpt;            <span class="comment">//save path</span>
+        mean_sum = total;
+        sq_sum = sq_dist;
+        <a class="code" href="class_f_p_s_e_g_p_t.html#a3174c1dbd5dde6b07482fa5c9d1e1900">fake_count</a> = segpt-&gt;<a class="code" href="class_f_p_s_e_g_p_t.html#a3174c1dbd5dde6b07482fa5c9d1e1900">fake_count</a> + <a class="code" href="class_f_p_s_e_g_p_t.html#aad5db657759063c17115abfdd74c0689">faked</a>;
+      }
+    }
+  }
+  <span class="keywordflow">if</span> (<a class="code" href="class_f_p_s_e_g_p_t.html#a3174c1dbd5dde6b07482fa5c9d1e1900">fake_count</a> &gt; best_fake + 1)
+    pred = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;                 <span class="comment">//fail it</span>
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aecaefcc18a32620ca9092d6045190a91"></a><!-- doxytag: member="FPSEGPT::FPSEGPT" ref="aecaefcc18a32620ca9092d6045190a91" args="(FPCUTPT *cutpt)" -->
@@ -241,6 +304,19 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pitsync1_8cpp_source.html#l00050">50</a> of file <a class="el" href="pitsync1_8cpp_source.html">pitsync1.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                  {
+  pred = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  mean_sum = cutpt-&gt;<a class="code" href="class_f_p_c_u_t_p_t.html#aa458ef97a2dfab2d805c5c58acbc2459">sum</a> ();
+  sq_sum = cutpt-&gt;<a class="code" href="class_f_p_c_u_t_p_t.html#a14707a25df4ff0c1a5f4a1149d676c18">squares</a> ();
+  cost = cutpt-&gt;<a class="code" href="class_f_p_c_u_t_p_t.html#a754e205021f03c913ca0aa5b277b1aac">cost_function</a> ();
+  <a class="code" href="class_f_p_s_e_g_p_t.html#aad5db657759063c17115abfdd74c0689">faked</a> = cutpt-&gt;<a class="code" href="class_f_p_c_u_t_p_t.html#a1aac5202730ed2f48d40d4b5d6a35543">faked</a>;
+  <a class="code" href="class_f_p_s_e_g_p_t.html#a5e21f19a9e0d86f3009dc96a776f0199">terminal</a> = cutpt-&gt;<a class="code" href="class_f_p_c_u_t_p_t.html#aad85bb77d2c329c43abd41e854183f1d">terminal</a>;
+  <a class="code" href="class_f_p_s_e_g_p_t.html#a3174c1dbd5dde6b07482fa5c9d1e1900">fake_count</a> = cutpt-&gt;<a class="code" href="class_f_p_c_u_t_p_t.html#a4700de0507676a547b49f7b5b0414b1b">fake_count</a>;
+  xpos = cutpt-&gt;<a class="code" href="class_f_p_c_u_t_p_t.html#a4bd6376f9b5ec6825df3fdb5a7db3d6c">position</a> ();
+  mid_cuts = cutpt-&gt;<a class="code" href="class_f_p_c_u_t_p_t.html#abd4586d7d5bfcfc0d59c857c78bd1103">cheap_cuts</a> ();
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -258,6 +334,11 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pitsync1_8h_source.html#l00066">66</a> of file <a class="el" href="pitsync1_8h_source.html">pitsync1.h</a>.</p>
+<div class="fragment"><pre class="fragment">                             {  <span class="comment">//no of cheap cuts</span>
+      <span class="keywordflow">return</span> mid_cuts;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2d099c15bf06dc51039f45eb81927de3"></a><!-- doxytag: member="FPSEGPT::cost_function" ref="a2d099c15bf06dc51039f45eb81927de3" args="()" -->
@@ -274,6 +355,11 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pitsync1_8h_source.html#l00054">54</a> of file <a class="el" href="pitsync1_8h_source.html">pitsync1.h</a>.</p>
+<div class="fragment"><pre class="fragment">                           {
+      <span class="keywordflow">return</span> cost;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a1a63caa9483f9b0ea37ec8fda2e8fa5b"></a><!-- doxytag: member="FPSEGPT::position" ref="a1a63caa9483f9b0ea37ec8fda2e8fa5b" args="()" -->
@@ -290,6 +376,11 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pitsync1_8h_source.html#l00051">51</a> of file <a class="el" href="pitsync1_8h_source.html">pitsync1.h</a>.</p>
+<div class="fragment"><pre class="fragment">                     {  <span class="comment">//acces func</span>
+      <span class="keywordflow">return</span> xpos;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4386c87b640304091479028601b74ff9"></a><!-- doxytag: member="FPSEGPT::previous" ref="a4386c87b640304091479028601b74ff9" args="()" -->
@@ -306,6 +397,11 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pitsync1_8h_source.html#l00063">63</a> of file <a class="el" href="pitsync1_8h_source.html">pitsync1.h</a>.</p>
+<div class="fragment"><pre class="fragment">                        {
+      <span class="keywordflow">return</span> pred;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac7534344b8a1c731292c295606a5ec06"></a><!-- doxytag: member="FPSEGPT::squares" ref="ac7534344b8a1c731292c295606a5ec06" args="()" -->
@@ -322,6 +418,11 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pitsync1_8h_source.html#l00057">57</a> of file <a class="el" href="pitsync1_8h_source.html">pitsync1.h</a>.</p>
+<div class="fragment"><pre class="fragment">                     {
+      <span class="keywordflow">return</span> sq_sum;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="acfb4b892f4ee3cdfd1bbd8916ac5f002"></a><!-- doxytag: member="FPSEGPT::sum" ref="acfb4b892f4ee3cdfd1bbd8916ac5f002" args="()" -->
@@ -338,6 +439,11 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pitsync1_8h_source.html#l00060">60</a> of file <a class="el" href="pitsync1_8h_source.html">pitsync1.h</a>.</p>
+<div class="fragment"><pre class="fragment">                 {
+      <span class="keywordflow">return</span> mean_sum;
+    }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
@@ -352,6 +458,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pitsync1_8h_source.html#l00073">73</a> of file <a class="el" href="pitsync1_8h_source.html">pitsync1.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="aad5db657759063c17115abfdd74c0689"></a><!-- doxytag: member="FPSEGPT::faked" ref="aad5db657759063c17115abfdd74c0689" args="" -->
@@ -364,6 +472,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="pitsync1_8h_source.html#l00071">71</a> of file <a class="el" href="pitsync1_8h_source.html">pitsync1.h</a>.</p>
 
 </div>
 </div>
@@ -378,11 +488,13 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pitsync1_8h_source.html#l00072">72</a> of file <a class="el" href="pitsync1_8h_source.html">pitsync1.h</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/textord/<a class="el" href="pitsync1_8h_source.html">pitsync1.h</a></li>
-<li>tesseract-ocr/textord/<a class="el" href="pitsync1_8cpp.html">pitsync1.cpp</a></li>
+<li>tesseract-ocr/textord/<a class="el" href="pitsync1_8cpp_source.html">pitsync1.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -404,7 +516,7 @@ Public Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:12 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:46 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

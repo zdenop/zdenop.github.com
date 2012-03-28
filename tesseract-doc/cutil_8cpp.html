@@ -106,7 +106,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <code>#include &quot;<a class="el" href="tprintf_8h_source.html">tprintf.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="callcpp_8h_source.html">callcpp.h</a>&quot;</code><br/>
 <code>#include &lt;stdlib.h&gt;</code><br/>
-</div><table class="memberdecls">
+</div>
+<p><a href="cutil_8cpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr><td colspan="2"><h2><a name="define-members"></a>
 Defines</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="cutil_8cpp.html#a6f918b4c4fd78a6a98a73d38d327f160">RESET_COUNT</a>&#160;&#160;&#160;2000</td></tr>
@@ -129,6 +131,8 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cutil_8cpp_source.html#l00047">47</a> of file <a class="el" href="cutil_8cpp_source.html">cutil.cpp</a>.</p>
+
 </div>
 </div>
 <hr/><h2>Function Documentation</h2>
@@ -149,6 +153,17 @@ Functions</h2></td></tr>
 
 <p>Check whether the file exists. </p>
 
+<p>Definition at line <a class="el" href="cutil_8cpp_source.html#l00092">92</a> of file <a class="el" href="cutil_8cpp_source.html">cutil.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                       {
+  <span class="keywordtype">bool</span> exists = <span class="keyword">false</span>;
+  FILE *<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordflow">if</span> ((f = fopen(filename, <span class="stringliteral">&quot;rb&quot;</span>)) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    fclose(f);
+    exists = <span class="keyword">true</span>;
+  }
+  <span class="keywordflow">return</span> exists;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a33d2b2e66e43c48ac087a3e89f783f85"></a><!-- doxytag: member="cutil.cpp::long_rand" ref="a33d2b2e66e43c48ac087a3e89f783f85" args="(long limit)" -->
@@ -166,6 +181,25 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cutil_8cpp_source.html#l00056">56</a> of file <a class="el" href="cutil_8cpp_source.html">cutil.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                           {
+<span class="preprocessor">#if RAND_MAX &lt; 0x1000000</span>
+<span class="preprocessor"></span>  <span class="keyword">static</span> <span class="keywordtype">long</span> seed;
+
+  <span class="keywordtype">long</span> num;
+  num = (long) rand () &lt;&lt; 16;
+  num |= rand () &amp; 0xffff;
+  seed ^= num;
+  <span class="keywordtype">long</span> result = num % limit;
+  <span class="keywordflow">while</span> (result &lt; 0) {
+    result += limit;
+  }
+  <span class="keywordflow">return</span> result;
+<span class="preprocessor">#else</span>
+<span class="preprocessor"></span>  <span class="keywordflow">return</span> (<span class="keywordtype">long</span>)((double)limit * rand()/(RAND_MAX + 1.0));
+<span class="preprocessor">#endif</span>
+<span class="preprocessor"></span>}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae3226f9d05617de0b7174bc7b7fce5b6"></a><!-- doxytag: member="cutil.cpp::open_file" ref="ae3226f9d05617de0b7174bc7b7fce5b6" args="(const char *filename, const char *mode)" -->
@@ -193,6 +227,16 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cutil_8cpp_source.html#l00082">82</a> of file <a class="el" href="cutil_8cpp_source.html">cutil.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                        {
+  FILE *thisfile = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordflow">if</span> ((thisfile = fopen (filename, <a class="code" href="pgedit_8cpp.html#afc03cf3e39248c2e339fee4d31f5f750">mode</a>)) == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a> (<span class="stringliteral">&quot;Could not open file, %s\n&quot;</span>, filename);
+    exit (1);
+  }
+  <span class="keywordflow">return</span> (thisfile);
+}
+</pre></div>
 </div>
 </div>
 </div>
@@ -215,7 +259,7 @@ Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:09 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:42 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

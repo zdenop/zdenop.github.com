@@ -139,7 +139,10 @@ Public Member Functions</h2></td></tr>
 Friends</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_l_i_s_t___i_t_e_r_a_t_o_r.html#ab9d8782c30589194ee2406f74c8f5792">ELIST::assign_to_sublist</a> (<a class="el" href="class_e_l_i_s_t___i_t_e_r_a_t_o_r.html">ELIST_ITERATOR</a> *, <a class="el" href="class_e_l_i_s_t___i_t_e_r_a_t_o_r.html">ELIST_ITERATOR</a> *)</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="elst_8h_source.html#l00188">188</a> of file <a class="el" href="elst_8h_source.html">elst.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a84e4645441a7a081ad21e60685e4fab2"></a><!-- doxytag: member="ELIST_ITERATOR::ELIST_ITERATOR" ref="a84e4645441a7a081ad21e60685e4fab2" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -154,6 +157,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="elst_8h_source.html#l00209">209</a> of file <a class="el" href="elst_8h_source.html">elst.h</a>.</p>
+<div class="fragment"><pre class="fragment">                     {  <span class="comment">//constructor</span>
+      list = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    }                            <span class="comment">//unassigned list</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a0209b354ce3e42f7f4e75e4c85974062"></a><!-- doxytag: member="ELIST_ITERATOR::ELIST_ITERATOR" ref="a0209b354ce3e42f7f4e75e4c85974062" args="(ELIST *list_to_iterate)" -->
@@ -171,6 +179,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="elst_8h_source.html#l00326">326</a> of file <a class="el" href="elst_8h_source.html">elst.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                            {
+  <a class="code" href="class_e_l_i_s_t___i_t_e_r_a_t_o_r.html#a9d88cc0f81f2f1b2b99baa72c39d4493">set_to_list</a>(list_to_iterate);
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -189,6 +202,48 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="elst_8h_source.html#l00385">385</a> of file <a class="el" href="elst_8h_source.html">elst.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                        {
+<span class="preprocessor">  #ifndef NDEBUG</span>
+<span class="preprocessor"></span>  <span class="keywordflow">if</span> (!<span class="keyword">this</span>)
+    <a class="code" href="lsterr_8h.html#aa905f4edc3563a45c13d5067f6398d6a">NULL_OBJECT</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::add_after_stay_put&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <span class="keywordflow">if</span> (!list)
+    <a class="code" href="lsterr_8h.html#aaffb45f5550e84f2443ffb2585055ffd">NO_LIST</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::add_after_stay_put&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <span class="keywordflow">if</span> (!new_element)
+    <a class="code" href="lsterr_8h.html#a55134ddce5fbe49d262fefe6e9f1eb8b">BAD_PARAMETER</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::add_after_stay_put&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>,
+      <span class="stringliteral">&quot;new_element is NULL&quot;</span>);
+  <span class="keywordflow">if</span> (new_element-&gt;next)
+    <a class="code" href="lsterr_8h.html#a79ccb5823fc9ffa52f94155cedb17796">STILL_LINKED</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::add_after_stay_put&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+<span class="preprocessor">  #endif</span>
+<span class="preprocessor"></span>
+  <span class="keywordflow">if</span> (list-&gt;<a class="code" href="class_e_l_i_s_t.html#a7788b6c4e4b9623e43c58fe3b2976edd">empty</a> ()) {
+    new_element-&gt;next = new_element;
+    list-&gt;last = new_element;
+    prev = next = new_element;
+    ex_current_was_last = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+    current = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="keywordflow">else</span> {
+    new_element-&gt;next = next;
+
+    <span class="keywordflow">if</span> (current) {               <span class="comment">//not extracted</span>
+      current-&gt;next = new_element;
+      <span class="keywordflow">if</span> (prev == current)
+        prev = new_element;
+      <span class="keywordflow">if</span> (current == list-&gt;last)
+        list-&gt;last = new_element;
+    }
+    <span class="keywordflow">else</span> {                       <span class="comment">//current extracted</span>
+      prev-&gt;next = new_element;
+      <span class="keywordflow">if</span> (ex_current_was_last) {
+        list-&gt;last = new_element;
+        ex_current_was_last = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+      }
+    }
+    next = new_element;
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a361fd0c22ef03a2f4b44a0ff2ca18599"></a><!-- doxytag: member="ELIST_ITERATOR::add_after_then_move" ref="a361fd0c22ef03a2f4b44a0ff2ca18599" args="(ELIST_LINK *new_link)" -->
@@ -206,6 +261,45 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="elst_8h_source.html#l00338">338</a> of file <a class="el" href="elst_8h_source.html">elst.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                         {
+<span class="preprocessor">  #ifndef NDEBUG</span>
+<span class="preprocessor"></span>  <span class="keywordflow">if</span> (!<span class="keyword">this</span>)
+    <a class="code" href="lsterr_8h.html#aa905f4edc3563a45c13d5067f6398d6a">NULL_OBJECT</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::add_after_then_move&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <span class="keywordflow">if</span> (!list)
+    <a class="code" href="lsterr_8h.html#aaffb45f5550e84f2443ffb2585055ffd">NO_LIST</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::add_after_then_move&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <span class="keywordflow">if</span> (!new_element)
+    <a class="code" href="lsterr_8h.html#a55134ddce5fbe49d262fefe6e9f1eb8b">BAD_PARAMETER</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::add_after_then_move&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>,
+      <span class="stringliteral">&quot;new_element is NULL&quot;</span>);
+  <span class="keywordflow">if</span> (new_element-&gt;next)
+    <a class="code" href="lsterr_8h.html#a79ccb5823fc9ffa52f94155cedb17796">STILL_LINKED</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::add_after_then_move&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+<span class="preprocessor">  #endif</span>
+<span class="preprocessor"></span>
+  <span class="keywordflow">if</span> (list-&gt;<a class="code" href="class_e_l_i_s_t.html#a7788b6c4e4b9623e43c58fe3b2976edd">empty</a> ()) {
+    new_element-&gt;next = new_element;
+    list-&gt;last = new_element;
+    prev = next = new_element;
+  }
+  <span class="keywordflow">else</span> {
+    new_element-&gt;next = next;
+
+    <span class="keywordflow">if</span> (current) {               <span class="comment">//not extracted</span>
+      current-&gt;next = new_element;
+      prev = current;
+      <span class="keywordflow">if</span> (current == list-&gt;last)
+        list-&gt;last = new_element;
+    }
+    <span class="keywordflow">else</span> {                       <span class="comment">//current extracted</span>
+      prev-&gt;next = new_element;
+      <span class="keywordflow">if</span> (ex_current_was_last)
+        list-&gt;last = new_element;
+      <span class="keywordflow">if</span> (ex_current_was_cycle_pt)
+        cycle_pt = new_element;
+    }
+  }
+  current = new_element;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a26fc936740be363145c20c2173ea809f"></a><!-- doxytag: member="ELIST_ITERATOR::add_before_stay_put" ref="a26fc936740be363145c20c2173ea809f" args="(ELIST_LINK *new_link)" -->
@@ -223,6 +317,43 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="elst_8h_source.html#l00479">479</a> of file <a class="el" href="elst_8h_source.html">elst.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                         {
+<span class="preprocessor">  #ifndef NDEBUG</span>
+<span class="preprocessor"></span>  <span class="keywordflow">if</span> (!<span class="keyword">this</span>)
+    <a class="code" href="lsterr_8h.html#aa905f4edc3563a45c13d5067f6398d6a">NULL_OBJECT</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::add_before_stay_put&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <span class="keywordflow">if</span> (!list)
+    <a class="code" href="lsterr_8h.html#aaffb45f5550e84f2443ffb2585055ffd">NO_LIST</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::add_before_stay_put&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <span class="keywordflow">if</span> (!new_element)
+    <a class="code" href="lsterr_8h.html#a55134ddce5fbe49d262fefe6e9f1eb8b">BAD_PARAMETER</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::add_before_stay_put&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>,
+      <span class="stringliteral">&quot;new_element is NULL&quot;</span>);
+  <span class="keywordflow">if</span> (new_element-&gt;next)
+    <a class="code" href="lsterr_8h.html#a79ccb5823fc9ffa52f94155cedb17796">STILL_LINKED</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::add_before_stay_put&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+<span class="preprocessor">  #endif</span>
+<span class="preprocessor"></span>
+  <span class="keywordflow">if</span> (list-&gt;<a class="code" href="class_e_l_i_s_t.html#a7788b6c4e4b9623e43c58fe3b2976edd">empty</a> ()) {
+    new_element-&gt;next = new_element;
+    list-&gt;last = new_element;
+    prev = next = new_element;
+    ex_current_was_last = <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+    current = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="keywordflow">else</span> {
+    prev-&gt;next = new_element;
+    <span class="keywordflow">if</span> (current) {               <span class="comment">//not extracted</span>
+      new_element-&gt;next = current;
+      <span class="keywordflow">if</span> (next == current)
+        next = new_element;
+    }
+    <span class="keywordflow">else</span> {                       <span class="comment">//current extracted</span>
+      new_element-&gt;next = next;
+      <span class="keywordflow">if</span> (ex_current_was_last)
+        list-&gt;last = new_element;
+    }
+    prev = new_element;
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a8fd2deb70c621465f3a5016b63e6035b"></a><!-- doxytag: member="ELIST_ITERATOR::add_before_then_move" ref="a8fd2deb70c621465f3a5016b63e6035b" args="(ELIST_LINK *new_link)" -->
@@ -240,6 +371,42 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="elst_8h_source.html#l00435">435</a> of file <a class="el" href="elst_8h_source.html">elst.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                          {
+<span class="preprocessor">  #ifndef NDEBUG</span>
+<span class="preprocessor"></span>  <span class="keywordflow">if</span> (!<span class="keyword">this</span>)
+    <a class="code" href="lsterr_8h.html#aa905f4edc3563a45c13d5067f6398d6a">NULL_OBJECT</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::add_before_then_move&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <span class="keywordflow">if</span> (!list)
+    <a class="code" href="lsterr_8h.html#aaffb45f5550e84f2443ffb2585055ffd">NO_LIST</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::add_before_then_move&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <span class="keywordflow">if</span> (!new_element)
+    <a class="code" href="lsterr_8h.html#a55134ddce5fbe49d262fefe6e9f1eb8b">BAD_PARAMETER</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::add_before_then_move&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>,
+      <span class="stringliteral">&quot;new_element is NULL&quot;</span>);
+  <span class="keywordflow">if</span> (new_element-&gt;next)
+    <a class="code" href="lsterr_8h.html#a79ccb5823fc9ffa52f94155cedb17796">STILL_LINKED</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::add_before_then_move&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+<span class="preprocessor">  #endif</span>
+<span class="preprocessor"></span>
+  <span class="keywordflow">if</span> (list-&gt;<a class="code" href="class_e_l_i_s_t.html#a7788b6c4e4b9623e43c58fe3b2976edd">empty</a> ()) {
+    new_element-&gt;next = new_element;
+    list-&gt;last = new_element;
+    prev = next = new_element;
+  }
+  <span class="keywordflow">else</span> {
+    prev-&gt;next = new_element;
+    <span class="keywordflow">if</span> (current) {               <span class="comment">//not extracted</span>
+      new_element-&gt;next = current;
+      next = current;
+    }
+    <span class="keywordflow">else</span> {                       <span class="comment">//current extracted</span>
+      new_element-&gt;next = next;
+      <span class="keywordflow">if</span> (ex_current_was_last)
+        list-&gt;last = new_element;
+      <span class="keywordflow">if</span> (ex_current_was_cycle_pt)
+        cycle_pt = new_element;
+    }
+  }
+  current = new_element;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a39562bc858295367f54944939dbe0f1d"></a><!-- doxytag: member="ELIST_ITERATOR::add_list_after" ref="a39562bc858295367f54944939dbe0f1d" args="(ELIST *list_to_add)" -->
@@ -257,6 +424,48 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="elst_8h_source.html#l00524">524</a> of file <a class="el" href="elst_8h_source.html">elst.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                             {
+<span class="preprocessor">  #ifndef NDEBUG</span>
+<span class="preprocessor"></span>  <span class="keywordflow">if</span> (!<span class="keyword">this</span>)
+    <a class="code" href="lsterr_8h.html#aa905f4edc3563a45c13d5067f6398d6a">NULL_OBJECT</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::add_list_after&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <span class="keywordflow">if</span> (!list)
+    <a class="code" href="lsterr_8h.html#aaffb45f5550e84f2443ffb2585055ffd">NO_LIST</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::add_list_after&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <span class="keywordflow">if</span> (!list_to_add)
+    <a class="code" href="lsterr_8h.html#a55134ddce5fbe49d262fefe6e9f1eb8b">BAD_PARAMETER</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::add_list_after&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>,
+      <span class="stringliteral">&quot;list_to_add is NULL&quot;</span>);
+<span class="preprocessor">  #endif</span>
+<span class="preprocessor"></span>
+  <span class="keywordflow">if</span> (!list_to_add-&gt;<a class="code" href="class_e_l_i_s_t.html#a7788b6c4e4b9623e43c58fe3b2976edd">empty</a> ()) {
+    <span class="keywordflow">if</span> (list-&gt;<a class="code" href="class_e_l_i_s_t.html#a7788b6c4e4b9623e43c58fe3b2976edd">empty</a> ()) {
+      list-&gt;last = list_to_add-&gt;last;
+      prev = list-&gt;last;
+      next = list-&gt;First ();
+      ex_current_was_last = <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+      current = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    }
+    <span class="keywordflow">else</span> {
+      <span class="keywordflow">if</span> (current) {             <span class="comment">//not extracted</span>
+        current-&gt;next = list_to_add-&gt;First ();
+        <span class="keywordflow">if</span> (current == list-&gt;last)
+          list-&gt;last = list_to_add-&gt;last;
+        list_to_add-&gt;last-&gt;next = next;
+        next = current-&gt;next;
+      }
+      <span class="keywordflow">else</span> {                     <span class="comment">//current extracted</span>
+        prev-&gt;next = list_to_add-&gt;First ();
+        <span class="keywordflow">if</span> (ex_current_was_last) {
+          list-&gt;last = list_to_add-&gt;last;
+          ex_current_was_last = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+        }
+        list_to_add-&gt;last-&gt;next = next;
+        next = prev-&gt;next;
+      }
+    }
+    list_to_add-&gt;last = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a1339640338bcbc97efc13070cf8e8a5c"></a><!-- doxytag: member="ELIST_ITERATOR::add_list_before" ref="a1339640338bcbc97efc13070cf8e8a5c" args="(ELIST *list_to_add)" -->
@@ -274,6 +483,45 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="elst_8h_source.html#l00574">574</a> of file <a class="el" href="elst_8h_source.html">elst.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                              {
+<span class="preprocessor">  #ifndef NDEBUG</span>
+<span class="preprocessor"></span>  <span class="keywordflow">if</span> (!<span class="keyword">this</span>)
+    <a class="code" href="lsterr_8h.html#aa905f4edc3563a45c13d5067f6398d6a">NULL_OBJECT</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::add_list_before&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <span class="keywordflow">if</span> (!list)
+    <a class="code" href="lsterr_8h.html#aaffb45f5550e84f2443ffb2585055ffd">NO_LIST</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::add_list_before&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <span class="keywordflow">if</span> (!list_to_add)
+    <a class="code" href="lsterr_8h.html#a55134ddce5fbe49d262fefe6e9f1eb8b">BAD_PARAMETER</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::add_list_before&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>,
+      <span class="stringliteral">&quot;list_to_add is NULL&quot;</span>);
+<span class="preprocessor">  #endif</span>
+<span class="preprocessor"></span>
+  <span class="keywordflow">if</span> (!list_to_add-&gt;<a class="code" href="class_e_l_i_s_t.html#a7788b6c4e4b9623e43c58fe3b2976edd">empty</a> ()) {
+    <span class="keywordflow">if</span> (list-&gt;<a class="code" href="class_e_l_i_s_t.html#a7788b6c4e4b9623e43c58fe3b2976edd">empty</a> ()) {
+      list-&gt;last = list_to_add-&gt;last;
+      prev = list-&gt;last;
+      current = list-&gt;First ();
+      next = current-&gt;next;
+      ex_current_was_last = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+    }
+    <span class="keywordflow">else</span> {
+      prev-&gt;next = list_to_add-&gt;First ();
+      <span class="keywordflow">if</span> (current) {             <span class="comment">//not extracted</span>
+        list_to_add-&gt;last-&gt;next = current;
+      }
+      <span class="keywordflow">else</span> {                     <span class="comment">//current extracted</span>
+        list_to_add-&gt;last-&gt;next = next;
+        <span class="keywordflow">if</span> (ex_current_was_last)
+          list-&gt;last = list_to_add-&gt;last;
+        <span class="keywordflow">if</span> (ex_current_was_cycle_pt)
+          cycle_pt = prev-&gt;next;
+      }
+      current = prev-&gt;next;
+      next = current-&gt;next;
+    }
+    list_to_add-&gt;last = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a332df4cd034bd8e40b0e7a9789274a35"></a><!-- doxytag: member="ELIST_ITERATOR::add_to_end" ref="a332df4cd034bd8e40b0e7a9789274a35" args="(ELIST_LINK *new_link)" -->
@@ -291,6 +539,36 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="elst_8h_source.html#l00823">823</a> of file <a class="el" href="elst_8h_source.html">elst.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                {
+<span class="preprocessor">  #ifndef NDEBUG</span>
+<span class="preprocessor"></span>  <span class="keywordflow">if</span> (!<span class="keyword">this</span>)
+    <a class="code" href="lsterr_8h.html#aa905f4edc3563a45c13d5067f6398d6a">NULL_OBJECT</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::add_to_end&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <span class="keywordflow">if</span> (!list)
+    <a class="code" href="lsterr_8h.html#aaffb45f5550e84f2443ffb2585055ffd">NO_LIST</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::add_to_end&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <span class="keywordflow">if</span> (!new_element)
+    <a class="code" href="lsterr_8h.html#a55134ddce5fbe49d262fefe6e9f1eb8b">BAD_PARAMETER</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::add_to_end&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>,
+      <span class="stringliteral">&quot;new_element is NULL&quot;</span>);
+  <span class="keywordflow">if</span> (new_element-&gt;next)
+    <a class="code" href="lsterr_8h.html#a79ccb5823fc9ffa52f94155cedb17796">STILL_LINKED</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::add_to_end&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+<span class="preprocessor">  #endif</span>
+<span class="preprocessor"></span>
+  <span class="keywordflow">if</span> (this-&gt;<a class="code" href="class_e_l_i_s_t___i_t_e_r_a_t_o_r.html#aa5862ffcbf64f329d383977f70e81799">at_last</a> ()) {
+    this-&gt;<a class="code" href="class_e_l_i_s_t___i_t_e_r_a_t_o_r.html#a5cf565bece07db8d7eee1bf1e67f63b7">add_after_stay_put</a> (new_element);
+  }
+  <span class="keywordflow">else</span> {
+    <span class="keywordflow">if</span> (this-&gt;<a class="code" href="class_e_l_i_s_t___i_t_e_r_a_t_o_r.html#a9d8128c3e5327f2f7694278d67ff5fa8">at_first</a> ()) {
+      this-&gt;<a class="code" href="class_e_l_i_s_t___i_t_e_r_a_t_o_r.html#a26fc936740be363145c20c2173ea809f">add_before_stay_put</a> (new_element);
+      list-&gt;last = new_element;
+    }
+    <span class="keywordflow">else</span> {                       <span class="comment">//Iteratr is elsewhere</span>
+      new_element-&gt;next = list-&gt;last-&gt;next;
+      list-&gt;last-&gt;next = new_element;
+      list-&gt;last = new_element;
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9d8128c3e5327f2f7694278d67ff5fa8"></a><!-- doxytag: member="ELIST_ITERATOR::at_first" ref="a9d8128c3e5327f2f7694278d67ff5fa8" args="()" -->
@@ -307,6 +585,21 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="elst_8h_source.html#l00714">714</a> of file <a class="el" href="elst_8h_source.html">elst.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                     {
+<span class="preprocessor">  #ifndef NDEBUG</span>
+<span class="preprocessor"></span>  <span class="keywordflow">if</span> (!<span class="keyword">this</span>)
+    <a class="code" href="lsterr_8h.html#aa905f4edc3563a45c13d5067f6398d6a">NULL_OBJECT</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::at_first&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <span class="keywordflow">if</span> (!list)
+    <a class="code" href="lsterr_8h.html#aaffb45f5550e84f2443ffb2585055ffd">NO_LIST</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::at_first&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+<span class="preprocessor">  #endif</span>
+<span class="preprocessor"></span>
+                                 <span class="comment">//we&#39;re at a deleted</span>
+  <span class="keywordflow">return</span> ((list-&gt;<a class="code" href="class_e_l_i_s_t.html#a7788b6c4e4b9623e43c58fe3b2976edd">empty</a> ()) || (current == list-&gt;First ()) || ((current == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) &amp;&amp;
+    (prev == list-&gt;last) &amp;&amp;      <span class="comment">//NON-last pt between</span>
+    !ex_current_was_last));      <span class="comment">//first and last</span>
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa5862ffcbf64f329d383977f70e81799"></a><!-- doxytag: member="ELIST_ITERATOR::at_last" ref="aa5862ffcbf64f329d383977f70e81799" args="()" -->
@@ -323,6 +616,21 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="elst_8h_source.html#l00736">736</a> of file <a class="el" href="elst_8h_source.html">elst.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                    {
+<span class="preprocessor">  #ifndef NDEBUG</span>
+<span class="preprocessor"></span>  <span class="keywordflow">if</span> (!<span class="keyword">this</span>)
+    <a class="code" href="lsterr_8h.html#aa905f4edc3563a45c13d5067f6398d6a">NULL_OBJECT</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::at_last&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <span class="keywordflow">if</span> (!list)
+    <a class="code" href="lsterr_8h.html#aaffb45f5550e84f2443ffb2585055ffd">NO_LIST</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::at_last&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+<span class="preprocessor">  #endif</span>
+<span class="preprocessor"></span>
+                                 <span class="comment">//we&#39;re at a deleted</span>
+  <span class="keywordflow">return</span> ((list-&gt;<a class="code" href="class_e_l_i_s_t.html#a7788b6c4e4b9623e43c58fe3b2976edd">empty</a> ()) || (current == list-&gt;last) || ((current == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) &amp;&amp;
+    (prev == list-&gt;last) &amp;&amp;      <span class="comment">//last point between</span>
+    ex_current_was_last));       <span class="comment">//first and last</span>
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aff1d5f01ec570c56aa2b1a54733d7e25"></a><!-- doxytag: member="ELIST_ITERATOR::current_extracted" ref="aff1d5f01ec570c56aa2b1a54733d7e25" args="()" -->
@@ -339,6 +647,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="elst_8h_source.html#l00268">268</a> of file <a class="el" href="elst_8h_source.html">elst.h</a>.</p>
+<div class="fragment"><pre class="fragment">                             {  <span class="comment">//current extracted?</span>
+      <span class="keywordflow">return</span> !current;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a0a38fbe6d8b593f90557e03f4c665497"></a><!-- doxytag: member="ELIST_ITERATOR::cycled_list" ref="a0a38fbe6d8b593f90557e03f4c665497" args="()" -->
@@ -355,6 +668,19 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="elst_8h_source.html#l00758">758</a> of file <a class="el" href="elst_8h_source.html">elst.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                        {
+<span class="preprocessor">  #ifndef NDEBUG</span>
+<span class="preprocessor"></span>  <span class="keywordflow">if</span> (!<span class="keyword">this</span>)
+    <a class="code" href="lsterr_8h.html#aa905f4edc3563a45c13d5067f6398d6a">NULL_OBJECT</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::cycled_list&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <span class="keywordflow">if</span> (!list)
+    <a class="code" href="lsterr_8h.html#aaffb45f5550e84f2443ffb2585055ffd">NO_LIST</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::cycled_list&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+<span class="preprocessor">  #endif</span>
+<span class="preprocessor"></span>
+  <span class="keywordflow">return</span> ((list-&gt;<a class="code" href="class_e_l_i_s_t.html#a7788b6c4e4b9623e43c58fe3b2976edd">empty</a> ()) || ((current == cycle_pt) &amp;&amp; started_cycling));
+
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a476b247868d8ad27c7c9b049dd3d54f2"></a><!-- doxytag: member="ELIST_ITERATOR::data" ref="a476b247868d8ad27c7c9b049dd3d54f2" args="()" -->
@@ -371,6 +697,17 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="elst_8h_source.html#l00237">237</a> of file <a class="el" href="elst_8h_source.html">elst.h</a>.</p>
+<div class="fragment"><pre class="fragment">                       {  <span class="comment">//get current data</span>
+<span class="preprocessor">    #ifndef NDEBUG</span>
+<span class="preprocessor"></span>      <span class="keywordflow">if</span> (!list)
+        <a class="code" href="lsterr_8h.html#aaffb45f5550e84f2443ffb2585055ffd">NO_LIST</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::data&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+      <span class="keywordflow">if</span> (!current)
+        <a class="code" href="lsterr_8h.html#a8104a8aded87671d4ddbf6be9a172666">NULL_DATA</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::data&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+<span class="preprocessor">    #endif</span>
+<span class="preprocessor"></span>      <span class="keywordflow">return</span> current;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a48f96daff1ffb6de8410083fa5151cde"></a><!-- doxytag: member="ELIST_ITERATOR::data_relative" ref="a48f96daff1ffb6de8410083fa5151cde" args="(inT8 offset)" -->
@@ -388,6 +725,35 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="elst_8cpp_source.html#l00259">259</a> of file <a class="el" href="elst_8cpp_source.html">elst.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                       {  <span class="comment">//offset from current</span>
+  <a class="code" href="class_e_l_i_s_t___l_i_n_k.html">ELIST_LINK</a> *ptr;
+
+<span class="preprocessor">  #ifndef NDEBUG</span>
+<span class="preprocessor"></span>  <span class="keywordflow">if</span> (!<span class="keyword">this</span>)
+    <a class="code" href="lsterr_8h.html#aa905f4edc3563a45c13d5067f6398d6a">NULL_OBJECT</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::data_relative&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <span class="keywordflow">if</span> (!list)
+    <a class="code" href="lsterr_8h.html#aaffb45f5550e84f2443ffb2585055ffd">NO_LIST</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::data_relative&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <span class="keywordflow">if</span> (list-&gt;<a class="code" href="class_e_l_i_s_t.html#a7788b6c4e4b9623e43c58fe3b2976edd">empty</a> ())
+    <a class="code" href="lsterr_8h.html#ac1f578a70f3eaeca57b7e6ea1a00fd8a">EMPTY_LIST</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::data_relative&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <span class="keywordflow">if</span> (offset &lt; -1)
+    <a class="code" href="lsterr_8h.html#a55134ddce5fbe49d262fefe6e9f1eb8b">BAD_PARAMETER</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::data_relative&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>,
+      <span class="stringliteral">&quot;offset &lt; -l&quot;</span>);
+<span class="preprocessor">  #endif</span>
+<span class="preprocessor"></span>
+  <span class="keywordflow">if</span> (offset == -1)
+    ptr = prev;
+  <span class="keywordflow">else</span>
+    <span class="keywordflow">for</span> (ptr = current ? current : prev; offset-- &gt; 0; ptr = ptr-&gt;next);
+
+<span class="preprocessor">  #ifndef NDEBUG</span>
+<span class="preprocessor"></span>  <span class="keywordflow">if</span> (!ptr)
+    <a class="code" href="lsterr_8h.html#a8104a8aded87671d4ddbf6be9a172666">NULL_DATA</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::data_relative&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+<span class="preprocessor">  #endif</span>
+<span class="preprocessor"></span>
+  <span class="keywordflow">return</span> ptr;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9b6af6377ba2e8e1fb19902eb5de0c7c"></a><!-- doxytag: member="ELIST_ITERATOR::empty" ref="a9b6af6377ba2e8e1fb19902eb5de0c7c" args="()" -->
@@ -404,6 +770,15 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="elst_8h_source.html#l00260">260</a> of file <a class="el" href="elst_8h_source.html">elst.h</a>.</p>
+<div class="fragment"><pre class="fragment">                 {  <span class="comment">//is list empty?</span>
+<span class="preprocessor">    #ifndef NDEBUG</span>
+<span class="preprocessor"></span>      <span class="keywordflow">if</span> (!list)
+        <a class="code" href="lsterr_8h.html#aaffb45f5550e84f2443ffb2585055ffd">NO_LIST</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::empty&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+<span class="preprocessor">    #endif</span>
+<span class="preprocessor"></span>      <span class="keywordflow">return</span> list-&gt;<a class="code" href="class_e_l_i_s_t.html#a7788b6c4e4b9623e43c58fe3b2976edd">empty</a> ();
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a76a529e75f0e62d3bb2e8626e8a2211d"></a><!-- doxytag: member="ELIST_ITERATOR::exchange" ref="a76a529e75f0e62d3bb2e8626e8a2211d" args="(ELIST_ITERATOR *other_it)" -->
@@ -421,6 +796,95 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="elst_8cpp_source.html#l00322">322</a> of file <a class="el" href="elst_8cpp_source.html">elst.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                        {  <span class="comment">//other iterator</span>
+  <span class="keyword">const</span> <a class="code" href="class_e_r_r_c_o_d_e.html">ERRCODE</a> DONT_EXCHANGE_DELETED =
+    <span class="stringliteral">&quot;Can&#39;t exchange deleted elements of lists&quot;</span>;
+
+  <a class="code" href="class_e_l_i_s_t___l_i_n_k.html">ELIST_LINK</a> *old_current;
+
+<span class="preprocessor">  #ifndef NDEBUG</span>
+<span class="preprocessor"></span>  <span class="keywordflow">if</span> (!<span class="keyword">this</span>)
+    <a class="code" href="lsterr_8h.html#aa905f4edc3563a45c13d5067f6398d6a">NULL_OBJECT</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::exchange&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <span class="keywordflow">if</span> (!list)
+    <a class="code" href="lsterr_8h.html#aaffb45f5550e84f2443ffb2585055ffd">NO_LIST</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::exchange&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <span class="keywordflow">if</span> (!other_it)
+    <a class="code" href="lsterr_8h.html#a55134ddce5fbe49d262fefe6e9f1eb8b">BAD_PARAMETER</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::exchange&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <span class="stringliteral">&quot;other_it NULL&quot;</span>);
+  <span class="keywordflow">if</span> (!(other_it-&gt;list))
+    <a class="code" href="lsterr_8h.html#aaffb45f5550e84f2443ffb2585055ffd">NO_LIST</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::exchange&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <span class="stringliteral">&quot;other_it&quot;</span>);
+<span class="preprocessor">  #endif</span>
+<span class="preprocessor"></span>
+  <span class="comment">/* Do nothing if either list is empty or if both iterators reference the same</span>
+<span class="comment">  link */</span>
+
+  <span class="keywordflow">if</span> ((list-&gt;<a class="code" href="class_e_l_i_s_t.html#a7788b6c4e4b9623e43c58fe3b2976edd">empty</a> ()) ||
+    (other_it-&gt;list-&gt;<a class="code" href="class_e_l_i_s_t.html#a7788b6c4e4b9623e43c58fe3b2976edd">empty</a> ()) || (current == other_it-&gt;current))
+    <span class="keywordflow">return</span>;
+
+  <span class="comment">/* Error if either current element is deleted */</span>
+
+  <span class="keywordflow">if</span> (!current || !other_it-&gt;current)
+    DONT_EXCHANGE_DELETED.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR.exchange&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+
+  <span class="comment">/* Now handle the 4 cases: doubleton list; non-doubleton adjacent elements</span>
+<span class="comment">  (other before this); non-doubleton adjacent elements (this before other);</span>
+<span class="comment">  non-adjacent elements. */</span>
+
+                                 <span class="comment">//adjacent links</span>
+  <span class="keywordflow">if</span> ((next == other_it-&gt;current) ||
+  (other_it-&gt;next == current)) {
+                                 <span class="comment">//doubleton list</span>
+    <span class="keywordflow">if</span> ((next == other_it-&gt;current) &amp;&amp;
+    (other_it-&gt;next == current)) {
+      prev = next = current;
+      other_it-&gt;prev = other_it-&gt;next = other_it-&gt;current;
+    }
+    <span class="keywordflow">else</span> {                       <span class="comment">//non-doubleton with</span>
+                                 <span class="comment">//adjacent links</span>
+                                 <span class="comment">//other before this</span>
+      <span class="keywordflow">if</span> (other_it-&gt;next == current) {
+        other_it-&gt;prev-&gt;next = current;
+        other_it-&gt;current-&gt;next = next;
+        current-&gt;next = other_it-&gt;current;
+        other_it-&gt;next = other_it-&gt;current;
+        prev = current;
+      }
+      <span class="keywordflow">else</span> {                     <span class="comment">//this before other</span>
+        prev-&gt;next = other_it-&gt;current;
+        current-&gt;next = other_it-&gt;next;
+        other_it-&gt;current-&gt;next = current;
+        next = current;
+        other_it-&gt;prev = other_it-&gt;current;
+      }
+    }
+  }
+  <span class="keywordflow">else</span> {                         <span class="comment">//no overlap</span>
+    prev-&gt;next = other_it-&gt;current;
+    current-&gt;next = other_it-&gt;next;
+    other_it-&gt;prev-&gt;next = current;
+    other_it-&gt;current-&gt;next = next;
+  }
+
+  <span class="comment">/* update end of list pointer when necessary (remember that the 2 iterators</span>
+<span class="comment">    may iterate over different lists!) */</span>
+
+  <span class="keywordflow">if</span> (list-&gt;last == current)
+    list-&gt;last = other_it-&gt;current;
+  <span class="keywordflow">if</span> (other_it-&gt;list-&gt;last == other_it-&gt;current)
+    other_it-&gt;list-&gt;last = current;
+
+  <span class="keywordflow">if</span> (current == cycle_pt)
+    cycle_pt = other_it-&gt;cycle_pt;
+  <span class="keywordflow">if</span> (other_it-&gt;current == other_it-&gt;cycle_pt)
+    other_it-&gt;cycle_pt = cycle_pt;
+
+  <span class="comment">/* The actual exchange - in all cases*/</span>
+
+  old_current = current;
+  current = other_it-&gt;current;
+  other_it-&gt;current = old_current;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a90f6c5a63667202681fc2f4235cb545a"></a><!-- doxytag: member="ELIST_ITERATOR::extract" ref="a90f6c5a63667202681fc2f4235cb545a" args="()" -->
@@ -437,6 +901,42 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="elst_8h_source.html#l00622">622</a> of file <a class="el" href="elst_8h_source.html">elst.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                           {
+  <a class="code" href="class_e_l_i_s_t___l_i_n_k.html">ELIST_LINK</a> *extracted_link;
+
+<span class="preprocessor">  #ifndef NDEBUG</span>
+<span class="preprocessor"></span>  <span class="keywordflow">if</span> (!<span class="keyword">this</span>)
+    <a class="code" href="lsterr_8h.html#aa905f4edc3563a45c13d5067f6398d6a">NULL_OBJECT</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::extract&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <span class="keywordflow">if</span> (!list)
+    <a class="code" href="lsterr_8h.html#aaffb45f5550e84f2443ffb2585055ffd">NO_LIST</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::extract&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <span class="keywordflow">if</span> (!current)                  <span class="comment">//list empty or</span>
+                                 <span class="comment">//element extracted</span>
+    <a class="code" href="lsterr_8h.html#ac0fc36ed86576a24b07bb350cf021aba">NULL_CURRENT</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::extract&quot;</span>,
+      <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+<span class="preprocessor">  #endif</span>
+<span class="preprocessor"></span>
+  <span class="keywordflow">if</span> (list-&gt;<a class="code" href="class_e_l_i_s_t.html#abbe9f968d190bf5bf261e13af7bfc543">singleton</a>()) {
+    <span class="comment">// Special case where we do need to change the iterator.</span>
+    prev = next = list-&gt;last = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  } <span class="keywordflow">else</span> {
+    prev-&gt;next = next;           <span class="comment">//remove from list</span>
+
+    <span class="keywordflow">if</span> (current == list-&gt;last) {
+      list-&gt;last = prev;
+      ex_current_was_last = <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+    } <span class="keywordflow">else</span> {
+      ex_current_was_last = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+    }
+  }
+  <span class="comment">// Always set ex_current_was_cycle_pt so an add/forward will work in a loop.</span>
+  ex_current_was_cycle_pt = (current == cycle_pt) ? <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a> : <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+  extracted_link = current;
+  extracted_link-&gt;next = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;   <span class="comment">//for safety</span>
+  current = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordflow">return</span> extracted_link;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a1494ee55b315f0ea8a98ed26f6822275"></a><!-- doxytag: member="ELIST_ITERATOR::forward" ref="a1494ee55b315f0ea8a98ed26f6822275" args="()" -->
@@ -453,6 +953,40 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="elst_8cpp_source.html#l00217">217</a> of file <a class="el" href="elst_8cpp_source.html">elst.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                    {
+<span class="preprocessor">  #ifndef NDEBUG</span>
+<span class="preprocessor"></span>  <span class="keywordflow">if</span> (!<span class="keyword">this</span>)
+    <a class="code" href="lsterr_8h.html#aa905f4edc3563a45c13d5067f6398d6a">NULL_OBJECT</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::forward&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <span class="keywordflow">if</span> (!list)
+    <a class="code" href="lsterr_8h.html#aaffb45f5550e84f2443ffb2585055ffd">NO_LIST</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::forward&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+<span class="preprocessor">  #endif</span>
+<span class="preprocessor"></span>  <span class="keywordflow">if</span> (list-&gt;<a class="code" href="class_e_l_i_s_t.html#a7788b6c4e4b9623e43c58fe3b2976edd">empty</a> ())
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+
+  <span class="keywordflow">if</span> (current) {                 <span class="comment">//not removed so</span>
+                                 <span class="comment">//set previous</span>
+    prev = current;
+    started_cycling = <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+    <span class="comment">// In case next is deleted by another iterator, get next from current.</span>
+    current = current-&gt;next;
+  } <span class="keywordflow">else</span> {
+    <span class="keywordflow">if</span> (ex_current_was_cycle_pt)
+      cycle_pt = next;
+    current = next;
+  }
+  next = current-&gt;next;
+
+<span class="preprocessor">  #ifndef NDEBUG</span>
+<span class="preprocessor"></span>  <span class="keywordflow">if</span> (!current)
+    <a class="code" href="lsterr_8h.html#a8104a8aded87671d4ddbf6be9a172666">NULL_DATA</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::forward&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <span class="keywordflow">if</span> (!next)
+    <a class="code" href="lsterr_8h.html#a835c8893f8804ece0a468f5649966fd3">NULL_NEXT</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::forward&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>,
+                     <span class="stringliteral">&quot;This is: %p  Current is: %p&quot;</span>, <span class="keyword">this</span>, current);
+<span class="preprocessor">  #endif</span>
+<span class="preprocessor"></span>  <span class="keywordflow">return</span> current;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa74cef464132752deea598bf5ad77c00"></a><!-- doxytag: member="ELIST_ITERATOR::length" ref="aa74cef464132752deea598bf5ad77c00" args="()" -->
@@ -469,6 +1003,18 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="elst_8h_source.html#l00778">778</a> of file <a class="el" href="elst_8h_source.html">elst.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                    {
+<span class="preprocessor">  #ifndef NDEBUG</span>
+<span class="preprocessor"></span>  <span class="keywordflow">if</span> (!<span class="keyword">this</span>)
+    <a class="code" href="lsterr_8h.html#aa905f4edc3563a45c13d5067f6398d6a">NULL_OBJECT</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::length&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <span class="keywordflow">if</span> (!list)
+    <a class="code" href="lsterr_8h.html#aaffb45f5550e84f2443ffb2585055ffd">NO_LIST</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::length&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+<span class="preprocessor">  #endif</span>
+<span class="preprocessor"></span>
+  <span class="keywordflow">return</span> list-&gt;<a class="code" href="class_e_l_i_s_t.html#a571dfff8a1c0cef0f0120708a1b32185">length</a> ();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aeda6477181d7dc51eba6c4cf5bf8c994"></a><!-- doxytag: member="ELIST_ITERATOR::mark_cycle_pt" ref="aeda6477181d7dc51eba6c4cf5bf8c994" args="()" -->
@@ -485,6 +1031,22 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="elst_8h_source.html#l00691">691</a> of file <a class="el" href="elst_8h_source.html">elst.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                          {
+<span class="preprocessor">  #ifndef NDEBUG</span>
+<span class="preprocessor"></span>  <span class="keywordflow">if</span> (!<span class="keyword">this</span>)
+    <a class="code" href="lsterr_8h.html#aa905f4edc3563a45c13d5067f6398d6a">NULL_OBJECT</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::mark_cycle_pt&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <span class="keywordflow">if</span> (!list)
+    <a class="code" href="lsterr_8h.html#aaffb45f5550e84f2443ffb2585055ffd">NO_LIST</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::mark_cycle_pt&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+<span class="preprocessor">  #endif</span>
+<span class="preprocessor"></span>
+  <span class="keywordflow">if</span> (current)
+    cycle_pt = current;
+  <span class="keywordflow">else</span>
+    ex_current_was_cycle_pt = <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+  started_cycling = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a58f4b2a86406659352330bae7471a2b1"></a><!-- doxytag: member="ELIST_ITERATOR::move_to_first" ref="a58f4b2a86406659352330bae7471a2b1" args="()" -->
@@ -501,6 +1063,21 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="elst_8h_source.html#l00665">665</a> of file <a class="el" href="elst_8h_source.html">elst.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                 {
+<span class="preprocessor">  #ifndef NDEBUG</span>
+<span class="preprocessor"></span>  <span class="keywordflow">if</span> (!<span class="keyword">this</span>)
+    <a class="code" href="lsterr_8h.html#aa905f4edc3563a45c13d5067f6398d6a">NULL_OBJECT</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::move_to_first&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <span class="keywordflow">if</span> (!list)
+    <a class="code" href="lsterr_8h.html#aaffb45f5550e84f2443ffb2585055ffd">NO_LIST</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::move_to_first&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+<span class="preprocessor">  #endif</span>
+<span class="preprocessor"></span>
+  current = list-&gt;First ();
+  prev = list-&gt;last;
+  next = current ? current-&gt;next : <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordflow">return</span> current;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a305a4765f4b963cee876a6c45fd7c6ff"></a><!-- doxytag: member="ELIST_ITERATOR::move_to_last" ref="a305a4765f4b963cee876a6c45fd7c6ff" args="()" -->
@@ -517,6 +1094,21 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="elst_8cpp_source.html#l00297">297</a> of file <a class="el" href="elst_8cpp_source.html">elst.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                         {
+<span class="preprocessor">  #ifndef NDEBUG</span>
+<span class="preprocessor"></span>  <span class="keywordflow">if</span> (!<span class="keyword">this</span>)
+    <a class="code" href="lsterr_8h.html#aa905f4edc3563a45c13d5067f6398d6a">NULL_OBJECT</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::move_to_last&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <span class="keywordflow">if</span> (!list)
+    <a class="code" href="lsterr_8h.html#aaffb45f5550e84f2443ffb2585055ffd">NO_LIST</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::move_to_last&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+<span class="preprocessor">  #endif</span>
+<span class="preprocessor"></span>
+  <span class="keywordflow">while</span> (current != list-&gt;last)
+    <a class="code" href="class_e_l_i_s_t___i_t_e_r_a_t_o_r.html#a1494ee55b315f0ea8a98ed26f6822275">forward</a>();
+
+  <span class="keywordflow">return</span> current;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9d88cc0f81f2f1b2b99baa72c39d4493"></a><!-- doxytag: member="ELIST_ITERATOR::set_to_list" ref="a9d88cc0f81f2f1b2b99baa72c39d4493" args="(ELIST *list_to_iterate)" -->
@@ -534,6 +1126,26 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="elst_8h_source.html#l00299">299</a> of file <a class="el" href="elst_8h_source.html">elst.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                {
+<span class="preprocessor">  #ifndef NDEBUG</span>
+<span class="preprocessor"></span>  <span class="keywordflow">if</span> (!<span class="keyword">this</span>)
+    <a class="code" href="lsterr_8h.html#aa905f4edc3563a45c13d5067f6398d6a">NULL_OBJECT</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::set_to_list&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <span class="keywordflow">if</span> (!list_to_iterate)
+    <a class="code" href="lsterr_8h.html#a55134ddce5fbe49d262fefe6e9f1eb8b">BAD_PARAMETER</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::set_to_list&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>,
+      <span class="stringliteral">&quot;list_to_iterate is NULL&quot;</span>);
+<span class="preprocessor">  #endif</span>
+<span class="preprocessor"></span>
+  list = list_to_iterate;
+  prev = list-&gt;last;
+  current = list-&gt;First ();
+  next = current ? current-&gt;next : <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  cycle_pt = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;               <span class="comment">//await explicit set</span>
+  started_cycling = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+  ex_current_was_last = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+  ex_current_was_cycle_pt = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="afd2a7e9b919b35f2a7e682204a36e896"></a><!-- doxytag: member="ELIST_ITERATOR::sort" ref="afd2a7e9b919b35f2a7e682204a36e896" args="(int comparator(const void *, const void *))" -->
@@ -551,6 +1163,19 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="elst_8h_source.html#l00798">798</a> of file <a class="el" href="elst_8h_source.html">elst.h</a>.</p>
+<div class="fragment"><pre class="fragment">                             {
+<span class="preprocessor">  #ifndef NDEBUG</span>
+<span class="preprocessor"></span>  <span class="keywordflow">if</span> (!<span class="keyword">this</span>)
+    <a class="code" href="lsterr_8h.html#aa905f4edc3563a45c13d5067f6398d6a">NULL_OBJECT</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::sort&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <span class="keywordflow">if</span> (!list)
+    <a class="code" href="lsterr_8h.html#aaffb45f5550e84f2443ffb2585055ffd">NO_LIST</a>.<a class="code" href="class_e_r_r_c_o_d_e.html#abc4cc64aad0ddb74c02523b69c95a1c1">error</a> (<span class="stringliteral">&quot;ELIST_ITERATOR::sort&quot;</span>, <a class="code" href="errcode_8h.html#a8a3a2e51383909b357fcdf8eda803637a781ad2788df9e25c59a70894c7832096">ABORT</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+<span class="preprocessor">  #endif</span>
+<span class="preprocessor"></span>
+  list-&gt;<a class="code" href="class_e_l_i_s_t.html#a82eb75fa241c49b6ccdc92d96f810ece">sort</a> (comparator);
+  <a class="code" href="class_e_l_i_s_t___i_t_e_r_a_t_o_r.html#a58f4b2a86406659352330bae7471a2b1">move_to_first</a>();
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Friends And Related Function Documentation</h2>
@@ -583,7 +1208,7 @@ Friends</h2></td></tr>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/ccutil/<a class="el" href="elst_8h_source.html">elst.h</a></li>
-<li>tesseract-ocr/ccutil/<a class="el" href="elst_8cpp.html">elst.cpp</a></li>
+<li>tesseract-ocr/ccutil/<a class="el" href="elst_8cpp_source.html">elst.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -605,7 +1230,7 @@ Friends</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:12 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:45 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

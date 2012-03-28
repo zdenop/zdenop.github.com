@@ -123,6 +123,8 @@ Public Member Functions</h2></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="class_s_v_network.html">SVNetwork</a> class takes care of the remote connection for <a class="el" href="class_scroll_view.html">ScrollView</a> This means setting up and maintaining a remote connection, sending and receiving messages and closing the connection. It is designed to work on both Linux and Windows. </p>
+
+<p>Definition at line <a class="el" href="svutil_8h_source.html#l00105">105</a> of file <a class="el" href="svutil_8h_source.html">svutil.h</a>.</p>
 </div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a72f0c73a7d3a610035043d10f552d462"></a><!-- doxytag: member="SVNetwork::SVNetwork" ref="a72f0c73a7d3a610035043d10f552d462" args="(const char *hostname, int port)" -->
 <div class="memitem">
@@ -151,6 +153,58 @@ Public Member Functions</h2></td></tr>
 
 <p>Set up a connection to hostname on port. </p>
 
+<p>Definition at line <a class="el" href="svutil_8cpp_source.html#l00374">374</a> of file <a class="el" href="svutil_8cpp_source.html">svutil.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                   {
+  mutex_send_ = <span class="keyword">new</span> <a class="code" href="class_s_v_mutex.html">SVMutex</a>();
+  msg_buffer_in_ = <span class="keyword">new</span> <span class="keywordtype">char</span>[<a class="code" href="scrollview_8cpp.html#a4a4ce82f9687ca37d149b0a62c5ed379">kMaxMsgSize</a> + 1];
+  msg_buffer_in_[0] = <span class="charliteral">&#39;\0&#39;</span>;
+
+  has_content = <span class="keyword">false</span>;
+  buffer_ptr_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+
+  <span class="keyword">struct </span>addrinfo *addr_info = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+
+  <span class="keywordflow">if</span> (GetAddrInfo(hostname, port, &amp;addr_info) != 0) {
+    std::cerr &lt;&lt; <span class="stringliteral">&quot;Error resolving name for ScrollView host &quot;</span>
+              &lt;&lt; std::string(hostname) &lt;&lt; <span class="stringliteral">&quot;:&quot;</span> &lt;&lt; port &lt;&lt; std::endl;
+  }
+
+  stream_ = socket(addr_info-&gt;ai_family, addr_info-&gt;ai_socktype,
+                   addr_info-&gt;ai_protocol);
+
+  <span class="comment">// If server is not there, we will start a new server as local child process.</span>
+  <span class="keywordflow">if</span> (connect(stream_, addr_info-&gt;ai_addr, addr_info-&gt;ai_addrlen) &lt; 0) {
+    <span class="keyword">const</span> <span class="keywordtype">char</span>* scrollview_path = getenv(<span class="stringliteral">&quot;SCROLLVIEW_PATH&quot;</span>);
+    <span class="keywordflow">if</span> (scrollview_path == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+<span class="preprocessor">#ifdef SCROLLVIEW_PATH</span>
+<span class="preprocessor"></span><span class="preprocessor">#define _STR(a) #a</span>
+<span class="preprocessor"></span><span class="preprocessor">#define _XSTR(a) _STR(a)</span>
+<span class="preprocessor"></span>      scrollview_path = _XSTR(SCROLLVIEW_PATH);
+<span class="preprocessor">#undef _XSTR</span>
+<span class="preprocessor"></span><span class="preprocessor">#undef _STR</span>
+<span class="preprocessor"></span><span class="preprocessor">#else</span>
+<span class="preprocessor"></span>      scrollview_path = <span class="stringliteral">&quot;.&quot;</span>;
+<span class="preprocessor">#endif</span>
+<span class="preprocessor"></span>    }
+    <span class="keyword">const</span> <span class="keywordtype">char</span> *prog = ScrollViewProg();
+    std::string command = ScrollViewCommand(scrollview_path);
+    <a class="code" href="class_s_v_sync.html#aea4f2c7847c7c165fba1a60aadec3e05" title="Starts a new process.">SVSync::StartProcess</a>(prog, command.c_str());
+
+    <span class="comment">// Wait for server to show up.</span>
+    <span class="comment">// Note: There is no exception handling in case the server never turns up.</span>
+    <span class="keywordflow">while</span> (connect(stream_, (<span class="keyword">struct</span> sockaddr *) addr_info-&gt;ai_addr,
+                   addr_info-&gt;ai_addrlen) &lt; 0) {
+      std::cout &lt;&lt; <span class="stringliteral">&quot;ScrollView: Waiting for server...\n&quot;</span>;
+<span class="preprocessor">#ifdef _WIN32</span>
+<span class="preprocessor"></span>      Sleep(1000);
+<span class="preprocessor">#else</span>
+<span class="preprocessor"></span>      sleep(1);
+<span class="preprocessor">#endif</span>
+<span class="preprocessor"></span>    }
+  }
+  FreeAddrInfo(addr_info);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a85f11ef0f1e673319ec4cdd740eddbfa"></a><!-- doxytag: member="SVNetwork::~SVNetwork" ref="a85f11ef0f1e673319ec4cdd740eddbfa" args="()" -->
@@ -169,6 +223,12 @@ Public Member Functions</h2></td></tr>
 
 <p>Destructor. </p>
 
+<p>Definition at line <a class="el" href="svutil_8cpp_source.html#l00425">425</a> of file <a class="el" href="svutil_8cpp_source.html">svutil.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                      {
+  <span class="keyword">delete</span>[] msg_buffer_in_;
+  <span class="keyword">delete</span> mutex_send_;
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -188,6 +248,15 @@ Public Member Functions</h2></td></tr>
 
 <p>Close the connection to the server. </p>
 
+<p>Definition at line <a class="el" href="svutil_8cpp_source.html#l00259">259</a> of file <a class="el" href="svutil_8cpp_source.html">svutil.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                      {
+<span class="preprocessor">#ifdef _WIN32</span>
+<span class="preprocessor"></span>  closesocket(stream_);
+<span class="preprocessor">#else</span>
+<span class="preprocessor"></span>  close(stream_);
+<span class="preprocessor">#endif</span>
+<span class="preprocessor"></span>}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad89f207ad0f1b7fa764e2edb37c0e2c0"></a><!-- doxytag: member="SVNetwork::Flush" ref="ad89f207ad0f1b7fa764e2edb37c0e2c0" args="()" -->
@@ -206,6 +275,16 @@ Public Member Functions</h2></td></tr>
 
 <p>Flush the buffer. </p>
 
+<p>Definition at line <a class="el" href="svutil_8cpp_source.html#l00200">200</a> of file <a class="el" href="svutil_8cpp_source.html">svutil.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                      {
+  mutex_send_-&gt;<a class="code" href="class_s_v_mutex.html#ac2a19e2b7ce47e75ee1f72870574e41f" title="Locks on a mutex.">Lock</a>();
+  <span class="keywordflow">while</span> (msg_buffer_out_.size() &gt; 0) {
+    <span class="keywordtype">int</span> i = send(stream_, msg_buffer_out_.c_str(), msg_buffer_out_.length(), 0);
+    msg_buffer_out_.erase(0, i);
+  }
+  mutex_send_-&gt;<a class="code" href="class_s_v_mutex.html#aa70f2446491c0de56b69eba6dd877f31" title="Unlocks on a mutex.">Unlock</a>();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6cf1cd38c287bdce0ed8594ed9076c2d"></a><!-- doxytag: member="SVNetwork::Receive" ref="a6cf1cd38c287bdce0ed8594ed9076c2d" args="()" -->
@@ -224,6 +303,54 @@ Public Member Functions</h2></td></tr>
 <p>Receive a message from the server. This will always return one line of char* (denoted by <br/>
 ). </p>
 
+<p>Definition at line <a class="el" href="svutil_8cpp_source.html#l00211">211</a> of file <a class="el" href="svutil_8cpp_source.html">svutil.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                         {
+  <span class="keywordtype">char</span>* result = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+<span class="preprocessor">#ifdef _WIN32</span>
+<span class="preprocessor"></span>  <span class="keywordflow">if</span> (has_content) { result = strtok (<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, <span class="stringliteral">&quot;\n&quot;</span>); }
+<span class="preprocessor">#else</span>
+<span class="preprocessor"></span>  <span class="keywordflow">if</span> (buffer_ptr_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) { result = strtok_r(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, <span class="stringliteral">&quot;\n&quot;</span>, &amp;buffer_ptr_); }
+<span class="preprocessor">#endif</span>
+<span class="preprocessor"></span>
+  <span class="comment">// This means there is something left in the buffer and we return it.</span>
+  <span class="keywordflow">if</span> (result != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) { <span class="keywordflow">return</span> result;
+  <span class="comment">// Otherwise, we read from the stream_.</span>
+  } <span class="keywordflow">else</span> {
+    buffer_ptr_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    has_content = <span class="keyword">false</span>;
+
+    <span class="comment">// The timeout length is not really important since we are looping anyway</span>
+    <span class="comment">// until a new message is delivered.</span>
+    <span class="keyword">struct </span>timeval tv;
+    tv.tv_sec = 10;
+    tv.tv_usec = 0;
+
+    <span class="comment">// Set the flags to return when the stream_ is ready to be read.</span>
+    fd_set readfds;
+    FD_ZERO(&amp;readfds);
+    FD_SET(stream_, &amp;readfds);
+
+    <span class="keywordtype">int</span> i = select(stream_+1, &amp;readfds, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, &amp;tv);
+
+    <span class="comment">// The stream_ died.</span>
+    <span class="keywordflow">if</span> (i == 0) { <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>; }
+
+    <span class="comment">// Read the message buffer.</span>
+    i = recv(stream_, msg_buffer_in_, <a class="code" href="scrollview_8cpp.html#a4a4ce82f9687ca37d149b0a62c5ed379">kMaxMsgSize</a>, 0);
+
+    <span class="comment">// Server quit (0) or error (-1).</span>
+    <span class="keywordflow">if</span> (i &lt;= 0) { <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>; }
+    msg_buffer_in_[i] = <span class="charliteral">&#39;\0&#39;</span>;
+    has_content = <span class="keyword">true</span>;
+<span class="preprocessor">#ifdef _WIN32</span>
+<span class="preprocessor"></span>    <span class="keywordflow">return</span> strtok(msg_buffer_in_, <span class="stringliteral">&quot;\n&quot;</span>);
+<span class="preprocessor">#else</span>
+<span class="preprocessor"></span>    <span class="comment">// Setup a new string tokenizer.</span>
+    <span class="keywordflow">return</span> strtok_r(msg_buffer_in_, <span class="stringliteral">&quot;\n&quot;</span>, &amp;buffer_ptr_);
+<span class="preprocessor">#endif</span>
+<span class="preprocessor"></span>  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2de9fb634926d1ffc46b617e87d129f6"></a><!-- doxytag: member="SVNetwork::Send" ref="a2de9fb634926d1ffc46b617e87d129f6" args="(const char *msg)" -->
@@ -243,11 +370,18 @@ Public Member Functions</h2></td></tr>
 
 <p>Put a message in the messagebuffer to the server and try to send it. </p>
 
+<p>Definition at line <a class="el" href="svutil_8cpp_source.html#l00193">193</a> of file <a class="el" href="svutil_8cpp_source.html">svutil.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                    {
+  mutex_send_-&gt;<a class="code" href="class_s_v_mutex.html#ac2a19e2b7ce47e75ee1f72870574e41f" title="Locks on a mutex.">Lock</a>();
+  msg_buffer_out_.append(msg);
+  mutex_send_-&gt;<a class="code" href="class_s_v_mutex.html#aa70f2446491c0de56b69eba6dd877f31" title="Unlocks on a mutex.">Unlock</a>();
+}
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/viewer/<a class="el" href="svutil_8h_source.html">svutil.h</a></li>
-<li>tesseract-ocr/viewer/<a class="el" href="svutil_8cpp.html">svutil.cpp</a></li>
+<li>tesseract-ocr/viewer/<a class="el" href="svutil_8cpp_source.html">svutil.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -269,7 +403,7 @@ Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:13 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:47 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

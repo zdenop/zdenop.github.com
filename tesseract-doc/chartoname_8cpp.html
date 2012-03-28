@@ -103,7 +103,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="contents">
 <div class="textblock"><code>#include &lt;string.h&gt;</code><br/>
 <code>#include &lt;ctype.h&gt;</code><br/>
-</div><table class="memberdecls">
+</div>
+<p><a href="chartoname_8cpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="chartoname_8cpp.html#acb9296584250666c214756af7081da09">chartoname</a> (register char *name, char c, const char *dir)</td></tr>
@@ -140,6 +142,65 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="chartoname_8cpp_source.html#l00016">16</a> of file <a class="el" href="chartoname_8cpp_source.html">chartoname.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                 {    <span class="comment">/*directory to use */</span>
+  <span class="keywordtype">char</span> file[3];                  <span class="comment">/*filename */</span>
+  <span class="keywordtype">int</span> index;                     <span class="comment">/*index of namelist */</span>
+  <span class="keyword">static</span> <span class="keyword">const</span> <span class="keywordtype">char</span> *namelist[] = {
+    <span class="stringliteral">&quot;!bang&quot;</span>,
+    <span class="stringliteral">&quot;\&quot;doubleq&quot;</span>,
+    <span class="stringliteral">&quot;#hash&quot;</span>,
+    <span class="stringliteral">&quot;$dollar&quot;</span>,
+    <span class="stringliteral">&quot;%percent&quot;</span>,
+    <span class="stringliteral">&quot;&amp;and&quot;</span>,
+    <span class="stringliteral">&quot;&#39;quote&quot;</span>,
+    <span class="stringliteral">&quot;(lround&quot;</span>,
+    <span class="stringliteral">&quot;)rround&quot;</span>,
+    <span class="stringliteral">&quot;*asterisk&quot;</span>,
+    <span class="stringliteral">&quot;+plus&quot;</span>,
+    <span class="stringliteral">&quot;,comma&quot;</span>,
+    <span class="stringliteral">&quot;-minus&quot;</span>,
+    <span class="stringliteral">&quot;.dot&quot;</span>,
+    <span class="stringliteral">&quot;/slash&quot;</span>,
+    <span class="stringliteral">&quot;:colon&quot;</span>,
+    <span class="stringliteral">&quot;;semic&quot;</span>,
+    <span class="stringliteral">&quot;&lt;less&quot;</span>,
+    <span class="stringliteral">&quot;=equal&quot;</span>,
+    <span class="stringliteral">&quot;&gt;greater&quot;</span>,
+    <span class="stringliteral">&quot;?question&quot;</span>,
+    <span class="stringliteral">&quot;@at&quot;</span>,
+    <span class="stringliteral">&quot;[lsquare&quot;</span>,
+    <span class="stringliteral">&quot;\\backsl&quot;</span>,
+    <span class="stringliteral">&quot;]rsquare&quot;</span>,
+    <span class="stringliteral">&quot;^uparr&quot;</span>,
+    <span class="stringliteral">&quot;_unders&quot;</span>,
+    <span class="stringliteral">&quot;`grave&quot;</span>,
+    <span class="stringliteral">&quot;{lbrace&quot;</span>,
+    <span class="stringliteral">&quot;|bar&quot;</span>,
+    <span class="stringliteral">&quot;}rbrace&quot;</span>,
+    <span class="stringliteral">&quot;~tilde&quot;</span>
+  };
+
+  strcpy(name, dir);  <span class="comment">/*add specific directory */</span>
+  <span class="keywordflow">for</span> (index = 0; index &lt; <span class="keyword">sizeof</span> namelist / <span class="keyword">sizeof</span> (<span class="keywordtype">char</span> *)
+    &amp;&amp; c != namelist[index][0]; index++);
+  <span class="keywordflow">if</span> (index &lt; <span class="keyword">sizeof</span> namelist / <span class="keyword">sizeof</span> (<span class="keywordtype">char</span> *))
+                                 <span class="comment">/*add text name */</span>
+    strcat (name, &amp;namelist[index][1]);
+  <span class="keywordflow">else</span> {
+    <span class="keywordflow">if</span> (isupper (c)) {
+      file[0] = <span class="charliteral">&#39;c&#39;</span>;             <span class="comment">/*direct a-z or A-Z */</span>
+      file[1] = c;               <span class="comment">/*direct a-z or A-Z */</span>
+      file[2] = <span class="charliteral">&#39;\0&#39;</span>;
+    }
+    <span class="keywordflow">else</span> {
+      file[0] = c;               <span class="comment">/*direct a-z or A-Z */</span>
+      file[1] = <span class="charliteral">&#39;\0&#39;</span>;
+    }
+    strcat(name, file);  <span class="comment">/*append filename */</span>
+  }
+}
+</pre></div>
 </div>
 </div>
 </div>
@@ -162,7 +223,7 @@ Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:09 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:41 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

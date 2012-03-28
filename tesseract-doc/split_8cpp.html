@@ -105,7 +105,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="textblock"><code>#include &quot;<a class="el" href="split_8h_source.html">split.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="structures_8h_source.html">structures.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="callcpp_8h_source.html">callcpp.h</a>&quot;</code><br/>
-</div><table class="memberdecls">
+</div>
+<p><a href="split_8cpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="split_8cpp.html#a1ac5df4e3dcebd4d2faaa844bafba4c1">makestructure</a> (newsplit, free_split, <a class="el" href="split_8h.html#a8caa4994d858ff69cd340ac6f89731cb">SPLIT</a>)</td></tr>
@@ -136,6 +138,13 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="split_8cpp_source.html#l00053">53</a> of file <a class="el" href="split_8cpp_source.html">split.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                { 
+  <span class="keywordflow">if</span> (split) {
+    free_split(split); 
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="abe45460790758fd43e35acbad4eed1c5"></a><!-- doxytag: member="split.cpp::make_edgept" ref="abe45460790758fd43e35acbad4eed1c5" args="(int x, int y, EDGEPT *next, EDGEPT *prev)" -->
@@ -175,6 +184,27 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="split_8cpp_source.html#l00065">65</a> of file <a class="el" href="split_8cpp_source.html">split.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                              {
+  <a class="code" href="struct_e_d_g_e_p_t.html">EDGEPT</a> *this_edgept;
+  <span class="comment">/* Create point */</span>
+  this_edgept = <span class="keyword">new</span> <a class="code" href="struct_e_d_g_e_p_t.html">EDGEPT</a>;
+  this_edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> = x;
+  this_edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a> = y;
+  <span class="comment">/* Hook it up */</span>
+  this_edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a> = next;
+  this_edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a8326da8daf597bcdc5a05064a37cbbb1">prev</a> = prev;
+  prev-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a> = this_edgept;
+  next-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a8326da8daf597bcdc5a05064a37cbbb1">prev</a> = this_edgept;
+  <span class="comment">/* Set up vec entries */</span>
+  this_edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a6da204ff253a65e00daae7753b82c9f7">vec</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> = this_edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> - x;
+  this_edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a6da204ff253a65e00daae7753b82c9f7">vec</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a> = this_edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a> - y;
+  this_edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a8326da8daf597bcdc5a05064a37cbbb1">prev</a>-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a6da204ff253a65e00daae7753b82c9f7">vec</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> = x - this_edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a8326da8daf597bcdc5a05064a37cbbb1">prev</a>-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a>;
+  this_edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a8326da8daf597bcdc5a05064a37cbbb1">prev</a>-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a6da204ff253a65e00daae7753b82c9f7">vec</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a> = y - this_edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a8326da8daf597bcdc5a05064a37cbbb1">prev</a>-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a>;
+
+  <span class="keywordflow">return</span> (this_edgept);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a1ac5df4e3dcebd4d2faaa844bafba4c1"></a><!-- doxytag: member="split.cpp::makestructure" ref="a1ac5df4e3dcebd4d2faaa844bafba4c1" args="(newsplit, free_split, SPLIT)" -->
@@ -235,6 +265,15 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="split_8cpp_source.html#l00106">106</a> of file <a class="el" href="split_8cpp_source.html">split.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                 { 
+  <a class="code" href="structsplit__record.html">SPLIT</a> *s;
+  s = (<a class="code" href="structsplit__record.html">SPLIT</a> *) newsplit ();
+  s-&gt;<a class="code" href="structsplit__record.html#a2451170e7785bb495c0dd3d96fc71167">point1</a> = point1;
+  s-&gt;<a class="code" href="structsplit__record.html#adb5ec4152eddde15c1996133177a9a58">point2</a> = point2;
+  <span class="keywordflow">return</span> (s);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a24210aac50f8b01c1c50b94262865269"></a><!-- doxytag: member="split.cpp::print_split" ref="a24210aac50f8b01c1c50b94262865269" args="(SPLIT *split)" -->
@@ -252,6 +291,15 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="split_8cpp_source.html#l00121">121</a> of file <a class="el" href="split_8cpp_source.html">split.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                               { 
+  <span class="keywordflow">if</span> (split) {
+    <a class="code" href="callcpp_8cpp.html#a21679e7fec2d69db23107348fa13c153">cprintf</a> (<span class="stringliteral">&quot;(%d,%d)--(%d,%d)&quot;</span>,
+      split-&gt;<a class="code" href="structsplit__record.html#a2451170e7785bb495c0dd3d96fc71167">point1</a>-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a>, split-&gt;<a class="code" href="structsplit__record.html#a2451170e7785bb495c0dd3d96fc71167">point1</a>-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a>,
+      split-&gt;<a class="code" href="structsplit__record.html#adb5ec4152eddde15c1996133177a9a58">point2</a>-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a>, split-&gt;<a class="code" href="structsplit__record.html#adb5ec4152eddde15c1996133177a9a58">point2</a>-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a>);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ada6ba0f2954768ab4b7d9d2cf165dee0"></a><!-- doxytag: member="split.cpp::remove_edgept" ref="ada6ba0f2954768ab4b7d9d2cf165dee0" args="(EDGEPT *point)" -->
@@ -269,6 +317,17 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="split_8cpp_source.html#l00090">90</a> of file <a class="el" href="split_8cpp_source.html">split.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                  {
+  <a class="code" href="struct_e_d_g_e_p_t.html">EDGEPT</a> *prev = point-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a8326da8daf597bcdc5a05064a37cbbb1">prev</a>;
+  <a class="code" href="struct_e_d_g_e_p_t.html">EDGEPT</a> *next = point-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>;
+  prev-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a> = next;
+  next-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a8326da8daf597bcdc5a05064a37cbbb1">prev</a> = prev;
+  prev-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a6da204ff253a65e00daae7753b82c9f7">vec</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> = next-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> - prev-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a>;
+  prev-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a6da204ff253a65e00daae7753b82c9f7">vec</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a> = next-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a> - prev-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a>;
+  <span class="keyword">delete</span> point;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac76a475de30b432aa78727bd6b93a729"></a><!-- doxytag: member="split.cpp::split_outline" ref="ac76a475de30b432aa78727bd6b93a729" args="(EDGEPT *join_point1, EDGEPT *join_point2)" -->
@@ -296,6 +355,23 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="split_8cpp_source.html#l00136">136</a> of file <a class="el" href="split_8cpp_source.html">split.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                             { 
+  <a class="code" href="struct_e_d_g_e_p_t.html">EDGEPT</a> *join_point1a;
+  <a class="code" href="struct_e_d_g_e_p_t.html">EDGEPT</a> *temp2;
+  <a class="code" href="struct_e_d_g_e_p_t.html">EDGEPT</a> *temp1;
+
+  assert (join_point1 != join_point2);
+
+  temp2 = join_point2-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>;
+  temp1 = join_point1-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>;
+  <span class="comment">/* Create two new points */</span>
+  join_point1a = <a class="code" href="split_8cpp.html#abe45460790758fd43e35acbad4eed1c5">make_edgept</a> (join_point1-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a>,
+    join_point1-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a>, temp1, join_point2);
+
+  <a class="code" href="split_8cpp.html#abe45460790758fd43e35acbad4eed1c5">make_edgept</a> (join_point2-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a>, join_point2-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a>, temp2, join_point1);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3c66a2f04c0878b8982e04d5a3d29e04"></a><!-- doxytag: member="split.cpp::unsplit_outlines" ref="a3c66a2f04c0878b8982e04d5a3d29e04" args="(EDGEPT *p1, EDGEPT *p2)" -->
@@ -323,6 +399,29 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="split_8cpp_source.html#l00158">158</a> of file <a class="el" href="split_8cpp_source.html">split.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                              { 
+  <a class="code" href="struct_e_d_g_e_p_t.html">EDGEPT</a> *tmp1 = p1-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>;
+  <a class="code" href="struct_e_d_g_e_p_t.html">EDGEPT</a> *tmp2 = p2-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>;
+
+  assert (p1 != p2);
+
+  tmp1-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a8326da8daf597bcdc5a05064a37cbbb1">prev</a> = p2;
+  tmp2-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a8326da8daf597bcdc5a05064a37cbbb1">prev</a> = p1;
+
+  p1-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a> = tmp2-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>;
+  p2-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a> = tmp1-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>;
+
+  <span class="keyword">delete</span> tmp1;
+  <span class="keyword">delete</span> tmp2;
+
+  p1-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a6da204ff253a65e00daae7753b82c9f7">vec</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> = p1-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> - p1-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a>;
+  p1-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a6da204ff253a65e00daae7753b82c9f7">vec</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a> = p1-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a> - p1-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a>;
+
+  p2-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a6da204ff253a65e00daae7753b82c9f7">vec</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> = p2-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> - p2-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a>;
+  p2-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a6da204ff253a65e00daae7753b82c9f7">vec</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a> = p2-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a> - p2-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a>;
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Variable Documentation</h2>
@@ -337,6 +436,8 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"Display splits" </p>
+
+<p>Definition at line <a class="el" href="split_8cpp_source.html#l00039">39</a> of file <a class="el" href="split_8cpp_source.html">split.cpp</a>.</p>
 
 </div>
 </div>
@@ -360,7 +461,7 @@ Variables</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:09 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:40 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

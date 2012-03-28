@@ -203,6 +203,182 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pithsync_8cpp_source.html#l00299">299</a> of file <a class="el" href="pithsync_8cpp_source.html">pithsync.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                          {
+  <a class="code" href="host_8h.html#a7712a7e28433d0ade59219a129549b6f">BOOL8</a> faking;                  <span class="comment">//illegal cut pt</span>
+  <a class="code" href="host_8h.html#a7712a7e28433d0ade59219a129549b6f">BOOL8</a> mid_cut;                 <span class="comment">//cheap cut pt.</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> x;                       <span class="comment">//current coord</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> blob_index;              <span class="comment">//blob number</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> left_edge;               <span class="comment">//of word</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> right_edge;              <span class="comment">//of word</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> array_origin;            <span class="comment">//x coord of array</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> offset;                  <span class="comment">//dist to legal area</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> zero_count;              <span class="comment">//projection zero</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> best_left_x = 0;         <span class="comment">//for equals</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> best_right_x = 0;        <span class="comment">//right edge</span>
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> this_box;                  <span class="comment">//bounding box</span>
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> next_box;                  <span class="comment">//box of next blob</span>
+  <a class="code" href="class_f_p_s_e_g_p_t.html">FPSEGPT</a> *segpt;                <span class="comment">//segment point</span>
+  <a class="code" href="class_f_p_c_u_t_p_t.html">FPCUTPT</a> *cutpts;               <span class="comment">//array of points</span>
+  <span class="keywordtype">double</span> best_cost;              <span class="comment">//best path</span>
+  <span class="keywordtype">double</span> mean_sum;               <span class="comment">//computes result</span>
+  <a class="code" href="class_f_p_c_u_t_p_t.html">FPCUTPT</a> *best_end;             <span class="comment">//end of best path</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> best_fake;               <span class="comment">//best fake level</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> best_count;              <span class="comment">//no of cuts</span>
+  BLOBNBOX_IT this_it;           <span class="comment">//copy iterator</span>
+  FPSEGPT_IT seg_it = seg_list;  <span class="comment">//output iterator</span>
+
+  <span class="comment">//      tprintf(&quot;Computing sync on word of %d blobs with pitch %d\n&quot;,</span>
+  <span class="comment">//              blob_count, pitch);</span>
+  <span class="comment">//      if (blob_count==8 &amp;&amp; pitch==27)</span>
+  <span class="comment">//              projection-&gt;print(stdout,TRUE);</span>
+  zero_count = 0;
+  <span class="keywordflow">if</span> (pitch &lt; 3)
+    pitch = 3;                   <span class="comment">//nothing ludicrous</span>
+  <span class="keywordflow">if</span> ((pitch - 3) / 2 &lt; pitch_error)
+    pitch_error = (pitch - 3) / 2;
+  this_it = *blob_it;
+  this_box = <a class="code" href="blobbox_8cpp.html#a343c30f9e935058965b844710a2e3180">box_next</a> (&amp;this_it);<span class="comment">//get box</span>
+  <span class="comment">//      left_edge=this_box.left();                                              //left of word</span>
+  <span class="comment">//      right_edge=this_box.right();</span>
+  <span class="comment">//      for (blob_index=1;blob_index&lt;blob_count;blob_index++)</span>
+  <span class="comment">//      {</span>
+  <span class="comment">//              this_box=box_next(&amp;this_it);</span>
+  <span class="comment">//              if (this_box.right()&gt;right_edge)</span>
+  <span class="comment">//                      right_edge=this_box.right();</span>
+  <span class="comment">//      }</span>
+  <span class="keywordflow">for</span> (left_edge = projection_left; projection-&gt;<a class="code" href="class_s_t_a_t_s.html#a4a3a320660e2092eeaa605df70bea8ea">pile_count</a> (left_edge) == 0
+    &amp;&amp; left_edge &lt; projection_right; left_edge++);
+  <span class="keywordflow">for</span> (right_edge = projection_right; projection-&gt;<a class="code" href="class_s_t_a_t_s.html#a4a3a320660e2092eeaa605df70bea8ea">pile_count</a> (right_edge) == 0
+    &amp;&amp; right_edge &gt; left_edge; right_edge--);
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a> (right_edge &gt;= left_edge);
+  <span class="keywordflow">if</span> (pitsync_linear_version &gt;= 4)
+    <span class="keywordflow">return</span> <a class="code" href="pithsync_8cpp.html#a40cc2d2a65d895b7ea644c293605ffb2">check_pitch_sync3</a> (projection_left, projection_right, zero_count,
+      pitch, pitch_error, projection,
+      projection_scale, occupation_count, seg_list,
+      start, end);
+  array_origin = left_edge - pitch;
+  cutpts = (<a class="code" href="class_f_p_c_u_t_p_t.html">FPCUTPT</a> *) <a class="code" href="memry_8cpp.html#a4c14b091498fb7866a1dd0af51a591fe">alloc_mem</a> ((right_edge - left_edge + pitch * 2 + 1)
+    * <span class="keyword">sizeof</span> (<a class="code" href="class_f_p_c_u_t_p_t.html">FPCUTPT</a>));
+  <span class="keywordflow">for</span> (x = array_origin; x &lt; left_edge; x++)
+                                 <span class="comment">//free cuts</span>
+    cutpts[x - array_origin].setup (cutpts, array_origin, projection, zero_count, pitch, x, 0);
+  <span class="keywordflow">for</span> (offset = 0; offset &lt;= pitch_error; offset++, x++)
+                                 <span class="comment">//not quite free</span>
+    cutpts[x - array_origin].setup (cutpts, array_origin, projection, zero_count, pitch, x, offset);
+
+  this_it = *blob_it;
+  best_cost = <a class="code" href="host_8h.html#a9adcee815220ec9db98062213806ed04">MAX_FLOAT32</a>;
+  best_end = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  this_box = <a class="code" href="blobbox_8cpp.html#a343c30f9e935058965b844710a2e3180">box_next</a> (&amp;this_it);<span class="comment">//first box</span>
+  next_box = <a class="code" href="blobbox_8cpp.html#a343c30f9e935058965b844710a2e3180">box_next</a> (&amp;this_it);<span class="comment">//second box</span>
+  blob_index = 1;
+  <span class="keywordflow">while</span> (x &lt; right_edge - pitch_error) {
+    <span class="keywordflow">if</span> (x &gt; this_box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a> () + pitch_error &amp;&amp; blob_index &lt; blob_count) {
+      this_box = next_box;
+      next_box = <a class="code" href="blobbox_8cpp.html#a343c30f9e935058965b844710a2e3180">box_next</a> (&amp;this_it);
+      blob_index++;
+    }
+    faking = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+    mid_cut = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+    <span class="keywordflow">if</span> (x &lt;= this_box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a> ())
+      offset = 0;
+    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (x &lt;= this_box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a> () + pitch_error)
+      offset = x - this_box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a> ();
+    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (x &gt;= this_box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a> ())
+      offset = 0;
+    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (x &gt;= next_box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a> () &amp;&amp; blob_index &lt; blob_count) {
+      offset = x - next_box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a> ();
+      <span class="keywordflow">if</span> (this_box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a> () - x &lt; offset)
+        offset = this_box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a> () - x;
+    }
+    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (x &gt;= this_box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a> () - pitch_error)
+      offset = this_box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a> () - x;
+    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (x - this_box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a> () &gt; pitch * <a class="code" href="pitsync1_8cpp.html#a0d941a59238ff3b7bcca1077af788d43">pitsync_joined_edge</a>
+    &amp;&amp; this_box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a> () - x &gt; pitch * <a class="code" href="pitsync1_8cpp.html#a0d941a59238ff3b7bcca1077af788d43">pitsync_joined_edge</a>) {
+      mid_cut = <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+      offset = 0;
+    }
+    <span class="keywordflow">else</span> {
+      faking = <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+      offset = projection-&gt;<a class="code" href="class_s_t_a_t_s.html#a4a3a320660e2092eeaa605df70bea8ea">pile_count</a> (x);
+    }
+    cutpts[x - array_origin].<a class="code" href="class_f_p_c_u_t_p_t.html#ae8b03015ca9993673024a22a8dc904e1">assign</a> (cutpts, array_origin, x,
+      faking, mid_cut, offset, projection,
+      projection_scale, zero_count, pitch,
+      pitch_error);
+    x++;
+  }
+
+  best_fake = <a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a>;
+  best_cost = <a class="code" href="host_8h.html#aac62d87844689a18b6f5339a89ed6e7f">MAX_INT32</a>;
+  best_count = <a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a>;
+  <span class="keywordflow">while</span> (x &lt; right_edge + pitch) {
+    offset = x &lt; right_edge ? right_edge - x : 0;
+    cutpts[x - array_origin].<a class="code" href="class_f_p_c_u_t_p_t.html#ae8b03015ca9993673024a22a8dc904e1">assign</a> (cutpts, array_origin, x,
+      <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>, <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>, offset, projection,
+      projection_scale, zero_count, pitch,
+      pitch_error);
+    cutpts[x - array_origin].<a class="code" href="class_f_p_c_u_t_p_t.html#aad85bb77d2c329c43abd41e854183f1d">terminal</a> = <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+    <span class="keywordflow">if</span> (cutpts[x - array_origin].index () +
+    cutpts[x - array_origin].fake_count &lt;= best_count + best_fake) {
+      <span class="keywordflow">if</span> (cutpts[x - array_origin].fake_count &lt; best_fake
+        || (cutpts[x - array_origin].fake_count == best_fake
+      &amp;&amp; cutpts[x - array_origin].cost_function () &lt; best_cost)) {
+        best_fake = cutpts[x - array_origin].<a class="code" href="class_f_p_c_u_t_p_t.html#a4700de0507676a547b49f7b5b0414b1b">fake_count</a>;
+        best_cost = cutpts[x - array_origin].<a class="code" href="class_f_p_c_u_t_p_t.html#a754e205021f03c913ca0aa5b277b1aac">cost_function</a> ();
+        best_left_x = x;
+        best_right_x = x;
+        best_count = cutpts[x - array_origin].<a class="code" href="class_f_p_c_u_t_p_t.html#a948343c0460bfe23f0e43c4ff3085813">index</a> ();
+      }
+      <span class="keywordflow">else</span> <span class="keywordflow">if</span> (cutpts[x - array_origin].fake_count == best_fake
+        &amp;&amp; x == best_right_x + 1
+      &amp;&amp; cutpts[x - array_origin].cost_function () == best_cost) {
+      <span class="comment">//exactly equal</span>
+        best_right_x = x;
+      }
+    }
+    x++;
+  }
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a> (best_fake &lt; <a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a>);
+
+  best_end = &amp;cutpts[(best_left_x + best_right_x) / 2 - array_origin];
+  <span class="keywordflow">if</span> (this_box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a> () == <a class="code" href="makerow_8cpp.html#a23b8c104a388b836300c6aaf9592c66f">textord_test_x</a>
+  &amp;&amp; this_box.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a> () == <a class="code" href="makerow_8cpp.html#ac7548cdecc88963c89ab9d235a6c6531">textord_test_y</a>) {
+    <span class="keywordflow">for</span> (x = left_edge - pitch; x &lt; right_edge + pitch; x++) {
+      <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a> (<span class="stringliteral">&quot;x=%d, C=%g, s=%g, sq=%g, prev=%d\n&quot;</span>,
+        x, cutpts[x - array_origin].cost_function (),
+        cutpts[x - array_origin].sum (),
+        cutpts[x - array_origin].squares (),
+        cutpts[x - array_origin].previous ()-&gt;position ());
+    }
+  }
+  occupation_count = -1;
+  <span class="keywordflow">do</span> {
+    <span class="keywordflow">for</span> (x = best_end-&gt;<a class="code" href="class_f_p_c_u_t_p_t.html#a4bd6376f9b5ec6825df3fdb5a7db3d6c">position</a> () - pitch + pitch_error;
+      x &lt; best_end-&gt;<a class="code" href="class_f_p_c_u_t_p_t.html#a4bd6376f9b5ec6825df3fdb5a7db3d6c">position</a> () - pitch_error
+      &amp;&amp; projection-&gt;<a class="code" href="class_s_t_a_t_s.html#a4a3a320660e2092eeaa605df70bea8ea">pile_count</a> (x) == 0; x++);
+    <span class="keywordflow">if</span> (x &lt; best_end-&gt;position () - pitch_error)
+      occupation_count++;
+                                 <span class="comment">//copy it</span>
+    segpt = <span class="keyword">new</span> <a class="code" href="class_f_p_s_e_g_p_t.html">FPSEGPT</a> (best_end);
+    seg_it.add_before_then_move (segpt);
+    best_end = best_end-&gt;<a class="code" href="class_f_p_c_u_t_p_t.html#af9b9cd3fd3e437486e6020d16580fe9d">previous</a> ();
+  }
+  <span class="keywordflow">while</span> (best_end != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  seg_it.move_to_last ();
+  mean_sum = seg_it.data ()-&gt;<a class="code" href="class_f_p_c_u_t_p_t.html#aa458ef97a2dfab2d805c5c58acbc2459">sum</a> ();
+  mean_sum = mean_sum * mean_sum / best_count;
+  <span class="keywordflow">if</span> (seg_it.data ()-&gt;squares () - mean_sum &lt; 0)
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a> (<span class="stringliteral">&quot;Impossible sqsum=%g, mean=%g, total=%d\n&quot;</span>,
+      seg_it.data ()-&gt;squares (), seg_it.data ()-&gt;sum (), best_count);
+  <a class="code" href="memry_8cpp.html#a9ef1862b8e026e23eef238af032858e4">free_mem</a>(cutpts);
+  <span class="comment">//      tprintf(&quot;blob_count=%d, pitch=%d, sync=%g, occ=%d\n&quot;,</span>
+  <span class="comment">//              blob_count,pitch,seg_it.data()-&gt;squares()-mean_sum,</span>
+  <span class="comment">//              occupation_count);</span>
+  <span class="keywordflow">return</span> seg_it.data ()-&gt;squares () - mean_sum;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a40cc2d2a65d895b7ea644c293605ffb2"></a><!-- doxytag: member="pithsync.h::check_pitch_sync3" ref="a40cc2d2a65d895b7ea644c293605ffb2" args="(inT16 projection_left, inT16 projection_right, inT16 zero_count, inT16 pitch, inT16 pitch_error, STATS *projection, float projection_scale, inT16 &amp;occupation_count, FPSEGPT_LIST *seg_list, inT16 start, inT16 end)" -->
@@ -284,6 +460,197 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pithsync_8cpp_source.html#l00496">496</a> of file <a class="el" href="pithsync_8cpp_source.html">pithsync.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                          {
+  <a class="code" href="host_8h.html#a7712a7e28433d0ade59219a129549b6f">BOOL8</a> faking;                  <span class="comment">//illegal cut pt</span>
+  <a class="code" href="host_8h.html#a7712a7e28433d0ade59219a129549b6f">BOOL8</a> mid_cut;                 <span class="comment">//cheap cut pt.</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> left_edge;               <span class="comment">//of word</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> right_edge;              <span class="comment">//of word</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> x;                       <span class="comment">//current coord</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> array_origin;            <span class="comment">//x coord of array</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> offset;                  <span class="comment">//dist to legal area</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> projection_offset;       <span class="comment">//from scaled projection</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> prev_zero;               <span class="comment">//previous zero dist</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> next_zero;               <span class="comment">//next zero dist</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> zero_offset;             <span class="comment">//scan window</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> best_left_x = 0;         <span class="comment">//for equals</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> best_right_x = 0;        <span class="comment">//right edge</span>
+  <a class="code" href="class_f_p_s_e_g_p_t.html">FPSEGPT</a> *segpt;                <span class="comment">//segment point</span>
+  <a class="code" href="class_f_p_c_u_t_p_t.html">FPCUTPT</a> *cutpts;               <span class="comment">//array of points</span>
+  <a class="code" href="host_8h.html#a7712a7e28433d0ade59219a129549b6f">BOOL8</a> *mins;                   <span class="comment">//local min results</span>
+  <span class="keywordtype">int</span> minindex;                  <span class="comment">//next input position</span>
+  <span class="keywordtype">int</span> test_index;                <span class="comment">//index to mins</span>
+  <span class="keywordtype">double</span> best_cost;              <span class="comment">//best path</span>
+  <span class="keywordtype">double</span> mean_sum;               <span class="comment">//computes result</span>
+  <a class="code" href="class_f_p_c_u_t_p_t.html">FPCUTPT</a> *best_end;             <span class="comment">//end of best path</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> best_fake;               <span class="comment">//best fake level</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> best_count;              <span class="comment">//no of cuts</span>
+  FPSEGPT_IT seg_it = seg_list;  <span class="comment">//output iterator</span>
+
+  end = (end - start) % pitch;
+  <span class="keywordflow">if</span> (pitch &lt; 3)
+    pitch = 3;                   <span class="comment">//nothing ludicrous</span>
+  <span class="keywordflow">if</span> ((pitch - 3) / 2 &lt; pitch_error)
+    pitch_error = (pitch - 3) / 2;
+                                 <span class="comment">//min dist of zero</span>
+  zero_offset = (<a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>) (pitch * <a class="code" href="pitsync1_8cpp.html#a0d941a59238ff3b7bcca1077af788d43">pitsync_joined_edge</a>);
+  <span class="keywordflow">for</span> (left_edge = projection_left; projection-&gt;<a class="code" href="class_s_t_a_t_s.html#a4a3a320660e2092eeaa605df70bea8ea">pile_count</a> (left_edge) == 0
+    &amp;&amp; left_edge &lt; projection_right; left_edge++);
+  <span class="keywordflow">for</span> (right_edge = projection_right; projection-&gt;<a class="code" href="class_s_t_a_t_s.html#a4a3a320660e2092eeaa605df70bea8ea">pile_count</a> (right_edge) == 0
+    &amp;&amp; right_edge &gt; left_edge; right_edge--);
+  array_origin = left_edge - pitch;
+  cutpts = (<a class="code" href="class_f_p_c_u_t_p_t.html">FPCUTPT</a> *) <a class="code" href="memry_8cpp.html#a4c14b091498fb7866a1dd0af51a591fe">alloc_mem</a> ((right_edge - left_edge + pitch * 2 + 1)
+    * <span class="keyword">sizeof</span> (<a class="code" href="class_f_p_c_u_t_p_t.html">FPCUTPT</a>));
+  mins = (<a class="code" href="host_8h.html#a7712a7e28433d0ade59219a129549b6f">BOOL8</a> *) <a class="code" href="memry_8cpp.html#a4c14b091498fb7866a1dd0af51a591fe">alloc_mem</a> ((pitch_error * 2 + 1) * <span class="keyword">sizeof</span> (<a class="code" href="host_8h.html#a7712a7e28433d0ade59219a129549b6f">BOOL8</a>));
+  <span class="keywordflow">for</span> (x = array_origin; x &lt; left_edge; x++)
+                                 <span class="comment">//free cuts</span>
+    cutpts[x - array_origin].setup (cutpts, array_origin, projection, zero_count, pitch, x, 0);
+  prev_zero = left_edge - 1;
+  <span class="keywordflow">for</span> (offset = 0; offset &lt;= pitch_error; offset++, x++)
+                                 <span class="comment">//not quite free</span>
+    cutpts[x - array_origin].setup (cutpts, array_origin, projection, zero_count, pitch, x, offset);
+
+  best_cost = <a class="code" href="host_8h.html#a9adcee815220ec9db98062213806ed04">MAX_FLOAT32</a>;
+  best_end = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordflow">for</span> (offset = -pitch_error, minindex = 0; offset &lt; pitch_error;
+    offset++, minindex++)
+  mins[minindex] = projection-&gt;<a class="code" href="class_s_t_a_t_s.html#ace640389c49d4af2197ed5a0b74b276d">local_min</a> (x + offset);
+  next_zero = x + zero_offset + 1;
+  <span class="keywordflow">for</span> (offset = next_zero - 1; offset &gt;= x; offset--) {
+    <span class="keywordflow">if</span> (projection-&gt;<a class="code" href="class_s_t_a_t_s.html#a4a3a320660e2092eeaa605df70bea8ea">pile_count</a> (offset) &lt;= zero_count) {
+      next_zero = offset;
+      <span class="keywordflow">break</span>;
+    }
+  }
+  <span class="keywordflow">while</span> (x &lt; right_edge - pitch_error) {
+    mins[minindex] = projection-&gt;<a class="code" href="class_s_t_a_t_s.html#ace640389c49d4af2197ed5a0b74b276d">local_min</a> (x + pitch_error);
+    minindex++;
+    <span class="keywordflow">if</span> (minindex &gt; pitch_error * 2)
+      minindex = 0;
+    faking = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+    mid_cut = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+    offset = 0;
+    <span class="keywordflow">if</span> (projection-&gt;<a class="code" href="class_s_t_a_t_s.html#a4a3a320660e2092eeaa605df70bea8ea">pile_count</a> (x) &lt;= zero_count) {
+      prev_zero = x;
+    }
+    <span class="keywordflow">else</span> {
+      <span class="keywordflow">for</span> (offset = 1; offset &lt;= pitch_error; offset++)
+        <span class="keywordflow">if</span> (projection-&gt;<a class="code" href="class_s_t_a_t_s.html#a4a3a320660e2092eeaa605df70bea8ea">pile_count</a> (x + offset) &lt;= zero_count
+        || projection-&gt;<a class="code" href="class_s_t_a_t_s.html#a4a3a320660e2092eeaa605df70bea8ea">pile_count</a> (x - offset) &lt;= zero_count)
+          <span class="keywordflow">break</span>;
+    }
+    <span class="keywordflow">if</span> (offset &gt; pitch_error) {
+      <span class="keywordflow">if</span> (x - prev_zero &gt; zero_offset &amp;&amp; next_zero - x &gt; zero_offset) {
+        <span class="keywordflow">for</span> (offset = 0; offset &lt;= pitch_error; offset++) {
+          test_index = minindex + pitch_error + offset;
+          <span class="keywordflow">if</span> (test_index &gt; pitch_error * 2)
+            test_index -= pitch_error * 2 + 1;
+          <span class="keywordflow">if</span> (mins[test_index])
+            <span class="keywordflow">break</span>;
+          test_index = minindex + pitch_error - offset;
+          <span class="keywordflow">if</span> (test_index &gt; pitch_error * 2)
+            test_index -= pitch_error * 2 + 1;
+          <span class="keywordflow">if</span> (mins[test_index])
+            <span class="keywordflow">break</span>;
+        }
+      }
+      <span class="keywordflow">if</span> (offset &gt; pitch_error) {
+        offset = projection-&gt;<a class="code" href="class_s_t_a_t_s.html#a4a3a320660e2092eeaa605df70bea8ea">pile_count</a> (x);
+        faking = <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+      }
+      <span class="keywordflow">else</span> {
+        projection_offset =
+          (<a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>) (projection-&gt;<a class="code" href="class_s_t_a_t_s.html#a4a3a320660e2092eeaa605df70bea8ea">pile_count</a> (x) / projection_scale);
+        <span class="keywordflow">if</span> (projection_offset &gt; offset)
+          offset = projection_offset;
+        mid_cut = <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+      }
+    }
+    <span class="keywordflow">if</span> ((start == 0 &amp;&amp; end == 0)
+      || !<a class="code" href="topitch_8cpp.html#ac49ca21c7dc420fa93fbc24dd37b56c7">textord_fast_pitch_test</a>
+      || (x - projection_left - start) % pitch &lt;= end)
+      cutpts[x - array_origin].<a class="code" href="class_f_p_c_u_t_p_t.html#ae8b03015ca9993673024a22a8dc904e1">assign</a> (cutpts, array_origin, x,
+        faking, mid_cut, offset, projection,
+        projection_scale, zero_count, pitch,
+        pitch_error);
+    <span class="keywordflow">else</span>
+      cutpts[x - array_origin].<a class="code" href="class_f_p_c_u_t_p_t.html#a4cd1de9763c534dd1b1bfb34a71a40bf">assign_cheap</a> (cutpts, array_origin, x,
+        faking, mid_cut, offset,
+        projection, projection_scale,
+        zero_count, pitch,
+        pitch_error);
+    x++;
+    <span class="keywordflow">if</span> (next_zero &lt; x || next_zero == x + zero_offset)
+      next_zero = x + zero_offset + 1;
+    <span class="keywordflow">if</span> (projection-&gt;<a class="code" href="class_s_t_a_t_s.html#a4a3a320660e2092eeaa605df70bea8ea">pile_count</a> (x + zero_offset) &lt;= zero_count)
+      next_zero = x + zero_offset;
+  }
+
+  best_fake = <a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a>;
+  best_cost = <a class="code" href="host_8h.html#aac62d87844689a18b6f5339a89ed6e7f">MAX_INT32</a>;
+  best_count = <a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a>;
+  <span class="keywordflow">while</span> (x &lt; right_edge + pitch) {
+    offset = x &lt; right_edge ? right_edge - x : 0;
+    cutpts[x - array_origin].<a class="code" href="class_f_p_c_u_t_p_t.html#ae8b03015ca9993673024a22a8dc904e1">assign</a> (cutpts, array_origin, x,
+      <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>, <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>, offset, projection,
+      projection_scale, zero_count, pitch,
+      pitch_error);
+    cutpts[x - array_origin].<a class="code" href="class_f_p_c_u_t_p_t.html#aad85bb77d2c329c43abd41e854183f1d">terminal</a> = <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+    <span class="keywordflow">if</span> (cutpts[x - array_origin].index () +
+    cutpts[x - array_origin].fake_count &lt;= best_count + best_fake) {
+      <span class="keywordflow">if</span> (cutpts[x - array_origin].fake_count &lt; best_fake
+        || (cutpts[x - array_origin].fake_count == best_fake
+      &amp;&amp; cutpts[x - array_origin].cost_function () &lt; best_cost)) {
+        best_fake = cutpts[x - array_origin].<a class="code" href="class_f_p_c_u_t_p_t.html#a4700de0507676a547b49f7b5b0414b1b">fake_count</a>;
+        best_cost = cutpts[x - array_origin].<a class="code" href="class_f_p_c_u_t_p_t.html#a754e205021f03c913ca0aa5b277b1aac">cost_function</a> ();
+        best_left_x = x;
+        best_right_x = x;
+        best_count = cutpts[x - array_origin].<a class="code" href="class_f_p_c_u_t_p_t.html#a948343c0460bfe23f0e43c4ff3085813">index</a> ();
+      }
+      <span class="keywordflow">else</span> <span class="keywordflow">if</span> (cutpts[x - array_origin].fake_count == best_fake
+        &amp;&amp; x == best_right_x + 1
+      &amp;&amp; cutpts[x - array_origin].cost_function () == best_cost) {
+      <span class="comment">//exactly equal</span>
+        best_right_x = x;
+      }
+    }
+    x++;
+  }
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a> (best_fake &lt; <a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a>);
+
+  best_end = &amp;cutpts[(best_left_x + best_right_x) / 2 - array_origin];
+  <span class="comment">//      for (x=left_edge-pitch;x&lt;right_edge+pitch;x++)</span>
+  <span class="comment">//      {</span>
+  <span class="comment">//              tprintf(&quot;x=%d, C=%g, s=%g, sq=%g, prev=%d\n&quot;,</span>
+  <span class="comment">//                      x,cutpts[x-array_origin].cost_function(),</span>
+  <span class="comment">//                      cutpts[x-array_origin].sum(),</span>
+  <span class="comment">//                      cutpts[x-array_origin].squares(),</span>
+  <span class="comment">//                      cutpts[x-array_origin].previous()-&gt;position());</span>
+  <span class="comment">//      }</span>
+  occupation_count = -1;
+  <span class="keywordflow">do</span> {
+    <span class="keywordflow">for</span> (x = best_end-&gt;<a class="code" href="class_f_p_c_u_t_p_t.html#a4bd6376f9b5ec6825df3fdb5a7db3d6c">position</a> () - pitch + pitch_error;
+      x &lt; best_end-&gt;<a class="code" href="class_f_p_c_u_t_p_t.html#a4bd6376f9b5ec6825df3fdb5a7db3d6c">position</a> () - pitch_error
+      &amp;&amp; projection-&gt;<a class="code" href="class_s_t_a_t_s.html#a4a3a320660e2092eeaa605df70bea8ea">pile_count</a> (x) == 0; x++);
+    <span class="keywordflow">if</span> (x &lt; best_end-&gt;position () - pitch_error)
+      occupation_count++;
+                                 <span class="comment">//copy it</span>
+    segpt = <span class="keyword">new</span> <a class="code" href="class_f_p_s_e_g_p_t.html">FPSEGPT</a> (best_end);
+    seg_it.add_before_then_move (segpt);
+    best_end = best_end-&gt;<a class="code" href="class_f_p_c_u_t_p_t.html#af9b9cd3fd3e437486e6020d16580fe9d">previous</a> ();
+  }
+  <span class="keywordflow">while</span> (best_end != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  seg_it.move_to_last ();
+  mean_sum = seg_it.data ()-&gt;<a class="code" href="class_f_p_c_u_t_p_t.html#aa458ef97a2dfab2d805c5c58acbc2459">sum</a> ();
+  mean_sum = mean_sum * mean_sum / best_count;
+  <span class="keywordflow">if</span> (seg_it.data ()-&gt;squares () - mean_sum &lt; 0)
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a> (<span class="stringliteral">&quot;Impossible sqsum=%g, mean=%g, total=%d\n&quot;</span>,
+      seg_it.data ()-&gt;squares (), seg_it.data ()-&gt;sum (), best_count);
+  <a class="code" href="memry_8cpp.html#a9ef1862b8e026e23eef238af032858e4">free_mem</a>(mins);
+  <a class="code" href="memry_8cpp.html#a9ef1862b8e026e23eef238af032858e4">free_mem</a>(cutpts);
+  <span class="keywordflow">return</span> seg_it.data ()-&gt;squares () - mean_sum;
+}
+</pre></div>
 </div>
 </div>
 </div>
@@ -306,7 +673,7 @@ Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:10 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:42 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

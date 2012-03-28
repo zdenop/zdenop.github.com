@@ -129,6 +129,8 @@ Static Package Attributes</h2></td></tr>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="classcom_1_1google_1_1scrollview_1_1_scroll_view.html">ScrollView</a> class is the main class which gets started from the command line. It sets up LUA and handles the network processing. </p>
 <dl class="author"><dt><b>Author:</b></dt><dd><a href="mailto:wanke@google.com">wanke@google.com</a> </dd></dl>
+
+<p>Definition at line <a class="el" href="_scroll_view_8java_source.html#l00032">32</a> of file <a class="el" href="_scroll_view_8java_source.html">ScrollView.java</a>.</p>
 </div><hr/><h2>Member Function Documentation</h2>
 <a class="anchor" id="aa8095da786782f4a59fa7113f42c84b7"></a><!-- doxytag: member="com::google::scrollview::ScrollView::addMessage" ref="aa8095da786782f4a59fa7113f42c84b7" args="(SVEvent e)" -->
 <div class="memitem">
@@ -146,6 +148,29 @@ Static Package Attributes</h2></td></tr>
 <div class="memdoc">
 <p>Add a new message to the outgoing queue </p>
 
+<p>Definition at line <a class="el" href="_scroll_view_8java_source.html#l00060">60</a> of file <a class="el" href="_scroll_view_8java_source.html">ScrollView.java</a>.</p>
+<div class="fragment"><pre class="fragment">                                           {
+    <span class="keywordflow">if</span> (<a class="code" href="classcom_1_1google_1_1scrollview_1_1_scroll_view.html#af8c407440cb634642792ab2aad1e85e5">debugViewNetworkTraffic</a>) {
+      System.out.println(<span class="stringliteral">&quot;(S-&gt;c) &quot;</span> + e.toString());
+    }
+    String str = e.toString();
+    <span class="comment">// Send the whole thing as UTF8.</span>
+    <span class="keywordflow">try</span> {
+      byte [] utf8 = str.getBytes(<span class="stringliteral">&quot;UTF8&quot;</span>);
+      out.write(utf8, 0, utf8.length);
+    } <span class="keywordflow">catch</span> (java.io.UnsupportedEncodingException ex) {
+      System.out.println(<span class="stringliteral">&quot;Oops... can&#39;t encode to UTF8... Exiting&quot;</span>);
+      System.exit(0);
+    }
+    out.println();
+    <span class="comment">// Flush the output and check for errors.</span>
+    <span class="keywordtype">boolean</span> error = out.checkError();
+    <span class="keywordflow">if</span> (error) {
+      System.out.println(<span class="stringliteral">&quot;Connection error. Quitting ScrollView Server...&quot;</span>);
+      System.exit(0);
+    }
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a290dda667770c72642610da70332d5e0"></a><!-- doxytag: member="com::google::scrollview::ScrollView::exit" ref="a290dda667770c72642610da70332d5e0" args="()" -->
@@ -163,6 +188,11 @@ Static Package Attributes</h2></td></tr>
 <div class="memdoc">
 <p>Called from the client to make the server exit. </p>
 
+<p>Definition at line <a class="el" href="_scroll_view_8java_source.html#l00379">379</a> of file <a class="el" href="_scroll_view_8java_source.html">ScrollView.java</a>.</p>
+<div class="fragment"><pre class="fragment">                            {
+    System.exit(0);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae740a4c5b154eef9c9d6831dec5fda7d"></a><!-- doxytag: member="com::google::scrollview::ScrollView::main" ref="ae740a4c5b154eef9c9d6831dec5fda7d" args="(String[] args)" -->
@@ -181,6 +211,42 @@ Static Package Attributes</h2></td></tr>
 <div class="memdoc">
 <p>The main function. Sets up LUA and the server connection and then calls the IOLoop. </p>
 
+<p>Definition at line <a class="el" href="_scroll_view_8java_source.html#l00387">387</a> of file <a class="el" href="_scroll_view_8java_source.html">ScrollView.java</a>.</p>
+<div class="fragment"><pre class="fragment">                                         {
+    <span class="keywordflow">if</span> (args.length &gt; 0) {
+      <a class="code" href="classcom_1_1google_1_1scrollview_1_1_scroll_view.html#a43b2942a0675f6f9dcc57217d55f9cbc">SERVER_PORT</a> = Integer.parseInt(args[0]);
+    }
+    windows = <span class="keyword">new</span> ArrayList&lt;SVWindow&gt;(100);
+    intPattern = Pattern.compile(<span class="stringliteral">&quot;[0-9-][0-9]*&quot;</span>);
+    floatPattern = Pattern.compile(<span class="stringliteral">&quot;[0-9-][0-9]*\\.[0-9]*&quot;</span>);
+
+    <span class="keywordflow">try</span> {
+      <span class="comment">// Open a socket to listen on.</span>
+      ServerSocket serverSocket = <span class="keyword">new</span> ServerSocket(<a class="code" href="classcom_1_1google_1_1scrollview_1_1_scroll_view.html#a43b2942a0675f6f9dcc57217d55f9cbc">SERVER_PORT</a>);
+      System.out.println(<span class="stringliteral">&quot;Socket started on port &quot;</span> + <a class="code" href="classcom_1_1google_1_1scrollview_1_1_scroll_view.html#a43b2942a0675f6f9dcc57217d55f9cbc">SERVER_PORT</a>);
+
+      <span class="comment">// Wait (blocking) for an incoming connection</span>
+      socket = serverSocket.accept();
+      System.out.println(<span class="stringliteral">&quot;Client connected&quot;</span>);
+
+      <span class="comment">// Setup the streams</span>
+      out = <span class="keyword">new</span> PrintStream(socket.getOutputStream(), <span class="keyword">true</span>);
+      <a class="code" href="classcom_1_1google_1_1scrollview_1_1_scroll_view.html#aac16ae2d03b26eee5bd288ad91812204">in</a> =
+          <span class="keyword">new</span> BufferedReader(<span class="keyword">new</span> InputStreamReader(socket.getInputStream(),
+              <span class="stringliteral">&quot;UTF8&quot;</span>));
+    } <span class="keywordflow">catch</span> (IOException e) {
+      <span class="comment">// Something went wrong and we were unable to set up a connection. This is</span>
+      <span class="comment">// pretty</span>
+      <span class="comment">// much a fatal error.</span>
+      <span class="comment">// Note: The server does not get restarted automatically if this happens.</span>
+      e.printStackTrace();
+      System.exit(1);
+    }
+
+    <span class="comment">// Enter the main program loop.</span>
+    IOLoop();
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3ccb05a47d9c521d7fc6932b0e3ef5c8"></a><!-- doxytag: member="com::google::scrollview::ScrollView::receiveMessage" ref="a3ccb05a47d9c521d7fc6932b0e3ef5c8" args="()" -->
@@ -198,6 +264,11 @@ Static Package Attributes</h2></td></tr>
 <div class="memdoc">
 <p>Read one message from client (assuming there are any). </p>
 
+<p>Definition at line <a class="el" href="_scroll_view_8java_source.html#l00083">83</a> of file <a class="el" href="_scroll_view_8java_source.html">ScrollView.java</a>.</p>
+<div class="fragment"><pre class="fragment">                                                           {
+    <span class="keywordflow">return</span> <a class="code" href="classcom_1_1google_1_1scrollview_1_1_scroll_view.html#aac16ae2d03b26eee5bd288ad91812204">in</a>.readLine();
+  }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
@@ -213,6 +284,8 @@ Static Package Attributes</h2></td></tr>
 <div class="memdoc">
 <p>Prints all received messages to the console if true. </p>
 
+<p>Definition at line <a class="el" href="_scroll_view_8java_source.html#l00057">57</a> of file <a class="el" href="_scroll_view_8java_source.html">ScrollView.java</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="aac16ae2d03b26eee5bd288ad91812204"></a><!-- doxytag: member="com::google::scrollview::ScrollView::in" ref="aac16ae2d03b26eee5bd288ad91812204" args="" -->
@@ -225,6 +298,8 @@ Static Package Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="_scroll_view_8java_source.html#l00044">44</a> of file <a class="el" href="_scroll_view_8java_source.html">ScrollView.java</a>.</p>
 
 </div>
 </div>
@@ -240,6 +315,8 @@ Static Package Attributes</h2></td></tr>
 <div class="memdoc">
 <p>Keeps track of the number of messages received. </p>
 
+<p>Definition at line <a class="el" href="_scroll_view_8java_source.html#l00054">54</a> of file <a class="el" href="_scroll_view_8java_source.html">ScrollView.java</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a1e56734197aec76d9d7f07d3a9197efe"></a><!-- doxytag: member="com::google::scrollview::ScrollView::polylineScanned" ref="a1e56734197aec76d9d7f07d3a9197efe" args="" -->
@@ -252,6 +329,8 @@ Static Package Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="_scroll_view_8java_source.html#l00048">48</a> of file <a class="el" href="_scroll_view_8java_source.html">ScrollView.java</a>.</p>
 
 </div>
 </div>
@@ -266,6 +345,8 @@ Static Package Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="_scroll_view_8java_source.html#l00047">47</a> of file <a class="el" href="_scroll_view_8java_source.html">ScrollView.java</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ab284c4c9152023eebcf656c630cb92a3"></a><!-- doxytag: member="com::google::scrollview::ScrollView::polylineXCoords" ref="ab284c4c9152023eebcf656c630cb92a3" args="[]" -->
@@ -279,6 +360,8 @@ Static Package Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="_scroll_view_8java_source.html#l00045">45</a> of file <a class="el" href="_scroll_view_8java_source.html">ScrollView.java</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="af604d688c6ab97996e604463307dceff"></a><!-- doxytag: member="com::google::scrollview::ScrollView::polylineYCoords" ref="af604d688c6ab97996e604463307dceff" args="[]" -->
@@ -291,6 +374,8 @@ Static Package Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="_scroll_view_8java_source.html#l00046">46</a> of file <a class="el" href="_scroll_view_8java_source.html">ScrollView.java</a>.</p>
 
 </div>
 </div>
@@ -306,10 +391,12 @@ Static Package Attributes</h2></td></tr>
 <div class="memdoc">
 <p>The port our server listens at. </p>
 
+<p>Definition at line <a class="el" href="_scroll_view_8java_source.html#l00035">35</a> of file <a class="el" href="_scroll_view_8java_source.html">ScrollView.java</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>tesseract-ocr/java/com/google/scrollview/<a class="el" href="_scroll_view_8java.html">ScrollView.java</a></li>
+<li>tesseract-ocr/java/com/google/scrollview/<a class="el" href="_scroll_view_8java_source.html">ScrollView.java</a></li>
 </ul>
 </div>
 </div>
@@ -334,7 +421,7 @@ Static Package Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:14 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:48 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

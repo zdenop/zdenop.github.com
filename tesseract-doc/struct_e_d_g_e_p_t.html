@@ -125,7 +125,10 @@ Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_e_d_g_e_p_t.html">EDGEPT</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_e_d_g_e_p_t.html">EDGEPT</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_e_d_g_e_p_t.html#a8326da8daf597bcdc5a05064a37cbbb1">prev</a></td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="blobs_8h_source.html#l00072">72</a> of file <a class="el" href="blobs_8h_source.html">blobs.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="aa70527d4bff3d2972ed3be5a138bf00d"></a><!-- doxytag: member="EDGEPT::EDGEPT" ref="aa70527d4bff3d2972ed3be5a138bf00d" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -140,6 +143,11 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8h_source.html#l00073">73</a> of file <a class="el" href="blobs_8h_source.html">blobs.h</a>.</p>
+<div class="fragment"><pre class="fragment">           : <a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>), <a class="code" href="struct_e_d_g_e_p_t.html#a8326da8daf597bcdc5a05064a37cbbb1">prev</a>(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    memset(<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>, 0, <a class="code" href="blobs_8h.html#ad9af7050d913fcdd0b94253eccb4994a">EDGEPTFLAGS</a> * <span class="keyword">sizeof</span>(<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[0]));
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a0661438956401b0af728a1c80e3c58ee"></a><!-- doxytag: member="EDGEPT::EDGEPT" ref="a0661438956401b0af728a1c80e3c58ee" args="(const EDGEPT &amp;src)" -->
@@ -157,6 +165,11 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8h_source.html#l00076">76</a> of file <a class="el" href="blobs_8h_source.html">blobs.h</a>.</p>
+<div class="fragment"><pre class="fragment">                            : <a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>), <a class="code" href="struct_e_d_g_e_p_t.html#a8326da8daf597bcdc5a05064a37cbbb1">prev</a>(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="struct_e_d_g_e_p_t.html#a7564d2ea97089e8e8665e5e71632c854">CopyFrom</a>(src);
+  }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -175,6 +188,13 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8h_source.html#l00084">84</a> of file <a class="el" href="blobs_8h_source.html">blobs.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                   {
+    <a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a> = src.<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>;
+    <a class="code" href="struct_e_d_g_e_p_t.html#a6da204ff253a65e00daae7753b82c9f7">vec</a> = src.<a class="code" href="struct_e_d_g_e_p_t.html#a6da204ff253a65e00daae7753b82c9f7">vec</a>;
+    memcpy(<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>, src.<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>, <a class="code" href="blobs_8h.html#ad9af7050d913fcdd0b94253eccb4994a">EDGEPTFLAGS</a> * <span class="keyword">sizeof</span>(<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[0]));
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a0f054c7f746f3249bf0c6fdd84de2dac"></a><!-- doxytag: member="EDGEPT::Hide" ref="a0f054c7f746f3249bf0c6fdd84de2dac" args="()" -->
@@ -191,6 +211,11 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8h_source.html#l00090">90</a> of file <a class="el" href="blobs_8h_source.html">blobs.h</a>.</p>
+<div class="fragment"><pre class="fragment">              {
+    <a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[0] = <span class="keyword">true</span>;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7e6e4c9b9bcc3b1e66ab62bb7641c39a"></a><!-- doxytag: member="EDGEPT::IsHidden" ref="a7e6e4c9b9bcc3b1e66ab62bb7641c39a" args="() const " -->
@@ -207,6 +232,11 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8h_source.html#l00096">96</a> of file <a class="el" href="blobs_8h_source.html">blobs.h</a>.</p>
+<div class="fragment"><pre class="fragment">                        {
+    <span class="keywordflow">return</span> <a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[0] != 0;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a1cb5e164b7f950fac35d92baa739bafb"></a><!-- doxytag: member="EDGEPT::operator=" ref="a1cb5e164b7f950fac35d92baa739bafb" args="(const EDGEPT &amp;src)" -->
@@ -224,6 +254,12 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8h_source.html#l00079">79</a> of file <a class="el" href="blobs_8h_source.html">blobs.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                       {
+    <a class="code" href="struct_e_d_g_e_p_t.html#a7564d2ea97089e8e8665e5e71632c854">CopyFrom</a>(src);
+    <span class="keywordflow">return</span> *<span class="keyword">this</span>;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a668c2e2a44f809802b6c72cfdef485d5"></a><!-- doxytag: member="EDGEPT::Reveal" ref="a668c2e2a44f809802b6c72cfdef485d5" args="()" -->
@@ -240,6 +276,11 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8h_source.html#l00093">93</a> of file <a class="el" href="blobs_8h_source.html">blobs.h</a>.</p>
+<div class="fragment"><pre class="fragment">                {
+    <a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[0] = <span class="keyword">false</span>;
+  }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
@@ -254,6 +295,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8h_source.html#l00105">105</a> of file <a class="el" href="blobs_8h_source.html">blobs.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a196f7786194752f89e364a586d24884d"></a><!-- doxytag: member="EDGEPT::next" ref="a196f7786194752f89e364a586d24884d" args="" -->
@@ -266,6 +309,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="blobs_8h_source.html#l00106">106</a> of file <a class="el" href="blobs_8h_source.html">blobs.h</a>.</p>
 
 </div>
 </div>
@@ -280,6 +325,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8h_source.html#l00100">100</a> of file <a class="el" href="blobs_8h_source.html">blobs.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a8326da8daf597bcdc5a05064a37cbbb1"></a><!-- doxytag: member="EDGEPT::prev" ref="a8326da8daf597bcdc5a05064a37cbbb1" args="" -->
@@ -293,6 +340,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8h_source.html#l00107">107</a> of file <a class="el" href="blobs_8h_source.html">blobs.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a6da204ff253a65e00daae7753b82c9f7"></a><!-- doxytag: member="EDGEPT::vec" ref="a6da204ff253a65e00daae7753b82c9f7" args="" -->
@@ -305,6 +354,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="blobs_8h_source.html#l00101">101</a> of file <a class="el" href="blobs_8h_source.html">blobs.h</a>.</p>
 
 </div>
 </div>
@@ -331,7 +382,7 @@ Public Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:12 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:45 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

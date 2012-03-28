@@ -105,7 +105,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <code>#include &lt;string.h&gt;</code><br/>
 <code>#include &lt;stdlib.h&gt;</code><br/>
 <code>#include &quot;<a class="el" href="listio_8h_source.html">listio.h</a>&quot;</code><br/>
-</div><table class="memberdecls">
+</div>
+<p><a href="listio_8cpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="baseapi_8h.html#aa200acf94add0e61783bfcd5965bb645">LIST</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="listio_8cpp.html#aabd9ea571a22207154721504394c27cd">read_list</a> (const char *filename)</td></tr>
@@ -126,6 +128,32 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="listio_8cpp_source.html#l00045">45</a> of file <a class="el" href="listio_8cpp_source.html">listio.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                     {
+  FILE *infile;
+  <span class="keywordtype">char</span> s[<a class="code" href="cutil_8h.html#accaf8215779c8836f3f25f722e77550e">CHARS_PER_LINE</a>];
+  <a class="code" href="structlist__rec.html">LIST</a> list;
+  <span class="keywordtype">char</span> *chopAt250();
+
+  <span class="keywordflow">if</span> ((infile = <a class="code" href="cutil_8cpp.html#ae3226f9d05617de0b7174bc7b7fce5b6">open_file</a> (filename, <span class="stringliteral">&quot;r&quot;</span>)) == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <span class="keywordflow">return</span> (<a class="code" href="oldlist_8h.html#ae212530ca629c67513698e988c705a5a">NIL_LIST</a>);
+
+  list = <a class="code" href="oldlist_8h.html#ae212530ca629c67513698e988c705a5a">NIL_LIST</a>;
+  <span class="keywordflow">while</span> (fgets (s, <a class="code" href="cutil_8h.html#accaf8215779c8836f3f25f722e77550e">CHARS_PER_LINE</a>, infile) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    s[<a class="code" href="cutil_8h.html#accaf8215779c8836f3f25f722e77550e">CHARS_PER_LINE</a> - 1] = <span class="charliteral">&#39;\0&#39;</span>;
+    <span class="keywordflow">if</span> (strlen (s) &gt; 0) {
+      <span class="keywordflow">if</span> (s[strlen (s) - 1] == <span class="charliteral">&#39;\n&#39;</span>)
+        s[strlen (s) - 1] = <span class="charliteral">&#39;\0&#39;</span>;
+      <span class="keywordflow">if</span> (strlen (s) &gt; 0) {
+        list = <a class="code" href="oldlist_8cpp.html#a9c4294375af81ab4c133b6b5a3679a16">push</a> (list, (<a class="code" href="structlist__rec.html">LIST</a>) <a class="code" href="cutil_8h.html#a743cdc8825def697bb2b4252e3ec0db5">strsave</a> (s));
+      }
+    }
+  }
+
+  fclose(infile);
+  <span class="keywordflow">return</span> (<a class="code" href="oldlist_8cpp.html#a1316854253b2d15102f4f50d2e7eee02">reverse_d</a> (list));
+}
+</pre></div>
 </div>
 </div>
 </div>
@@ -148,7 +176,7 @@ Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:09 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:42 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

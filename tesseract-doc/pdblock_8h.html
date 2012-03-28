@@ -153,6 +153,12 @@ Variables</h2></td></tr>
 <p>decreasing_top_order</p>
 <p>Sort Comparator: Return &lt;0 if row1 top &lt; row2 top </p>
 
+<p>Definition at line <a class="el" href="ocrblock_8cpp_source.html#l00072">72</a> of file <a class="el" href="ocrblock_8cpp_source.html">ocrblock.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                           {
+  <span class="keywordflow">return</span> (*(<a class="code" href="class_r_o_w.html">ROW</a> **) row2)-&gt;bounding_box ().top () -
+    (*(<a class="code" href="class_r_o_w.html">ROW</a> **) row1)-&gt;bounding_box ().top ();
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Variable Documentation</h2>
@@ -166,6 +172,8 @@ Variables</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="pdblock_8h_source.html#l00030">30</a> of file <a class="el" href="pdblock_8h_source.html">pdblock.h</a>.</p>
 
 </div>
 </div>
@@ -189,7 +197,7 @@ Variables</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:09 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:40 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

@@ -125,7 +125,10 @@ Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">struct timeval&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_t_e_x_t___d_e_s_c.html#a0c77a9d716c5d41e18464a227876035b">end_time</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_e_a_n_y_c_o_d_e___c_h_a_r.html">EANYCODE_CHAR</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_e_t_e_x_t___d_e_s_c.html#ac71732cab3f860ad991da9f91fb6f915">text</a> [1]</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="ocrclass_8h_source.html#l00112">112</a> of file <a class="el" href="ocrclass_8h_source.html">ocrclass.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a07eb91ebcbcf0ad1d22a302a12710728"></a><!-- doxytag: member="ETEXT_DESC::ETEXT_DESC" ref="a07eb91ebcbcf0ad1d22a302a12710728" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -140,6 +143,13 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrclass_8h_source.html#l00125">125</a> of file <a class="el" href="ocrclass_8h_source.html">ocrclass.h</a>.</p>
+<div class="fragment"><pre class="fragment">               : <a class="code" href="class_e_t_e_x_t___d_e_s_c.html#aeedd8fde98247341baf3447f55274c17">count</a>(0), <a class="code" href="class_e_t_e_x_t___d_e_s_c.html#ac350ee2b121c4bf1f625b1606a859d0a">progress</a>(0), <a class="code" href="class_e_t_e_x_t___d_e_s_c.html#aad69cf50a5a4f1cc5642fe8a2a6059d8">more_to_come</a>(0), <a class="code" href="class_e_t_e_x_t___d_e_s_c.html#a8af28870223ea9a5ae89fcbafeb1c6aa">ocr_alive</a>(0),
+                   <a class="code" href="class_e_t_e_x_t___d_e_s_c.html#ae6168082c3ca3e91c9d25ea4c2d8bfe1">err_code</a>(0), <a class="code" href="class_e_t_e_x_t___d_e_s_c.html#afcea4319ceed9b37f3c43eec9ec5d55a">cancel</a>(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>), <a class="code" href="class_e_t_e_x_t___d_e_s_c.html#a4844a3e9868a0fde7ad2fcaa37f5c5f1">cancel_this</a>(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="class_e_t_e_x_t___d_e_s_c.html#a0c77a9d716c5d41e18464a227876035b">end_time</a>.tv_sec = 0;
+    <a class="code" href="class_e_t_e_x_t___d_e_s_c.html#a0c77a9d716c5d41e18464a227876035b">end_time</a>.tv_usec = 0;
+  }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -157,6 +167,15 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrclass_8h_source.html#l00144">144</a> of file <a class="el" href="ocrclass_8h_source.html">ocrclass.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                 {
+    <span class="keywordflow">if</span> (<a class="code" href="class_e_t_e_x_t___d_e_s_c.html#a0c77a9d716c5d41e18464a227876035b">end_time</a>.tv_sec == 0 &amp;&amp; <a class="code" href="class_e_t_e_x_t___d_e_s_c.html#a0c77a9d716c5d41e18464a227876035b">end_time</a>.tv_usec == 0) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+    <span class="keyword">struct </span>timeval now;
+    gettimeofday(&amp;now, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+    <span class="keywordflow">return</span> (now.tv_sec &gt; <a class="code" href="class_e_t_e_x_t___d_e_s_c.html#a0c77a9d716c5d41e18464a227876035b">end_time</a>.tv_sec || (now.tv_sec == <a class="code" href="class_e_t_e_x_t___d_e_s_c.html#a0c77a9d716c5d41e18464a227876035b">end_time</a>.tv_sec &amp;&amp;
+                                             now.tv_usec &gt; <a class="code" href="class_e_t_e_x_t___d_e_s_c.html#a0c77a9d716c5d41e18464a227876035b">end_time</a>.tv_usec));
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="acbbc24327ecc909b78274d339c27236e"></a><!-- doxytag: member="ETEXT_DESC::set_deadline_msecs" ref="acbbc24327ecc909b78274d339c27236e" args="(inT32 deadline_msecs)" -->
@@ -174,6 +193,18 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrclass_8h_source.html#l00132">132</a> of file <a class="el" href="ocrclass_8h_source.html">ocrclass.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                {
+    gettimeofday(&amp;<a class="code" href="class_e_t_e_x_t___d_e_s_c.html#a0c77a9d716c5d41e18464a227876035b">end_time</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+    <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> deadline_secs = deadline_msecs / 1000;
+    <a class="code" href="class_e_t_e_x_t___d_e_s_c.html#a0c77a9d716c5d41e18464a227876035b">end_time</a>.tv_sec += deadline_secs;
+    <a class="code" href="class_e_t_e_x_t___d_e_s_c.html#a0c77a9d716c5d41e18464a227876035b">end_time</a>.tv_usec += (deadline_msecs -  deadline_secs * 1000) * 1000;
+    <span class="keywordflow">if</span> (<a class="code" href="class_e_t_e_x_t___d_e_s_c.html#a0c77a9d716c5d41e18464a227876035b">end_time</a>.tv_usec &gt; 1000000) {
+      <a class="code" href="class_e_t_e_x_t___d_e_s_c.html#a0c77a9d716c5d41e18464a227876035b">end_time</a>.tv_usec -= 1000000;
+      ++<a class="code" href="class_e_t_e_x_t___d_e_s_c.html#a0c77a9d716c5d41e18464a227876035b">end_time</a>.tv_sec;
+    }
+  }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
@@ -188,6 +219,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrclass_8h_source.html#l00119">119</a> of file <a class="el" href="ocrclass_8h_source.html">ocrclass.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a4844a3e9868a0fde7ad2fcaa37f5c5f1"></a><!-- doxytag: member="ETEXT_DESC::cancel_this" ref="a4844a3e9868a0fde7ad2fcaa37f5c5f1" args="" -->
@@ -200,6 +233,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="ocrclass_8h_source.html#l00120">120</a> of file <a class="el" href="ocrclass_8h_source.html">ocrclass.h</a>.</p>
 
 </div>
 </div>
@@ -214,6 +249,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrclass_8h_source.html#l00114">114</a> of file <a class="el" href="ocrclass_8h_source.html">ocrclass.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a0c77a9d716c5d41e18464a227876035b"></a><!-- doxytag: member="ETEXT_DESC::end_time" ref="a0c77a9d716c5d41e18464a227876035b" args="" -->
@@ -226,6 +263,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="ocrclass_8h_source.html#l00121">121</a> of file <a class="el" href="ocrclass_8h_source.html">ocrclass.h</a>.</p>
 
 </div>
 </div>
@@ -240,6 +279,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrclass_8h_source.html#l00118">118</a> of file <a class="el" href="ocrclass_8h_source.html">ocrclass.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="aad69cf50a5a4f1cc5642fe8a2a6059d8"></a><!-- doxytag: member="ETEXT_DESC::more_to_come" ref="aad69cf50a5a4f1cc5642fe8a2a6059d8" args="" -->
@@ -252,6 +293,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="ocrclass_8h_source.html#l00116">116</a> of file <a class="el" href="ocrclass_8h_source.html">ocrclass.h</a>.</p>
 
 </div>
 </div>
@@ -266,6 +309,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrclass_8h_source.html#l00117">117</a> of file <a class="el" href="ocrclass_8h_source.html">ocrclass.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ac350ee2b121c4bf1f625b1606a859d0a"></a><!-- doxytag: member="ETEXT_DESC::progress" ref="ac350ee2b121c4bf1f625b1606a859d0a" args="" -->
@@ -279,6 +324,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ocrclass_8h_source.html#l00115">115</a> of file <a class="el" href="ocrclass_8h_source.html">ocrclass.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ac71732cab3f860ad991da9f91fb6f915"></a><!-- doxytag: member="ETEXT_DESC::text" ref="ac71732cab3f860ad991da9f91fb6f915" args="[1]" -->
@@ -291,6 +338,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="ocrclass_8h_source.html#l00123">123</a> of file <a class="el" href="ocrclass_8h_source.html">ocrclass.h</a>.</p>
 
 </div>
 </div>
@@ -317,7 +366,7 @@ Public Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:12 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:45 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

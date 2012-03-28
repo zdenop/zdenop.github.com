@@ -133,7 +133,10 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_index_map_bi_di.html#ad54cf4a1295408ec26e87ce377a8747d">DeSerialize</a> (bool swap, FILE *fp)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_index_map_bi_di.html#a3114a55998f2e854a406d79650d83747">MapFeatures</a> (const <a class="el" href="class_generic_vector.html">GenericVector</a>&lt; int &gt; &amp;sparse, <a class="el" href="class_generic_vector.html">GenericVector</a>&lt; int &gt; *compact) const </td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="indexmapbidi_8h_source.html#l00102">102</a> of file <a class="el" href="indexmapbidi_8h_source.html">indexmapbidi.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a2f27556fa2b387b3b640a186a3e86144"></a><!-- doxytag: member="tesseract::IndexMapBiDi::~IndexMapBiDi" ref="a2f27556fa2b387b3b640a186a3e86144" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -148,6 +151,9 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="indexmapbidi_8h_source.html#l00104">104</a> of file <a class="el" href="indexmapbidi_8h_source.html">indexmapbidi.h</a>.</p>
+<div class="fragment"><pre class="fragment">{}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -165,6 +171,44 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="indexmapbidi_8cpp_source.html#l00153">153</a> of file <a class="el" href="indexmapbidi_8cpp_source.html">indexmapbidi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                  {
+  <span class="comment">// Ensure each sparse_map_entry contains a master compact_map_ index.</span>
+  <span class="keywordtype">int</span> compact_size = 0;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; sparse_map_.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>(); ++i) {
+    <span class="keywordtype">int</span> compact_index = MasterCompactIndex(sparse_map_[i]);
+    sparse_map_[i] = compact_index;
+    <span class="keywordflow">if</span> (compact_index &gt;= compact_size)
+      compact_size = compact_index + 1;
+  }
+  <span class="comment">// Re-generate the compact_map leaving holes for unused indices.</span>
+  <a class="code" href="classtesseract_1_1_index_map.html#a5089b80f1c2f365c07dc075da232aa89">compact_map_</a>.<a class="code" href="class_generic_vector.html#a6751521fd3eb461d81fc83ef93a0def3">init_to_size</a>(compact_size, -1);
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; sparse_map_.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>(); ++i) {
+    <span class="keywordflow">if</span> (sparse_map_[i] &gt;= 0) {
+      <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_index_map.html#a5089b80f1c2f365c07dc075da232aa89">compact_map_</a>[sparse_map_[i]] == -1)
+        <a class="code" href="classtesseract_1_1_index_map.html#a5089b80f1c2f365c07dc075da232aa89">compact_map_</a>[sparse_map_[i]] = i;
+    }
+  }
+  <span class="comment">// Compact the compact_map, leaving tmp_compact_map saying where each</span>
+  <span class="comment">// index went to in the compacted map.</span>
+  <a class="code" href="class_generic_vector.html">GenericVector&lt;inT32&gt;</a> tmp_compact_map;
+  tmp_compact_map.<a class="code" href="class_generic_vector.html#a6751521fd3eb461d81fc83ef93a0def3">init_to_size</a>(compact_size, -1);
+  compact_size = 0;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="classtesseract_1_1_index_map.html#a5089b80f1c2f365c07dc075da232aa89">compact_map_</a>.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>(); ++i) {
+    <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_index_map.html#a5089b80f1c2f365c07dc075da232aa89">compact_map_</a>[i] &gt;= 0) {
+      tmp_compact_map[i] = compact_size;
+      <a class="code" href="classtesseract_1_1_index_map.html#a5089b80f1c2f365c07dc075da232aa89">compact_map_</a>[compact_size++] = <a class="code" href="classtesseract_1_1_index_map.html#a5089b80f1c2f365c07dc075da232aa89">compact_map_</a>[i];
+    }
+  }
+  <a class="code" href="classtesseract_1_1_index_map.html#a5089b80f1c2f365c07dc075da232aa89">compact_map_</a>.<a class="code" href="class_generic_vector.html#af1793745c45178626c9afe48c7a1e140">truncate</a>(compact_size);
+  <span class="comment">// Now modify the entries in the sparse map to point to the new locations.</span>
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; sparse_map_.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>(); ++i) {
+    <span class="keywordflow">if</span> (sparse_map_[i] &gt;= 0) {
+      sparse_map_[i] = tmp_compact_map[sparse_map_[i]];
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2b5e065b41a3a58f83b28b8d6df05185"></a><!-- doxytag: member="tesseract::IndexMapBiDi::CopyFrom" ref="a2b5e065b41a3a58f83b28b8d6df05185" args="(const IndexMapBiDi &amp;src)" -->
@@ -184,6 +228,13 @@ Public Member Functions</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classtesseract_1_1_index_map.html#a6547a318de4fb3ca1422ba6c2c91b233">tesseract::IndexMap</a>.</p>
 
+<p>Definition at line <a class="el" href="indexmapbidi_8cpp_source.html#l00112">112</a> of file <a class="el" href="indexmapbidi_8cpp_source.html">indexmapbidi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                   {
+  sparse_map_ = src.sparse_map_;
+  <a class="code" href="classtesseract_1_1_index_map.html#a5089b80f1c2f365c07dc075da232aa89">compact_map_</a> = src.compact_map_;
+  <a class="code" href="classtesseract_1_1_index_map.html#ae3ff257a84297cf8c67ee4bb27e54194">sparse_size_</a> = sparse_map_.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad54cf4a1295408ec26e87ce377a8747d"></a><!-- doxytag: member="tesseract::IndexMapBiDi::DeSerialize" ref="ad54cf4a1295408ec26e87ce377a8747d" args="(bool swap, FILE *fp)" -->
@@ -213,6 +264,22 @@ Public Member Functions</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classtesseract_1_1_index_map.html#a74a60120500f7ced59f2cea3bc42138f">tesseract::IndexMap</a>.</p>
 
+<p>Definition at line <a class="el" href="indexmapbidi_8cpp_source.html#l00209">209</a> of file <a class="el" href="indexmapbidi_8cpp_source.html">indexmapbidi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                  {
+  <span class="keywordflow">if</span> (!<a class="code" href="classtesseract_1_1_index_map.html#a74a60120500f7ced59f2cea3bc42138f">IndexMap::DeSerialize</a>(swap, fp)) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <a class="code" href="class_generic_vector.html">GenericVector&lt;inT32&gt;</a> remaining_pairs;
+  <span class="keywordflow">if</span> (!remaining_pairs.<a class="code" href="class_generic_vector.html#aa4f5b1bc0d044fbd1fc77363b798c39c">DeSerialize</a>(swap, fp)) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  sparse_map_.<a class="code" href="class_generic_vector.html#a6751521fd3eb461d81fc83ef93a0def3">init_to_size</a>(<a class="code" href="classtesseract_1_1_index_map.html#ae3ff257a84297cf8c67ee4bb27e54194">sparse_size_</a>, -1);
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="classtesseract_1_1_index_map.html#a5089b80f1c2f365c07dc075da232aa89">compact_map_</a>.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>(); ++i) {
+    sparse_map_[<a class="code" href="classtesseract_1_1_index_map.html#a5089b80f1c2f365c07dc075da232aa89">compact_map_</a>[i]] = i;
+  }
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; remaining_pairs.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>(); ++i) {
+    <span class="keywordtype">int</span> sparse_index = remaining_pairs[i++];
+    sparse_map_[sparse_index] = remaining_pairs[i];
+  }
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a165b8de5eeba0557d206f76b556793d9"></a><!-- doxytag: member="tesseract::IndexMapBiDi::Init" ref="a165b8de5eeba0557d206f76b556793d9" args="(int size, bool all_mapped)" -->
@@ -240,6 +307,15 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="indexmapbidi_8cpp_source.html#l00079">79</a> of file <a class="el" href="indexmapbidi_8cpp_source.html">indexmapbidi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                 {
+  sparse_map_.<a class="code" href="class_generic_vector.html#a6751521fd3eb461d81fc83ef93a0def3">init_to_size</a>(size, -1);
+  <span class="keywordflow">if</span> (all_mapped) {
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; size; ++i)
+      sparse_map_[i] = i;
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa33022e109d31768150283cfd9530f6c"></a><!-- doxytag: member="tesseract::IndexMapBiDi::InitAndSetupRange" ref="aa33022e109d31768150283cfd9530f6c" args="(int sparse_size, int start, int end)" -->
@@ -273,6 +349,14 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="indexmapbidi_8cpp_source.html#l00068">68</a> of file <a class="el" href="indexmapbidi_8cpp_source.html">indexmapbidi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                        {
+  <a class="code" href="classtesseract_1_1_index_map_bi_di.html#a165b8de5eeba0557d206f76b556793d9">Init</a>(sparse_size, <span class="keyword">false</span>);
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = start; i &lt; end; ++i)
+    <a class="code" href="classtesseract_1_1_index_map_bi_di.html#a3b4579cc4934a996ea688de031e758f2">SetMap</a>(i, <span class="keyword">true</span>);
+  <a class="code" href="classtesseract_1_1_index_map_bi_di.html#a909e48dddc1488311f4d7083544eca56">Setup</a>();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a8df00cfcea90afefcb1cdf0e6738546d"></a><!-- doxytag: member="tesseract::IndexMapBiDi::IsCompactDeleted" ref="a8df00cfcea90afefcb1cdf0e6738546d" args="(int index) const " -->
@@ -290,6 +374,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="indexmapbidi_8h_source.html#l00130">130</a> of file <a class="el" href="indexmapbidi_8h_source.html">indexmapbidi.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                         {
+    <span class="keywordflow">return</span> MasterCompactIndex(index) &lt; 0;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3114a55998f2e854a406d79650d83747"></a><!-- doxytag: member="tesseract::IndexMapBiDi::MapFeatures" ref="a3114a55998f2e854a406d79650d83747" args="(const GenericVector&lt; int &gt; &amp;sparse, GenericVector&lt; int &gt; *compact) const " -->
@@ -317,6 +406,26 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="indexmapbidi_8cpp_source.html#l00229">229</a> of file <a class="el" href="indexmapbidi_8cpp_source.html">indexmapbidi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                 {
+  compact-&gt;<a class="code" href="class_generic_vector.html#af1793745c45178626c9afe48c7a1e140">truncate</a>(0);
+  <span class="keywordtype">int</span> num_features = sparse.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>();
+  <span class="keywordtype">int</span> missed_features = 0;
+  <span class="keywordtype">int</span> prev_good_feature = -1;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> = 0; <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> &lt; num_features; ++<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>) {
+    <span class="keywordtype">int</span> feature = sparse_map_[sparse[<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>]];
+    <span class="keywordflow">if</span> (feature &gt;= 0) {
+      <span class="keywordflow">if</span> (feature != prev_good_feature) {
+        compact-&gt;<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(feature);
+        prev_good_feature = feature;
+      }
+    } <span class="keywordflow">else</span> {
+      ++missed_features;
+    }
+  }
+  <span class="keywordflow">return</span> missed_features;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2065aea120b8bbad4afc135bc3473044"></a><!-- doxytag: member="tesseract::IndexMapBiDi::Merge" ref="a2065aea120b8bbad4afc135bc3473044" args="(int compact_index1, int compact_index2)" -->
@@ -344,6 +453,29 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="indexmapbidi_8cpp_source.html#l00121">121</a> of file <a class="el" href="indexmapbidi_8cpp_source.html">indexmapbidi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                               {
+  <span class="comment">// Find the current master index for index1 and index2.</span>
+  compact_index1 = MasterCompactIndex(compact_index1);
+  compact_index2 = MasterCompactIndex(compact_index2);
+  <span class="comment">// Be sure that index1 &lt; index2.</span>
+  <span class="keywordflow">if</span> (compact_index1 &gt; compact_index2) {
+    <span class="keywordtype">int</span> tmp = compact_index1;
+    compact_index1 = compact_index2;
+    compact_index2 = tmp;
+  } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (compact_index1 == compact_index2) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+  <span class="comment">// To save iterating over all sparse_map_ entries, simply make the master</span>
+  <span class="comment">// entry for index2 point to index1.</span>
+  <span class="comment">// This leaves behind a potential chain of parents that needs to be chased,</span>
+  <span class="comment">// as above.</span>
+  sparse_map_[<a class="code" href="classtesseract_1_1_index_map.html#a5089b80f1c2f365c07dc075da232aa89">compact_map_</a>[compact_index2]] = compact_index1;
+  <span class="keywordflow">if</span> (compact_index1 &gt;= 0)
+    compact_map_[compact_index2] = compact_map_[compact_index1];
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa92b1c868939853b0e20c6842ece0f1a"></a><!-- doxytag: member="tesseract::IndexMapBiDi::Serialize" ref="aa92b1c868939853b0e20c6842ece0f1a" args="(FILE *fp) const " -->
@@ -363,6 +495,23 @@ Public Member Functions</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classtesseract_1_1_index_map.html#a067894b455dcd2e3d013a9449e1aae7d">tesseract::IndexMap</a>.</p>
 
+<p>Definition at line <a class="el" href="indexmapbidi_8cpp_source.html#l00191">191</a> of file <a class="el" href="indexmapbidi_8cpp_source.html">indexmapbidi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                           {
+  <span class="keywordflow">if</span> (!<a class="code" href="classtesseract_1_1_index_map.html#a067894b455dcd2e3d013a9449e1aae7d">IndexMap::Serialize</a>(fp)) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="comment">// Make a vector containing the rest of the map. If the map is many-to-one</span>
+  <span class="comment">// then each additional sparse entry needs to be stored.</span>
+  <span class="comment">// Normally we store only the compact map to save space.</span>
+  <a class="code" href="class_generic_vector.html">GenericVector&lt;inT32&gt;</a> remaining_pairs;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; sparse_map_.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>(); ++i) {
+    <span class="keywordflow">if</span> (sparse_map_[i] &gt;= 0 &amp;&amp; <a class="code" href="classtesseract_1_1_index_map.html#a5089b80f1c2f365c07dc075da232aa89">compact_map_</a>[sparse_map_[i]] != i) {
+      remaining_pairs.<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(i);
+      remaining_pairs.<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(sparse_map_[i]);
+    }
+  }
+  <span class="keywordflow">if</span> (!remaining_pairs.<a class="code" href="class_generic_vector.html#a51aeec27092537323abc7174af1c16ef">Serialize</a>(fp)) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3b4579cc4934a996ea688de031e758f2"></a><!-- doxytag: member="tesseract::IndexMapBiDi::SetMap" ref="a3b4579cc4934a996ea688de031e758f2" args="(int sparse_index, bool mapped)" -->
@@ -390,6 +539,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="indexmapbidi_8cpp_source.html#l00088">88</a> of file <a class="el" href="indexmapbidi_8cpp_source.html">indexmapbidi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                       {
+  sparse_map_[sparse_index] = mapped ? 0 : -1;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a909e48dddc1488311f4d7083544eca56"></a><!-- doxytag: member="tesseract::IndexMapBiDi::Setup" ref="a909e48dddc1488311f4d7083544eca56" args="()" -->
@@ -406,6 +560,23 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="indexmapbidi_8cpp_source.html#l00095">95</a> of file <a class="el" href="indexmapbidi_8cpp_source.html">indexmapbidi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                         {
+  <span class="keywordtype">int</span> compact_size = 0;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; sparse_map_.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>(); ++i) {
+    <span class="keywordflow">if</span> (sparse_map_[i] &gt;= 0) {
+      sparse_map_[i] = compact_size++;
+    }
+  }
+  <a class="code" href="classtesseract_1_1_index_map.html#a5089b80f1c2f365c07dc075da232aa89">compact_map_</a>.<a class="code" href="class_generic_vector.html#a6751521fd3eb461d81fc83ef93a0def3">init_to_size</a>(compact_size, -1);
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; sparse_map_.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>(); ++i) {
+    <span class="keywordflow">if</span> (sparse_map_[i] &gt;= 0) {
+      <a class="code" href="classtesseract_1_1_index_map.html#a5089b80f1c2f365c07dc075da232aa89">compact_map_</a>[sparse_map_[i]] = i;
+    }
+  }
+  <a class="code" href="classtesseract_1_1_index_map.html#ae3ff257a84297cf8c67ee4bb27e54194">sparse_size_</a> = sparse_map_.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae108e47d0f0049137072ad2bc1f6705d"></a><!-- doxytag: member="tesseract::IndexMapBiDi::SparseSize" ref="ae108e47d0f0049137072ad2bc1f6705d" args="() const " -->
@@ -424,6 +595,11 @@ Public Member Functions</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classtesseract_1_1_index_map.html#a25dc97e755104bf3e58a8a9f0a254d18">tesseract::IndexMap</a>.</p>
 
+<p>Definition at line <a class="el" href="indexmapbidi_8h_source.html#l00142">142</a> of file <a class="el" href="indexmapbidi_8h_source.html">indexmapbidi.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                 {
+    <span class="keywordflow">return</span> sparse_map_.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>();
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2c0f96f5d5fad6c9973e1b074fac5a03"></a><!-- doxytag: member="tesseract::IndexMapBiDi::SparseToCompact" ref="a2c0f96f5d5fad6c9973e1b074fac5a03" args="(int sparse_index) const " -->
@@ -443,11 +619,16 @@ Public Member Functions</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classtesseract_1_1_index_map.html#af6d980041372e85befb238aae69192c0">tesseract::IndexMap</a>.</p>
 
+<p>Definition at line <a class="el" href="indexmapbidi_8h_source.html#l00138">138</a> of file <a class="el" href="indexmapbidi_8h_source.html">indexmapbidi.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                      {
+    <span class="keywordflow">return</span> sparse_map_[sparse_index];
+  }
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/ccutil/<a class="el" href="indexmapbidi_8h_source.html">indexmapbidi.h</a></li>
-<li>tesseract-ocr/ccutil/<a class="el" href="indexmapbidi_8cpp.html">indexmapbidi.cpp</a></li>
+<li>tesseract-ocr/ccutil/<a class="el" href="indexmapbidi_8cpp_source.html">indexmapbidi.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -470,7 +651,7 @@ Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:15 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:49 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

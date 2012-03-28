@@ -154,6 +154,54 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intfx_8cpp_source.html#l00429">429</a> of file <a class="el" href="intfx_8cpp_source.html">intfx.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                          {
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> Angle, Atan;
+  <a class="code" href="host_8h.html#acb2dfad543247740dab87d31bb49dfff">uinT16</a> Ratio;
+  <a class="code" href="host_8h.html#afc8530b39ebe0b6df1e19159d2508d15">uinT32</a> AbsX, AbsY;
+
+  assert ((X != 0) || (Y != 0));
+  <span class="keywordflow">if</span> (X &lt; 0)
+    AbsX = -X;
+  <span class="keywordflow">else</span>
+    AbsX = X;
+  <span class="keywordflow">if</span> (Y &lt; 0)
+    AbsY = -Y;
+  <span class="keywordflow">else</span>
+    AbsY = Y;
+  <span class="keywordflow">if</span> (AbsX &gt; AbsY)
+    Ratio = AbsY * <a class="code" href="intfx_8cpp.html#ad066161a8c3bbd7d6f9376f1f4babf9d">ATAN_TABLE_SIZE</a> / AbsX;
+  <span class="keywordflow">else</span>
+    Ratio = AbsX * <a class="code" href="intfx_8cpp.html#ad066161a8c3bbd7d6f9376f1f4babf9d">ATAN_TABLE_SIZE</a> / AbsY;
+  <span class="keywordflow">if</span> (Ratio &gt;= <a class="code" href="intfx_8cpp.html#ad066161a8c3bbd7d6f9376f1f4babf9d">ATAN_TABLE_SIZE</a>)
+    Ratio = <a class="code" href="intfx_8cpp.html#ad066161a8c3bbd7d6f9376f1f4babf9d">ATAN_TABLE_SIZE</a> - 1;
+  Atan = AtanTable[Ratio];
+  <span class="keywordflow">if</span> (X &gt;= 0)
+    <span class="keywordflow">if</span> (Y &gt;= 0)
+      <span class="keywordflow">if</span> (AbsX &gt; AbsY)
+        Angle = Atan;
+      <span class="keywordflow">else</span>
+        Angle = 64 - Atan;
+    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (AbsX &gt; AbsY)
+      Angle = 256 - Atan;
+    <span class="keywordflow">else</span>
+      Angle = 192 + Atan;
+  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (Y &gt;= 0)
+    <span class="keywordflow">if</span> (AbsX &gt; AbsY)
+      Angle = 128 - Atan;
+    <span class="keywordflow">else</span>
+      Angle = 64 + Atan;
+  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (AbsX &gt; AbsY)
+    Angle = 128 + Atan;
+  <span class="keywordflow">else</span>
+    Angle = 192 - Atan;
+
+  <span class="comment">/* reverse angles to match old feature extractor:   Angle += PI */</span>
+  Angle += 128;
+  Angle &amp;= 255;
+  <span class="keywordflow">return</span> (<a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a>) Angle;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a541de7deb738cb8a49ef0d6c6ab21075"></a><!-- doxytag: member="intfx.h::ClipRadius" ref="a541de7deb738cb8a49ef0d6c6ab21075" args="(uinT8 *RxInv, uinT8 *RxExp, uinT8 *RyInv, uinT8 *RyExp)" -->
@@ -193,6 +241,159 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intfx_8cpp_source.html#l00594">594</a> of file <a class="el" href="intfx_8cpp_source.html">intfx.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                        {
+  <span class="keyword">register</span> <a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a> AM, BM, AE, BE;
+  <span class="keyword">register</span> <a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a> BitN, LastCarry;
+  <span class="keywordtype">int</span> RxInvLarge, RyInvSmall;
+
+  AM = <a class="code" href="intfx_8cpp.html#a6eb7de7de217e9287d062226779a8d32">classify_radius_gyr_min_man</a>;
+  AE = <a class="code" href="intfx_8cpp.html#a6ba0867d2b953a36289d9491c0179737">classify_radius_gyr_min_exp</a>;
+  BM = *RxInv;
+  BE = *RxExp;
+  LastCarry = 1;
+  <span class="keywordflow">while</span> ((AM != 0) || (BM != 0)) {
+    <span class="keywordflow">if</span> (AE &gt; BE) {
+      BitN = LastCarry + (AM &amp; 1) + 1;
+      AM &gt;&gt;= 1;
+      AE--;
+    }
+    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (AE &lt; BE) {
+      BitN = LastCarry + (!(BM &amp; 1));
+      BM &gt;&gt;= 1;
+      BE--;
+    }
+    <span class="keywordflow">else</span> {                       <span class="comment">/* AE == BE */</span>
+      BitN = LastCarry + (AM &amp; 1) + (!(BM &amp; 1));
+      AM &gt;&gt;= 1;
+      BM &gt;&gt;= 1;
+      AE--;
+      BE--;
+    }
+    LastCarry = (BitN &amp; 2) &gt; 1;
+    BitN = BitN &amp; 1;
+  }
+  BitN = LastCarry + 1;
+  LastCarry = (BitN &amp; 2) &gt; 1;
+  BitN = BitN &amp; 1;
+
+  <span class="keywordflow">if</span> (BitN == 1) {
+    *RxInv = <a class="code" href="intfx_8cpp.html#a6eb7de7de217e9287d062226779a8d32">classify_radius_gyr_min_man</a>;
+    *RxExp = <a class="code" href="intfx_8cpp.html#a6ba0867d2b953a36289d9491c0179737">classify_radius_gyr_min_exp</a>;
+  }
+
+  AM = <a class="code" href="intfx_8cpp.html#a6eb7de7de217e9287d062226779a8d32">classify_radius_gyr_min_man</a>;
+  AE = <a class="code" href="intfx_8cpp.html#a6ba0867d2b953a36289d9491c0179737">classify_radius_gyr_min_exp</a>;
+  BM = *RyInv;
+  BE = *RyExp;
+  LastCarry = 1;
+  <span class="keywordflow">while</span> ((AM != 0) || (BM != 0)) {
+    <span class="keywordflow">if</span> (AE &gt; BE) {
+      BitN = LastCarry + (AM &amp; 1) + 1;
+      AM &gt;&gt;= 1;
+      AE--;
+    }
+    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (AE &lt; BE) {
+      BitN = LastCarry + (!(BM &amp; 1));
+      BM &gt;&gt;= 1;
+      BE--;
+    }
+    <span class="keywordflow">else</span> {                       <span class="comment">/* AE == BE */</span>
+      BitN = LastCarry + (AM &amp; 1) + (!(BM &amp; 1));
+      AM &gt;&gt;= 1;
+      BM &gt;&gt;= 1;
+      AE--;
+      BE--;
+    }
+    LastCarry = (BitN &amp; 2) &gt; 1;
+    BitN = BitN &amp; 1;
+  }
+  BitN = LastCarry + 1;
+  LastCarry = (BitN &amp; 2) &gt; 1;
+  BitN = BitN &amp; 1;
+
+  <span class="keywordflow">if</span> (BitN == 1) {
+    *RyInv = <a class="code" href="intfx_8cpp.html#a6eb7de7de217e9287d062226779a8d32">classify_radius_gyr_min_man</a>;
+    *RyExp = <a class="code" href="intfx_8cpp.html#a6ba0867d2b953a36289d9491c0179737">classify_radius_gyr_min_exp</a>;
+  }
+
+  AM = <a class="code" href="intfx_8cpp.html#a8068d223c3bb8f4ab204f8224477bfc3">classify_radius_gyr_max_man</a>;
+  AE = <a class="code" href="intfx_8cpp.html#a4a22a0268ec803c76fe44298a466c546">classify_radius_gyr_max_exp</a>;
+  BM = *RxInv;
+  BE = *RxExp;
+  LastCarry = 1;
+  <span class="keywordflow">while</span> ((AM != 0) || (BM != 0)) {
+    <span class="keywordflow">if</span> (AE &gt; BE) {
+      BitN = LastCarry + (AM &amp; 1) + 1;
+      AM &gt;&gt;= 1;
+      AE--;
+    }
+    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (AE &lt; BE) {
+      BitN = LastCarry + (!(BM &amp; 1));
+      BM &gt;&gt;= 1;
+      BE--;
+    }
+    <span class="keywordflow">else</span> {                       <span class="comment">/* AE == BE */</span>
+      BitN = LastCarry + (AM &amp; 1) + (!(BM &amp; 1));
+      AM &gt;&gt;= 1;
+      BM &gt;&gt;= 1;
+      AE--;
+      BE--;
+    }
+    LastCarry = (BitN &amp; 2) &gt; 1;
+    BitN = BitN &amp; 1;
+  }
+  BitN = LastCarry + 1;
+  LastCarry = (BitN &amp; 2) &gt; 1;
+  BitN = BitN &amp; 1;
+
+  <span class="keywordflow">if</span> (BitN == 1)
+    RxInvLarge = 1;
+  <span class="keywordflow">else</span>
+    RxInvLarge = 0;
+
+  AM = *RyInv;
+  AE = *RyExp;
+  BM = <a class="code" href="intfx_8cpp.html#a8068d223c3bb8f4ab204f8224477bfc3">classify_radius_gyr_max_man</a>;
+  BE = <a class="code" href="intfx_8cpp.html#a4a22a0268ec803c76fe44298a466c546">classify_radius_gyr_max_exp</a>;
+  LastCarry = 1;
+  <span class="keywordflow">while</span> ((AM != 0) || (BM != 0)) {
+    <span class="keywordflow">if</span> (AE &gt; BE) {
+      BitN = LastCarry + (AM &amp; 1) + 1;
+      AM &gt;&gt;= 1;
+      AE--;
+    }
+    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (AE &lt; BE) {
+      BitN = LastCarry + (!(BM &amp; 1));
+      BM &gt;&gt;= 1;
+      BE--;
+    }
+    <span class="keywordflow">else</span> {                       <span class="comment">/* AE == BE */</span>
+      BitN = LastCarry + (AM &amp; 1) + (!(BM &amp; 1));
+      AM &gt;&gt;= 1;
+      BM &gt;&gt;= 1;
+      AE--;
+      BE--;
+    }
+    LastCarry = (BitN &amp; 2) &gt; 1;
+    BitN = BitN &amp; 1;
+  }
+  BitN = LastCarry + 1;
+  LastCarry = (BitN &amp; 2) &gt; 1;
+  BitN = BitN &amp; 1;
+
+  <span class="keywordflow">if</span> (BitN == 1)
+    RyInvSmall = 1;
+  <span class="keywordflow">else</span>
+    RyInvSmall = 0;
+
+  <span class="keywordflow">if</span> (RxInvLarge &amp;&amp; RyInvSmall) {
+    *RyInv = <a class="code" href="intfx_8cpp.html#a8068d223c3bb8f4ab204f8224477bfc3">classify_radius_gyr_max_man</a>;
+    *RyExp = <a class="code" href="intfx_8cpp.html#a4a22a0268ec803c76fe44298a466c546">classify_radius_gyr_max_exp</a>;
+  }
+
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2edd3b71c97b3a5d897d7b967657f6d3"></a><!-- doxytag: member="intfx.h::ExtractIntFeat" ref="a2edd3b71c97b3a5d897d7b967657f6d3" args="(TBLOB *Blob, const DENORM &amp;denorm, INT_FEATURE_ARRAY BLFeat, INT_FEATURE_ARRAY CNFeat, INT_FX_RESULT_STRUCT *Results, inT32 *FeatureOutlineArray=0)" -->
@@ -244,6 +445,283 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intfx_8cpp_source.html#l00143">143</a> of file <a class="el" href="intfx_8cpp_source.html">intfx.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                               {
+
+  <a class="code" href="struct_t_e_s_s_l_i_n_e.html">TESSLINE</a> *OutLine;
+  <a class="code" href="struct_e_d_g_e_p_t.html">EDGEPT</a> *Loop, *LoopStart, *Segment;
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> LastX, LastY, Xmean, Ymean;
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> NormX, NormY, DeltaX, DeltaY;
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> Xsum, Ysum;
+  <a class="code" href="host_8h.html#afc8530b39ebe0b6df1e19159d2508d15">uinT32</a> Ix, Iy, LengthSum;
+  <a class="code" href="host_8h.html#acb2dfad543247740dab87d31bb49dfff">uinT16</a> n;
+  <span class="comment">// n - the number of features to extract from a given outline segment.</span>
+  <span class="comment">//   We extract features from every outline segment longer than ~6 units.</span>
+  <span class="comment">//   We chop these long segments into standard-sized features approximately</span>
+  <span class="comment">//   13 (= 64 / 5) units in length.</span>
+  <a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a> Theta;
+  <a class="code" href="host_8h.html#acb2dfad543247740dab87d31bb49dfff">uinT16</a> NumBLFeatures, NumCNFeatures;
+  <a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a> RxInv, RyInv;            <span class="comment">/* x.xxxxxxx  *  2^Exp  */</span>
+  <a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a> RxExp, RyExp;
+                                 <span class="comment">/* sxxxxxxxxxxxxxxxxxxxxxxx.xxxxxxxx */</span>
+  <span class="keyword">register</span> <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> pfX, pfY, dX, dY;
+  <a class="code" href="host_8h.html#acb2dfad543247740dab87d31bb49dfff">uinT16</a> Length;
+  <span class="keyword">register</span> <span class="keywordtype">int</span> i;
+
+  Results-&gt;<a class="code" href="struct_i_n_t___f_x___r_e_s_u_l_t___s_t_r_u_c_t.html#afea938630215615240c35afad4e6df0e">Length</a> = 0;
+  Results-&gt;<a class="code" href="struct_i_n_t___f_x___r_e_s_u_l_t___s_t_r_u_c_t.html#a4248f47c8d5d20a3849164df3fdcf9bc">Xmean</a> = 0;
+  Results-&gt;<a class="code" href="struct_i_n_t___f_x___r_e_s_u_l_t___s_t_r_u_c_t.html#a7acb1b39e74035eb698d8ab2ca8f689e">Ymean</a> = 0;
+  Results-&gt;<a class="code" href="struct_i_n_t___f_x___r_e_s_u_l_t___s_t_r_u_c_t.html#a761357b2a8e539be5dd5be9ab6427535">Rx</a> = 0;
+  Results-&gt;<a class="code" href="struct_i_n_t___f_x___r_e_s_u_l_t___s_t_r_u_c_t.html#a5bc44d7c44209bf894b7c806839cb62d">Ry</a> = 0;
+  Results-&gt;<a class="code" href="struct_i_n_t___f_x___r_e_s_u_l_t___s_t_r_u_c_t.html#a1ad9961af805ce0f4d6f8f4c5e60d368">NumBL</a> = 0;
+  Results-&gt;<a class="code" href="struct_i_n_t___f_x___r_e_s_u_l_t___s_t_r_u_c_t.html#ac2c7a180de0d0778efed530aa06e47ad">NumCN</a> = 0;
+  Results-&gt;<a class="code" href="struct_i_n_t___f_x___r_e_s_u_l_t___s_t_r_u_c_t.html#af340efbaccbb3e9040e9ff940e7655c9">YBottom</a> = <a class="code" href="host_8h.html#a05682ca8de174141447ff05a2289a27c">MAX_UINT8</a>;
+  Results-&gt;<a class="code" href="struct_i_n_t___f_x___r_e_s_u_l_t___s_t_r_u_c_t.html#a5ea3a43ce4f2e9f1e87e64b74a0eb6db">YTop</a> = 0;
+
+  <span class="comment">// Calculate the centroid (Xmean, Ymean) for the blob.</span>
+  <span class="comment">//   We use centroid (instead of center of bounding box or center of smallest</span>
+  <span class="comment">//   enclosing circle) so the algorithm will not be too greatly influenced by</span>
+  <span class="comment">//   small amounts of information at the edge of a character&#39;s bounding box.</span>
+  NumBLFeatures = 0;
+  NumCNFeatures = 0;
+  OutLine = Blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a>;
+  Xsum = 0;
+  Ysum = 0;
+  LengthSum = 0;
+  <span class="keywordflow">while</span> (OutLine != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    LoopStart = OutLine-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0ab1e26b1dae548f0bd3c096c6183b18">loop</a>;
+    Loop = LoopStart;
+    LastX = Loop-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a>;
+    LastY = Loop-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a>;
+    <span class="comment">/* Check for bad loops */</span>
+    <span class="keywordflow">if</span> ((Loop == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) || (Loop-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) || (Loop-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a> == LoopStart))
+      <span class="keywordflow">return</span> <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+    <span class="keywordflow">do</span> {
+      Segment = Loop;
+      Loop = Loop-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>;
+      NormX = Loop-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a>;
+      NormY = Loop-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a>;
+
+      n = 1;
+      <span class="keywordflow">if</span> (!Segment-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7e6e4c9b9bcc3b1e66ab62bb7641c39a">IsHidden</a>()) {
+        DeltaX = NormX - LastX;
+        DeltaY = NormY - LastY;
+        Length = <a class="code" href="intfx_8cpp.html#ae43fb1813d49d82c4de33ff987227e06">MySqrt</a>(DeltaX, DeltaY);
+        n = ((Length &lt;&lt; 2) + Length + 32) &gt;&gt; 6;
+        <span class="keywordflow">if</span> (n != 0) {
+          Xsum += ((LastX &lt;&lt; 1) + DeltaX) * (int) Length;
+          Ysum += ((LastY &lt;&lt; 1) + DeltaY) * (int) Length;
+          LengthSum += Length;
+        }
+      }
+      <span class="keywordflow">if</span> (n != 0) {              <span class="comment">/* Throw away a point that is too close */</span>
+        LastX = NormX;
+        LastY = NormY;
+      }
+    }
+    <span class="keywordflow">while</span> (Loop != LoopStart);
+    OutLine = OutLine-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0fb224d43ea53a791f0957fa92793bef">next</a>;
+  }
+  <span class="keywordflow">if</span> (LengthSum == 0)
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+  Xmean = (Xsum / (<a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a>) LengthSum) &gt;&gt; 1;
+  Ymean = (Ysum / (<a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a>) LengthSum) &gt;&gt; 1;
+
+  Results-&gt;<a class="code" href="struct_i_n_t___f_x___r_e_s_u_l_t___s_t_r_u_c_t.html#afea938630215615240c35afad4e6df0e">Length</a> = LengthSum;
+  Results-&gt;<a class="code" href="struct_i_n_t___f_x___r_e_s_u_l_t___s_t_r_u_c_t.html#a4248f47c8d5d20a3849164df3fdcf9bc">Xmean</a> = Xmean;
+  Results-&gt;<a class="code" href="struct_i_n_t___f_x___r_e_s_u_l_t___s_t_r_u_c_t.html#a7acb1b39e74035eb698d8ab2ca8f689e">Ymean</a> = Ymean;
+
+  <span class="comment">// Extract Baseline normalized features,</span>
+  <span class="comment">// and find 2nd moments (Ix, Iy) &amp; radius of gyration (Rx, Ry).</span>
+  <span class="comment">//</span>
+  <span class="comment">//   Ix = Sum y^2 dA, where:</span>
+  <span class="comment">//     Ix: the second moment of area about the axis x</span>
+  <span class="comment">//     dA = 1 for our standard-sized piece of outline</span>
+  <span class="comment">//      y: the perependicular distance to the x axis</span>
+  <span class="comment">//   Rx = sqrt(Ix / A)</span>
+  <span class="comment">//      Note: 1 &lt;= Rx &lt;= height of blob / 2</span>
+  <span class="comment">//   Ry = sqrt(Iy / A)</span>
+  <span class="comment">//      Note: 1 &lt;= Ry &lt;=  width of blob / 2</span>
+  Ix = 0;
+  Iy = 0;
+  NumBLFeatures = 0;
+  OutLine = Blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a>;
+  <span class="keywordtype">int</span> min_x = 0;
+  <span class="keywordtype">int</span> max_x = 0;
+  <span class="keywordflow">while</span> (OutLine != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    LoopStart = OutLine-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0ab1e26b1dae548f0bd3c096c6183b18">loop</a>;
+    Loop = LoopStart;
+    LastX = Loop-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> - Xmean;
+    LastY = Loop-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a>;
+    <span class="comment">/* Check for bad loops */</span>
+    <span class="keywordflow">if</span> ((Loop == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) || (Loop-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) || (Loop-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a> == LoopStart))
+      <span class="keywordflow">return</span> <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+    <span class="keywordflow">do</span> {
+      Segment = Loop;
+      Loop = Loop-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>;
+      NormX = Loop-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> - Xmean;
+      NormY = Loop-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a>;
+      <span class="keywordflow">if</span> (NormY &lt; Results-&gt;YBottom)
+        Results-&gt;<a class="code" href="struct_i_n_t___f_x___r_e_s_u_l_t___s_t_r_u_c_t.html#af340efbaccbb3e9040e9ff940e7655c9">YBottom</a> = <a class="code" href="helpers_8h.html#af8739168d5b3235996eeb25dac3c4044">ClipToRange</a>(NormY, 0, <a class="code" href="host_8h.html#a05682ca8de174141447ff05a2289a27c">MAX_UINT8</a>);
+      <span class="keywordflow">if</span> (NormY &gt; Results-&gt;<a class="code" href="struct_i_n_t___f_x___r_e_s_u_l_t___s_t_r_u_c_t.html#a5ea3a43ce4f2e9f1e87e64b74a0eb6db">YTop</a>)
+        Results-&gt;<a class="code" href="struct_i_n_t___f_x___r_e_s_u_l_t___s_t_r_u_c_t.html#a5ea3a43ce4f2e9f1e87e64b74a0eb6db">YTop</a> = <a class="code" href="helpers_8h.html#af8739168d5b3235996eeb25dac3c4044">ClipToRange</a>(NormY, 0, <a class="code" href="host_8h.html#a05682ca8de174141447ff05a2289a27c">MAX_UINT8</a>);
+      <a class="code" href="helpers_8h.html#a6eb00eb9bc5ed195953f334971c462ae">UpdateRange</a>(NormX, &amp;min_x, &amp;max_x);
+
+      n = 1;
+      <span class="keywordflow">if</span> (!Segment-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7e6e4c9b9bcc3b1e66ab62bb7641c39a">IsHidden</a>()) {
+        DeltaX = NormX - LastX;
+        DeltaY = NormY - LastY;
+        Length = <a class="code" href="intfx_8cpp.html#ae43fb1813d49d82c4de33ff987227e06">MySqrt</a>(DeltaX, DeltaY);
+        n = ((Length &lt;&lt; 2) + Length + 32) &gt;&gt; 6;
+        <span class="keywordflow">if</span> (n != 0) {
+          Theta = <a class="code" href="intfx_8cpp.html#a2b97e5f70c987ee586d688438e3bf9c2">BinaryAnglePlusPi</a>(DeltaY, DeltaX);
+          dX = (DeltaX &lt;&lt; 8) / n;
+          dY = (DeltaY &lt;&lt; 8) / n;
+          pfX = (LastX &lt;&lt; 8) + (dX &gt;&gt; 1);
+          pfY = (LastY &lt;&lt; 8) + (dY &gt;&gt; 1);
+          Ix += ((pfY &gt;&gt; 8) - Ymean) * ((pfY &gt;&gt; 8) - Ymean);
+          <span class="comment">// TODO(eger): Hmmm... Xmean is not necessarily 0.</span>
+          <span class="comment">//   Figure out if we should center against Xmean for these</span>
+          <span class="comment">//   features, and if so fix Iy &amp; SaveFeature().</span>
+          Iy += (pfX &gt;&gt; 8) * (pfX &gt;&gt; 8);
+          <span class="keywordflow">if</span> (<a class="code" href="intfx_8cpp.html#aba41203e3a07f7039b7e63e87b06c26a">SaveFeature</a>(BLFeat,
+                          NumBLFeatures,
+                          (<a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>) (pfX &gt;&gt; 8),
+                          (<a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>) ((pfY &gt;&gt; 8) - 128),
+                          Theta) == <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>)
+            <span class="keywordflow">return</span> <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+          NumBLFeatures++;
+          <span class="keywordflow">for</span> (i = 1; i &lt; n; i++) {
+            pfX += dX;
+            pfY += dY;
+            Ix += ((pfY &gt;&gt; 8) - Ymean) * ((pfY &gt;&gt; 8) - Ymean);
+            Iy += (pfX &gt;&gt; 8) * (pfX &gt;&gt; 8);
+            <span class="keywordflow">if</span> (<a class="code" href="intfx_8cpp.html#aba41203e3a07f7039b7e63e87b06c26a">SaveFeature</a>(BLFeat,
+                            NumBLFeatures,
+                            (<a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>) (pfX &gt;&gt; 8),
+                            (<a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>) ((pfY &gt;&gt; 8) - 128),
+                            Theta) == <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>)
+              <span class="keywordflow">return</span> <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+            NumBLFeatures++;
+          }
+        }
+      }
+      <span class="keywordflow">if</span> (n != 0) {              <span class="comment">/* Throw away a point that is too close */</span>
+        LastX = NormX;
+        LastY = NormY;
+      }
+    }
+    <span class="keywordflow">while</span> (Loop != LoopStart);
+    OutLine = OutLine-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0fb224d43ea53a791f0957fa92793bef">next</a>;
+  }
+  Results-&gt;<a class="code" href="struct_i_n_t___f_x___r_e_s_u_l_t___s_t_r_u_c_t.html#a2028a95c91e8741203cca5bea174b2a2">Width</a> = max_x - min_x;
+  <span class="keywordflow">if</span> (Ix == 0)
+    Ix = 1;
+  <span class="keywordflow">if</span> (Iy == 0)
+    Iy = 1;
+  RxInv = <a class="code" href="intfx_8cpp.html#a3dd08b65217b408c53ba9fe2984b6f76">MySqrt2</a> (NumBLFeatures, Ix, &amp;RxExp);
+  RyInv = <a class="code" href="intfx_8cpp.html#a3dd08b65217b408c53ba9fe2984b6f76">MySqrt2</a> (NumBLFeatures, Iy, &amp;RyExp);
+  <a class="code" href="intfx_8cpp.html#a739c154855f46f747b9c3eec517933e2">ClipRadius</a>(&amp;RxInv, &amp;RxExp, &amp;RyInv, &amp;RyExp);
+
+  Results-&gt;<a class="code" href="struct_i_n_t___f_x___r_e_s_u_l_t___s_t_r_u_c_t.html#a761357b2a8e539be5dd5be9ab6427535">Rx</a> = (<a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>) (51.2 / (<span class="keywordtype">double</span>) RxInv * pow (2.0, (<span class="keywordtype">double</span>) RxExp));
+  Results-&gt;<a class="code" href="struct_i_n_t___f_x___r_e_s_u_l_t___s_t_r_u_c_t.html#a5bc44d7c44209bf894b7c806839cb62d">Ry</a> = (<a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>) (51.2 / (<span class="keywordtype">double</span>) RyInv * pow (2.0, (<span class="keywordtype">double</span>) RyExp));
+  <span class="keywordflow">if</span> (Results-&gt;<a class="code" href="struct_i_n_t___f_x___r_e_s_u_l_t___s_t_r_u_c_t.html#a5bc44d7c44209bf894b7c806839cb62d">Ry</a> == 0) {
+    <span class="comment">/*</span>
+<span class="comment">        This would result in features having &#39;nan&#39; values.</span>
+<span class="comment">        Since the expression is always &gt; 0, assign a value of 1.</span>
+<span class="comment">    */</span>
+    Results-&gt;<a class="code" href="struct_i_n_t___f_x___r_e_s_u_l_t___s_t_r_u_c_t.html#a5bc44d7c44209bf894b7c806839cb62d">Ry</a> = 1;
+  }
+  Results-&gt;<a class="code" href="struct_i_n_t___f_x___r_e_s_u_l_t___s_t_r_u_c_t.html#a1ad9961af805ce0f4d6f8f4c5e60d368">NumBL</a> = NumBLFeatures;
+
+  <span class="comment">// Extract character normalized features</span>
+  <span class="comment">//</span>
+  <span class="comment">//   Rescale the co-ordinates to &quot;equalize&quot; distribution in X and Y, making</span>
+  <span class="comment">//   all of the following unichars be sized to look similar:  , &#39; 1 i</span>
+  <span class="comment">//</span>
+  <span class="comment">//   We calculate co-ordinates relative to the centroid, and then scale them</span>
+  <span class="comment">//   as follows (accomplishing a scale of up to 102.4 / dimension):</span>
+  <span class="comment">//     y *= 51.2 / Rx    [ y scaled by 0.0 ... 102.4 / height of glyph  ]</span>
+  <span class="comment">//     x *= 51.2 / Ry    [ x scaled by 0.0 ... 102.4 / width of glyph ]</span>
+  <span class="comment">//   Although tempting to think so, this does not guarantee that our range</span>
+  <span class="comment">//   is within [-102.4...102.4] x [-102.4...102.4] because (Xmean, Ymean)</span>
+  <span class="comment">//   is the centroid, not the center of the bounding box.  Instead, we can</span>
+  <span class="comment">//   only bound the result to [-204 ... 204] x [-204 ... 204]</span>
+  <span class="comment">//</span>
+  NumCNFeatures = 0;
+  OutLine = Blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a>;
+  <span class="keywordtype">int</span> OutLineIndex = -1;
+  <span class="keywordflow">while</span> (OutLine != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    LoopStart = OutLine-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0ab1e26b1dae548f0bd3c096c6183b18">loop</a>;
+    Loop = LoopStart;
+    LastX = (Loop-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> - Xmean) * RyInv;
+    LastY = (Loop-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a> - Ymean) * RxInv;
+    LastX &gt;&gt;= (<a class="code" href="host_8h.html#a2ba4d271e85baf0d333318985cb3bced">inT8</a>) RyExp;
+    LastY &gt;&gt;= (<a class="code" href="host_8h.html#a2ba4d271e85baf0d333318985cb3bced">inT8</a>) RxExp;
+    OutLineIndex++;
+
+    <span class="comment">/* Check for bad loops */</span>
+    <span class="keywordflow">if</span> ((Loop == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) || (Loop-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) || (Loop-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a> == LoopStart))
+      <span class="keywordflow">return</span> <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+    <span class="keywordflow">do</span> {
+      Segment = Loop;
+      Loop = Loop-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>;
+      NormX = (Loop-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> - Xmean) * RyInv;
+      NormY = (Loop-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a> - Ymean) * RxInv;
+      NormX &gt;&gt;= (<a class="code" href="host_8h.html#a2ba4d271e85baf0d333318985cb3bced">inT8</a>) RyExp;
+      NormY &gt;&gt;= (<a class="code" href="host_8h.html#a2ba4d271e85baf0d333318985cb3bced">inT8</a>) RxExp;
+
+      n = 1;
+      <span class="keywordflow">if</span> (!Segment-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7e6e4c9b9bcc3b1e66ab62bb7641c39a">IsHidden</a>()) {
+        DeltaX = NormX - LastX;
+        DeltaY = NormY - LastY;
+        Length = <a class="code" href="intfx_8cpp.html#ae43fb1813d49d82c4de33ff987227e06">MySqrt</a>(DeltaX, DeltaY);
+        n = ((Length &lt;&lt; 2) + Length + 32) &gt;&gt; 6;
+        <span class="keywordflow">if</span> (n != 0) {
+          Theta = <a class="code" href="intfx_8cpp.html#a2b97e5f70c987ee586d688438e3bf9c2">BinaryAnglePlusPi</a>(DeltaY, DeltaX);
+          dX = (DeltaX &lt;&lt; 8) / n;
+          dY = (DeltaY &lt;&lt; 8) / n;
+          pfX = (LastX &lt;&lt; 8) + (dX &gt;&gt; 1);
+          pfY = (LastY &lt;&lt; 8) + (dY &gt;&gt; 1);
+          <span class="keywordflow">if</span> (<a class="code" href="intfx_8cpp.html#aba41203e3a07f7039b7e63e87b06c26a">SaveFeature</a>(CNFeat,
+                          NumCNFeatures,
+                          (<a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>) (pfX &gt;&gt; 8),
+                          (<a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>) (pfY &gt;&gt; 8),
+                          Theta) == <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>)
+            <span class="keywordflow">return</span> <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+          <span class="keywordflow">if</span> (FeatureOutlineArray) {
+            FeatureOutlineArray[NumCNFeatures] = OutLineIndex;
+          }
+          NumCNFeatures++;
+          <span class="keywordflow">for</span> (i = 1; i &lt; n; i++) {
+            pfX += dX;
+            pfY += dY;
+            <span class="keywordflow">if</span> (<a class="code" href="intfx_8cpp.html#aba41203e3a07f7039b7e63e87b06c26a">SaveFeature</a>(CNFeat,
+                            NumCNFeatures,
+                            (<a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>) (pfX &gt;&gt; 8),
+                            (<a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>) (pfY &gt;&gt; 8),
+                            Theta) == <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>)
+              <span class="keywordflow">return</span> <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+            <span class="keywordflow">if</span> (FeatureOutlineArray) {
+              FeatureOutlineArray[NumCNFeatures] = OutLineIndex;
+            }
+            NumCNFeatures++;
+          }
+        }
+      }
+      <span class="keywordflow">if</span> (n != 0) {              <span class="comment">/* Throw away a point that is too close */</span>
+        LastX = NormX;
+        LastY = NormY;
+      }
+    }
+    <span class="keywordflow">while</span> (Loop != LoopStart);
+    OutLine = OutLine-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0fb224d43ea53a791f0957fa92793bef">next</a>;
+  }
+
+  Results-&gt;<a class="code" href="struct_i_n_t___f_x___r_e_s_u_l_t___s_t_r_u_c_t.html#ac2c7a180de0d0778efed530aa06e47ad">NumCN</a> = NumCNFeatures;
+  <span class="keywordflow">return</span> <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a31bfe591242811378902d7342621a59b"></a><!-- doxytag: member="intfx.h::FeatureDirection" ref="a31bfe591242811378902d7342621a59b" args="(uinT8 theta)" -->
@@ -261,6 +739,11 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intfx_8cpp_source.html#l00093">93</a> of file <a class="el" href="intfx_8cpp_source.html">intfx.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                     {
+  <span class="keywordflow">return</span> <a class="code" href="class_f_c_o_o_r_d.html">FCOORD</a>(cos_table[theta], sin_table[theta]);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a79be289faca84d41dba87bfcfaccf516"></a><!-- doxytag: member="intfx.h::GetIntFeatures" ref="a79be289faca84d41dba87bfcfaccf516" args="(tesseract::NormalizationMode mode, TBLOB *blob, const DENORM &amp;denorm)" -->
@@ -294,6 +777,31 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intfx_8cpp_source.html#l00097">97</a> of file <a class="el" href="intfx_8cpp_source.html">intfx.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                  {
+  <a class="code" href="baseapi_8h.html#a544a6c7d78d215e9a4da202daecfeb52">INT_FEATURE_ARRAY</a> blfeatures;
+  <a class="code" href="baseapi_8h.html#a544a6c7d78d215e9a4da202daecfeb52">INT_FEATURE_ARRAY</a> cnfeatures;
+  <a class="code" href="struct_i_n_t___f_x___r_e_s_u_l_t___s_t_r_u_c_t.html">INT_FX_RESULT_STRUCT</a> fx_info;
+  <a class="code" href="intfx_8cpp.html#a508a06732c67c00efc9db362bd8b970e">ExtractIntFeat</a>(blob, denorm, blfeatures, cnfeatures, &amp;fx_info, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <a class="code" href="classtesseract_1_1_training_sample.html">TrainingSample</a>* <a class="code" href="structsample.html">sample</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordflow">if</span> (<a class="code" href="pgedit_8cpp.html#afc03cf3e39248c2e339fee4d31f5f750">mode</a> == <a class="code" href="namespacetesseract.html#ad3e7916f0120e26e7b4e0f830784194aa81bec0cd85211e03befb611fa7003180">tesseract::NM_CHAR_ANISOTROPIC</a>) {
+    <span class="keywordtype">int</span> num_features = fx_info.<a class="code" href="struct_i_n_t___f_x___r_e_s_u_l_t___s_t_r_u_c_t.html#ac2c7a180de0d0778efed530aa06e47ad">NumCN</a>;
+    <span class="keywordflow">if</span> (num_features &gt; 0) {
+      sample = TrainingSample::CopyFromFeatures(fx_info, cnfeatures,
+                                                num_features);
+    }
+  } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="pgedit_8cpp.html#afc03cf3e39248c2e339fee4d31f5f750">mode</a> == <a class="code" href="namespacetesseract.html#ad3e7916f0120e26e7b4e0f830784194aa643bd757ce3d9647d68aae97256d0233">tesseract::NM_BASELINE</a>) {
+    <span class="keywordtype">int</span> num_features = fx_info.<a class="code" href="struct_i_n_t___f_x___r_e_s_u_l_t___s_t_r_u_c_t.html#a1ad9961af805ce0f4d6f8f4c5e60d368">NumBL</a>;
+    <span class="keywordflow">if</span> (num_features &gt; 0) {
+      sample = TrainingSample::CopyFromFeatures(fx_info, blfeatures,
+                                                num_features);
+    }
+  } <span class="keywordflow">else</span> {
+    <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(!<span class="stringliteral">&quot;Unsupported normalization mode!&quot;</span>);
+  }
+  <span class="keywordflow">return</span> sample;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a1281b17b87e56c99d53fe6bb1f7c2d55"></a><!-- doxytag: member="intfx.h::InitIntegerFX" ref="a1281b17b87e56c99d53fe6bb1f7c2d55" args="()" -->
@@ -312,6 +820,24 @@ Functions</h2></td></tr>
 <p>---------------------------------------------------------------------------- Public Function Prototypes ----------------------------------------------------------------------------</p>
 <p>---------------------------------------------------------------------------- Public Code ---------------------------------------------------------------------------- </p>
 
+<p>Definition at line <a class="el" href="intfx_8cpp_source.html#l00074">74</a> of file <a class="el" href="intfx_8cpp_source.html">intfx.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                     {
+  <span class="keyword">static</span> <span class="keywordtype">bool</span> atan_table_init = <span class="keyword">false</span>;
+  <a class="code" href="intfx_8cpp.html#ac4a1776ca13b7a287e68b1dcd590a240">atan_table_mutex</a>.<a class="code" href="classtesseract_1_1_c_c_util_mutex.html#a9b593dd73dc2510c71739841e37ee17c">Lock</a>();
+  <span class="keywordflow">if</span> (!atan_table_init) {
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="intfx_8cpp.html#ad066161a8c3bbd7d6f9376f1f4babf9d">ATAN_TABLE_SIZE</a>; i++) {
+      AtanTable[i] =
+          (<a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a>) (atan ((i / (<span class="keywordtype">float</span>) ATAN_TABLE_SIZE)) * 128.0 / <a class="code" href="const_8h.html#a598a3330b3c21701223ee0ca14316eca">PI</a> + 0.5);
+    }
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="intproto_8h.html#a5a763027f420d44c110f0887f297259c">INT_CHAR_NORM_RANGE</a>; ++i) {
+      cos_table[i] = cos(i * 2 * <a class="code" href="const_8h.html#a598a3330b3c21701223ee0ca14316eca">PI</a> / INT_CHAR_NORM_RANGE + <a class="code" href="const_8h.html#a598a3330b3c21701223ee0ca14316eca">PI</a>);
+      sin_table[i] = sin(i * 2 * <a class="code" href="const_8h.html#a598a3330b3c21701223ee0ca14316eca">PI</a> / INT_CHAR_NORM_RANGE + <a class="code" href="const_8h.html#a598a3330b3c21701223ee0ca14316eca">PI</a>);
+    }
+    atan_table_init = <span class="keyword">true</span>;
+  }
+  <a class="code" href="intfx_8cpp.html#ac4a1776ca13b7a287e68b1dcd590a240">atan_table_mutex</a>.<a class="code" href="classtesseract_1_1_c_c_util_mutex.html#a0cc750edb4d5b9baca124ebee032c09b">Unlock</a>();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae43fb1813d49d82c4de33ff987227e06"></a><!-- doxytag: member="intfx.h::MySqrt" ref="ae43fb1813d49d82c4de33ff987227e06" args="(inT32 X, inT32 Y)" -->
@@ -339,6 +865,40 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intfx_8cpp_source.html#l00505">505</a> of file <a class="el" href="intfx_8cpp_source.html">intfx.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                {
+  <span class="keyword">register</span> <a class="code" href="host_8h.html#acb2dfad543247740dab87d31bb49dfff">uinT16</a> SqRoot;
+  <span class="keyword">register</span> <a class="code" href="host_8h.html#afc8530b39ebe0b6df1e19159d2508d15">uinT32</a> Square;
+  <span class="keyword">register</span> <a class="code" href="host_8h.html#acb2dfad543247740dab87d31bb49dfff">uinT16</a> BitLocation;
+  <span class="keyword">register</span> <a class="code" href="host_8h.html#afc8530b39ebe0b6df1e19159d2508d15">uinT32</a> Sum;
+  <span class="keyword">const</span> <a class="code" href="host_8h.html#afc8530b39ebe0b6df1e19159d2508d15">uinT32</a> EvidenceMultMask =
+    ((1 &lt;&lt; <a class="code" href="class_integer_matcher.html#a95f9b8220f07f5c258880fa2be8eeb48">IntegerMatcher::kIntEvidenceTruncBits</a>) - 1);
+
+  <span class="keywordflow">if</span> (X &lt; 0)
+    X = -X;
+  <span class="keywordflow">if</span> (Y &lt; 0)
+    Y = -Y;
+
+  <span class="keywordflow">if</span> (X &gt; EvidenceMultMask)
+    X = EvidenceMultMask;
+  <span class="keywordflow">if</span> (Y &gt; EvidenceMultMask)
+    Y = EvidenceMultMask;
+
+  Sum = X * X + Y * Y;
+
+  BitLocation = (EvidenceMultMask + 1) &lt;&lt; 1;
+  SqRoot = 0;
+  <span class="keywordflow">do</span> {
+    Square = (SqRoot | BitLocation) * (SqRoot | BitLocation);
+    <span class="keywordflow">if</span> (Square &lt;= Sum)
+      SqRoot |= BitLocation;
+    BitLocation &gt;&gt;= 1;
+  }
+  <span class="keywordflow">while</span> (BitLocation);
+
+  <span class="keywordflow">return</span> SqRoot;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a8adfab32307f22e1fd886e49de5aee78"></a><!-- doxytag: member="intfx.h::MySqrt2" ref="a8adfab32307f22e1fd886e49de5aee78" args="(uinT16 N, uinT32 I, uinT8 *Exp)" -->
@@ -372,6 +932,57 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intfx_8cpp_source.html#l00542">542</a> of file <a class="el" href="intfx_8cpp_source.html">intfx.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                              {
+  <span class="keyword">register</span> <a class="code" href="host_8h.html#a2ba4d271e85baf0d333318985cb3bced">inT8</a> k;
+  <span class="keyword">register</span> <a class="code" href="host_8h.html#afc8530b39ebe0b6df1e19159d2508d15">uinT32</a> N2;
+  <span class="keyword">register</span> <a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a> SqRoot;
+  <span class="keyword">register</span> <a class="code" href="host_8h.html#acb2dfad543247740dab87d31bb49dfff">uinT16</a> Square;
+  <span class="keyword">register</span> <a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a> BitLocation;
+  <span class="keyword">register</span> <a class="code" href="host_8h.html#acb2dfad543247740dab87d31bb49dfff">uinT16</a> Ratio;
+
+  N2 = N * 41943;
+
+  k = 9;
+  <span class="keywordflow">while</span> ((N2 &amp; 0xc0000000) == 0) {
+    N2 &lt;&lt;= 2;
+    k += 1;
+  }
+
+  <span class="keywordflow">while</span> ((I &amp; 0xc0000000) == 0) {
+    I &lt;&lt;= 2;
+    k -= 1;
+  }
+
+  <span class="keywordflow">if</span> (((N2 &amp; 0x80000000) == 0) &amp;&amp; ((I &amp; 0x80000000) == 0)) {
+    N2 &lt;&lt;= 1;
+    I &lt;&lt;= 1;
+  }
+
+  N2 &amp;= 0xffff0000;
+  I &gt;&gt;= 14;
+  Ratio = N2 / I;
+
+  BitLocation = 128;
+  SqRoot = 0;
+  <span class="keywordflow">do</span> {
+    Square = (SqRoot | BitLocation) * (SqRoot | BitLocation);
+    <span class="keywordflow">if</span> (Square &lt;= Ratio)
+      SqRoot |= BitLocation;
+    BitLocation &gt;&gt;= 1;
+  }
+  <span class="keywordflow">while</span> (BitLocation);
+
+  <span class="keywordflow">if</span> (k &lt; 0) {
+    *Exp = 0;
+    <span class="keywordflow">return</span> 255;
+  }
+  <span class="keywordflow">else</span> {
+    *Exp = k;
+    <span class="keywordflow">return</span> SqRoot;
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a39f0d7870861018a4a7275bdc62cb7fb"></a><!-- doxytag: member="intfx.h::SaveFeature" ref="a39f0d7870861018a4a7275bdc62cb7fb" args="(INT_FEATURE_ARRAY FeatureArray, uinT16 FeatureNum, inT16 X, inT16 Y, uinT8 Theta)" -->
@@ -417,6 +1028,26 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intfx_8cpp_source.html#l00478">478</a> of file <a class="el" href="intfx_8cpp_source.html">intfx.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                             {
+  <a class="code" href="struct_i_n_t___f_e_a_t_u_r_e___s_t_r_u_c_t.html">INT_FEATURE</a> Feature;
+
+  <span class="keywordflow">if</span> (FeatureNum &gt;= <a class="code" href="baseapi_8h.html#a4f7caedc4bed99355cae19efa51ade51">MAX_NUM_INT_FEATURES</a>)
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+
+  Feature = &amp;(FeatureArray[FeatureNum]);
+
+  X = X + 128;
+  Y = Y + 128;
+
+  Feature-&gt;<a class="code" href="struct_i_n_t___f_e_a_t_u_r_e___s_t_r_u_c_t.html#a6b250df12a9b06b5ed0c1a7c403f0275">X</a> = ClipToRange&lt;inT16&gt;(X, 0, 255);
+  Feature-&gt;<a class="code" href="struct_i_n_t___f_e_a_t_u_r_e___s_t_r_u_c_t.html#a09931683890fb52d22ec6c75048a2bce">Y</a> = ClipToRange&lt;inT16&gt;(Y, 0, 255);
+  Feature-&gt;<a class="code" href="struct_i_n_t___f_e_a_t_u_r_e___s_t_r_u_c_t.html#af4a2ea6a7d9a82cba06f6ca9a126461b">Theta</a> = Theta;
+  Feature-&gt;<a class="code" href="struct_i_n_t___f_e_a_t_u_r_e___s_t_r_u_c_t.html#a3350aaa73fdd186eb740dd43bff557a5">CP_misses</a> = 0;
+
+  <span class="keywordflow">return</span> <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+}
+</pre></div>
 </div>
 </div>
 </div>
@@ -439,7 +1070,7 @@ Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:09 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:41 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

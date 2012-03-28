@@ -139,7 +139,10 @@ Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_c___b_l_o_b.html">C_BLOB</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c___b_l_o_b.html#a29479d1a44688cc2d277b9e8f3064ade">FakeBlob</a> (const <a class="el" href="class_t_b_o_x.html">TBOX</a> &amp;box)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="class_c___b_l_o_b.html">C_BLOB</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c___b_l_o_b.html#abe4a0174938ec7e4d968382e8274c237">deep_copy</a> (const <a class="el" href="class_c___b_l_o_b.html">C_BLOB</a> *src)</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="stepblob_8h_source.html#l00028">28</a> of file <a class="el" href="stepblob_8h_source.html">stepblob.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="ab832423937669379b1f9df7acf95e0fb"></a><!-- doxytag: member="C_BLOB::C_BLOB" ref="ab832423937669379b1f9df7acf95e0fb" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -154,6 +157,10 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="stepblob_8h_source.html#l00031">31</a> of file <a class="el" href="stepblob_8h_source.html">stepblob.h</a>.</p>
+<div class="fragment"><pre class="fragment">             {
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a681f76dbc3f0a44f4901b206511c6a4c"></a><!-- doxytag: member="C_BLOB::C_BLOB" ref="a681f76dbc3f0a44f4901b206511c6a4c" args="(C_OUTLINE_LIST *outline_list)" -->
@@ -171,6 +178,32 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="stepblob_8cpp_source.html#l00143">143</a> of file <a class="el" href="stepblob_8cpp_source.html">stepblob.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                {
+  <a class="code" href="class_c___o_u_t_l_i_n_e.html">C_OUTLINE</a> *outline;            <span class="comment">//current outline</span>
+  C_OUTLINE_IT it = outline_list;<span class="comment">//iterator</span>
+
+  <span class="keywordflow">while</span> (!it.empty ()) {         <span class="comment">//grab the list</span>
+    outline = it.extract ();     <span class="comment">//get off the list</span>
+                                 <span class="comment">//put it in place</span>
+    position_outline(outline, &amp;outlines);
+    <span class="keywordflow">if</span> (!it.empty ())
+      it.forward ();
+  }
+  it.set_to_list (&amp;outlines);
+  <span class="keywordflow">for</span> (it.mark_cycle_pt (); !it.cycled_list (); it.forward ()) {
+    outline = it.data ();
+    <span class="keywordflow">if</span> (outline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#a525f228da74b410f410b20bcd6c32bd8">turn_direction</a> () &lt; 0) {
+      outline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#a2c8f0cb8cfd9c1039ef992685958f997">reverse</a> ();
+      reverse_outline_list (outline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#a87880b33bc69fa17ab37a93706ae8d84">child</a> ());
+      outline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#aa8fde2528d2db2c24376be3b891f773c">set_flag</a> (<a class="code" href="coutln_8h.html#a2eecf9690392754a783bc842b1f45fd2a343d9e88b102ec4a2ee233445cb29f7a">COUT_INVERSE</a>, <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>);
+    }
+    <span class="keywordflow">else</span> {
+      outline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#aa8fde2528d2db2c24376be3b891f773c">set_flag</a> (<a class="code" href="coutln_8h.html#a2eecf9690392754a783bc842b1f45fd2a343d9e88b102ec4a2ee233445cb29f7a">COUT_INVERSE</a>, <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>);
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a636318e2768f3677bc24ee7047aa78cb"></a><!-- doxytag: member="C_BLOB::C_BLOB" ref="a636318e2768f3677bc24ee7047aa78cb" args="(C_OUTLINE *outline)" -->
@@ -188,6 +221,12 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="stepblob_8cpp_source.html#l00172">172</a> of file <a class="el" href="stepblob_8cpp_source.html">stepblob.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                 {
+  C_OUTLINE_IT it(&amp;outlines);
+  it.add_to_end(outline);
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -205,6 +244,20 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="stepblob_8cpp_source.html#l00211">211</a> of file <a class="el" href="stepblob_8cpp_source.html">stepblob.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                   {  <span class="comment">//area</span>
+  <a class="code" href="class_c___o_u_t_l_i_n_e.html">C_OUTLINE</a> *outline;            <span class="comment">//current outline</span>
+  C_OUTLINE_IT it = &amp;outlines;   <span class="comment">//outlines of blob</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> total;                   <span class="comment">//total area</span>
+
+  total = 0;
+  <span class="keywordflow">for</span> (it.mark_cycle_pt (); !it.cycled_list (); it.forward ()) {
+    outline = it.data ();
+    total += outline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#abd4b7f2a41e63b3dfa709c6b4f72505f">area</a> ();
+  }
+  <span class="keywordflow">return</span> total;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a77e52e29e2c622a3a63bb7edb110f6ab"></a><!-- doxytag: member="C_BLOB::bounding_box" ref="a77e52e29e2c622a3a63bb7edb110f6ab" args="()" -->
@@ -221,6 +274,19 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="stepblob_8cpp_source.html#l00192">192</a> of file <a class="el" href="stepblob_8cpp_source.html">stepblob.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                          {  <span class="comment">//bounding box</span>
+  <a class="code" href="class_c___o_u_t_l_i_n_e.html">C_OUTLINE</a> *outline;            <span class="comment">//current outline</span>
+  C_OUTLINE_IT it = &amp;outlines;   <span class="comment">//outlines of blob</span>
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> box;                       <span class="comment">//bounding box</span>
+
+  <span class="keywordflow">for</span> (it.mark_cycle_pt (); !it.cycled_list (); it.forward ()) {
+    outline = it.data ();
+    box += outline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#a6481db8e9c00281f20f45df48d499679">bounding_box</a> ();
+  }
+  <span class="keywordflow">return</span> box;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac765859af9c95ff036afa19361acc4d3"></a><!-- doxytag: member="C_BLOB::count_transitions" ref="ac765859af9c95ff036afa19361acc4d3" args="(inT32 threshold)" -->
@@ -238,6 +304,20 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="stepblob_8cpp_source.html#l00271">271</a> of file <a class="el" href="stepblob_8cpp_source.html">stepblob.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                 {
+  <a class="code" href="class_c___o_u_t_l_i_n_e.html">C_OUTLINE</a> *outline;            <span class="comment">//current outline</span>
+  C_OUTLINE_IT it = &amp;outlines;   <span class="comment">//outlines of blob</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> total;                   <span class="comment">//total area</span>
+
+  total = 0;
+  <span class="keywordflow">for</span> (it.mark_cycle_pt (); !it.cycled_list (); it.forward ()) {
+    outline = it.data ();
+    total += outline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#a9f148e64396ba81a4b37635ac31bc19e">count_transitions</a> (threshold);
+  }
+  <span class="keywordflow">return</span> total;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="abe4a0174938ec7e4d968382e8274c237"></a><!-- doxytag: member="C_BLOB::deep_copy" ref="abe4a0174938ec7e4d968382e8274c237" args="(const C_BLOB *src)" -->
@@ -255,6 +335,13 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="stepblob_8h_source.html#l00074">74</a> of file <a class="el" href="stepblob_8h_source.html">stepblob.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                {
+      <a class="code" href="class_c___b_l_o_b.html">C_BLOB</a>* blob = <span class="keyword">new</span> <a class="code" href="class_c___b_l_o_b.html#ab832423937669379b1f9df7acf95e0fb">C_BLOB</a>;
+      *blob = *src;
+      <span class="keywordflow">return</span> blob;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a29479d1a44688cc2d277b9e8f3064ade"></a><!-- doxytag: member="C_BLOB::FakeBlob" ref="a29479d1a44688cc2d277b9e8f3064ade" args="(const TBOX &amp;box)" -->
@@ -272,6 +359,13 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="stepblob_8cpp_source.html#l00180">180</a> of file <a class="el" href="stepblob_8cpp_source.html">stepblob.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                        {
+  C_OUTLINE_LIST outlines;
+  <a class="code" href="class_c___o_u_t_l_i_n_e.html#ad89c52ef05cdb0819226ab63aad43e62">C_OUTLINE::FakeOutline</a>(box, &amp;outlines);
+  <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code" href="class_c___b_l_o_b.html#ab832423937669379b1f9df7acf95e0fb">C_BLOB</a>(&amp;outlines);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa4aadf887ce6111242306f3ad54b8c0b"></a><!-- doxytag: member="C_BLOB::move" ref="aa4aadf887ce6111242306f3ad54b8c0b" args="(const ICOORD vec)" -->
@@ -289,6 +383,14 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="stepblob_8cpp_source.html#l00293">293</a> of file <a class="el" href="stepblob_8cpp_source.html">stepblob.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                   {
+  C_OUTLINE_IT it(&amp;outlines);  <span class="comment">// iterator</span>
+
+  <span class="keywordflow">for</span> (it.mark_cycle_pt (); !it.cycled_list (); it.forward ())
+    it.data ()-&gt;move (vec);      <span class="comment">// move each outline</span>
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa8c06a443917a9504d29caa75c756361"></a><!-- doxytag: member="C_BLOB::operator=" ref="aa8c06a443917a9504d29caa75c756361" args="(const C_BLOB &amp;source)" -->
@@ -306,6 +408,14 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="stepblob_8h_source.html#l00067">67</a> of file <a class="el" href="stepblob_8h_source.html">stepblob.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                              {
+      <span class="keywordflow">if</span> (!outlines.empty ())
+        outlines.clear();
+      outlines.deep_copy(&amp;source.outlines, &amp;<a class="code" href="class_c___o_u_t_l_i_n_e.html#aae5feeba94ae0da9e9ce1068d5e53a56">C_OUTLINE::deep_copy</a>);
+      <span class="keywordflow">return</span> *<span class="keyword">this</span>;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae510f3d0e7398fbb46608082429eac89"></a><!-- doxytag: member="C_BLOB::out_list" ref="ae510f3d0e7398fbb46608082429eac89" args="()" -->
@@ -322,6 +432,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="stepblob_8h_source.html#l00042">42</a> of file <a class="el" href="stepblob_8h_source.html">stepblob.h</a>.</p>
+<div class="fragment"><pre class="fragment">                               {  <span class="comment">//get outline list</span>
+      <span class="keywordflow">return</span> &amp;outlines;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9cc7dabc2c2f384097809a26b3d41892"></a><!-- doxytag: member="C_BLOB::outer_area" ref="a9cc7dabc2c2f384097809a26b3d41892" args="()" -->
@@ -338,6 +453,20 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="stepblob_8cpp_source.html#l00250">250</a> of file <a class="el" href="stepblob_8cpp_source.html">stepblob.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                         {  <span class="comment">//area</span>
+  <a class="code" href="class_c___o_u_t_l_i_n_e.html">C_OUTLINE</a> *outline;            <span class="comment">//current outline</span>
+  C_OUTLINE_IT it = &amp;outlines;   <span class="comment">//outlines of blob</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> total;                   <span class="comment">//total area</span>
+
+  total = 0;
+  <span class="keywordflow">for</span> (it.mark_cycle_pt (); !it.cycled_list (); it.forward ()) {
+    outline = it.data ();
+    total += outline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#a49a6f31dc4b56739c5ecc2c039040172">outer_area</a> ();
+  }
+  <span class="keywordflow">return</span> total;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7bb48c42dd0ab06ebc1d1bd4936e6252"></a><!-- doxytag: member="C_BLOB::perimeter" ref="a7bb48c42dd0ab06ebc1d1bd4936e6252" args="()" -->
@@ -354,6 +483,20 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="stepblob_8cpp_source.html#l00230">230</a> of file <a class="el" href="stepblob_8cpp_source.html">stepblob.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                        {
+  <a class="code" href="class_c___o_u_t_l_i_n_e.html">C_OUTLINE</a> *outline;            <span class="comment">// current outline</span>
+  C_OUTLINE_IT it = &amp;outlines;   <span class="comment">// outlines of blob</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> total;                   <span class="comment">// total perimeter</span>
+
+  total = 0;
+  <span class="keywordflow">for</span> (it.mark_cycle_pt(); !it.cycled_list(); it.forward()) {
+    outline = it.data();
+    total += outline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#a9439ad4995dcff33de225f6ab40d2abb">perimeter</a>();
+  }
+  <span class="keywordflow">return</span> total;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a229bd1845ea91366349c7dee1d52360a"></a><!-- doxytag: member="C_BLOB::plot" ref="a229bd1845ea91366349c7dee1d52360a" args="(ScrollView *window, ScrollView::Color blob_colour, ScrollView::Color child_colour)" -->
@@ -387,6 +530,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="stepblob_8cpp_source.html#l00376">376</a> of file <a class="el" href="stepblob_8cpp_source.html">stepblob.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                   {
+  plot_outline_list(&amp;outlines, window, blob_colour, child_colour);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab240e89cac802348a3a12fc7cec77980"></a><!-- doxytag: member="C_BLOB::render" ref="ab240e89cac802348a3a12fc7cec77980" args="()" -->
@@ -403,6 +551,14 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="stepblob_8cpp_source.html#l00353">353</a> of file <a class="el" href="stepblob_8cpp_source.html">stepblob.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                    {
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> box = <a class="code" href="class_c___b_l_o_b.html#a77e52e29e2c622a3a63bb7edb110f6ab">bounding_box</a>();
+  Pix* pix = pixCreate(box.<a class="code" href="class_t_b_o_x.html#af95494a2ccacc70cc2b83820b2948619">width</a>(), box.<a class="code" href="class_t_b_o_x.html#a8379d4bbc72bdbb1f069fc14790e632d">height</a>(), 1);
+  render_outline_list(&amp;outlines, box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>(), box.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>(), pix);
+  <span class="keywordflow">return</span> pix;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a00d8fd18689eb8a56852bb10e7fe40f3"></a><!-- doxytag: member="C_BLOB::render_outline" ref="a00d8fd18689eb8a56852bb10e7fe40f3" args="()" -->
@@ -419,6 +575,14 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="stepblob_8cpp_source.html#l00362">362</a> of file <a class="el" href="stepblob_8cpp_source.html">stepblob.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                            {
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> box = <a class="code" href="class_c___b_l_o_b.html#a77e52e29e2c622a3a63bb7edb110f6ab">bounding_box</a>();
+  Pix* pix = pixCreate(box.<a class="code" href="class_t_b_o_x.html#af95494a2ccacc70cc2b83820b2948619">width</a>(), box.<a class="code" href="class_t_b_o_x.html#a8379d4bbc72bdbb1f069fc14790e632d">height</a>(), 1);
+  render_outline_list_outline(&amp;outlines, box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>(), box.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>(), pix);
+  <span class="keywordflow">return</span> pix;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab539eb777a99ccc8cb5181ce843abe4b"></a><!-- doxytag: member="C_BLOB::rotate" ref="ab539eb777a99ccc8cb5181ce843abe4b" args="(const FCOORD &amp;rotation)" -->
@@ -436,11 +600,16 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="stepblob_8cpp_source.html#l00328">328</a> of file <a class="el" href="stepblob_8cpp_source.html">stepblob.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                          {
+  <a class="code" href="stepblob_8cpp.html#a80f70fd4c89248965b568cf106c08f2b">RotateOutlineList</a>(rotation, &amp;outlines);
+}
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/ccstruct/<a class="el" href="stepblob_8h_source.html">stepblob.h</a></li>
-<li>tesseract-ocr/ccstruct/<a class="el" href="stepblob_8cpp.html">stepblob.cpp</a></li>
+<li>tesseract-ocr/ccstruct/<a class="el" href="stepblob_8cpp_source.html">stepblob.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -462,7 +631,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:12 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:45 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

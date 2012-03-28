@@ -107,7 +107,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <code>#include &quot;<a class="el" href="strngs_8h_source.html">strngs.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="tesseractmain_8h_source.html">tesseractmain.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="tprintf_8h_source.html">tprintf.h</a>&quot;</code><br/>
-</div><table class="memberdecls">
+</div>
+<p><a href="tesseractmain_8cpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr><td colspan="2"><h2><a name="define-members"></a>
 Defines</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="tesseractmain_8cpp.html#af20b8d139279b360b0fdeae71f8f43bc">_</a>(x)&#160;&#160;&#160;(x)</td></tr>
@@ -130,6 +132,8 @@ Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="tesseractmain_8cpp_source.html#l00035">35</a> of file <a class="el" href="tesseractmain_8cpp_source.html">tesseractmain.cpp</a>.</p>
 
 </div>
 </div>
@@ -160,6 +164,134 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>---------------------------------------------------------------------------- Public Function Prototypes ---------------------------------------------------------------------------- </p>
 
+<p>Definition at line <a class="el" href="tesseractmain_8cpp_source.html#l00049">49</a> of file <a class="el" href="tesseractmain_8cpp_source.html">tesseractmain.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                {
+<span class="preprocessor">#ifdef USING_GETTEXT</span>
+<span class="preprocessor"></span>  setlocale (LC_ALL, <span class="stringliteral">&quot;&quot;</span>);
+  bindtextdomain (<a class="code" href="config__auto_8h.html#aca8570fb706c81df371b7f9bc454ae03">PACKAGE</a>, LOCALEDIR);
+  textdomain (<a class="code" href="config__auto_8h.html#aca8570fb706c81df371b7f9bc454ae03">PACKAGE</a>);
+<span class="preprocessor">#endif</span>
+<span class="preprocessor"></span>  <span class="keywordflow">if</span> ((argc == 2 &amp;&amp; strcmp(argv[1], <span class="stringliteral">&quot;-v&quot;</span>) == 0) ||
+      (argc == 2 &amp;&amp; strcmp(argv[1], <span class="stringliteral">&quot;--version&quot;</span>) == 0)) {
+    <span class="keywordtype">char</span> *versionStrP;
+
+    fprintf(stderr, <span class="stringliteral">&quot;tesseract %s\n&quot;</span>, <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a3785779c909fcdd77e24b340f5913e4b">tesseract::TessBaseAPI::Version</a>());
+    
+    versionStrP = getLeptonicaVersion();
+    fprintf(stderr, <span class="stringliteral">&quot; %s\n&quot;</span>, versionStrP);
+    lept_free(versionStrP);
+    
+    versionStrP = getImagelibVersions();
+    fprintf(stderr, <span class="stringliteral">&quot;  %s\n&quot;</span>, versionStrP);
+    lept_free(versionStrP);
+
+    exit(0);
+  }
+  <span class="comment">// Make the order of args a bit more forgiving than it used to be.</span>
+  <span class="keyword">const</span> <span class="keywordtype">char</span>* lang = <span class="stringliteral">&quot;eng&quot;</span>;
+  <span class="keyword">const</span> <span class="keywordtype">char</span>* image = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keyword">const</span> <span class="keywordtype">char</span>* output = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <a class="code" href="namespacetesseract.html#a338d4c8b5d497b5ec3e6e4269d8ac66a">tesseract::PageSegMode</a> pagesegmode = <a class="code" href="namespacetesseract.html#a338d4c8b5d497b5ec3e6e4269d8ac66aa759fdd456efbe83648acd54f0a9263cb" title="Fully automatic page segmentation, but no OSD.">tesseract::PSM_AUTO</a>;
+  <span class="keywordtype">int</span> arg = 1;
+  <span class="keywordflow">while</span> (arg &lt; argc &amp;&amp; (output == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> || argv[arg][0] == <span class="charliteral">&#39;-&#39;</span>)) {
+    <span class="keywordflow">if</span> (strcmp(argv[arg], <span class="stringliteral">&quot;-l&quot;</span>) == 0 &amp;&amp; arg + 1 &lt; argc) {
+      lang = argv[arg + 1];
+      ++arg;
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (strcmp(argv[arg], <span class="stringliteral">&quot;-psm&quot;</span>) == 0 &amp;&amp; arg + 1 &lt; argc) {
+      pagesegmode = <span class="keyword">static_cast&lt;</span><a class="code" href="namespacetesseract.html#a338d4c8b5d497b5ec3e6e4269d8ac66a">tesseract::PageSegMode</a><span class="keyword">&gt;</span>(atoi(argv[arg + 1]));
+      ++arg;
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (image == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      image = argv[arg];
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (output == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      output = argv[arg];
+    }
+    ++arg;
+  }
+  <span class="keywordflow">if</span> (output == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    fprintf(stderr, <a class="code" href="tesseractmain_8cpp.html#af20b8d139279b360b0fdeae71f8f43bc">_</a>(<span class="stringliteral">&quot;Usage:%s imagename outputbase [-l lang] &quot;</span>
+                      <span class="stringliteral">&quot;[-psm pagesegmode] [configfile...]\n&quot;</span>), argv[0]);
+    fprintf(stderr,
+            <a class="code" href="tesseractmain_8cpp.html#af20b8d139279b360b0fdeae71f8f43bc">_</a>(<span class="stringliteral">&quot;pagesegmode values are:\n&quot;</span>
+              <span class="stringliteral">&quot;0 = Orientation and script detection (OSD) only.\n&quot;</span>
+              <span class="stringliteral">&quot;1 = Automatic page segmentation with OSD.\n&quot;</span>
+              <span class="stringliteral">&quot;2 = Automatic page segmentation, but no OSD, or OCR\n&quot;</span>
+              <span class="stringliteral">&quot;3 = Fully automatic page segmentation, but no OSD. (Default)\n&quot;</span>
+              <span class="stringliteral">&quot;4 = Assume a single column of text of variable sizes.\n&quot;</span>
+              <span class="stringliteral">&quot;5 = Assume a single uniform block of vertically aligned text.\n&quot;</span>
+              <span class="stringliteral">&quot;6 = Assume a single uniform block of text.\n&quot;</span>
+              <span class="stringliteral">&quot;7 = Treat the image as a single text line.\n&quot;</span>
+              <span class="stringliteral">&quot;8 = Treat the image as a single word.\n&quot;</span>
+              <span class="stringliteral">&quot;9 = Treat the image as a single word in a circle.\n&quot;</span>
+              <span class="stringliteral">&quot;10 = Treat the image as a single character.\n&quot;</span>));
+    fprintf(stderr, <a class="code" href="tesseractmain_8cpp.html#af20b8d139279b360b0fdeae71f8f43bc">_</a>(<span class="stringliteral">&quot;-l lang and/or -psm pagesegmode must occur before any&quot;</span>
+                      <span class="stringliteral">&quot;configfile.\n&quot;</span>));
+    exit(1);
+  }
+
+  <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html">tesseract::TessBaseAPI</a>  api;
+
+  api.<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#af997008815be7af2edcd9ff1a5d55896">SetOutputName</a>(output);
+
+  <span class="keywordtype">int</span> rc = api.<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a96899e8e5358d96752ab1cfc3bc09f3e">Init</a>(argv[0], lang, <a class="code" href="namespacetesseract.html#a04550a0ed1279562027bf2fc92c421aeae7376c1e8d55b9d13e75c639a6930159">tesseract::OEM_DEFAULT</a>,
+           &amp;(argv[arg]), argc - arg, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, <span class="keyword">false</span>);
+  <span class="keywordflow">if</span> (rc) {
+    fprintf(stderr, <span class="stringliteral">&quot;Could not initialize tesseract.\n&quot;</span>);
+    exit(1);
+  }
+   
+  <span class="comment">// We have 2 possible sources of pagesegmode: a config file and</span>
+  <span class="comment">// the command line. For backwards compatability reasons, the</span>
+  <span class="comment">// default in tesseract is tesseract::PSM_SINGLE_BLOCK, but the</span>
+  <span class="comment">// default for this program is tesseract::PSM_AUTO. We will let</span>
+  <span class="comment">// the config file take priority, so the command-line default</span>
+  <span class="comment">// can take priority over the tesseract default, so we use the</span>
+  <span class="comment">// value from the command line only if the retrieved mode</span>
+  <span class="comment">// is still tesseract::PSM_SINGLE_BLOCK, indicating no change</span>
+  <span class="comment">// in any config file. Therefore the only way to force</span>
+  <span class="comment">// tesseract::PSM_SINGLE_BLOCK is from the command line.</span>
+  <span class="comment">// It would be simpler if we could set the value before Init,</span>
+  <span class="comment">// but that doesn&#39;t work.</span>
+  <span class="keywordflow">if</span> (api.<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a943206e3548bfb517c67354ee50661f3">GetPageSegMode</a>() == <a class="code" href="namespacetesseract.html#a338d4c8b5d497b5ec3e6e4269d8ac66aab76fe3ca390d99e070ea60b892ee18ef" title="Assume a single uniform block of text. (Default.)">tesseract::PSM_SINGLE_BLOCK</a>)
+    api.<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a15a7a9c1afbba3078a55b4566de891ab">SetPageSegMode</a>(pagesegmode);
+  <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Tesseract Open Source OCR Engine v%s with Leptonica\n&quot;</span>,
+           <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a3785779c909fcdd77e24b340f5913e4b">tesseract::TessBaseAPI::Version</a>());
+
+
+  FILE* fin = fopen(image, <span class="stringliteral">&quot;rb&quot;</span>);
+  <span class="keywordflow">if</span> (fin == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    printf(<span class="stringliteral">&quot;Cannot open input file: %s\n&quot;</span>, image);
+    exit(2);
+  }
+  fclose(fin);
+
+  PIX   *pixs;
+  <span class="keywordflow">if</span> ((pixs = pixRead(image)) == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    printf(<span class="stringliteral">&quot;Unsupported image type.\n&quot;</span>);
+    exit(3);
+  }
+  pixDestroy(&amp;pixs);
+
+  <a class="code" href="class_s_t_r_i_n_g.html">STRING</a> text_out;
+  <span class="keywordflow">if</span> (!api.<a class="code" href="group___advanced_a_p_i.html#gaf89df932c29b0abe4fb4ca3ae852506b">ProcessPages</a>(image, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, 0, &amp;text_out)) {
+    printf(<span class="stringliteral">&quot;Error during processing.\n&quot;</span>);
+  }
+  <span class="keywordtype">bool</span> output_hocr = <span class="keyword">false</span>;
+  api.<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#ac5e219cbaa2c19c67ccef3246ff838a6">GetBoolVariable</a>(<span class="stringliteral">&quot;tessedit_create_hocr&quot;</span>, &amp;output_hocr);
+  <span class="keywordtype">bool</span> output_box = <span class="keyword">false</span>;
+  api.<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#ac5e219cbaa2c19c67ccef3246ff838a6">GetBoolVariable</a>(<span class="stringliteral">&quot;tessedit_create_boxfile&quot;</span>, &amp;output_box);
+  <a class="code" href="class_s_t_r_i_n_g.html">STRING</a> outfile = output;
+  outfile += output_hocr ? <span class="stringliteral">&quot;.html&quot;</span> : output_box ? <span class="stringliteral">&quot;.box&quot;</span> : <span class="stringliteral">&quot;.txt&quot;</span>;
+  FILE* fout = fopen(outfile.<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a>(), <span class="stringliteral">&quot;wb&quot;</span>);
+  <span class="keywordflow">if</span> (fout == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    printf(<span class="stringliteral">&quot;Cannot create output file %s\n&quot;</span>, outfile.<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a>());
+    exit(1);
+  }
+  fwrite(text_out.<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a>(), 1, text_out.<a class="code" href="class_s_t_r_i_n_g.html#a168505a533eda60219c93e25adf4cdc5">length</a>(), fout);
+  fclose(fout);
+
+  <span class="keywordflow">return</span> 0;                      <span class="comment">// Normal exit</span>
+}
+</pre></div>
 </div>
 </div>
 </div>
@@ -182,7 +314,7 @@ Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:08 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:40 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

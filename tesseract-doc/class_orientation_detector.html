@@ -113,7 +113,10 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_orientation_detector.html#a7f3ad682712b5ff3bfcecca0a8a5b086">detect_blob</a> (BLOB_CHOICE_LIST *scores)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_orientation_detector.html#a382b5269675f9db848485be62f35742e">get_orientation</a> ()</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="osdetect_8h_source.html#l00082">82</a> of file <a class="el" href="osdetect_8h_source.html">osdetect.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="aa00a93a069267a2636ec74f4ebb11095"></a><!-- doxytag: member="OrientationDetector::OrientationDetector" ref="aa00a93a069267a2636ec74f4ebb11095" args="(OSResults *)" -->
 <div class="memitem">
 <div class="memproto">
@@ -129,6 +132,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="osdetect_8cpp_source.html#l00370">370</a> of file <a class="el" href="osdetect_8cpp_source.html">osdetect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                       {
+  osr_ = osr;
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -147,6 +155,44 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="osdetect_8cpp_source.html#l00376">376</a> of file <a class="el" href="osdetect_8cpp_source.html">osdetect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                              {
+  <span class="keywordtype">float</span> blob_o_score[4] = {0.0, 0.0, 0.0, 0.0};
+  <span class="keywordtype">float</span> total_blob_o_score = 0.0;
+
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 4; ++i) {
+    BLOB_CHOICE_IT choice_it;
+    choice_it.set_to_list(scores + i);
+    <span class="keywordflow">if</span> (!choice_it.empty()) {
+      <span class="comment">// The certainty score ranges between [-20,0]. This is converted here to</span>
+      <span class="comment">// [0,1], with 1 indicating best match.</span>
+      blob_o_score[i] = 1 + 0.05 * choice_it.data()-&gt;certainty();
+      total_blob_o_score += blob_o_score[i];
+    }
+  }
+  <span class="comment">// Normalize the orientation scores for the blob and use them to</span>
+  <span class="comment">// update the aggregated orientation score.</span>
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; total_blob_o_score != 0 &amp;&amp; i &lt; 4; ++i) {
+    osr_-&gt;<a class="code" href="struct_o_s_results.html#a5fe9fa97000f89cd6f4392b55638e882">orientations</a>[i] += log(blob_o_score[i] / total_blob_o_score);
+  }
+
+  <span class="keywordtype">float</span> first = -1;
+  <span class="keywordtype">float</span> second = -1;
+
+  <span class="keywordtype">int</span> idx = -1;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 4; ++i) {
+    <span class="keywordflow">if</span> (osr_-&gt;<a class="code" href="struct_o_s_results.html#a5fe9fa97000f89cd6f4392b55638e882">orientations</a>[i] &gt; first) {
+      idx = i;
+      second = first;
+      first = osr_-&gt;<a class="code" href="struct_o_s_results.html#a5fe9fa97000f89cd6f4392b55638e882">orientations</a>[i];
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (osr_-&gt;<a class="code" href="struct_o_s_results.html#a5fe9fa97000f89cd6f4392b55638e882">orientations</a>[i] &gt; second) {
+      second = osr_-&gt;<a class="code" href="struct_o_s_results.html#a5fe9fa97000f89cd6f4392b55638e882">orientations</a>[i];
+    }
+  }
+
+  <span class="keywordflow">return</span> first / second &gt; <a class="code" href="osdetect_8cpp.html#ad58ecd1e0aa2241ba3ccd5d0398c1e5c">kOrientationAcceptRatio</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a382b5269675f9db848485be62f35742e"></a><!-- doxytag: member="OrientationDetector::get_orientation" ref="a382b5269675f9db848485be62f35742e" args="()" -->
@@ -163,11 +209,17 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="osdetect_8cpp_source.html#l00413">413</a> of file <a class="el" href="osdetect_8cpp_source.html">osdetect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                         {
+  osr_-&gt;<a class="code" href="struct_o_s_results.html#af7b5cea89a2bdace52ad5825d6d5d4e6">update_best_orientation</a>();
+  <span class="keywordflow">return</span> osr_-&gt;<a class="code" href="struct_o_s_results.html#a25f64011ea65c038c1ef1a6cedd10f1c">best_result</a>.<a class="code" href="struct_o_s_best_result.html#a6dfb6826b41a81524ce867b005ba5641">orientation_id</a>;
+}
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/ccmain/<a class="el" href="osdetect_8h_source.html">osdetect.h</a></li>
-<li>tesseract-ocr/ccmain/<a class="el" href="osdetect_8cpp.html">osdetect.cpp</a></li>
+<li>tesseract-ocr/ccmain/<a class="el" href="osdetect_8cpp_source.html">osdetect.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -189,7 +241,7 @@ Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:12 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:46 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

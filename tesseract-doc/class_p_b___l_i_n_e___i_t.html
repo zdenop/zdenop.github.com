@@ -116,7 +116,10 @@ Public Member Functions</h2></td></tr>
 </div></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">ICOORDELT_LIST *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_p_b___l_i_n_e___i_t.html#a951f496eedaed0deb3e61946f7444122">get_line</a> (<a class="el" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> y)</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="polyblk_8h_source.html#l00093">93</a> of file <a class="el" href="polyblk_8h_source.html">polyblk.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="af16844a810674c1c47bb40dc421699e0"></a><!-- doxytag: member="PB_LINE_IT::PB_LINE_IT" ref="af16844a810674c1c47bb40dc421699e0" args="(POLY_BLOCK *blkptr)" -->
 <div class="memitem">
 <div class="memproto">
@@ -132,6 +135,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="polyblk_8h_source.html#l00095">95</a> of file <a class="el" href="polyblk_8h_source.html">polyblk.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                 {
+    block = blkptr;
+  }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -150,6 +158,46 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="polyblk_8cpp_source.html#l00344">344</a> of file <a class="el" href="polyblk_8cpp_source.html">polyblk.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                            {
+  ICOORDELT_IT v, r;
+  ICOORDELT_LIST *result;
+  <a class="code" href="class_i_c_o_o_r_d_e_l_t.html">ICOORDELT</a> *x, *current, *previous;
+  <span class="keywordtype">float</span> fy, fx;
+
+  fy = (float) (y + 0.5);
+  result = <span class="keyword">new</span> ICOORDELT_LIST ();
+  r.set_to_list (result);
+  v.set_to_list (block-&gt;<a class="code" href="class_p_o_l_y___b_l_o_c_k.html#a0835a8ea39e763d6a229603d5532c879">points</a> ());
+
+  <span class="keywordflow">for</span> (v.mark_cycle_pt (); !v.cycled_list (); v.forward ()) {
+    <span class="keywordflow">if</span> (((v.data_relative (-1)-&gt;y () &gt; y) &amp;&amp; (v.data ()-&gt;y () &lt;= y))
+    || ((v.data_relative (-1)-&gt;y () &lt;= y) &amp;&amp; (v.data ()-&gt;y () &gt; y))) {
+      previous = v.data_relative (-1);
+      current = v.data ();
+      fx = (float) (0.5 + previous-&gt;<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () +
+        (current-&gt;<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () - previous-&gt;<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ()) * (fy -
+        previous-&gt;<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ()) /
+        (current-&gt;<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () - previous-&gt;<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ()));
+      x = <span class="keyword">new</span> <a class="code" href="class_i_c_o_o_r_d_e_l_t.html">ICOORDELT</a> ((<a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>) fx, 0);
+      r.add_to_end (x);
+    }
+  }
+
+  <span class="keywordflow">if</span> (!r.empty ()) {
+    r.sort (<a class="code" href="polyblk_8cpp.html#ae2ec3e961690fb921eeb5e3c606fb7a3">lessthan</a>);
+    <span class="keywordflow">for</span> (r.mark_cycle_pt (); !r.cycled_list (); r.forward ())
+      x = r.data ();
+    <span class="keywordflow">for</span> (r.mark_cycle_pt (); !r.cycled_list (); r.forward ()) {
+      r.data ()-&gt;<a class="code" href="class_i_c_o_o_r_d.html#aa9fb418d1c602c0533e426759da43d67" title="rewrite function">set_y</a> (r.data_relative (1)-&gt;x () - r.data ()-&gt;x ());
+      r.forward ();
+      <span class="keyword">delete</span> (r.extract ());
+    }
+  }
+
+  <span class="keywordflow">return</span> result;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad6a9527a4f5875609c1b1d10a58ce92d"></a><!-- doxytag: member="PB_LINE_IT::set_to_block" ref="ad6a9527a4f5875609c1b1d10a58ce92d" args="(POLY_BLOCK *blkptr)" -->
@@ -167,11 +215,16 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="polyblk_8h_source.html#l00099">99</a> of file <a class="el" href="polyblk_8h_source.html">polyblk.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                         {
+    block = blkptr;
+  }
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/ccstruct/<a class="el" href="polyblk_8h_source.html">polyblk.h</a></li>
-<li>tesseract-ocr/ccstruct/<a class="el" href="polyblk_8cpp.html">polyblk.cpp</a></li>
+<li>tesseract-ocr/ccstruct/<a class="el" href="polyblk_8cpp_source.html">polyblk.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -193,7 +246,7 @@ Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:12 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:46 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

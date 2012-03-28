@@ -146,7 +146,10 @@ Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_char_classifier.html#ac5b9df929e2570650b263f0a1504125b">init_</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_char_classifier.html#aaabb1acf1d7ebcd2b66e1f9796cc49dc">case_sensitive_</a></td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="classifier__base_8h_source.html#l00035">35</a> of file <a class="el" href="classifier__base_8h_source.html">classifier_base.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a08c3672c2062828c840d830c7a16639b"></a><!-- doxytag: member="tesseract::CharClassifier::CharClassifier" ref="a08c3672c2062828c840d830c7a16639b" args="(CharSet *char_set, TuningParams *params, FeatureBase *feat_extract)" -->
 <div class="memitem">
 <div class="memproto">
@@ -178,6 +181,18 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="classifier__base_8h_source.html#l00037">37</a> of file <a class="el" href="classifier__base_8h_source.html">classifier_base.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                            {
+    <a class="code" href="classtesseract_1_1_char_classifier.html#afbe25062436573d4a3b8c9e9936f6013">char_set_</a> = char_set;
+    <a class="code" href="classtesseract_1_1_char_classifier.html#af2e7491d921d252957ae0ea4cdaf9aff">params_</a> = params;
+    <a class="code" href="classtesseract_1_1_char_classifier.html#ab8e30443f3f9a1d1e9ca5640608a47a8">feat_extract_</a> = feat_extract;
+    <a class="code" href="classtesseract_1_1_char_classifier.html#ad7acb8330f63320bb636c66d31b815dc">fold_sets_</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    <a class="code" href="classtesseract_1_1_char_classifier.html#aa00adf41e98123f259e463b037908db7">fold_set_cnt_</a> = 0;
+    <a class="code" href="classtesseract_1_1_char_classifier.html#a883ce8cb0ee930611abcd061153a3be2">fold_set_len_</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    <a class="code" href="classtesseract_1_1_char_classifier.html#ac5b9df929e2570650b263f0a1504125b">init_</a> = <span class="keyword">false</span>;
+    <a class="code" href="classtesseract_1_1_char_classifier.html#aaabb1acf1d7ebcd2b66e1f9796cc49dc">case_sensitive_</a> = <span class="keyword">true</span>;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="afac874bedbc52b288b5e064bed170dce"></a><!-- doxytag: member="tesseract::CharClassifier::~CharClassifier" ref="afac874bedbc52b288b5e064bed170dce" args="()" -->
@@ -194,6 +209,27 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="classifier__base_8h_source.html#l00049">49</a> of file <a class="el" href="classifier__base_8h_source.html">classifier_base.h</a>.</p>
+<div class="fragment"><pre class="fragment">                            {
+    <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_char_classifier.html#ad7acb8330f63320bb636c66d31b815dc">fold_sets_</a>  != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> fold_set = 0; fold_set &lt; <a class="code" href="classtesseract_1_1_char_classifier.html#aa00adf41e98123f259e463b037908db7">fold_set_cnt_</a>; fold_set++) {
+        <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_char_classifier.html#ad7acb8330f63320bb636c66d31b815dc">fold_sets_</a>[fold_set] != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+          <span class="keyword">delete</span> []<a class="code" href="classtesseract_1_1_char_classifier.html#ad7acb8330f63320bb636c66d31b815dc">fold_sets_</a>[fold_set];
+        }
+      }
+      <span class="keyword">delete</span> []<a class="code" href="classtesseract_1_1_char_classifier.html#ad7acb8330f63320bb636c66d31b815dc">fold_sets_</a>;
+      <a class="code" href="classtesseract_1_1_char_classifier.html#ad7acb8330f63320bb636c66d31b815dc">fold_sets_</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    }
+    <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_char_classifier.html#a883ce8cb0ee930611abcd061153a3be2">fold_set_len_</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      <span class="keyword">delete</span> []<a class="code" href="classtesseract_1_1_char_classifier.html#a883ce8cb0ee930611abcd061153a3be2">fold_set_len_</a>;
+      <a class="code" href="classtesseract_1_1_char_classifier.html#a883ce8cb0ee930611abcd061153a3be2">fold_set_len_</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    }
+    <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_char_classifier.html#ab8e30443f3f9a1d1e9ca5640608a47a8">feat_extract_</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      <span class="keyword">delete</span> <a class="code" href="classtesseract_1_1_char_classifier.html#ab8e30443f3f9a1d1e9ca5640608a47a8">feat_extract_</a>;
+      <a class="code" href="classtesseract_1_1_char_classifier.html#ab8e30443f3f9a1d1e9ca5640608a47a8">feat_extract_</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    }
+  }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -211,6 +247,9 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="classifier__base_8h_source.html#l00079">79</a> of file <a class="el" href="classifier__base_8h_source.html">classifier_base.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_char_classifier.html#aaabb1acf1d7ebcd2b66e1f9796cc49dc">case_sensitive_</a>; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa447f4775f256d36dab382f1bbb7b56c"></a><!-- doxytag: member="tesseract::CharClassifier::CharCost" ref="aa447f4775f256d36dab382f1bbb7b56c" args="(CharSamp *char_samp)=0" -->
@@ -265,6 +304,9 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="classifier__base_8h_source.html#l00078">78</a> of file <a class="el" href="classifier__base_8h_source.html">classifier_base.h</a>.</p>
+<div class="fragment"><pre class="fragment">{<span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_char_classifier.html#ab8e30443f3f9a1d1e9ca5640608a47a8">feat_extract_</a>;}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a38059a0e194a7e1ab1099f15bb0c4a87"></a><!-- doxytag: member="tesseract::CharClassifier::Fold" ref="a38059a0e194a7e1ab1099f15bb0c4a87" args="()=0" -->
@@ -364,6 +406,11 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="classifier__base_8h_source.html#l00080">80</a> of file <a class="el" href="classifier__base_8h_source.html">classifier_base.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                    {
+    <a class="code" href="classtesseract_1_1_char_classifier.html#aaabb1acf1d7ebcd2b66e1f9796cc49dc">case_sensitive_</a> = case_sensitive;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab2c1ff04d245d64d7900afefae9ef842"></a><!-- doxytag: member="tesseract::CharClassifier::SetLearnParam" ref="ab2c1ff04d245d64d7900afefae9ef842" args="(char *var_name, float val)=0" -->
@@ -436,6 +483,8 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="classifier__base_8h_source.html#l00096">96</a> of file <a class="el" href="classifier__base_8h_source.html">classifier_base.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="afbe25062436573d4a3b8c9e9936f6013"></a><!-- doxytag: member="tesseract::CharClassifier::char_set_" ref="afbe25062436573d4a3b8c9e9936f6013" args="" -->
@@ -448,6 +497,8 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="classifier__base_8h_source.html#l00090">90</a> of file <a class="el" href="classifier__base_8h_source.html">classifier_base.h</a>.</p>
 
 </div>
 </div>
@@ -462,6 +513,8 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="classifier__base_8h_source.html#l00089">89</a> of file <a class="el" href="classifier__base_8h_source.html">classifier_base.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="aa00adf41e98123f259e463b037908db7"></a><!-- doxytag: member="tesseract::CharClassifier::fold_set_cnt_" ref="aa00adf41e98123f259e463b037908db7" args="" -->
@@ -474,6 +527,8 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="classifier__base_8h_source.html#l00094">94</a> of file <a class="el" href="classifier__base_8h_source.html">classifier_base.h</a>.</p>
 
 </div>
 </div>
@@ -488,6 +543,8 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="classifier__base_8h_source.html#l00093">93</a> of file <a class="el" href="classifier__base_8h_source.html">classifier_base.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ad7acb8330f63320bb636c66d31b815dc"></a><!-- doxytag: member="tesseract::CharClassifier::fold_sets_" ref="ad7acb8330f63320bb636c66d31b815dc" args="" -->
@@ -500,6 +557,8 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="classifier__base_8h_source.html#l00092">92</a> of file <a class="el" href="classifier__base_8h_source.html">classifier_base.h</a>.</p>
 
 </div>
 </div>
@@ -514,6 +573,8 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="classifier__base_8h_source.html#l00095">95</a> of file <a class="el" href="classifier__base_8h_source.html">classifier_base.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="af2e7491d921d252957ae0ea4cdaf9aff"></a><!-- doxytag: member="tesseract::CharClassifier::params_" ref="af2e7491d921d252957ae0ea4cdaf9aff" args="" -->
@@ -526,6 +587,8 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="classifier__base_8h_source.html#l00091">91</a> of file <a class="el" href="classifier__base_8h_source.html">classifier_base.h</a>.</p>
 
 </div>
 </div>
@@ -553,7 +616,7 @@ Protected Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:15 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:51 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

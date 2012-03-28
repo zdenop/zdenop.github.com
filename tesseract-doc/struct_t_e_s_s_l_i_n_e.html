@@ -140,7 +140,10 @@ Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_e_d_g_e_p_t.html">EDGEPT</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_t_e_s_s_l_i_n_e.html#a0ab1e26b1dae548f0bd3c096c6183b18">loop</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_t_e_s_s_l_i_n_e.html">TESSLINE</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_t_e_s_s_l_i_n_e.html#a0fb224d43ea53a791f0957fa92793bef">next</a></td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="blobs_8h_source.html#l00113">113</a> of file <a class="el" href="blobs_8h_source.html">blobs.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a6b7fcac9c93825cc85a07a359c26011e"></a><!-- doxytag: member="TESSLINE::TESSLINE" ref="a6b7fcac9c93825cc85a07a359c26011e" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -155,6 +158,9 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8h_source.html#l00114">114</a> of file <a class="el" href="blobs_8h_source.html">blobs.h</a>.</p>
+<div class="fragment"><pre class="fragment">: <a class="code" href="struct_t_e_s_s_l_i_n_e.html#a8af6c63b0dca8a993397d2f5f0bc5723">is_hole</a>(<span class="keyword">false</span>), <a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0ab1e26b1dae548f0bd3c096c6183b18">loop</a>(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>), <a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0fb224d43ea53a791f0957fa92793bef">next</a>(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4394f16648150c48a74d159794afeedf"></a><!-- doxytag: member="TESSLINE::TESSLINE" ref="a4394f16648150c48a74d159794afeedf" args="(const TESSLINE &amp;src)" -->
@@ -172,6 +178,11 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8h_source.html#l00115">115</a> of file <a class="el" href="blobs_8h_source.html">blobs.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                : <a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0ab1e26b1dae548f0bd3c096c6183b18">loop</a>(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>), <a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0fb224d43ea53a791f0957fa92793bef">next</a>(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="struct_t_e_s_s_l_i_n_e.html#ac875d4b786cc65c7e080eb80d9fda9a3">CopyFrom</a>(src);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a0ead4f689414e23c0998844cc1c27009"></a><!-- doxytag: member="TESSLINE::~TESSLINE" ref="a0ead4f689414e23c0998844cc1c27009" args="()" -->
@@ -188,6 +199,11 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8h_source.html#l00118">118</a> of file <a class="el" href="blobs_8h_source.html">blobs.h</a>.</p>
+<div class="fragment"><pre class="fragment">              {
+    <a class="code" href="struct_t_e_s_s_l_i_n_e.html#a67510cd219e5b5891cd7a81904e8116d">Clear</a>();
+  }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -205,6 +221,11 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8h_source.html#l00160">160</a> of file <a class="el" href="blobs_8h_source.html">blobs.h</a>.</p>
+<div class="fragment"><pre class="fragment">                     {
+    <span class="keywordflow">return</span> (<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a7abcd2efd1cd8cdc820e304cf8ae1f0c">botright</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> - <a class="code" href="struct_t_e_s_s_l_i_n_e.html#a1cc50129500062a2d984e459f89d7a5b">topleft</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a>) * (<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a1cc50129500062a2d984e459f89d7a5b">topleft</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a> - <a class="code" href="struct_t_e_s_s_l_i_n_e.html#a7abcd2efd1cd8cdc820e304cf8ae1f0c">botright</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a>);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="af3c73d6ff3d1819730731391c5701778"></a><!-- doxytag: member="TESSLINE::bounding_box" ref="af3c73d6ff3d1819730731391c5701778" args="() const " -->
@@ -221,6 +242,11 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8cpp_source.html#l00218">218</a> of file <a class="el" href="blobs_8cpp_source.html">blobs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                  {
+  <span class="keywordflow">return</span> <a class="code" href="class_t_b_o_x.html">TBOX</a>(<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a1cc50129500062a2d984e459f89d7a5b">topleft</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a>, <a class="code" href="struct_t_e_s_s_l_i_n_e.html#a7abcd2efd1cd8cdc820e304cf8ae1f0c">botright</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a>, <a class="code" href="struct_t_e_s_s_l_i_n_e.html#a7abcd2efd1cd8cdc820e304cf8ae1f0c">botright</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a>, <a class="code" href="struct_t_e_s_s_l_i_n_e.html#a1cc50129500062a2d984e459f89d7a5b">topleft</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a>);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4f658520b5d24846dfc329205ddca906"></a><!-- doxytag: member="TESSLINE::BuildFromOutlineList" ref="a4f658520b5d24846dfc329205ddca906" args="(EDGEPT *outline)" -->
@@ -238,6 +264,14 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8cpp_source.html#l00063">63</a> of file <a class="el" href="blobs_8cpp_source.html">blobs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                        {
+  <a class="code" href="struct_t_e_s_s_l_i_n_e.html">TESSLINE</a>* result = <span class="keyword">new</span> <a class="code" href="struct_t_e_s_s_l_i_n_e.html#a6b7fcac9c93825cc85a07a359c26011e">TESSLINE</a>;
+  result-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0ab1e26b1dae548f0bd3c096c6183b18">loop</a> = outline;
+  result-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a7d8f7d9d476d5d0aa6159094b4a90c6b">SetupFromPos</a>();
+  <span class="keywordflow">return</span> result;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a67510cd219e5b5891cd7a81904e8116d"></a><!-- doxytag: member="TESSLINE::Clear" ref="a67510cd219e5b5891cd7a81904e8116d" args="()" -->
@@ -254,6 +288,20 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8cpp_source.html#l00098">98</a> of file <a class="el" href="blobs_8cpp_source.html">blobs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                     {
+  <span class="keywordflow">if</span> (<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0ab1e26b1dae548f0bd3c096c6183b18">loop</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <span class="keywordflow">return</span>;
+
+  <a class="code" href="struct_e_d_g_e_p_t.html">EDGEPT</a>* this_edge = <a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0ab1e26b1dae548f0bd3c096c6183b18">loop</a>;
+  <span class="keywordflow">do</span> {
+    <a class="code" href="struct_e_d_g_e_p_t.html">EDGEPT</a>* next_edge = this_edge-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>;
+    <span class="keyword">delete</span> this_edge;
+    this_edge = next_edge;
+  } <span class="keywordflow">while</span> (this_edge != <a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0ab1e26b1dae548f0bd3c096c6183b18">loop</a>);
+  <a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0ab1e26b1dae548f0bd3c096c6183b18">loop</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aacf6d56a8b92228f875e06d09c78eca5"></a><!-- doxytag: member="TESSLINE::ComputeBoundingBox" ref="aacf6d56a8b92228f875e06d09c78eca5" args="()" -->
@@ -270,6 +318,36 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8cpp_source.html#l00170">170</a> of file <a class="el" href="blobs_8cpp_source.html">blobs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                  {
+  <span class="keywordtype">int</span> minx = <a class="code" href="host_8h.html#aac62d87844689a18b6f5339a89ed6e7f">MAX_INT32</a>;
+  <span class="keywordtype">int</span> miny = <a class="code" href="host_8h.html#aac62d87844689a18b6f5339a89ed6e7f">MAX_INT32</a>;
+  <span class="keywordtype">int</span> maxx = -<a class="code" href="host_8h.html#aac62d87844689a18b6f5339a89ed6e7f">MAX_INT32</a>;
+  <span class="keywordtype">int</span> maxy = -<a class="code" href="host_8h.html#aac62d87844689a18b6f5339a89ed6e7f">MAX_INT32</a>;
+
+  <span class="comment">// Find boundaries.</span>
+  <a class="code" href="struct_t_e_s_s_l_i_n_e.html#a6eddfefc04de79fe19712d90925de2fb">start</a> = <a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0ab1e26b1dae548f0bd3c096c6183b18">loop</a>-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>;
+  <a class="code" href="struct_e_d_g_e_p_t.html">EDGEPT</a>* this_edge = <a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0ab1e26b1dae548f0bd3c096c6183b18">loop</a>;
+  <span class="keywordflow">do</span> {
+    <span class="keywordflow">if</span> (!this_edge-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7e6e4c9b9bcc3b1e66ab62bb7641c39a">IsHidden</a>() || !this_edge-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a8326da8daf597bcdc5a05064a37cbbb1">prev</a>-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7e6e4c9b9bcc3b1e66ab62bb7641c39a">IsHidden</a>()) {
+      <span class="keywordflow">if</span> (this_edge-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> &lt; minx)
+        minx = this_edge-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a>;
+      <span class="keywordflow">if</span> (this_edge-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a> &lt; miny)
+        miny = this_edge-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a>;
+      <span class="keywordflow">if</span> (this_edge-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> &gt; maxx)
+        maxx = this_edge-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a>;
+      <span class="keywordflow">if</span> (this_edge-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a> &gt; maxy)
+        maxy = this_edge-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a>;
+    }
+    this_edge = this_edge-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>;
+  } <span class="keywordflow">while</span> (this_edge != <a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0ab1e26b1dae548f0bd3c096c6183b18">loop</a>);
+  <span class="comment">// Reset bounds.</span>
+  <a class="code" href="struct_t_e_s_s_l_i_n_e.html#a1cc50129500062a2d984e459f89d7a5b">topleft</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> = minx;
+  <a class="code" href="struct_t_e_s_s_l_i_n_e.html#a1cc50129500062a2d984e459f89d7a5b">topleft</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a> = maxy;
+  <a class="code" href="struct_t_e_s_s_l_i_n_e.html#a7abcd2efd1cd8cdc820e304cf8ae1f0c">botright</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> = maxx;
+  <a class="code" href="struct_t_e_s_s_l_i_n_e.html#a7abcd2efd1cd8cdc820e304cf8ae1f0c">botright</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a> = miny;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a773cb9dc285571e38369773f7b6196e0"></a><!-- doxytag: member="TESSLINE::Contains" ref="a773cb9dc285571e38369773f7b6196e0" args="(const TPOINT &amp;pt)" -->
@@ -287,6 +365,12 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8h_source.html#l00152">152</a> of file <a class="el" href="blobs_8h_source.html">blobs.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                  {
+    <span class="keywordflow">return</span> <a class="code" href="struct_t_e_s_s_l_i_n_e.html#a1cc50129500062a2d984e459f89d7a5b">topleft</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> &lt;= pt.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> &amp;&amp; pt.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> &lt;= <a class="code" href="struct_t_e_s_s_l_i_n_e.html#a7abcd2efd1cd8cdc820e304cf8ae1f0c">botright</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> &amp;&amp;
+           <a class="code" href="struct_t_e_s_s_l_i_n_e.html#a7abcd2efd1cd8cdc820e304cf8ae1f0c">botright</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a> &lt;= pt.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a> &amp;&amp; pt.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a> &lt;= <a class="code" href="struct_t_e_s_s_l_i_n_e.html#a1cc50129500062a2d984e459f89d7a5b">topleft</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a>;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac875d4b786cc65c7e080eb80d9fda9a3"></a><!-- doxytag: member="TESSLINE::CopyFrom" ref="ac875d4b786cc65c7e080eb80d9fda9a3" args="(const TESSLINE &amp;src)" -->
@@ -304,6 +388,33 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8cpp_source.html#l00071">71</a> of file <a class="el" href="blobs_8cpp_source.html">blobs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                           {
+  <a class="code" href="struct_t_e_s_s_l_i_n_e.html#a67510cd219e5b5891cd7a81904e8116d">Clear</a>();
+  <a class="code" href="struct_t_e_s_s_l_i_n_e.html#a1cc50129500062a2d984e459f89d7a5b">topleft</a> = src.<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a1cc50129500062a2d984e459f89d7a5b">topleft</a>;
+  <a class="code" href="struct_t_e_s_s_l_i_n_e.html#a7abcd2efd1cd8cdc820e304cf8ae1f0c">botright</a> = src.<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a7abcd2efd1cd8cdc820e304cf8ae1f0c">botright</a>;
+  <a class="code" href="struct_t_e_s_s_l_i_n_e.html#a6eddfefc04de79fe19712d90925de2fb">start</a> = src.<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a6eddfefc04de79fe19712d90925de2fb">start</a>;
+  <a class="code" href="struct_t_e_s_s_l_i_n_e.html#a8af6c63b0dca8a993397d2f5f0bc5723">is_hole</a> = src.<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a8af6c63b0dca8a993397d2f5f0bc5723">is_hole</a>;
+  <span class="keywordflow">if</span> (src.<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0ab1e26b1dae548f0bd3c096c6183b18">loop</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="struct_e_d_g_e_p_t.html">EDGEPT</a>* prevpt = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    <a class="code" href="struct_e_d_g_e_p_t.html">EDGEPT</a>* newpt = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    <a class="code" href="struct_e_d_g_e_p_t.html">EDGEPT</a>* srcpt = src.<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0ab1e26b1dae548f0bd3c096c6183b18">loop</a>;
+    <span class="keywordflow">do</span> {
+      newpt = <span class="keyword">new</span> <a class="code" href="struct_e_d_g_e_p_t.html">EDGEPT</a>(*srcpt);
+      <span class="keywordflow">if</span> (prevpt == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+        <a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0ab1e26b1dae548f0bd3c096c6183b18">loop</a> = newpt;
+      } <span class="keywordflow">else</span> {
+        newpt-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a8326da8daf597bcdc5a05064a37cbbb1">prev</a> = prevpt;
+        prevpt-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a> = newpt;
+      }
+      prevpt = newpt;
+      srcpt = srcpt-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>;
+    } <span class="keywordflow">while</span> (srcpt != src.<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0ab1e26b1dae548f0bd3c096c6183b18">loop</a>);
+    <a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0ab1e26b1dae548f0bd3c096c6183b18">loop</a>-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a8326da8daf597bcdc5a05064a37cbbb1">prev</a> = newpt;
+    newpt-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a> = <a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0ab1e26b1dae548f0bd3c096c6183b18">loop</a>;
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a07656107903637cebe59487cee9868ba"></a><!-- doxytag: member="TESSLINE::MinMaxCrossProduct" ref="a07656107903637cebe59487cee9868ba" args="(const TPOINT vec, int *min_xp, int *max_xp) const " -->
@@ -337,6 +448,20 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8cpp_source.html#l00204">204</a> of file <a class="el" href="blobs_8cpp_source.html">blobs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                  {
+  *min_xp = <a class="code" href="host_8h.html#aac62d87844689a18b6f5339a89ed6e7f">MAX_INT32</a>;
+  *max_xp = <a class="code" href="host_8h.html#ae6f88d5bb15e97510f484289f2fc89fd">MIN_INT32</a>;
+  <a class="code" href="struct_e_d_g_e_p_t.html">EDGEPT</a>* this_edge = <a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0ab1e26b1dae548f0bd3c096c6183b18">loop</a>;
+  <span class="keywordflow">do</span> {
+    <span class="keywordflow">if</span> (!this_edge-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7e6e4c9b9bcc3b1e66ab62bb7641c39a">IsHidden</a>() || !this_edge-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a8326da8daf597bcdc5a05064a37cbbb1">prev</a>-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7e6e4c9b9bcc3b1e66ab62bb7641c39a">IsHidden</a>()) {
+      <span class="keywordtype">int</span> product = <a class="code" href="vecfuncs_8h.html#aec4dedcf89534ed10f6107bf9c6418f3">CROSS</a>(this_edge-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>, vec);
+      <a class="code" href="helpers_8h.html#a6eb00eb9bc5ed195953f334971c462ae">UpdateRange</a>(product, min_xp, max_xp);
+    }
+    this_edge = this_edge-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>;
+  } <span class="keywordflow">while</span> (this_edge != <a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0ab1e26b1dae548f0bd3c096c6183b18">loop</a>);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a05de0084ef9c4cfc9ac78d4c58a1a476"></a><!-- doxytag: member="TESSLINE::Move" ref="a05de0084ef9c4cfc9ac78d4c58a1a476" args="(const ICOORD vec)" -->
@@ -354,6 +479,17 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8cpp_source.html#l00136">136</a> of file <a class="el" href="blobs_8cpp_source.html">blobs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                    {
+  <a class="code" href="struct_e_d_g_e_p_t.html">EDGEPT</a>* pt = <a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0ab1e26b1dae548f0bd3c096c6183b18">loop</a>;
+  <span class="keywordflow">do</span> {
+    pt-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> += vec.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a>();
+    pt-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a> += vec.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a>();
+    pt = pt-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>;
+  } <span class="keywordflow">while</span> (pt != <a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0ab1e26b1dae548f0bd3c096c6183b18">loop</a>);
+  <a class="code" href="struct_t_e_s_s_l_i_n_e.html#a7d8f7d9d476d5d0aa6159094b4a90c6b">SetupFromPos</a>();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="afc8993988b0f056e152e75451920b56e"></a><!-- doxytag: member="TESSLINE::Normalize" ref="afc8993988b0f056e152e75451920b56e" args="(const DENORM &amp;denorm)" -->
@@ -371,6 +507,16 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8cpp_source.html#l00112">112</a> of file <a class="el" href="blobs_8cpp_source.html">blobs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                             {
+  <a class="code" href="struct_e_d_g_e_p_t.html">EDGEPT</a>* pt = <a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0ab1e26b1dae548f0bd3c096c6183b18">loop</a>;
+  <span class="keywordflow">do</span> {
+    denorm.<a class="code" href="class_d_e_n_o_r_m.html#a379321502d4634137436539518311b9d">LocalNormTransform</a>(pt-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>, &amp;pt-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>);
+    pt = pt-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>;
+  } <span class="keywordflow">while</span> (pt != <a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0ab1e26b1dae548f0bd3c096c6183b18">loop</a>);
+  <a class="code" href="struct_t_e_s_s_l_i_n_e.html#a7d8f7d9d476d5d0aa6159094b4a90c6b">SetupFromPos</a>();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3f2ac31525abb46b035b67d8f3986e9f"></a><!-- doxytag: member="TESSLINE::operator=" ref="a3f2ac31525abb46b035b67d8f3986e9f" args="(const TESSLINE &amp;src)" -->
@@ -388,6 +534,12 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8h_source.html#l00121">121</a> of file <a class="el" href="blobs_8h_source.html">blobs.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                           {
+    <a class="code" href="struct_t_e_s_s_l_i_n_e.html#ac875d4b786cc65c7e080eb80d9fda9a3">CopyFrom</a>(src);
+    <span class="keywordflow">return</span> *<span class="keyword">this</span>;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a32b0c2d11e9ebe59d1a1d8b3cf4c6d18"></a><!-- doxytag: member="TESSLINE::plot" ref="a32b0c2d11e9ebe59d1a1d8b3cf4c6d18" args="(ScrollView *window, ScrollView::Color color, ScrollView::Color child_color)" -->
@@ -421,6 +573,26 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8cpp_source.html#l00222">222</a> of file <a class="el" href="blobs_8cpp_source.html">blobs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                 {
+<span class="preprocessor">  #ifndef GRAPHICS_DISABLED</span>
+<span class="preprocessor"></span>  <span class="keywordflow">if</span> (<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a8af6c63b0dca8a993397d2f5f0bc5723">is_hole</a>)
+    window-&gt;<a class="code" href="class_scroll_view.html#a79855c525ec660b452382e9813d2edb5">Pen</a>(child_color);
+  <span class="keywordflow">else</span>
+    window-&gt;<a class="code" href="class_scroll_view.html#a79855c525ec660b452382e9813d2edb5">Pen</a>(color);
+  window-&gt;<a class="code" href="class_scroll_view.html#a730b182e350dfe37b0986d7f0591fee5">SetCursor</a>(<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a6eddfefc04de79fe19712d90925de2fb">start</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a>, <a class="code" href="struct_t_e_s_s_l_i_n_e.html#a6eddfefc04de79fe19712d90925de2fb">start</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a>);
+  <a class="code" href="struct_e_d_g_e_p_t.html">EDGEPT</a>* pt = <a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0ab1e26b1dae548f0bd3c096c6183b18">loop</a>;
+  <span class="keywordflow">do</span> {
+    <span class="keywordtype">bool</span> prev_hidden = pt-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7e6e4c9b9bcc3b1e66ab62bb7641c39a">IsHidden</a>();
+    pt = pt-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>;
+    <span class="keywordflow">if</span> (prev_hidden)
+      window-&gt;<a class="code" href="class_scroll_view.html#a730b182e350dfe37b0986d7f0591fee5">SetCursor</a>(pt-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a>, pt-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a>);
+    <span class="keywordflow">else</span>
+      window-&gt;<a class="code" href="class_scroll_view.html#a101de80a4722fe821969f61f6e7303a6">DrawTo</a>(pt-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a>, pt-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a>);
+  } <span class="keywordflow">while</span> (pt != <a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0ab1e26b1dae548f0bd3c096c6183b18">loop</a>);
+<span class="preprocessor">  #endif  // GRAPHICS_DISABLED</span>
+<span class="preprocessor"></span>}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a26992336d14162f1b9383e7094bca8bd"></a><!-- doxytag: member="TESSLINE::Rotate" ref="a26992336d14162f1b9383e7094bca8bd" args="(const FCOORD rotation)" -->
@@ -438,6 +610,20 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8cpp_source.html#l00122">122</a> of file <a class="el" href="blobs_8cpp_source.html">blobs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                      {
+  <a class="code" href="struct_e_d_g_e_p_t.html">EDGEPT</a>* pt = <a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0ab1e26b1dae548f0bd3c096c6183b18">loop</a>;
+  <span class="keywordflow">do</span> {
+    <span class="keywordtype">int</span> tmp = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(floor(pt-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> * rot.x() -
+                                     pt-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a> * rot.y() + 0.5));
+    pt-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a> = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(floor(pt-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a> * rot.x() +
+                                       pt-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> * rot.y() + 0.5));
+    pt-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> = tmp;
+    pt = pt-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>;
+  } <span class="keywordflow">while</span> (pt != <a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0ab1e26b1dae548f0bd3c096c6183b18">loop</a>);
+  <a class="code" href="struct_t_e_s_s_l_i_n_e.html#a7d8f7d9d476d5d0aa6159094b4a90c6b">SetupFromPos</a>();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a1cb47a92c02161008bd483eb61e01b05"></a><!-- doxytag: member="TESSLINE::Scale" ref="a1cb47a92c02161008bd483eb61e01b05" args="(float factor)" -->
@@ -455,6 +641,17 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8cpp_source.html#l00147">147</a> of file <a class="el" href="blobs_8cpp_source.html">blobs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                 {
+  <a class="code" href="struct_e_d_g_e_p_t.html">EDGEPT</a>* pt = <a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0ab1e26b1dae548f0bd3c096c6183b18">loop</a>;
+  <span class="keywordflow">do</span> {
+    pt-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(floor(pt-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> * factor + 0.5));
+    pt-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a> = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(floor(pt-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a> * factor + 0.5));
+    pt = pt-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>;
+  } <span class="keywordflow">while</span> (pt != <a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0ab1e26b1dae548f0bd3c096c6183b18">loop</a>);
+  <a class="code" href="struct_t_e_s_s_l_i_n_e.html#a7d8f7d9d476d5d0aa6159094b4a90c6b">SetupFromPos</a>();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7d8f7d9d476d5d0aa6159094b4a90c6b"></a><!-- doxytag: member="TESSLINE::SetupFromPos" ref="a7d8f7d9d476d5d0aa6159094b4a90c6b" args="()" -->
@@ -471,6 +668,18 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8cpp_source.html#l00158">158</a> of file <a class="el" href="blobs_8cpp_source.html">blobs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                            {
+  <a class="code" href="struct_e_d_g_e_p_t.html">EDGEPT</a>* pt = <a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0ab1e26b1dae548f0bd3c096c6183b18">loop</a>;
+  <span class="keywordflow">do</span> {
+    pt-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a6da204ff253a65e00daae7753b82c9f7">vec</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> = pt-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> - pt-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a>;
+    pt-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a6da204ff253a65e00daae7753b82c9f7">vec</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a> = pt-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a> - pt-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a>;
+    pt = pt-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>;
+  } <span class="keywordflow">while</span> (pt != <a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0ab1e26b1dae548f0bd3c096c6183b18">loop</a>);
+  <a class="code" href="struct_t_e_s_s_l_i_n_e.html#a6eddfefc04de79fe19712d90925de2fb">start</a> = pt-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>;
+  <a class="code" href="struct_t_e_s_s_l_i_n_e.html#aacf6d56a8b92228f875e06d09c78eca5">ComputeBoundingBox</a>();
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
@@ -485,6 +694,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8h_source.html#l00165">165</a> of file <a class="el" href="blobs_8h_source.html">blobs.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a8af6c63b0dca8a993397d2f5f0bc5723"></a><!-- doxytag: member="TESSLINE::is_hole" ref="a8af6c63b0dca8a993397d2f5f0bc5723" args="" -->
@@ -497,6 +708,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="blobs_8h_source.html#l00167">167</a> of file <a class="el" href="blobs_8h_source.html">blobs.h</a>.</p>
 
 </div>
 </div>
@@ -511,6 +724,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8h_source.html#l00168">168</a> of file <a class="el" href="blobs_8h_source.html">blobs.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a0fb224d43ea53a791f0957fa92793bef"></a><!-- doxytag: member="TESSLINE::next" ref="a0fb224d43ea53a791f0957fa92793bef" args="" -->
@@ -523,6 +738,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="blobs_8h_source.html#l00169">169</a> of file <a class="el" href="blobs_8h_source.html">blobs.h</a>.</p>
 
 </div>
 </div>
@@ -537,6 +754,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8h_source.html#l00166">166</a> of file <a class="el" href="blobs_8h_source.html">blobs.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a1cc50129500062a2d984e459f89d7a5b"></a><!-- doxytag: member="TESSLINE::topleft" ref="a1cc50129500062a2d984e459f89d7a5b" args="" -->
@@ -550,11 +769,13 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="blobs_8h_source.html#l00164">164</a> of file <a class="el" href="blobs_8h_source.html">blobs.h</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following files:<ul>
 <li>tesseract-ocr/ccstruct/<a class="el" href="blobs_8h_source.html">blobs.h</a></li>
-<li>tesseract-ocr/ccstruct/<a class="el" href="blobs_8cpp.html">blobs.cpp</a></li>
+<li>tesseract-ocr/ccstruct/<a class="el" href="blobs_8cpp_source.html">blobs.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -576,7 +797,7 @@ Public Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:13 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:47 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

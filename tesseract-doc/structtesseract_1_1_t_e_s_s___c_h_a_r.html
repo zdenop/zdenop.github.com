@@ -127,7 +127,10 @@ Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtesseract_1_1_t_e_s_s___c_h_a_r.html#a59dbd81cf9a36e402f6bbecee62c1bb3">cost</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_t_b_o_x.html">TBOX</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structtesseract_1_1_t_e_s_s___c_h_a_r.html#a1ca1136f40f70eb41350f7cd5d65a244">box</a></td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01844">1844</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="ad9c35da31a6b36d0cf1dd9dce0572da4"></a><!-- doxytag: member="tesseract::TESS_CHAR::TESS_CHAR" ref="ad9c35da31a6b36d0cf1dd9dce0572da4" args="(float _cost, const char *repr, int len=&#45;1)" -->
 <div class="memitem">
 <div class="memproto">
@@ -159,6 +162,13 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01850">1850</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                         : <a class="code" href="structtesseract_1_1_t_e_s_s___c_h_a_r.html#a59dbd81cf9a36e402f6bbecee62c1bb3">cost</a>(_cost) {
+    <a class="code" href="structtesseract_1_1_t_e_s_s___c_h_a_r.html#addc50bcc00bf59b95831fe5c7a8de558">length</a> = (len == -1 ? strlen(repr) : len);
+    <a class="code" href="structtesseract_1_1_t_e_s_s___c_h_a_r.html#a26571c64aee9fc53688c36e7b636f442">unicode_repr</a> = <span class="keyword">new</span> <span class="keywordtype">char</span>[<a class="code" href="structtesseract_1_1_t_e_s_s___c_h_a_r.html#addc50bcc00bf59b95831fe5c7a8de558">length</a> + 1];
+    strncpy(<a class="code" href="structtesseract_1_1_t_e_s_s___c_h_a_r.html#a26571c64aee9fc53688c36e7b636f442">unicode_repr</a>, repr, <a class="code" href="structtesseract_1_1_t_e_s_s___c_h_a_r.html#addc50bcc00bf59b95831fe5c7a8de558">length</a>);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a790acae1a0c7dcd6bf9622ee384d3e3c"></a><!-- doxytag: member="tesseract::TESS_CHAR::TESS_CHAR" ref="a790acae1a0c7dcd6bf9622ee384d3e3c" args="()" -->
@@ -175,6 +185,10 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01856">1856</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">              {  <span class="comment">// Satisfies ELISTIZE.</span>
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="afe67e07224557403466b301b29acb124"></a><!-- doxytag: member="tesseract::TESS_CHAR::~TESS_CHAR" ref="afe67e07224557403466b301b29acb124" args="()" -->
@@ -191,6 +205,11 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01858">1858</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">               {
+    <span class="keyword">delete</span> [] <a class="code" href="structtesseract_1_1_t_e_s_s___c_h_a_r.html#a26571c64aee9fc53688c36e7b636f442">unicode_repr</a>;
+  }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
@@ -205,6 +224,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01848">1848</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a59dbd81cf9a36e402f6bbecee62c1bb3"></a><!-- doxytag: member="tesseract::TESS_CHAR::cost" ref="a59dbd81cf9a36e402f6bbecee62c1bb3" args="" -->
@@ -217,6 +238,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01847">1847</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 
 </div>
 </div>
@@ -231,6 +254,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01846">1846</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a26571c64aee9fc53688c36e7b636f442"></a><!-- doxytag: member="tesseract::TESS_CHAR::unicode_repr" ref="a26571c64aee9fc53688c36e7b636f442" args="" -->
@@ -244,10 +269,12 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01845">1845</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>tesseract-ocr/api/<a class="el" href="baseapi_8cpp.html">baseapi.cpp</a></li>
+<li>tesseract-ocr/api/<a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -270,7 +297,7 @@ Public Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:14 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:48 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

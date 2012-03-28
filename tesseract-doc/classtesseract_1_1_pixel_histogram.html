@@ -118,7 +118,10 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_pixel_histogram.html#a7d423f56f2e8440301f8af11a952fade">ConstructHorizontalCountHist</a> (Pix *pix)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_pixel_histogram.html#ac984a3128e256cdc178cc33da1d81238">GetHistogramMaximum</a> (int *count) const </td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="devanagari__processing_8h_source.html#l00027">27</a> of file <a class="el" href="devanagari__processing_8h_source.html">devanagari_processing.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a7aae88da4ca93d46a01a3593a3b6d6bc"></a><!-- doxytag: member="tesseract::PixelHistogram::PixelHistogram" ref="a7aae88da4ca93d46a01a3593a3b6d6bc" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -133,6 +136,12 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="devanagari__processing_8h_source.html#l00029">29</a> of file <a class="el" href="devanagari__processing_8h_source.html">devanagari_processing.h</a>.</p>
+<div class="fragment"><pre class="fragment">                   {
+    hist_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    length_ = 0;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a760c8036bca85b190cf24909966bee21"></a><!-- doxytag: member="tesseract::PixelHistogram::~PixelHistogram" ref="a760c8036bca85b190cf24909966bee21" args="()" -->
@@ -149,6 +158,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="devanagari__processing_8h_source.html#l00034">34</a> of file <a class="el" href="devanagari__processing_8h_source.html">devanagari_processing.h</a>.</p>
+<div class="fragment"><pre class="fragment">                    {
+    <a class="code" href="classtesseract_1_1_pixel_histogram.html#aaa214752dc7cbb3923fcece5dff758ed">Clear</a>();
+  }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -166,6 +180,14 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="devanagari__processing_8h_source.html#l00038">38</a> of file <a class="el" href="devanagari__processing_8h_source.html">devanagari_processing.h</a>.</p>
+<div class="fragment"><pre class="fragment">               {
+    <span class="keywordflow">if</span> (hist_) {
+      <span class="keyword">delete</span>[] hist_;
+    }
+    length_ = 0;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7d423f56f2e8440301f8af11a952fade"></a><!-- doxytag: member="tesseract::PixelHistogram::ConstructHorizontalCountHist" ref="a7d423f56f2e8440301f8af11a952fade" args="(Pix *pix)" -->
@@ -183,6 +205,20 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="devanagari__processing_8cpp_source.html#l00486">486</a> of file <a class="el" href="devanagari__processing_8cpp_source.html">devanagari_processing.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                          {
+  <a class="code" href="classtesseract_1_1_pixel_histogram.html#aaa214752dc7cbb3923fcece5dff758ed">Clear</a>();
+  Numa* counts = pixCountPixelsByRow(pix, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  length_ = numaGetCount(counts);
+  hist_ = <span class="keyword">new</span> <span class="keywordtype">int</span>[length_];
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; length_; ++i) {
+    l_int32 val = 0;
+    numaGetIValue(counts, i, &amp;val);
+    hist_[i] = val;
+  }
+  numaDestroy(&amp;counts);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae6f0d2fd25a0a76b84e370aac7f7b58f"></a><!-- doxytag: member="tesseract::PixelHistogram::ConstructVerticalCountHist" ref="ae6f0d2fd25a0a76b84e370aac7f7b58f" args="(Pix *pix)" -->
@@ -200,6 +236,25 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="devanagari__processing_8cpp_source.html#l00468">468</a> of file <a class="el" href="devanagari__processing_8cpp_source.html">devanagari_processing.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                        {
+  <a class="code" href="classtesseract_1_1_pixel_histogram.html#aaa214752dc7cbb3923fcece5dff758ed">Clear</a>();
+  <span class="keywordtype">int</span> width = pixGetWidth(pix);
+  <span class="keywordtype">int</span> height = pixGetHeight(pix);
+  hist_ = <span class="keyword">new</span> <span class="keywordtype">int</span>[width];
+  length_ = width;
+  <span class="keywordtype">int</span> wpl = pixGetWpl(pix);
+  l_uint32 *data = pixGetData(pix);
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; width; ++i)
+    hist_[i] = 0;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; height; ++i) {
+    l_uint32 *line = data + i * wpl;
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; width; ++j)
+      <span class="keywordflow">if</span> (GET_DATA_BIT(line, j))
+        ++(hist_[j]);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac984a3128e256cdc178cc33da1d81238"></a><!-- doxytag: member="tesseract::PixelHistogram::GetHistogramMaximum" ref="ac984a3128e256cdc178cc33da1d81238" args="(int *count) const " -->
@@ -217,6 +272,20 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="devanagari__processing_8cpp_source.html#l00454">454</a> of file <a class="el" href="devanagari__processing_8cpp_source.html">devanagari_processing.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                        {
+  <span class="keywordtype">int</span> best_value = 0;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; length_; ++i) {
+    <span class="keywordflow">if</span> (hist_[i] &gt; hist_[best_value]) {
+      best_value = i;
+    }
+  }
+  <span class="keywordflow">if</span> (<a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a>) {
+    *<a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a> = hist_[best_value];
+  }
+  <span class="keywordflow">return</span> best_value;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="abd202025de01aaf80fa2a852d0fcb38d"></a><!-- doxytag: member="tesseract::PixelHistogram::hist" ref="abd202025de01aaf80fa2a852d0fcb38d" args="() const " -->
@@ -233,6 +302,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="devanagari__processing_8h_source.html#l00045">45</a> of file <a class="el" href="devanagari__processing_8h_source.html">devanagari_processing.h</a>.</p>
+<div class="fragment"><pre class="fragment">                          {
+    <span class="keywordflow">return</span> hist_;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a249999ec8e8d202613bbff2bbd73518b"></a><!-- doxytag: member="tesseract::PixelHistogram::length" ref="a249999ec8e8d202613bbff2bbd73518b" args="() const " -->
@@ -249,11 +323,16 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="devanagari__processing_8h_source.html#l00049">49</a> of file <a class="el" href="devanagari__processing_8h_source.html">devanagari_processing.h</a>.</p>
+<div class="fragment"><pre class="fragment">                     {
+    <span class="keywordflow">return</span> length_;
+  }
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/textord/<a class="el" href="devanagari__processing_8h_source.html">devanagari_processing.h</a></li>
-<li>tesseract-ocr/textord/<a class="el" href="devanagari__processing_8cpp.html">devanagari_processing.cpp</a></li>
+<li>tesseract-ocr/textord/<a class="el" href="devanagari__processing_8cpp_source.html">devanagari_processing.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -276,7 +355,7 @@ Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:17 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:53 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

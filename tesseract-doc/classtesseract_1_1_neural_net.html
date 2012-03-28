@@ -164,7 +164,10 @@ Static Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_neural_net.html#ace41d563521f6f0c07a29f212aec3bab">kWgtChunkSize</a> = 0x10000</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static const unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_neural_net.html#ab145f57d5e1244f16a4f6c00a60f01f1">kNetSignature</a> = 0xFEFEABD0</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="neural__net_8h_source.html#l00022">22</a> of file <a class="el" href="neural__net_8h_source.html">neural_net.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="acad221017f155837c316063a76ee3a22"></a><!-- doxytag: member="tesseract::NeuralNet::NeuralNet" ref="acad221017f155837c316063a76ee3a22" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -179,6 +182,11 @@ Static Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="neural__net_8cpp_source.html#l00015">15</a> of file <a class="el" href="neural__net_8cpp_source.html">neural_net.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                     {
+  <a class="code" href="classtesseract_1_1_neural_net.html#a46a5af1940cf873c8cddb2c91e14b121">Init</a>();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a0a0f8a13c536da068fad17a12b39c7b6"></a><!-- doxytag: member="tesseract::NeuralNet::~NeuralNet" ref="a0a0f8a13c536da068fad17a12b39c7b6" args="()" -->
@@ -195,6 +203,21 @@ Static Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="neural__net_8cpp_source.html#l00019">19</a> of file <a class="el" href="neural__net_8cpp_source.html">neural_net.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                      {
+  <span class="comment">// clean up the wts chunks vector</span>
+  <span class="keywordflow">for</span>(<span class="keywordtype">int</span> vec = 0; vec &lt; <a class="code" href="classtesseract_1_1_neural_net.html#aa7b901ea43bae46e569d68f476c7b318">wts_vec_</a>.size(); vec++) {
+    <span class="keyword">delete</span> <a class="code" href="classtesseract_1_1_neural_net.html#aa7b901ea43bae46e569d68f476c7b318">wts_vec_</a>[vec];
+  }
+  <span class="comment">// clean up neurons</span>
+  <span class="keyword">delete</span> []<a class="code" href="classtesseract_1_1_neural_net.html#a4ff353ff0ba717e12507c6a1a909363f">neurons_</a>;
+  <span class="comment">// clean up nodes</span>
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> node_idx = 0; node_idx &lt; <a class="code" href="classtesseract_1_1_neural_net.html#a3772cb00bf4f74adf163fc5705bf1f0d">neuron_cnt_</a>; node_idx++) {
+    <span class="keyword">delete</span> []<a class="code" href="classtesseract_1_1_neural_net.html#a769b5db25072f73c1f7c57fe6d2142c0">fast_nodes_</a>[node_idx].inputs;
+  }
+
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -213,6 +236,21 @@ Static Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="neural__net_8cpp_source.html#l00189">189</a> of file <a class="el" href="neural__net_8cpp_source.html">neural_net.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                       {
+  <span class="comment">// see if need to allocate a new chunk of wts</span>
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_neural_net.html#aa7b901ea43bae46e569d68f476c7b318">wts_vec_</a>.size() == 0 || (<a class="code" href="classtesseract_1_1_neural_net.html#aaba48ba8a449a805ef8802ea3308d69d">alloc_wgt_cnt_</a> + wgt_cnt) &gt; <a class="code" href="classtesseract_1_1_neural_net.html#ace41d563521f6f0c07a29f212aec3bab">kWgtChunkSize</a>) {
+    <span class="comment">// add the new chunck to the wts_chunks vector</span>
+    <a class="code" href="classtesseract_1_1_neural_net.html#aa7b901ea43bae46e569d68f476c7b318">wts_vec_</a>.push_back(<span class="keyword">new</span> vector&lt;float&gt; (<a class="code" href="classtesseract_1_1_neural_net.html#ace41d563521f6f0c07a29f212aec3bab">kWgtChunkSize</a>));
+    <a class="code" href="classtesseract_1_1_neural_net.html#aaba48ba8a449a805ef8802ea3308d69d">alloc_wgt_cnt_</a> = 0;
+  }
+  <span class="keywordtype">float</span> *ret_ptr = &amp;((*<a class="code" href="classtesseract_1_1_neural_net.html#aa7b901ea43bae46e569d68f476c7b318">wts_vec_</a>.back())[<a class="code" href="classtesseract_1_1_neural_net.html#aaba48ba8a449a805ef8802ea3308d69d">alloc_wgt_cnt_</a>]);
+  <span class="comment">// incr usage counts</span>
+  <a class="code" href="classtesseract_1_1_neural_net.html#aaba48ba8a449a805ef8802ea3308d69d">alloc_wgt_cnt_</a> += wgt_cnt;
+  <a class="code" href="classtesseract_1_1_neural_net.html#ae260161c01b9d853d9d7ddf114d72ea9">wts_cnt_</a> += wgt_cnt;
+  <span class="keywordflow">return</span> ret_ptr;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a63cb2029e14bf27406aa69417128a0bc"></a><!-- doxytag: member="tesseract::NeuralNet::Clear" ref="a63cb2029e14bf27406aa69417128a0bc" args="()" -->
@@ -229,6 +267,13 @@ Static Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="neural__net_8h_source.html#l00100">100</a> of file <a class="el" href="neural__net_8h_source.html">neural_net.h</a>.</p>
+<div class="fragment"><pre class="fragment">                 {
+      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> node = 0; node &lt; <a class="code" href="classtesseract_1_1_neural_net.html#a3772cb00bf4f74adf163fc5705bf1f0d">neuron_cnt_</a>; node++) {
+        <a class="code" href="classtesseract_1_1_neural_net.html#a4ff353ff0ba717e12507c6a1a909363f">neurons_</a>[node].Clear();
+      }
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="adf52a77999cb8e51a6fa5d4932321a3d"></a><!-- doxytag: member="tesseract::NeuralNet::CreateFastNet" ref="adf52a77999cb8e51a6fa5d4932321a3d" args="()" -->
@@ -245,6 +290,70 @@ Static Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="neural__net_8cpp_source.html#l00124">124</a> of file <a class="el" href="neural__net_8cpp_source.html">neural_net.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                              {
+  <a class="code" href="classtesseract_1_1_neural_net.html#a769b5db25072f73c1f7c57fe6d2142c0">fast_nodes_</a>.resize(<a class="code" href="classtesseract_1_1_neural_net.html#a3772cb00bf4f74adf163fc5705bf1f0d">neuron_cnt_</a>);
+  <span class="comment">// build the node structures</span>
+  <span class="keywordtype">int</span> wts_cnt = 0;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> node_idx = 0; node_idx &lt; <a class="code" href="classtesseract_1_1_neural_net.html#a3772cb00bf4f74adf163fc5705bf1f0d">neuron_cnt_</a>; node_idx++) {
+    Node *node = &amp;<a class="code" href="classtesseract_1_1_neural_net.html#a769b5db25072f73c1f7c57fe6d2142c0">fast_nodes_</a>[node_idx];
+    <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_neural_net.html#a4ff353ff0ba717e12507c6a1a909363f">neurons_</a>[node_idx].node_type() == <a class="code" href="classtesseract_1_1_neuron.html#aaca04e8e86b6305b6ef5cafa97a69cccabf08baf29ab216392a1f0ad5c439d220">Neuron::Input</a>) {
+      <span class="comment">// Input neurons have no fan-in</span>
+      node-&gt;fan_in_cnt = 0;
+      node-&gt;inputs = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+      <span class="comment">// Input bias is the normalization offset computed from</span>
+      <span class="comment">// training input stats</span>
+      <span class="keywordflow">if</span> (fabs(<a class="code" href="classtesseract_1_1_neural_net.html#acc363035dc53cc103d2cadaa54333efa">inputs_max_</a>[node_idx] - <a class="code" href="classtesseract_1_1_neural_net.html#aa05bfd6191232cf25b79752fd1a38117">inputs_min_</a>[node_idx]) &lt;
+          kMinInputRange) {
+        <span class="comment">// if the range approaches zero, the stdev is not defined,</span>
+        <span class="comment">// this indicates that this input does not change.</span>
+        <span class="comment">// Set the bias to zero</span>
+        node-&gt;bias = 0.0f;
+      } <span class="keywordflow">else</span> {
+        node-&gt;bias = <a class="code" href="classtesseract_1_1_neural_net.html#aa05bfd6191232cf25b79752fd1a38117">inputs_min_</a>[node_idx] + (<a class="code" href="classtesseract_1_1_neural_net.html#a45298b08d5c9e41901911b99f0e172ca">inputs_mean_</a>[node_idx] *
+            (<a class="code" href="classtesseract_1_1_neural_net.html#acc363035dc53cc103d2cadaa54333efa">inputs_max_</a>[node_idx] - <a class="code" href="classtesseract_1_1_neural_net.html#aa05bfd6191232cf25b79752fd1a38117">inputs_min_</a>[node_idx]));
+      }
+    } <span class="keywordflow">else</span> {
+      node-&gt;bias = <a class="code" href="classtesseract_1_1_neural_net.html#a4ff353ff0ba717e12507c6a1a909363f">neurons_</a>[node_idx].bias();
+      node-&gt;fan_in_cnt = <a class="code" href="classtesseract_1_1_neural_net.html#a4ff353ff0ba717e12507c6a1a909363f">neurons_</a>[node_idx].fan_in_cnt();
+      <span class="comment">// allocate memory for fan-in nodes</span>
+      node-&gt;inputs = <span class="keyword">new</span> WeightedNode[node-&gt;fan_in_cnt];
+      <span class="keywordflow">if</span> (node-&gt;inputs == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+        <span class="keywordflow">return</span> <span class="keyword">false</span>;
+      }
+      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> fan_in = 0; fan_in &lt; node-&gt;fan_in_cnt; fan_in++) {
+        <span class="comment">// identify fan-in neuron</span>
+        <span class="keyword">const</span> <span class="keywordtype">int</span> <span class="keywordtype">id</span> = <a class="code" href="classtesseract_1_1_neural_net.html#a4ff353ff0ba717e12507c6a1a909363f">neurons_</a>[node_idx].fan_in(fan_in)-&gt;id();
+        <span class="comment">// Feedback connections are not allowed and should never happen</span>
+        <span class="keywordflow">if</span> (<span class="keywordtype">id</span> &gt;= node_idx) {
+          <span class="keywordflow">return</span> <span class="keyword">false</span>;
+        }
+        <span class="comment">// add the the fan-in neuron and its wgt</span>
+        node-&gt;inputs[fan_in].input_node = &amp;<a class="code" href="classtesseract_1_1_neural_net.html#a769b5db25072f73c1f7c57fe6d2142c0">fast_nodes_</a>[id];
+        <span class="keywordtype">float</span> wgt_val = <a class="code" href="classtesseract_1_1_neural_net.html#a4ff353ff0ba717e12507c6a1a909363f">neurons_</a>[node_idx].fan_in_wts(fan_in);
+        <span class="comment">// for input neurons normalize the wgt by the input scaling</span>
+        <span class="comment">// values to save time during feedforward</span>
+        <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_neural_net.html#a4ff353ff0ba717e12507c6a1a909363f">neurons_</a>[node_idx].fan_in(fan_in)-&gt;node_type() == <a class="code" href="classtesseract_1_1_neuron.html#aaca04e8e86b6305b6ef5cafa97a69cccabf08baf29ab216392a1f0ad5c439d220">Neuron::Input</a>) {
+          <span class="comment">// if the range approaches zero, the stdev is not defined,</span>
+          <span class="comment">// this indicates that this input does not change.</span>
+          <span class="comment">// Set the weight to zero</span>
+          <span class="keywordflow">if</span> (fabs(<a class="code" href="classtesseract_1_1_neural_net.html#acc363035dc53cc103d2cadaa54333efa">inputs_max_</a>[<span class="keywordtype">id</span>] - <a class="code" href="classtesseract_1_1_neural_net.html#aa05bfd6191232cf25b79752fd1a38117">inputs_min_</a>[<span class="keywordtype">id</span>]) &lt; kMinInputRange) {
+            wgt_val = 0.0f;
+          } <span class="keywordflow">else</span> {
+            wgt_val /= ((<a class="code" href="classtesseract_1_1_neural_net.html#acc363035dc53cc103d2cadaa54333efa">inputs_max_</a>[id] - <a class="code" href="classtesseract_1_1_neural_net.html#aa05bfd6191232cf25b79752fd1a38117">inputs_min_</a>[id]) *
+                <a class="code" href="classtesseract_1_1_neural_net.html#a8d03fb672b6283010bbd32135303b60a">inputs_std_dev_</a>[<span class="keywordtype">id</span>]);
+          }
+        }
+        node-&gt;inputs[fan_in].input_weight = wgt_val;
+      }
+      <span class="comment">// incr wgt count to validate against at the end</span>
+      wts_cnt += node-&gt;fan_in_cnt;
+    }
+  }
+  <span class="comment">// sanity check</span>
+  <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_neural_net.html#ae260161c01b9d853d9d7ddf114d72ea9">wts_cnt_</a> == wts_cnt;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa186b29234d2d35e0c8afb52877c04ea"></a><!-- doxytag: member="tesseract::NeuralNet::FastFeedForward" ref="aa186b29234d2d35e0c8afb52877c04ea" args="(const Type *inputs, Type *outputs)" -->
@@ -274,6 +383,31 @@ template&lt;typename Type &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="neural__net_8cpp_source.html#l00052">52</a> of file <a class="el" href="neural__net_8cpp_source.html">neural_net.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                        {
+  <span class="keywordtype">int</span> node_idx = 0;
+  Node *node = &amp;<a class="code" href="classtesseract_1_1_neural_net.html#a769b5db25072f73c1f7c57fe6d2142c0">fast_nodes_</a>[0];
+  <span class="comment">// feed inputs in and offset them by the pre-computed bias</span>
+  <span class="keywordflow">for</span> (node_idx = 0; node_idx &lt; <a class="code" href="classtesseract_1_1_neural_net.html#a3f9506819852a7c66e83775f92f95610">in_cnt_</a>; node_idx++, node++) {
+    node-&gt;out = inputs[node_idx] - node-&gt;bias;
+  }
+  <span class="comment">// compute nodes activations and outputs</span>
+  <span class="keywordflow">for</span> (;node_idx &lt; <a class="code" href="classtesseract_1_1_neural_net.html#a3772cb00bf4f74adf163fc5705bf1f0d">neuron_cnt_</a>; node_idx++, node++) {
+    <span class="keywordtype">double</span> activation = -node-&gt;bias;
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> fan_in_idx = 0; fan_in_idx &lt; node-&gt;fan_in_cnt; fan_in_idx++) {
+      activation += (node-&gt;inputs[fan_in_idx].input_weight *
+                     node-&gt;inputs[fan_in_idx].input_node-&gt;out);
+    }
+    node-&gt;out = <a class="code" href="classtesseract_1_1_neuron.html#a6b38598355a4ebd977f20f0582db3d49">Neuron::Sigmoid</a>(activation);
+  }
+  <span class="comment">// copy the outputs to the output buffers</span>
+  node = &amp;<a class="code" href="classtesseract_1_1_neural_net.html#a769b5db25072f73c1f7c57fe6d2142c0">fast_nodes_</a>[neuron_cnt_ - <a class="code" href="classtesseract_1_1_neural_net.html#a3e1f6cb07479e2e6d9fcb11625a715c1">out_cnt_</a>];
+  <span class="keywordflow">for</span> (node_idx = 0; node_idx &lt; <a class="code" href="classtesseract_1_1_neural_net.html#a3e1f6cb07479e2e6d9fcb11625a715c1">out_cnt_</a>; node_idx++, node++) {
+    outputs[node_idx] = node-&gt;out;
+  }
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a1275c0785ed2bd9725dd39820d4f5fab"></a><!-- doxytag: member="tesseract::NeuralNet::FastGetNetOutput" ref="a1275c0785ed2bd9725dd39820d4f5fab" args="(const Type *inputs, int output_id, Type *output)" -->
@@ -309,6 +443,37 @@ template&lt;typename Type &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="neural__net_8cpp_source.html#l00231">231</a> of file <a class="el" href="neural__net_8cpp_source.html">neural_net.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                        {
+  <span class="comment">// feed inputs in and offset them by the pre-computed bias</span>
+  <span class="keywordtype">int</span> node_idx = 0;
+  Node *node = &amp;<a class="code" href="classtesseract_1_1_neural_net.html#a769b5db25072f73c1f7c57fe6d2142c0">fast_nodes_</a>[0];
+  <span class="keywordflow">for</span> (node_idx = 0; node_idx &lt; <a class="code" href="classtesseract_1_1_neural_net.html#a3f9506819852a7c66e83775f92f95610">in_cnt_</a>; node_idx++, node++) {
+    node-&gt;out = inputs[node_idx] - node-&gt;bias;
+  }
+
+  <span class="comment">// compute nodes&#39; activations and outputs for hidden nodes if any</span>
+  <span class="keywordtype">int</span> hidden_node_cnt = <a class="code" href="classtesseract_1_1_neural_net.html#a3772cb00bf4f74adf163fc5705bf1f0d">neuron_cnt_</a> - <a class="code" href="classtesseract_1_1_neural_net.html#a3e1f6cb07479e2e6d9fcb11625a715c1">out_cnt_</a>;
+  <span class="keywordflow">for</span> (;node_idx &lt; hidden_node_cnt; node_idx++, node++) {
+    <span class="keywordtype">double</span> activation = -node-&gt;bias;
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> fan_in_idx = 0; fan_in_idx &lt; node-&gt;fan_in_cnt; fan_in_idx++) {
+      activation += (node-&gt;inputs[fan_in_idx].input_weight *
+                     node-&gt;inputs[fan_in_idx].input_node-&gt;out);
+    }
+    node-&gt;out = <a class="code" href="classtesseract_1_1_neuron.html#a6b38598355a4ebd977f20f0582db3d49">Neuron::Sigmoid</a>(activation);
+  }
+
+  <span class="comment">// compute the output of the required output node</span>
+  node += output_id;
+  <span class="keywordtype">double</span> activation = -node-&gt;bias;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> fan_in_idx = 0; fan_in_idx &lt; node-&gt;fan_in_cnt; fan_in_idx++) {
+    activation += (node-&gt;inputs[fan_in_idx].input_weight *
+                   node-&gt;inputs[fan_in_idx].input_node-&gt;out);
+  }
+  (*output) = <a class="code" href="classtesseract_1_1_neuron.html#a6b38598355a4ebd977f20f0582db3d49">Neuron::Sigmoid</a>(activation);
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa4a947cf29447c3774c0c404a9d50f23"></a><!-- doxytag: member="tesseract::NeuralNet::FeedForward" ref="aa4a947cf29447c3774c0c404a9d50f23" args="(const Type *inputs, Type *outputs)" -->
@@ -338,6 +503,38 @@ template&lt;typename Type &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="neural__net_8cpp_source.html#l00079">79</a> of file <a class="el" href="neural__net_8cpp_source.html">neural_net.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                    {
+  <span class="comment">// call the fast version in case of readonly nets</span>
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_neural_net.html#a680ddffcb4d92f115e1a7b8221811a81">read_only_</a>) {
+    <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_neural_net.html#aa186b29234d2d35e0c8afb52877c04ea">FastFeedForward</a>(inputs, outputs);
+  }
+  <span class="comment">// clear all neurons</span>
+  <a class="code" href="classtesseract_1_1_neural_net.html#a63cb2029e14bf27406aa69417128a0bc">Clear</a>();
+  <span class="comment">// for auto encoders, apply no input normalization</span>
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_neural_net.html#a6cc1b21c513a3bbd8de7d5435c649048">auto_encoder_</a>) {
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> in = 0; in &lt; <a class="code" href="classtesseract_1_1_neural_net.html#a3f9506819852a7c66e83775f92f95610">in_cnt_</a>; in++) {
+      <a class="code" href="classtesseract_1_1_neural_net.html#a4ff353ff0ba717e12507c6a1a909363f">neurons_</a>[in].set_output(inputs[in]);
+    }
+  } <span class="keywordflow">else</span> {
+    <span class="comment">// Input normalization : subtract mean and divide by stddev</span>
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> in = 0; in &lt; <a class="code" href="classtesseract_1_1_neural_net.html#a3f9506819852a7c66e83775f92f95610">in_cnt_</a>; in++) {
+      <a class="code" href="classtesseract_1_1_neural_net.html#a4ff353ff0ba717e12507c6a1a909363f">neurons_</a>[in].set_output((inputs[in] - <a class="code" href="classtesseract_1_1_neural_net.html#aa05bfd6191232cf25b79752fd1a38117">inputs_min_</a>[in]) /
+                              (<a class="code" href="classtesseract_1_1_neural_net.html#acc363035dc53cc103d2cadaa54333efa">inputs_max_</a>[in] - <a class="code" href="classtesseract_1_1_neural_net.html#aa05bfd6191232cf25b79752fd1a38117">inputs_min_</a>[in]));
+      <a class="code" href="classtesseract_1_1_neural_net.html#a4ff353ff0ba717e12507c6a1a909363f">neurons_</a>[in].set_output((<a class="code" href="classtesseract_1_1_neural_net.html#a4ff353ff0ba717e12507c6a1a909363f">neurons_</a>[in].output() - <a class="code" href="classtesseract_1_1_neural_net.html#a45298b08d5c9e41901911b99f0e172ca">inputs_mean_</a>[in]) /
+                              <a class="code" href="classtesseract_1_1_neural_net.html#a8d03fb672b6283010bbd32135303b60a">inputs_std_dev_</a>[in]);
+    }
+  }
+  <span class="comment">// compute the net outputs: follow a pull model each output pulls the</span>
+  <span class="comment">// outputs of its input nodes and so on</span>
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> out = <a class="code" href="classtesseract_1_1_neural_net.html#a3772cb00bf4f74adf163fc5705bf1f0d">neuron_cnt_</a> - <a class="code" href="classtesseract_1_1_neural_net.html#a3e1f6cb07479e2e6d9fcb11625a715c1">out_cnt_</a>; out &lt; <a class="code" href="classtesseract_1_1_neural_net.html#a3772cb00bf4f74adf163fc5705bf1f0d">neuron_cnt_</a>; out++) {
+    <a class="code" href="classtesseract_1_1_neural_net.html#a4ff353ff0ba717e12507c6a1a909363f">neurons_</a>[out].FeedForward();
+    <span class="comment">// copy the values to the output buffer</span>
+    outputs[out] = <a class="code" href="classtesseract_1_1_neural_net.html#a4ff353ff0ba717e12507c6a1a909363f">neurons_</a>[out].output();
+  }
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aacdfeca9c810f9d8beb9438b35a8b93a"></a><!-- doxytag: member="tesseract::NeuralNet::FromFile" ref="aacdfeca9c810f9d8beb9438b35a8b93a" args="(const string file_name)" -->
@@ -355,6 +552,15 @@ template&lt;typename Type &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="neural__net_8cpp_source.html#l00204">204</a> of file <a class="el" href="neural__net_8cpp_source.html">neural_net.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                     {
+  <span class="comment">// open the file</span>
+  InputFileBuffer   input_buff(file_name);
+  <span class="comment">// create a new net object using input buffer</span>
+  <a class="code" href="classtesseract_1_1_neural_net.html#acad221017f155837c316063a76ee3a22">NeuralNet</a> *net_obj = <a class="code" href="classtesseract_1_1_neural_net.html#a4bae9fde3b2be515197283b1008bf14c">FromInputBuffer</a>(&amp;input_buff);
+  <span class="keywordflow">return</span> net_obj;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4bae9fde3b2be515197283b1008bf14c"></a><!-- doxytag: member="tesseract::NeuralNet::FromInputBuffer" ref="a4bae9fde3b2be515197283b1008bf14c" args="(InputFileBuffer *ib)" -->
@@ -372,6 +578,21 @@ template&lt;typename Type &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="neural__net_8cpp_source.html#l00213">213</a> of file <a class="el" href="neural__net_8cpp_source.html">neural_net.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                         {
+      <span class="comment">// create a new net object</span>
+  <a class="code" href="classtesseract_1_1_neural_net.html#acad221017f155837c316063a76ee3a22">NeuralNet</a> *net_obj = <span class="keyword">new</span> <a class="code" href="classtesseract_1_1_neural_net.html#acad221017f155837c316063a76ee3a22">NeuralNet</a>();
+  <span class="keywordflow">if</span> (net_obj == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+      <span class="comment">// load the net</span>
+  <span class="keywordflow">if</span> (!net_obj-&gt;ReadBinary(ib)) {
+    <span class="keyword">delete</span> net_obj;
+    net_obj = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="keywordflow">return</span> net_obj;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3dc0a81f7c0588aee8aed7e93884d0ea"></a><!-- doxytag: member="tesseract::NeuralNet::GetNetOutput" ref="a3dc0a81f7c0588aee8aed7e93884d0ea" args="(const Type *inputs, int output_id, Type *output)" -->
@@ -407,6 +628,29 @@ template&lt;typename Type &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="neural__net_8cpp_source.html#l00265">265</a> of file <a class="el" href="neural__net_8cpp_source.html">neural_net.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                    {
+  <span class="comment">// validate output id</span>
+  <span class="keywordflow">if</span> (output_id &lt; 0 || output_id &gt;= <a class="code" href="classtesseract_1_1_neural_net.html#a3e1f6cb07479e2e6d9fcb11625a715c1">out_cnt_</a>) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+
+  <span class="comment">// call the fast version in case of readonly nets</span>
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_neural_net.html#a680ddffcb4d92f115e1a7b8221811a81">read_only_</a>) {
+    <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_neural_net.html#a1275c0785ed2bd9725dd39820d4f5fab">FastGetNetOutput</a>(inputs, output_id, output);
+  }
+
+  <span class="comment">// For the slow version, we&#39;ll just call FeedForward and return the</span>
+  <span class="comment">// appropriate output</span>
+  vector&lt;Type&gt; outputs(<a class="code" href="classtesseract_1_1_neural_net.html#a3e1f6cb07479e2e6d9fcb11625a715c1">out_cnt_</a>);
+  <span class="keywordflow">if</span> (!<a class="code" href="classtesseract_1_1_neural_net.html#aa4a947cf29447c3774c0c404a9d50f23">FeedForward</a>(inputs, &amp;outputs[0])) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+  (*output) = outputs[output_id];
+
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae28208349e3d4ad72d1013fc319adc42"></a><!-- doxytag: member="tesseract::NeuralNet::in_cnt" ref="ae28208349e3d4ad72d1013fc319adc42" args="() const " -->
@@ -423,6 +667,9 @@ template&lt;typename Type &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="neural__net_8h_source.html#l00040">40</a> of file <a class="el" href="neural__net_8h_source.html">neural_net.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_neural_net.html#a3f9506819852a7c66e83775f92f95610">in_cnt_</a>; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a46a5af1940cf873c8cddb2c91e14b121"></a><!-- doxytag: member="tesseract::NeuralNet::Init" ref="a46a5af1940cf873c8cddb2c91e14b121" args="()" -->
@@ -439,6 +686,23 @@ template&lt;typename Type &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="neural__net_8cpp_source.html#l00034">34</a> of file <a class="el" href="neural__net_8cpp_source.html">neural_net.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                     {
+  <a class="code" href="classtesseract_1_1_neural_net.html#a680ddffcb4d92f115e1a7b8221811a81">read_only_</a> = <span class="keyword">true</span>;
+  <a class="code" href="classtesseract_1_1_neural_net.html#a6cc1b21c513a3bbd8de7d5435c649048">auto_encoder_</a> = <span class="keyword">false</span>;
+  <a class="code" href="classtesseract_1_1_neural_net.html#aaba48ba8a449a805ef8802ea3308d69d">alloc_wgt_cnt_</a> = 0;
+  <a class="code" href="classtesseract_1_1_neural_net.html#ae260161c01b9d853d9d7ddf114d72ea9">wts_cnt_</a> = 0;
+  <a class="code" href="classtesseract_1_1_neural_net.html#a3772cb00bf4f74adf163fc5705bf1f0d">neuron_cnt_</a> = 0;
+  <a class="code" href="classtesseract_1_1_neural_net.html#a3f9506819852a7c66e83775f92f95610">in_cnt_</a> = 0;
+  <a class="code" href="classtesseract_1_1_neural_net.html#a3e1f6cb07479e2e6d9fcb11625a715c1">out_cnt_</a> = 0;
+  <a class="code" href="classtesseract_1_1_neural_net.html#aa7b901ea43bae46e569d68f476c7b318">wts_vec_</a>.clear();
+  <a class="code" href="classtesseract_1_1_neural_net.html#a4ff353ff0ba717e12507c6a1a909363f">neurons_</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <a class="code" href="classtesseract_1_1_neural_net.html#a45298b08d5c9e41901911b99f0e172ca">inputs_mean_</a>.clear();
+  <a class="code" href="classtesseract_1_1_neural_net.html#a8d03fb672b6283010bbd32135303b60a">inputs_std_dev_</a>.clear();
+  <a class="code" href="classtesseract_1_1_neural_net.html#aa05bfd6191232cf25b79752fd1a38117">inputs_min_</a>.clear();
+  <a class="code" href="classtesseract_1_1_neural_net.html#acc363035dc53cc103d2cadaa54333efa">inputs_max_</a>.clear();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a5f1f4f6112ccabd23612ac70df4ddd23"></a><!-- doxytag: member="tesseract::NeuralNet::out_cnt" ref="a5f1f4f6112ccabd23612ac70df4ddd23" args="() const " -->
@@ -455,6 +719,9 @@ template&lt;typename Type &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="neural__net_8h_source.html#l00041">41</a> of file <a class="el" href="neural__net_8h_source.html">neural_net.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_neural_net.html#a3e1f6cb07479e2e6d9fcb11625a715c1">out_cnt_</a>; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae0f9731e168d43ea679499ee7e81ac97"></a><!-- doxytag: member="tesseract::NeuralNet::ReadBinary" ref="ae0f9731e168d43ea679499ee7e81ac97" args="(ReadBuffType *input_buff)" -->
@@ -474,6 +741,125 @@ template&lt;class ReadBuffType &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="neural__net_8h_source.html#l00106">106</a> of file <a class="el" href="neural__net_8h_source.html">neural_net.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                           {
+      <span class="comment">// Init vars</span>
+      <a class="code" href="classtesseract_1_1_neural_net.html#a46a5af1940cf873c8cddb2c91e14b121">Init</a>();
+      <span class="comment">// is this an autoencoder</span>
+      <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> read_val;
+      <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> auto_encode;
+      <span class="comment">// read and verify signature</span>
+      <span class="keywordflow">if</span> (input_buff-&gt;Read(&amp;read_val, <span class="keyword">sizeof</span>(read_val)) != <span class="keyword">sizeof</span>(read_val)) {
+        <span class="keywordflow">return</span> <span class="keyword">false</span>;
+      }
+      <span class="keywordflow">if</span> (read_val != <a class="code" href="classtesseract_1_1_neural_net.html#ab145f57d5e1244f16a4f6c00a60f01f1">kNetSignature</a>) {
+        <span class="keywordflow">return</span> <span class="keyword">false</span>;
+      }
+      <span class="keywordflow">if</span> (input_buff-&gt;Read(&amp;auto_encode, <span class="keyword">sizeof</span>(auto_encode)) !=
+          <span class="keyword">sizeof</span>(auto_encode)) {
+        <span class="keywordflow">return</span> <span class="keyword">false</span>;
+      }
+      <a class="code" href="classtesseract_1_1_neural_net.html#a6cc1b21c513a3bbd8de7d5435c649048">auto_encoder_</a> = auto_encode;
+      <span class="comment">// read and validate total # of nodes</span>
+      <span class="keywordflow">if</span> (input_buff-&gt;Read(&amp;read_val, <span class="keyword">sizeof</span>(read_val)) != <span class="keyword">sizeof</span>(read_val)) {
+        <span class="keywordflow">return</span> <span class="keyword">false</span>;
+      }
+      <a class="code" href="classtesseract_1_1_neural_net.html#a3772cb00bf4f74adf163fc5705bf1f0d">neuron_cnt_</a> = read_val;
+      <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_neural_net.html#a3772cb00bf4f74adf163fc5705bf1f0d">neuron_cnt_</a> &lt;= 0) {
+        <span class="keywordflow">return</span> <span class="keyword">false</span>;
+      }
+      <span class="comment">// set the size of the neurons vector</span>
+      <a class="code" href="classtesseract_1_1_neural_net.html#a4ff353ff0ba717e12507c6a1a909363f">neurons_</a> = <span class="keyword">new</span> Neuron[<a class="code" href="classtesseract_1_1_neural_net.html#a3772cb00bf4f74adf163fc5705bf1f0d">neuron_cnt_</a>];
+      <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_neural_net.html#a4ff353ff0ba717e12507c6a1a909363f">neurons_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+        <span class="keywordflow">return</span> <span class="keyword">false</span>;
+      }
+      <span class="comment">// read &amp; validate inputs</span>
+      <span class="keywordflow">if</span> (input_buff-&gt;Read(&amp;read_val, <span class="keyword">sizeof</span>(read_val)) != <span class="keyword">sizeof</span>(read_val)) {
+        <span class="keywordflow">return</span> <span class="keyword">false</span>;
+      }
+      <a class="code" href="classtesseract_1_1_neural_net.html#a3f9506819852a7c66e83775f92f95610">in_cnt_</a> = read_val;
+      <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_neural_net.html#a3f9506819852a7c66e83775f92f95610">in_cnt_</a> &lt;= 0) {
+        <span class="keywordflow">return</span> <span class="keyword">false</span>;
+      }
+      <span class="comment">// read outputs</span>
+      <span class="keywordflow">if</span> (input_buff-&gt;Read(&amp;read_val, <span class="keyword">sizeof</span>(read_val)) != <span class="keyword">sizeof</span>(read_val)) {
+        <span class="keywordflow">return</span> <span class="keyword">false</span>;
+      }
+      <a class="code" href="classtesseract_1_1_neural_net.html#a3e1f6cb07479e2e6d9fcb11625a715c1">out_cnt_</a> = read_val;
+      <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_neural_net.html#a3e1f6cb07479e2e6d9fcb11625a715c1">out_cnt_</a> &lt;= 0) {
+        <span class="keywordflow">return</span> <span class="keyword">false</span>;
+      }
+      <span class="comment">// set neuron ids and types</span>
+      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> idx = 0; idx &lt; <a class="code" href="classtesseract_1_1_neural_net.html#a3772cb00bf4f74adf163fc5705bf1f0d">neuron_cnt_</a>; idx++) {
+        <a class="code" href="classtesseract_1_1_neural_net.html#a4ff353ff0ba717e12507c6a1a909363f">neurons_</a>[idx].set_id(idx);
+        <span class="comment">// input type</span>
+        <span class="keywordflow">if</span> (idx &lt; <a class="code" href="classtesseract_1_1_neural_net.html#a3f9506819852a7c66e83775f92f95610">in_cnt_</a>) {
+          <a class="code" href="classtesseract_1_1_neural_net.html#a4ff353ff0ba717e12507c6a1a909363f">neurons_</a>[idx].set_node_type(<a class="code" href="classtesseract_1_1_neuron.html#aaca04e8e86b6305b6ef5cafa97a69cccabf08baf29ab216392a1f0ad5c439d220">Neuron::Input</a>);
+        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (idx &gt;= (neuron_cnt_ - <a class="code" href="classtesseract_1_1_neural_net.html#a3e1f6cb07479e2e6d9fcb11625a715c1">out_cnt_</a>)) {
+          <a class="code" href="classtesseract_1_1_neural_net.html#a4ff353ff0ba717e12507c6a1a909363f">neurons_</a>[idx].set_node_type(<a class="code" href="classtesseract_1_1_neuron.html#aaca04e8e86b6305b6ef5cafa97a69ccca7763743f69f362cb5e9f885457389f14">Neuron::Output</a>);
+        } <span class="keywordflow">else</span> {
+          <a class="code" href="classtesseract_1_1_neural_net.html#a4ff353ff0ba717e12507c6a1a909363f">neurons_</a>[idx].set_node_type(<a class="code" href="classtesseract_1_1_neuron.html#aaca04e8e86b6305b6ef5cafa97a69ccca98cb3df28d5382cccc5471de1a31cc45">Neuron::Hidden</a>);
+        }
+      }
+      <span class="comment">// read the connections</span>
+      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> node_idx = 0; node_idx &lt; <a class="code" href="classtesseract_1_1_neural_net.html#a3772cb00bf4f74adf163fc5705bf1f0d">neuron_cnt_</a>; node_idx++) {
+        <span class="comment">// read fanout</span>
+        <span class="keywordflow">if</span> (input_buff-&gt;Read(&amp;read_val, <span class="keyword">sizeof</span>(read_val)) != <span class="keyword">sizeof</span>(read_val)) {
+          <span class="keywordflow">return</span> <span class="keyword">false</span>;
+        }
+        <span class="comment">// read the neuron&#39;s info</span>
+        <span class="keywordtype">int</span> fan_out_cnt = read_val;
+        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> fan_out_idx = 0; fan_out_idx &lt; fan_out_cnt; fan_out_idx++) {
+          <span class="comment">// read the neuron id</span>
+          <span class="keywordflow">if</span> (input_buff-&gt;Read(&amp;read_val, <span class="keyword">sizeof</span>(read_val)) != <span class="keyword">sizeof</span>(read_val)) {
+            <span class="keywordflow">return</span> <span class="keyword">false</span>;
+          }
+          <span class="comment">// create the connection</span>
+          <span class="keywordflow">if</span> (!<a class="code" href="classtesseract_1_1_neural_net.html#a3cec386f2524f71f6ff8221badeaa5d0">SetConnection</a>(node_idx, read_val)) {
+            <span class="keywordflow">return</span> <span class="keyword">false</span>;
+          }
+        }
+      }
+      <span class="comment">// read all the neurons&#39; fan-in connections</span>
+      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> node_idx = 0; node_idx &lt; <a class="code" href="classtesseract_1_1_neural_net.html#a3772cb00bf4f74adf163fc5705bf1f0d">neuron_cnt_</a>; node_idx++) {
+        <span class="comment">// read</span>
+        <span class="keywordflow">if</span> (!<a class="code" href="classtesseract_1_1_neural_net.html#a4ff353ff0ba717e12507c6a1a909363f">neurons_</a>[node_idx].<a class="code" href="classtesseract_1_1_neural_net.html#ae0f9731e168d43ea679499ee7e81ac97">ReadBinary</a>(input_buff)) {
+          <span class="keywordflow">return</span> <span class="keyword">false</span>;
+        }
+      }
+      <span class="comment">// size input stats vector to expected input size</span>
+      <a class="code" href="classtesseract_1_1_neural_net.html#a45298b08d5c9e41901911b99f0e172ca">inputs_mean_</a>.resize(<a class="code" href="classtesseract_1_1_neural_net.html#a3f9506819852a7c66e83775f92f95610">in_cnt_</a>);
+      <a class="code" href="classtesseract_1_1_neural_net.html#a8d03fb672b6283010bbd32135303b60a">inputs_std_dev_</a>.resize(<a class="code" href="classtesseract_1_1_neural_net.html#a3f9506819852a7c66e83775f92f95610">in_cnt_</a>);
+      <a class="code" href="classtesseract_1_1_neural_net.html#aa05bfd6191232cf25b79752fd1a38117">inputs_min_</a>.resize(<a class="code" href="classtesseract_1_1_neural_net.html#a3f9506819852a7c66e83775f92f95610">in_cnt_</a>);
+      <a class="code" href="classtesseract_1_1_neural_net.html#acc363035dc53cc103d2cadaa54333efa">inputs_max_</a>.resize(<a class="code" href="classtesseract_1_1_neural_net.html#a3f9506819852a7c66e83775f92f95610">in_cnt_</a>);
+      <span class="comment">// read stats</span>
+      <span class="keywordflow">if</span> (input_buff-&gt;Read(&amp;(<a class="code" href="classtesseract_1_1_neural_net.html#a45298b08d5c9e41901911b99f0e172ca">inputs_mean_</a>.front()),
+          <span class="keyword">sizeof</span>(<a class="code" href="classtesseract_1_1_neural_net.html#a45298b08d5c9e41901911b99f0e172ca">inputs_mean_</a>[0]) * <a class="code" href="classtesseract_1_1_neural_net.html#a3f9506819852a7c66e83775f92f95610">in_cnt_</a>) !=
+          <span class="keyword">sizeof</span>(<a class="code" href="classtesseract_1_1_neural_net.html#a45298b08d5c9e41901911b99f0e172ca">inputs_mean_</a>[0]) * <a class="code" href="classtesseract_1_1_neural_net.html#a3f9506819852a7c66e83775f92f95610">in_cnt_</a>) {
+        <span class="keywordflow">return</span> <span class="keyword">false</span>;
+      }
+      <span class="keywordflow">if</span> (input_buff-&gt;Read(&amp;(<a class="code" href="classtesseract_1_1_neural_net.html#a8d03fb672b6283010bbd32135303b60a">inputs_std_dev_</a>.front()),
+          <span class="keyword">sizeof</span>(<a class="code" href="classtesseract_1_1_neural_net.html#a8d03fb672b6283010bbd32135303b60a">inputs_std_dev_</a>[0]) * <a class="code" href="classtesseract_1_1_neural_net.html#a3f9506819852a7c66e83775f92f95610">in_cnt_</a>) !=
+          <span class="keyword">sizeof</span>(<a class="code" href="classtesseract_1_1_neural_net.html#a8d03fb672b6283010bbd32135303b60a">inputs_std_dev_</a>[0]) * <a class="code" href="classtesseract_1_1_neural_net.html#a3f9506819852a7c66e83775f92f95610">in_cnt_</a>) {
+        <span class="keywordflow">return</span> <span class="keyword">false</span>;
+      }
+      <span class="keywordflow">if</span> (input_buff-&gt;Read(&amp;(<a class="code" href="classtesseract_1_1_neural_net.html#aa05bfd6191232cf25b79752fd1a38117">inputs_min_</a>.front()),
+          <span class="keyword">sizeof</span>(<a class="code" href="classtesseract_1_1_neural_net.html#aa05bfd6191232cf25b79752fd1a38117">inputs_min_</a>[0]) * <a class="code" href="classtesseract_1_1_neural_net.html#a3f9506819852a7c66e83775f92f95610">in_cnt_</a>) !=
+          <span class="keyword">sizeof</span>(<a class="code" href="classtesseract_1_1_neural_net.html#aa05bfd6191232cf25b79752fd1a38117">inputs_min_</a>[0]) * <a class="code" href="classtesseract_1_1_neural_net.html#a3f9506819852a7c66e83775f92f95610">in_cnt_</a>) {
+        <span class="keywordflow">return</span> <span class="keyword">false</span>;
+      }
+      <span class="keywordflow">if</span> (input_buff-&gt;Read(&amp;(<a class="code" href="classtesseract_1_1_neural_net.html#acc363035dc53cc103d2cadaa54333efa">inputs_max_</a>.front()),
+          <span class="keyword">sizeof</span>(<a class="code" href="classtesseract_1_1_neural_net.html#acc363035dc53cc103d2cadaa54333efa">inputs_max_</a>[0]) * <a class="code" href="classtesseract_1_1_neural_net.html#a3f9506819852a7c66e83775f92f95610">in_cnt_</a>) !=
+          <span class="keyword">sizeof</span>(<a class="code" href="classtesseract_1_1_neural_net.html#acc363035dc53cc103d2cadaa54333efa">inputs_max_</a>[0]) * <a class="code" href="classtesseract_1_1_neural_net.html#a3f9506819852a7c66e83775f92f95610">in_cnt_</a>) {
+        <span class="keywordflow">return</span> <span class="keyword">false</span>;
+      }
+      <span class="comment">// create a readonly version for fast feedforward</span>
+      <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_neural_net.html#a680ddffcb4d92f115e1a7b8221811a81">read_only_</a>) {
+        <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_neural_net.html#adf52a77999cb8e51a6fa5d4932321a3d">CreateFastNet</a>();
+      }
+      <span class="keywordflow">return</span> <span class="keyword">true</span>;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3cec386f2524f71f6ff8221badeaa5d0"></a><!-- doxytag: member="tesseract::NeuralNet::SetConnection" ref="a3cec386f2524f71f6ff8221badeaa5d0" args="(int from, int to)" -->
@@ -501,6 +887,18 @@ template&lt;class ReadBuffType &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="neural__net_8cpp_source.html#l00112">112</a> of file <a class="el" href="neural__net_8cpp_source.html">neural_net.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                              {
+  <span class="comment">// allocate the wgt</span>
+  <span class="keywordtype">float</span> *wts  =  <a class="code" href="classtesseract_1_1_neural_net.html#a1d4b0e33730cd9ee86916938251719cc">AllocWgt</a>(1);
+  <span class="keywordflow">if</span> (wts == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+  <span class="comment">// register the connection</span>
+  <a class="code" href="classtesseract_1_1_neural_net.html#a4ff353ff0ba717e12507c6a1a909363f">neurons_</a>[to].AddFromConnection(<a class="code" href="classtesseract_1_1_neural_net.html#a4ff353ff0ba717e12507c6a1a909363f">neurons_</a> + from, wts, 1);
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
@@ -515,6 +913,8 @@ template&lt;class ReadBuffType &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="neural__net_8h_source.html#l00081">81</a> of file <a class="el" href="neural__net_8h_source.html">neural_net.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a6cc1b21c513a3bbd8de7d5435c649048"></a><!-- doxytag: member="tesseract::NeuralNet::auto_encoder_" ref="a6cc1b21c513a3bbd8de7d5435c649048" args="" -->
@@ -527,6 +927,8 @@ template&lt;class ReadBuffType &gt; </div>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="neural__net_8h_source.html#l00085">85</a> of file <a class="el" href="neural__net_8h_source.html">neural_net.h</a>.</p>
 
 </div>
 </div>
@@ -541,6 +943,8 @@ template&lt;class ReadBuffType &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="neural__net_8h_source.html#l00096">96</a> of file <a class="el" href="neural__net_8h_source.html">neural_net.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a3f9506819852a7c66e83775f92f95610"></a><!-- doxytag: member="tesseract::NeuralNet::in_cnt_" ref="a3f9506819852a7c66e83775f92f95610" args="" -->
@@ -553,6 +957,8 @@ template&lt;class ReadBuffType &gt; </div>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="neural__net_8h_source.html#l00063">63</a> of file <a class="el" href="neural__net_8h_source.html">neural_net.h</a>.</p>
 
 </div>
 </div>
@@ -567,6 +973,8 @@ template&lt;class ReadBuffType &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="neural__net_8h_source.html#l00087">87</a> of file <a class="el" href="neural__net_8h_source.html">neural_net.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a45298b08d5c9e41901911b99f0e172ca"></a><!-- doxytag: member="tesseract::NeuralNet::inputs_mean_" ref="a45298b08d5c9e41901911b99f0e172ca" args="" -->
@@ -579,6 +987,8 @@ template&lt;class ReadBuffType &gt; </div>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="neural__net_8h_source.html#l00091">91</a> of file <a class="el" href="neural__net_8h_source.html">neural_net.h</a>.</p>
 
 </div>
 </div>
@@ -593,6 +1003,8 @@ template&lt;class ReadBuffType &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="neural__net_8h_source.html#l00089">89</a> of file <a class="el" href="neural__net_8h_source.html">neural_net.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a8d03fb672b6283010bbd32135303b60a"></a><!-- doxytag: member="tesseract::NeuralNet::inputs_std_dev_" ref="a8d03fb672b6283010bbd32135303b60a" args="" -->
@@ -605,6 +1017,8 @@ template&lt;class ReadBuffType &gt; </div>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="neural__net_8h_source.html#l00093">93</a> of file <a class="el" href="neural__net_8h_source.html">neural_net.h</a>.</p>
 
 </div>
 </div>
@@ -619,6 +1033,8 @@ template&lt;class ReadBuffType &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="neural__net_8h_source.html#l00079">79</a> of file <a class="el" href="neural__net_8h_source.html">neural_net.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ace41d563521f6f0c07a29f212aec3bab"></a><!-- doxytag: member="tesseract::NeuralNet::kWgtChunkSize" ref="ace41d563521f6f0c07a29f212aec3bab" args="" -->
@@ -631,6 +1047,8 @@ template&lt;class ReadBuffType &gt; </div>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="neural__net_8h_source.html#l00076">76</a> of file <a class="el" href="neural__net_8h_source.html">neural_net.h</a>.</p>
 
 </div>
 </div>
@@ -645,6 +1063,8 @@ template&lt;class ReadBuffType &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="neural__net_8h_source.html#l00067">67</a> of file <a class="el" href="neural__net_8h_source.html">neural_net.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a4ff353ff0ba717e12507c6a1a909363f"></a><!-- doxytag: member="tesseract::NeuralNet::neurons_" ref="a4ff353ff0ba717e12507c6a1a909363f" args="" -->
@@ -657,6 +1077,8 @@ template&lt;class ReadBuffType &gt; </div>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="neural__net_8h_source.html#l00071">71</a> of file <a class="el" href="neural__net_8h_source.html">neural_net.h</a>.</p>
 
 </div>
 </div>
@@ -671,6 +1093,8 @@ template&lt;class ReadBuffType &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="neural__net_8h_source.html#l00065">65</a> of file <a class="el" href="neural__net_8h_source.html">neural_net.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a680ddffcb4d92f115e1a7b8221811a81"></a><!-- doxytag: member="tesseract::NeuralNet::read_only_" ref="a680ddffcb4d92f115e1a7b8221811a81" args="" -->
@@ -683,6 +1107,8 @@ template&lt;class ReadBuffType &gt; </div>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="neural__net_8h_source.html#l00061">61</a> of file <a class="el" href="neural__net_8h_source.html">neural_net.h</a>.</p>
 
 </div>
 </div>
@@ -697,6 +1123,8 @@ template&lt;class ReadBuffType &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="neural__net_8h_source.html#l00069">69</a> of file <a class="el" href="neural__net_8h_source.html">neural_net.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="aa7b901ea43bae46e569d68f476c7b318"></a><!-- doxytag: member="tesseract::NeuralNet::wts_vec_" ref="aa7b901ea43bae46e569d68f476c7b318" args="" -->
@@ -710,11 +1138,13 @@ template&lt;class ReadBuffType &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="neural__net_8h_source.html#l00083">83</a> of file <a class="el" href="neural__net_8h_source.html">neural_net.h</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/neural_networks/runtime/<a class="el" href="neural__net_8h_source.html">neural_net.h</a></li>
-<li>tesseract-ocr/neural_networks/runtime/<a class="el" href="neural__net_8cpp.html">neural_net.cpp</a></li>
+<li>tesseract-ocr/neural_networks/runtime/<a class="el" href="neural__net_8cpp_source.html">neural_net.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -737,7 +1167,7 @@ template&lt;class ReadBuffType &gt; </div>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:16 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:51 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

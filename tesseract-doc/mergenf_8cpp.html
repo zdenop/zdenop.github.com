@@ -118,7 +118,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <code>#include &lt;stdio.h&gt;</code><br/>
 <code>#include &lt;string.h&gt;</code><br/>
 <code>#include &lt;math.h&gt;</code><br/>
-</div><table class="memberdecls">
+</div>
+<p><a href="mergenf_8cpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="mergenf_8cpp.html#a6eed15398f6899befdf5691fd6bc83d8">CompareProtos</a> (<a class="el" href="protos_8h.html#a04b1cd7341d318ccc4e679aec5cfad0e">PROTO</a> p1, <a class="el" href="protos_8h.html#a04b1cd7341d318ccc4e679aec5cfad0e">PROTO</a> p2)</td></tr>
@@ -183,6 +185,58 @@ Variables</h2></td></tr>
 <dd>
 History: Mon Nov 26 08:27:53 1990, DSJ, Created. </dd></dl>
 
+<p>Definition at line <a class="el" href="mergenf_8cpp_source.html#l00067">67</a> of file <a class="el" href="mergenf_8cpp_source.html">mergenf.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                          {
+  <a class="code" href="struct_f_e_a_t_u_r_e___s_t_r_u_c_t.html">FEATURE</a> Feature;
+  <a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a> WorstEvidence = <a class="code" href="mergenf_8h.html#a8750ec2f0a722ea9d9acb8b5dd948a71">WORST_EVIDENCE</a>;
+  <a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a> Evidence;
+  <a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a> Angle, Length;
+
+  <span class="comment">/* if p1 and p2 are not close in length, don&#39;t let them match */</span>
+  Length = fabs (p1-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#aa29d8aaab147327320e2bc94a821aad1">Length</a> - p2-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#aa29d8aaab147327320e2bc94a821aad1">Length</a>);
+  <span class="keywordflow">if</span> (Length &gt; <a class="code" href="mergenf_8h.html#a5e6285fbaff23c8269d0d4557134992a">MAX_LENGTH_MISMATCH</a>)
+    <span class="keywordflow">return</span> (0.0);
+
+  <span class="comment">/* create a dummy pico-feature to be used for comparisons */</span>
+  Feature = <a class="code" href="ocrfeatures_8cpp.html#a32a08c42617c8dd6a156c1c8d7fb2cbb">NewFeature</a> (&amp;PicoFeatDesc);
+  Feature-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_t_r_u_c_t.html#ace52f36cfcba955504f4a24f86a897b4">Params</a>[<a class="code" href="picofeat_8h.html#ac00e1c5d2ac3096e0928e2186aee1aaca9895f2baa648985ab8ee5586c1563511">PicoFeatDir</a>] = p1-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#a6cc7458f385f9c4673e1ce9a6dc9e80a">Angle</a>;
+
+  <span class="comment">/* convert angle to radians */</span>
+  Angle = p1-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#a6cc7458f385f9c4673e1ce9a6dc9e80a">Angle</a> * 2.0 * <a class="code" href="const_8h.html#a598a3330b3c21701223ee0ca14316eca">PI</a>;
+
+  <span class="comment">/* find distance from center of p1 to 1/2 picofeat from end */</span>
+  Length = p1-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#aa29d8aaab147327320e2bc94a821aad1">Length</a> / 2.0 - <a class="code" href="picofeat_8h.html#a35f5a174efc9c6197837aaf5544c78f2">GetPicoFeatureLength</a> () / 2.0;
+  <span class="keywordflow">if</span> (Length &lt; 0) Length = 0;
+
+  <span class="comment">/* set the dummy pico-feature at one end of p1 and match it to p2 */</span>
+  Feature-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_t_r_u_c_t.html#ace52f36cfcba955504f4a24f86a897b4">Params</a>[<a class="code" href="picofeat_8h.html#ac00e1c5d2ac3096e0928e2186aee1aacaf28d56154a908256d7b3beb62977e2fc">PicoFeatX</a>] = p1-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#a54dd1cca86a1fd5c9ead8499cba99784">X</a> + cos (Angle) * Length;
+  Feature-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_t_r_u_c_t.html#ace52f36cfcba955504f4a24f86a897b4">Params</a>[<a class="code" href="picofeat_8h.html#ac00e1c5d2ac3096e0928e2186aee1aaca43884de5e2e87be26f9642b50135f98a">PicoFeatY</a>] = p1-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#a8dcd81037c1bc672e97ef7a54306dd93">Y</a> + sin (Angle) * Length;
+  <span class="keywordflow">if</span> (<a class="code" href="mergenf_8cpp.html#add5bca81816a5a90e97d444551cca2b4">DummyFastMatch</a> (Feature, p2)) {
+    Evidence = <a class="code" href="mergenf_8cpp.html#a32930b8c8bea42382fd94847fa4afb50">SubfeatureEvidence</a> (Feature, p2);
+    <span class="keywordflow">if</span> (Evidence &lt; WorstEvidence)
+      WorstEvidence = Evidence;
+  } <span class="keywordflow">else</span> {
+    <a class="code" href="ocrfeatures_8cpp.html#acaf54a6410150ec74f66ec6621f1352f">FreeFeature</a>(Feature);
+    <span class="keywordflow">return</span> 0.0;
+  }
+
+  <span class="comment">/* set the dummy pico-feature at the other end of p1 and match it to p2 */</span>
+  Feature-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_t_r_u_c_t.html#ace52f36cfcba955504f4a24f86a897b4">Params</a>[<a class="code" href="picofeat_8h.html#ac00e1c5d2ac3096e0928e2186aee1aacaf28d56154a908256d7b3beb62977e2fc">PicoFeatX</a>] = p1-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#a54dd1cca86a1fd5c9ead8499cba99784">X</a> - cos (Angle) * Length;
+  Feature-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_t_r_u_c_t.html#ace52f36cfcba955504f4a24f86a897b4">Params</a>[<a class="code" href="picofeat_8h.html#ac00e1c5d2ac3096e0928e2186aee1aaca43884de5e2e87be26f9642b50135f98a">PicoFeatY</a>] = p1-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#a8dcd81037c1bc672e97ef7a54306dd93">Y</a> - sin (Angle) * Length;
+  <span class="keywordflow">if</span> (<a class="code" href="mergenf_8cpp.html#add5bca81816a5a90e97d444551cca2b4">DummyFastMatch</a> (Feature, p2)) {
+    Evidence = <a class="code" href="mergenf_8cpp.html#a32930b8c8bea42382fd94847fa4afb50">SubfeatureEvidence</a> (Feature, p2);
+    <span class="keywordflow">if</span> (Evidence &lt; WorstEvidence)
+      WorstEvidence = Evidence;
+  } <span class="keywordflow">else</span> {
+    <a class="code" href="ocrfeatures_8cpp.html#acaf54a6410150ec74f66ec6621f1352f">FreeFeature</a>(Feature);
+    <span class="keywordflow">return</span> 0.0;
+  }
+
+  <a class="code" href="ocrfeatures_8cpp.html#acaf54a6410150ec74f66ec6621f1352f">FreeFeature</a> (Feature);
+  <span class="keywordflow">return</span> (WorstEvidence);
+
+} <span class="comment">/* CompareProtos */</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="af65524887b6780b35be7254c792e15a0"></a><!-- doxytag: member="mergenf.cpp::ComputeMergedProto" ref="af65524887b6780b35be7254c792e15a0" args="(PROTO p1, PROTO p2, FLOAT32 w1, FLOAT32 w2, PROTO MergedProto)" -->
@@ -242,6 +296,21 @@ History: Mon Nov 26 08:27:53 1990, DSJ, Created. </dd></dl>
 <dd>
 History: Mon Nov 26 08:15:08 1990, DSJ, Created. </dd></dl>
 
+<p>Definition at line <a class="el" href="mergenf_8cpp_source.html#l00133">133</a> of file <a class="el" href="mergenf_8cpp_source.html">mergenf.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                             {
+  <a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a> TotalWeight;
+
+  TotalWeight = w1 + w2;
+  w1 /= TotalWeight;
+  w2 /= TotalWeight;
+
+  MergedProto-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#a54dd1cca86a1fd5c9ead8499cba99784">X</a> = p1-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#a54dd1cca86a1fd5c9ead8499cba99784">X</a> * w1 + p2-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#a54dd1cca86a1fd5c9ead8499cba99784">X</a> * w2;
+  MergedProto-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#a8dcd81037c1bc672e97ef7a54306dd93">Y</a> = p1-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#a8dcd81037c1bc672e97ef7a54306dd93">Y</a> * w1 + p2-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#a8dcd81037c1bc672e97ef7a54306dd93">Y</a> * w2;
+  MergedProto-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#aa29d8aaab147327320e2bc94a821aad1">Length</a> = p1-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#aa29d8aaab147327320e2bc94a821aad1">Length</a> * w1 + p2-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#aa29d8aaab147327320e2bc94a821aad1">Length</a> * w2;
+  MergedProto-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#a6cc7458f385f9c4673e1ce9a6dc9e80a">Angle</a> = p1-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#a6cc7458f385f9c4673e1ce9a6dc9e80a">Angle</a> * w1 + p2-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#a6cc7458f385f9c4673e1ce9a6dc9e80a">Angle</a> * w2;
+  <a class="code" href="protos_8cpp.html#ac0d58978bbcf0c732ae94fb554bccd3b">FillABC</a>(MergedProto);
+} <span class="comment">/* ComputeMergedProto */</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae0a0ae57dcff7cb2bfbcf7443c91bce0"></a><!-- doxytag: member="mergenf.cpp::ComputePaddedBoundingBox" ref="ae0a0ae57dcff7cb2bfbcf7443c91bce0" args="(PROTO Proto, FLOAT32 TangentPad, FLOAT32 OrthogonalPad, FRECT *BoundingBox)" -->
@@ -296,6 +365,26 @@ History: Mon Nov 26 08:15:08 1990, DSJ, Created. </dd></dl>
 <dd>
 History: Wed Nov 14 14:55:30 1990, DSJ, Created. </dd></dl>
 
+<p>Definition at line <a class="el" href="mergenf_8cpp_source.html#l00318">318</a> of file <a class="el" href="mergenf_8cpp_source.html">mergenf.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                            {
+  <a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a> Pad, Length, Angle;
+  <a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a> CosOfAngle, SinOfAngle;
+
+  Length     = Proto-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#aa29d8aaab147327320e2bc94a821aad1">Length</a> / 2.0 + TangentPad;
+  Angle      = Proto-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#a6cc7458f385f9c4673e1ce9a6dc9e80a">Angle</a> * 2.0 * <a class="code" href="const_8h.html#a598a3330b3c21701223ee0ca14316eca">PI</a>;
+  CosOfAngle = fabs(cos(Angle));
+  SinOfAngle = fabs(sin(Angle));
+
+  Pad = <a class="code" href="ndminx_8h.html#aacc3ee1a7f283f8ef65cea31f4436a95">MAX</a> (CosOfAngle * Length, SinOfAngle * OrthogonalPad);
+  BoundingBox-&gt;<a class="code" href="struct_f_r_e_c_t.html#a56623b6372391170e5737ef98a888a97">MinX</a> = Proto-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#a54dd1cca86a1fd5c9ead8499cba99784">X</a> - Pad;
+  BoundingBox-&gt;<a class="code" href="struct_f_r_e_c_t.html#a97ec24e7216ebc33a31f3256da8cb9fb">MaxX</a> = Proto-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#a54dd1cca86a1fd5c9ead8499cba99784">X</a> + Pad;
+
+  Pad = <a class="code" href="ndminx_8h.html#aacc3ee1a7f283f8ef65cea31f4436a95">MAX</a>(SinOfAngle * Length, CosOfAngle * OrthogonalPad);
+  BoundingBox-&gt;<a class="code" href="struct_f_r_e_c_t.html#a1c64669f5607f5c02fb8c0ea8c0291ff">MinY</a> = Proto-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#a8dcd81037c1bc672e97ef7a54306dd93">Y</a> - Pad;
+  BoundingBox-&gt;<a class="code" href="struct_f_r_e_c_t.html#a234e71657fee11b6e618385cf002e61d">MaxY</a> = Proto-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#a8dcd81037c1bc672e97ef7a54306dd93">Y</a> + Pad;
+
+} <span class="comment">/* ComputePaddedBoundingBox */</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="add5bca81816a5a90e97d444551cca2b4"></a><!-- doxytag: member="mergenf.cpp::DummyFastMatch" ref="add5bca81816a5a90e97d444551cca2b4" args="(FEATURE Feature, PROTO Proto)" -->
@@ -340,6 +429,29 @@ History: Wed Nov 14 14:55:30 1990, DSJ, Created. </dd></dl>
 <dd>
 History: Wed Nov 14 17:19:58 1990, DSJ, Created. </dd></dl>
 
+<p>Definition at line <a class="el" href="mergenf_8cpp_source.html#l00276">276</a> of file <a class="el" href="mergenf_8cpp_source.html">mergenf.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">{
+  <a class="code" href="struct_f_r_e_c_t.html">FRECT</a>   BoundingBox;
+  <a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a> MaxAngleError;
+  <a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a> AngleError;
+
+  MaxAngleError = <a class="code" href="mergenf_8cpp.html#ae17b00cafc96bf46a224d12fba4a2ffb">training_angle_pad</a> / 360.0;
+  AngleError = fabs (Proto-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#a6cc7458f385f9c4673e1ce9a6dc9e80a">Angle</a> - Feature-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_t_r_u_c_t.html#ace52f36cfcba955504f4a24f86a897b4">Params</a>[<a class="code" href="picofeat_8h.html#ac00e1c5d2ac3096e0928e2186aee1aaca9895f2baa648985ab8ee5586c1563511">PicoFeatDir</a>]);
+  <span class="keywordflow">if</span> (AngleError &gt; 0.5)
+    AngleError = 1.0 - AngleError;
+
+  <span class="keywordflow">if</span> (AngleError &gt; MaxAngleError)
+    <span class="keywordflow">return</span> (<a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>);
+
+  <a class="code" href="mergenf_8cpp.html#ae0a0ae57dcff7cb2bfbcf7443c91bce0">ComputePaddedBoundingBox</a> (Proto,
+    <a class="code" href="mergenf_8cpp.html#a8c84d5c981e2a3447203bdc89022e44c">training_tangent_bbox_pad</a> * <a class="code" href="picofeat_8h.html#a35f5a174efc9c6197837aaf5544c78f2">GetPicoFeatureLength</a> (),
+    <a class="code" href="mergenf_8cpp.html#a13f347d8004acdbcd265d092740c2bfe">training_orthogonal_bbox_pad</a> * <a class="code" href="picofeat_8h.html#a35f5a174efc9c6197837aaf5544c78f2">GetPicoFeatureLength</a> (),
+    &amp;BoundingBox);
+
+  <span class="keywordflow">return</span> <a class="code" href="mergenf_8cpp.html#a08e569535872c1232e9a4b96e501ce23">PointInside</a>(&amp;BoundingBox, Feature-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_t_r_u_c_t.html#ace52f36cfcba955504f4a24f86a897b4">Params</a>[<a class="code" href="picofeat_8h.html#ac00e1c5d2ac3096e0928e2186aee1aacaf28d56154a908256d7b3beb62977e2fc">PicoFeatX</a>],
+                     Feature-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_t_r_u_c_t.html#ace52f36cfcba955504f4a24f86a897b4">Params</a>[<a class="code" href="picofeat_8h.html#ac00e1c5d2ac3096e0928e2186aee1aaca43884de5e2e87be26f9642b50135f98a">PicoFeatY</a>]);
+} <span class="comment">/* DummyFastMatch */</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7f02eafd94a0bc60d12e0acfb3955a42"></a><!-- doxytag: member="mergenf.cpp::EvidenceOf" ref="a7f02eafd94a0bc60d12e0acfb3955a42" args="(double Similarity)" -->
@@ -357,6 +469,21 @@ History: Wed Nov 14 17:19:58 1990, DSJ, Created. </dd></dl>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mergenf_8cpp_source.html#l00247">247</a> of file <a class="el" href="mergenf_8cpp_source.html">mergenf.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                      {
+
+  Similarity /= <a class="code" href="mergenf_8cpp.html#a48441921f382af1727ab51e846ee5c83">training_similarity_midpoint</a>;
+
+  <span class="keywordflow">if</span> (<a class="code" href="mergenf_8cpp.html#a14a4d7cf8b387ec98200d010b327ef22">training_similarity_curl</a> == 3)
+    Similarity = Similarity * Similarity * Similarity;
+  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="mergenf_8cpp.html#a14a4d7cf8b387ec98200d010b327ef22">training_similarity_curl</a> == 2)
+    Similarity = Similarity * Similarity;
+  <span class="keywordflow">else</span>
+    Similarity = pow (Similarity, <a class="code" href="mergenf_8cpp.html#a14a4d7cf8b387ec98200d010b327ef22">training_similarity_curl</a>);
+
+  <span class="keywordflow">return</span> (1.0 / (1.0 + Similarity));
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab51cc9a0af3a57f032ba52fd54e63b64"></a><!-- doxytag: member="mergenf.cpp::FindClosestExistingProto" ref="ab51cc9a0af3a57f032ba52fd54e63b64" args="(CLASS_TYPE Class, int NumMerged[], PROTOTYPE *Prototype)" -->
@@ -404,6 +531,35 @@ History: Wed Nov 14 17:19:58 1990, DSJ, Created. </dd></dl>
 <dd>
 History: Sat Nov 24 11:42:58 1990, DSJ, Created. </dd></dl>
 
+<p>Definition at line <a class="el" href="mergenf_8cpp_source.html#l00167">167</a> of file <a class="el" href="mergenf_8cpp_source.html">mergenf.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                    {
+  <a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html">PROTO_STRUCT</a>  NewProto;
+  <a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html">PROTO_STRUCT</a>  MergedProto;
+  <span class="keywordtype">int</span>   Pid;
+  <a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html">PROTO</a>   Proto;
+  <span class="keywordtype">int</span>   BestProto;
+  <a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a> BestMatch;
+  <a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a> Match, OldMatch, NewMatch;
+
+  <a class="code" href="mergenf_8cpp.html#a49e44db121ae7c194e8e806fd8eec532">MakeNewFromOld</a> (&amp;NewProto, Prototype);
+
+  BestProto = <a class="code" href="matchdefs_8h.html#a4d2ae3978d57e3b05f984a0fedc51812">NO_PROTO</a>;
+  BestMatch = <a class="code" href="mergenf_8h.html#a76e7242244d32ab3ca84bf16b1f51998">WORST_MATCH_ALLOWED</a>;
+  <span class="keywordflow">for</span> (Pid = 0; Pid &lt; Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#aed122893fec98b9ebccee234bbb00292">NumProtos</a>; Pid++) {
+    Proto  = <a class="code" href="protos_8h.html#a3def7bc87c3ad9ad793128f0dc5b8fce">ProtoIn</a>(Class, Pid);
+    <a class="code" href="mergenf_8cpp.html#af65524887b6780b35be7254c792e15a0">ComputeMergedProto</a>(Proto, &amp;NewProto,
+      (<a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a>) NumMerged[Pid], 1.0, &amp;MergedProto);
+    OldMatch = <a class="code" href="mergenf_8cpp.html#a6eed15398f6899befdf5691fd6bc83d8">CompareProtos</a>(Proto, &amp;MergedProto);
+    NewMatch = <a class="code" href="mergenf_8cpp.html#a6eed15398f6899befdf5691fd6bc83d8">CompareProtos</a>(&amp;NewProto, &amp;MergedProto);
+    Match = <a class="code" href="ndminx_8h.html#a74e75242132eaabbc1c512488a135926">MIN</a>(OldMatch, NewMatch);
+    <span class="keywordflow">if</span> (Match &gt; BestMatch) {
+      BestProto = Pid;
+      BestMatch = Match;
+    }
+  }
+  <span class="keywordflow">return</span> BestProto;
+} <span class="comment">/* FindClosestExistingProto */</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a49e44db121ae7c194e8e806fd8eec532"></a><!-- doxytag: member="mergenf.cpp::MakeNewFromOld" ref="a49e44db121ae7c194e8e806fd8eec532" args="(PROTO New, PROTOTYPE *Old)" -->
@@ -441,6 +597,15 @@ History: Sat Nov 24 11:42:58 1990, DSJ, Created. </dd></dl>
 <p>Globals: none</p>
 <p>Exceptions: none History: Mon Nov 26 09:45:39 1990, DSJ, Created. </p>
 
+<p>Definition at line <a class="el" href="mergenf_8cpp_source.html#l00208">208</a> of file <a class="el" href="mergenf_8cpp_source.html">mergenf.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                               {
+  New-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#a54dd1cca86a1fd5c9ead8499cba99784">X</a> = <a class="code" href="mergenf_8h.html#a4413f4850d545f6960128158211d96c6">CenterX</a>(Old-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#af9c4f61cdbf39f6494b4691799bd4fa6">Mean</a>);
+  New-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#a8dcd81037c1bc672e97ef7a54306dd93">Y</a> = <a class="code" href="mergenf_8h.html#a5fa92ce3f2b04b294af66d278b153034">CenterY</a>(Old-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#af9c4f61cdbf39f6494b4691799bd4fa6">Mean</a>);
+  New-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#aa29d8aaab147327320e2bc94a821aad1">Length</a> = <a class="code" href="mergenf_8h.html#a7c060dad581fc1c9ffdfedd0d3ec1e1c">LengthOf</a>(Old-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#af9c4f61cdbf39f6494b4691799bd4fa6">Mean</a>);
+  New-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#a6cc7458f385f9c4673e1ce9a6dc9e80a">Angle</a> = <a class="code" href="mergenf_8h.html#af8312f95ecd3b7f90c9e40f67f10418b">OrientationOf</a>(Old-&gt;<a class="code" href="struct_p_r_o_t_o_t_y_p_e.html#af9c4f61cdbf39f6494b4691799bd4fa6">Mean</a>);
+  <a class="code" href="protos_8cpp.html#ac0d58978bbcf0c732ae94fb554bccd3b">FillABC</a>(New);
+} <span class="comment">/* MakeNewFromOld */</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a08e569535872c1232e9a4b96e501ce23"></a><!-- doxytag: member="mergenf.cpp::PointInside" ref="a08e569535872c1232e9a4b96e501ce23" args="(FRECT *Rectangle, FLOAT32 X, FLOAT32 Y)" -->
@@ -480,6 +645,16 @@ History: Sat Nov 24 11:42:58 1990, DSJ, Created. </dd></dl>
 <dd>
 History: Wed Nov 14 17:26:35 1990, DSJ, Created. </dd></dl>
 
+<p>Definition at line <a class="el" href="mergenf_8cpp_source.html#l00347">347</a> of file <a class="el" href="mergenf_8cpp_source.html">mergenf.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                           {
+  <span class="keywordflow">if</span> (X &lt; Rectangle-&gt;MinX) <span class="keywordflow">return</span> (<a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>);
+  <span class="keywordflow">if</span> (X &gt; Rectangle-&gt;<a class="code" href="struct_f_r_e_c_t.html#a97ec24e7216ebc33a31f3256da8cb9fb">MaxX</a>) <span class="keywordflow">return</span> (<a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>);
+  <span class="keywordflow">if</span> (Y &lt; Rectangle-&gt;MinY) <span class="keywordflow">return</span> (<a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>);
+  <span class="keywordflow">if</span> (Y &gt; Rectangle-&gt;<a class="code" href="struct_f_r_e_c_t.html#a234e71657fee11b6e618385cf002e61d">MaxY</a>) <span class="keywordflow">return</span> (<a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>);
+  <span class="keywordflow">return</span> (<a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>);
+
+} <span class="comment">/* PointInside */</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a32930b8c8bea42382fd94847fa4afb50"></a><!-- doxytag: member="mergenf.cpp::SubfeatureEvidence" ref="a32930b8c8bea42382fd94847fa4afb50" args="(FEATURE Feature, PROTO Proto)" -->
@@ -507,6 +682,23 @@ History: Wed Nov 14 17:26:35 1990, DSJ, Created. </dd></dl>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="mergenf_8cpp_source.html#l00223">223</a> of file <a class="el" href="mergenf_8cpp_source.html">mergenf.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                         {
+  <span class="keywordtype">float</span>       Distance;
+  <span class="keywordtype">float</span>       Dangle;
+
+  Dangle   = Proto-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#a6cc7458f385f9c4673e1ce9a6dc9e80a">Angle</a> - Feature-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_t_r_u_c_t.html#ace52f36cfcba955504f4a24f86a897b4">Params</a>[<a class="code" href="picofeat_8h.html#ac00e1c5d2ac3096e0928e2186aee1aaca9895f2baa648985ab8ee5586c1563511">PicoFeatDir</a>];
+  <span class="keywordflow">if</span> (Dangle &lt; -0.5) Dangle += 1.0;
+  <span class="keywordflow">if</span> (Dangle &gt;  0.5) Dangle -= 1.0;
+  Dangle *= <a class="code" href="mergenf_8cpp.html#a6ab3ea6cb4f958e5eaffe5f01428c1e4">training_angle_match_scale</a>;
+
+  Distance = Proto-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#ae3211a725f109fbd40efc6cd154330f7">A</a> * Feature-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_t_r_u_c_t.html#ace52f36cfcba955504f4a24f86a897b4">Params</a>[<a class="code" href="picofeat_8h.html#ac00e1c5d2ac3096e0928e2186aee1aacaf28d56154a908256d7b3beb62977e2fc">PicoFeatX</a>] +
+    Proto-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#a884630c87acb7606ac02516d1ea4ea9e">B</a> * Feature-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_t_r_u_c_t.html#ace52f36cfcba955504f4a24f86a897b4">Params</a>[<a class="code" href="picofeat_8h.html#ac00e1c5d2ac3096e0928e2186aee1aaca43884de5e2e87be26f9642b50135f98a">PicoFeatY</a>] +
+    Proto-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#a09d1e20c0a8362582127fa3554bb83ae">C</a>;
+
+  <span class="keywordflow">return</span> (<a class="code" href="mergenf_8cpp.html#a7f02eafd94a0bc60d12e0acfb3955a42">EvidenceOf</a> (Distance * Distance + Dangle * Dangle));
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Variable Documentation</h2>
@@ -522,6 +714,8 @@ History: Wed Nov 14 17:26:35 1990, DSJ, Created. </dd></dl>
 <div class="memdoc">
 <p>"Angle Match Scale ..." </p>
 
+<p>Definition at line <a class="el" href="mergenf_8cpp_source.html#l00038">38</a> of file <a class="el" href="mergenf_8cpp_source.html">mergenf.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ae17b00cafc96bf46a224d12fba4a2ffb"></a><!-- doxytag: member="mergenf.cpp::training_angle_pad" ref="ae17b00cafc96bf46a224d12fba4a2ffb" args="" -->
@@ -535,6 +729,8 @@ History: Wed Nov 14 17:26:35 1990, DSJ, Created. </dd></dl>
 </div>
 <div class="memdoc">
 <p>"Angle pad ..." </p>
+
+<p>Definition at line <a class="el" href="mergenf_8cpp_source.html#l00049">49</a> of file <a class="el" href="mergenf_8cpp_source.html">mergenf.cpp</a>.</p>
 
 </div>
 </div>
@@ -550,6 +746,8 @@ History: Wed Nov 14 17:26:35 1990, DSJ, Created. </dd></dl>
 <div class="memdoc">
 <p>"Orthogonal bounding box pad ..." </p>
 
+<p>Definition at line <a class="el" href="mergenf_8cpp_source.html#l00047">47</a> of file <a class="el" href="mergenf_8cpp_source.html">mergenf.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a14a4d7cf8b387ec98200d010b327ef22"></a><!-- doxytag: member="mergenf.cpp::training_similarity_curl" ref="a14a4d7cf8b387ec98200d010b327ef22" args="" -->
@@ -563,6 +761,8 @@ History: Wed Nov 14 17:26:35 1990, DSJ, Created. </dd></dl>
 </div>
 <div class="memdoc">
 <p>"Similarity Curl ..." </p>
+
+<p>Definition at line <a class="el" href="mergenf_8cpp_source.html#l00042">42</a> of file <a class="el" href="mergenf_8cpp_source.html">mergenf.cpp</a>.</p>
 
 </div>
 </div>
@@ -578,6 +778,8 @@ History: Wed Nov 14 17:26:35 1990, DSJ, Created. </dd></dl>
 <div class="memdoc">
 <p>"Similarity Midpoint ..." </p>
 
+<p>Definition at line <a class="el" href="mergenf_8cpp_source.html#l00040">40</a> of file <a class="el" href="mergenf_8cpp_source.html">mergenf.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a8c84d5c981e2a3447203bdc89022e44c"></a><!-- doxytag: member="mergenf.cpp::training_tangent_bbox_pad" ref="a8c84d5c981e2a3447203bdc89022e44c" args="" -->
@@ -591,6 +793,8 @@ History: Wed Nov 14 17:26:35 1990, DSJ, Created. </dd></dl>
 </div>
 <div class="memdoc">
 <p>"Tangent bounding box pad ..." </p>
+
+<p>Definition at line <a class="el" href="mergenf_8cpp_source.html#l00045">45</a> of file <a class="el" href="mergenf_8cpp_source.html">mergenf.cpp</a>.</p>
 
 </div>
 </div>
@@ -614,7 +818,7 @@ History: Wed Nov 14 17:26:35 1990, DSJ, Created. </dd></dl>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:10 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:43 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

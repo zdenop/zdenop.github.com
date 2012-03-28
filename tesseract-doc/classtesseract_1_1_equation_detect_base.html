@@ -127,7 +127,10 @@ Public Member Functions</h2></td></tr>
 Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_equation_detect_base.html#a135d1cd23d326e3e8f64e7e3255e8e0d">RenderSpecialText</a> (Pix *pix, <a class="el" href="class_b_l_o_b_n_b_o_x.html">BLOBNBOX</a> *blob)</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="equationdetectbase_8h_source.html#l00032">32</a> of file <a class="el" href="equationdetectbase_8h_source.html">equationdetectbase.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a3b2301eba9ed77a87db61b404aadfd09"></a><!-- doxytag: member="tesseract::EquationDetectBase::EquationDetectBase" ref="a3b2301eba9ed77a87db61b404aadfd09" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -142,6 +145,10 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="equationdetectbase_8cpp_source.html#l00026">26</a> of file <a class="el" href="equationdetectbase_8cpp_source.html">equationdetectbase.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                       {
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4fc19c3b0dc2f209d4dd93b9f2ac48e3"></a><!-- doxytag: member="tesseract::EquationDetectBase::~EquationDetectBase" ref="a4fc19c3b0dc2f209d4dd93b9f2ac48e3" args="()" -->
@@ -158,6 +165,10 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="equationdetectbase_8cpp_source.html#l00029">29</a> of file <a class="el" href="equationdetectbase_8cpp_source.html">equationdetectbase.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                        {
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -234,11 +245,44 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="equationdetectbase_8cpp_source.html#l00032">32</a> of file <a class="el" href="equationdetectbase_8cpp_source.html">equationdetectbase.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                           {
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(pix != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp; pixGetDepth(pix) == 32 &amp;&amp; blob != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <span class="keyword">const</span> <a class="code" href="class_t_b_o_x.html">TBOX</a>&amp; tbox = blob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a7b97b8bc16b1473a28f9c44011522f4e">bounding_box</a>();
+  <span class="keywordtype">int</span> height = pixGetHeight(pix);
+  <span class="keyword">const</span> <span class="keywordtype">int</span> box_width = 5;
+
+  <span class="comment">// Coordinate translation: tesseract use left bottom as the original, while</span>
+  <span class="comment">// leptonica uses left top as the original.</span>
+  Box *box = boxCreate(tbox.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>(), height - tbox.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>(),
+                         tbox.<a class="code" href="class_t_b_o_x.html#af95494a2ccacc70cc2b83820b2948619">width</a>(), tbox.<a class="code" href="class_t_b_o_x.html#a8379d4bbc72bdbb1f069fc14790e632d">height</a>());
+  <span class="keywordflow">switch</span> (blob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#aa33e4d1cf720df979dc50d2b39abb4e9">special_text_type</a>()) {
+    <span class="keywordflow">case</span> <a class="code" href="blobbox_8h.html#a75b089d27e1df813fed544e0c131df8ca356056d522254adc40c8acdf14f19c4d">BSTT_MATH</a>:  <span class="comment">// Red box.</span>
+      pixRenderBoxArb(pix, box, box_width, 255, 0, 0);
+      <span class="keywordflow">break</span>;
+    <span class="keywordflow">case</span> <a class="code" href="blobbox_8h.html#a75b089d27e1df813fed544e0c131df8caaf28e2df284d1c1c8caf262b5fcdb3f4">BSTT_DIGIT</a>:  <span class="comment">// cyan box.</span>
+      pixRenderBoxArb(pix, box, box_width, 0, 255, 255);
+      <span class="keywordflow">break</span>;
+    <span class="keywordflow">case</span> <a class="code" href="blobbox_8h.html#a75b089d27e1df813fed544e0c131df8ca9f7c059031ba5f95a4e0f43bac16a33a">BSTT_ITALIC</a>:  <span class="comment">// Green box.</span>
+      pixRenderBoxArb(pix, box, box_width, 0, 255, 0);
+      <span class="keywordflow">break</span>;
+    <span class="keywordflow">case</span> <a class="code" href="blobbox_8h.html#a75b089d27e1df813fed544e0c131df8ca604529fa299b8dcc81b0ac07ebb2c9b7">BSTT_UNCLEAR</a>:  <span class="comment">// blue box.</span>
+      pixRenderBoxArb(pix, box, box_width, 0, 255, 0);
+      <span class="keywordflow">break</span>;
+    <span class="keywordflow">case</span> <a class="code" href="blobbox_8h.html#a75b089d27e1df813fed544e0c131df8ca1e2ca6a59ce1487c101d4605eab44b7a">BSTT_NONE</a>:
+    <span class="keywordflow">default</span>:
+      <span class="comment">// yellow box.</span>
+      pixRenderBoxArb(pix, box, box_width, 255, 255, 0);
+      <span class="keywordflow">break</span>;
+  }
+  boxDestroy(&amp;box);
+}
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/textord/<a class="el" href="equationdetectbase_8h_source.html">equationdetectbase.h</a></li>
-<li>tesseract-ocr/textord/<a class="el" href="equationdetectbase_8cpp.html">equationdetectbase.cpp</a></li>
+<li>tesseract-ocr/textord/<a class="el" href="equationdetectbase_8cpp_source.html">equationdetectbase.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -261,7 +305,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:17 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:53 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

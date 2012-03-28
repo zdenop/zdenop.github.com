@@ -124,7 +124,10 @@ Public Member Functions</h2></td></tr>
 Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classtesseract_1_1_char_set.html">CharSet</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_char_set.html#ac73b5ed196711abcd393c6bc578988fe">Create</a> (<a class="el" href="classtesseract_1_1_tessdata_manager.html">TessdataManager</a> *tessdata_manager, <a class="el" href="class_u_n_i_c_h_a_r_s_e_t.html">UNICHARSET</a> *tess_unicharset)</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="char__set_8h_source.html#l00042">42</a> of file <a class="el" href="char__set_8h_source.html">char_set.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a8007ad7fa4bd3d5d788f3a4770e21c62"></a><!-- doxytag: member="tesseract::CharSet::CharSet" ref="a8007ad7fa4bd3d5d788f3a4770e21c62" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -139,6 +142,17 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__set_8cpp_source.html#l00028">28</a> of file <a class="el" href="char__set_8cpp_source.html">char_set.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                 {
+  class_cnt_ = 0;
+  class_strings_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  unicharset_map_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  init_ = <span class="keyword">false</span>;
+
+  <span class="comment">// init hash table</span>
+  memset(hash_bin_size_, 0, <span class="keyword">sizeof</span>(hash_bin_size_));
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a8763a05033a659db7c55454b04b00b2b"></a><!-- doxytag: member="tesseract::CharSet::~CharSet" ref="a8763a05033a659db7c55454b04b00b2b" args="()" -->
@@ -155,6 +169,20 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__set_8cpp_source.html#l00038">38</a> of file <a class="el" href="char__set_8cpp_source.html">char_set.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                  {
+  <span class="keywordflow">if</span> (class_strings_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> cls = 0; cls &lt; class_cnt_; cls++) {
+      <span class="keywordflow">if</span> (class_strings_[cls] != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+        <span class="keyword">delete</span> class_strings_[cls];
+      }
+    }
+    <span class="keyword">delete</span> []class_strings_;
+    class_strings_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="keyword">delete</span> []unicharset_map_;
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -172,6 +200,9 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__set_8h_source.html#l00111">111</a> of file <a class="el" href="char__set_8h_source.html">char_set.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> class_cnt_; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aea651f4514338d320e195c6780ffcda5"></a><!-- doxytag: member="tesseract::CharSet::ClassID" ref="aea651f4514338d320e195c6780ffcda5" args="(const char_32 *str) const " -->
@@ -189,6 +220,18 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__set_8h_source.html#l00054">54</a> of file <a class="el" href="char__set_8h_source.html">char_set.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                               {
+    <span class="keywordtype">int</span> hash_val = Hash(str);
+    <span class="keywordflow">if</span> (hash_bin_size_[hash_val] == 0)
+      <span class="keywordflow">return</span> -1;
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> bin = 0; bin &lt; hash_bin_size_[hash_val]; bin++) {
+      <span class="keywordflow">if</span> (class_strings_[hash_bins_[hash_val][bin]]-&gt;compare(str) == 0)
+        <span class="keywordflow">return</span> hash_bins_[hash_val][bin];
+    }
+    <span class="keywordflow">return</span> -1;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a593e81eaa6ab9ba3ffb954a4f6e78ec7"></a><!-- doxytag: member="tesseract::CharSet::ClassID" ref="a593e81eaa6ab9ba3ffb954a4f6e78ec7" args="(char_32 ch) const " -->
@@ -206,6 +249,20 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__set_8h_source.html#l00065">65</a> of file <a class="el" href="char__set_8h_source.html">char_set.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                       {
+    <span class="keywordtype">int</span> hash_val = Hash(ch);
+    <span class="keywordflow">if</span> (hash_bin_size_[hash_val] == 0)
+      <span class="keywordflow">return</span> -1;
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> bin = 0; bin &lt; hash_bin_size_[hash_val]; bin++) {
+      <span class="keywordflow">if</span> ((*class_strings_[hash_bins_[hash_val][bin]])[0] == ch &amp;&amp;
+          class_strings_[hash_bins_[hash_val][bin]]-&gt;length() == 1) {
+        <span class="keywordflow">return</span> hash_bins_[hash_val][bin];
+      }
+    }
+    <span class="keywordflow">return</span> -1;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7fd13e0ab7d7f0e963d05023287c634a"></a><!-- doxytag: member="tesseract::CharSet::ClassString" ref="a7fd13e0ab7d7f0e963d05023287c634a" args="(int class_id) const " -->
@@ -223,6 +280,14 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__set_8h_source.html#l00104">104</a> of file <a class="el" href="char__set_8h_source.html">char_set.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                         {
+    <span class="keywordflow">if</span> (class_id &lt; 0 || class_id &gt;= class_cnt_) {
+      <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    }
+    <span class="keywordflow">return</span> <span class="keyword">reinterpret_cast&lt;</span><span class="keyword">const </span><a class="code" href="namespacetesseract.html#aea2c6172b0ca77907e29cd018595b425">char_32</a> *<span class="keyword">&gt;</span>(class_strings_[class_id]-&gt;c_str());
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac73b5ed196711abcd393c6bc578988fe"></a><!-- doxytag: member="tesseract::CharSet::Create" ref="ac73b5ed196711abcd393c6bc578988fe" args="(TessdataManager *tessdata_manager, UNICHARSET *tess_unicharset)" -->
@@ -250,6 +315,52 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__set_8cpp_source.html#l00054">54</a> of file <a class="el" href="char__set_8cpp_source.html">char_set.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                      {
+  <a class="code" href="classtesseract_1_1_char_set.html#a8007ad7fa4bd3d5d788f3a4770e21c62">CharSet</a> *char_set = <span class="keyword">new</span> <a class="code" href="classtesseract_1_1_char_set.html#a8007ad7fa4bd3d5d788f3a4770e21c62">CharSet</a>();
+  <span class="keywordflow">if</span> (char_set == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="comment">// First look for Cube&#39;s unicharset; if not there, use tesseract&#39;s</span>
+  <span class="keywordtype">bool</span> cube_unicharset_exists;
+  <span class="keywordflow">if</span> (!(cube_unicharset_exists =
+        tessdata_manager-&gt;SeekToStart(<a class="code" href="namespacetesseract.html#a5f278974ef80900b460194614d4f1899a87310a274403592ee7b1bd07e8b29973">TESSDATA_CUBE_UNICHARSET</a>)) &amp;&amp;
+      !tessdata_manager-&gt;SeekToStart(<a class="code" href="namespacetesseract.html#a5f278974ef80900b460194614d4f1899a54d433c57446ba87f95299d42d324a18">TESSDATA_UNICHARSET</a>)) {
+    fprintf(stderr, <span class="stringliteral">&quot;Cube ERROR (CharSet::Create): could not find &quot;</span>
+            <span class="stringliteral">&quot;either cube or tesseract unicharset\n&quot;</span>);
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+  FILE *charset_fp = tessdata_manager-&gt;GetDataFilePtr();
+  <span class="keywordflow">if</span> (!charset_fp) {
+    fprintf(stderr, <span class="stringliteral">&quot;Cube ERROR (CharSet::Create): could not load &quot;</span>
+            <span class="stringliteral">&quot;a unicharset\n&quot;</span>);
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+
+  <span class="comment">// If we found a cube unicharset separate from tesseract&#39;s, load it and</span>
+  <span class="comment">// map its unichars to tesseract&#39;s; if only one unicharset exists,</span>
+  <span class="comment">// just load it.</span>
+  <span class="keywordtype">bool</span> loaded;
+  <span class="keywordflow">if</span> (cube_unicharset_exists) {
+    char_set-&gt;cube_unicharset_.load_from_file(charset_fp);
+    loaded = tessdata_manager-&gt;SeekToStart(<a class="code" href="namespacetesseract.html#a5f278974ef80900b460194614d4f1899a87310a274403592ee7b1bd07e8b29973">TESSDATA_CUBE_UNICHARSET</a>);
+    loaded = loaded &amp;&amp; char_set-&gt;LoadSupportedCharList(
+        tessdata_manager-&gt;GetDataFilePtr(), tess_unicharset);
+    char_set-&gt;unicharset_ = &amp;char_set-&gt;cube_unicharset_;
+  } <span class="keywordflow">else</span> {
+    loaded = char_set-&gt;LoadSupportedCharList(charset_fp, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+    char_set-&gt;unicharset_ = tess_unicharset;
+  }
+  <span class="keywordflow">if</span> (!loaded) {
+    <span class="keyword">delete</span> char_set;
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+
+  char_set-&gt;init_ = <span class="keyword">true</span>;
+  <span class="keywordflow">return</span> char_set;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a5d8fd3fba22c4d32bb00c673e2998211"></a><!-- doxytag: member="tesseract::CharSet::InternalUnicharset" ref="a5d8fd3fba22c4d32bb00c673e2998211" args="()" -->
@@ -266,6 +377,9 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__set_8h_source.html#l00121">121</a> of file <a class="el" href="char__set_8h_source.html">char_set.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> unicharset_; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="adb295f91609709b44fad3d74388021f6"></a><!-- doxytag: member="tesseract::CharSet::SharedUnicharset" ref="adb295f91609709b44fad3d74388021f6" args="()" -->
@@ -282,6 +396,9 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__set_8h_source.html#l00048">48</a> of file <a class="el" href="char__set_8h_source.html">char_set.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> (unicharset_map_ == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>); }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a37d5d5844da23aab5d346779ca477d03"></a><!-- doxytag: member="tesseract::CharSet::UnicharID" ref="a37d5d5844da23aab5d346779ca477d03" args="(const char_32 *str) const " -->
@@ -299,6 +416,19 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__set_8h_source.html#l00080">80</a> of file <a class="el" href="char__set_8h_source.html">char_set.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                 {
+    <span class="keywordtype">int</span> class_id = <a class="code" href="classtesseract_1_1_char_set.html#aea651f4514338d320e195c6780ffcda5">ClassID</a>(str);
+    <span class="keywordflow">if</span> (class_id == INVALID_UNICHAR_ID)
+      <span class="keywordflow">return</span> INVALID_UNICHAR_ID;
+    <span class="keywordtype">int</span> unichar_id;
+    <span class="keywordflow">if</span> (unicharset_map_)
+      unichar_id = unicharset_map_[class_id];
+    <span class="keywordflow">else</span>
+      unichar_id = class_id;
+    <span class="keywordflow">return</span> unichar_id;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="afd7c313da9dd674405ec11ebf162089f"></a><!-- doxytag: member="tesseract::CharSet::UnicharID" ref="afd7c313da9dd674405ec11ebf162089f" args="(char_32 ch) const " -->
@@ -316,11 +446,24 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="char__set_8h_source.html#l00092">92</a> of file <a class="el" href="char__set_8h_source.html">char_set.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                         {
+    <span class="keywordtype">int</span> class_id = <a class="code" href="classtesseract_1_1_char_set.html#aea651f4514338d320e195c6780ffcda5">ClassID</a>(ch);
+    <span class="keywordflow">if</span> (class_id == INVALID_UNICHAR_ID)
+      <span class="keywordflow">return</span> INVALID_UNICHAR_ID;
+    <span class="keywordtype">int</span> unichar_id;
+    <span class="keywordflow">if</span> (unicharset_map_)
+      unichar_id = unicharset_map_[class_id];
+    <span class="keywordflow">else</span>
+      unichar_id = class_id;
+    <span class="keywordflow">return</span> unichar_id;
+  }
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/cube/<a class="el" href="char__set_8h_source.html">char_set.h</a></li>
-<li>tesseract-ocr/cube/<a class="el" href="char__set_8cpp.html">char_set.cpp</a></li>
+<li>tesseract-ocr/cube/<a class="el" href="char__set_8cpp_source.html">char_set.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -343,7 +486,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:15 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:50 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

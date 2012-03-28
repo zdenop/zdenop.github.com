@@ -162,7 +162,10 @@ Static Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_bmp8.html#abb90985ae39b699969e1fc4bce0cebf3">kConCompAllocChunk</a> = 16</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static const int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_bmp8.html#a9be7b6ab50cc8aab2afbb9fb8dc18429">kDeslantAngleCount</a></td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="bmp__8_8h_source.html#l00041">41</a> of file <a class="el" href="bmp__8_8h_source.html">bmp_8.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a5814f6e19d868ea36dc646aa645ec9ae"></a><!-- doxytag: member="tesseract::Bmp8::Bmp8" ref="a5814f6e19d868ea36dc646aa645ec9ae" args="(unsigned short wid, unsigned short hgt)" -->
 <div class="memitem">
 <div class="memproto">
@@ -188,6 +191,12 @@ Static Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bmp__8_8cpp_source.html#l00043">43</a> of file <a class="el" href="bmp__8_8cpp_source.html">bmp_8.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">    : <a class="code" href="classtesseract_1_1_bmp8.html#aefc333b9afa85c20f0daed573021fedf">wid_</a>(wid)
+    , <a class="code" href="classtesseract_1_1_bmp8.html#a62d633750ad515b99eda172efccc7b55">hgt_</a>(hgt) {
+  <a class="code" href="classtesseract_1_1_bmp8.html#a66763262f6d74a8d10ffdc83a73bb451">line_buff_</a> = CreateBmpBuffer();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac8420ca04c29c12a26361a71e18498ac"></a><!-- doxytag: member="tesseract::Bmp8::~Bmp8" ref="ac8420ca04c29c12a26361a71e18498ac" args="()" -->
@@ -204,6 +213,11 @@ Static Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bmp__8_8cpp_source.html#l00049">49</a> of file <a class="el" href="bmp__8_8cpp_source.html">bmp_8.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">            {
+  FreeBmpBuffer(<a class="code" href="classtesseract_1_1_bmp8.html#a66763262f6d74a8d10ffdc83a73bb451">line_buff_</a>);
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -221,6 +235,16 @@ Static Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bmp__8_8cpp_source.html#l00133">133</a> of file <a class="el" href="bmp__8_8cpp_source.html">bmp_8.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                 {
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_bmp8.html#a66763262f6d74a8d10ffdc83a73bb451">line_buff_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+
+  memset(<a class="code" href="classtesseract_1_1_bmp8.html#a66763262f6d74a8d10ffdc83a73bb451">line_buff_</a>[0], 0xff, stride_ * <a class="code" href="classtesseract_1_1_bmp8.html#a62d633750ad515b99eda172efccc7b55">hgt_</a> * <span class="keyword">sizeof</span>(*<a class="code" href="classtesseract_1_1_bmp8.html#a66763262f6d74a8d10ffdc83a73bb451">line_buff_</a>[0]));
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aef4e553b550e2fc133fda73ce36a82bd"></a><!-- doxytag: member="tesseract::Bmp8::Copy" ref="aef4e553b550e2fc133fda73ce36a82bd" args="(int x, int y, int wid, int hgt, Bmp8 *bmp_dest) const " -->
@@ -266,6 +290,19 @@ Static Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bmp__8_8cpp_source.html#l00584">584</a> of file <a class="el" href="bmp__8_8cpp_source.html">bmp_8.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                          {
+  <span class="keywordtype">int</span> x_end = min(x_st + wid, static_cast&lt;int&gt;(<a class="code" href="classtesseract_1_1_bmp8.html#aefc333b9afa85c20f0daed573021fedf">wid_</a>)),
+  y_end = min(y_st + hgt, static_cast&lt;int&gt;(<a class="code" href="classtesseract_1_1_bmp8.html#a62d633750ad515b99eda172efccc7b55">hgt_</a>));
+
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> y = y_st; y &lt; y_end; y++) {
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> x = x_st; x &lt; x_end; x++) {
+      bmp_dest-&gt;line_buff_[y - y_st][x - x_st] =
+          <a class="code" href="classtesseract_1_1_bmp8.html#a66763262f6d74a8d10ffdc83a73bb451">line_buff_</a>[y][x];
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4ef0548a67b31f5622082cd40288605d"></a><!-- doxytag: member="tesseract::Bmp8::Crop" ref="a4ef0548a67b31f5622082cd40288605d" args="(int *xst_src, int *yst_src, int *wid, int *hgt)" -->
@@ -305,6 +342,50 @@ Static Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bmp__8_8cpp_source.html#l00354">354</a> of file <a class="el" href="bmp__8_8cpp_source.html">bmp_8.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                      {
+  (*xst) = 0;
+  (*yst) = 0;
+
+  <span class="keywordtype">int</span> xend = <a class="code" href="classtesseract_1_1_bmp8.html#aefc333b9afa85c20f0daed573021fedf">wid_</a> - 1;
+  <span class="keywordtype">int</span> yend = <a class="code" href="classtesseract_1_1_bmp8.html#a62d633750ad515b99eda172efccc7b55">hgt_</a> - 1;
+
+  <span class="keywordflow">while</span> ((*xst) &lt; (<a class="code" href="classtesseract_1_1_bmp8.html#aefc333b9afa85c20f0daed573021fedf">wid_</a> - 1) &amp;&amp; (*xst) &lt;= xend) {
+    <span class="comment">// column is not empty</span>
+    <span class="keywordflow">if</span> (!<a class="code" href="classtesseract_1_1_bmp8.html#a3f231aca9ca706bfd103816ae87c8384">IsBlankColumn</a>((*xst))) {
+      <span class="keywordflow">break</span>;
+    }
+    (*xst)++;
+  }
+
+  <span class="keywordflow">while</span> (xend &gt; 0 &amp;&amp; xend &gt;= (*xst)) {
+    <span class="comment">// column is not empty</span>
+    <span class="keywordflow">if</span> (!<a class="code" href="classtesseract_1_1_bmp8.html#a3f231aca9ca706bfd103816ae87c8384">IsBlankColumn</a>(xend)) {
+      <span class="keywordflow">break</span>;
+    }
+    xend--;
+  }
+
+  <span class="keywordflow">while</span> ((*yst) &lt; (<a class="code" href="classtesseract_1_1_bmp8.html#a62d633750ad515b99eda172efccc7b55">hgt_</a> - 1) &amp;&amp; (*yst) &lt;= yend) {
+    <span class="comment">// column is not empty</span>
+    <span class="keywordflow">if</span> (!<a class="code" href="classtesseract_1_1_bmp8.html#ac89e42a0a730263363cdce4db5e4ad49">IsBlankRow</a>((*yst))) {
+      <span class="keywordflow">break</span>;
+    }
+    (*yst)++;
+  }
+
+  <span class="keywordflow">while</span> (yend &gt; 0 &amp;&amp; yend &gt;= (*yst)) {
+    <span class="comment">// column is not empty</span>
+    <span class="keywordflow">if</span> (!<a class="code" href="classtesseract_1_1_bmp8.html#ac89e42a0a730263363cdce4db5e4ad49">IsBlankRow</a>(yend)) {
+      <span class="keywordflow">break</span>;
+    }
+    yend--;
+  }
+
+  (*wid) = xend - (*xst) + 1;
+  (*hgt) = yend - (*yst) + 1;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa859d63ba3f0f585b017cc2bbd4e5830"></a><!-- doxytag: member="tesseract::Bmp8::Deslant" ref="aa859d63ba3f0f585b017cc2bbd4e5830" args="()" -->
@@ -321,6 +402,121 @@ Static Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bmp__8_8cpp_source.html#l00801">801</a> of file <a class="el" href="bmp__8_8cpp_source.html">bmp_8.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                   {
+  <span class="keywordtype">int</span> x;
+  <span class="keywordtype">int</span> y;
+  <span class="keywordtype">int</span> des_x;
+  <span class="keywordtype">int</span> des_y;
+  <span class="keywordtype">int</span> ang_idx;
+  <span class="keywordtype">int</span> best_ang;
+  <span class="keywordtype">int</span> min_des_x;
+  <span class="keywordtype">int</span> max_des_x;
+  <span class="keywordtype">int</span> des_wid;
+
+  <span class="comment">// only do deslanting if bitmap is wide enough</span>
+  <span class="comment">// otherwise it slant estimate might not be reliable</span>
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_bmp8.html#aefc333b9afa85c20f0daed573021fedf">wid_</a> &lt; (<a class="code" href="classtesseract_1_1_bmp8.html#a62d633750ad515b99eda172efccc7b55">hgt_</a> * 2)) {
+    <span class="keywordflow">return</span> <span class="keyword">true</span>;
+  }
+
+  <span class="comment">// compute tan table if needed</span>
+  <span class="keywordflow">if</span> (tan_table_ == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp; !ComputeTanTable()) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+
+  <span class="comment">// compute min and max values for x after deslant</span>
+  min_des_x = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(0.5f + (<a class="code" href="classtesseract_1_1_bmp8.html#a62d633750ad515b99eda172efccc7b55">hgt_</a> - 1) * tan_table_[0]);
+  max_des_x = (<a class="code" href="classtesseract_1_1_bmp8.html#aefc333b9afa85c20f0daed573021fedf">wid_</a> - 1) +
+      static_cast&lt;int&gt;(0.5<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> + (<a class="code" href="classtesseract_1_1_bmp8.html#a62d633750ad515b99eda172efccc7b55">hgt_</a> - 1) * tan_table_[<a class="code" href="classtesseract_1_1_bmp8.html#a9be7b6ab50cc8aab2afbb9fb8dc18429">kDeslantAngleCount</a> - 1]);
+
+  des_wid = max_des_x - min_des_x + 1;
+
+  <span class="comment">// alloc memory for histograms</span>
+  <span class="keywordtype">int</span> **angle_hist = <span class="keyword">new</span> <span class="keywordtype">int</span>*[<a class="code" href="classtesseract_1_1_bmp8.html#a9be7b6ab50cc8aab2afbb9fb8dc18429">kDeslantAngleCount</a>];
+  <span class="keywordflow">for</span> (ang_idx = 0; ang_idx &lt; <a class="code" href="classtesseract_1_1_bmp8.html#a9be7b6ab50cc8aab2afbb9fb8dc18429">kDeslantAngleCount</a>; ang_idx++) {
+    angle_hist[ang_idx] = <span class="keyword">new</span> <span class="keywordtype">int</span>[des_wid];
+    <span class="keywordflow">if</span> (angle_hist[ang_idx] == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      <span class="keyword">delete</span>[] angle_hist;
+      <span class="keywordflow">return</span> <span class="keyword">false</span>;
+    }
+    memset(angle_hist[ang_idx], 0, des_wid * <span class="keyword">sizeof</span>(*angle_hist[ang_idx]));
+  }
+
+  <span class="comment">// compute histograms</span>
+  <span class="keywordflow">for</span> (y = 0; y &lt; <a class="code" href="classtesseract_1_1_bmp8.html#a62d633750ad515b99eda172efccc7b55">hgt_</a>; y++) {
+    <span class="keywordflow">for</span> (x = 0; x &lt; <a class="code" href="classtesseract_1_1_bmp8.html#aefc333b9afa85c20f0daed573021fedf">wid_</a>; x++) {
+      <span class="comment">// find a non-bkgrnd pixel</span>
+      <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_bmp8.html#a66763262f6d74a8d10ffdc83a73bb451">line_buff_</a>[y][x] != 0xff) {
+        des_y = hgt_ - y - 1;
+        <span class="comment">// stamp all histograms</span>
+        <span class="keywordflow">for</span> (ang_idx = 0; ang_idx &lt; <a class="code" href="classtesseract_1_1_bmp8.html#a9be7b6ab50cc8aab2afbb9fb8dc18429">kDeslantAngleCount</a>; ang_idx++) {
+          des_x = x + <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(0.5f + (des_y * tan_table_[ang_idx]));
+          <span class="keywordflow">if</span> (des_x &gt;= min_des_x &amp;&amp; des_x &lt;= max_des_x) {
+            angle_hist[ang_idx][des_x - min_des_x]++;
+          }
+        }
+      }
+    }
+  }
+
+  <span class="comment">// find the histogram with the lowest entropy</span>
+  <span class="keywordtype">float</span> entropy;
+  <span class="keywordtype">double</span> best_entropy = 0.0f;
+  <span class="keywordtype">double</span> norm_val;
+
+  best_ang = -1;
+  <span class="keywordflow">for</span> (ang_idx = 0; ang_idx &lt; <a class="code" href="classtesseract_1_1_bmp8.html#a9be7b6ab50cc8aab2afbb9fb8dc18429">kDeslantAngleCount</a>; ang_idx++) {
+    entropy = 0.0f;
+
+    <span class="keywordflow">for</span> (x = min_des_x; x &lt;= max_des_x; x++) {
+      <span class="keywordflow">if</span> (angle_hist[ang_idx][x - min_des_x] &gt; 0) {
+        norm_val = (1.0f * angle_hist[ang_idx][x - min_des_x] / <a class="code" href="classtesseract_1_1_bmp8.html#a62d633750ad515b99eda172efccc7b55">hgt_</a>);
+        entropy += (-1.0f * norm_val * log(norm_val));
+      }
+    }
+
+    <span class="keywordflow">if</span> (best_ang == -1 || entropy &lt; best_entropy) {
+      best_ang = ang_idx;
+      best_entropy = entropy;
+    }
+
+    <span class="comment">// free the histogram</span>
+    <span class="keyword">delete</span>[] angle_hist[ang_idx];
+  }
+  <span class="keyword">delete</span>[] angle_hist;
+
+  <span class="comment">// deslant</span>
+  <span class="keywordflow">if</span> (best_ang != -1) {
+    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> **dest_lines;
+    <span class="keywordtype">int</span> old_wid = <a class="code" href="classtesseract_1_1_bmp8.html#aefc333b9afa85c20f0daed573021fedf">wid_</a>;
+
+    <span class="comment">// create a new buffer</span>
+    wid_ = des_wid;
+    dest_lines = CreateBmpBuffer();
+    <span class="keywordflow">if</span> (dest_lines == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      <span class="keywordflow">return</span> <span class="keyword">false</span>;
+    }
+
+    <span class="keywordflow">for</span> (y = 0; y &lt; <a class="code" href="classtesseract_1_1_bmp8.html#a62d633750ad515b99eda172efccc7b55">hgt_</a>; y++) {
+      <span class="keywordflow">for</span> (x = 0; x &lt; old_wid; x++) {
+        <span class="comment">// find a non-bkgrnd pixel</span>
+        <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_bmp8.html#a66763262f6d74a8d10ffdc83a73bb451">line_buff_</a>[y][x] != 0xff) {
+          des_y = hgt_ - y - 1;
+          <span class="comment">// compute new pos</span>
+          des_x = x + <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(0.5f + (des_y * tan_table_[best_ang]));
+          dest_lines[y][des_x - min_des_x] = 0;
+        }
+      }
+    }
+
+    <span class="comment">// free old buffer</span>
+    FreeBmpBuffer(<a class="code" href="classtesseract_1_1_bmp8.html#a66763262f6d74a8d10ffdc83a73bb451">line_buff_</a>);
+    <a class="code" href="classtesseract_1_1_bmp8.html#a66763262f6d74a8d10ffdc83a73bb451">line_buff_</a> = dest_lines;
+  }
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab1da709401133a6b0d058d33c0108eae"></a><!-- doxytag: member="tesseract::Bmp8::FindConComps" ref="ab1da709401133a6b0d058d33c0108eae" args="(int *concomp_cnt, int min_size) const " -->
@@ -348,6 +544,175 @@ Static Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bmp__8_8cpp_source.html#l00611">611</a> of file <a class="el" href="bmp__8_8cpp_source.html">bmp_8.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                  {
+  (*concomp_cnt) = 0;
+
+  <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> **out_bmp_array = CreateBmpBuffer(<a class="code" href="classtesseract_1_1_bmp8.html#aefc333b9afa85c20f0daed573021fedf">wid_</a>, <a class="code" href="classtesseract_1_1_bmp8.html#a62d633750ad515b99eda172efccc7b55">hgt_</a>, 0);
+  <span class="keywordflow">if</span> (out_bmp_array == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    fprintf(stderr, <span class="stringliteral">&quot;Cube ERROR (Bmp8::FindConComps): could not allocate &quot;</span>
+            <span class="stringliteral">&quot;bitmap array\n&quot;</span>);
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="comment">// listed of connected components</span>
+  ConComp **concomp_array = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+
+  <span class="keywordtype">int</span> x;
+  <span class="keywordtype">int</span> y;
+  <span class="keywordtype">int</span> x_nbr;
+  <span class="keywordtype">int</span> y_nbr;
+  <span class="keywordtype">int</span> concomp_id;
+  <span class="keywordtype">int</span> alloc_concomp_cnt = 0;
+
+  <span class="comment">// neighbors to check</span>
+  <span class="keyword">const</span> <span class="keywordtype">int</span> nbr_cnt = 4;
+
+  <span class="comment">// relative coordinates of nbrs</span>
+  <span class="keywordtype">int</span> x_del[nbr_cnt] = {-1, 0, 1, -1},
+    y_del[nbr_cnt] = {-1, -1, -1, 0};
+
+
+  <span class="keywordflow">for</span> (y = 0; y &lt; <a class="code" href="classtesseract_1_1_bmp8.html#a62d633750ad515b99eda172efccc7b55">hgt_</a>; y++) {
+    <span class="keywordflow">for</span> (x = 0; x &lt; <a class="code" href="classtesseract_1_1_bmp8.html#aefc333b9afa85c20f0daed573021fedf">wid_</a>; x++) {
+      <span class="comment">// is this a foreground pix</span>
+      <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_bmp8.html#a66763262f6d74a8d10ffdc83a73bb451">line_buff_</a>[y][x] != 0xff) {
+        <span class="keywordtype">int</span> master_concomp_id = 0;
+        ConComp *master_concomp = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+
+        <span class="comment">// checkout the nbrs</span>
+        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> nbr = 0; nbr &lt; nbr_cnt; nbr++) {
+          x_nbr = x + x_del[nbr];
+          y_nbr = y + y_del[nbr];
+
+          <span class="keywordflow">if</span> (x_nbr &lt; 0 || y_nbr &lt; 0 || x_nbr &gt;= wid_ || y_nbr &gt;= hgt_) {
+            <span class="keywordflow">continue</span>;
+          }
+
+          <span class="comment">// is this nbr a foreground pix</span>
+          <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_bmp8.html#a66763262f6d74a8d10ffdc83a73bb451">line_buff_</a>[y_nbr][x_nbr] != 0xff) {
+            <span class="comment">// get its concomp ID</span>
+            concomp_id = out_bmp_array[y_nbr][x_nbr];
+
+            <span class="comment">// this should not happen</span>
+            <span class="keywordflow">if</span> (concomp_id &lt; 1 || concomp_id &gt; alloc_concomp_cnt) {
+              fprintf(stderr, <span class="stringliteral">&quot;Cube ERROR (Bmp8::FindConComps): illegal &quot;</span>
+                      <span class="stringliteral">&quot;connected component id: %d\n&quot;</span>, concomp_id);
+              FreeBmpBuffer(out_bmp_array);
+              <span class="keyword">delete</span> []concomp_array;
+              <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+            }
+
+            <span class="comment">// if we has previously found a component then merge the two</span>
+            <span class="comment">// and delete the latest one</span>
+            <span class="keywordflow">if</span> (master_concomp != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp; concomp_id != master_concomp_id) {
+              <span class="comment">// relabel all the pts</span>
+              ConCompPt *pt_ptr = concomp_array[concomp_id - 1]-&gt;Head();
+              <span class="keywordflow">while</span> (pt_ptr != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+                out_bmp_array[pt_ptr-&gt;y()][pt_ptr-&gt;x()] = master_concomp_id;
+                pt_ptr = pt_ptr-&gt;Next();
+              }
+
+              <span class="comment">// merge the two concomp</span>
+              <span class="keywordflow">if</span> (!master_concomp-&gt;Merge(concomp_array[concomp_id - 1])) {
+                fprintf(stderr, <span class="stringliteral">&quot;Cube ERROR (Bmp8::FindConComps): could not &quot;</span>
+                        <span class="stringliteral">&quot;merge connected component: %d\n&quot;</span>, concomp_id);
+                FreeBmpBuffer(out_bmp_array);
+                <span class="keyword">delete</span> []concomp_array;
+                <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+              }
+
+              <span class="comment">// delete the merged concomp</span>
+              <span class="keyword">delete</span> concomp_array[concomp_id - 1];
+              concomp_array[concomp_id - 1] = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+            } <span class="keywordflow">else</span> {
+              <span class="comment">// this is the first concomp we encounter</span>
+              master_concomp_id = concomp_id;
+              master_concomp = concomp_array[master_concomp_id - 1];
+
+              out_bmp_array[y][x] = master_concomp_id;
+
+              <span class="keywordflow">if</span> (!master_concomp-&gt;Add(x, y)) {
+                fprintf(stderr, <span class="stringliteral">&quot;Cube ERROR (Bmp8::FindConComps): could not &quot;</span>
+                        <span class="stringliteral">&quot;add connected component (%d,%d)\n&quot;</span>, x, y);
+                FreeBmpBuffer(out_bmp_array);
+                <span class="keyword">delete</span> []concomp_array;
+                <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+              }
+            }
+          }  <span class="comment">// foreground nbr</span>
+        }  <span class="comment">// nbrs</span>
+
+        <span class="comment">// if there was no foreground pix, then create a new concomp</span>
+        <span class="keywordflow">if</span> (master_concomp == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+          master_concomp = <span class="keyword">new</span> ConComp();
+          <span class="keywordflow">if</span> (master_concomp == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> || master_concomp-&gt;Add(x, y) == <span class="keyword">false</span>) {
+            fprintf(stderr, <span class="stringliteral">&quot;Cube ERROR (Bmp8::FindConComps): could not &quot;</span>
+                    <span class="stringliteral">&quot;allocate or add a connected component\n&quot;</span>);
+            FreeBmpBuffer(out_bmp_array);
+            <span class="keyword">delete</span> []concomp_array;
+            <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+          }
+
+          <span class="comment">// extend the list of concomps if needed</span>
+          <span class="keywordflow">if</span> ((alloc_concomp_cnt % <a class="code" href="classtesseract_1_1_bmp8.html#abb90985ae39b699969e1fc4bce0cebf3">kConCompAllocChunk</a>) == 0) {
+            ConComp **temp_con_comp =
+                <span class="keyword">new</span> ConComp *[alloc_concomp_cnt + <a class="code" href="classtesseract_1_1_bmp8.html#abb90985ae39b699969e1fc4bce0cebf3">kConCompAllocChunk</a>];
+            <span class="keywordflow">if</span> (temp_con_comp == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+              fprintf(stderr, <span class="stringliteral">&quot;Cube ERROR (Bmp8::FindConComps): could not &quot;</span>
+                      <span class="stringliteral">&quot;extend array of connected components\n&quot;</span>);
+              FreeBmpBuffer(out_bmp_array);
+              <span class="keyword">delete</span> []concomp_array;
+              <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+            }
+
+            <span class="keywordflow">if</span> (alloc_concomp_cnt &gt; 0) {
+              memcpy(temp_con_comp, concomp_array,
+                     alloc_concomp_cnt * <span class="keyword">sizeof</span>(*concomp_array));
+
+              <span class="keyword">delete</span> []concomp_array;
+            }
+
+            concomp_array = temp_con_comp;
+          }
+
+          concomp_array[alloc_concomp_cnt++] = master_concomp;
+          out_bmp_array[y][x] = alloc_concomp_cnt;
+        }
+      }  <span class="comment">// foreground pix</span>
+    }  <span class="comment">// x</span>
+  }  <span class="comment">// y</span>
+
+  <span class="comment">// free the concomp bmp</span>
+  FreeBmpBuffer(out_bmp_array);
+
+  <span class="keywordflow">if</span> (alloc_concomp_cnt &gt; 0 &amp;&amp; concomp_array != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="comment">// scan the array of connected components and color</span>
+    <span class="comment">// the o/p buffer with the corresponding concomps</span>
+    (*concomp_cnt) = 0;
+    ConComp *concomp = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> concomp_idx = 0; concomp_idx &lt; alloc_concomp_cnt; concomp_idx++) {
+      concomp = concomp_array[concomp_idx];
+
+      <span class="comment">// found a concomp</span>
+      <span class="keywordflow">if</span> (concomp != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+        <span class="comment">// add the connected component if big enough</span>
+        <span class="keywordflow">if</span> (concomp-&gt;PtCnt() &gt; min_size) {
+          concomp-&gt;SetLeftMost(<span class="keyword">true</span>);
+          concomp-&gt;SetRightMost(<span class="keyword">true</span>);
+          concomp-&gt;SetID((*concomp_cnt));
+          concomp_array[(*concomp_cnt)++] = concomp;
+        } <span class="keywordflow">else</span> {
+          <span class="keyword">delete</span> concomp;
+        }
+      }
+    }
+  }
+
+  <span class="keywordflow">return</span> concomp_array;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a783aab8dee964121060434dd8294cd07"></a><!-- doxytag: member="tesseract::Bmp8::ForegroundRatio" ref="a783aab8dee964121060434dd8294cd07" args="() const " -->
@@ -364,6 +729,23 @@ Static Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bmp__8_8cpp_source.html#l00976">976</a> of file <a class="el" href="bmp__8_8cpp_source.html">bmp_8.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                  {
+  <span class="keywordtype">int</span> fore_cnt = 0;
+
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_bmp8.html#aefc333b9afa85c20f0daed573021fedf">wid_</a> &lt;= 0 || <a class="code" href="classtesseract_1_1_bmp8.html#a62d633750ad515b99eda172efccc7b55">hgt_</a> &lt;= 0) {
+    <span class="keywordflow">return</span> 1.0;
+  }
+
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> y = 0; y &lt; <a class="code" href="classtesseract_1_1_bmp8.html#a62d633750ad515b99eda172efccc7b55">hgt_</a>; y++) {
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> x = 0; x &lt; <a class="code" href="classtesseract_1_1_bmp8.html#aefc333b9afa85c20f0daed573021fedf">wid_</a>; x++) {
+      fore_cnt += (<a class="code" href="classtesseract_1_1_bmp8.html#a66763262f6d74a8d10ffdc83a73bb451">line_buff_</a>[y][x] == 0xff ? 0 : 1);
+    }
+  }
+
+  <span class="keywordflow">return</span> (1.0 * (fore_cnt / hgt_) / <a class="code" href="classtesseract_1_1_bmp8.html#aefc333b9afa85c20f0daed573021fedf">wid_</a>);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a87f09331b7353eab10bc5dff5bff7898"></a><!-- doxytag: member="tesseract::Bmp8::FromCharDumpFile" ref="a87f09331b7353eab10bc5dff5bff7898" args="(CachedFile *fp)" -->
@@ -383,6 +765,21 @@ Static Protected Attributes</h2></td></tr>
 
 <p>Reimplemented in <a class="el" href="classtesseract_1_1_char_samp.html#a0e2ba1e2f91feb45c21734952fd2d1e5">tesseract::CharSamp</a>.</p>
 
+<p>Definition at line <a class="el" href="bmp__8_8cpp_source.html#l00222">222</a> of file <a class="el" href="bmp__8_8cpp_source.html">bmp_8.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                            {
+  <span class="comment">// create a Bmp8 object</span>
+  <a class="code" href="classtesseract_1_1_bmp8.html#a5814f6e19d868ea36dc646aa645ec9ae">Bmp8</a> *bmp_obj = <span class="keyword">new</span> <a class="code" href="classtesseract_1_1_bmp8.html#a5814f6e19d868ea36dc646aa645ec9ae">Bmp8</a>(0, 0);
+  <span class="keywordflow">if</span> (bmp_obj == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="keywordflow">if</span> (bmp_obj-&gt;LoadFromCharDumpFile(fp) == <span class="keyword">false</span>) {
+    <span class="keyword">delete</span> bmp_obj;
+  }
+
+  <span class="keywordflow">return</span> bmp_obj;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a652208bad9349414eb27b43a76c1b6d9"></a><!-- doxytag: member="tesseract::Bmp8::FromCharDumpFile" ref="a652208bad9349414eb27b43a76c1b6d9" args="(FILE *fp)" -->
@@ -402,6 +799,21 @@ Static Protected Attributes</h2></td></tr>
 
 <p>Reimplemented in <a class="el" href="classtesseract_1_1_char_samp.html#a3df91384e4ac0b14d181318870c9d0a5">tesseract::CharSamp</a>.</p>
 
+<p>Definition at line <a class="el" href="bmp__8_8cpp_source.html#l00319">319</a> of file <a class="el" href="bmp__8_8cpp_source.html">bmp_8.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                      {
+  <span class="comment">// create a Bmp8 object</span>
+  <a class="code" href="classtesseract_1_1_bmp8.html#a5814f6e19d868ea36dc646aa645ec9ae">Bmp8</a> *bmp_obj = <span class="keyword">new</span> <a class="code" href="classtesseract_1_1_bmp8.html#a5814f6e19d868ea36dc646aa645ec9ae">Bmp8</a>(0, 0);
+  <span class="keywordflow">if</span> (bmp_obj == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="keywordflow">if</span> (bmp_obj-&gt;LoadFromCharDumpFile(fp) == <span class="keyword">false</span>) {
+    <span class="keyword">delete</span> bmp_obj;
+  }
+
+  <span class="keywordflow">return</span> bmp_obj;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae9591eae7d79b924bfcac728cced4ff1"></a><!-- doxytag: member="tesseract::Bmp8::Height" ref="ae9591eae7d79b924bfcac728cced4ff1" args="() const " -->
@@ -418,6 +830,9 @@ Static Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bmp__8_8h_source.html#l00050">50</a> of file <a class="el" href="bmp__8_8h_source.html">bmp_8.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_bmp8.html#a62d633750ad515b99eda172efccc7b55">hgt_</a>; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="acbbb2c61a691e004340c790adca5bbb9"></a><!-- doxytag: member="tesseract::Bmp8::HorizontalDeslant" ref="acbbb2c61a691e004340c790adca5bbb9" args="(double *deslant_angle)" -->
@@ -435,6 +850,120 @@ Static Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bmp__8_8cpp_source.html#l00993">993</a> of file <a class="el" href="bmp__8_8cpp_source.html">bmp_8.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                  {
+  <span class="keywordtype">int</span> x;
+  <span class="keywordtype">int</span> y;
+  <span class="keywordtype">int</span> des_y;
+  <span class="keywordtype">int</span> ang_idx;
+  <span class="keywordtype">int</span> best_ang;
+  <span class="keywordtype">int</span> min_des_y;
+  <span class="keywordtype">int</span> max_des_y;
+  <span class="keywordtype">int</span> des_hgt;
+
+  <span class="comment">// compute tan table if necess.</span>
+  <span class="keywordflow">if</span> (tan_table_ == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp; !ComputeTanTable()) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+
+  <span class="comment">// compute min and max values for x after deslant</span>
+  min_des_y = min(0, static_cast&lt;int&gt;((<a class="code" href="classtesseract_1_1_bmp8.html#aefc333b9afa85c20f0daed573021fedf">wid_</a> - 1) * tan_table_[0]));
+  max_des_y = (<a class="code" href="classtesseract_1_1_bmp8.html#a62d633750ad515b99eda172efccc7b55">hgt_</a> - 1) +
+      max(0, static_cast&lt;int&gt;((<a class="code" href="classtesseract_1_1_bmp8.html#aefc333b9afa85c20f0daed573021fedf">wid_</a> - 1) * tan_table_[<a class="code" href="classtesseract_1_1_bmp8.html#a9be7b6ab50cc8aab2afbb9fb8dc18429">kDeslantAngleCount</a> - 1]));
+
+  des_hgt = max_des_y - min_des_y + 1;
+
+  <span class="comment">// alloc memory for histograms</span>
+  <span class="keywordtype">int</span> **angle_hist = <span class="keyword">new</span> <span class="keywordtype">int</span>*[<a class="code" href="classtesseract_1_1_bmp8.html#a9be7b6ab50cc8aab2afbb9fb8dc18429">kDeslantAngleCount</a>];
+  <span class="keywordflow">for</span> (ang_idx = 0; ang_idx &lt; <a class="code" href="classtesseract_1_1_bmp8.html#a9be7b6ab50cc8aab2afbb9fb8dc18429">kDeslantAngleCount</a>; ang_idx++) {
+    angle_hist[ang_idx] = <span class="keyword">new</span> <span class="keywordtype">int</span>[des_hgt];
+    <span class="keywordflow">if</span> (angle_hist[ang_idx] == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      <span class="keyword">delete</span>[] angle_hist;
+      <span class="keywordflow">return</span> <span class="keyword">false</span>;
+    }
+    memset(angle_hist[ang_idx], 0, des_hgt * <span class="keyword">sizeof</span>(*angle_hist[ang_idx]));
+  }
+
+  <span class="comment">// compute histograms</span>
+  <span class="keywordflow">for</span> (y = 0; y &lt; <a class="code" href="classtesseract_1_1_bmp8.html#a62d633750ad515b99eda172efccc7b55">hgt_</a>; y++) {
+    <span class="keywordflow">for</span> (x = 0; x &lt; <a class="code" href="classtesseract_1_1_bmp8.html#aefc333b9afa85c20f0daed573021fedf">wid_</a>; x++) {
+      <span class="comment">// find a non-bkgrnd pixel</span>
+      <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_bmp8.html#a66763262f6d74a8d10ffdc83a73bb451">line_buff_</a>[y][x] != 0xff) {
+        <span class="comment">// stamp all histograms</span>
+        <span class="keywordflow">for</span> (ang_idx = 0; ang_idx &lt; <a class="code" href="classtesseract_1_1_bmp8.html#a9be7b6ab50cc8aab2afbb9fb8dc18429">kDeslantAngleCount</a>; ang_idx++) {
+          des_y = y - <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(x * tan_table_[ang_idx]);
+          <span class="keywordflow">if</span> (des_y &gt;= min_des_y &amp;&amp; des_y &lt;= max_des_y) {
+            angle_hist[ang_idx][des_y - min_des_y]++;
+          }
+        }
+      }
+    }
+  }
+
+  <span class="comment">// find the histogram with the lowest entropy</span>
+  <span class="keywordtype">float</span> entropy;
+  <span class="keywordtype">float</span> best_entropy =  0.0f;
+  <span class="keywordtype">float</span> norm_val;
+
+  best_ang = -1;
+  <span class="keywordflow">for</span> (ang_idx = 0; ang_idx &lt; <a class="code" href="classtesseract_1_1_bmp8.html#a9be7b6ab50cc8aab2afbb9fb8dc18429">kDeslantAngleCount</a>; ang_idx++) {
+    entropy = 0.0f;
+
+    <span class="keywordflow">for</span> (y = min_des_y; y &lt;= max_des_y; y++) {
+      <span class="keywordflow">if</span> (angle_hist[ang_idx][y - min_des_y] &gt; 0) {
+        norm_val = (1.0f * angle_hist[ang_idx][y - min_des_y] / <a class="code" href="classtesseract_1_1_bmp8.html#aefc333b9afa85c20f0daed573021fedf">wid_</a>);
+        entropy += (-1.0f * norm_val * log(norm_val));
+      }
+    }
+
+    <span class="keywordflow">if</span> (best_ang == -1 || entropy &lt; best_entropy) {
+      best_ang = ang_idx;
+      best_entropy = entropy;
+    }
+
+    <span class="comment">// free the histogram</span>
+    <span class="keyword">delete</span>[] angle_hist[ang_idx];
+  }
+  <span class="keyword">delete</span>[] angle_hist;
+
+  (*deslant_angle) = 0.0;
+
+  <span class="comment">// deslant</span>
+  <span class="keywordflow">if</span> (best_ang != -1) {
+    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> **dest_lines;
+    <span class="keywordtype">int</span> old_hgt = <a class="code" href="classtesseract_1_1_bmp8.html#a62d633750ad515b99eda172efccc7b55">hgt_</a>;
+
+    <span class="comment">// create a new buffer</span>
+    min_des_y = min(0, static_cast&lt;int&gt;((wid_ - 1) * -tan_table_[best_ang]));
+    max_des_y = (hgt_ - 1) +
+        max(0, static_cast&lt;int&gt;((wid_ - 1) * -tan_table_[best_ang]));
+    hgt_ = max_des_y - min_des_y + 1;
+    dest_lines = CreateBmpBuffer();
+    <span class="keywordflow">if</span> (dest_lines == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      <span class="keywordflow">return</span> <span class="keyword">false</span>;
+    }
+
+    <span class="keywordflow">for</span> (y = 0; y &lt; old_hgt; y++) {
+      <span class="keywordflow">for</span> (x = 0; x &lt; <a class="code" href="classtesseract_1_1_bmp8.html#aefc333b9afa85c20f0daed573021fedf">wid_</a>; x++) {
+        <span class="comment">// find a non-bkgrnd pixel</span>
+        <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_bmp8.html#a66763262f6d74a8d10ffdc83a73bb451">line_buff_</a>[y][x] != 0xff) {
+          <span class="comment">// compute new pos</span>
+          des_y = y - <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>((x * tan_table_[best_ang]));
+          dest_lines[des_y - min_des_y][x] = 0;
+        }
+      }
+    }
+
+    <span class="comment">// free old buffer</span>
+    FreeBmpBuffer(<a class="code" href="classtesseract_1_1_bmp8.html#a66763262f6d74a8d10ffdc83a73bb451">line_buff_</a>);
+    <a class="code" href="classtesseract_1_1_bmp8.html#a66763262f6d74a8d10ffdc83a73bb451">line_buff_</a> = dest_lines;
+
+    (*deslant_angle) = kMinDeslantAngle + (best_ang * kDeslantAngleDelta);
+  }
+
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a5c8e40f95581cc9815d71ffcca505d16"></a><!-- doxytag: member="tesseract::Bmp8::HorizontalHistogram" ref="a5c8e40f95581cc9815d71ffcca505d16" args="() const " -->
@@ -451,6 +980,28 @@ Static Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bmp__8_8cpp_source.html#l01129">1129</a> of file <a class="el" href="bmp__8_8cpp_source.html">bmp_8.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                     {
+  <span class="keywordtype">int</span> *hist = <span class="keyword">new</span> <span class="keywordtype">int</span>[<a class="code" href="classtesseract_1_1_bmp8.html#a62d633750ad515b99eda172efccc7b55">hgt_</a>];
+  <span class="keywordflow">if</span> (hist == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="comment">// compute histograms</span>
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> y = 0; y &lt; <a class="code" href="classtesseract_1_1_bmp8.html#a62d633750ad515b99eda172efccc7b55">hgt_</a>; y++) {
+    hist[y] = 0;
+
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> x = 0; x &lt; <a class="code" href="classtesseract_1_1_bmp8.html#aefc333b9afa85c20f0daed573021fedf">wid_</a>; x++) {
+      <span class="comment">// find a non-bkgrnd pixel</span>
+      <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_bmp8.html#a66763262f6d74a8d10ffdc83a73bb451">line_buff_</a>[y][x] != 0xff) {
+        hist[y]++;
+      }
+    }
+  }
+
+  <span class="keywordflow">return</span> hist;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3f231aca9ca706bfd103816ae87c8384"></a><!-- doxytag: member="tesseract::Bmp8::IsBlankColumn" ref="a3f231aca9ca706bfd103816ae87c8384" args="(int x) const " -->
@@ -468,6 +1019,17 @@ Static Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bmp__8_8cpp_source.html#l00333">333</a> of file <a class="el" href="bmp__8_8cpp_source.html">bmp_8.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                    {
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> y = 0; y &lt; <a class="code" href="classtesseract_1_1_bmp8.html#a62d633750ad515b99eda172efccc7b55">hgt_</a>; y++) {
+    <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_bmp8.html#a66763262f6d74a8d10ffdc83a73bb451">line_buff_</a>[y][x] != 0xff) {
+      <span class="keywordflow">return</span> <span class="keyword">false</span>;
+    }
+  }
+
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac89e42a0a730263363cdce4db5e4ad49"></a><!-- doxytag: member="tesseract::Bmp8::IsBlankRow" ref="ac89e42a0a730263363cdce4db5e4ad49" args="(int y) const " -->
@@ -485,6 +1047,17 @@ Static Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bmp__8_8cpp_source.html#l00343">343</a> of file <a class="el" href="bmp__8_8cpp_source.html">bmp_8.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                 {
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> x = 0; x &lt; <a class="code" href="classtesseract_1_1_bmp8.html#aefc333b9afa85c20f0daed573021fedf">wid_</a>; x++) {
+    <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_bmp8.html#a66763262f6d74a8d10ffdc83a73bb451">line_buff_</a>[y][x] != 0xff) {
+      <span class="keywordflow">return</span> <span class="keyword">false</span>;
+    }
+  }
+
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad1394c7b0ea19e6ba5955ba8893181a7"></a><!-- doxytag: member="tesseract::Bmp8::IsIdentical" ref="ad1394c7b0ea19e6ba5955ba8893181a7" args="(Bmp8 *pBmp) const " -->
@@ -502,6 +1075,21 @@ Static Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bmp__8_8cpp_source.html#l00596">596</a> of file <a class="el" href="bmp__8_8cpp_source.html">bmp_8.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                       {
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_bmp8.html#aefc333b9afa85c20f0daed573021fedf">wid_</a> != pBmp-&gt;wid_ || <a class="code" href="classtesseract_1_1_bmp8.html#a62d633750ad515b99eda172efccc7b55">hgt_</a> != pBmp-&gt;hgt_) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> y = 0; y &lt; <a class="code" href="classtesseract_1_1_bmp8.html#a62d633750ad515b99eda172efccc7b55">hgt_</a>; y++) {
+    <span class="keywordflow">if</span> (memcmp(<a class="code" href="classtesseract_1_1_bmp8.html#a66763262f6d74a8d10ffdc83a73bb451">line_buff_</a>[y], pBmp-&gt;line_buff_[y], <a class="code" href="classtesseract_1_1_bmp8.html#aefc333b9afa85c20f0daed573021fedf">wid_</a>) != 0) {
+      <span class="keywordflow">return</span> <span class="keyword">false</span>;
+    }
+  }
+
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a79ac4073704c055974128fb067085f8f"></a><!-- doxytag: member="tesseract::Bmp8::LoadFromCharDumpFile" ref="a79ac4073704c055974128fb067085f8f" args="(CachedFile *fp)" -->
@@ -519,6 +1107,87 @@ Static Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bmp__8_8cpp_source.html#l00142">142</a> of file <a class="el" href="bmp__8_8cpp_source.html">bmp_8.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                              {
+  <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> wid;
+  <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> hgt;
+  <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> x;
+  <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> y;
+  <span class="keywordtype">int</span> buf_size;
+  <span class="keywordtype">int</span> pix;
+  <span class="keywordtype">int</span> pix_cnt;
+  <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> val32;
+  <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *buff;
+
+  <span class="comment">// read and check 32 bit marker</span>
+  <span class="keywordflow">if</span> (fp-&gt;Read(&amp;val32, <span class="keyword">sizeof</span>(val32)) != <span class="keyword">sizeof</span>(val32)) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+
+  <span class="keywordflow">if</span> (val32 != kMagicNumber) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+
+  <span class="comment">// read wid and hgt</span>
+  <span class="keywordflow">if</span> (fp-&gt;Read(&amp;wid, <span class="keyword">sizeof</span>(wid)) != <span class="keyword">sizeof</span>(wid)) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+
+  <span class="keywordflow">if</span> (fp-&gt;Read(&amp;hgt, <span class="keyword">sizeof</span>(hgt)) != <span class="keyword">sizeof</span>(hgt)) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+
+  <span class="comment">// read buf size</span>
+  <span class="keywordflow">if</span> (fp-&gt;Read(&amp;buf_size, <span class="keyword">sizeof</span>(buf_size)) != <span class="keyword">sizeof</span>(buf_size)) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+
+  <span class="comment">// validate buf size: for now, only 3 channel (RBG) is supported</span>
+  pix_cnt = wid * hgt;
+  <span class="keywordflow">if</span> (buf_size != (3 * pix_cnt)) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+
+  <span class="comment">// alloc memory &amp; read the 3 channel buffer</span>
+  buff = <span class="keyword">new</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>[buf_size];
+  <span class="keywordflow">if</span> (buff == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+
+  <span class="keywordflow">if</span> (fp-&gt;Read(buff, buf_size) != buf_size) {
+    <span class="keyword">delete</span> []buff;
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+
+  <span class="comment">// create internal buffers</span>
+  <a class="code" href="classtesseract_1_1_bmp8.html#aefc333b9afa85c20f0daed573021fedf">wid_</a> = wid;
+  <a class="code" href="classtesseract_1_1_bmp8.html#a62d633750ad515b99eda172efccc7b55">hgt_</a> = hgt;
+
+  <a class="code" href="classtesseract_1_1_bmp8.html#a66763262f6d74a8d10ffdc83a73bb451">line_buff_</a> = CreateBmpBuffer();
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_bmp8.html#a66763262f6d74a8d10ffdc83a73bb451">line_buff_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keyword">delete</span> []buff;
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+
+  <span class="comment">// copy the data</span>
+  <span class="keywordflow">for</span> (y = 0, pix = 0; y &lt; <a class="code" href="classtesseract_1_1_bmp8.html#a62d633750ad515b99eda172efccc7b55">hgt_</a>; y++) {
+    <span class="keywordflow">for</span> (x = 0; x &lt; <a class="code" href="classtesseract_1_1_bmp8.html#aefc333b9afa85c20f0daed573021fedf">wid_</a>; x++, pix += 3) {
+      <span class="comment">// for now we only support gray scale,</span>
+      <span class="comment">// so we expect R = G = B, it this is not the case, bail out</span>
+      <span class="keywordflow">if</span>  (buff[pix] != buff[pix + 1] || buff[pix] != buff[pix + 2]) {
+        <span class="keyword">delete</span> []buff;
+        <span class="keywordflow">return</span> <span class="keyword">false</span>;
+      }
+      <a class="code" href="classtesseract_1_1_bmp8.html#a66763262f6d74a8d10ffdc83a73bb451">line_buff_</a>[y][x] = buff[pix];
+    }
+  }
+
+  <span class="comment">// delete temp buffer</span>
+  <span class="keyword">delete</span>[]buff;
+
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a64a3315b11244bd6e171493a7fe9c22e"></a><!-- doxytag: member="tesseract::Bmp8::LoadFromCharDumpFile" ref="a64a3315b11244bd6e171493a7fe9c22e" args="(FILE *fp)" -->
@@ -536,6 +1205,90 @@ Static Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bmp__8_8cpp_source.html#l00236">236</a> of file <a class="el" href="bmp__8_8cpp_source.html">bmp_8.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                        {
+  <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> wid;
+  <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> hgt;
+  <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> x;
+  <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> y;
+  <span class="keywordtype">int</span> buf_size;
+  <span class="keywordtype">int</span> pix;
+  <span class="keywordtype">int</span> pix_cnt;
+  <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> val32;
+  <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *buff;
+
+  <span class="comment">// read and check 32 bit marker</span>
+  <span class="keywordflow">if</span> (fread(&amp;val32, 1, <span class="keyword">sizeof</span>(val32), fp) != <span class="keyword">sizeof</span>(val32)) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+
+  <span class="keywordflow">if</span> (val32 != kMagicNumber) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+
+  <span class="comment">// read wid and hgt</span>
+  <span class="keywordflow">if</span> (fread(&amp;wid, 1, <span class="keyword">sizeof</span>(wid), fp) != <span class="keyword">sizeof</span>(wid)) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+
+  <span class="keywordflow">if</span> (fread(&amp;hgt, 1, <span class="keyword">sizeof</span>(hgt), fp) != <span class="keyword">sizeof</span>(hgt)) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+
+  <span class="comment">// read buf size</span>
+  <span class="keywordflow">if</span> (fread(&amp;buf_size, 1, <span class="keyword">sizeof</span>(buf_size), fp) != <span class="keyword">sizeof</span>(buf_size)) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+
+  <span class="comment">// validate buf size: for now, only 3 channel (RBG) is supported</span>
+  pix_cnt = wid * hgt;
+  <span class="keywordflow">if</span> (buf_size != (3 * pix_cnt)) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+
+  <span class="comment">// alloc memory &amp; read the 3 channel buffer</span>
+  buff = <span class="keyword">new</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>[buf_size];
+  <span class="keywordflow">if</span> (buff == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+
+  <span class="keywordflow">if</span> (fread(buff, 1, buf_size, fp) != buf_size) {
+    <span class="keyword">delete</span> []buff;
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+
+  <span class="comment">// create internal buffers</span>
+  <a class="code" href="classtesseract_1_1_bmp8.html#aefc333b9afa85c20f0daed573021fedf">wid_</a> = wid;
+  <a class="code" href="classtesseract_1_1_bmp8.html#a62d633750ad515b99eda172efccc7b55">hgt_</a> = hgt;
+
+  <a class="code" href="classtesseract_1_1_bmp8.html#a66763262f6d74a8d10ffdc83a73bb451">line_buff_</a> = CreateBmpBuffer();
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_bmp8.html#a66763262f6d74a8d10ffdc83a73bb451">line_buff_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keyword">delete</span> []buff;
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+
+  <span class="comment">// copy the data</span>
+  <span class="keywordflow">for</span> (y = 0, pix = 0; y &lt; <a class="code" href="classtesseract_1_1_bmp8.html#a62d633750ad515b99eda172efccc7b55">hgt_</a>; y++) {
+    <span class="keywordflow">for</span> (x = 0; x &lt; <a class="code" href="classtesseract_1_1_bmp8.html#aefc333b9afa85c20f0daed573021fedf">wid_</a>; x++, pix += 3) {
+      <span class="comment">// for now we only support gray scale,</span>
+      <span class="comment">// so we expect R = G = B, it this is not the case, bail out</span>
+      <span class="keywordflow">if</span>  ( buff[pix] != buff[pix + 1] ||
+            buff[pix] != buff[pix + 2]
+          ) {
+        <span class="keyword">delete</span> []buff;
+        <span class="keywordflow">return</span> <span class="keyword">false</span>;
+          }
+
+          <a class="code" href="classtesseract_1_1_bmp8.html#a66763262f6d74a8d10ffdc83a73bb451">line_buff_</a>[y][x] = buff[pix];
+    }
+  }
+
+  <span class="comment">// delete temp buffer</span>
+  <span class="keyword">delete</span>[]buff;
+
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6ee69e7650e2ea06cdf16980009125ec"></a><!-- doxytag: member="tesseract::Bmp8::LoadFromCharDumpFile" ref="a6ee69e7650e2ea06cdf16980009125ec" args="(unsigned char **raw_data)" -->
@@ -553,6 +1306,67 @@ Static Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bmp__8_8cpp_source.html#l00916">916</a> of file <a class="el" href="bmp__8_8cpp_source.html">bmp_8.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                            {
+  <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> wid;
+  <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> hgt;
+  <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> x;
+  <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> y;
+  <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *raw_data = (*raw_data_ptr);
+  <span class="keywordtype">int</span> buf_size;
+  <span class="keywordtype">int</span> pix;
+  <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> val32;
+
+  <span class="comment">// read and check 32 bit marker</span>
+  memcpy(&amp;val32, raw_data, <span class="keyword">sizeof</span>(val32));
+  raw_data += <span class="keyword">sizeof</span>(val32);
+
+  <span class="keywordflow">if</span> (val32 != kMagicNumber) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+
+  <span class="comment">// read wid and hgt</span>
+  memcpy(&amp;wid, raw_data, <span class="keyword">sizeof</span>(wid));
+  raw_data += <span class="keyword">sizeof</span>(wid);
+
+  memcpy(&amp;hgt, raw_data, <span class="keyword">sizeof</span>(hgt));
+  raw_data += <span class="keyword">sizeof</span>(hgt);
+
+  <span class="comment">// read buf size</span>
+  memcpy(&amp;buf_size, raw_data, <span class="keyword">sizeof</span>(buf_size));
+  raw_data += <span class="keyword">sizeof</span>(buf_size);
+
+  <span class="comment">// validate buf size: for now, only 3 channel (RBG) is supported</span>
+  <span class="keywordflow">if</span> (buf_size != (3 * wid * hgt)) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+
+  <a class="code" href="classtesseract_1_1_bmp8.html#aefc333b9afa85c20f0daed573021fedf">wid_</a> = wid;
+  <a class="code" href="classtesseract_1_1_bmp8.html#a62d633750ad515b99eda172efccc7b55">hgt_</a> = hgt;
+
+  <a class="code" href="classtesseract_1_1_bmp8.html#a66763262f6d74a8d10ffdc83a73bb451">line_buff_</a> = CreateBmpBuffer();
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_bmp8.html#a66763262f6d74a8d10ffdc83a73bb451">line_buff_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+
+  <span class="comment">// copy the data</span>
+  <span class="keywordflow">for</span> (y = 0, pix = 0; y &lt; <a class="code" href="classtesseract_1_1_bmp8.html#a62d633750ad515b99eda172efccc7b55">hgt_</a>; y++) {
+    <span class="keywordflow">for</span> (x = 0; x &lt; <a class="code" href="classtesseract_1_1_bmp8.html#aefc333b9afa85c20f0daed573021fedf">wid_</a>; x++, pix += 3) {
+      <span class="comment">// for now we only support gray scale,</span>
+      <span class="comment">// so we expect R = G = B, it this is not the case, bail out</span>
+      <span class="keywordflow">if</span>  (raw_data[pix] != raw_data[pix + 1] ||
+           raw_data[pix] != raw_data[pix + 2]) {
+        <span class="keywordflow">return</span> <span class="keyword">false</span>;
+      }
+
+      <a class="code" href="classtesseract_1_1_bmp8.html#a66763262f6d74a8d10ffdc83a73bb451">line_buff_</a>[y][x] = raw_data[pix];
+    }
+  }
+
+  (*raw_data_ptr) = raw_data + buf_size;
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a5a19cafa82855eb401a2433071e418be"></a><!-- doxytag: member="tesseract::Bmp8::LoadFromRawData" ref="a5a19cafa82855eb401a2433071e418be" args="(unsigned char *data)" -->
@@ -570,6 +1384,18 @@ Static Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bmp__8_8cpp_source.html#l00510">510</a> of file <a class="el" href="bmp__8_8cpp_source.html">bmp_8.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                              {
+  <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *pline_data = data;
+
+  <span class="comment">// copy the data</span>
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> y = 0; y &lt; <a class="code" href="classtesseract_1_1_bmp8.html#a62d633750ad515b99eda172efccc7b55">hgt_</a>; y++, pline_data += <a class="code" href="classtesseract_1_1_bmp8.html#aefc333b9afa85c20f0daed573021fedf">wid_</a>) {
+    memcpy(<a class="code" href="classtesseract_1_1_bmp8.html#a66763262f6d74a8d10ffdc83a73bb451">line_buff_</a>[y], pline_data, <a class="code" href="classtesseract_1_1_bmp8.html#aefc333b9afa85c20f0daed573021fedf">wid_</a> * <span class="keyword">sizeof</span>(*pline_data));
+  }
+
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7f7236eeda12a9ff3db9cedafcdb3786"></a><!-- doxytag: member="tesseract::Bmp8::MeanHorizontalHistogramEntropy" ref="a7f7236eeda12a9ff3db9cedafcdb3786" args="() const " -->
@@ -586,6 +1412,30 @@ Static Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bmp__8_8cpp_source.html#l01106">1106</a> of file <a class="el" href="bmp__8_8cpp_source.html">bmp_8.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                 {
+  <span class="keywordtype">float</span> entropy = 0.0f;
+
+  <span class="comment">// compute histograms</span>
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> y = 0; y &lt; <a class="code" href="classtesseract_1_1_bmp8.html#a62d633750ad515b99eda172efccc7b55">hgt_</a>; y++) {
+    <span class="keywordtype">int</span> pix_cnt = 0;
+
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> x = 0; x &lt; <a class="code" href="classtesseract_1_1_bmp8.html#aefc333b9afa85c20f0daed573021fedf">wid_</a>; x++) {
+      <span class="comment">// find a non-bkgrnd pixel</span>
+      <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_bmp8.html#a66763262f6d74a8d10ffdc83a73bb451">line_buff_</a>[y][x] != 0xff) {
+        pix_cnt++;
+      }
+    }
+
+    <span class="keywordflow">if</span> (pix_cnt &gt; 0) {
+      <span class="keywordtype">float</span> norm_val = (1.0f * pix_cnt / <a class="code" href="classtesseract_1_1_bmp8.html#aefc333b9afa85c20f0daed573021fedf">wid_</a>);
+      entropy += (-1.0f * norm_val * log(norm_val));
+    }
+  }
+
+  <span class="keywordflow">return</span> entropy / <a class="code" href="classtesseract_1_1_bmp8.html#a62d633750ad515b99eda172efccc7b55">hgt_</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aaf3e6d9b474c1f964d99565fd7afaeae"></a><!-- doxytag: member="tesseract::Bmp8::RawData" ref="aaf3e6d9b474c1f964d99565fd7afaeae" args="() const " -->
@@ -602,6 +1452,11 @@ Static Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bmp__8_8h_source.html#l00051">51</a> of file <a class="el" href="bmp__8_8h_source.html">bmp_8.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                        {
+    <span class="keywordflow">return</span> (<a class="code" href="classtesseract_1_1_bmp8.html#a66763262f6d74a8d10ffdc83a73bb451">line_buff_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> ? <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> : <a class="code" href="classtesseract_1_1_bmp8.html#a66763262f6d74a8d10ffdc83a73bb451">line_buff_</a>[0]);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="acb33243c84fea596c9abf8aa3ee18825"></a><!-- doxytag: member="tesseract::Bmp8::SaveBmp2CharDumpFile" ref="acb33243c84fea596c9abf8aa3ee18825" args="(FILE *fp) const " -->
@@ -619,6 +1474,68 @@ Static Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bmp__8_8cpp_source.html#l00521">521</a> of file <a class="el" href="bmp__8_8cpp_source.html">bmp_8.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                              {
+  <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> wid;
+  <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> hgt;
+  <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> x;
+  <span class="keywordtype">unsigned</span> <span class="keywordtype">short</span> y;
+  <span class="keywordtype">int</span> buf_size;
+  <span class="keywordtype">int</span> pix;
+  <span class="keywordtype">int</span> pix_cnt;
+  <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> val32;
+  <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *buff;
+
+  <span class="comment">// write and check 32 bit marker</span>
+  val32 = kMagicNumber;
+  <span class="keywordflow">if</span> (fwrite(&amp;val32, 1, <span class="keyword">sizeof</span>(val32), fp) != <span class="keyword">sizeof</span>(val32)) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+
+  <span class="comment">// write wid and hgt</span>
+  wid = <a class="code" href="classtesseract_1_1_bmp8.html#aefc333b9afa85c20f0daed573021fedf">wid_</a>;
+  <span class="keywordflow">if</span> (fwrite(&amp;wid, 1, <span class="keyword">sizeof</span>(wid), fp) != <span class="keyword">sizeof</span>(wid)) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+
+  hgt = <a class="code" href="classtesseract_1_1_bmp8.html#a62d633750ad515b99eda172efccc7b55">hgt_</a>;
+  <span class="keywordflow">if</span> (fwrite(&amp;hgt, 1, <span class="keyword">sizeof</span>(hgt), fp) != <span class="keyword">sizeof</span>(hgt)) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+
+  <span class="comment">// write buf size</span>
+  pix_cnt = wid * hgt;
+  buf_size = 3 * pix_cnt;
+  <span class="keywordflow">if</span> (fwrite(&amp;buf_size, 1, <span class="keyword">sizeof</span>(buf_size), fp) != <span class="keyword">sizeof</span>(buf_size)) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+
+  <span class="comment">// alloc memory &amp; write the 3 channel buffer</span>
+  buff = <span class="keyword">new</span> <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>[buf_size];
+  <span class="keywordflow">if</span> (buff == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+
+  <span class="comment">// copy the data</span>
+  <span class="keywordflow">for</span> (y = 0, pix = 0; y &lt; <a class="code" href="classtesseract_1_1_bmp8.html#a62d633750ad515b99eda172efccc7b55">hgt_</a>; y++) {
+    <span class="keywordflow">for</span> (x = 0; x &lt; <a class="code" href="classtesseract_1_1_bmp8.html#aefc333b9afa85c20f0daed573021fedf">wid_</a>; x++, pix += 3) {
+      buff[pix] =
+      buff[pix + 1] =
+      buff[pix + 2] = <a class="code" href="classtesseract_1_1_bmp8.html#a66763262f6d74a8d10ffdc83a73bb451">line_buff_</a>[y][x];
+    }
+  }
+
+  <span class="keywordflow">if</span> (fwrite(buff, 1, buf_size, fp) != buf_size) {
+    <span class="keyword">delete</span> []buff;
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+
+  <span class="comment">// delete temp buffer</span>
+  <span class="keyword">delete</span>[]buff;
+
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad978f83061e3785d9d3ce1031283e73b"></a><!-- doxytag: member="tesseract::Bmp8::ScaleFrom" ref="ad978f83061e3785d9d3ce1031283e73b" args="(Bmp8 *bmp, bool isotropic=true)" -->
@@ -646,6 +1563,118 @@ Static Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bmp__8_8cpp_source.html#l00399">399</a> of file <a class="el" href="bmp__8_8cpp_source.html">bmp_8.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                              {
+  <span class="keywordtype">int</span> x_num;
+  <span class="keywordtype">int</span> x_denom;
+  <span class="keywordtype">int</span> y_num;
+  <span class="keywordtype">int</span> y_denom;
+  <span class="keywordtype">int</span> xoff;
+  <span class="keywordtype">int</span> yoff;
+  <span class="keywordtype">int</span> xsrc;
+  <span class="keywordtype">int</span> ysrc;
+  <span class="keywordtype">int</span> xdest;
+  <span class="keywordtype">int</span> ydest;
+  <span class="keywordtype">int</span> xst_src = 0;
+  <span class="keywordtype">int</span> yst_src = 0;
+  <span class="keywordtype">int</span> xend_src = bmp-&gt;wid_ - 1;
+  <span class="keywordtype">int</span> yend_src = bmp-&gt;hgt_ - 1;
+  <span class="keywordtype">int</span> wid_src;
+  <span class="keywordtype">int</span> hgt_src;
+
+  <span class="comment">// src dimensions</span>
+  wid_src = xend_src - xst_src + 1,
+  hgt_src = yend_src - yst_src + 1;
+
+  <span class="comment">// scale to maintain aspect ratio if required</span>
+  <span class="keywordflow">if</span> (isotropic) {
+    <span class="keywordflow">if</span> ((<a class="code" href="classtesseract_1_1_bmp8.html#aefc333b9afa85c20f0daed573021fedf">wid_</a> * hgt_src) &gt; (<a class="code" href="classtesseract_1_1_bmp8.html#a62d633750ad515b99eda172efccc7b55">hgt_</a> * wid_src)) {
+      x_num = y_num = <a class="code" href="classtesseract_1_1_bmp8.html#a62d633750ad515b99eda172efccc7b55">hgt_</a>;
+      x_denom = y_denom = hgt_src;
+    } <span class="keywordflow">else</span> {
+      x_num = y_num = <a class="code" href="classtesseract_1_1_bmp8.html#aefc333b9afa85c20f0daed573021fedf">wid_</a>;
+      x_denom = y_denom = wid_src;
+    }
+  } <span class="keywordflow">else</span> {
+    x_num = <a class="code" href="classtesseract_1_1_bmp8.html#aefc333b9afa85c20f0daed573021fedf">wid_</a>;
+    y_num = <a class="code" href="classtesseract_1_1_bmp8.html#a62d633750ad515b99eda172efccc7b55">hgt_</a>;
+    x_denom = wid_src;
+    y_denom = hgt_src;
+  }
+
+  <span class="comment">// compute offsets needed to center new bmp</span>
+  xoff = (<a class="code" href="classtesseract_1_1_bmp8.html#aefc333b9afa85c20f0daed573021fedf">wid_</a> - ((x_num * wid_src) / x_denom)) / 2;
+  yoff = (<a class="code" href="classtesseract_1_1_bmp8.html#a62d633750ad515b99eda172efccc7b55">hgt_</a> - ((y_num * hgt_src) / y_denom)) / 2;
+
+  <span class="comment">// scale up</span>
+  <span class="keywordflow">if</span> (y_num &gt; y_denom) {
+    <span class="keywordflow">for</span> (ydest = yoff; ydest &lt; (<a class="code" href="classtesseract_1_1_bmp8.html#a62d633750ad515b99eda172efccc7b55">hgt_</a> - yoff); ydest++) {
+      <span class="comment">// compute un-scaled y</span>
+      ysrc = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(0.5 + (1.0 * (ydest - yoff) *
+          y_denom / y_num));
+      <span class="keywordflow">if</span> (ysrc &lt; 0 || ysrc &gt;= hgt_src) {
+        <span class="keywordflow">continue</span>;
+      }
+
+      <span class="keywordflow">for</span> (xdest = xoff; xdest &lt; (<a class="code" href="classtesseract_1_1_bmp8.html#aefc333b9afa85c20f0daed573021fedf">wid_</a> - xoff); xdest++) {
+        <span class="comment">// compute un-scaled y</span>
+        xsrc = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(0.5 + (1.0 * (xdest - xoff) *
+            x_denom / x_num));
+        <span class="keywordflow">if</span> (xsrc &lt; 0 || xsrc &gt;= wid_src) {
+          <span class="keywordflow">continue</span>;
+        }
+
+        <a class="code" href="classtesseract_1_1_bmp8.html#a66763262f6d74a8d10ffdc83a73bb451">line_buff_</a>[ydest][xdest] =
+            bmp-&gt;line_buff_[ysrc + yst_src][xsrc + xst_src];
+      }
+    }
+  } <span class="keywordflow">else</span> {
+    <span class="comment">// or scale down</span>
+    <span class="comment">// scaling down is a bit tricky: we&#39;ll accumulate pixels</span>
+    <span class="comment">// and then compute the means</span>
+    <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> **dest_line_buff = CreateBmpBuffer(<a class="code" href="classtesseract_1_1_bmp8.html#aefc333b9afa85c20f0daed573021fedf">wid_</a>, <a class="code" href="classtesseract_1_1_bmp8.html#a62d633750ad515b99eda172efccc7b55">hgt_</a>, 0),
+      **dest_pix_cnt =  CreateBmpBuffer(<a class="code" href="classtesseract_1_1_bmp8.html#aefc333b9afa85c20f0daed573021fedf">wid_</a>, <a class="code" href="classtesseract_1_1_bmp8.html#a62d633750ad515b99eda172efccc7b55">hgt_</a>, 0);
+
+    <span class="keywordflow">for</span> (ysrc = 0; ysrc &lt; hgt_src; ysrc++) {
+      <span class="comment">// compute scaled y</span>
+      ydest = yoff + <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(0.5 + (1.0 * ysrc * y_num / y_denom));
+      <span class="keywordflow">if</span> (ydest &lt; 0 || ydest &gt;= <a class="code" href="classtesseract_1_1_bmp8.html#a62d633750ad515b99eda172efccc7b55">hgt_</a>) {
+        <span class="keywordflow">continue</span>;
+      }
+
+      <span class="keywordflow">for</span> (xsrc = 0; xsrc &lt; wid_src; xsrc++) {
+        <span class="comment">// compute scaled y</span>
+        xdest = xoff + <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(0.5 + (1.0 * xsrc * x_num / x_denom));
+        <span class="keywordflow">if</span> (xdest &lt; 0 || xdest &gt;= <a class="code" href="classtesseract_1_1_bmp8.html#aefc333b9afa85c20f0daed573021fedf">wid_</a>) {
+          <span class="keywordflow">continue</span>;
+        }
+
+        dest_line_buff[ydest][xdest] +=
+            bmp-&gt;line_buff_[ysrc + yst_src][xsrc + xst_src];
+        dest_pix_cnt[ydest][xdest]++;
+      }
+    }
+
+    <span class="keywordflow">for</span> (ydest = 0; ydest &lt; <a class="code" href="classtesseract_1_1_bmp8.html#a62d633750ad515b99eda172efccc7b55">hgt_</a>; ydest++) {
+      <span class="keywordflow">for</span> (xdest = 0; xdest &lt; <a class="code" href="classtesseract_1_1_bmp8.html#aefc333b9afa85c20f0daed573021fedf">wid_</a>; xdest++) {
+        <span class="keywordflow">if</span> (dest_pix_cnt[ydest][xdest] &gt; 0) {
+          <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> pixval =
+              dest_line_buff[ydest][xdest] / dest_pix_cnt[ydest][xdest];
+
+          <a class="code" href="classtesseract_1_1_bmp8.html#a66763262f6d74a8d10ffdc83a73bb451">line_buff_</a>[ydest][xdest] =
+              (<span class="keywordtype">unsigned</span> char) min((<span class="keywordtype">unsigned</span> <span class="keywordtype">int</span>)255, pixval);
+        }
+      }
+    }
+
+    <span class="comment">// we no longer need these temp buffers</span>
+    FreeBmpBuffer(dest_line_buff);
+    FreeBmpBuffer(dest_pix_cnt);
+  }
+
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3858bc18b43667e4b985f154fc139def"></a><!-- doxytag: member="tesseract::Bmp8::Stride" ref="a3858bc18b43667e4b985f154fc139def" args="() const " -->
@@ -662,6 +1691,9 @@ Static Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bmp__8_8h_source.html#l00049">49</a> of file <a class="el" href="bmp__8_8h_source.html">bmp_8.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> stride_; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4a21ea5a104d8c37e22c94b4cde2d462"></a><!-- doxytag: member="tesseract::Bmp8::Width" ref="a4a21ea5a104d8c37e22c94b4cde2d462" args="() const " -->
@@ -678,6 +1710,9 @@ Static Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bmp__8_8h_source.html#l00048">48</a> of file <a class="el" href="bmp__8_8h_source.html">bmp_8.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_bmp8.html#aefc333b9afa85c20f0daed573021fedf">wid_</a>; }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
@@ -692,6 +1727,8 @@ Static Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bmp__8_8h_source.html#l00096">96</a> of file <a class="el" href="bmp__8_8h_source.html">bmp_8.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="abb90985ae39b699969e1fc4bce0cebf3"></a><!-- doxytag: member="tesseract::Bmp8::kConCompAllocChunk" ref="abb90985ae39b699969e1fc4bce0cebf3" args="" -->
@@ -704,6 +1741,8 @@ Static Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="bmp__8_8h_source.html#l00100">100</a> of file <a class="el" href="bmp__8_8h_source.html">bmp_8.h</a>.</p>
 
 </div>
 </div>
@@ -720,6 +1759,8 @@ Static Protected Attributes</h2></td></tr>
 <b>Initial value:</b><div class="fragment"><pre class="fragment"> (1 + <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(0.5f +
     (kMaxDeslantAngle - kMinDeslantAngle) / kDeslantAngleDelta))
 </pre></div>
+<p>Definition at line <a class="el" href="bmp__8_8h_source.html#l00101">101</a> of file <a class="el" href="bmp__8_8h_source.html">bmp_8.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a66763262f6d74a8d10ffdc83a73bb451"></a><!-- doxytag: member="tesseract::Bmp8::line_buff_" ref="a66763262f6d74a8d10ffdc83a73bb451" args="" -->
@@ -732,6 +1773,8 @@ Static Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="bmp__8_8h_source.html#l00098">98</a> of file <a class="el" href="bmp__8_8h_source.html">bmp_8.h</a>.</p>
 
 </div>
 </div>
@@ -746,11 +1789,13 @@ Static Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="bmp__8_8h_source.html#l00095">95</a> of file <a class="el" href="bmp__8_8h_source.html">bmp_8.h</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/cube/<a class="el" href="bmp__8_8h_source.html">bmp_8.h</a></li>
-<li>tesseract-ocr/cube/<a class="el" href="bmp__8_8cpp.html">bmp_8.cpp</a></li>
+<li>tesseract-ocr/cube/<a class="el" href="bmp__8_8cpp_source.html">bmp_8.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -773,7 +1818,7 @@ Static Protected Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:15 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:50 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

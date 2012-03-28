@@ -136,7 +136,10 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_e_j_m_a_p.html#aa86752e4e9277f2a616df08459ea08e3">rej_word_block_rej</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_e_j_m_a_p.html#a03037d4a12a4ea33a377cf21c9400139">rej_word_row_rej</a> ()</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="rejctmap_8h_source.html#l00206">206</a> of file <a class="el" href="rejctmap_8h_source.html">rejctmap.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="af262c00aa14528e97a2937bfb76bad9d"></a><!-- doxytag: member="REJMAP::REJMAP" ref="af262c00aa14528e97a2937bfb76bad9d" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -151,6 +154,12 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rejctmap_8h_source.html#l00212">212</a> of file <a class="el" href="rejctmap_8h_source.html">rejctmap.h</a>.</p>
+<div class="fragment"><pre class="fragment">             {  <span class="comment">//constructor</span>
+      ptr = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+      len = 0;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a69c3b87ae748d43477c8a83dc320d6e0"></a><!-- doxytag: member="REJMAP::REJMAP" ref="a69c3b87ae748d43477c8a83dc320d6e0" args="(const REJMAP &amp;rejmap)" -->
@@ -168,6 +177,27 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rejctmap_8cpp_source.html#l00281">281</a> of file <a class="el" href="rejctmap_8cpp_source.html">rejctmap.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                     {
+  <a class="code" href="class_r_e_j.html">REJ</a> *to;
+  <a class="code" href="class_r_e_j.html">REJ</a> *from = source.ptr;
+  <span class="keywordtype">int</span> i;
+
+  len = source.length ();
+
+  <span class="keywordflow">if</span> (len &gt; 0) {
+    ptr = (<a class="code" href="class_r_e_j.html">REJ</a> *) <a class="code" href="memry_8cpp.html#a4f4e6728de23eb0530f9bdc8b3a114d3">alloc_struct</a> (len * <span class="keyword">sizeof</span> (<a class="code" href="class_r_e_j.html">REJ</a>), <span class="stringliteral">&quot;REJ&quot;</span>);
+    to = ptr;
+    <span class="keywordflow">for</span> (i = 0; i &lt; len; i++) {
+      *to = *from;
+      to++;
+      from++;
+    }
+  }
+  <span class="keywordflow">else</span>
+    ptr = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae96e00c028f6afaaeb8ef2a333cc5027"></a><!-- doxytag: member="REJMAP::~REJMAP" ref="ae96e00c028f6afaaeb8ef2a333cc5027" args="()" -->
@@ -184,6 +214,12 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rejctmap_8h_source.html#l00223">223</a> of file <a class="el" href="rejctmap_8h_source.html">rejctmap.h</a>.</p>
+<div class="fragment"><pre class="fragment">               {                 <span class="comment">//destructor</span>
+      <span class="keywordflow">if</span> (ptr != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+        <a class="code" href="memry_8cpp.html#a204a6cd6de69d4bd7a73ca30e0a0f947">free_struct</a> (ptr, len * <span class="keyword">sizeof</span> (<a class="code" href="class_r_e_j.html">REJ</a>), <span class="stringliteral">&quot;REJ&quot;</span>);
+    }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -201,6 +237,18 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rejctmap_8cpp_source.html#l00337">337</a> of file <a class="el" href="rejctmap_8cpp_source.html">rejctmap.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                           {  <span class="comment">//How many accepted?</span>
+  <span class="keywordtype">int</span> i;
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> <a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a> = 0;
+
+  <span class="keywordflow">for</span> (i = 0; i &lt; len; i++) {
+    <span class="keywordflow">if</span> (ptr[i].accepted ())
+      count++;
+  }
+  <span class="keywordflow">return</span> <a class="code" href="oldlist_8cpp.html#acd4ea858d7133e40518e0832ff9d94b2">count</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a476689acf6a0c07a0f09452ef5ff79e8"></a><!-- doxytag: member="REJMAP::full_print" ref="a476689acf6a0c07a0f09452ef5ff79e8" args="(FILE *fp)" -->
@@ -218,6 +266,16 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rejctmap_8cpp_source.html#l00412">412</a> of file <a class="el" href="rejctmap_8cpp_source.html">rejctmap.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                {
+  <span class="keywordtype">int</span> i;
+
+  <span class="keywordflow">for</span> (i = 0; i &lt; len; i++) {
+    ptr[i].<a class="code" href="class_r_e_j.html#ae41360113ba4db9b14d26df6a10611b1">full_print</a> (fp);
+    fprintf (fp, <span class="stringliteral">&quot;\n&quot;</span>);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a487e7d5d02b1fd1e142578ab4614f05b"></a><!-- doxytag: member="REJMAP::initialise" ref="a487e7d5d02b1fd1e142578ab4614f05b" args="(inT16 length)" -->
@@ -235,6 +293,18 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rejctmap_8cpp_source.html#l00324">324</a> of file <a class="el" href="rejctmap_8cpp_source.html">rejctmap.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                      {
+  <span class="keywordflow">if</span> (ptr != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <a class="code" href="memry_8cpp.html#a204a6cd6de69d4bd7a73ca30e0a0f947">free_struct</a> (ptr, len * <span class="keyword">sizeof</span> (<a class="code" href="class_r_e_j.html">REJ</a>), <span class="stringliteral">&quot;REJ&quot;</span>);
+  len = <a class="code" href="class_r_e_j_m_a_p.html#ab3760d96d63b5ca6c4bfeb32ffc8183c">length</a>;
+  <span class="keywordflow">if</span> (len &gt; 0)
+    ptr = (<a class="code" href="class_r_e_j.html">REJ</a> *) memset (<a class="code" href="memry_8cpp.html#a4f4e6728de23eb0530f9bdc8b3a114d3">alloc_struct</a> (len * <span class="keyword">sizeof</span> (<a class="code" href="class_r_e_j.html">REJ</a>), <span class="stringliteral">&quot;REJ&quot;</span>),
+      0, len * <span class="keyword">sizeof</span> (<a class="code" href="class_r_e_j.html">REJ</a>));
+  <span class="keywordflow">else</span>
+    ptr = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab3760d96d63b5ca6c4bfeb32ffc8183c"></a><!-- doxytag: member="REJMAP::length" ref="ab3760d96d63b5ca6c4bfeb32ffc8183c" args="() const " -->
@@ -251,6 +321,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rejctmap_8h_source.html#l00238">238</a> of file <a class="el" href="rejctmap_8h_source.html">rejctmap.h</a>.</p>
+<div class="fragment"><pre class="fragment">                         {  <span class="comment">//map length</span>
+      <span class="keywordflow">return</span> len;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a495e91f8ad6cee2217cb27b8367b6cd0"></a><!-- doxytag: member="REJMAP::operator=" ref="a495e91f8ad6cee2217cb27b8367b6cd0" args="(const REJMAP &amp;source)" -->
@@ -268,6 +343,25 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rejctmap_8cpp_source.html#l00303">303</a> of file <a class="el" href="rejctmap_8cpp_source.html">rejctmap.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">  {
+  <a class="code" href="class_r_e_j.html">REJ</a> *
+    to;
+  <a class="code" href="class_r_e_j.html">REJ</a> *
+    from = source.ptr;
+  <span class="keywordtype">int</span>
+    i;
+
+  <a class="code" href="class_r_e_j_m_a_p.html#a487e7d5d02b1fd1e142578ab4614f05b">initialise</a> (source.len);
+  to = ptr;
+  <span class="keywordflow">for</span> (i = 0; i &lt; len; i++) {
+    *to = *from;
+    to++;
+    from++;
+  }
+  <span class="keywordflow">return</span> *<span class="keyword">this</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a92b428c14fb92019093bf9ac60442929"></a><!-- doxytag: member="REJMAP::operator[]" ref="a92b428c14fb92019093bf9ac60442929" args="(inT16 index) const " -->
@@ -285,6 +379,12 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rejctmap_8h_source.html#l00231">231</a> of file <a class="el" href="rejctmap_8h_source.html">rejctmap.h</a>.</p>
+<div class="fragment"><pre class="fragment">    {
+      <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a> (index &lt; len);
+      <span class="keywordflow">return</span> ptr[index];         <span class="comment">//no bounds checks</span>
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a124889539460b8c200b3186da4a692e0"></a><!-- doxytag: member="REJMAP::print" ref="a124889539460b8c200b3186da4a692e0" args="(FILE *fp)" -->
@@ -302,6 +402,18 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rejctmap_8cpp_source.html#l00400">400</a> of file <a class="el" href="rejctmap_8cpp_source.html">rejctmap.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                           {
+  <span class="keywordtype">int</span> i;
+  <span class="keywordtype">char</span> buff[512];
+
+  <span class="keywordflow">for</span> (i = 0; i &lt; len; i++) {
+    buff[i] = ptr[i].<a class="code" href="class_r_e_j.html#af7e02fd6b9b974b663bb1c6316470bae">display_char</a> ();
+  }
+  buff[i] = <span class="charliteral">&#39;\0&#39;</span>;
+  fprintf (fp, <span class="stringliteral">&quot;\&quot;%s\&quot;&quot;</span>, buff);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aabdc95245f033b2e393eccf79d4641e5"></a><!-- doxytag: member="REJMAP::quality_recoverable_rejects" ref="aabdc95245f033b2e393eccf79d4641e5" args="()" -->
@@ -318,6 +430,17 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rejctmap_8cpp_source.html#l00360">360</a> of file <a class="el" href="rejctmap_8cpp_source.html">rejctmap.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                          {  <span class="comment">//Any potential rejs?</span>
+  <span class="keywordtype">int</span> i;
+
+  <span class="keywordflow">for</span> (i = 0; i &lt; len; i++) {
+    <span class="keywordflow">if</span> (ptr[i].accept_if_good_quality ())
+      <span class="keywordflow">return</span> <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+  }
+  <span class="keywordflow">return</span> <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a457cafbf945fd8b57489faa492105197"></a><!-- doxytag: member="REJMAP::recoverable_rejects" ref="a457cafbf945fd8b57489faa492105197" args="()" -->
@@ -334,6 +457,17 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rejctmap_8cpp_source.html#l00349">349</a> of file <a class="el" href="rejctmap_8cpp_source.html">rejctmap.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                  {  <span class="comment">//Any non perm rejs?</span>
+  <span class="keywordtype">int</span> i;
+
+  <span class="keywordflow">for</span> (i = 0; i &lt; len; i++) {
+    <span class="keywordflow">if</span> (ptr[i].recoverable ())
+      <span class="keywordflow">return</span> <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+  }
+  <span class="keywordflow">return</span> <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a36d38c0c25d9792a85b5cb4b01e251fa"></a><!-- doxytag: member="REJMAP::rej_word_bad_permuter" ref="a36d38c0c25d9792a85b5cb4b01e251fa" args="()" -->
@@ -350,6 +484,15 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rejctmap_8cpp_source.html#l00458">458</a> of file <a class="el" href="rejctmap_8cpp_source.html">rejctmap.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                   {  <span class="comment">//Reject whole word</span>
+  <span class="keywordtype">int</span> i;
+
+  <span class="keywordflow">for</span> (i = 0; i &lt; len; i++) {
+    <span class="keywordflow">if</span> (ptr[i].accepted()) ptr[i].<a class="code" href="class_r_e_j.html#a051db6890b347a2cf695d7e10baa54bf">setrej_bad_permuter</a> ();
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa0e131c139fe56b044b20cc8fd2a645c"></a><!-- doxytag: member="REJMAP::rej_word_bad_quality" ref="aa0e131c139fe56b044b20cc8fd2a645c" args="()" -->
@@ -366,6 +509,15 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rejctmap_8cpp_source.html#l00494">494</a> of file <a class="el" href="rejctmap_8cpp_source.html">rejctmap.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                  {  <span class="comment">//Reject whole word</span>
+  <span class="keywordtype">int</span> i;
+
+  <span class="keywordflow">for</span> (i = 0; i &lt; len; i++) {
+    <span class="keywordflow">if</span> (ptr[i].accepted()) ptr[i].<a class="code" href="class_r_e_j.html#a336ae72a6abff5419d99f6bd5bc0de2e">setrej_bad_quality</a>();
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa86752e4e9277f2a616df08459ea08e3"></a><!-- doxytag: member="REJMAP::rej_word_block_rej" ref="aa86752e4e9277f2a616df08459ea08e3" args="()" -->
@@ -382,6 +534,15 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rejctmap_8cpp_source.html#l00512">512</a> of file <a class="el" href="rejctmap_8cpp_source.html">rejctmap.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                {  <span class="comment">//Reject whole word</span>
+  <span class="keywordtype">int</span> i;
+
+  <span class="keywordflow">for</span> (i = 0; i &lt; len; i++) {
+    <span class="keywordflow">if</span> (ptr[i].accepted()) ptr[i].<a class="code" href="class_r_e_j.html#ab327b4a6585504669ac9c20acbc9df02">setrej_block_rej</a>();
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="acb01c2a1d8d28ecffdb51c6a7c3d22da"></a><!-- doxytag: member="REJMAP::rej_word_contains_blanks" ref="acb01c2a1d8d28ecffdb51c6a7c3d22da" args="()" -->
@@ -398,6 +559,15 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rejctmap_8cpp_source.html#l00449">449</a> of file <a class="el" href="rejctmap_8cpp_source.html">rejctmap.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                      {  <span class="comment">//Reject whole word</span>
+  <span class="keywordtype">int</span> i;
+
+  <span class="keywordflow">for</span> (i = 0; i &lt; len; i++) {
+    <span class="keywordflow">if</span> (ptr[i].accepted()) ptr[i].<a class="code" href="class_r_e_j.html#a5ddc940717935d506e6454991f096bb0">setrej_contains_blanks</a>();
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9fb4a691f24ea06370b55650c197db8b"></a><!-- doxytag: member="REJMAP::rej_word_doc_rej" ref="a9fb4a691f24ea06370b55650c197db8b" args="()" -->
@@ -414,6 +584,15 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rejctmap_8cpp_source.html#l00503">503</a> of file <a class="el" href="rejctmap_8cpp_source.html">rejctmap.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                              {  <span class="comment">//Reject whole word</span>
+  <span class="keywordtype">int</span> i;
+
+  <span class="keywordflow">for</span> (i = 0; i &lt; len; i++) {
+    <span class="keywordflow">if</span> (ptr[i].accepted()) ptr[i].<a class="code" href="class_r_e_j.html#a75e2aaff1c54a39d54702c7cd645ec99">setrej_doc_rej</a>();
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a10eb4f474df5983cdc0705f189c3f19b"></a><!-- doxytag: member="REJMAP::rej_word_mostly_rej" ref="a10eb4f474df5983cdc0705f189c3f19b" args="()" -->
@@ -430,6 +609,15 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rejctmap_8cpp_source.html#l00485">485</a> of file <a class="el" href="rejctmap_8cpp_source.html">rejctmap.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                 {  <span class="comment">//Reject whole word</span>
+  <span class="keywordtype">int</span> i;
+
+  <span class="keywordflow">for</span> (i = 0; i &lt; len; i++) {
+    <span class="keywordflow">if</span> (ptr[i].accepted()) ptr[i].<a class="code" href="class_r_e_j.html#a44e295be30bb374f6b698fb5fc4b9c54">setrej_mostly_rej</a>();
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a91ab357641e2a2a37aa98c2bacd03e2c"></a><!-- doxytag: member="REJMAP::rej_word_no_alphanums" ref="a91ab357641e2a2a37aa98c2bacd03e2c" args="()" -->
@@ -446,6 +634,15 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rejctmap_8cpp_source.html#l00476">476</a> of file <a class="el" href="rejctmap_8cpp_source.html">rejctmap.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                   {  <span class="comment">//Reject whole word</span>
+  <span class="keywordtype">int</span> i;
+
+  <span class="keywordflow">for</span> (i = 0; i &lt; len; i++) {
+    <span class="keywordflow">if</span> (ptr[i].accepted()) ptr[i].<a class="code" href="class_r_e_j.html#a08d65cd7853e3b7ca907e27fc444e465">setrej_no_alphanums</a>();
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a776b94463f9c008020c8cdf69c89b8c4"></a><!-- doxytag: member="REJMAP::rej_word_not_tess_accepted" ref="a776b94463f9c008020c8cdf69c89b8c4" args="()" -->
@@ -462,6 +659,15 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rejctmap_8cpp_source.html#l00440">440</a> of file <a class="el" href="rejctmap_8cpp_source.html">rejctmap.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                        {  <span class="comment">//Reject whole word</span>
+  <span class="keywordtype">int</span> i;
+
+  <span class="keywordflow">for</span> (i = 0; i &lt; len; i++) {
+    <span class="keywordflow">if</span> (ptr[i].accepted()) ptr[i].<a class="code" href="class_r_e_j.html#ab34edb92d2007cb70e221c00ca9b7690">setrej_not_tess_accepted</a>();
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a03037d4a12a4ea33a377cf21c9400139"></a><!-- doxytag: member="REJMAP::rej_word_row_rej" ref="a03037d4a12a4ea33a377cf21c9400139" args="()" -->
@@ -478,6 +684,15 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rejctmap_8cpp_source.html#l00521">521</a> of file <a class="el" href="rejctmap_8cpp_source.html">rejctmap.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                              {  <span class="comment">//Reject whole word</span>
+  <span class="keywordtype">int</span> i;
+
+  <span class="keywordflow">for</span> (i = 0; i &lt; len; i++) {
+    <span class="keywordflow">if</span> (ptr[i].accepted()) ptr[i].<a class="code" href="class_r_e_j.html#ab047fe90130b0696f8797d378a4c86b6">setrej_row_rej</a>();
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7f6528c1228002276d930ed9407c556b"></a><!-- doxytag: member="REJMAP::rej_word_small_xht" ref="a7f6528c1228002276d930ed9407c556b" args="()" -->
@@ -494,6 +709,15 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rejctmap_8cpp_source.html#l00422">422</a> of file <a class="el" href="rejctmap_8cpp_source.html">rejctmap.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                {  <span class="comment">//Reject whole word</span>
+  <span class="keywordtype">int</span> i;
+
+  <span class="keywordflow">for</span> (i = 0; i &lt; len; i++) {
+    ptr[i].<a class="code" href="class_r_e_j.html#a3203871d23c1ed0d2607cc3abe80d312">setrej_small_xht</a> ();
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac1d7e8e50b633e7c1b9e25904567f86b"></a><!-- doxytag: member="REJMAP::rej_word_tess_failure" ref="ac1d7e8e50b633e7c1b9e25904567f86b" args="()" -->
@@ -510,6 +734,15 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rejctmap_8cpp_source.html#l00431">431</a> of file <a class="el" href="rejctmap_8cpp_source.html">rejctmap.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                   {  <span class="comment">//Reject whole word</span>
+  <span class="keywordtype">int</span> i;
+
+  <span class="keywordflow">for</span> (i = 0; i &lt; len; i++) {
+    ptr[i].<a class="code" href="class_r_e_j.html#a77174dfda3ff0eab311885d181e91616">setrej_tess_failure</a> ();
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a70c042d067a9901e39f11d40633eacce"></a><!-- doxytag: member="REJMAP::rej_word_xht_fixup" ref="a70c042d067a9901e39f11d40633eacce" args="()" -->
@@ -526,6 +759,15 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rejctmap_8cpp_source.html#l00467">467</a> of file <a class="el" href="rejctmap_8cpp_source.html">rejctmap.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                {  <span class="comment">//Reject whole word</span>
+  <span class="keywordtype">int</span> i;
+
+  <span class="keywordflow">for</span> (i = 0; i &lt; len; i++) {
+    <span class="keywordflow">if</span> (ptr[i].accepted()) ptr[i].<a class="code" href="class_r_e_j.html#a844bb22fce303e9da216decd4e1c2026">setrej_xht_fixup</a>();
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac8e3f1806f06dfb616d76f68f1b96bc6"></a><!-- doxytag: member="REJMAP::reject_count" ref="ac8e3f1806f06dfb616d76f68f1b96bc6" args="()" -->
@@ -542,6 +784,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rejctmap_8h_source.html#l00244">244</a> of file <a class="el" href="rejctmap_8h_source.html">rejctmap.h</a>.</p>
+<div class="fragment"><pre class="fragment">                         {  <span class="comment">//How many rejects?</span>
+      <span class="keywordflow">return</span> len - <a class="code" href="class_r_e_j_m_a_p.html#aec0cef1513cd939f0db5f5436f8fdbc6">accept_count</a> ();
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4c9547ef1b7996f830e75136689e34cc"></a><!-- doxytag: member="REJMAP::remove_pos" ref="a4c9547ef1b7996f830e75136689e34cc" args="(inT16 pos)" -->
@@ -559,11 +806,38 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rejctmap_8cpp_source.html#l00371">371</a> of file <a class="el" href="rejctmap_8cpp_source.html">rejctmap.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                         {
+  <a class="code" href="class_r_e_j.html">REJ</a> *new_ptr;                  <span class="comment">//new, smaller map</span>
+  <span class="keywordtype">int</span> i;
+
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a> (pos &gt;= 0);
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a> (pos &lt; len);
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a> (len &gt; 0);
+
+  len--;
+  <span class="keywordflow">if</span> (len &gt; 0)
+    new_ptr = (<a class="code" href="class_r_e_j.html">REJ</a> *) memset (<a class="code" href="memry_8cpp.html#a4f4e6728de23eb0530f9bdc8b3a114d3">alloc_struct</a> (len * <span class="keyword">sizeof</span> (<a class="code" href="class_r_e_j.html">REJ</a>), <span class="stringliteral">&quot;REJ&quot;</span>),
+      0, len * <span class="keyword">sizeof</span> (<a class="code" href="class_r_e_j.html">REJ</a>));
+  <span class="keywordflow">else</span>
+    new_ptr = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+
+  <span class="keywordflow">for</span> (i = 0; i &lt; pos; i++)
+    new_ptr[i] = ptr[i];         <span class="comment">//copy pre pos</span>
+
+  <span class="keywordflow">for</span> (; pos &lt; len; pos++)
+    new_ptr[pos] = ptr[pos + 1]; <span class="comment">//copy post pos</span>
+
+                                 <span class="comment">//delete old map</span>
+  <a class="code" href="memry_8cpp.html#a204a6cd6de69d4bd7a73ca30e0a0f947">free_struct</a> (ptr, (len + 1) * <span class="keyword">sizeof</span> (<a class="code" href="class_r_e_j.html">REJ</a>), <span class="stringliteral">&quot;REJ&quot;</span>);
+  ptr = new_ptr;
+}
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/ccstruct/<a class="el" href="rejctmap_8h_source.html">rejctmap.h</a></li>
-<li>tesseract-ocr/ccstruct/<a class="el" href="rejctmap_8cpp.html">rejctmap.cpp</a></li>
+<li>tesseract-ocr/ccstruct/<a class="el" href="rejctmap_8cpp_source.html">rejctmap.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -585,7 +859,7 @@ Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:13 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:46 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

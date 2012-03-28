@@ -118,7 +118,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <code>#include &quot;<a class="el" href="scanutils_8h_source.html">scanutils.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="unicharset_8h_source.html">unicharset.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="params_8h_source.html">params.h</a>&quot;</code><br/>
-</div><table class="memberdecls">
+</div>
+<p><a href="normmatch_8cpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr><td colspan="2"><h2><a name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="struct_n_o_r_m___p_r_o_t_o_s.html">NORM_PROTOS</a></td></tr>
@@ -154,6 +156,19 @@ Variables</h2></td></tr>
 <p>---------------------------------------------------------------------------- Private Function Prototypes ----------------------------------------------------------------------------</p>
 <p>---------------------------------------------------------------------------- Private Code ---------------------------------------------------------------------------- </p>
 
+<p>Definition at line <a class="el" href="normmatch_8cpp_source.html#l00179">179</a> of file <a class="el" href="normmatch_8cpp_source.html">normmatch.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                               {
+  NormAdj /= <a class="code" href="normmatch_8cpp.html#a5b39e06af338d5d0623762a84246e7a6">classify_norm_adj_midpoint</a>;
+
+  <span class="keywordflow">if</span> (<a class="code" href="normmatch_8cpp.html#ae9f63df566aa3f4d4405918d1b1af0b3">classify_norm_adj_curl</a> == 3)
+    NormAdj = NormAdj * NormAdj * NormAdj;
+  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (<a class="code" href="normmatch_8cpp.html#ae9f63df566aa3f4d4405918d1b1af0b3">classify_norm_adj_curl</a> == 2)
+    NormAdj = NormAdj * NormAdj;
+  <span class="keywordflow">else</span>
+    NormAdj = pow (NormAdj, <a class="code" href="normmatch_8cpp.html#ae9f63df566aa3f4d4405918d1b1af0b3">classify_norm_adj_curl</a>);
+  <span class="keywordflow">return</span> (1.0 / (1.0 + NormAdj));
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2a041eb1273bd7e18bcb663d2106ac15"></a><!-- doxytag: member="normmatch.cpp::PrintNormMatch" ref="a2a041eb1273bd7e18bcb663d2106ac15" args="(FILE *File, int NumParams, PROTOTYPE *Proto, FEATURE Feature)" -->
@@ -193,6 +208,38 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="normmatch_8cpp_source.html#l00193">193</a> of file <a class="el" href="normmatch_8cpp_source.html">normmatch.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                     {
+<span class="comment">/*</span>
+<span class="comment"> **     Parameters:</span>
+<span class="comment"> **             File            open text file to dump match debug info to</span>
+<span class="comment"> **             NumParams       # of parameters in proto and feature</span>
+<span class="comment"> **             Proto[]         array of prototype parameters</span>
+<span class="comment"> **             Feature[]       array of feature parameters</span>
+<span class="comment"> **     Globals: none</span>
+<span class="comment"> **     Operation: This routine dumps out detailed normalization match info.</span>
+<span class="comment"> **     Return: none</span>
+<span class="comment"> **     Exceptions: none</span>
+<span class="comment"> **     History: Wed Jan  2 09:49:35 1991, DSJ, Created.</span>
+<span class="comment"> */</span>
+  <span class="keywordtype">int</span> i;
+  <a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a> ParamMatch;
+  <a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a> TotalMatch;
+
+  <span class="keywordflow">for</span> (i = 0, TotalMatch = 0.0; i &lt; NumParams; i++) {
+    ParamMatch = (Feature-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_t_r_u_c_t.html#ace52f36cfcba955504f4a24f86a897b4">Params</a>[i] - <a class="code" href="cluster_8cpp.html#ad99e1235a4e63880ab2f72bfdff26e28">Mean</a>(Proto, i)) /
+      <a class="code" href="cluster_8cpp.html#a8bdd5efd86c814e7f069aa7674cd5178">StandardDeviation</a>(Proto, i);
+
+    fprintf (File, <span class="stringliteral">&quot; %6.1f&quot;</span>, ParamMatch);
+
+    <span class="keywordflow">if</span> (i == <a class="code" href="normfeat_8h.html#ab5ff0a2380362fa488e17c0c1b858506a9309b18966f93d05a857e8ee0f81c557">CharNormY</a> || i == <a class="code" href="normfeat_8h.html#ab5ff0a2380362fa488e17c0c1b858506a5a6745d4958b44c8c3481742021428f9">CharNormRx</a>)
+      TotalMatch += ParamMatch * ParamMatch;
+  }
+  fprintf (File, <span class="stringliteral">&quot; --&gt; %6.1f (%4.2f)\n&quot;</span>,
+    TotalMatch, <a class="code" href="normmatch_8cpp.html#aabdd8bad43c2e04682813cb96494d5bb">NormEvidenceOf</a> (TotalMatch));
+
+}                                <span class="comment">/* PrintNormMatch */</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab61ebd7d4a40677a7cd70a298d0b3ca6"></a><!-- doxytag: member="normmatch.cpp::ReadNormProtos" ref="ab61ebd7d4a40677a7cd70a298d0b3ca6" args="(FILE *File)" -->
@@ -225,6 +272,8 @@ Variables</h2></td></tr>
 <div class="memdoc">
 <p>"Norm adjust curl ..." </p>
 
+<p>Definition at line <a class="el" href="normmatch_8cpp_source.html#l00064">64</a> of file <a class="el" href="normmatch_8cpp_source.html">normmatch.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a5b39e06af338d5d0623762a84246e7a6"></a><!-- doxytag: member="normmatch.cpp::classify_norm_adj_midpoint" ref="a5b39e06af338d5d0623762a84246e7a6" args="" -->
@@ -239,6 +288,8 @@ Variables</h2></td></tr>
 <div class="memdoc">
 <p>---------------------------------------------------------------------------- Variables ---------------------------------------------------------------------------- "Norm adjust midpoint ..." </p>
 
+<p>Definition at line <a class="el" href="normmatch_8cpp_source.html#l00063">63</a> of file <a class="el" href="normmatch_8cpp_source.html">normmatch.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a3882ddbdbe2c0e1c7f84ef7f01aae0a2"></a><!-- doxytag: member="normmatch.cpp::kWidthErrorWeighting" ref="a3882ddbdbe2c0e1c7f84ef7f01aae0a2" args="" -->
@@ -251,6 +302,8 @@ Variables</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="normmatch_8cpp_source.html#l00066">66</a> of file <a class="el" href="normmatch_8cpp_source.html">normmatch.cpp</a>.</p>
 
 </div>
 </div>
@@ -274,7 +327,7 @@ Variables</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:09 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:41 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

@@ -104,7 +104,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="textblock"><code>#include &quot;<a class="el" href="mfcpch_8h_source.html">mfcpch.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="stepblob_8h_source.html">stepblob.h</a>&quot;</code><br/>
 <code>#include &quot;allheaders.h&quot;</code><br/>
-</div><table class="memberdecls">
+</div>
+<p><a href="stepblob_8cpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="stepblob_8cpp.html#a80f70fd4c89248965b568cf106c08f2b">RotateOutlineList</a> (const <a class="el" href="class_f_c_o_o_r_d.html">FCOORD</a> &amp;rotation, C_OUTLINE_LIST *outlines)</td></tr>
@@ -135,6 +137,26 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="stepblob_8cpp_source.html#l00303">303</a> of file <a class="el" href="stepblob_8cpp_source.html">stepblob.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                         {
+  C_OUTLINE_LIST new_outlines;
+  C_OUTLINE_IT src_it(outlines);
+  C_OUTLINE_IT dest_it(&amp;new_outlines);
+  <span class="keywordflow">while</span> (!src_it.empty()) {
+    <a class="code" href="class_c___o_u_t_l_i_n_e.html">C_OUTLINE</a>* old_outline = src_it.extract();
+    src_it.forward();
+    <a class="code" href="class_c___o_u_t_l_i_n_e.html">C_OUTLINE</a>* new_outline = <span class="keyword">new</span> <a class="code" href="coutln_8h.html#a33c25172cfe8e7ec617eb16413b61294">C_OUTLINE</a>(old_outline, rotation);
+    <span class="keywordflow">if</span> (!old_outline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#a87880b33bc69fa17ab37a93706ae8d84">child</a>()-&gt;empty()) {
+      <a class="code" href="stepblob_8cpp.html#a80f70fd4c89248965b568cf106c08f2b">RotateOutlineList</a>(rotation, old_outline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#a87880b33bc69fa17ab37a93706ae8d84">child</a>());
+      C_OUTLINE_IT child_it(new_outline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#a87880b33bc69fa17ab37a93706ae8d84">child</a>());
+      child_it.add_list_after(old_outline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#a87880b33bc69fa17ab37a93706ae8d84">child</a>());
+    }
+    <span class="keyword">delete</span> old_outline;
+    dest_it.add_to_end(new_outline);
+  }
+  src_it.add_list_after(&amp;new_outlines);
+}
+</pre></div>
 </div>
 </div>
 </div>
@@ -157,7 +179,7 @@ Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:09 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:40 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

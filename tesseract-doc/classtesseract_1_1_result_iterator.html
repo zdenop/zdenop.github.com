@@ -143,7 +143,10 @@ Static Public Attributes</h2></td></tr>
 Protected Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">TESS_LOCAL&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_result_iterator.html#aa0f6c0e15c83e9ed718d80d736865c3f">ResultIterator</a> (const <a class="el" href="classtesseract_1_1_l_t_r_result_iterator.html">LTRResultIterator</a> &amp;resit)</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="resultiterator_8h_source.html#l00037">37</a> of file <a class="el" href="resultiterator_8h_source.html">resultiterator.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a15c5061a86ff73f0198a102e20f0d493"></a><!-- doxytag: member="tesseract::ResultIterator::~ResultIterator" ref="a15c5061a86ff73f0198a102e20f0d493" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -158,6 +161,9 @@ Protected Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="resultiterator_8h_source.html#l00043">43</a> of file <a class="el" href="resultiterator_8h_source.html">resultiterator.h</a>.</p>
+<div class="fragment"><pre class="fragment">{}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa0f6c0e15c83e9ed718d80d736865c3f"></a><!-- doxytag: member="tesseract::ResultIterator::ResultIterator" ref="aa0f6c0e15c83e9ed718d80d736865c3f" args="(const LTRResultIterator &amp;resit)" -->
@@ -175,6 +181,14 @@ Protected Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="resultiterator_8cpp_source.html#l00033">33</a> of file <a class="el" href="resultiterator_8cpp_source.html">resultiterator.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">    : <a class="code" href="classtesseract_1_1_l_t_r_result_iterator.html#a51a228fb5f12fca58db098ae9d9c9d5d">LTRResultIterator</a>(resit) {
+  in_minor_direction_ = <span class="keyword">false</span>;
+  at_beginning_of_minor_run_ = <span class="keyword">false</span>;
+  current_paragraph_is_ltr_ = CurrentParagraphIsLtr();
+  MoveToLogicalStartOfTextline();
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -194,6 +208,15 @@ Protected Member Functions</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classtesseract_1_1_page_iterator.html#a5cc369eb577150a3a677f9c342ce1240">tesseract::PageIterator</a>.</p>
 
+<p>Definition at line <a class="el" href="resultiterator_8cpp_source.html#l00408">408</a> of file <a class="el" href="resultiterator_8cpp_source.html">resultiterator.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                           {
+  <a class="code" href="classtesseract_1_1_result_iterator.html#a36e6fd5587628440bb19b84648645676">LTRResultIterator::Begin</a>();
+  current_paragraph_is_ltr_ = CurrentParagraphIsLtr();
+  in_minor_direction_ = <span class="keyword">false</span>;
+  at_beginning_of_minor_run_ = <span class="keyword">false</span>;
+  MoveToLogicalStartOfTextline();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a10ba7f1e30387d13b518fc1ccdcbfe06"></a><!-- doxytag: member="tesseract::ResultIterator::CalculateTextlineOrder" ref="a10ba7f1e30387d13b518fc1ccdcbfe06" args="(bool paragraph_is_ltr, const GenericVector&lt; StrongScriptDirection &gt; &amp;word_dirs, GenericVectorEqEq&lt; int &gt; *reading_order)" -->
@@ -227,6 +250,75 @@ Protected Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="resultiterator_8cpp_source.html#l00248">248</a> of file <a class="el" href="resultiterator_8cpp_source.html">resultiterator.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                           {
+  reading_order-&gt;<a class="code" href="class_generic_vector.html#af1793745c45178626c9afe48c7a1e140">truncate</a>(0);
+  <span class="keywordflow">if</span> (word_dirs.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>() == 0) <span class="keywordflow">return</span>;
+
+  <span class="comment">// Take all of the runs of minor direction words and insert them</span>
+  <span class="comment">// in reverse order.</span>
+  <span class="keywordtype">int</span> minor_direction, major_direction, major_step, start, end;
+  <span class="keywordflow">if</span> (paragraph_is_ltr) {
+    start = 0;
+    end = word_dirs.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>();
+    major_step = 1;
+    major_direction = <a class="code" href="unicharset_8h.html#abc3119a959ecd5cffc1d9b9d57479dbaa5978cd698552a6106db1bf6528617317">DIR_LEFT_TO_RIGHT</a>;
+    minor_direction = <a class="code" href="unicharset_8h.html#abc3119a959ecd5cffc1d9b9d57479dbaa3c6da23f98ab8ac48598c21583d9297e">DIR_RIGHT_TO_LEFT</a>;
+  } <span class="keywordflow">else</span> {
+    start = word_dirs.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>() - 1;
+    end = -1;
+    major_step = -1;
+    major_direction = <a class="code" href="unicharset_8h.html#abc3119a959ecd5cffc1d9b9d57479dbaa3c6da23f98ab8ac48598c21583d9297e">DIR_RIGHT_TO_LEFT</a>;
+    minor_direction = <a class="code" href="unicharset_8h.html#abc3119a959ecd5cffc1d9b9d57479dbaa5978cd698552a6106db1bf6528617317">DIR_LEFT_TO_RIGHT</a>;
+    <span class="comment">// Special rule: if there are neutral words at the right most side</span>
+    <span class="comment">//   of a line adjacent to a left-to-right word in the middle of the</span>
+    <span class="comment">//   line, we interpret the end of the line as a single LTR sequence.</span>
+    <span class="keywordflow">if</span> (word_dirs[start] == <a class="code" href="unicharset_8h.html#abc3119a959ecd5cffc1d9b9d57479dbaaacc5ec7fd402a8806e78fba831045aae">DIR_NEUTRAL</a>) {
+      <span class="keywordtype">int</span> neutral_end = start;
+      <span class="keywordflow">while</span> (neutral_end &gt; 0 &amp;&amp; word_dirs[neutral_end] == <a class="code" href="unicharset_8h.html#abc3119a959ecd5cffc1d9b9d57479dbaaacc5ec7fd402a8806e78fba831045aae">DIR_NEUTRAL</a>) {
+        neutral_end--;
+      }
+      <span class="keywordflow">if</span> (neutral_end &gt;= 0 &amp;&amp; word_dirs[neutral_end] == <a class="code" href="unicharset_8h.html#abc3119a959ecd5cffc1d9b9d57479dbaa5978cd698552a6106db1bf6528617317">DIR_LEFT_TO_RIGHT</a>) {
+        <span class="comment">// LTR followed by neutrals.</span>
+        <span class="comment">// Scan for the beginning of the minor left-to-right run.</span>
+        <span class="keywordtype">int</span> left = neutral_end;
+        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = left; i &gt;= 0 &amp;&amp; word_dirs[i] != <a class="code" href="unicharset_8h.html#abc3119a959ecd5cffc1d9b9d57479dbaa3c6da23f98ab8ac48598c21583d9297e">DIR_RIGHT_TO_LEFT</a>; i--) {
+          <span class="keywordflow">if</span> (word_dirs[i] == <a class="code" href="unicharset_8h.html#abc3119a959ecd5cffc1d9b9d57479dbaa5978cd698552a6106db1bf6528617317">DIR_LEFT_TO_RIGHT</a>) left = i;
+        }
+        reading_order-&gt;<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(<a class="code" href="classtesseract_1_1_result_iterator.html#a1c97324553ea1b897dfb5404e0f9e315">kMinorRunStart</a>);
+        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = left; i &lt; word_dirs.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>(); i++) {
+          reading_order-&gt;<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(i);
+          <span class="keywordflow">if</span> (word_dirs[i] == <a class="code" href="unicharset_8h.html#abc3119a959ecd5cffc1d9b9d57479dbaa252615b6d7ebef9293183f6e94488cc1">DIR_MIX</a>) reading_order-&gt;<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(<a class="code" href="classtesseract_1_1_result_iterator.html#ad23440ad1059127afadd17c18fbf93ad">kComplexWord</a>);
+        }
+        reading_order-&gt;<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(<a class="code" href="classtesseract_1_1_result_iterator.html#a15e95d21ce320a7c282c5a8d61fe73ee">kMinorRunEnd</a>);
+        start = left - 1;
+      }
+    }
+  }
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = start; i != end;) {
+    <span class="keywordflow">if</span> (word_dirs[i] == minor_direction) {
+      <span class="keywordtype">int</span> j = i;
+      <span class="keywordflow">while</span> (j != end &amp;&amp; word_dirs[j] != major_direction)
+        j += major_step;
+      <span class="keywordflow">if</span> (j == end) j -= major_step;
+      <span class="keywordflow">while</span> (j != i &amp;&amp; word_dirs[j] != minor_direction)
+        j -= major_step;
+      <span class="comment">//  [j..i] is a minor direction run.</span>
+      reading_order-&gt;<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(<a class="code" href="classtesseract_1_1_result_iterator.html#a1c97324553ea1b897dfb5404e0f9e315">kMinorRunStart</a>);
+      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> k = j; k != i; k -= major_step) {
+        reading_order-&gt;<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(k);
+      }
+      reading_order-&gt;<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(i);
+      reading_order-&gt;<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(<a class="code" href="classtesseract_1_1_result_iterator.html#a15e95d21ce320a7c282c5a8d61fe73ee">kMinorRunEnd</a>);
+      i = j + major_step;
+    } <span class="keywordflow">else</span> {
+      reading_order-&gt;<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(i);
+      <span class="keywordflow">if</span> (word_dirs[i] == <a class="code" href="unicharset_8h.html#abc3119a959ecd5cffc1d9b9d57479dbaa252615b6d7ebef9293183f6e94488cc1">DIR_MIX</a>) reading_order-&gt;<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(<a class="code" href="classtesseract_1_1_result_iterator.html#ad23440ad1059127afadd17c18fbf93ad">kComplexWord</a>);
+      i += major_step;
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7a35dd667c73efeeaf7457df90c6199a"></a><!-- doxytag: member="tesseract::ResultIterator::GetUTF8Text" ref="a7a35dd667c73efeeaf7457df90c6199a" args="(PageIteratorLevel level) const " -->
@@ -246,6 +338,50 @@ Protected Member Functions</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classtesseract_1_1_l_t_r_result_iterator.html#a48717a8736c388b8f86d617dd4d1e3b6">tesseract::LTRResultIterator</a>.</p>
 
+<p>Definition at line <a class="el" href="resultiterator_8cpp_source.html#l00547">547</a> of file <a class="el" href="resultiterator_8cpp_source.html">resultiterator.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                               {
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_page_iterator.html#a42df7b8e352be1e5a140787109419f93">it_</a>-&gt;<a class="code" href="class_p_a_g_e___r_e_s___i_t.html#ab84b4850200ba8802791c6197c113fd0">word</a>() == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;  <span class="comment">// Already at the end!</span>
+  <a class="code" href="class_s_t_r_i_n_g.html">STRING</a> text;
+  <span class="keywordflow">switch</span> (level) {
+    <span class="keywordflow">case</span> <a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7a2dcea8d4208c16055353029d26f9bf49">RIL_BLOCK</a>:
+      {
+        <a class="code" href="classtesseract_1_1_result_iterator.html#aa0f6c0e15c83e9ed718d80d736865c3f">ResultIterator</a> pp(*<span class="keyword">this</span>);
+        <span class="keywordflow">do</span> {
+          pp.AppendUTF8ParagraphText(&amp;text);
+        } <span class="keywordflow">while</span> (pp.Next(<a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7a3e63980691bf64801c704f59bd795bd9">RIL_PARA</a>) &amp;&amp; pp.it_-&gt;block() == <a class="code" href="classtesseract_1_1_page_iterator.html#a42df7b8e352be1e5a140787109419f93">it_</a>-&gt;<a class="code" href="class_p_a_g_e___r_e_s___i_t.html#a8a349c5163802e1f127d5c88db044059">block</a>());
+      }
+      <span class="keywordflow">break</span>;
+    <span class="keywordflow">case</span> <a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7a3e63980691bf64801c704f59bd795bd9">RIL_PARA</a>:
+      AppendUTF8ParagraphText(&amp;text);
+      <span class="keywordflow">break</span>;
+    <span class="keywordflow">case</span> <a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7a5e87a35f16de644593c353159ede11d1">RIL_TEXTLINE</a>:
+      {
+        <a class="code" href="classtesseract_1_1_result_iterator.html#aa0f6c0e15c83e9ed718d80d736865c3f">ResultIterator</a> it(*<span class="keyword">this</span>);
+        it.MoveToLogicalStartOfTextline();
+        it.IterateAndAppendUTF8TextlineText(&amp;text);
+      }
+      <span class="keywordflow">break</span>;
+    <span class="keywordflow">case</span> <a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7afd466aec253e5daa6f0c112b0f0e0610">RIL_WORD</a>:
+      AppendUTF8WordText(&amp;text);
+      <span class="keywordflow">break</span>;
+    <span class="keywordflow">case</span> <a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7adbd62c7f34a9ebdd6e3b813a34cd812d">RIL_SYMBOL</a>:
+      {
+        <span class="keywordtype">bool</span> reading_direction_is_ltr =
+          current_paragraph_is_ltr_ ^ in_minor_direction_;
+        <span class="keywordflow">if</span> (at_beginning_of_minor_run_) {
+          text += reading_direction_is_ltr ? <a class="code" href="namespacetesseract.html#aa393f17e77d059739f005ada9a805c69">kLRM</a> : <a class="code" href="namespacetesseract.html#a8aa0e462f167f686ef463b5a5b266f04">kRLM</a>;
+        }
+        text = <a class="code" href="classtesseract_1_1_page_iterator.html#a42df7b8e352be1e5a140787109419f93">it_</a>-&gt;<a class="code" href="class_p_a_g_e___r_e_s___i_t.html#ab84b4850200ba8802791c6197c113fd0">word</a>()-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a39f033674a1414f031662a9f8af16ee1">BestUTF8</a>(<a class="code" href="classtesseract_1_1_page_iterator.html#a98d81a4da55f06637a0db60ac33cc814">blob_index_</a>, !reading_direction_is_ltr);
+        <span class="keywordflow">if</span> (IsAtFinalSymbolOfWord()) AppendSuffixMarks(&amp;text);
+      }
+      <span class="keywordflow">break</span>;
+  }
+  <span class="keywordtype">int</span> length = text.<a class="code" href="class_s_t_r_i_n_g.html#a168505a533eda60219c93e25adf4cdc5">length</a>() + 1;
+  <span class="keywordtype">char</span>* result = <span class="keyword">new</span> <span class="keywordtype">char</span>[length];
+  strncpy(result, text.<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a>(), length);
+  <span class="keywordflow">return</span> result;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a983b601204f2fee0428213c4fca779e1"></a><!-- doxytag: member="tesseract::ResultIterator::IsAtBeginningOf" ref="a983b601204f2fee0428213c4fca779e1" args="(PageIteratorLevel level) const " -->
@@ -265,6 +401,38 @@ Protected Member Functions</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classtesseract_1_1_page_iterator.html#ad822e0b706ebba5c8ea55505438b4dee">tesseract::PageIterator</a>.</p>
 
+<p>Definition at line <a class="el" href="resultiterator_8cpp_source.html#l00491">491</a> of file <a class="el" href="resultiterator_8cpp_source.html">resultiterator.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                  {
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_page_iterator.html#a42df7b8e352be1e5a140787109419f93">it_</a>-&gt;<a class="code" href="class_p_a_g_e___r_e_s___i_t.html#a8a349c5163802e1f127d5c88db044059">block</a>() == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) <span class="keywordflow">return</span> <span class="keyword">false</span>;  <span class="comment">// Already at the end!</span>
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_page_iterator.html#a42df7b8e352be1e5a140787109419f93">it_</a>-&gt;<a class="code" href="class_p_a_g_e___r_e_s___i_t.html#ab84b4850200ba8802791c6197c113fd0">word</a>() == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) <span class="keywordflow">return</span> <span class="keyword">true</span>;  <span class="comment">// In an image block.</span>
+  <span class="keywordflow">if</span> (level == <a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7adbd62c7f34a9ebdd6e3b813a34cd812d">RIL_SYMBOL</a>) <span class="keywordflow">return</span> <span class="keyword">true</span>;  <span class="comment">// Always at beginning of a symbol.</span>
+
+  <span class="keywordtype">bool</span> at_word_start = IsAtFirstSymbolOfWord();
+  <span class="keywordflow">if</span> (level == <a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7afd466aec253e5daa6f0c112b0f0e0610">RIL_WORD</a>) <span class="keywordflow">return</span> at_word_start;
+
+  <a class="code" href="classtesseract_1_1_result_iterator.html#aa0f6c0e15c83e9ed718d80d736865c3f">ResultIterator</a> line_start(*<span class="keyword">this</span>);
+  <span class="comment">// move to the first word in the line...</span>
+  line_start.MoveToLogicalStartOfTextline();
+
+  <span class="keywordtype">bool</span> at_textline_start = at_word_start &amp;&amp; *line_start.it_ == *<a class="code" href="classtesseract_1_1_page_iterator.html#a42df7b8e352be1e5a140787109419f93">it_</a>;
+  <span class="keywordflow">if</span> (level == <a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7a5e87a35f16de644593c353159ede11d1">RIL_TEXTLINE</a>) <span class="keywordflow">return</span> at_textline_start;
+
+  <span class="comment">// now we move to the left-most word...</span>
+  line_start.RestartRow();
+  <span class="keywordtype">bool</span> at_block_start = at_textline_start &amp;&amp;
+      line_start.it_-&gt;<a class="code" href="class_p_a_g_e___r_e_s___i_t.html#a8a349c5163802e1f127d5c88db044059">block</a>() != line_start.it_-&gt;prev_block();
+  <span class="keywordflow">if</span> (level == <a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7a2dcea8d4208c16055353029d26f9bf49">RIL_BLOCK</a>) <span class="keywordflow">return</span> at_block_start;
+
+  <span class="keywordtype">bool</span> at_para_start = at_block_start ||
+      (at_textline_start &amp;&amp;
+       line_start.it_-&gt;row()-&gt;row-&gt;para() !=
+           line_start.it_-&gt;prev_row()-&gt;row-&gt;para());
+  <span class="keywordflow">if</span> (level == <a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7a3e63980691bf64801c704f59bd795bd9">RIL_PARA</a>) <span class="keywordflow">return</span> at_para_start;
+
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(<span class="keyword">false</span>);  <span class="comment">// shouldn&#39;t happen.</span>
+  <span class="keywordflow">return</span> <span class="keyword">false</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4ba47a7d01d3bc7f0fbf777605f8297d"></a><!-- doxytag: member="tesseract::ResultIterator::IsAtFinalElement" ref="a4ba47a7d01d3bc7f0fbf777605f8297d" args="(PageIteratorLevel level, PageIteratorLevel element) const " -->
@@ -294,6 +462,26 @@ Protected Member Functions</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classtesseract_1_1_page_iterator.html#af9db4780e93dd192f7cee28f11476cce">tesseract::PageIterator</a>.</p>
 
+<p>Definition at line <a class="el" href="resultiterator_8cpp_source.html#l00525">525</a> of file <a class="el" href="resultiterator_8cpp_source.html">resultiterator.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                       {
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_page_iterator.html#ae1d2f1725fabeafb6e235ccb482d47d6">Empty</a>(element)) <span class="keywordflow">return</span> <span class="keyword">true</span>;  <span class="comment">// Already at the end!</span>
+  <span class="comment">// The result is true if we step forward by element and find we are</span>
+  <span class="comment">// at the the end of the page or at beginning of *all* levels in:</span>
+  <span class="comment">// [level, element).</span>
+  <span class="comment">// When there is more than one level difference between element and level,</span>
+  <span class="comment">// we could for instance move forward one symbol and still be at the first</span>
+  <span class="comment">// word on a line, so we also have to be at the first symbol in a word.</span>
+  <a class="code" href="classtesseract_1_1_result_iterator.html#aa0f6c0e15c83e9ed718d80d736865c3f">ResultIterator</a> next(*<span class="keyword">this</span>);
+  next.Next(element);
+  <span class="keywordflow">if</span> (next.Empty(element)) <span class="keywordflow">return</span> <span class="keyword">true</span>;  <span class="comment">// Reached the end of the page.</span>
+  <span class="keywordflow">while</span> (element &gt; level) {
+    element = <span class="keyword">static_cast&lt;</span><a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7">PageIteratorLevel</a><span class="keyword">&gt;</span>(element - 1);
+    <span class="keywordflow">if</span> (!next.IsAtBeginningOf(element))
+      <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="abd8987e2387f1945b53cf23f99b663e1"></a><!-- doxytag: member="tesseract::ResultIterator::Next" ref="abd8987e2387f1945b53cf23f99b663e1" args="(PageIteratorLevel level)" -->
@@ -313,6 +501,82 @@ Protected Member Functions</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="classtesseract_1_1_page_iterator.html#a415ea7c61e24868bc67e676184be0bb9">tesseract::PageIterator</a>.</p>
 
+<p>Definition at line <a class="el" href="resultiterator_8cpp_source.html#l00416">416</a> of file <a class="el" href="resultiterator_8cpp_source.html">resultiterator.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                 {
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_page_iterator.html#a42df7b8e352be1e5a140787109419f93">it_</a>-&gt;<a class="code" href="class_p_a_g_e___r_e_s___i_t.html#a8a349c5163802e1f127d5c88db044059">block</a>() == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) <span class="keywordflow">return</span> <span class="keyword">false</span>; <span class="comment">// already at end!</span>
+  <span class="keywordflow">switch</span> (level) {
+    <span class="keywordflow">case</span> <a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7a2dcea8d4208c16055353029d26f9bf49">RIL_BLOCK</a>:  <span class="comment">// explicit fall-through</span>
+    <span class="keywordflow">case</span> <a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7a3e63980691bf64801c704f59bd795bd9">RIL_PARA</a>:   <span class="comment">// explicit fall-through</span>
+    <span class="keywordflow">case</span> <a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7a5e87a35f16de644593c353159ede11d1">RIL_TEXTLINE</a>:
+      <span class="keywordflow">if</span> (!<a class="code" href="classtesseract_1_1_page_iterator.html#a415ea7c61e24868bc67e676184be0bb9">PageIterator::Next</a>(level)) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+      <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_page_iterator.html#a16925fbe4a6264cda66fc901d74e1c8b">IsWithinFirstTextlineOfParagraph</a>()) {
+        <span class="comment">// if we&#39;ve advanced to a new paragraph,</span>
+        <span class="comment">// recalculate current_paragraph_is_ltr_</span>
+        current_paragraph_is_ltr_ = CurrentParagraphIsLtr();
+      }
+      in_minor_direction_ = <span class="keyword">false</span>;
+      MoveToLogicalStartOfTextline();
+      <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_page_iterator.html#a42df7b8e352be1e5a140787109419f93">it_</a>-&gt;<a class="code" href="class_p_a_g_e___r_e_s___i_t.html#a8a349c5163802e1f127d5c88db044059">block</a>() != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    <span class="keywordflow">case</span> <a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7adbd62c7f34a9ebdd6e3b813a34cd812d">RIL_SYMBOL</a>:
+    {
+      <a class="code" href="class_generic_vector.html">GenericVector&lt;int&gt;</a> blob_order;
+      CalculateBlobOrder(&amp;blob_order);
+      <span class="keywordtype">int</span> next_blob = 0;
+      <span class="keywordflow">while</span> (next_blob &lt; blob_order.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>() &amp;&amp;
+             <a class="code" href="classtesseract_1_1_page_iterator.html#a98d81a4da55f06637a0db60ac33cc814">blob_index_</a> != blob_order[next_blob])
+        next_blob++;
+      next_blob++;
+      <span class="keywordflow">if</span> (next_blob &lt; blob_order.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>()) {
+        <span class="comment">// we&#39;re in the same word; simply advance one blob.</span>
+        <a class="code" href="classtesseract_1_1_page_iterator.html#a9075e98e75619ca5e1270a0a6eb2c352">BeginWord</a>(blob_order[next_blob]);
+        at_beginning_of_minor_run_ = <span class="keyword">false</span>;
+        <span class="keywordflow">return</span> <span class="keyword">true</span>;
+      }
+      level = <a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7afd466aec253e5daa6f0c112b0f0e0610">RIL_WORD</a>;  <span class="comment">// we&#39;ve fallen through to the next word.</span>
+    }
+    <span class="keywordflow">case</span> <a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7afd466aec253e5daa6f0c112b0f0e0610">RIL_WORD</a>:  <span class="comment">// explicit fall-through.</span>
+    {
+      <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_page_iterator.html#a42df7b8e352be1e5a140787109419f93">it_</a>-&gt;<a class="code" href="class_p_a_g_e___r_e_s___i_t.html#ab84b4850200ba8802791c6197c113fd0">word</a>() == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_result_iterator.html#abd8987e2387f1945b53cf23f99b663e1">Next</a>(<a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7a2dcea8d4208c16055353029d26f9bf49">RIL_BLOCK</a>);
+      <a class="code" href="class_generic_vector_eq_eq.html">GenericVectorEqEq&lt;int&gt;</a> word_indices;
+      <span class="keywordtype">int</span> this_word_index = LTRWordIndex();
+      <a class="code" href="classtesseract_1_1_result_iterator.html#a10ba7f1e30387d13b518fc1ccdcbfe06">CalculateTextlineOrder</a>(current_paragraph_is_ltr_,
+                             *<span class="keyword">this</span>,
+                             &amp;word_indices);
+      <span class="keywordtype">int</span> final_real_index = word_indices.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>() - 1;
+      <span class="keywordflow">while</span> (final_real_index &gt; 0 &amp;&amp; word_indices[final_real_index] &lt; 0)
+        final_real_index--;
+      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; final_real_index; i++) {
+        <span class="keywordflow">if</span> (word_indices[i] == this_word_index) {
+          <span class="keywordtype">int</span> j = i + 1;
+          <span class="keywordflow">for</span> (; j &lt; final_real_index &amp;&amp; word_indices[j] &lt; 0; j++) {
+            <span class="keywordflow">if</span> (word_indices[j] == <a class="code" href="classtesseract_1_1_result_iterator.html#a1c97324553ea1b897dfb5404e0f9e315">kMinorRunStart</a>) in_minor_direction_ = <span class="keyword">true</span>;
+            <span class="keywordflow">if</span> (word_indices[j] == <a class="code" href="classtesseract_1_1_result_iterator.html#a15e95d21ce320a7c282c5a8d61fe73ee">kMinorRunEnd</a>) in_minor_direction_ = <span class="keyword">false</span>;
+          }
+          at_beginning_of_minor_run_ = (word_indices[j - 1] == <a class="code" href="classtesseract_1_1_result_iterator.html#a1c97324553ea1b897dfb5404e0f9e315">kMinorRunStart</a>);
+          <span class="comment">// awesome, we move to word_indices[j]</span>
+          <span class="keywordflow">if</span> (BidiDebug(3)) {
+            <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Next(RIL_WORD): %d -&gt; %d\n&quot;</span>,
+                    this_word_index, word_indices[j]);
+          }
+          <a class="code" href="classtesseract_1_1_page_iterator.html#a2df743d478df34f1a239cf9675f82be0">PageIterator::RestartRow</a>();
+          <span class="keywordflow">for</span> (<span class="keywordtype">int</span> k = 0; k &lt; word_indices[j]; k++) {
+            <a class="code" href="classtesseract_1_1_result_iterator.html#abd8987e2387f1945b53cf23f99b663e1">PageIterator::Next</a>(<a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7afd466aec253e5daa6f0c112b0f0e0610">RIL_WORD</a>);
+          }
+          MoveToLogicalStartOfWord();
+          <span class="keywordflow">return</span> <span class="keyword">true</span>;
+        }
+      }
+      <span class="keywordflow">if</span> (BidiDebug(3)) {
+        <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Next(RIL_WORD): %d -&gt; EOL\n&quot;</span>, this_word_index);
+      }
+      <span class="comment">// we&#39;re going off the end of the text line.</span>
+      <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_result_iterator.html#abd8987e2387f1945b53cf23f99b663e1">Next</a>(<a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7a5e87a35f16de644593c353159ede11d1">RIL_TEXTLINE</a>);
+    }
+  }
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(<span class="keyword">false</span>);  <span class="comment">// shouldn&#39;t happen.</span>
+  <span class="keywordflow">return</span> <span class="keyword">false</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a71525d396c6cdeea89f576adca599474"></a><!-- doxytag: member="tesseract::ResultIterator::ParagraphIsLtr" ref="a71525d396c6cdeea89f576adca599474" args="() const " -->
@@ -329,6 +593,11 @@ Protected Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="resultiterator_8cpp_source.html#l00046">46</a> of file <a class="el" href="resultiterator_8cpp_source.html">resultiterator.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                          {
+  <span class="keywordflow">return</span> current_paragraph_is_ltr_;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a961e7ee57edae85e855332a301cccacf"></a><!-- doxytag: member="tesseract::ResultIterator::StartOfParagraph" ref="a961e7ee57edae85e855332a301cccacf" args="(const LTRResultIterator &amp;resit)" -->
@@ -346,6 +615,11 @@ Protected Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="resultiterator_8cpp_source.html#l00041">41</a> of file <a class="el" href="resultiterator_8cpp_source.html">resultiterator.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                    {
+  <span class="keywordflow">return</span> <span class="keyword">new</span> <a class="code" href="classtesseract_1_1_result_iterator.html#aa0f6c0e15c83e9ed718d80d736865c3f">ResultIterator</a>(resit);
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
@@ -360,6 +634,8 @@ Protected Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="resultiterator_8h_source.html#l00112">112</a> of file <a class="el" href="resultiterator_8h_source.html">resultiterator.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a15e95d21ce320a7c282c5a8d61fe73ee"></a><!-- doxytag: member="tesseract::ResultIterator::kMinorRunEnd" ref="a15e95d21ce320a7c282c5a8d61fe73ee" args="" -->
@@ -372,6 +648,8 @@ Protected Member Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="resultiterator_8h_source.html#l00111">111</a> of file <a class="el" href="resultiterator_8h_source.html">resultiterator.h</a>.</p>
 
 </div>
 </div>
@@ -386,11 +664,13 @@ Protected Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="resultiterator_8h_source.html#l00110">110</a> of file <a class="el" href="resultiterator_8h_source.html">resultiterator.h</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/ccmain/<a class="el" href="resultiterator_8h_source.html">resultiterator.h</a></li>
-<li>tesseract-ocr/ccmain/<a class="el" href="resultiterator_8cpp.html">resultiterator.cpp</a></li>
+<li>tesseract-ocr/ccmain/<a class="el" href="resultiterator_8cpp_source.html">resultiterator.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -413,7 +693,7 @@ Protected Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:14 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:49 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

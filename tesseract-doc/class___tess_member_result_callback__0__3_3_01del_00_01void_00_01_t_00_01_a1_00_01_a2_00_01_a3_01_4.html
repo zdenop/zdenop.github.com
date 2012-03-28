@@ -126,10 +126,13 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class___tess_member_result_callback__0__3_3_01del_00_01void_00_01_t_00_01_a1_00_01_a2_00_01_a3_01_4.html#ad9bd8f42a4b007c527393cd3045c7138">_TessMemberResultCallback_0_3</a> (T *object, <a class="el" href="class___tess_member_result_callback__0__3_3_01del_00_01void_00_01_t_00_01_a1_00_01_a2_00_01_a3_01_4.html#a48b772e562fd77f1a0ad0708c616f553">MemberSignature</a> member)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class___tess_member_result_callback__0__3_3_01del_00_01void_00_01_t_00_01_a1_00_01_a2_00_01_a3_01_4.html#ac306903f85909c23a19dc6119cfac42a">Run</a> (A1 a1, A2 a2, A3 a3)</td></tr>
 </table>
-<h3>template&lt;bool del, class T, class A1, class A2, class A3&gt;<br/>
- class _TessMemberResultCallback_0_3&lt; del, void, T, A1, A2, A3 &gt;</h3>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock"><h3>template&lt;bool del, class T, class A1, class A2, class A3&gt;<br/>
+class _TessMemberResultCallback_0_3&lt; del, void, T, A1, A2, A3 &gt;</h3>
 
-<hr/><h2>Member Typedef Documentation</h2>
+
+<p>Definition at line <a class="el" href="tesscallback_8h_source.html#l00890">890</a> of file <a class="el" href="tesscallback_8h_source.html">tesscallback.h</a>.</p>
+</div><hr/><h2>Member Typedef Documentation</h2>
 <a class="anchor" id="ab19740d8e098ad67f7750b24823ef687"></a><!-- doxytag: member="_TessMemberResultCallback_0_3&lt; del, void, T, A1, A2, A3 &gt;::base" ref="ab19740d8e098ad67f7750b24823ef687" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -142,6 +145,8 @@ template&lt;bool del, class T , class A1 , class A2 , class A3 &gt; </div>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="tesscallback_8h_source.html#l00893">893</a> of file <a class="el" href="tesscallback_8h_source.html">tesscallback.h</a>.</p>
 
 </div>
 </div>
@@ -157,6 +162,8 @@ template&lt;bool del, class T , class A1 , class A2 , class A3 &gt; </div>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="tesscallback_8h_source.html#l00894">894</a> of file <a class="el" href="tesscallback_8h_source.html">tesscallback.h</a>.</p>
 
 </div>
 </div>
@@ -188,6 +195,11 @@ template&lt;bool del, class T , class A1 , class A2 , class A3 &gt; </div>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tesscallback_8h_source.html#l00901">901</a> of file <a class="el" href="tesscallback_8h_source.html">tesscallback.h</a>.</p>
+<div class="fragment"><pre class="fragment">    : object_(<span class="keywordtype">object</span>),
+      member_(member) {
+  }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -226,6 +238,18 @@ template&lt;bool del, class T , class A1 , class A2 , class A3 &gt; </div>
 
 <p>Implements <a class="el" href="class_tess_callback3.html#ac5973fd77da4c98d0fc240427ecc923d">TessCallback3&lt; A1, A2, A3 &gt;</a>.</p>
 
+<p>Definition at line <a class="el" href="tesscallback_8h_source.html#l00907">907</a> of file <a class="el" href="tesscallback_8h_source.html">tesscallback.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                      {
+    <span class="keywordflow">if</span> (!del) {
+      (object_-&gt;*member_)(a1,a2,a3);
+    } <span class="keywordflow">else</span> {
+      (object_-&gt;*member_)(a1,a2,a3);
+      <span class="comment">//  zero out the pointer to ensure segfault if used again</span>
+      member_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+      <span class="keyword">delete</span> <span class="keyword">this</span>;
+    }
+  }
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
@@ -251,7 +275,7 @@ template&lt;bool del, class T , class A1 , class A2 , class A3 &gt; </div>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:11 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:44 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

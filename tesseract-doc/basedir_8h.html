@@ -143,6 +143,79 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="basedir_8cpp_source.html#l00040">40</a> of file <a class="el" href="basedir_8cpp_source.html">basedir.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                     {
+  <span class="keywordtype">char</span> directory[<a class="code" href="platform_8h.html#ab99ded389af74001a6298fc9e44e74e5">MAX_PATH</a>];      <span class="comment">//main directory</span>
+<span class="preprocessor">  #ifdef __UNIX__</span>
+<span class="preprocessor"></span>  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> dirind;                  <span class="comment">//index in directory</span>
+  <span class="keyword">register</span> <span class="keywordtype">char</span> *pathlist;       <span class="comment">//$PATH</span>
+  <span class="keywordtype">int</span> fd;                        <span class="comment">//file descriptor</span>
+
+  strcpy(directory, code);  <span class="comment">//get demo directory</span>
+  dirind = strlen (directory);
+  <span class="keywordflow">while</span> (dirind &gt; 0 &amp;&amp; directory[dirind - 1] != <span class="charliteral">&#39;/&#39;</span>)
+    dirind--;                    <span class="comment">//look back for dirname</span>
+  directory[dirind] = <span class="charliteral">&#39;\0&#39;</span>;      <span class="comment">//end at directory</span>
+  <span class="keywordflow">if</span> (dirind != 0) {
+    path = directory;            <span class="comment">//had it in arg</span>
+    <span class="keywordflow">return</span> 0;
+  }
+  pathlist = getenv (<span class="stringliteral">&quot;PATH&quot;</span>);    <span class="comment">//find search path</span>
+  <span class="keywordflow">while</span> (pathlist != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp; *pathlist) {
+    <span class="keywordflow">for</span> (dirind = 0; *pathlist != <span class="charliteral">&#39;\0&#39;</span> &amp;&amp; *pathlist != <span class="charliteral">&#39;:&#39;</span>;)
+                                 <span class="comment">//copy a directory</span>
+      directory[dirind++] = *pathlist++;
+    <span class="keywordflow">if</span> (*pathlist == <span class="charliteral">&#39;:&#39;</span>)
+      pathlist++;
+    <span class="keywordflow">if</span> (dirind == 0)
+      <span class="keywordflow">continue</span>;
+    <span class="keywordflow">if</span> (directory[dirind - 1] != <span class="charliteral">&#39;/&#39;</span>);
+    directory[dirind++] = <span class="charliteral">&#39;/&#39;</span>;   <span class="comment">//add ending slash</span>
+    directory[dirind++] = <span class="charliteral">&#39;\0&#39;</span>;
+    path = directory;            <span class="comment">//try this path</span>
+    strcat(directory, code);
+    fd = open (directory, 0);
+    <span class="keywordflow">if</span> (fd &gt;= 0) {
+      close(fd);  <span class="comment">//found it</span>
+      <span class="keywordflow">return</span> 0;
+    }
+  }
+  strcpy (directory, <span class="stringliteral">&quot;./&quot;</span>);
+  path = directory;              <span class="comment">//in current?</span>
+  strcat(directory, code);
+  fd = open (directory, 0);
+  <span class="keywordflow">if</span> (fd &gt;= 0) {
+    close(fd);
+    <span class="keywordflow">return</span> 0;                    <span class="comment">//in current after all</span>
+  }
+  <span class="keywordflow">return</span> -1;
+<span class="preprocessor">  #endif</span>
+<span class="preprocessor"></span><span class="preprocessor">  #ifdef _WIN32</span>
+<span class="preprocessor"></span>  <span class="keywordtype">char</span> *path_end;                <span class="comment">//end of dir</span>
+
+  <span class="keywordflow">if</span> (code == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="comment">// Attempt to get the path of the most relevant module. If the dll</span>
+    <span class="comment">// is being used, this will be the dll. Otherwise GetModuleHandle will</span>
+    <span class="comment">// return NULL and default to the path of the executable.</span>
+    <span class="keywordflow">if</span> (GetModuleFileName(GetModuleHandle(dll_module_name.<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a>()),
+                          directory, <a class="code" href="platform_8h.html#ab99ded389af74001a6298fc9e44e74e5">MAX_PATH</a> - 1) == 0) {
+      <span class="keywordflow">return</span> -1;
+    }
+  } <span class="keywordflow">else</span> {
+    strncpy(directory, code, <a class="code" href="platform_8h.html#ab99ded389af74001a6298fc9e44e74e5">MAX_PATH</a> - 1);
+  }
+  <span class="keywordflow">while</span> ((path_end = strchr (directory, <span class="charliteral">&#39;\\&#39;</span>)) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    *path_end = <span class="charliteral">&#39;/&#39;</span>;
+  path_end = strrchr (directory, <span class="charliteral">&#39;/&#39;</span>);
+  <span class="keywordflow">if</span> (path_end != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    path_end[1] = <span class="charliteral">&#39;\0&#39;</span>;
+  <span class="keywordflow">else</span>
+    strcpy (directory, <span class="stringliteral">&quot;./&quot;</span>);
+  path = directory;
+  <span class="keywordflow">return</span> 0;
+<span class="preprocessor">  #endif</span>
+<span class="preprocessor"></span>}
+</pre></div>
 </div>
 </div>
 </div>
@@ -165,7 +238,7 @@ Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:09 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:40 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

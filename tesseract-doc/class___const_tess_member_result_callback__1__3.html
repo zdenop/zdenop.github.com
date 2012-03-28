@@ -127,10 +127,13 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class___const_tess_member_result_callback__1__3.html#a164cccc0e3f524440846217eceaa11e8">_ConstTessMemberResultCallback_1_3</a> (T *object, <a class="el" href="class___const_tess_member_result_callback__1__3.html#a087ae15982ea2380eb841e1576303d61">MemberSignature</a> member, P1 p1)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">virtual R&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class___const_tess_member_result_callback__1__3.html#aa726f021c58a80e0f37efd7d8e613386">Run</a> (A1 a1, A2 a2, A3 a3)</td></tr>
 </table>
-<h3>template&lt;bool del, class R, class T, class P1, class A1, class A2, class A3&gt;<br/>
- class _ConstTessMemberResultCallback_1_3&lt; del, R, T, P1, A1, A2, A3 &gt;</h3>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock"><h3>template&lt;bool del, class R, class T, class P1, class A1, class A2, class A3&gt;<br/>
+class _ConstTessMemberResultCallback_1_3&lt; del, R, T, P1, A1, A2, A3 &gt;</h3>
 
-<hr/><h2>Member Typedef Documentation</h2>
+
+<p>Definition at line <a class="el" href="tesscallback_8h_source.html#l01021">1021</a> of file <a class="el" href="tesscallback_8h_source.html">tesscallback.h</a>.</p>
+</div><hr/><h2>Member Typedef Documentation</h2>
 <a class="anchor" id="a08dd4d6fcc1da9406d8096065fc8ea75"></a><!-- doxytag: member="_ConstTessMemberResultCallback_1_3::base" ref="a08dd4d6fcc1da9406d8096065fc8ea75" args="" -->
 <div class="memitem">
 <div class="memproto">
@@ -143,6 +146,8 @@ template&lt;bool del, class R, class T, class P1, class A1, class A2, class A3&g
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="tesscallback_8h_source.html#l01024">1024</a> of file <a class="el" href="tesscallback_8h_source.html">tesscallback.h</a>.</p>
 
 </div>
 </div>
@@ -158,6 +163,8 @@ template&lt;bool del, class R, class T, class P1, class A1, class A2, class A3&g
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="tesscallback_8h_source.html#l01025">1025</a> of file <a class="el" href="tesscallback_8h_source.html">tesscallback.h</a>.</p>
 
 </div>
 </div>
@@ -195,6 +202,9 @@ template&lt;bool del, class R, class T, class P1, class A1, class A2, class A3&g
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tesscallback_8h_source.html#l01033">1033</a> of file <a class="el" href="tesscallback_8h_source.html">tesscallback.h</a>.</p>
+<div class="fragment"><pre class="fragment">    : object_(<span class="keywordtype">object</span>), member_(member), p1_(p1) { }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -233,6 +243,20 @@ template&lt;bool del, class R, class T, class P1, class A1, class A2, class A3&g
 
 <p>Implements <a class="el" href="class_tess_result_callback3.html#ae717c653a51e735080121a2f6fb0b4d3">TessResultCallback3&lt; R, A1, A2, A3 &gt;</a>.</p>
 
+<p>Definition at line <a class="el" href="tesscallback_8h_source.html#l01037">1037</a> of file <a class="el" href="tesscallback_8h_source.html">tesscallback.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                     {
+    <span class="keywordflow">if</span> (!del) {
+      R result = (object_-&gt;*member_)(p1_,a1,a2,a3);
+      <span class="keywordflow">return</span> result;
+    } <span class="keywordflow">else</span> {
+      R result = (object_-&gt;*member_)(p1_,a1,a2,a3);
+      <span class="comment">//  zero out the pointer to ensure segfault if used again</span>
+      member_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+      <span class="keyword">delete</span> <span class="keyword">this</span>;
+      <span class="keywordflow">return</span> result;
+    }
+  }
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
@@ -258,7 +282,7 @@ template&lt;bool del, class R, class T, class P1, class A1, class A2, class A3&g
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:11 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:44 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

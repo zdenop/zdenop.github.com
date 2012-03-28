@@ -138,6 +138,8 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="render_8h_source.html#l00044">44</a> of file <a class="el" href="render_8h_source.html">render.h</a>.</p>
+
 </div>
 </div>
 <hr/><h2>Function Documentation</h2>
@@ -166,6 +168,20 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="render_8cpp_source.html#l00064">64</a> of file <a class="el" href="render_8cpp_source.html">render.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                            {
+  <span class="comment">/* Size of drawable */</span>
+  <span class="keywordflow">if</span> (<a class="code" href="render_8cpp.html#a062919012f2898b36333bae0c19fa89d">blob_window</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="render_8cpp.html#a062919012f2898b36333bae0c19fa89d">blob_window</a> = <a class="code" href="callcpp_8cpp.html#a34ec4ea9e8e6a9d755e3c7e5e6820583">c_create_window</a> (<span class="stringliteral">&quot;Blobs&quot;</span>, 520, 10,
+      500, 256, -1000.0, 1000.0, 0.0, 256.0);
+  }
+  <span class="keywordflow">else</span> {
+    <a class="code" href="callcpp_8cpp.html#afdb928ca6fcb1a387ca1fa91f88130dc">c_clear_window</a>(<a class="code" href="render_8cpp.html#a062919012f2898b36333bae0c19fa89d">blob_window</a>);
+  }
+
+  <a class="code" href="render_8cpp.html#aba71e35fe1f2af5d7c98479fb9866dbc">render_blob</a>(<a class="code" href="render_8cpp.html#a062919012f2898b36333bae0c19fa89d">blob_window</a>, blob, color);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aba71e35fe1f2af5d7c98479fb9866dbc"></a><!-- doxytag: member="render.h::render_blob" ref="aba71e35fe1f2af5d7c98479fb9866dbc" args="(void *window, TBLOB *blob, C_COL color)" -->
@@ -199,6 +215,15 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="render_8cpp_source.html#l00083">83</a> of file <a class="el" href="render_8cpp_source.html">render.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                         {
+  <span class="comment">/* No outline */</span>
+  <span class="keywordflow">if</span> (!blob)
+    <span class="keywordflow">return</span>;
+
+  <a class="code" href="render_8cpp.html#a7ee7085b157e15b1651947b1e121f9b5">render_outline</a> (window, blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a>, color);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a594cd620b80afd8116ac5388f0396a9e"></a><!-- doxytag: member="render.h::render_edgepts" ref="a594cd620b80afd8116ac5388f0396a9e" args="(void *window, EDGEPT *edgept, C_COL color)" -->
@@ -232,6 +257,26 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="render_8cpp_source.html#l00098">98</a> of file <a class="el" href="render_8cpp_source.html">render.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                               {
+  <span class="keywordtype">float</span> x = edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a>;
+  <span class="keywordtype">float</span> y = edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a>;
+  <a class="code" href="struct_e_d_g_e_p_t.html">EDGEPT</a> *this_edge = edgept;
+
+  <span class="keywordflow">if</span> (!edgept)
+    <span class="keywordflow">return</span>;
+
+  <a class="code" href="callcpp_8cpp.html#a48077e4a1f221a9febc643bdb5b4e8fe">c_line_color_index</a>(window, color);
+  <a class="code" href="callcpp_8cpp.html#a411da919a36d0da4caf6a6775a66cea4">c_move</a>(window, x, y);
+  <span class="keywordflow">do</span> {
+    this_edge = this_edge-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>;
+    x = this_edge-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a>;
+    y = this_edge-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a>;
+    <a class="code" href="callcpp_8cpp.html#a1985867f80140c430e3fa0d8d7430a44">c_draw</a>(window, x, y);
+  }
+  <span class="keywordflow">while</span> (edgept != this_edge);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7ee7085b157e15b1651947b1e121f9b5"></a><!-- doxytag: member="render.h::render_outline" ref="a7ee7085b157e15b1651947b1e121f9b5" args="(void *window, TESSLINE *outline, C_COL color)" -->
@@ -265,6 +310,18 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="render_8cpp_source.html#l00124">124</a> of file <a class="el" href="render_8cpp_source.html">render.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                 {
+  <span class="comment">/* No outline */</span>
+  <span class="keywordflow">if</span> (!outline)
+    <span class="keywordflow">return</span>;
+  <span class="comment">/* Draw Compact outline */</span>
+  <span class="keywordflow">if</span> (outline-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0ab1e26b1dae548f0bd3c096c6183b18">loop</a>)
+    <a class="code" href="render_8cpp.html#a594cd620b80afd8116ac5388f0396a9e">render_edgepts</a> (window, outline-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0ab1e26b1dae548f0bd3c096c6183b18">loop</a>, color);
+  <span class="comment">/* Add on next outlines */</span>
+  <a class="code" href="render_8cpp.html#a7ee7085b157e15b1651947b1e121f9b5">render_outline</a> (window, outline-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0fb224d43ea53a791f0957fa92793bef">next</a>, color);
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Variable Documentation</h2>
@@ -279,6 +336,8 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="render_8cpp_source.html#l00043">43</a> of file <a class="el" href="render_8cpp_source.html">render.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a6edf1001fd84878871c310d6a2a270d6"></a><!-- doxytag: member="render.h::color_list" ref="a6edf1001fd84878871c310d6a2a270d6" args="[]" -->
@@ -291,6 +350,8 @@ Variables</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="render_8cpp_source.html#l00045">45</a> of file <a class="el" href="render_8cpp_source.html">render.cpp</a>.</p>
 
 </div>
 </div>
@@ -306,6 +367,8 @@ Variables</h2></td></tr>
 <div class="memdoc">
 <p>"Blob pause" </p>
 
+<p>Definition at line <a class="el" href="render_8cpp_source.html#l00053">53</a> of file <a class="el" href="render_8cpp_source.html">render.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a12a5464318b34c3d019270c0954f85e0"></a><!-- doxytag: member="render.h::wordrec_display_all_blobs" ref="a12a5464318b34c3d019270c0954f85e0" args="" -->
@@ -320,6 +383,8 @@ Variables</h2></td></tr>
 <div class="memdoc">
 <p>"Display Blobs" </p>
 
+<p>Definition at line <a class="el" href="render_8cpp_source.html#l00049">49</a> of file <a class="el" href="render_8cpp_source.html">render.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ac1ae32fe06996c084e54189cf7abbe8b"></a><!-- doxytag: member="render.h::wordrec_display_all_words" ref="ac1ae32fe06996c084e54189cf7abbe8b" args="" -->
@@ -333,6 +398,8 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"Display Words" </p>
+
+<p>Definition at line <a class="el" href="render_8cpp_source.html#l00051">51</a> of file <a class="el" href="render_8cpp_source.html">render.cpp</a>.</p>
 
 </div>
 </div>
@@ -356,7 +423,7 @@ Variables</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:10 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:43 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

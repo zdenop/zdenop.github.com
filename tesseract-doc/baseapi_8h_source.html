@@ -486,38 +486,39 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00711"></a>00711 
 <a name="l00712"></a><a class="code" href="group__ocropus_add_ons.html#ga4bf81423a0eff353a6bf5d7cc098e2d2">00712</a>   <a class="code" href="platform_8h.html#aefcd819eeed9085ef0eeeff0f4cac64f">TESS_LOCAL</a> <span class="keyword">const</span> <a class="code" href="class_p_a_g_e___r_e_s.html">PAGE_RES</a>* <a class="code" href="group__ocropus_add_ons.html#ga4bf81423a0eff353a6bf5d7cc098e2d2">GetPageRes</a>()<span class="keyword"> const </span>{
 <a name="l00713"></a>00713     <span class="keywordflow">return</span> page_res_;
-<a name="l00714"></a><a class="code" href="group__ocropus_add_ons.html#ga247f50792f581df05afe336a2aeda402">00714</a>   };
-<a name="l00715"></a>00715 
-<a name="l00716"></a>00716  <span class="keyword">protected</span>:
-<a name="l00717"></a>00717   <a class="code" href="classtesseract_1_1_tesseract.html">Tesseract</a>*        tesseract_;       
-<a name="l00718"></a><a class="code" href="group__ocropus_add_ons.html#gad7b44f5b470c9e04289c348d82726b27">00718</a>   <a class="code" href="classtesseract_1_1_tesseract.html">Tesseract</a>*        <a class="code" href="group__ocropus_add_ons.html#gad7b44f5b470c9e04289c348d82726b27" title="For orientation &amp; script detection.">osd_tesseract_</a>;   
-<a name="l00719"></a><a class="code" href="group__ocropus_add_ons.html#ga0222d0f645909860d13f71c078008133">00719</a>   <a class="code" href="classtesseract_1_1_equation_detect.html">EquationDetect</a>*   <a class="code" href="group__ocropus_add_ons.html#ga0222d0f645909860d13f71c078008133" title="The equation detector.">equ_detect_</a>;      
-<a name="l00720"></a><a class="code" href="group__ocropus_add_ons.html#ga9d93e1d92ca230ae02b81d44bc88a55c">00720</a>   <a class="code" href="classtesseract_1_1_image_thresholder.html">ImageThresholder</a>* <a class="code" href="group__ocropus_add_ons.html#ga9d93e1d92ca230ae02b81d44bc88a55c" title="Image thresholding module.">thresholder_</a>;     
-<a name="l00721"></a><a class="code" href="group__ocropus_add_ons.html#ga06084d66b830a388515663761d842041">00721</a>   <a class="code" href="class_generic_vector.html">GenericVector&lt;ParagraphModel *&gt;</a>* <a class="code" href="group__ocropus_add_ons.html#ga06084d66b830a388515663761d842041">paragraph_models_</a>;
-<a name="l00722"></a><a class="code" href="group__ocropus_add_ons.html#gac22c36258b0cd727188505a9a1dbc7e1">00722</a>   BLOCK_LIST*       <a class="code" href="group__ocropus_add_ons.html#gac22c36258b0cd727188505a9a1dbc7e1" title="The page layout.">block_list_</a>;      
-<a name="l00723"></a><a class="code" href="group__ocropus_add_ons.html#ga12dda612630eba40e15f9d0b9955a04c">00723</a>   <a class="code" href="class_p_a_g_e___r_e_s.html">PAGE_RES</a>*         <a class="code" href="group__ocropus_add_ons.html#ga12dda612630eba40e15f9d0b9955a04c" title="The page-level data.">page_res_</a>;        
-<a name="l00724"></a><a class="code" href="group__ocropus_add_ons.html#ga4690919aa9d4eabda36bdefdaadf7ac9">00724</a>   <a class="code" href="class_s_t_r_i_n_g.html">STRING</a>*           <a class="code" href="group__ocropus_add_ons.html#ga4690919aa9d4eabda36bdefdaadf7ac9" title="Name used by training code.">input_file_</a>;      
-<a name="l00725"></a><a class="code" href="group__ocropus_add_ons.html#ga22a0c520bc88e2d80fb8b6a10b7caba1">00725</a>   <a class="code" href="class_s_t_r_i_n_g.html">STRING</a>*           <a class="code" href="group__ocropus_add_ons.html#ga22a0c520bc88e2d80fb8b6a10b7caba1" title="Name used by debug code.">output_file_</a>;     
-<a name="l00726"></a><a class="code" href="group__ocropus_add_ons.html#gad7c3d4ead7b9c8e27e45e710e5407913">00726</a>   <a class="code" href="class_s_t_r_i_n_g.html">STRING</a>*           <a class="code" href="group__ocropus_add_ons.html#gad7c3d4ead7b9c8e27e45e710e5407913" title="Current location of tessdata.">datapath_</a>;        
-<a name="l00727"></a><a class="code" href="group__ocropus_add_ons.html#ga74a291190aa0bbf90b57f678b1fb0a5c">00727</a>   <a class="code" href="class_s_t_r_i_n_g.html">STRING</a>*           <a class="code" href="group__ocropus_add_ons.html#ga74a291190aa0bbf90b57f678b1fb0a5c" title="Last initialized language.">language_</a>;        
-<a name="l00728"></a><a class="code" href="group__ocropus_add_ons.html#gaf9d4095a569fbf8687cefc005d2f58ee">00728</a>   <a class="code" href="namespacetesseract.html#a04550a0ed1279562027bf2fc92c421ae">OcrEngineMode</a> <a class="code" href="group__ocropus_add_ons.html#gaf9d4095a569fbf8687cefc005d2f58ee" title="Last ocr language mode requested.">last_oem_requested_</a>;  
-<a name="l00729"></a><a class="code" href="group__ocropus_add_ons.html#ga7d4627f300b1096d43a3e7d54d8aa5df">00729</a>   <span class="keywordtype">bool</span>          <a class="code" href="group__ocropus_add_ons.html#ga7d4627f300b1096d43a3e7d54d8aa5df" title="page_res_ contains recognition data.">recognition_done_</a>;   
-<a name="l00730"></a><a class="code" href="group__ocropus_add_ons.html#gac7eaed7f3fedb15212eb39b747de0102">00730</a>   <a class="code" href="class_tess_callback3.html">TruthCallback</a> *<a class="code" href="group__ocropus_add_ons.html#gac7eaed7f3fedb15212eb39b747de0102">truth_cb_</a>;           
-<a name="l00731"></a>00731 
-<a name="l00736"></a>00736   <span class="comment">/* @{ */</span>
-<a name="l00737"></a><a class="code" href="group___thresholder_params.html#gab3c90d43a3628dc7abeb93e9ca01bc97">00737</a>   <span class="keywordtype">int</span> <a class="code" href="group___thresholder_params.html#gab3c90d43a3628dc7abeb93e9ca01bc97">rect_left_</a>;
-<a name="l00738"></a><a class="code" href="group___thresholder_params.html#gac71648cd860510ca65b94d87d7d9bb1f">00738</a>   <span class="keywordtype">int</span> <a class="code" href="group___thresholder_params.html#gac71648cd860510ca65b94d87d7d9bb1f">rect_top_</a>;
-<a name="l00739"></a><a class="code" href="group___thresholder_params.html#ga31dbaec91a5dd8ee7d399786a4bd5ef8">00739</a>   <span class="keywordtype">int</span> <a class="code" href="group___thresholder_params.html#ga31dbaec91a5dd8ee7d399786a4bd5ef8">rect_width_</a>;
-<a name="l00740"></a><a class="code" href="group___thresholder_params.html#ga978edc537da096ec07d4bb8e4ae5332d">00740</a>   <span class="keywordtype">int</span> <a class="code" href="group___thresholder_params.html#ga978edc537da096ec07d4bb8e4ae5332d">rect_height_</a>;
-<a name="l00741"></a><a class="code" href="group___thresholder_params.html#gaf3238cd7ff2c0995e647c8c7846bdba3">00741</a>   <span class="keywordtype">int</span> <a class="code" href="group___thresholder_params.html#gaf3238cd7ff2c0995e647c8c7846bdba3">image_width_</a>;
-<a name="l00742"></a><a class="code" href="group___thresholder_params.html#gab7d24a78f3565c5bfb42b2592b9e8df0">00742</a>   <span class="keywordtype">int</span> <a class="code" href="group___thresholder_params.html#gab7d24a78f3565c5bfb42b2592b9e8df0">image_height_</a>;
-<a name="l00743"></a>00743   <span class="comment">/* @} */</span>
-<a name="l00744"></a>00744 
-<a name="l00745"></a>00745 };
-<a name="l00746"></a>00746 
-<a name="l00747"></a>00747 }  <span class="comment">// namespace tesseract.</span>
-<a name="l00748"></a>00748 
-<a name="l00749"></a>00749 <span class="preprocessor">#endif  // TESSERACT_API_BASEAPI_H__</span>
+<a name="l00714"></a><a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402">00714</a>   };
+<a name="l00715"></a>00715   <span class="comment">/* @} */</span>
+<a name="l00716"></a>00716 
+<a name="l00717"></a>00717  <span class="keyword">protected</span>:
+<a name="l00718"></a>00718   <a class="code" href="classtesseract_1_1_tesseract.html">Tesseract</a>*        tesseract_;       
+<a name="l00719"></a><a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#ad7b44f5b470c9e04289c348d82726b27">00719</a>   <a class="code" href="classtesseract_1_1_tesseract.html">Tesseract</a>*        <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#ad7b44f5b470c9e04289c348d82726b27" title="For orientation &amp; script detection.">osd_tesseract_</a>;   
+<a name="l00720"></a><a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a0222d0f645909860d13f71c078008133">00720</a>   <a class="code" href="classtesseract_1_1_equation_detect.html">EquationDetect</a>*   <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a0222d0f645909860d13f71c078008133" title="The equation detector.">equ_detect_</a>;      
+<a name="l00721"></a><a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a9d93e1d92ca230ae02b81d44bc88a55c">00721</a>   <a class="code" href="classtesseract_1_1_image_thresholder.html">ImageThresholder</a>* <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a9d93e1d92ca230ae02b81d44bc88a55c" title="Image thresholding module.">thresholder_</a>;     
+<a name="l00722"></a><a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a06084d66b830a388515663761d842041">00722</a>   <a class="code" href="class_generic_vector.html">GenericVector&lt;ParagraphModel *&gt;</a>* <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a06084d66b830a388515663761d842041">paragraph_models_</a>;
+<a name="l00723"></a><a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#ac22c36258b0cd727188505a9a1dbc7e1">00723</a>   BLOCK_LIST*       <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#ac22c36258b0cd727188505a9a1dbc7e1" title="The page layout.">block_list_</a>;      
+<a name="l00724"></a><a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a12dda612630eba40e15f9d0b9955a04c">00724</a>   <a class="code" href="class_p_a_g_e___r_e_s.html">PAGE_RES</a>*         <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a12dda612630eba40e15f9d0b9955a04c" title="The page-level data.">page_res_</a>;        
+<a name="l00725"></a><a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a4690919aa9d4eabda36bdefdaadf7ac9">00725</a>   <a class="code" href="class_s_t_r_i_n_g.html">STRING</a>*           <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a4690919aa9d4eabda36bdefdaadf7ac9" title="Name used by training code.">input_file_</a>;      
+<a name="l00726"></a><a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a22a0c520bc88e2d80fb8b6a10b7caba1">00726</a>   <a class="code" href="class_s_t_r_i_n_g.html">STRING</a>*           <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a22a0c520bc88e2d80fb8b6a10b7caba1" title="Name used by debug code.">output_file_</a>;     
+<a name="l00727"></a><a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#ad7c3d4ead7b9c8e27e45e710e5407913">00727</a>   <a class="code" href="class_s_t_r_i_n_g.html">STRING</a>*           <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#ad7c3d4ead7b9c8e27e45e710e5407913" title="Current location of tessdata.">datapath_</a>;        
+<a name="l00728"></a><a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a74a291190aa0bbf90b57f678b1fb0a5c">00728</a>   <a class="code" href="class_s_t_r_i_n_g.html">STRING</a>*           <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a74a291190aa0bbf90b57f678b1fb0a5c" title="Last initialized language.">language_</a>;        
+<a name="l00729"></a><a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#af9d4095a569fbf8687cefc005d2f58ee">00729</a>   <a class="code" href="namespacetesseract.html#a04550a0ed1279562027bf2fc92c421ae">OcrEngineMode</a> <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#af9d4095a569fbf8687cefc005d2f58ee" title="Last ocr language mode requested.">last_oem_requested_</a>;  
+<a name="l00730"></a><a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a7d4627f300b1096d43a3e7d54d8aa5df">00730</a>   <span class="keywordtype">bool</span>          <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a7d4627f300b1096d43a3e7d54d8aa5df" title="page_res_ contains recognition data.">recognition_done_</a>;   
+<a name="l00731"></a><a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#ac7eaed7f3fedb15212eb39b747de0102">00731</a>   <a class="code" href="class_tess_callback3.html">TruthCallback</a> *<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#ac7eaed7f3fedb15212eb39b747de0102">truth_cb_</a>;           
+<a name="l00732"></a>00732 
+<a name="l00737"></a>00737   <span class="comment">/* @{ */</span>
+<a name="l00738"></a><a class="code" href="group___thresholder_params.html#gab3c90d43a3628dc7abeb93e9ca01bc97">00738</a>   <span class="keywordtype">int</span> <a class="code" href="group___thresholder_params.html#gab3c90d43a3628dc7abeb93e9ca01bc97">rect_left_</a>;
+<a name="l00739"></a><a class="code" href="group___thresholder_params.html#gac71648cd860510ca65b94d87d7d9bb1f">00739</a>   <span class="keywordtype">int</span> <a class="code" href="group___thresholder_params.html#gac71648cd860510ca65b94d87d7d9bb1f">rect_top_</a>;
+<a name="l00740"></a><a class="code" href="group___thresholder_params.html#ga31dbaec91a5dd8ee7d399786a4bd5ef8">00740</a>   <span class="keywordtype">int</span> <a class="code" href="group___thresholder_params.html#ga31dbaec91a5dd8ee7d399786a4bd5ef8">rect_width_</a>;
+<a name="l00741"></a><a class="code" href="group___thresholder_params.html#ga978edc537da096ec07d4bb8e4ae5332d">00741</a>   <span class="keywordtype">int</span> <a class="code" href="group___thresholder_params.html#ga978edc537da096ec07d4bb8e4ae5332d">rect_height_</a>;
+<a name="l00742"></a><a class="code" href="group___thresholder_params.html#gaf3238cd7ff2c0995e647c8c7846bdba3">00742</a>   <span class="keywordtype">int</span> <a class="code" href="group___thresholder_params.html#gaf3238cd7ff2c0995e647c8c7846bdba3">image_width_</a>;
+<a name="l00743"></a><a class="code" href="group___thresholder_params.html#gab7d24a78f3565c5bfb42b2592b9e8df0">00743</a>   <span class="keywordtype">int</span> <a class="code" href="group___thresholder_params.html#gab7d24a78f3565c5bfb42b2592b9e8df0">image_height_</a>;
+<a name="l00744"></a>00744   <span class="comment">/* @} */</span>
+<a name="l00745"></a>00745 
+<a name="l00746"></a>00746 };
+<a name="l00747"></a>00747 
+<a name="l00748"></a>00748 }  <span class="comment">// namespace tesseract.</span>
+<a name="l00749"></a>00749 
+<a name="l00750"></a>00750 <span class="preprocessor">#endif  // TESSERACT_API_BASEAPI_H__</span>
 </pre></div></div>
 </div>
   <div id="nav-path" class="navpath">
@@ -538,7 +539,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:06 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:34 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

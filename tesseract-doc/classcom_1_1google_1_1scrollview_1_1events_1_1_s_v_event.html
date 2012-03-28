@@ -125,6 +125,8 @@ Package Attributes</h2></td></tr>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>The <a class="el" href="classcom_1_1google_1_1scrollview_1_1events_1_1_s_v_event.html">SVEvent</a> is a structure which holds the actual values of a message to be transmitted. It corresponds to the client structure defined in <a class="el" href="scrollview_8h.html">scrollview.h</a></p>
 <dl class="author"><dt><b>Author:</b></dt><dd><a href="mailto:wanke@google.com">wanke@google.com</a> </dd></dl>
+
+<p>Definition at line <a class="el" href="_s_v_event_8java_source.html#l00021">21</a> of file <a class="el" href="_s_v_event_8java_source.html">SVEvent.java</a>.</p>
 </div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="ab2711afde022a3e5275f451b36ab8925"></a><!-- doxytag: member="com::google::scrollview::events::SVEvent::SVEvent" ref="ab2711afde022a3e5275f451b36ab8925" args="(SVEventType t, SVWindow w, int x1, int y1, int x2, int y2, String p)" -->
 <div class="memitem">
@@ -194,6 +196,18 @@ Package Attributes</h2></td></tr>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="_s_v_event_8java_source.html#l00043">43</a> of file <a class="el" href="_s_v_event_8java_source.html">SVEvent.java</a>.</p>
+<div class="fragment"><pre class="fragment">                {
+    <a class="code" href="classcom_1_1google_1_1scrollview_1_1events_1_1_s_v_event.html#a442489e0d31de3effe5d260988d8137d">type</a> = t;
+    <a class="code" href="classcom_1_1google_1_1scrollview_1_1events_1_1_s_v_event.html#a60831631e3140636fe5eb9ad5259c169">window</a> = w;
+    <a class="code" href="classcom_1_1google_1_1scrollview_1_1events_1_1_s_v_event.html#ac6b7fe8aa639b354c221af9da5a4d979">x</a> = x1;
+    <a class="code" href="classcom_1_1google_1_1scrollview_1_1events_1_1_s_v_event.html#ab924459426b90d280f9799736da87458">y</a> = y1;
+    <a class="code" href="classcom_1_1google_1_1scrollview_1_1events_1_1_s_v_event.html#afa481fbf3d1c5d5ae3247a06d5be73bd">xSize</a> = x2;
+    <a class="code" href="classcom_1_1google_1_1scrollview_1_1events_1_1_s_v_event.html#aea8de7a2bc36a755e5cd2a00a1e1eac7">ySize</a> = y2;
+    <a class="code" href="classcom_1_1google_1_1scrollview_1_1events_1_1_s_v_event.html#ad85764e4d504b1b631b098e460e2372e">commandId</a> = 0;
+    <a class="code" href="classcom_1_1google_1_1scrollview_1_1events_1_1_s_v_event.html#a9dcf70b39fbac8d11967c78b79b559d0">parameter</a> = p;    
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac2d66fde16c7dafa6de7b795725c8224"></a><!-- doxytag: member="com::google::scrollview::events::SVEvent::SVEvent" ref="ac2d66fde16c7dafa6de7b795725c8224" args="(SVEventType eventtype, SVWindow svWindow, int commandid, String value)" -->
@@ -243,6 +257,19 @@ Package Attributes</h2></td></tr>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="_s_v_event_8java_source.html#l00065">65</a> of file <a class="el" href="_s_v_event_8java_source.html">SVEvent.java</a>.</p>
+<div class="fragment"><pre class="fragment">                    {
+    <a class="code" href="classcom_1_1google_1_1scrollview_1_1events_1_1_s_v_event.html#a442489e0d31de3effe5d260988d8137d">type</a> = eventtype;
+    <a class="code" href="classcom_1_1google_1_1scrollview_1_1events_1_1_s_v_event.html#a60831631e3140636fe5eb9ad5259c169">window</a> = svWindow;
+
+    <a class="code" href="classcom_1_1google_1_1scrollview_1_1events_1_1_s_v_event.html#a9dcf70b39fbac8d11967c78b79b559d0">parameter</a> = value;
+    <a class="code" href="classcom_1_1google_1_1scrollview_1_1events_1_1_s_v_event.html#ac6b7fe8aa639b354c221af9da5a4d979">x</a> = 0;
+    <a class="code" href="classcom_1_1google_1_1scrollview_1_1events_1_1_s_v_event.html#ab924459426b90d280f9799736da87458">y</a> = 0;
+    <a class="code" href="classcom_1_1google_1_1scrollview_1_1events_1_1_s_v_event.html#afa481fbf3d1c5d5ae3247a06d5be73bd">xSize</a> = 0;
+    <a class="code" href="classcom_1_1google_1_1scrollview_1_1events_1_1_s_v_event.html#aea8de7a2bc36a755e5cd2a00a1e1eac7">ySize</a> = 0;
+    <a class="code" href="classcom_1_1google_1_1scrollview_1_1events_1_1_s_v_event.html#ad85764e4d504b1b631b098e460e2372e">commandId</a> = commandid;
+  }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -261,6 +288,12 @@ Package Attributes</h2></td></tr>
 <div class="memdoc">
 <p>This is the string representation of the message, which is what will actually be transferred over the network. </p>
 
+<p>Definition at line <a class="el" href="_s_v_event_8java_source.html#l00083">83</a> of file <a class="el" href="_s_v_event_8java_source.html">SVEvent.java</a>.</p>
+<div class="fragment"><pre class="fragment">                           {
+    <span class="keywordflow">return</span> (<a class="code" href="classcom_1_1google_1_1scrollview_1_1events_1_1_s_v_event.html#a60831631e3140636fe5eb9ad5259c169">window</a>.hash + <span class="stringliteral">&quot;,&quot;</span> + <a class="code" href="classcom_1_1google_1_1scrollview_1_1events_1_1_s_v_event.html#a442489e0d31de3effe5d260988d8137d">type</a>.ordinal() + <span class="stringliteral">&quot;,&quot;</span> + <a class="code" href="classcom_1_1google_1_1scrollview_1_1events_1_1_s_v_event.html#ac6b7fe8aa639b354c221af9da5a4d979">x</a> + <span class="stringliteral">&quot;,&quot;</span> + <a class="code" href="classcom_1_1google_1_1scrollview_1_1events_1_1_s_v_event.html#ab924459426b90d280f9799736da87458">y</a> + <span class="stringliteral">&quot;,&quot;</span>
+        + <a class="code" href="classcom_1_1google_1_1scrollview_1_1events_1_1_s_v_event.html#afa481fbf3d1c5d5ae3247a06d5be73bd">xSize</a> + <span class="stringliteral">&quot;,&quot;</span> + <a class="code" href="classcom_1_1google_1_1scrollview_1_1events_1_1_s_v_event.html#aea8de7a2bc36a755e5cd2a00a1e1eac7">ySize</a> + <span class="stringliteral">&quot;,&quot;</span> + <a class="code" href="classcom_1_1google_1_1scrollview_1_1events_1_1_s_v_event.html#ad85764e4d504b1b631b098e460e2372e">commandId</a> + <span class="stringliteral">&quot;,&quot;</span> + <a class="code" href="classcom_1_1google_1_1scrollview_1_1events_1_1_s_v_event.html#a9dcf70b39fbac8d11967c78b79b559d0">parameter</a>);
+  }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
@@ -275,6 +308,8 @@ Package Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="_s_v_event_8java_source.html#l00028">28</a> of file <a class="el" href="_s_v_event_8java_source.html">SVEvent.java</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a9dcf70b39fbac8d11967c78b79b559d0"></a><!-- doxytag: member="com::google::scrollview::events::SVEvent::parameter" ref="a9dcf70b39fbac8d11967c78b79b559d0" args="" -->
@@ -287,6 +322,8 @@ Package Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="_s_v_event_8java_source.html#l00029">29</a> of file <a class="el" href="_s_v_event_8java_source.html">SVEvent.java</a>.</p>
 
 </div>
 </div>
@@ -301,6 +338,8 @@ Package Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="_s_v_event_8java_source.html#l00022">22</a> of file <a class="el" href="_s_v_event_8java_source.html">SVEvent.java</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a60831631e3140636fe5eb9ad5259c169"></a><!-- doxytag: member="com::google::scrollview::events::SVEvent::window" ref="a60831631e3140636fe5eb9ad5259c169" args="" -->
@@ -313,6 +352,8 @@ Package Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="_s_v_event_8java_source.html#l00023">23</a> of file <a class="el" href="_s_v_event_8java_source.html">SVEvent.java</a>.</p>
 
 </div>
 </div>
@@ -327,6 +368,8 @@ Package Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="_s_v_event_8java_source.html#l00024">24</a> of file <a class="el" href="_s_v_event_8java_source.html">SVEvent.java</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="afa481fbf3d1c5d5ae3247a06d5be73bd"></a><!-- doxytag: member="com::google::scrollview::events::SVEvent::xSize" ref="afa481fbf3d1c5d5ae3247a06d5be73bd" args="" -->
@@ -339,6 +382,8 @@ Package Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="_s_v_event_8java_source.html#l00026">26</a> of file <a class="el" href="_s_v_event_8java_source.html">SVEvent.java</a>.</p>
 
 </div>
 </div>
@@ -353,6 +398,8 @@ Package Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="_s_v_event_8java_source.html#l00025">25</a> of file <a class="el" href="_s_v_event_8java_source.html">SVEvent.java</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="aea8de7a2bc36a755e5cd2a00a1e1eac7"></a><!-- doxytag: member="com::google::scrollview::events::SVEvent::ySize" ref="aea8de7a2bc36a755e5cd2a00a1e1eac7" args="" -->
@@ -366,10 +413,12 @@ Package Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="_s_v_event_8java_source.html#l00027">27</a> of file <a class="el" href="_s_v_event_8java_source.html">SVEvent.java</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>tesseract-ocr/java/com/google/scrollview/events/<a class="el" href="_s_v_event_8java.html">SVEvent.java</a></li>
+<li>tesseract-ocr/java/com/google/scrollview/events/<a class="el" href="_s_v_event_8java_source.html">SVEvent.java</a></li>
 </ul>
 </div>
 </div>
@@ -395,7 +444,7 @@ Package Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:14 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:48 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

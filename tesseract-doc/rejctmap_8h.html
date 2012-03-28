@@ -171,6 +171,8 @@ Enumerations</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rejctmap_8h_source.html#l00096">96</a> of file <a class="el" href="rejctmap_8h_source.html">rejctmap.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ae4c8f1719fe8045190e89f60bf16f147"></a><!-- doxytag: member="rejctmap.h::MAP_REJECT_PERM" ref="ae4c8f1719fe8045190e89f60bf16f147" args="" -->
@@ -183,6 +185,8 @@ Enumerations</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="rejctmap_8h_source.html#l00097">97</a> of file <a class="el" href="rejctmap_8h_source.html">rejctmap.h</a>.</p>
 
 </div>
 </div>
@@ -197,6 +201,8 @@ Enumerations</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="rejctmap_8h_source.html#l00099">99</a> of file <a class="el" href="rejctmap_8h_source.html">rejctmap.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ae6fbbf62a95c2352932af9ca59465e64"></a><!-- doxytag: member="rejctmap.h::MAP_REJECT_TEMP" ref="ae6fbbf62a95c2352932af9ca59465e64" args="" -->
@@ -209,6 +215,8 @@ Enumerations</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="rejctmap_8h_source.html#l00098">98</a> of file <a class="el" href="rejctmap_8h_source.html">rejctmap.h</a>.</p>
 
 </div>
 </div>
@@ -282,6 +290,48 @@ Enumerations</h2></td></tr>
 </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="rejctmap_8h_source.html#l00052">52</a> of file <a class="el" href="rejctmap_8h_source.html">rejctmap.h</a>.</p>
+<div class="fragment"><pre class="fragment">{
+  <span class="comment">/* Reject modes which are NEVER overridden */</span>
+  <a class="code" href="rejctmap_8h.html#aa0904e8de5c106907554ad8a64cd75aaaa9e90cb27400daeb65262f465ca55963">R_TESS_FAILURE</a>,                <span class="comment">// PERM Tess didnt classify</span>
+  <a class="code" href="rejctmap_8h.html#aa0904e8de5c106907554ad8a64cd75aaae9c3faa247c71799d9f6955badf19cda">R_SMALL_XHT</a>,                   <span class="comment">// PERM Xht too small</span>
+  <a class="code" href="rejctmap_8h.html#aa0904e8de5c106907554ad8a64cd75aaad945e4640b308e36e058dbb01ccf6b1d">R_EDGE_CHAR</a>,                   <span class="comment">// PERM Too close to edge of image</span>
+  <a class="code" href="rejctmap_8h.html#aa0904e8de5c106907554ad8a64cd75aaa8b8798f4f516ddb31037b563cfd7a90c">R_1IL_CONFLICT</a>,                <span class="comment">// PERM 1Il confusion</span>
+  <a class="code" href="rejctmap_8h.html#aa0904e8de5c106907554ad8a64cd75aaaae5be3ca821456d1d53ac803798b4e4c">R_POSTNN_1IL</a>,                  <span class="comment">// PERM 1Il unrejected by NN</span>
+  <a class="code" href="rejctmap_8h.html#aa0904e8de5c106907554ad8a64cd75aaa74d4cf8b2b5fe113ebf7b9c420343c58">R_REJ_CBLOB</a>,                   <span class="comment">// PERM Odd blob</span>
+  <a class="code" href="rejctmap_8h.html#aa0904e8de5c106907554ad8a64cd75aaa3290f139840ec68d0ad1b800580bd5d0">R_MM_REJECT</a>,                   <span class="comment">// PERM Matrix match rejection (m&#39;s)</span>
+  <a class="code" href="rejctmap_8h.html#aa0904e8de5c106907554ad8a64cd75aaa6c2902cc320e6ef874dba77400096bb3">R_BAD_REPETITION</a>,              <span class="comment">// TEMP Repeated char which doesn&#39;t match trend</span>
+
+  <span class="comment">/* Initial reject modes (pre NN_ACCEPT) */</span>
+  <a class="code" href="rejctmap_8h.html#aa0904e8de5c106907554ad8a64cd75aaabe17879df6434d3ac363864cea5cff70">R_POOR_MATCH</a>,                  <span class="comment">// TEMP Ray&#39;s original heuristic (Not used)</span>
+  <a class="code" href="rejctmap_8h.html#aa0904e8de5c106907554ad8a64cd75aaa3af2da59ca30ea4d9f678582cb765943">R_NOT_TESS_ACCEPTED</a>,           <span class="comment">// TEMP Tess didnt accept WERD</span>
+  <a class="code" href="rejctmap_8h.html#aa0904e8de5c106907554ad8a64cd75aaab9972fc9fdd8fc7a8631aa23624477bf">R_CONTAINS_BLANKS</a>,             <span class="comment">// TEMP Tess failed on other chs in WERD</span>
+  <a class="code" href="rejctmap_8h.html#aa0904e8de5c106907554ad8a64cd75aaa816e9eb92c84abac4a0c84d7855e96ca">R_BAD_PERMUTER</a>,                <span class="comment">// POTENTIAL Bad permuter for WERD</span>
+
+  <span class="comment">/* Reject modes generated after NN_ACCEPT but before MM_ACCEPT */</span>
+  <a class="code" href="rejctmap_8h.html#aa0904e8de5c106907554ad8a64cd75aaabafae36f4ac3eceb1c60790b25216d9d">R_HYPHEN</a>,                      <span class="comment">// TEMP Post NN dodgy hyphen or full stop</span>
+  <a class="code" href="rejctmap_8h.html#aa0904e8de5c106907554ad8a64cd75aaa4b904a542092cac49d42ada569aeb366">R_DUBIOUS</a>,                     <span class="comment">// TEMP Post NN dodgy chars</span>
+  <a class="code" href="rejctmap_8h.html#aa0904e8de5c106907554ad8a64cd75aaa760cb3b743fba29a24ceada590cb28a5">R_NO_ALPHANUMS</a>,                <span class="comment">// TEMP No alphanumerics in word after NN</span>
+  <a class="code" href="rejctmap_8h.html#aa0904e8de5c106907554ad8a64cd75aaa28267d098ae5e5dd9234e8225990fa5e">R_MOSTLY_REJ</a>,                  <span class="comment">// TEMP Most of word rejected so rej the rest</span>
+  <a class="code" href="rejctmap_8h.html#aa0904e8de5c106907554ad8a64cd75aaa32f016f7b77aeb8d4891753c68b42eba">R_XHT_FIXUP</a>,                   <span class="comment">// TEMP Xht tests unsure</span>
+
+  <span class="comment">/* Reject modes generated after MM_ACCEPT but before QUALITY_ACCEPT */</span>
+  <a class="code" href="rejctmap_8h.html#aa0904e8de5c106907554ad8a64cd75aaa9449830b9b3be69359e29ba073dbab97">R_BAD_QUALITY</a>,                 <span class="comment">// TEMP Quality metrics bad for WERD</span>
+
+  <span class="comment">/* Reject modes generated after QUALITY_ACCEPT but before MINIMAL_REJ accep*/</span>
+  <a class="code" href="rejctmap_8h.html#aa0904e8de5c106907554ad8a64cd75aaabd4893be9fca38674051ba596a12c866">R_DOC_REJ</a>,                     <span class="comment">// TEMP Document rejection</span>
+  <a class="code" href="rejctmap_8h.html#aa0904e8de5c106907554ad8a64cd75aaa6b379b13e52686bb924a2a474962e3c7">R_BLOCK_REJ</a>,                   <span class="comment">// TEMP Block rejection</span>
+  <a class="code" href="rejctmap_8h.html#aa0904e8de5c106907554ad8a64cd75aaa53b165bbee2790e76a7ef35c6acbe3ba">R_ROW_REJ</a>,                     <span class="comment">// TEMP Row rejection</span>
+  <a class="code" href="rejctmap_8h.html#aa0904e8de5c106907554ad8a64cd75aaae288e8069feabdb927e4f77587d2a5f8">R_UNLV_REJ</a>,                    <span class="comment">// TEMP ~ turned to - or ^ turned to space</span>
+
+  <span class="comment">/* Accept modes which occur inbetween the above rejection groups */</span>
+  <a class="code" href="rejctmap_8h.html#aa0904e8de5c106907554ad8a64cd75aaaf84e25f4e0bf0071671efeb73099ae35">R_NN_ACCEPT</a>,                   <span class="comment">//NN acceptance</span>
+  <a class="code" href="rejctmap_8h.html#aa0904e8de5c106907554ad8a64cd75aaab95636d09447ad2994bc856d21dd22e1">R_HYPHEN_ACCEPT</a>,               <span class="comment">//Hyphen acceptance</span>
+  <a class="code" href="rejctmap_8h.html#aa0904e8de5c106907554ad8a64cd75aaa72f00243433a6558a28fbab640343213">R_MM_ACCEPT</a>,                   <span class="comment">//Matrix match acceptance</span>
+  <a class="code" href="rejctmap_8h.html#aa0904e8de5c106907554ad8a64cd75aaa9893d23c118ad4a6a3554a1efe084db5">R_QUALITY_ACCEPT</a>,              <span class="comment">//Accept word in good quality doc</span>
+  <a class="code" href="rejctmap_8h.html#aa0904e8de5c106907554ad8a64cd75aaa4182d71325acc2fe2eaf014e5c8770c4">R_MINIMAL_REJ_ACCEPT</a>           <span class="comment">//Accept EVERYTHING except tess failures</span>
+};
+</pre></div>
 </div>
 </div>
 </div>
@@ -304,7 +354,7 @@ Enumerations</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:09 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:40 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

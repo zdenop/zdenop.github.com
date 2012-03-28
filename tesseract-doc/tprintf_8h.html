@@ -141,6 +141,39 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tprintf_8cpp_source.html#l00086">86</a> of file <a class="el" href="tprintf_8cpp_source.html">tprintf.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">  {
+  va_list args;                  <span class="comment">//variable args</span>
+  <span class="keywordtype">char</span> msg[1000];
+  <a class="code" href="class_s_t_r_i_n_g.html">STRING</a> str = <a class="code" href="class_s_t_r_i_n_g.html">STRING</a> (<span class="stringliteral">&quot;DEBUG PAUSE:\n&quot;</span>);
+
+  va_start(args, format);  <span class="comment">//variable list</span>
+  vsprintf(msg, format, args);  <span class="comment">//Format into msg</span>
+  va_end(args);
+
+<span class="preprocessor">  #ifdef GRAPHICS_DISABLED</span>
+<span class="preprocessor"></span>  <span class="comment">// No interaction allowed -&gt; simply go on</span>
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+<span class="preprocessor">  #else</span>
+<span class="preprocessor"></span>
+<span class="preprocessor">  #ifdef __UNIX__</span>
+<span class="preprocessor"></span>  printf (<span class="stringliteral">&quot;%s\n&quot;</span>, msg);
+  printf (<span class="stringliteral">&quot;Type \&quot;c\&quot; to cancel, anything else to continue: &quot;</span>);
+  <span class="keywordtype">char</span> c = getchar ();
+  <span class="keywordflow">return</span> (c != <span class="charliteral">&#39;c&#39;</span>);
+<span class="preprocessor">  #endif</span>
+<span class="preprocessor"></span>
+<span class="preprocessor">  #ifdef _WIN32</span>
+<span class="preprocessor"></span>  str +=
+    <a class="code" href="class_s_t_r_i_n_g.html">STRING</a> (msg) + <a class="code" href="class_s_t_r_i_n_g.html">STRING</a> (<span class="stringliteral">&quot;\nUse OK to continue, CANCEL to stop pausing&quot;</span>);
+  <span class="comment">//   return AfxMessageBox( str.string(), MB_OKCANCEL ) == IDOK;</span>
+  return::MessageBox (<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, msg, <span class="stringliteral">&quot;IMGAPP&quot;</span>,
+    MB_APPLMODAL | MB_OKCANCEL) == IDOK;
+<span class="preprocessor">  #endif</span>
+<span class="preprocessor"></span>
+<span class="preprocessor">  #endif</span>
+<span class="preprocessor"></span>}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a0c012ad70a57d03771394370a06e57cf"></a><!-- doxytag: member="tprintf.h::tprintf" ref="a0c012ad70a57d03771394370a06e57cf" args="(const char *format,...)" -->
@@ -168,6 +201,40 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tprintf_8cpp_source.html#l00041">41</a> of file <a class="el" href="tprintf_8cpp_source.html">tprintf.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">  {
+  <a class="code" href="namespacetesseract.html#a21e8ca8a9b5682a2649f8915227d4a8c">tesseract::tprintfMutex</a>.Lock();
+  va_list args;                  <span class="comment">//variable args</span>
+  <span class="keyword">static</span> FILE *debugfp = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;   <span class="comment">//debug file</span>
+                                 <span class="comment">//debug window</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> offset = 0;              <span class="comment">//into message</span>
+  <span class="keyword">static</span> <span class="keywordtype">char</span> msg[<a class="code" href="tprintf_8cpp.html#a51d90ea93d4b55e086cb490f7478e684">MAX_MSG_LEN</a> + 1];
+
+  va_start(args, format);  <span class="comment">//variable list</span>
+<span class="preprocessor">  #ifdef _WIN32</span>
+<span class="preprocessor"></span>                                 <span class="comment">//Format into msg</span>
+  offset += _vsnprintf (msg + offset, <a class="code" href="tprintf_8cpp.html#a51d90ea93d4b55e086cb490f7478e684">MAX_MSG_LEN</a> - offset, format, args);
+  <span class="keywordflow">if</span> (strcmp(<a class="code" href="tprintf_8cpp.html#aa8ce7e96765d92da2430b440edb0724a">debug_file</a>.string(), <span class="stringliteral">&quot;/dev/null&quot;</span>) == 0)
+          <a class="code" href="tprintf_8cpp.html#aa8ce7e96765d92da2430b440edb0724a">debug_file</a>.set_value(<span class="stringliteral">&quot;nul&quot;</span>);
+<span class="preprocessor">  #else</span>
+<span class="preprocessor"></span>                                 <span class="comment">//Format into msg</span>
+  offset += vsprintf (msg + offset, format, args);
+<span class="preprocessor">  #endif</span>
+<span class="preprocessor"></span>  va_end(args);
+
+  <span class="keywordflow">if</span> (debugfp == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp; strlen (<a class="code" href="tprintf_8cpp.html#aa8ce7e96765d92da2430b440edb0724a">debug_file</a>.string ()) &gt; 0) {
+    debugfp = fopen (<a class="code" href="tprintf_8cpp.html#aa8ce7e96765d92da2430b440edb0724a">debug_file</a>.string (), <span class="stringliteral">&quot;wb&quot;</span>);
+  } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (debugfp != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp; strlen (<a class="code" href="tprintf_8cpp.html#aa8ce7e96765d92da2430b440edb0724a">debug_file</a>.string ()) == 0) {
+    fclose(debugfp);
+    debugfp = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="keywordflow">if</span> (debugfp != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    fprintf(debugfp, <span class="stringliteral">&quot;%s&quot;</span>, msg);
+  <span class="keywordflow">else</span>
+    fprintf(stderr, <span class="stringliteral">&quot;%s&quot;</span>, msg);
+  <a class="code" href="namespacetesseract.html#a21e8ca8a9b5682a2649f8915227d4a8c">tesseract::tprintfMutex</a>.Unlock();
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Variable Documentation</h2>
@@ -182,6 +249,8 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"File to send tprintf output to" </p>
+
+<p>Definition at line <a class="el" href="tprintf_8cpp_source.html#l00038">38</a> of file <a class="el" href="tprintf_8cpp_source.html">tprintf.cpp</a>.</p>
 
 </div>
 </div>
@@ -219,7 +288,7 @@ Variables</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:09 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:41 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

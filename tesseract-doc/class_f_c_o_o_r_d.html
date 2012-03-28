@@ -167,7 +167,10 @@ Friends</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_f_c_o_o_r_d.html">FCOORD</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_f_c_o_o_r_d.html#a10d0bca7ebef641fd17e18f1836ec02e">operator/=</a> (<a class="el" href="class_f_c_o_o_r_d.html">FCOORD</a> &amp;, float)</td></tr>
 <tr><td class="mdescLeft">&#160;</td><td class="mdescRight">divide  <a href="#a10d0bca7ebef641fd17e18f1836ec02e"></a><br/></td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="points_8h_source.html#l00189">189</a> of file <a class="el" href="points_8h_source.html">points.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="ab76ac19149426cd7fcbe2f55f955d3d0"></a><!-- doxytag: member="FCOORD::FCOORD" ref="ab76ac19149426cd7fcbe2f55f955d3d0" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -184,6 +187,10 @@ Friends</h2></td></tr>
 
 <p>empty constructor </p>
 
+<p>Definition at line <a class="el" href="points_8h_source.html#l00193">193</a> of file <a class="el" href="points_8h_source.html">points.h</a>.</p>
+<div class="fragment"><pre class="fragment">             {
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="abc66daac958bd4efb8074e70da0d3922"></a><!-- doxytag: member="FCOORD::FCOORD" ref="abc66daac958bd4efb8074e70da0d3922" args="(float xvalue, float yvalue)" -->
@@ -219,6 +226,12 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="points_8h_source.html#l00198">198</a> of file <a class="el" href="points_8h_source.html">points.h</a>.</p>
+<div class="fragment"><pre class="fragment">                         {
+      xcoord = xvalue;           <span class="comment">//set coords</span>
+      ycoord = yvalue;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6fc221d926946bd07228174fc5c7d06c"></a><!-- doxytag: member="FCOORD::FCOORD" ref="a6fc221d926946bd07228174fc5c7d06c" args="(ICOORD icoord)" -->
@@ -236,6 +249,12 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="points_8h_source.html#l00203">203</a> of file <a class="el" href="points_8h_source.html">points.h</a>.</p>
+<div class="fragment"><pre class="fragment">                          {  <span class="comment">//coords to set</span>
+      xcoord = icoord.<a class="code" href="class_i_c_o_o_r_d.html#a0bba3892d33e49115748480b986fdae8">xcoord</a>;
+      ycoord = icoord.<a class="code" href="class_i_c_o_o_r_d.html#a80ea51273376c5a171c6d0dcb5193b12">ycoord</a>;
+    }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -255,6 +274,11 @@ Friends</h2></td></tr>
 
 <p>find angle </p>
 
+<p>Definition at line <a class="el" href="points_8h_source.html#l00249">249</a> of file <a class="el" href="points_8h_source.html">points.h</a>.</p>
+<div class="fragment"><pre class="fragment">                        {
+      <span class="keywordflow">return</span> (<span class="keywordtype">float</span>) atan2 (ycoord, xcoord);
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a57c525156717d9e0823230eb5b84255d"></a><!-- doxytag: member="FCOORD::length" ref="a57c525156717d9e0823230eb5b84255d" args="() const " -->
@@ -273,6 +297,11 @@ Friends</h2></td></tr>
 
 <p>find length </p>
 
+<p>Definition at line <a class="el" href="points_8h_source.html#l00230">230</a> of file <a class="el" href="points_8h_source.html">points.h</a>.</p>
+<div class="fragment"><pre class="fragment">                         {
+      <span class="keywordflow">return</span> (<span class="keywordtype">float</span>) sqrt (<a class="code" href="class_f_c_o_o_r_d.html#a200f5a95100dd178551868e3ce242ef5" title="find sq length">sqlength</a> ());
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae038bea84e90d493366d15c9578e4be9"></a><!-- doxytag: member="FCOORD::normalise" ref="ae038bea84e90d493366d15c9578e4be9" args="()" -->
@@ -310,6 +339,11 @@ Friends</h2></td></tr>
 
 <p>test inequality </p>
 
+<p>Definition at line <a class="el" href="points_8h_source.html#l00261">261</a> of file <a class="el" href="points_8h_source.html">points.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                            {
+      <span class="keywordflow">return</span> xcoord != other.xcoord || ycoord != other.ycoord;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="af0f80f0ba345a842f59a8b82153c4aa2"></a><!-- doxytag: member="FCOORD::operator==" ref="af0f80f0ba345a842f59a8b82153c4aa2" args="(const FCOORD &amp;other)" -->
@@ -329,6 +363,11 @@ Friends</h2></td></tr>
 
 <p>test equality </p>
 
+<p>Definition at line <a class="el" href="points_8h_source.html#l00257">257</a> of file <a class="el" href="points_8h_source.html">points.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                            {
+      <span class="keywordflow">return</span> xcoord == other.xcoord &amp;&amp; ycoord == other.ycoord;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a436fdbffdc41279c811a00b47b82f7e2"></a><!-- doxytag: member="FCOORD::pt_to_pt_dist" ref="a436fdbffdc41279c811a00b47b82f7e2" args="(const FCOORD &amp;pt) const " -->
@@ -348,6 +387,11 @@ Friends</h2></td></tr>
 
 <p>Distance between pts. </p>
 
+<p>Definition at line <a class="el" href="points_8h_source.html#l00244">244</a> of file <a class="el" href="points_8h_source.html">points.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                {
+      <span class="keywordflow">return</span> (<span class="keywordtype">float</span>) sqrt (<a class="code" href="class_f_c_o_o_r_d.html#a95fcb2c8d94affe479612de3849ae60b" title="sq dist between pts">pt_to_pt_sqdist</a> (pt));
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a95fcb2c8d94affe479612de3849ae60b"></a><!-- doxytag: member="FCOORD::pt_to_pt_sqdist" ref="a95fcb2c8d94affe479612de3849ae60b" args="(const FCOORD &amp;pt) const " -->
@@ -367,6 +411,15 @@ Friends</h2></td></tr>
 
 <p>sq dist between pts </p>
 
+<p>Definition at line <a class="el" href="points_8h_source.html#l00235">235</a> of file <a class="el" href="points_8h_source.html">points.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                  {
+      <a class="code" href="class_f_c_o_o_r_d.html">FCOORD</a> gap;
+
+      gap.xcoord = xcoord - pt.xcoord;
+      gap.ycoord = ycoord - pt.ycoord;
+      <span class="keywordflow">return</span> gap.<a class="code" href="class_f_c_o_o_r_d.html#a200f5a95100dd178551868e3ce242ef5" title="find sq length">sqlength</a> ();
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a81ca9ea0cac4cd8c1bca0314e29bb28d"></a><!-- doxytag: member="FCOORD::rotate" ref="a81ca9ea0cac4cd8c1bca0314e29bb28d" args="(const FCOORD vec)" -->
@@ -391,6 +444,15 @@ Friends</h2></td></tr>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="ipoints_8h_source.html#l00471">471</a> of file <a class="el" href="ipoints_8h_source.html">ipoints.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                             {
+  <span class="keywordtype">float</span> tmp;
+
+  tmp = xcoord * vec.<a class="code" href="class_f_c_o_o_r_d.html#a9edadbfc357c730f62fa3c92677b0d58">x</a> () - ycoord * vec.<a class="code" href="class_f_c_o_o_r_d.html#a397f7ce997b246df18e7bd5a20cc422e">y</a> ();
+  ycoord = ycoord * vec.<a class="code" href="class_f_c_o_o_r_d.html#a9edadbfc357c730f62fa3c92677b0d58">x</a> () + xcoord * vec.<a class="code" href="class_f_c_o_o_r_d.html#a397f7ce997b246df18e7bd5a20cc422e">y</a> ();
+  xcoord = tmp;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae2b7e41fa5e065a9ccbf7358b4911920"></a><!-- doxytag: member="FCOORD::set_x" ref="ae2b7e41fa5e065a9ccbf7358b4911920" args="(float xin)" -->
@@ -410,6 +472,11 @@ Friends</h2></td></tr>
 
 <p>rewrite function </p>
 
+<p>Definition at line <a class="el" href="points_8h_source.html#l00216">216</a> of file <a class="el" href="points_8h_source.html">points.h</a>.</p>
+<div class="fragment"><pre class="fragment">                          {
+      xcoord = xin;              <span class="comment">//write new value</span>
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad1e9f0d2a1f054f70b6f3036db6afcc0"></a><!-- doxytag: member="FCOORD::set_y" ref="ad1e9f0d2a1f054f70b6f3036db6afcc0" args="(float yin)" -->
@@ -429,6 +496,11 @@ Friends</h2></td></tr>
 
 <p>rewrite function </p>
 
+<p>Definition at line <a class="el" href="points_8h_source.html#l00220">220</a> of file <a class="el" href="points_8h_source.html">points.h</a>.</p>
+<div class="fragment"><pre class="fragment">                          {  <span class="comment">//value to set</span>
+      ycoord = yin;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a200f5a95100dd178551868e3ce242ef5"></a><!-- doxytag: member="FCOORD::sqlength" ref="a200f5a95100dd178551868e3ce242ef5" args="() const " -->
@@ -447,6 +519,11 @@ Friends</h2></td></tr>
 
 <p>find sq length </p>
 
+<p>Definition at line <a class="el" href="points_8h_source.html#l00225">225</a> of file <a class="el" href="points_8h_source.html">points.h</a>.</p>
+<div class="fragment"><pre class="fragment">                           {
+      <span class="keywordflow">return</span> xcoord * xcoord + ycoord * ycoord;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a8fb03c71def155b9b9a4fa536f9c8892"></a><!-- doxytag: member="FCOORD::unrotate" ref="a8fb03c71def155b9b9a4fa536f9c8892" args="(const FCOORD &amp;vec)" -->
@@ -464,6 +541,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ipoints_8h_source.html#l00480">480</a> of file <a class="el" href="ipoints_8h_source.html">ipoints.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                              {
+  <a class="code" href="class_f_c_o_o_r_d.html#a81ca9ea0cac4cd8c1bca0314e29bb28d">rotate</a>(<a class="code" href="class_f_c_o_o_r_d.html#ab76ac19149426cd7fcbe2f55f955d3d0" title="empty constructor">FCOORD</a>(vec.<a class="code" href="class_f_c_o_o_r_d.html#a9edadbfc357c730f62fa3c92677b0d58">x</a>(), -vec.<a class="code" href="class_f_c_o_o_r_d.html#a397f7ce997b246df18e7bd5a20cc422e">y</a>()));
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9edadbfc357c730f62fa3c92677b0d58"></a><!-- doxytag: member="FCOORD::x" ref="a9edadbfc357c730f62fa3c92677b0d58" args="() const " -->
@@ -480,6 +562,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="points_8h_source.html#l00209">209</a> of file <a class="el" href="points_8h_source.html">points.h</a>.</p>
+<div class="fragment"><pre class="fragment">                    {  <span class="comment">//get coords</span>
+      <span class="keywordflow">return</span> xcoord;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a397f7ce997b246df18e7bd5a20cc422e"></a><!-- doxytag: member="FCOORD::y" ref="a397f7ce997b246df18e7bd5a20cc422e" args="() const " -->
@@ -496,6 +583,11 @@ Friends</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="points_8h_source.html#l00212">212</a> of file <a class="el" href="points_8h_source.html">points.h</a>.</p>
+<div class="fragment"><pre class="fragment">                    {
+      <span class="keywordflow">return</span> ycoord;
+    }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Friends And Related Function Documentation</h2>
@@ -516,6 +608,15 @@ Friends</h2></td></tr>
 
 <p>rotate 90 deg anti </p>
 
+<p>Definition at line <a class="el" href="ipoints_8h_source.html#l00258">258</a> of file <a class="el" href="ipoints_8h_source.html">ipoints.h</a>.</p>
+<div class="fragment"><pre class="fragment">  {
+  <a class="code" href="class_f_c_o_o_r_d.html">FCOORD</a> result;                 <span class="comment">//output</span>
+
+  result.xcoord = -src.ycoord;
+  result.ycoord = src.xcoord;
+  <span class="keywordflow">return</span> result;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a09f2228a2c4e7eddb4efa190506b4229"></a><!-- doxytag: member="FCOORD::operator%" ref="a09f2228a2c4e7eddb4efa190506b4229" args="(const FCOORD &amp;, const FCOORD &amp;)" -->
@@ -545,6 +646,11 @@ Friends</h2></td></tr>
 
 <p>scalar product </p>
 
+<p>Definition at line <a class="el" href="ipoints_8h_source.html#l00362">362</a> of file <a class="el" href="ipoints_8h_source.html">ipoints.h</a>.</p>
+<div class="fragment"><pre class="fragment">                    {
+  <span class="keywordflow">return</span> op1.xcoord * op2.xcoord + op1.ycoord * op2.ycoord;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7519309ad5346ca46b2e06b060775bf3"></a><!-- doxytag: member="FCOORD::operator*" ref="a7519309ad5346ca46b2e06b060775bf3" args="(const FCOORD &amp;, const FCOORD &amp;)" -->
@@ -574,6 +680,11 @@ Friends</h2></td></tr>
 
 <p>cross product </p>
 
+<p>Definition at line <a class="el" href="ipoints_8h_source.html#l00375">375</a> of file <a class="el" href="ipoints_8h_source.html">ipoints.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                           {
+  <span class="keywordflow">return</span> op1.xcoord * op2.ycoord - op1.ycoord * op2.xcoord;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae6e75d4fe10fa8d978de07430025343f"></a><!-- doxytag: member="FCOORD::operator*" ref="ae6e75d4fe10fa8d978de07430025343f" args="(const FCOORD &amp;, float)" -->
@@ -603,6 +714,15 @@ Friends</h2></td></tr>
 
 <p>multiply </p>
 
+<p>Definition at line <a class="el" href="ipoints_8h_source.html#l00388">388</a> of file <a class="el" href="ipoints_8h_source.html">ipoints.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                      {
+  <a class="code" href="class_f_c_o_o_r_d.html">FCOORD</a> result;                 <span class="comment">//output</span>
+
+  result.xcoord = op1.xcoord * scale;
+  result.ycoord = op1.ycoord * scale;
+  <span class="keywordflow">return</span> result;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7bf09001b60d368e9e05c131843e4cf7"></a><!-- doxytag: member="FCOORD::operator*" ref="a7bf09001b60d368e9e05c131843e4cf7" args="(float, const FCOORD &amp;)" -->
@@ -632,6 +752,15 @@ Friends</h2></td></tr>
 
 <p>multiply </p>
 
+<p>Definition at line <a class="el" href="ipoints_8h_source.html#l00399">399</a> of file <a class="el" href="ipoints_8h_source.html">ipoints.h</a>.</p>
+<div class="fragment"><pre class="fragment">                          {
+  <a class="code" href="class_f_c_o_o_r_d.html">FCOORD</a> result;                 <span class="comment">//output</span>
+
+  result.xcoord = op1.xcoord * scale;
+  result.ycoord = op1.ycoord * scale;
+  <span class="keywordflow">return</span> result;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad2bd6e89980328124567d1a30c320653"></a><!-- doxytag: member="FCOORD::operator*=" ref="ad2bd6e89980328124567d1a30c320653" args="(FCOORD &amp;, float)" -->
@@ -661,6 +790,13 @@ Friends</h2></td></tr>
 
 <p>multiply </p>
 
+<p>Definition at line <a class="el" href="ipoints_8h_source.html#l00418">418</a> of file <a class="el" href="ipoints_8h_source.html">ipoints.h</a>.</p>
+<div class="fragment"><pre class="fragment">             {
+  op1.xcoord *= scale;
+  op1.ycoord *= scale;
+  <span class="keywordflow">return</span> op1;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a967005610313518ff204a7666c139b17"></a><!-- doxytag: member="FCOORD::operator+" ref="a967005610313518ff204a7666c139b17" args="(const FCOORD &amp;, const FCOORD &amp;)" -->
@@ -690,6 +826,15 @@ Friends</h2></td></tr>
 
 <p>add </p>
 
+<p>Definition at line <a class="el" href="ipoints_8h_source.html#l00294">294</a> of file <a class="el" href="ipoints_8h_source.html">ipoints.h</a>.</p>
+<div class="fragment"><pre class="fragment">                    {
+  <a class="code" href="class_f_c_o_o_r_d.html">FCOORD</a> sum;                    <span class="comment">//result</span>
+
+  sum.xcoord = op1.xcoord + op2.xcoord;
+  sum.ycoord = op1.ycoord + op2.ycoord;
+  <span class="keywordflow">return</span> sum;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a06a7274fa65d08c12e2a6b889d8aa57e"></a><!-- doxytag: member="FCOORD::operator+=" ref="a06a7274fa65d08c12e2a6b889d8aa57e" args="(FCOORD &amp;, const FCOORD &amp;)" -->
@@ -719,6 +864,13 @@ Friends</h2></td></tr>
 
 <p>add </p>
 
+<p>Definition at line <a class="el" href="ipoints_8h_source.html#l00312">312</a> of file <a class="el" href="ipoints_8h_source.html">ipoints.h</a>.</p>
+<div class="fragment"><pre class="fragment">                    {
+  op1.xcoord += op2.xcoord;
+  op1.ycoord += op2.ycoord;
+  <span class="keywordflow">return</span> op1;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa9c251947d512d66a63a597a8b5ced90"></a><!-- doxytag: member="FCOORD::operator&#45;" ref="aa9c251947d512d66a63a597a8b5ced90" args="(const FCOORD &amp;)" -->
@@ -738,6 +890,15 @@ Friends</h2></td></tr>
 
 <p>unary minus </p>
 
+<p>Definition at line <a class="el" href="ipoints_8h_source.html#l00276">276</a> of file <a class="el" href="ipoints_8h_source.html">ipoints.h</a>.</p>
+<div class="fragment"><pre class="fragment">  {
+  <a class="code" href="class_f_c_o_o_r_d.html">FCOORD</a> result;                 <span class="comment">//output</span>
+
+  result.xcoord = -src.xcoord;
+  result.ycoord = -src.ycoord;
+  <span class="keywordflow">return</span> result;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aaa8661637d35806c17ad14838869f269"></a><!-- doxytag: member="FCOORD::operator&#45;" ref="aaa8661637d35806c17ad14838869f269" args="(const FCOORD &amp;, const FCOORD &amp;)" -->
@@ -767,6 +928,15 @@ Friends</h2></td></tr>
 
 <p>subtract </p>
 
+<p>Definition at line <a class="el" href="ipoints_8h_source.html#l00328">328</a> of file <a class="el" href="ipoints_8h_source.html">ipoints.h</a>.</p>
+<div class="fragment"><pre class="fragment">                    {
+  <a class="code" href="class_f_c_o_o_r_d.html">FCOORD</a> sum;                    <span class="comment">//result</span>
+
+  sum.xcoord = op1.xcoord - op2.xcoord;
+  sum.ycoord = op1.ycoord - op2.ycoord;
+  <span class="keywordflow">return</span> sum;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a29e44d3df611db560d524640ea5961d9"></a><!-- doxytag: member="FCOORD::operator&#45;=" ref="a29e44d3df611db560d524640ea5961d9" args="(FCOORD &amp;, const FCOORD &amp;)" -->
@@ -796,6 +966,13 @@ Friends</h2></td></tr>
 
 <p>subtract </p>
 
+<p>Definition at line <a class="el" href="ipoints_8h_source.html#l00346">346</a> of file <a class="el" href="ipoints_8h_source.html">ipoints.h</a>.</p>
+<div class="fragment"><pre class="fragment">                    {
+  op1.xcoord -= op2.xcoord;
+  op1.ycoord -= op2.ycoord;
+  <span class="keywordflow">return</span> op1;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2eea256cd15417121152f09ada4e8fa7"></a><!-- doxytag: member="FCOORD::operator/" ref="a2eea256cd15417121152f09ada4e8fa7" args="(const FCOORD &amp;, float)" -->
@@ -825,6 +1002,17 @@ Friends</h2></td></tr>
 
 <p>divide </p>
 
+<p>Definition at line <a class="el" href="ipoints_8h_source.html#l00434">434</a> of file <a class="el" href="ipoints_8h_source.html">ipoints.h</a>.</p>
+<div class="fragment"><pre class="fragment">             {
+  <a class="code" href="class_f_c_o_o_r_d.html">FCOORD</a> result;                 <span class="comment">//output</span>
+
+  <span class="keywordflow">if</span> (scale != 0) {
+    result.xcoord = op1.xcoord / scale;
+    result.ycoord = op1.ycoord / scale;
+  }
+  <span class="keywordflow">return</span> result;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a10d0bca7ebef641fd17e18f1836ec02e"></a><!-- doxytag: member="FCOORD::operator/=" ref="a10d0bca7ebef641fd17e18f1836ec02e" args="(FCOORD &amp;, float)" -->
@@ -854,6 +1042,15 @@ Friends</h2></td></tr>
 
 <p>divide </p>
 
+<p>Definition at line <a class="el" href="ipoints_8h_source.html#l00454">454</a> of file <a class="el" href="ipoints_8h_source.html">ipoints.h</a>.</p>
+<div class="fragment"><pre class="fragment">             {
+  <span class="keywordflow">if</span> (scale != 0) {
+    op1.xcoord /= scale;
+    op1.ycoord /= scale;
+  }
+  <span class="keywordflow">return</span> op1;
+}
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
@@ -880,7 +1077,7 @@ Friends</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:12 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:45 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

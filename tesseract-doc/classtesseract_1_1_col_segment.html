@@ -135,7 +135,10 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8">ScrollView::Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_col_segment.html#ac93fb3f8a7db9ad2364fc5850fd959e8">BoxColor</a> () const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_col_segment.html#a2d9a6fbd449a9201bdda5b9ffc5a5cb9">InsertBox</a> (const <a class="el" href="class_t_b_o_x.html">TBOX</a> &amp;other)</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="tablefind_8h_source.html#l00046">46</a> of file <a class="el" href="tablefind_8h_source.html">tablefind.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a874cf2f3d78f2feb57b0527b3edb9f82"></a><!-- doxytag: member="tesseract::ColSegment::ColSegment" ref="a874cf2f3d78f2feb57b0527b3edb9f82" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -150,6 +153,13 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablefind_8cpp_source.html#l02135">2135</a> of file <a class="el" href="tablefind_8cpp_source.html">tablefind.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">    : <a class="code" href="class_e_l_i_s_t___l_i_n_k.html#ab3cdce5789339d12de62e18fdfb52974">ELIST_LINK</a>(),
+      num_table_cells_(0),
+      num_text_cells_(0),
+      type_(<a class="code" href="namespacetesseract.html#a25254b3df45454565d58a62480d3a6cbaee1976dbb59fbd65d366f0424759c729">COL_UNKNOWN</a>) {
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a69ec7d6f06f5a6794817f000d778bfb3"></a><!-- doxytag: member="tesseract::ColSegment::~ColSegment" ref="a69ec7d6f06f5a6794817f000d778bfb3" args="()" -->
@@ -166,6 +176,10 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablefind_8cpp_source.html#l02141">2141</a> of file <a class="el" href="tablefind_8cpp_source.html">tablefind.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                        {
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -183,6 +197,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablefind_8h_source.html#l00052">52</a> of file <a class="el" href="tablefind_8h_source.html">tablefind.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                   {
+    <span class="keywordflow">return</span> bounding_box_;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac93fb3f8a7db9ad2364fc5850fd959e8"></a><!-- doxytag: member="tesseract::ColSegment::BoxColor" ref="ac93fb3f8a7db9ad2364fc5850fd959e8" args="() const " -->
@@ -199,6 +218,17 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablefind_8cpp_source.html#l02145">2145</a> of file <a class="el" href="tablefind_8cpp_source.html">tablefind.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                            {
+  <span class="keyword">const</span> <a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8">ScrollView::Color</a> kBoxColors[<a class="code" href="publictypes_8h.html#a03566528a98c079dafeebf00502f2b60a1cfce41c30bf1aefe403aaa66d271da1">PT_COUNT</a>] = {
+    <a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8a61dec9bc0aaf1d527a731b2a6ce055c8">ScrollView::YELLOW</a>,
+    <a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8a66e5117e4930fdd9a43bdb674d57a719">ScrollView::BLUE</a>,
+    <a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8a61dec9bc0aaf1d527a731b2a6ce055c8">ScrollView::YELLOW</a>,
+    <a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8aebeaaeee353c6f04b4498b1fef94bbb3">ScrollView::MAGENTA</a>,
+  };
+  <span class="keywordflow">return</span> kBoxColors[type_];
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aabc56799b769fa63eaa2b517e7a1242f"></a><!-- doxytag: member="tesseract::ColSegment::get_num_table_cells" ref="aabc56799b769fa63eaa2b517e7a1242f" args="() const " -->
@@ -215,6 +245,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablefind_8h_source.html#l00076">76</a> of file <a class="el" href="tablefind_8h_source.html">tablefind.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                  {
+    <span class="keywordflow">return</span> num_table_cells_;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a02438fd9c0c20a07871386ad7d4c0e23"></a><!-- doxytag: member="tesseract::ColSegment::get_num_text_cells" ref="a02438fd9c0c20a07871386ad7d4c0e23" args="() const " -->
@@ -231,6 +266,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablefind_8h_source.html#l00085">85</a> of file <a class="el" href="tablefind_8h_source.html">tablefind.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                 {
+    <span class="keywordflow">return</span> num_text_cells_;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2d9a6fbd449a9201bdda5b9ffc5a5cb9"></a><!-- doxytag: member="tesseract::ColSegment::InsertBox" ref="a2d9a6fbd449a9201bdda5b9ffc5a5cb9" args="(const TBOX &amp;other)" -->
@@ -248,6 +288,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablefind_8cpp_source.html#l02156">2156</a> of file <a class="el" href="tablefind_8cpp_source.html">tablefind.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                            {
+  bounding_box_ = bounding_box_.<a class="code" href="class_t_b_o_x.html#ab8ae7b66782fa1802f78ff034da16089">bounding_union</a>(other);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="accc08475adcd0574efc1438e115bd291"></a><!-- doxytag: member="tesseract::ColSegment::set_bottom" ref="accc08475adcd0574efc1438e115bd291" args="(int y)" -->
@@ -265,6 +310,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablefind_8h_source.html#l00060">60</a> of file <a class="el" href="tablefind_8h_source.html">tablefind.h</a>.</p>
+<div class="fragment"><pre class="fragment">                         {
+    bounding_box_.<a class="code" href="class_t_b_o_x.html#a6f803b24b046883cb0f3882dc3d92302">set_bottom</a>(y);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a39031c0f0997a85c4bf8398b47dd0c60"></a><!-- doxytag: member="tesseract::ColSegment::set_bounding_box" ref="a39031c0f0997a85c4bf8398b47dd0c60" args="(const TBOX &amp;other)" -->
@@ -282,6 +332,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablefind_8h_source.html#l00072">72</a> of file <a class="el" href="tablefind_8h_source.html">tablefind.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                           {
+    bounding_box_ = other;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab52af684cafefa03589e24426efc1564"></a><!-- doxytag: member="tesseract::ColSegment::set_left" ref="ab52af684cafefa03589e24426efc1564" args="(int x)" -->
@@ -299,6 +354,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablefind_8h_source.html#l00064">64</a> of file <a class="el" href="tablefind_8h_source.html">tablefind.h</a>.</p>
+<div class="fragment"><pre class="fragment">                       {
+    bounding_box_.<a class="code" href="class_t_b_o_x.html#ae6151cd794841e100d8a346a0c4a46e6">set_left</a>(x);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a54b273e51bc8df1c995c403fb05f6723"></a><!-- doxytag: member="tesseract::ColSegment::set_num_table_cells" ref="a54b273e51bc8df1c995c403fb05f6723" args="(int n)" -->
@@ -316,6 +376,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablefind_8h_source.html#l00081">81</a> of file <a class="el" href="tablefind_8h_source.html">tablefind.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                  {
+    num_table_cells_ = n;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a570528471500732df47c1c4027f3e0ed"></a><!-- doxytag: member="tesseract::ColSegment::set_num_text_cells" ref="a570528471500732df47c1c4027f3e0ed" args="(int n)" -->
@@ -333,6 +398,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablefind_8h_source.html#l00090">90</a> of file <a class="el" href="tablefind_8h_source.html">tablefind.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                 {
+    num_text_cells_ = n;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a604f5e305fe0ed5286502d0c22bda6d3"></a><!-- doxytag: member="tesseract::ColSegment::set_right" ref="a604f5e305fe0ed5286502d0c22bda6d3" args="(int x)" -->
@@ -350,6 +420,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablefind_8h_source.html#l00068">68</a> of file <a class="el" href="tablefind_8h_source.html">tablefind.h</a>.</p>
+<div class="fragment"><pre class="fragment">                        {
+    bounding_box_.<a class="code" href="class_t_b_o_x.html#a2246293d3667b28c52a52353a2d5caea">set_right</a>(x);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a58a1fd435c14ee22a42585aa6aff88cf"></a><!-- doxytag: member="tesseract::ColSegment::set_top" ref="a58a1fd435c14ee22a42585aa6aff88cf" args="(int y)" -->
@@ -367,6 +442,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablefind_8h_source.html#l00056">56</a> of file <a class="el" href="tablefind_8h_source.html">tablefind.h</a>.</p>
+<div class="fragment"><pre class="fragment">                      {
+    bounding_box_.<a class="code" href="class_t_b_o_x.html#a7f40dfd290a907200bdc98c196f63f45">set_top</a>(y);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a789e1edd90789444e3b420291969b196"></a><!-- doxytag: member="tesseract::ColSegment::set_type" ref="a789e1edd90789444e3b420291969b196" args="()" -->
@@ -383,6 +463,16 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablefind_8cpp_source.html#l02162">2162</a> of file <a class="el" href="tablefind_8cpp_source.html">tablefind.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                          {
+  <span class="keywordflow">if</span> (num_table_cells_ &gt; <a class="code" href="namespacetesseract.html#a6a040ffaa830485299daa5c344ebe039">kTableColumnThreshold</a> * num_text_cells_)
+    type_ = <a class="code" href="namespacetesseract.html#a25254b3df45454565d58a62480d3a6cba8943a61e53229e72f0f896ec8e415316">COL_TABLE</a>;
+  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (num_text_cells_ &gt; num_table_cells_)
+    type_ = <a class="code" href="namespacetesseract.html#a25254b3df45454565d58a62480d3a6cba05d5fe5bf814b3e82827a3a321d5b2ec">COL_TEXT</a>;
+  <span class="keywordflow">else</span>
+    type_ = <a class="code" href="namespacetesseract.html#a25254b3df45454565d58a62480d3a6cba794ff16294744099e9bab9ecf2cabc11">COL_MIXED</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad10da5c5a6144425167a0c438c0bd421"></a><!-- doxytag: member="tesseract::ColSegment::type" ref="ad10da5c5a6144425167a0c438c0bd421" args="() const " -->
@@ -399,11 +489,16 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tablefind_8h_source.html#l00094">94</a> of file <a class="el" href="tablefind_8h_source.html">tablefind.h</a>.</p>
+<div class="fragment"><pre class="fragment">                          {
+    <span class="keywordflow">return</span> type_;
+  }
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/textord/<a class="el" href="tablefind_8h_source.html">tablefind.h</a></li>
-<li>tesseract-ocr/textord/<a class="el" href="tablefind_8cpp.html">tablefind.cpp</a></li>
+<li>tesseract-ocr/textord/<a class="el" href="tablefind_8cpp_source.html">tablefind.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -426,7 +521,7 @@ Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:17 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:53 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

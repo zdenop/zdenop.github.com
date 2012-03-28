@@ -114,7 +114,10 @@ Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_unichar_id_array_utils.html#aec434747315a2c824ac4c113fccb5e03">copy</a> (const <a class="el" href="unichar_8h.html#a8578b19fa1ff5ca75080db1a18ecc32e">UNICHAR_ID</a> src[], <a class="el" href="unichar_8h.html#a8578b19fa1ff5ca75080db1a18ecc32e">UNICHAR_ID</a> dst[])</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_unichar_id_array_utils.html#a555621fcd9c34b946ed7235cdd8653e6">print</a> (const <a class="el" href="unichar_8h.html#a8578b19fa1ff5ca75080db1a18ecc32e">UNICHAR_ID</a> array[], const <a class="el" href="class_u_n_i_c_h_a_r_s_e_t.html">UNICHARSET</a> &amp;unicharset)</td></tr>
 </table>
-<hr/><h2>Member Function Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="ambigs_8h_source.html#l00056">56</a> of file <a class="el" href="ambigs_8h_source.html">ambigs.h</a>.</p>
+</div><hr/><h2>Member Function Documentation</h2>
 <a class="anchor" id="a2fd19f82c1c81f57dd766bded5ae8904"></a><!-- doxytag: member="tesseract::UnicharIdArrayUtils::compare" ref="a2fd19f82c1c81f57dd766bded5ae8904" args="(const UNICHAR_ID array1[], const UNICHAR_ID array2[])" -->
 <div class="memitem">
 <div class="memproto">
@@ -140,6 +143,19 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ambigs_8h_source.html#l00062">62</a> of file <a class="el" href="ambigs_8h_source.html">ambigs.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                       {
+    <span class="keyword">const</span> <a class="code" href="unichar_8h.html#a8578b19fa1ff5ca75080db1a18ecc32e">UNICHAR_ID</a> *ptr1 = array1;
+    <span class="keyword">const</span> <a class="code" href="unichar_8h.html#a8578b19fa1ff5ca75080db1a18ecc32e">UNICHAR_ID</a> *ptr2 = array2;
+    <span class="keywordflow">while</span> (*ptr1 != INVALID_UNICHAR_ID &amp;&amp; *ptr2 != INVALID_UNICHAR_ID) {
+      <span class="keywordflow">if</span> (*ptr1 != *ptr2) <span class="keywordflow">return</span> *ptr1 &lt; *ptr2 ? -1 : 1;
+      ++ptr1;
+      ++ptr2;
+    }
+    <span class="keywordflow">if</span> (*ptr1 == INVALID_UNICHAR_ID &amp;&amp; *ptr2 == INVALID_UNICHAR_ID) <span class="keywordflow">return</span> 0;
+    <span class="keywordflow">return</span> *ptr1 == INVALID_UNICHAR_ID ? -1 : 1;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aec434747315a2c824ac4c113fccb5e03"></a><!-- doxytag: member="tesseract::UnicharIdArrayUtils::copy" ref="aec434747315a2c824ac4c113fccb5e03" args="(const UNICHAR_ID src[], UNICHAR_ID dst[])" -->
@@ -167,6 +183,15 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ambigs_8h_source.html#l00087">87</a> of file <a class="el" href="ambigs_8h_source.html">ambigs.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                   {
+    <span class="keywordtype">int</span> i = 0;
+    <span class="keywordflow">do</span> {
+      dst[i] = src[i];
+    } <span class="keywordflow">while</span> (dst[i++] != INVALID_UNICHAR_ID);
+    <span class="keywordflow">return</span> i - 1;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="adf368b56fd47dcfb863af9f11301def2"></a><!-- doxytag: member="tesseract::UnicharIdArrayUtils::find_in" ref="adf368b56fd47dcfb863af9f11301def2" args="(const UnicharIdVector &amp;uid_vec, const UNICHAR_ID uid)" -->
@@ -194,6 +219,13 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ambigs_8h_source.html#l00077">77</a> of file <a class="el" href="ambigs_8h_source.html">ambigs.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                  {
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; uid_vec.size(); ++i)
+      <span class="keywordflow">if</span> (uid_vec[i] == uid) <span class="keywordflow">return</span> i;
+    <span class="keywordflow">return</span> -1;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a555621fcd9c34b946ed7235cdd8653e6"></a><!-- doxytag: member="tesseract::UnicharIdArrayUtils::print" ref="a555621fcd9c34b946ed7235cdd8653e6" args="(const UNICHAR_ID array[], const UNICHARSET &amp;unicharset)" -->
@@ -221,6 +253,19 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ambigs_8h_source.html#l00097">97</a> of file <a class="el" href="ambigs_8h_source.html">ambigs.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                         {
+    <span class="keyword">const</span> <a class="code" href="unichar_8h.html#a8578b19fa1ff5ca75080db1a18ecc32e">UNICHAR_ID</a> *ptr = array;
+    <span class="keywordflow">if</span> (*ptr == INVALID_UNICHAR_ID) <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;[Empty]&quot;</span>);
+    <span class="keywordflow">while</span> (*ptr != INVALID_UNICHAR_ID) {
+      <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;%s &quot;</span>, unicharset.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a421c0b6ebcbbe7547490252fb688c961">id_to_unichar</a>(*ptr++));
+    }
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;( &quot;</span>);
+    ptr = array;
+    <span class="keywordflow">while</span> (*ptr != INVALID_UNICHAR_ID) <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;%d &quot;</span>, *ptr++);
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;)\n&quot;</span>);
+  }
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
@@ -247,7 +292,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:14 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:49 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

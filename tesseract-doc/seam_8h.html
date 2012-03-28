@@ -193,6 +193,8 @@ else {                                             \
   (dest) = (<a class="code" href="structseam__record.html">SEAM</a>*) <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;                           \
 }                                                  \
 </pre></div>
+<p>Definition at line <a class="el" href="seam_8h_source.html#l00064">64</a> of file <a class="el" href="seam_8h_source.html">seam.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="afb94c26f2bc904be74bda6e72575e95b"></a><!-- doxytag: member="seam.h::exact_point" ref="afb94c26f2bc904be74bda6e72575e95b" args="(p1, p2)" -->
@@ -222,6 +224,8 @@ else {                                             \
 <p>exact_point</p>
 <p>Return TRUE if the point positions are the exactly the same. The parameters must be of type (EDGEPT*). </p>
 
+<p>Definition at line <a class="el" href="seam_8h_source.html#l00087">87</a> of file <a class="el" href="seam_8h_source.html">seam.h</a>.</p>
+
 </div>
 </div>
 <hr/><h2>Typedef Documentation</h2>
@@ -235,6 +239,8 @@ else {                                             \
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="seam_8h_source.html#l00038">38</a> of file <a class="el" href="seam_8h_source.html">seam.h</a>.</p>
 
 </div>
 </div>
@@ -261,6 +267,8 @@ else {                                             \
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="seam_8h_source.html#l00051">51</a> of file <a class="el" href="seam_8h_source.html">seam.h</a>.</p>
 
 </div>
 </div>
@@ -296,6 +304,15 @@ else {                                             \
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="seam_8cpp_source.html#l00334">334</a> of file <a class="el" href="seam_8cpp_source.html">seam.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                  {
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> depth = 0;
+  <a class="code" href="host_8h.html#a2ba4d271e85baf0d333318985cb3bced">inT8</a> width = 0;
+  <a class="code" href="host_8h.html#a2ba4d271e85baf0d333318985cb3bced">inT8</a> found_em[3];
+  <a class="code" href="seam_8cpp.html#ae70f3c8de4c4aaba0428117d1e89f671">account_splits_left_helper</a>(seam, blob, end_blob, &amp;depth, &amp;width, found_em);
+  <span class="keywordflow">return</span> width;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae70f3c8de4c4aaba0428117d1e89f671"></a><!-- doxytag: member="seam.h::account_splits_left_helper" ref="ae70f3c8de4c4aaba0428117d1e89f671" args="(SEAM *seam, TBLOB *blob, TBLOB *end_blob, inT32 *depth, inT8 *width, inT8 *found_em)" -->
@@ -347,6 +364,33 @@ else {                                             \
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="seam_8cpp_source.html#l00342">342</a> of file <a class="el" href="seam_8cpp_source.html">seam.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                           {
+  <span class="keywordflow">if</span> (blob != end_blob) {
+    (*depth)++;
+    <a class="code" href="seam_8cpp.html#ae70f3c8de4c4aaba0428117d1e89f671">account_splits_left_helper</a>(seam, blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a88a541f55c8bfd63a9f0c419189499bb">next</a>, end_blob,
+                               depth, width, found_em);
+    (*depth)--;
+  } <span class="keywordflow">else</span> {
+    found_em[0] = seam-&gt;<a class="code" href="structseam__record.html#a4161a1874921a7854bdd3d7a9f930729">split1</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    found_em[1] = seam-&gt;<a class="code" href="structseam__record.html#a75d831b3365583331780636979fbb321">split2</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    found_em[2] = seam-&gt;<a class="code" href="structseam__record.html#ad3878ea3c362e24fcdd063ed81f9ac5a">split3</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    *width = 0;
+  }
+  <span class="keywordflow">if</span> (!found_em[0])
+    found_em[0] = <a class="code" href="seam_8cpp.html#afa474844118165a14a30aaf2c9a1986b">find_split_in_blob</a>(seam-&gt;<a class="code" href="structseam__record.html#a4161a1874921a7854bdd3d7a9f930729">split1</a>, blob);
+  <span class="keywordflow">if</span> (!found_em[1])
+    found_em[1] = <a class="code" href="seam_8cpp.html#afa474844118165a14a30aaf2c9a1986b">find_split_in_blob</a>(seam-&gt;<a class="code" href="structseam__record.html#a75d831b3365583331780636979fbb321">split2</a>, blob);
+  <span class="keywordflow">if</span> (!found_em[2])
+    found_em[2] = <a class="code" href="seam_8cpp.html#afa474844118165a14a30aaf2c9a1986b">find_split_in_blob</a>(seam-&gt;<a class="code" href="structseam__record.html#ad3878ea3c362e24fcdd063ed81f9ac5a">split3</a>, blob);
+  <span class="keywordflow">if</span> (!found_em[0] || !found_em[1] || !found_em[2]) {
+    (*width)++;
+    <span class="keywordflow">if</span> (*depth == 0) {
+      *width = -1;
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a565f5b6019c0a1e5766b9e38f042b47e"></a><!-- doxytag: member="seam.h::account_splits_right" ref="a565f5b6019c0a1e5766b9e38f042b47e" args="(SEAM *seam, TBLOB *blob)" -->
@@ -374,6 +418,33 @@ else {                                             \
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="seam_8cpp_source.html#l00301">301</a> of file <a class="el" href="seam_8cpp_source.html">seam.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                  {
+  <a class="code" href="host_8h.html#a2ba4d271e85baf0d333318985cb3bced">inT8</a> found_em[3];
+  <a class="code" href="host_8h.html#a2ba4d271e85baf0d333318985cb3bced">inT8</a> width;
+
+  found_em[0] = seam-&gt;<a class="code" href="structseam__record.html#a4161a1874921a7854bdd3d7a9f930729">split1</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  found_em[1] = seam-&gt;<a class="code" href="structseam__record.html#a75d831b3365583331780636979fbb321">split2</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  found_em[2] = seam-&gt;<a class="code" href="structseam__record.html#ad3878ea3c362e24fcdd063ed81f9ac5a">split3</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordflow">if</span> (found_em[0] &amp;&amp; found_em[1] &amp;&amp; found_em[2])
+    <span class="keywordflow">return</span> 0;
+  width = 0;
+  <span class="keywordflow">do</span> {
+    <span class="keywordflow">if</span> (!found_em[0])
+      found_em[0] = <a class="code" href="seam_8cpp.html#afa474844118165a14a30aaf2c9a1986b">find_split_in_blob</a>(seam-&gt;<a class="code" href="structseam__record.html#a4161a1874921a7854bdd3d7a9f930729">split1</a>, blob);
+    <span class="keywordflow">if</span> (!found_em[1])
+      found_em[1] = <a class="code" href="seam_8cpp.html#afa474844118165a14a30aaf2c9a1986b">find_split_in_blob</a>(seam-&gt;<a class="code" href="structseam__record.html#a75d831b3365583331780636979fbb321">split2</a>, blob);
+    <span class="keywordflow">if</span> (!found_em[2])
+      found_em[2] = <a class="code" href="seam_8cpp.html#afa474844118165a14a30aaf2c9a1986b">find_split_in_blob</a>(seam-&gt;<a class="code" href="structseam__record.html#ad3878ea3c362e24fcdd063ed81f9ac5a">split3</a>, blob);
+    <span class="keywordflow">if</span> (found_em[0] &amp;&amp; found_em[1] &amp;&amp; found_em[2]) {
+      <span class="keywordflow">return</span> width;
+    }
+    width++;
+    blob = blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a88a541f55c8bfd63a9f0c419189499bb">next</a>;
+  } <span class="keywordflow">while</span> (blob != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <span class="keywordflow">return</span> -1;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a386b602215ed348b1996b7558c0e3af1"></a><!-- doxytag: member="seam.h::add_seam" ref="a386b602215ed348b1996b7558c0e3af1" args="(SEAMS seam_list, SEAM *seam)" -->
@@ -401,6 +472,11 @@ else {                                             \
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="seam_8cpp_source.html#l00104">104</a> of file <a class="el" href="seam_8cpp_source.html">seam.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                            {
+  <span class="keywordflow">return</span> (<a class="code" href="tessarray_8cpp.html#ab13e09dec91158c58e0f2427f1d18e07">array_push</a> (seam_list, seam));
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac76b2d230d4c44cb0346f516b8a7134a"></a><!-- doxytag: member="seam.h::break_pieces" ref="ac76b2d230d4c44cb0346f516b8a7134a" args="(TBLOB *blobs, SEAMS seams, inT16 start, inT16 end)" -->
@@ -440,6 +516,29 @@ else {                                             \
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="seam_8cpp_source.html#l00535">535</a> of file <a class="el" href="seam_8cpp_source.html">seam.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                     {
+  <a class="code" href="struct_t_e_s_s_l_i_n_e.html">TESSLINE</a> *outline = blobs-&gt;<a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a>;
+  <a class="code" href="struct_t_b_l_o_b.html">TBLOB</a> *next_blob;
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> x;
+
+  <span class="keywordflow">for</span> (x = start; x &lt; end; x++)
+    <a class="code" href="seam_8cpp.html#a2b25c514788f76369faf8d727034896d">reveal_seam</a> ((<a class="code" href="structseam__record.html">SEAM</a> *) <a class="code" href="tessarray_8h.html#a290cd2ea119e279ad48b57fbe5ca1aad">array_value</a> (seams, x));
+
+  next_blob = blobs-&gt;<a class="code" href="struct_t_b_l_o_b.html#a88a541f55c8bfd63a9f0c419189499bb">next</a>;
+
+  <span class="keywordflow">while</span> (outline &amp;&amp; next_blob) {
+    <span class="keywordflow">if</span> (outline-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0fb224d43ea53a791f0957fa92793bef">next</a> == next_blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a>) {
+      outline-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0fb224d43ea53a791f0957fa92793bef">next</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+      outline = next_blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a>;
+      next_blob = next_blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a88a541f55c8bfd63a9f0c419189499bb">next</a>;
+    }
+    <span class="keywordflow">else</span> {
+      outline = outline-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0fb224d43ea53a791f0957fa92793bef">next</a>;
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a40334b288fc229372aa2fc7ae6116bf2"></a><!-- doxytag: member="seam.h::combine_seams" ref="a40334b288fc229372aa2fc7ae6116bf2" args="(SEAM *dest_seam, SEAM *source_seam)" -->
@@ -467,6 +566,39 @@ else {                                             \
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="seam_8cpp_source.html#l00116">116</a> of file <a class="el" href="seam_8cpp_source.html">seam.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                       {
+  dest_seam-&gt;<a class="code" href="structseam__record.html#a73a33b08d22988d595cd18da31235dc4">priority</a> += source_seam-&gt;<a class="code" href="structseam__record.html#a73a33b08d22988d595cd18da31235dc4">priority</a>;
+  dest_seam-&gt;<a class="code" href="structseam__record.html#a62ddded2ea46187c395f40823d036ed3">location</a> += source_seam-&gt;<a class="code" href="structseam__record.html#a62ddded2ea46187c395f40823d036ed3">location</a>;
+  dest_seam-&gt;<a class="code" href="structseam__record.html#a62ddded2ea46187c395f40823d036ed3">location</a> /= 2;
+
+  <span class="keywordflow">if</span> (source_seam-&gt;<a class="code" href="structseam__record.html#a4161a1874921a7854bdd3d7a9f930729">split1</a>) {
+    <span class="keywordflow">if</span> (!dest_seam-&gt;<a class="code" href="structseam__record.html#a4161a1874921a7854bdd3d7a9f930729">split1</a>)
+      dest_seam-&gt;<a class="code" href="structseam__record.html#a4161a1874921a7854bdd3d7a9f930729">split1</a> = source_seam-&gt;<a class="code" href="structseam__record.html#a4161a1874921a7854bdd3d7a9f930729">split1</a>;
+    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (!dest_seam-&gt;<a class="code" href="structseam__record.html#a75d831b3365583331780636979fbb321">split2</a>)
+      dest_seam-&gt;<a class="code" href="structseam__record.html#a75d831b3365583331780636979fbb321">split2</a> = source_seam-&gt;<a class="code" href="structseam__record.html#a4161a1874921a7854bdd3d7a9f930729">split1</a>;
+    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (!dest_seam-&gt;<a class="code" href="structseam__record.html#ad3878ea3c362e24fcdd063ed81f9ac5a">split3</a>)
+      dest_seam-&gt;<a class="code" href="structseam__record.html#ad3878ea3c362e24fcdd063ed81f9ac5a">split3</a> = source_seam-&gt;<a class="code" href="structseam__record.html#a4161a1874921a7854bdd3d7a9f930729">split1</a>;
+    <span class="keywordflow">else</span>
+      <a class="code" href="callcpp_8cpp.html#a21679e7fec2d69db23107348fa13c153">cprintf</a>(<span class="stringliteral">&quot;combine_seam: Seam is too crowded, can&#39;t be combined !\n&quot;</span>);
+  }
+  <span class="keywordflow">if</span> (source_seam-&gt;<a class="code" href="structseam__record.html#a75d831b3365583331780636979fbb321">split2</a>) {
+    <span class="keywordflow">if</span> (!dest_seam-&gt;<a class="code" href="structseam__record.html#a75d831b3365583331780636979fbb321">split2</a>)
+      dest_seam-&gt;<a class="code" href="structseam__record.html#a75d831b3365583331780636979fbb321">split2</a> = source_seam-&gt;<a class="code" href="structseam__record.html#a75d831b3365583331780636979fbb321">split2</a>;
+    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (!dest_seam-&gt;<a class="code" href="structseam__record.html#ad3878ea3c362e24fcdd063ed81f9ac5a">split3</a>)
+      dest_seam-&gt;<a class="code" href="structseam__record.html#ad3878ea3c362e24fcdd063ed81f9ac5a">split3</a> = source_seam-&gt;<a class="code" href="structseam__record.html#a75d831b3365583331780636979fbb321">split2</a>;
+    <span class="keywordflow">else</span>
+      <a class="code" href="callcpp_8cpp.html#a21679e7fec2d69db23107348fa13c153">cprintf</a>(<span class="stringliteral">&quot;combine_seam: Seam is too crowded, can&#39;t be combined !\n&quot;</span>);
+  }
+  <span class="keywordflow">if</span> (source_seam-&gt;<a class="code" href="structseam__record.html#ad3878ea3c362e24fcdd063ed81f9ac5a">split3</a>) {
+    <span class="keywordflow">if</span> (!dest_seam-&gt;<a class="code" href="structseam__record.html#ad3878ea3c362e24fcdd063ed81f9ac5a">split3</a>)
+      dest_seam-&gt;<a class="code" href="structseam__record.html#ad3878ea3c362e24fcdd063ed81f9ac5a">split3</a> = source_seam-&gt;<a class="code" href="structseam__record.html#ad3878ea3c362e24fcdd063ed81f9ac5a">split3</a>;
+    <span class="keywordflow">else</span>
+      <a class="code" href="callcpp_8cpp.html#a21679e7fec2d69db23107348fa13c153">cprintf</a>(<span class="stringliteral">&quot;combine_seam: Seam is too crowded, can&#39;t be combined !\n&quot;</span>);
+  }
+  free_seam(source_seam);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="abe1c472bf676a613f555cee9d29f7c3d"></a><!-- doxytag: member="seam.h::delete_seam" ref="abe1c472bf676a613f555cee9d29f7c3d" args="(void *arg)" -->
@@ -484,6 +616,21 @@ else {                                             \
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="seam_8cpp_source.html#l00154">154</a> of file <a class="el" href="seam_8cpp_source.html">seam.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                            {  <span class="comment">//SEAM  *seam)</span>
+  <a class="code" href="structseam__record.html">SEAM</a> *seam = (<a class="code" href="structseam__record.html">SEAM</a> *) arg;
+
+  <span class="keywordflow">if</span> (seam) {
+    <span class="keywordflow">if</span> (seam-&gt;<a class="code" href="structseam__record.html#a4161a1874921a7854bdd3d7a9f930729">split1</a>)
+      <a class="code" href="split_8cpp.html#a6462aa6ed767d7f46c4a72506cceaeeb">delete_split</a>(seam-&gt;<a class="code" href="structseam__record.html#a4161a1874921a7854bdd3d7a9f930729">split1</a>);
+    <span class="keywordflow">if</span> (seam-&gt;<a class="code" href="structseam__record.html#a75d831b3365583331780636979fbb321">split2</a>)
+      <a class="code" href="split_8cpp.html#a6462aa6ed767d7f46c4a72506cceaeeb">delete_split</a>(seam-&gt;<a class="code" href="structseam__record.html#a75d831b3365583331780636979fbb321">split2</a>);
+    <span class="keywordflow">if</span> (seam-&gt;<a class="code" href="structseam__record.html#ad3878ea3c362e24fcdd063ed81f9ac5a">split3</a>)
+      <a class="code" href="split_8cpp.html#a6462aa6ed767d7f46c4a72506cceaeeb">delete_split</a>(seam-&gt;<a class="code" href="structseam__record.html#ad3878ea3c362e24fcdd063ed81f9ac5a">split3</a>);
+    free_seam(seam);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="afa474844118165a14a30aaf2c9a1986b"></a><!-- doxytag: member="seam.h::find_split_in_blob" ref="afa474844118165a14a30aaf2c9a1986b" args="(SPLIT *split, TBLOB *blob)" -->
@@ -511,6 +658,21 @@ else {                                             \
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="seam_8cpp_source.html#l00375">375</a> of file <a class="el" href="seam_8cpp_source.html">seam.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                   {
+  <a class="code" href="struct_t_e_s_s_l_i_n_e.html">TESSLINE</a> *outline;
+
+  <span class="keywordflow">for</span> (outline = blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a>; outline != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>; outline = outline-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0fb224d43ea53a791f0957fa92793bef">next</a>)
+    <span class="keywordflow">if</span> (outline-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a773cb9dc285571e38369773f7b6196e0">Contains</a>(split-&gt;<a class="code" href="structsplit__record.html#a2451170e7785bb495c0dd3d96fc71167">point1</a>-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>))
+      <span class="keywordflow">break</span>;
+  <span class="keywordflow">if</span> (outline == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+  <span class="keywordflow">for</span> (outline = blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a>; outline != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>; outline = outline-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0fb224d43ea53a791f0957fa92793bef">next</a>)
+    <span class="keywordflow">if</span> (outline-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a773cb9dc285571e38369773f7b6196e0">Contains</a>(split-&gt;<a class="code" href="structsplit__record.html#adb5ec4152eddde15c1996133177a9a58">point2</a>-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>))
+      <span class="keywordflow">return</span> <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+  <span class="keywordflow">return</span> <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="af3ccc9cfabc13e163f5cd7cee5994e49"></a><!-- doxytag: member="seam.h::free_seam_list" ref="af3ccc9cfabc13e163f5cd7cee5994e49" args="(SEAMS seam_list)" -->
@@ -528,6 +690,14 @@ else {                                             \
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="seam_8cpp_source.html#l00200">200</a> of file <a class="el" href="seam_8cpp_source.html">seam.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                     {
+  <span class="keywordtype">int</span> x;
+
+  <a class="code" href="tessarray_8h.html#a6cb2253ca40c87d6ee706418575fb3e5">array_loop</a>(seam_list, x) <a class="code" href="seam_8cpp.html#abe1c472bf676a613f555cee9d29f7c3d">delete_seam</a>(<a class="code" href="tessarray_8h.html#a290cd2ea119e279ad48b57fbe5ca1aad">array_value</a> (seam_list, x));
+  <a class="code" href="tessarray_8h.html#aa10b4761a8b4ccd6d4a6c7e792671f78">array_free</a>(seam_list);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a34e8666460ef157385e2964b71345713"></a><!-- doxytag: member="seam.h::hide_edge_pair" ref="a34e8666460ef157385e2964b71345713" args="(EDGEPT *pt1, EDGEPT *pt2)" -->
@@ -555,6 +725,32 @@ else {                                             \
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="seam_8cpp_source.html#l00619">619</a> of file <a class="el" href="seam_8cpp_source.html">seam.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                              {
+  <a class="code" href="struct_e_d_g_e_p_t.html">EDGEPT</a> *edgept;
+
+  edgept = pt1;
+  <span class="keywordflow">do</span> {
+    edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a0f054c7f746f3249bf0c6fdd84de2dac">Hide</a>();
+    edgept = edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>;
+  }
+  <span class="keywordflow">while</span> (!<a class="code" href="seam_8h.html#afb94c26f2bc904be74bda6e72575e95b">exact_point</a> (edgept, pt2) &amp;&amp; edgept != pt1);
+  <span class="keywordflow">if</span> (edgept == pt1) {
+    <span class="comment">/*              cprintf(&quot;Hid entire outline at (%d,%d)!!\n&quot;,</span>
+<span class="comment">       edgept-&gt;pos.x,edgept-&gt;pos.y);                                */</span>
+  }
+  edgept = pt2;
+  <span class="keywordflow">do</span> {
+    edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a0f054c7f746f3249bf0c6fdd84de2dac">Hide</a>();
+    edgept = edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>;
+  }
+  <span class="keywordflow">while</span> (!<a class="code" href="seam_8h.html#afb94c26f2bc904be74bda6e72575e95b">exact_point</a> (edgept, pt1) &amp;&amp; edgept != pt2);
+  <span class="keywordflow">if</span> (edgept == pt2) {
+    <span class="comment">/*              cprintf(&quot;Hid entire outline at (%d,%d)!!\n&quot;,</span>
+<span class="comment">       edgept-&gt;pos.x,edgept-&gt;pos.y);                                */</span>
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aac5ee8dc7ef201bea7b12b38ac10b7a8"></a><!-- doxytag: member="seam.h::hide_seam" ref="aac5ee8dc7ef201bea7b12b38ac10b7a8" args="(SEAM *seam)" -->
@@ -572,6 +768,21 @@ else {                                             \
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="seam_8cpp_source.html#l00598">598</a> of file <a class="el" href="seam_8cpp_source.html">seam.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                           {
+  <span class="keywordflow">if</span> (seam == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> || seam-&gt;<a class="code" href="structseam__record.html#a4161a1874921a7854bdd3d7a9f930729">split1</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <span class="keywordflow">return</span>;
+  <a class="code" href="seam_8cpp.html#a34e8666460ef157385e2964b71345713">hide_edge_pair</a> (seam-&gt;<a class="code" href="structseam__record.html#a4161a1874921a7854bdd3d7a9f930729">split1</a>-&gt;<a class="code" href="structsplit__record.html#a2451170e7785bb495c0dd3d96fc71167">point1</a>, seam-&gt;<a class="code" href="structseam__record.html#a4161a1874921a7854bdd3d7a9f930729">split1</a>-&gt;<a class="code" href="structsplit__record.html#adb5ec4152eddde15c1996133177a9a58">point2</a>);
+
+  <span class="keywordflow">if</span> (seam-&gt;<a class="code" href="structseam__record.html#a75d831b3365583331780636979fbb321">split2</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <span class="keywordflow">return</span>;
+  <a class="code" href="seam_8cpp.html#a34e8666460ef157385e2964b71345713">hide_edge_pair</a> (seam-&gt;<a class="code" href="structseam__record.html#a75d831b3365583331780636979fbb321">split2</a>-&gt;<a class="code" href="structsplit__record.html#a2451170e7785bb495c0dd3d96fc71167">point1</a>, seam-&gt;<a class="code" href="structseam__record.html#a75d831b3365583331780636979fbb321">split2</a>-&gt;<a class="code" href="structsplit__record.html#adb5ec4152eddde15c1996133177a9a58">point2</a>);
+
+  <span class="keywordflow">if</span> (seam-&gt;<a class="code" href="structseam__record.html#ad3878ea3c362e24fcdd063ed81f9ac5a">split3</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <span class="keywordflow">return</span>;
+  <a class="code" href="seam_8cpp.html#a34e8666460ef157385e2964b71345713">hide_edge_pair</a> (seam-&gt;<a class="code" href="structseam__record.html#ad3878ea3c362e24fcdd063ed81f9ac5a">split3</a>-&gt;<a class="code" href="structsplit__record.html#a2451170e7785bb495c0dd3d96fc71167">point1</a>, seam-&gt;<a class="code" href="structseam__record.html#ad3878ea3c362e24fcdd063ed81f9ac5a">split3</a>-&gt;<a class="code" href="structsplit__record.html#adb5ec4152eddde15c1996133177a9a58">point2</a>);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="abb7a3f834120eb2357b71b09405a2ec6"></a><!-- doxytag: member="seam.h::insert_seam" ref="abb7a3f834120eb2357b71b09405a2ec6" args="(SEAMS seam_list, int index, SEAM *seam, TBLOB *left_blob, TBLOB *first_blob)" -->
@@ -617,6 +828,47 @@ else {                                             \
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="seam_8cpp_source.html#l00250">250</a> of file <a class="el" href="seam_8cpp_source.html">seam.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                     {
+  <a class="code" href="structseam__record.html">SEAM</a> *test_seam;
+  <a class="code" href="struct_t_b_l_o_b.html">TBLOB</a> *blob;
+  <span class="keywordtype">int</span> test_index;
+  <span class="keywordtype">int</span> list_length;
+
+  list_length = <a class="code" href="tessarray_8h.html#a89ee8010120771c8612dc7058b327f84">array_count</a>(seam_list);
+  <span class="keywordflow">for</span> (test_index=0, blob=first_blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a88a541f55c8bfd63a9f0c419189499bb">next</a>;
+       test_index &lt; index;
+       test_index++, blob=blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a88a541f55c8bfd63a9f0c419189499bb">next</a>) {
+    test_seam = (<a class="code" href="structseam__record.html">SEAM</a> *) <a class="code" href="tessarray_8h.html#a290cd2ea119e279ad48b57fbe5ca1aad">array_value</a>(seam_list, test_index);
+    <span class="keywordflow">if</span> (test_index + test_seam-&gt;<a class="code" href="structseam__record.html#a1d750c3c54edcad7dcb33c7b0ce79c15">widthp</a> &gt;= index) {
+      test_seam-&gt;<a class="code" href="structseam__record.html#a1d750c3c54edcad7dcb33c7b0ce79c15">widthp</a>++;       <span class="comment">/*got in the way */</span>
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (test_seam-&gt;<a class="code" href="structseam__record.html#a1d750c3c54edcad7dcb33c7b0ce79c15">widthp</a> + test_index == index - 1) {
+      test_seam-&gt;<a class="code" href="structseam__record.html#a1d750c3c54edcad7dcb33c7b0ce79c15">widthp</a> = <a class="code" href="seam_8cpp.html#a565f5b6019c0a1e5766b9e38f042b47e">account_splits_right</a>(test_seam, blob);
+      <span class="keywordflow">if</span> (test_seam-&gt;<a class="code" href="structseam__record.html#a1d750c3c54edcad7dcb33c7b0ce79c15">widthp</a> &lt; 0) {
+        <a class="code" href="callcpp_8cpp.html#a21679e7fec2d69db23107348fa13c153">cprintf</a>(<span class="stringliteral">&quot;Failed to find any right blob for a split!\n&quot;</span>);
+        <a class="code" href="seam_8cpp.html#a2168b2b29d8981405d068256c2b61e3b">print_seam</a>(<span class="stringliteral">&quot;New dud seam&quot;</span>, seam);
+        <a class="code" href="seam_8cpp.html#a2168b2b29d8981405d068256c2b61e3b">print_seam</a>(<span class="stringliteral">&quot;Failed seam&quot;</span>, test_seam);
+      }
+    }
+  }
+  <span class="keywordflow">for</span> (test_index=index, blob=left_blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a88a541f55c8bfd63a9f0c419189499bb">next</a>;
+       test_index &lt; list_length;
+       test_index++, blob=blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a88a541f55c8bfd63a9f0c419189499bb">next</a>) {
+    test_seam = (<a class="code" href="structseam__record.html">SEAM</a> *) <a class="code" href="tessarray_8h.html#a290cd2ea119e279ad48b57fbe5ca1aad">array_value</a>(seam_list, test_index);
+    <span class="keywordflow">if</span> (test_index - test_seam-&gt;<a class="code" href="structseam__record.html#ab1f7d314db1200aacb26ccaf0c5dd39f">widthn</a> &lt; index) {
+      test_seam-&gt;<a class="code" href="structseam__record.html#ab1f7d314db1200aacb26ccaf0c5dd39f">widthn</a>++;       <span class="comment">/*got in the way */</span>
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (test_index - test_seam-&gt;<a class="code" href="structseam__record.html#ab1f7d314db1200aacb26ccaf0c5dd39f">widthn</a> == index) {
+      test_seam-&gt;<a class="code" href="structseam__record.html#ab1f7d314db1200aacb26ccaf0c5dd39f">widthn</a> = <a class="code" href="seam_8cpp.html#aedde185b891fd20bee84cf2b387a90dc">account_splits_left</a>(test_seam, first_blob, blob);
+      <span class="keywordflow">if</span> (test_seam-&gt;<a class="code" href="structseam__record.html#ab1f7d314db1200aacb26ccaf0c5dd39f">widthn</a> &lt; 0) {
+        <a class="code" href="callcpp_8cpp.html#a21679e7fec2d69db23107348fa13c153">cprintf</a>(<span class="stringliteral">&quot;Failed to find any left blob for a split!\n&quot;</span>);
+        <a class="code" href="seam_8cpp.html#a2168b2b29d8981405d068256c2b61e3b">print_seam</a>(<span class="stringliteral">&quot;New dud seam&quot;</span>, seam);
+        <a class="code" href="seam_8cpp.html#a2168b2b29d8981405d068256c2b61e3b">print_seam</a>(<span class="stringliteral">&quot;Failed seam&quot;</span>, test_seam);
+      }
+    }
+  }
+  <span class="keywordflow">return</span> (<a class="code" href="tessarray_8cpp.html#a3dfb24ce59e6a92c41385fe0aa7dd47d">array_insert</a> (seam_list, index, seam));
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a919dc51833c934e6738e5e18d2dd43f6"></a><!-- doxytag: member="seam.h::join_pieces" ref="a919dc51833c934e6738e5e18d2dd43f6" args="(TBLOB *piece_blobs, SEAMS seams, inT16 start, inT16 end)" -->
@@ -656,6 +908,34 @@ else {                                             \
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="seam_8cpp_source.html#l00564">564</a> of file <a class="el" href="seam_8cpp_source.html">seam.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                          {
+  <a class="code" href="struct_t_b_l_o_b.html">TBLOB</a> *next_blob;
+  <a class="code" href="struct_t_b_l_o_b.html">TBLOB</a> *blob;
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> x;
+  <a class="code" href="struct_t_e_s_s_l_i_n_e.html">TESSLINE</a> *outline;
+  <a class="code" href="structseam__record.html">SEAM</a> *seam;
+
+  <span class="keywordflow">for</span> (x = 0, blob = piece_blobs; x &lt; start; x++)
+    blob = blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a88a541f55c8bfd63a9f0c419189499bb">next</a>;
+  next_blob = blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a88a541f55c8bfd63a9f0c419189499bb">next</a>;
+  outline = blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a>;
+  if (!outline)
+    <span class="keywordflow">return</span>;
+
+  <span class="keywordflow">while</span> (x &lt; end) {
+    seam = (<a class="code" href="structseam__record.html">SEAM</a> *) <a class="code" href="tessarray_8h.html#a290cd2ea119e279ad48b57fbe5ca1aad">array_value</a> (seams, x);
+    <span class="keywordflow">if</span> (x - seam-&gt;<a class="code" href="structseam__record.html#ab1f7d314db1200aacb26ccaf0c5dd39f">widthn</a> &gt;= start &amp;&amp; x + seam-&gt;<a class="code" href="structseam__record.html#a1d750c3c54edcad7dcb33c7b0ce79c15">widthp</a> &lt; end)
+      <a class="code" href="seam_8cpp.html#aac5ee8dc7ef201bea7b12b38ac10b7a8">hide_seam</a>(seam);
+    <span class="keywordflow">while</span> (outline-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0fb224d43ea53a791f0957fa92793bef">next</a>)
+      outline = outline-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0fb224d43ea53a791f0957fa92793bef">next</a>;
+    outline-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0fb224d43ea53a791f0957fa92793bef">next</a> = next_blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a>;
+    next_blob = next_blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a88a541f55c8bfd63a9f0c419189499bb">next</a>;
+
+    x++;
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab0747cde950e63b99888b8dcbc654177"></a><!-- doxytag: member="seam.h::join_two_seams" ref="ab0747cde950e63b99888b8dcbc654177" args="(SEAM *seam1, SEAM *seam2)" -->
@@ -683,6 +963,24 @@ else {                                             \
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="seam_8cpp_source.html#l00396">396</a> of file <a class="el" href="seam_8cpp_source.html">seam.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                               {
+  <a class="code" href="structseam__record.html">SEAM</a> *result = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <a class="code" href="structseam__record.html">SEAM</a> *temp;
+
+  assert(seam1 &amp;&amp;seam2);
+
+  <span class="keywordflow">if</span> (((seam1-&gt;<a class="code" href="structseam__record.html#ad3878ea3c362e24fcdd063ed81f9ac5a">split3</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp; seam2-&gt;<a class="code" href="structseam__record.html#a75d831b3365583331780636979fbb321">split2</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) ||
+       (seam1-&gt;<a class="code" href="structseam__record.html#a75d831b3365583331780636979fbb321">split2</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp; seam2-&gt;<a class="code" href="structseam__record.html#ad3878ea3c362e24fcdd063ed81f9ac5a">split3</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) ||
+        seam1-&gt;<a class="code" href="structseam__record.html#a4161a1874921a7854bdd3d7a9f930729">split1</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> || seam2-&gt;<a class="code" href="structseam__record.html#a4161a1874921a7854bdd3d7a9f930729">split1</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) &amp;&amp;
+      (!<a class="code" href="seam_8cpp.html#a1fcf833e097b1c5963a9374433f56497">shared_split_points</a>(seam1, seam2))) {
+    <a class="code" href="seam_8h.html#a8c9377a3d389d1f95639e33ef74ff0f2">clone_seam</a>(result, seam1);
+    <a class="code" href="seam_8h.html#a8c9377a3d389d1f95639e33ef74ff0f2">clone_seam</a>(temp, seam2);
+    <a class="code" href="seam_8cpp.html#a40334b288fc229372aa2fc7ae6116bf2">combine_seams</a>(result, temp);
+  }
+  <span class="keywordflow">return</span> (result);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad7bc7a3af5617ff4762369a6aa879ed3"></a><!-- doxytag: member="seam.h::new_seam" ref="ad7bc7a3af5617ff4762369a6aa879ed3" args="(PRIORITY priority, const TPOINT &amp;location, SPLIT *split1, SPLIT *split2, SPLIT *split3)" -->
@@ -728,6 +1026,23 @@ else {                                             \
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="seam_8cpp_source.html#l00421">421</a> of file <a class="el" href="seam_8cpp_source.html">seam.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                              {
+  <a class="code" href="structseam__record.html">SEAM</a> *seam;
+
+  seam = <a class="code" href="seam_8h.html#a282fca5b8b4f9f178ed07d95b82454cd">newseam</a> ();
+
+  seam-&gt;<a class="code" href="structseam__record.html#a73a33b08d22988d595cd18da31235dc4">priority</a> = priority;
+  seam-&gt;<a class="code" href="structseam__record.html#a62ddded2ea46187c395f40823d036ed3">location</a> = location;
+  seam-&gt;<a class="code" href="structseam__record.html#a1d750c3c54edcad7dcb33c7b0ce79c15">widthp</a> = 0;
+  seam-&gt;<a class="code" href="structseam__record.html#ab1f7d314db1200aacb26ccaf0c5dd39f">widthn</a> = 0;
+  seam-&gt;<a class="code" href="structseam__record.html#a4161a1874921a7854bdd3d7a9f930729">split1</a> = split1;
+  seam-&gt;<a class="code" href="structseam__record.html#a75d831b3365583331780636979fbb321">split2</a> = split2;
+  seam-&gt;<a class="code" href="structseam__record.html#ad3878ea3c362e24fcdd063ed81f9ac5a">split3</a> = split3;
+
+  <span class="keywordflow">return</span> (seam);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a61322eb2fa2f38f1324d584b17d8e80e"></a><!-- doxytag: member="seam.h::new_seam_list" ref="a61322eb2fa2f38f1324d584b17d8e80e" args="()" -->
@@ -744,6 +1059,11 @@ else {                                             \
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="seam_8cpp_source.html#l00447">447</a> of file <a class="el" href="seam_8cpp_source.html">seam.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                      {
+  <span class="keywordflow">return</span> (<a class="code" href="tessarray_8cpp.html#a1d08b311b6dfa0573eeeed0038df93aa">array_new</a> (<a class="code" href="seam_8cpp.html#a35c7297f662954f7833db70b211a4586">NUM_STARTING_SEAMS</a>));
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a282fca5b8b4f9f178ed07d95b82454cd"></a><!-- doxytag: member="seam.h::newseam" ref="a282fca5b8b4f9f178ed07d95b82454cd" args="()" -->
@@ -787,6 +1107,13 @@ else {                                             \
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="seam_8cpp_source.html#l00069">69</a> of file <a class="el" href="seam_8cpp_source.html">seam.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                             {
+  <span class="keywordflow">return</span> (<a class="code" href="seam_8cpp.html#aa99fcacebf577884a20fa20e38bc9ce6">point_in_split</a>(seam-&gt;<a class="code" href="structseam__record.html#a4161a1874921a7854bdd3d7a9f930729">split1</a>, split-&gt;<a class="code" href="structsplit__record.html#a2451170e7785bb495c0dd3d96fc71167">point1</a>, split-&gt;<a class="code" href="structsplit__record.html#adb5ec4152eddde15c1996133177a9a58">point2</a>) ||
+          <a class="code" href="seam_8cpp.html#aa99fcacebf577884a20fa20e38bc9ce6">point_in_split</a>(seam-&gt;<a class="code" href="structseam__record.html#a75d831b3365583331780636979fbb321">split2</a>, split-&gt;<a class="code" href="structsplit__record.html#a2451170e7785bb495c0dd3d96fc71167">point1</a>, split-&gt;<a class="code" href="structsplit__record.html#adb5ec4152eddde15c1996133177a9a58">point2</a>) ||
+          <a class="code" href="seam_8cpp.html#aa99fcacebf577884a20fa20e38bc9ce6">point_in_split</a>(seam-&gt;<a class="code" href="structseam__record.html#ad3878ea3c362e24fcdd063ed81f9ac5a">split3</a>, split-&gt;<a class="code" href="structsplit__record.html#a2451170e7785bb495c0dd3d96fc71167">point1</a>, split-&gt;<a class="code" href="structsplit__record.html#adb5ec4152eddde15c1996133177a9a58">point2</a>));
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa99fcacebf577884a20fa20e38bc9ce6"></a><!-- doxytag: member="seam.h::point_in_split" ref="aa99fcacebf577884a20fa20e38bc9ce6" args="(SPLIT *split, EDGEPT *point1, EDGEPT *point2)" -->
@@ -820,6 +1147,15 @@ else {                                             \
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="seam_8cpp_source.html#l00053">53</a> of file <a class="el" href="seam_8cpp_source.html">seam.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                  {
+  <span class="keywordflow">return</span> ((split) ? ((<a class="code" href="seam_8h.html#afb94c26f2bc904be74bda6e72575e95b">exact_point</a> (split-&gt;<a class="code" href="structsplit__record.html#a2451170e7785bb495c0dd3d96fc71167">point1</a>, point1) ||
+                      <a class="code" href="seam_8h.html#afb94c26f2bc904be74bda6e72575e95b">exact_point</a> (split-&gt;<a class="code" href="structsplit__record.html#a2451170e7785bb495c0dd3d96fc71167">point1</a>, point2) ||
+                      <a class="code" href="seam_8h.html#afb94c26f2bc904be74bda6e72575e95b">exact_point</a> (split-&gt;<a class="code" href="structsplit__record.html#adb5ec4152eddde15c1996133177a9a58">point2</a>, point1) ||
+                      <a class="code" href="seam_8h.html#afb94c26f2bc904be74bda6e72575e95b">exact_point</a> (split-&gt;<a class="code" href="structsplit__record.html#adb5ec4152eddde15c1996133177a9a58">point2</a>, point2)) ? <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a> : <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>)
+                  : FALSE);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa90d43705c8b8286bf9751240ea6ffe0"></a><!-- doxytag: member="seam.h::point_used_by_seam" ref="aa90d43705c8b8286bf9751240ea6ffe0" args="(SEAM *seam, EDGEPT *point)" -->
@@ -847,6 +1183,14 @@ else {                                             \
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="seam_8cpp_source.html#l00092">92</a> of file <a class="el" href="seam_8cpp_source.html">seam.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                   {
+  <span class="keywordflow">if</span> (seam == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">return</span> <a class="code" href="seam_8cpp.html#a3208e522fd8ab9f6193e8f896128acc3">point_used_by_split</a>(seam-&gt;<a class="code" href="structseam__record.html#a4161a1874921a7854bdd3d7a9f930729">split1</a>, point) ||
+      <a class="code" href="seam_8cpp.html#a3208e522fd8ab9f6193e8f896128acc3">point_used_by_split</a>(seam-&gt;<a class="code" href="structseam__record.html#a75d831b3365583331780636979fbb321">split2</a>, point) ||
+      <a class="code" href="seam_8cpp.html#a3208e522fd8ab9f6193e8f896128acc3">point_used_by_split</a>(seam-&gt;<a class="code" href="structseam__record.html#ad3878ea3c362e24fcdd063ed81f9ac5a">split3</a>, point);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3208e522fd8ab9f6193e8f896128acc3"></a><!-- doxytag: member="seam.h::point_used_by_split" ref="a3208e522fd8ab9f6193e8f896128acc3" args="(SPLIT *split, EDGEPT *point)" -->
@@ -874,6 +1218,12 @@ else {                                             \
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="seam_8cpp_source.html#l00081">81</a> of file <a class="el" href="seam_8cpp_source.html">seam.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                      {
+  <span class="keywordflow">if</span> (split == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">return</span> point == split-&gt;<a class="code" href="structsplit__record.html#a2451170e7785bb495c0dd3d96fc71167">point1</a> || point == split-&gt;<a class="code" href="structsplit__record.html#adb5ec4152eddde15c1996133177a9a58">point2</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2168b2b29d8981405d068256c2b61e3b"></a><!-- doxytag: member="seam.h::print_seam" ref="a2168b2b29d8981405d068256c2b61e3b" args="(const char *label, SEAM *seam)" -->
@@ -901,6 +1251,27 @@ else {                                             \
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="seam_8cpp_source.html#l00458">458</a> of file <a class="el" href="seam_8cpp_source.html">seam.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                               {
+  <span class="keywordflow">if</span> (seam) {
+    <a class="code" href="callcpp_8cpp.html#a21679e7fec2d69db23107348fa13c153">cprintf</a>(label);
+    <a class="code" href="callcpp_8cpp.html#a21679e7fec2d69db23107348fa13c153">cprintf</a>(<span class="stringliteral">&quot; %6.2f @ (%d,%d), p=%d, n=%d &quot;</span>,
+            seam-&gt;<a class="code" href="structseam__record.html#a73a33b08d22988d595cd18da31235dc4">priority</a>, seam-&gt;<a class="code" href="structseam__record.html#a62ddded2ea46187c395f40823d036ed3">location</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a>, seam-&gt;<a class="code" href="structseam__record.html#a62ddded2ea46187c395f40823d036ed3">location</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a>,
+            seam-&gt;<a class="code" href="structseam__record.html#a1d750c3c54edcad7dcb33c7b0ce79c15">widthp</a>, seam-&gt;<a class="code" href="structseam__record.html#ab1f7d314db1200aacb26ccaf0c5dd39f">widthn</a>);
+    <a class="code" href="split_8cpp.html#a24210aac50f8b01c1c50b94262865269">print_split</a>(seam-&gt;<a class="code" href="structseam__record.html#a4161a1874921a7854bdd3d7a9f930729">split1</a>);
+
+    <span class="keywordflow">if</span> (seam-&gt;<a class="code" href="structseam__record.html#a75d831b3365583331780636979fbb321">split2</a>) {
+      <a class="code" href="callcpp_8cpp.html#a21679e7fec2d69db23107348fa13c153">cprintf</a>(<span class="stringliteral">&quot;,   &quot;</span>);
+      <a class="code" href="split_8cpp.html#a24210aac50f8b01c1c50b94262865269">print_split</a> (seam-&gt;<a class="code" href="structseam__record.html#a75d831b3365583331780636979fbb321">split2</a>);
+      <span class="keywordflow">if</span> (seam-&gt;<a class="code" href="structseam__record.html#ad3878ea3c362e24fcdd063ed81f9ac5a">split3</a>) {
+        <a class="code" href="callcpp_8cpp.html#a21679e7fec2d69db23107348fa13c153">cprintf</a>(<span class="stringliteral">&quot;,   &quot;</span>);
+        <a class="code" href="split_8cpp.html#a24210aac50f8b01c1c50b94262865269">print_split</a> (seam-&gt;<a class="code" href="structseam__record.html#ad3878ea3c362e24fcdd063ed81f9ac5a">split3</a>);
+      }
+    }
+    <a class="code" href="callcpp_8cpp.html#a21679e7fec2d69db23107348fa13c153">cprintf</a> (<span class="stringliteral">&quot;\n&quot;</span>);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="abb1ad769b4318ae71f1a36294d29f5af"></a><!-- doxytag: member="seam.h::print_seams" ref="abb1ad769b4318ae71f1a36294d29f5af" args="(const char *label, SEAMS seams)" -->
@@ -928,6 +1299,21 @@ else {                                             \
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="seam_8cpp_source.html#l00485">485</a> of file <a class="el" href="seam_8cpp_source.html">seam.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                 {
+  <span class="keywordtype">int</span> x;
+  <span class="keywordtype">char</span> number[<a class="code" href="cutil_8h.html#accaf8215779c8836f3f25f722e77550e">CHARS_PER_LINE</a>];
+
+  <span class="keywordflow">if</span> (seams) {
+    <a class="code" href="callcpp_8cpp.html#a21679e7fec2d69db23107348fa13c153">cprintf</a>(<span class="stringliteral">&quot;%s\n&quot;</span>, label);
+    <a class="code" href="tessarray_8h.html#a6cb2253ca40c87d6ee706418575fb3e5">array_loop</a>(seams, x) {
+      sprintf(number, <span class="stringliteral">&quot;%2d:   &quot;</span>, x);
+      <a class="code" href="seam_8cpp.html#a2168b2b29d8981405d068256c2b61e3b">print_seam</a>(number, (<a class="code" href="structseam__record.html">SEAM</a> *) <a class="code" href="tessarray_8h.html#a290cd2ea119e279ad48b57fbe5ca1aad">array_value</a>(seams, x));
+    }
+    <a class="code" href="callcpp_8cpp.html#a21679e7fec2d69db23107348fa13c153">cprintf</a>(<span class="stringliteral">&quot;\n&quot;</span>);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="af3e347318ff5e7e1c31604b008235d60"></a><!-- doxytag: member="seam.h::reveal_edge_pair" ref="af3e347318ff5e7e1c31604b008235d60" args="(EDGEPT *pt1, EDGEPT *pt2)" -->
@@ -955,6 +1341,32 @@ else {                                             \
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="seam_8cpp_source.html#l00672">672</a> of file <a class="el" href="seam_8cpp_source.html">seam.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                {
+  <a class="code" href="struct_e_d_g_e_p_t.html">EDGEPT</a> *edgept;
+
+  edgept = pt1;
+  <span class="keywordflow">do</span> {
+    edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a668c2e2a44f809802b6c72cfdef485d5">Reveal</a>();
+    edgept = edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>;
+  }
+  <span class="keywordflow">while</span> (!<a class="code" href="seam_8h.html#afb94c26f2bc904be74bda6e72575e95b">exact_point</a> (edgept, pt2) &amp;&amp; edgept != pt1);
+  <span class="keywordflow">if</span> (edgept == pt1) {
+    <span class="comment">/*              cprintf(&quot;Hid entire outline at (%d,%d)!!\n&quot;,</span>
+<span class="comment">       edgept-&gt;pos.x,edgept-&gt;pos.y);                                */</span>
+  }
+  edgept = pt2;
+  <span class="keywordflow">do</span> {
+    edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a668c2e2a44f809802b6c72cfdef485d5">Reveal</a>();
+    edgept = edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>;
+  }
+  <span class="keywordflow">while</span> (!<a class="code" href="seam_8h.html#afb94c26f2bc904be74bda6e72575e95b">exact_point</a> (edgept, pt1) &amp;&amp; edgept != pt2);
+  <span class="keywordflow">if</span> (edgept == pt2) {
+    <span class="comment">/*              cprintf(&quot;Hid entire outline at (%d,%d)!!\n&quot;,</span>
+<span class="comment">       edgept-&gt;pos.x,edgept-&gt;pos.y);                                */</span>
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2b25c514788f76369faf8d727034896d"></a><!-- doxytag: member="seam.h::reveal_seam" ref="a2b25c514788f76369faf8d727034896d" args="(SEAM *seam)" -->
@@ -972,6 +1384,21 @@ else {                                             \
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="seam_8cpp_source.html#l00651">651</a> of file <a class="el" href="seam_8cpp_source.html">seam.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                             {
+  <span class="keywordflow">if</span> (seam == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> || seam-&gt;<a class="code" href="structseam__record.html#a4161a1874921a7854bdd3d7a9f930729">split1</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <span class="keywordflow">return</span>;
+  <a class="code" href="seam_8cpp.html#af3e347318ff5e7e1c31604b008235d60">reveal_edge_pair</a> (seam-&gt;<a class="code" href="structseam__record.html#a4161a1874921a7854bdd3d7a9f930729">split1</a>-&gt;<a class="code" href="structsplit__record.html#a2451170e7785bb495c0dd3d96fc71167">point1</a>, seam-&gt;<a class="code" href="structseam__record.html#a4161a1874921a7854bdd3d7a9f930729">split1</a>-&gt;<a class="code" href="structsplit__record.html#adb5ec4152eddde15c1996133177a9a58">point2</a>);
+
+  <span class="keywordflow">if</span> (seam-&gt;<a class="code" href="structseam__record.html#a75d831b3365583331780636979fbb321">split2</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <span class="keywordflow">return</span>;
+  <a class="code" href="seam_8cpp.html#af3e347318ff5e7e1c31604b008235d60">reveal_edge_pair</a> (seam-&gt;<a class="code" href="structseam__record.html#a75d831b3365583331780636979fbb321">split2</a>-&gt;<a class="code" href="structsplit__record.html#a2451170e7785bb495c0dd3d96fc71167">point1</a>, seam-&gt;<a class="code" href="structseam__record.html#a75d831b3365583331780636979fbb321">split2</a>-&gt;<a class="code" href="structsplit__record.html#adb5ec4152eddde15c1996133177a9a58">point2</a>);
+
+  <span class="keywordflow">if</span> (seam-&gt;<a class="code" href="structseam__record.html#ad3878ea3c362e24fcdd063ed81f9ac5a">split3</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <span class="keywordflow">return</span>;
+  <a class="code" href="seam_8cpp.html#af3e347318ff5e7e1c31604b008235d60">reveal_edge_pair</a> (seam-&gt;<a class="code" href="structseam__record.html#ad3878ea3c362e24fcdd063ed81f9ac5a">split3</a>-&gt;<a class="code" href="structsplit__record.html#a2451170e7785bb495c0dd3d96fc71167">point1</a>, seam-&gt;<a class="code" href="structseam__record.html#ad3878ea3c362e24fcdd063ed81f9ac5a">split3</a>-&gt;<a class="code" href="structsplit__record.html#adb5ec4152eddde15c1996133177a9a58">point2</a>);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a1fcf833e097b1c5963a9374433f56497"></a><!-- doxytag: member="seam.h::shared_split_points" ref="a1fcf833e097b1c5963a9374433f56497" args="(SEAM *seam1, SEAM *seam2)" -->
@@ -999,6 +1426,29 @@ else {                                             \
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="seam_8cpp_source.html#l00507">507</a> of file <a class="el" href="seam_8cpp_source.html">seam.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                  {
+  <span class="keywordflow">if</span> (seam1 == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> || seam2 == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <span class="keywordflow">return</span> (<a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>);
+
+  <span class="keywordflow">if</span> (seam2-&gt;<a class="code" href="structseam__record.html#a4161a1874921a7854bdd3d7a9f930729">split1</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <span class="keywordflow">return</span> (<a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>);
+  <span class="keywordflow">if</span> (<a class="code" href="seam_8cpp.html#a4f81c70096397ac934c970ef0578dbf6">point_in_seam</a>(seam1, seam2-&gt;<a class="code" href="structseam__record.html#a4161a1874921a7854bdd3d7a9f930729">split1</a>))
+    <span class="keywordflow">return</span> (<a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>);
+
+  <span class="keywordflow">if</span> (seam2-&gt;<a class="code" href="structseam__record.html#a75d831b3365583331780636979fbb321">split2</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <span class="keywordflow">return</span> (<a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>);
+  <span class="keywordflow">if</span> (<a class="code" href="seam_8cpp.html#a4f81c70096397ac934c970ef0578dbf6">point_in_seam</a>(seam1, seam2-&gt;<a class="code" href="structseam__record.html#a75d831b3365583331780636979fbb321">split2</a>))
+    <span class="keywordflow">return</span> (<a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>);
+
+  <span class="keywordflow">if</span> (seam2-&gt;<a class="code" href="structseam__record.html#ad3878ea3c362e24fcdd063ed81f9ac5a">split3</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <span class="keywordflow">return</span> (<a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>);
+  <span class="keywordflow">if</span> (<a class="code" href="seam_8cpp.html#a4f81c70096397ac934c970ef0578dbf6">point_in_seam</a>(seam1, seam2-&gt;<a class="code" href="structseam__record.html#ad3878ea3c362e24fcdd063ed81f9ac5a">split3</a>))
+    <span class="keywordflow">return</span> (<a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>);
+
+  <span class="keywordflow">return</span> (<a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a748ec120eaad6a5a10d05dd684d90bd5"></a><!-- doxytag: member="seam.h::start_seam_list" ref="a748ec120eaad6a5a10d05dd684d90bd5" args="(TBLOB *blobs)" -->
@@ -1016,6 +1466,26 @@ else {                                             \
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="seam_8cpp_source.html#l00175">175</a> of file <a class="el" href="seam_8cpp_source.html">seam.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                    {
+  <a class="code" href="struct_t_b_l_o_b.html">TBLOB</a> *blob;
+  <a class="code" href="structarray__record.html">SEAMS</a> seam_list;
+  <a class="code" href="struct_t_p_o_i_n_t.html">TPOINT</a> location;
+  <span class="comment">/* Seam slot per char */</span>
+  seam_list = <a class="code" href="seam_8cpp.html#a61322eb2fa2f38f1324d584b17d8e80e">new_seam_list</a> ();
+
+  <span class="keywordflow">for</span> (blob = blobs; blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a88a541f55c8bfd63a9f0c419189499bb">next</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>; blob = blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a88a541f55c8bfd63a9f0c419189499bb">next</a>) {
+    <a class="code" href="class_t_b_o_x.html">TBOX</a> bbox = blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a8f1f8f110170fe12cf8147d504cd0ea2">bounding_box</a>();
+    <a class="code" href="class_t_b_o_x.html">TBOX</a> nbox = blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a88a541f55c8bfd63a9f0c419189499bb">next</a>-&gt;<a class="code" href="struct_t_b_l_o_b.html#a8f1f8f110170fe12cf8147d504cd0ea2">bounding_box</a>();
+    location.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> = (bbox.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>() + nbox.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>()) / 2;
+    location.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a> = (bbox.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>() + bbox.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>() + nbox.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>() + nbox.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>()) / 4;
+    seam_list = <a class="code" href="seam_8cpp.html#a386b602215ed348b1996b7558c0e3af1">add_seam</a>(seam_list,
+        <a class="code" href="seam_8cpp.html#ad7bc7a3af5617ff4762369a6aa879ed3">new_seam</a>(0.0, location, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>));
+  }
+
+  <span class="keywordflow">return</span> seam_list;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad5c40a87abe7dd3af10a13614f321be4"></a><!-- doxytag: member="seam.h::test_insert_seam" ref="ad5c40a87abe7dd3af10a13614f321be4" args="(SEAMS seam_list, int index, TBLOB *left_blob, TBLOB *first_blob)" -->
@@ -1055,6 +1525,35 @@ else {                                             \
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="seam_8cpp_source.html#l00213">213</a> of file <a class="el" href="seam_8cpp_source.html">seam.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                         {
+  <a class="code" href="structseam__record.html">SEAM</a> *test_seam;
+  <a class="code" href="struct_t_b_l_o_b.html">TBLOB</a> *blob;
+  <span class="keywordtype">int</span> test_index;
+  <span class="keywordtype">int</span> list_length;
+
+  list_length = <a class="code" href="tessarray_8h.html#a89ee8010120771c8612dc7058b327f84">array_count</a> (seam_list);
+  <span class="keywordflow">for</span> (test_index=0, blob=first_blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a88a541f55c8bfd63a9f0c419189499bb">next</a>;
+       test_index &lt; index;
+       test_index++, blob=blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a88a541f55c8bfd63a9f0c419189499bb">next</a>) {
+    test_seam = (<a class="code" href="structseam__record.html">SEAM</a> *) <a class="code" href="tessarray_8h.html#a290cd2ea119e279ad48b57fbe5ca1aad">array_value</a>(seam_list, test_index);
+    <span class="keywordflow">if</span> (test_index + test_seam-&gt;<a class="code" href="structseam__record.html#a1d750c3c54edcad7dcb33c7b0ce79c15">widthp</a> &lt; index &amp;&amp;
+        test_seam-&gt;<a class="code" href="structseam__record.html#a1d750c3c54edcad7dcb33c7b0ce79c15">widthp</a> + test_index == index - 1 &amp;&amp;
+        <a class="code" href="seam_8cpp.html#a565f5b6019c0a1e5766b9e38f042b47e">account_splits_right</a>(test_seam, blob) &lt; 0)
+      <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+  <span class="keywordflow">for</span> (test_index=index, blob=left_blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a88a541f55c8bfd63a9f0c419189499bb">next</a>;
+       test_index &lt; list_length;
+       test_index++, blob=blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a88a541f55c8bfd63a9f0c419189499bb">next</a>) {
+    test_seam = (<a class="code" href="structseam__record.html">SEAM</a> *) <a class="code" href="tessarray_8h.html#a290cd2ea119e279ad48b57fbe5ca1aad">array_value</a>(seam_list, test_index);
+    <span class="keywordflow">if</span> (test_index - test_seam-&gt;<a class="code" href="structseam__record.html#ab1f7d314db1200aacb26ccaf0c5dd39f">widthn</a> &gt;= index &amp;&amp;
+        test_index - test_seam-&gt;<a class="code" href="structseam__record.html#ab1f7d314db1200aacb26ccaf0c5dd39f">widthn</a> == index &amp;&amp;
+        <a class="code" href="seam_8cpp.html#aedde185b891fd20bee84cf2b387a90dc">account_splits_left</a>(test_seam, first_blob, blob) &lt; 0)
+      <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 </div>
@@ -1077,7 +1576,7 @@ else {                                             \
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:09 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:40 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

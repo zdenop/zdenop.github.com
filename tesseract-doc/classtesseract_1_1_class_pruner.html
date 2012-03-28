@@ -120,7 +120,10 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_class_pruner.html#abfb31f80329481066c0ac1841443dbff">SummarizeResult</a> (const <a class="el" href="classtesseract_1_1_classify.html">Classify</a> &amp;classify, const <a class="el" href="struct_i_n_t___t_e_m_p_l_a_t_e_s___s_t_r_u_c_t.html">INT_TEMPLATES_STRUCT</a> *int_templates, const <a class="el" href="host_8h.html#acb2dfad543247740dab87d31bb49dfff">uinT16</a> *expected_num_features, int norm_multiplier, const <a class="el" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a> *normalization_factors) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_class_pruner.html#a75b63ce092416765b95bbb109bbcd749">SetupResults</a> (<a class="el" href="struct_c_p___r_e_s_u_l_t___s_t_r_u_c_t.html">CP_RESULT_STRUCT</a> *results) const </td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="intmatcher_8cpp_source.html#l00108">108</a> of file <a class="el" href="intmatcher_8cpp_source.html">intmatcher.cpp</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a5cf156abeddb25e0fc19f31b0bd0ded0"></a><!-- doxytag: member="tesseract::ClassPruner::ClassPruner" ref="a5cf156abeddb25e0fc19f31b0bd0ded0" args="(int max_classes)" -->
 <div class="memitem">
 <div class="memproto">
@@ -136,6 +139,29 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intmatcher_8cpp_source.html#l00110">110</a> of file <a class="el" href="intmatcher_8cpp_source.html">intmatcher.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                               {
+    <span class="comment">// The unrolled loop in ComputeScores means that the array sizes need to</span>
+    <span class="comment">// be rounded up so that the array is big enough to accommodate the extra</span>
+    <span class="comment">// entries accessed by the unrolling. Each pruner word is of sized</span>
+    <span class="comment">// BITS_PER_WERD and each entry is NUM_BITS_PER_CLASS, so there are</span>
+    <span class="comment">// BITS_PER_WERD / NUM_BITS_PER_CLASS entries.</span>
+    <span class="comment">// See ComputeScores.</span>
+    max_classes_ = max_classes;
+    rounded_classes_ = <a class="code" href="helpers_8h.html#aea2e31b49321ab46ca2ec6fa510cc975">RoundUp</a>(
+        max_classes, <a class="code" href="intproto_8h.html#ab1e3efe229080aaa98b0df47adf46666">WERDS_PER_CP_VECTOR</a> * <a class="code" href="intproto_8h.html#a65e33e9e10361d8dc9c7760ee256beac">BITS_PER_WERD</a> / <a class="code" href="intproto_8h.html#ae803270a6532aba72c1a20bacbf4594e">NUM_BITS_PER_CLASS</a>);
+    class_count_ = <span class="keyword">new</span> <span class="keywordtype">int</span>[rounded_classes_];
+    norm_count_ = <span class="keyword">new</span> <span class="keywordtype">int</span>[rounded_classes_];
+    sort_key_ = <span class="keyword">new</span> <span class="keywordtype">int</span>[rounded_classes_ + 1];
+    sort_index_ = <span class="keyword">new</span> <span class="keywordtype">int</span>[rounded_classes_ + 1];
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; rounded_classes_; i++) {
+      class_count_[i] = 0;
+    }
+    pruning_threshold_ = 0;
+    num_features_ = 0;
+    num_classes_ = 0;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad012a82eca055274577df89140c516de"></a><!-- doxytag: member="tesseract::ClassPruner::~ClassPruner" ref="ad012a82eca055274577df89140c516de" args="()" -->
@@ -152,6 +178,14 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intmatcher_8cpp_source.html#l00132">132</a> of file <a class="el" href="intmatcher_8cpp_source.html">intmatcher.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                 {
+    <span class="keyword">delete</span> []class_count_;
+    <span class="keyword">delete</span> []norm_count_;
+    <span class="keyword">delete</span> []sort_key_;
+    <span class="keyword">delete</span> []sort_index_;
+  }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -180,6 +214,17 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intmatcher_8cpp_source.html#l00212">212</a> of file <a class="el" href="intmatcher_8cpp_source.html">intmatcher.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                         {
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> class_id = 0; class_id &lt; max_classes_; ++class_id) {
+      <span class="keywordflow">if</span> (num_features_ &lt; expected_num_features[class_id]) {
+        <span class="keywordtype">int</span> deficit = expected_num_features[class_id] - num_features_;
+        class_count_[class_id] -= class_count_[class_id] * deficit /
+          (num_features_ * cutoff_strength + deficit);
+      }
+    }
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a563dcc72126fbeabfc970e44ae9dadf3"></a><!-- doxytag: member="tesseract::ClassPruner::ComputeScores" ref="a563dcc72126fbeabfc970e44ae9dadf3" args="(const INT_TEMPLATES_STRUCT *int_templates, int num_features, const INT_FEATURE_STRUCT *features)" -->
@@ -213,6 +258,72 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intmatcher_8cpp_source.html#l00141">141</a> of file <a class="el" href="intmatcher_8cpp_source.html">intmatcher.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                           {
+    num_features_ = num_features;
+    <span class="keywordtype">int</span> num_pruners = int_templates-&gt;<a class="code" href="struct_i_n_t___t_e_m_p_l_a_t_e_s___s_t_r_u_c_t.html#a6a13950c1c600a35e3c534f1751b1d89">NumClassPruners</a>;
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> = 0; <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> &lt; num_features; ++<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>) {
+      <span class="keyword">const</span> <a class="code" href="struct_i_n_t___f_e_a_t_u_r_e___s_t_r_u_c_t.html">INT_FEATURE_STRUCT</a>* feature = &amp;features[<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>];
+      <span class="comment">// Quantize the feature to NUM_CP_BUCKETS*NUM_CP_BUCKETS*NUM_CP_BUCKETS.</span>
+      <span class="keywordtype">int</span> x = feature-&gt;<a class="code" href="struct_i_n_t___f_e_a_t_u_r_e___s_t_r_u_c_t.html#a6b250df12a9b06b5ed0c1a7c403f0275">X</a> * <a class="code" href="intproto_8h.html#aa675c40a77644a629ba6dd651e1befd5">NUM_CP_BUCKETS</a> &gt;&gt; 8;
+      <span class="keywordtype">int</span> y = feature-&gt;<a class="code" href="struct_i_n_t___f_e_a_t_u_r_e___s_t_r_u_c_t.html#a09931683890fb52d22ec6c75048a2bce">Y</a> * <a class="code" href="intproto_8h.html#aa675c40a77644a629ba6dd651e1befd5">NUM_CP_BUCKETS</a> &gt;&gt; 8;
+      <span class="keywordtype">int</span> theta = feature-&gt;<a class="code" href="struct_i_n_t___f_e_a_t_u_r_e___s_t_r_u_c_t.html#af4a2ea6a7d9a82cba06f6ca9a126461b">Theta</a> * <a class="code" href="intproto_8h.html#aa675c40a77644a629ba6dd651e1befd5">NUM_CP_BUCKETS</a> &gt;&gt; 8;
+      <span class="keywordtype">int</span> class_id = 0;
+      <span class="comment">// Each CLASS_PRUNER_STRUCT only covers CLASSES_PER_CP(32) classes, so</span>
+      <span class="comment">// we need a collection of them, indexed by pruner_set.</span>
+      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> pruner_set = 0; pruner_set &lt; num_pruners; ++pruner_set) {
+        <span class="comment">// Look up quantized feature in a 3-D array, an array of weights for</span>
+        <span class="comment">// each class.</span>
+        <span class="keyword">const</span> <a class="code" href="host_8h.html#afc8530b39ebe0b6df1e19159d2508d15">uinT32</a>* pruner_word_ptr =
+            int_templates-&gt;<a class="code" href="struct_i_n_t___t_e_m_p_l_a_t_e_s___s_t_r_u_c_t.html#a614e997d4c6f4d1c5ff3b7dac186c536">ClassPruners</a>[pruner_set]-&gt;<a class="code" href="struct_c_l_a_s_s___p_r_u_n_e_r___s_t_r_u_c_t.html#a4f3da8d4ff4a13f77982c919e20d279a">p</a>[x][y][theta];
+        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> word = 0; word &lt; <a class="code" href="intproto_8h.html#ab1e3efe229080aaa98b0df47adf46666">WERDS_PER_CP_VECTOR</a>; ++word) {
+          <a class="code" href="host_8h.html#afc8530b39ebe0b6df1e19159d2508d15">uinT32</a> pruner_word = *pruner_word_ptr++;
+          <span class="comment">// This inner loop is unrolled to speed up the ClassPruner.</span>
+          <span class="comment">// Currently gcc would not unroll it unless it is set to O3</span>
+          <span class="comment">// level of optimization or -funroll-loops is specified.</span>
+          <span class="comment">/*</span>
+<span class="comment">          uinT32 class_mask = (1 &lt;&lt; NUM_BITS_PER_CLASS) - 1;</span>
+<span class="comment">          for (int bit = 0; bit &lt; BITS_PER_WERD/NUM_BITS_PER_CLASS; bit++) {</span>
+<span class="comment">            class_count_[class_id++] += pruner_word &amp; class_mask;</span>
+<span class="comment">            pruner_word &gt;&gt;= NUM_BITS_PER_CLASS;</span>
+<span class="comment">          }</span>
+<span class="comment">          */</span>
+          class_count_[class_id++] += pruner_word &amp; <a class="code" href="intproto_8h.html#a7066036227dc10f75035f6a785d03c5d">CLASS_PRUNER_CLASS_MASK</a>;
+          pruner_word &gt;&gt;= <a class="code" href="intproto_8h.html#ae803270a6532aba72c1a20bacbf4594e">NUM_BITS_PER_CLASS</a>;
+          class_count_[class_id++] += pruner_word &amp; <a class="code" href="intproto_8h.html#a7066036227dc10f75035f6a785d03c5d">CLASS_PRUNER_CLASS_MASK</a>;
+          pruner_word &gt;&gt;= <a class="code" href="intproto_8h.html#ae803270a6532aba72c1a20bacbf4594e">NUM_BITS_PER_CLASS</a>;
+          class_count_[class_id++] += pruner_word &amp; <a class="code" href="intproto_8h.html#a7066036227dc10f75035f6a785d03c5d">CLASS_PRUNER_CLASS_MASK</a>;
+          pruner_word &gt;&gt;= <a class="code" href="intproto_8h.html#ae803270a6532aba72c1a20bacbf4594e">NUM_BITS_PER_CLASS</a>;
+          class_count_[class_id++] += pruner_word &amp; <a class="code" href="intproto_8h.html#a7066036227dc10f75035f6a785d03c5d">CLASS_PRUNER_CLASS_MASK</a>;
+          pruner_word &gt;&gt;= <a class="code" href="intproto_8h.html#ae803270a6532aba72c1a20bacbf4594e">NUM_BITS_PER_CLASS</a>;
+          class_count_[class_id++] += pruner_word &amp; <a class="code" href="intproto_8h.html#a7066036227dc10f75035f6a785d03c5d">CLASS_PRUNER_CLASS_MASK</a>;
+          pruner_word &gt;&gt;= <a class="code" href="intproto_8h.html#ae803270a6532aba72c1a20bacbf4594e">NUM_BITS_PER_CLASS</a>;
+          class_count_[class_id++] += pruner_word &amp; <a class="code" href="intproto_8h.html#a7066036227dc10f75035f6a785d03c5d">CLASS_PRUNER_CLASS_MASK</a>;
+          pruner_word &gt;&gt;= <a class="code" href="intproto_8h.html#ae803270a6532aba72c1a20bacbf4594e">NUM_BITS_PER_CLASS</a>;
+          class_count_[class_id++] += pruner_word &amp; <a class="code" href="intproto_8h.html#a7066036227dc10f75035f6a785d03c5d">CLASS_PRUNER_CLASS_MASK</a>;
+          pruner_word &gt;&gt;= <a class="code" href="intproto_8h.html#ae803270a6532aba72c1a20bacbf4594e">NUM_BITS_PER_CLASS</a>;
+          class_count_[class_id++] += pruner_word &amp; <a class="code" href="intproto_8h.html#a7066036227dc10f75035f6a785d03c5d">CLASS_PRUNER_CLASS_MASK</a>;
+          pruner_word &gt;&gt;= <a class="code" href="intproto_8h.html#ae803270a6532aba72c1a20bacbf4594e">NUM_BITS_PER_CLASS</a>;
+          class_count_[class_id++] += pruner_word &amp; <a class="code" href="intproto_8h.html#a7066036227dc10f75035f6a785d03c5d">CLASS_PRUNER_CLASS_MASK</a>;
+          pruner_word &gt;&gt;= <a class="code" href="intproto_8h.html#ae803270a6532aba72c1a20bacbf4594e">NUM_BITS_PER_CLASS</a>;
+          class_count_[class_id++] += pruner_word &amp; <a class="code" href="intproto_8h.html#a7066036227dc10f75035f6a785d03c5d">CLASS_PRUNER_CLASS_MASK</a>;
+          pruner_word &gt;&gt;= <a class="code" href="intproto_8h.html#ae803270a6532aba72c1a20bacbf4594e">NUM_BITS_PER_CLASS</a>;
+          class_count_[class_id++] += pruner_word &amp; <a class="code" href="intproto_8h.html#a7066036227dc10f75035f6a785d03c5d">CLASS_PRUNER_CLASS_MASK</a>;
+          pruner_word &gt;&gt;= <a class="code" href="intproto_8h.html#ae803270a6532aba72c1a20bacbf4594e">NUM_BITS_PER_CLASS</a>;
+          class_count_[class_id++] += pruner_word &amp; <a class="code" href="intproto_8h.html#a7066036227dc10f75035f6a785d03c5d">CLASS_PRUNER_CLASS_MASK</a>;
+          pruner_word &gt;&gt;= <a class="code" href="intproto_8h.html#ae803270a6532aba72c1a20bacbf4594e">NUM_BITS_PER_CLASS</a>;
+          class_count_[class_id++] += pruner_word &amp; <a class="code" href="intproto_8h.html#a7066036227dc10f75035f6a785d03c5d">CLASS_PRUNER_CLASS_MASK</a>;
+          pruner_word &gt;&gt;= <a class="code" href="intproto_8h.html#ae803270a6532aba72c1a20bacbf4594e">NUM_BITS_PER_CLASS</a>;
+          class_count_[class_id++] += pruner_word &amp; <a class="code" href="intproto_8h.html#a7066036227dc10f75035f6a785d03c5d">CLASS_PRUNER_CLASS_MASK</a>;
+          pruner_word &gt;&gt;= <a class="code" href="intproto_8h.html#ae803270a6532aba72c1a20bacbf4594e">NUM_BITS_PER_CLASS</a>;
+          class_count_[class_id++] += pruner_word &amp; <a class="code" href="intproto_8h.html#a7066036227dc10f75035f6a785d03c5d">CLASS_PRUNER_CLASS_MASK</a>;
+          pruner_word &gt;&gt;= <a class="code" href="intproto_8h.html#ae803270a6532aba72c1a20bacbf4594e">NUM_BITS_PER_CLASS</a>;
+          class_count_[class_id++] += pruner_word &amp; <a class="code" href="intproto_8h.html#a7066036227dc10f75035f6a785d03c5d">CLASS_PRUNER_CLASS_MASK</a>;
+        }
+      }
+    }
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a096f3b38fce8039eca84763c06ccd54f"></a><!-- doxytag: member="tesseract::ClassPruner::DebugMatch" ref="a096f3b38fce8039eca84763c06ccd54f" args="(const Classify &amp;classify, const INT_TEMPLATES_STRUCT *int_templates, const INT_FEATURE_STRUCT *features) const " -->
@@ -246,6 +357,41 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intmatcher_8cpp_source.html#l00299">299</a> of file <a class="el" href="intmatcher_8cpp_source.html">intmatcher.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                            {
+    <span class="keywordtype">int</span> num_pruners = int_templates-&gt;<a class="code" href="struct_i_n_t___t_e_m_p_l_a_t_e_s___s_t_r_u_c_t.html#a6a13950c1c600a35e3c534f1751b1d89">NumClassPruners</a>;
+    <span class="keywordtype">int</span> max_num_classes = int_templates-&gt;<a class="code" href="struct_i_n_t___t_e_m_p_l_a_t_e_s___s_t_r_u_c_t.html#a4735b2443aa7452909969d8d07e1877a">NumClasses</a>;
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> = 0; <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> &lt; num_features_; ++<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>) {
+      <span class="keyword">const</span> <a class="code" href="struct_i_n_t___f_e_a_t_u_r_e___s_t_r_u_c_t.html">INT_FEATURE_STRUCT</a>* feature = &amp;features[<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>];
+      <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;F=%3d(%d,%d,%d),&quot;</span>, <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>, feature-&gt;<a class="code" href="struct_i_n_t___f_e_a_t_u_r_e___s_t_r_u_c_t.html#a6b250df12a9b06b5ed0c1a7c403f0275">X</a>, feature-&gt;<a class="code" href="struct_i_n_t___f_e_a_t_u_r_e___s_t_r_u_c_t.html#a09931683890fb52d22ec6c75048a2bce">Y</a>, feature-&gt;<a class="code" href="struct_i_n_t___f_e_a_t_u_r_e___s_t_r_u_c_t.html#af4a2ea6a7d9a82cba06f6ca9a126461b">Theta</a>);
+      <span class="comment">// Quantize the feature to NUM_CP_BUCKETS*NUM_CP_BUCKETS*NUM_CP_BUCKETS.</span>
+      <span class="keywordtype">int</span> x = feature-&gt;<a class="code" href="struct_i_n_t___f_e_a_t_u_r_e___s_t_r_u_c_t.html#a6b250df12a9b06b5ed0c1a7c403f0275">X</a> * <a class="code" href="intproto_8h.html#aa675c40a77644a629ba6dd651e1befd5">NUM_CP_BUCKETS</a> &gt;&gt; 8;
+      <span class="keywordtype">int</span> y = feature-&gt;<a class="code" href="struct_i_n_t___f_e_a_t_u_r_e___s_t_r_u_c_t.html#a09931683890fb52d22ec6c75048a2bce">Y</a> * <a class="code" href="intproto_8h.html#aa675c40a77644a629ba6dd651e1befd5">NUM_CP_BUCKETS</a> &gt;&gt; 8;
+      <span class="keywordtype">int</span> theta = feature-&gt;<a class="code" href="struct_i_n_t___f_e_a_t_u_r_e___s_t_r_u_c_t.html#af4a2ea6a7d9a82cba06f6ca9a126461b">Theta</a> * <a class="code" href="intproto_8h.html#aa675c40a77644a629ba6dd651e1befd5">NUM_CP_BUCKETS</a> &gt;&gt; 8;
+      <span class="keywordtype">int</span> class_id = 0;
+      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> pruner_set = 0; pruner_set &lt; num_pruners; ++pruner_set) {
+        <span class="comment">// Look up quantized feature in a 3-D array, an array of weights for</span>
+        <span class="comment">// each class.</span>
+        <span class="keyword">const</span> <a class="code" href="host_8h.html#afc8530b39ebe0b6df1e19159d2508d15">uinT32</a>* pruner_word_ptr =
+            int_templates-&gt;<a class="code" href="struct_i_n_t___t_e_m_p_l_a_t_e_s___s_t_r_u_c_t.html#a614e997d4c6f4d1c5ff3b7dac186c536">ClassPruners</a>[pruner_set]-&gt;<a class="code" href="struct_c_l_a_s_s___p_r_u_n_e_r___s_t_r_u_c_t.html#a4f3da8d4ff4a13f77982c919e20d279a">p</a>[x][y][theta];
+        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> word = 0; word &lt; <a class="code" href="intproto_8h.html#ab1e3efe229080aaa98b0df47adf46666">WERDS_PER_CP_VECTOR</a>; ++word) {
+          <a class="code" href="host_8h.html#afc8530b39ebe0b6df1e19159d2508d15">uinT32</a> pruner_word = *pruner_word_ptr++;
+          <span class="keywordflow">for</span> (<span class="keywordtype">int</span> word_class = 0; word_class &lt; 16 &amp;&amp;
+               class_id &lt; max_num_classes; ++word_class, ++class_id) {
+            <span class="keywordflow">if</span> (norm_count_[class_id] &gt;= pruning_threshold_) {
+              <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot; %s=%d,&quot;</span>,
+                      classify.ClassIDToDebugStr(int_templates,
+                                                 class_id, 0).string(),
+                      pruner_word &amp; <a class="code" href="intproto_8h.html#a7066036227dc10f75035f6a785d03c5d">CLASS_PRUNER_CLASS_MASK</a>);
+            }
+            pruner_word &gt;&gt;= <a class="code" href="intproto_8h.html#ae803270a6532aba72c1a20bacbf4594e">NUM_BITS_PER_CLASS</a>;
+          }
+        }
+        <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;\n&quot;</span>);
+      }
+    }
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="adfe63c0c9ecd109255cbd9575c4461d5"></a><!-- doxytag: member="tesseract::ClassPruner::DisableDisabledClasses" ref="adfe63c0c9ecd109255cbd9575c4461d5" args="(const UNICHARSET &amp;unicharset)" -->
@@ -263,6 +409,14 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intmatcher_8cpp_source.html#l00225">225</a> of file <a class="el" href="intmatcher_8cpp_source.html">intmatcher.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                            {
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> class_id = 0; class_id &lt; max_classes_; ++class_id) {
+      <span class="keywordflow">if</span> (!unicharset.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#aa5f5f5b010151daf76255777aebeea18">get_enabled</a>(class_id))
+        class_count_[class_id] = 0;  <span class="comment">// This char is disabled!</span>
+    }
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a37c10b610423baeea19484dc649c1faa"></a><!-- doxytag: member="tesseract::ClassPruner::DisableFragments" ref="a37c10b610423baeea19484dc649c1faa" args="(const UNICHARSET &amp;unicharset)" -->
@@ -280,6 +434,17 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intmatcher_8cpp_source.html#l00233">233</a> of file <a class="el" href="intmatcher_8cpp_source.html">intmatcher.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                      {
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> class_id = 0; class_id &lt; max_classes_; ++class_id) {
+      <span class="comment">// Do not include character fragments in the class pruner</span>
+      <span class="comment">// results if disable_character_fragments is true.</span>
+      <span class="keywordflow">if</span> (unicharset.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#af08440927e3b87f99bd3a3fbd8e126dc">get_fragment</a>(class_id)) {
+        class_count_[class_id] = 0;
+      }
+    }
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="acb4a42006118013847d03b4e2d09b1b5"></a><!-- doxytag: member="tesseract::ClassPruner::NoNormalization" ref="acb4a42006118013847d03b4e2d09b1b5" args="()" -->
@@ -296,6 +461,13 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intmatcher_8cpp_source.html#l00256">256</a> of file <a class="el" href="intmatcher_8cpp_source.html">intmatcher.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                         {
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> class_id = 0; class_id &lt; max_classes_; class_id++) {
+      norm_count_[class_id] = class_count_[class_id];
+    }
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aecebf61f4c853ee8ce500561e6a2e9de"></a><!-- doxytag: member="tesseract::ClassPruner::NormalizeForXheight" ref="aecebf61f4c853ee8ce500561e6a2e9de" args="(int norm_multiplier, const uinT8 *normalization_factors)" -->
@@ -323,6 +495,14 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intmatcher_8cpp_source.html#l00247">247</a> of file <a class="el" href="intmatcher_8cpp_source.html">intmatcher.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                               {
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> class_id = 0; class_id &lt; max_classes_; class_id++) {
+      norm_count_[class_id] = class_count_[class_id] -
+          ((norm_multiplier * normalization_factors[class_id]) &gt;&gt; 8);
+    }
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a02a977ac59886202a164b5189ea4d1ed"></a><!-- doxytag: member="tesseract::ClassPruner::PruneAndSort" ref="a02a977ac59886202a164b5189ea4d1ed" args="(int pruning_factor, bool max_of_non_fragments, const UNICHARSET &amp;unicharset)" -->
@@ -356,6 +536,39 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intmatcher_8cpp_source.html#l00265">265</a> of file <a class="el" href="intmatcher_8cpp_source.html">intmatcher.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                  {
+    <span class="keywordtype">int</span> max_count = 0;
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> c = 0; c &lt; max_classes_; ++c) {
+      <span class="keywordflow">if</span> (norm_count_[c] &gt; max_count &amp;&amp;
+          <span class="comment">// This additional check is added in order to ensure that</span>
+          <span class="comment">// the classifier will return at least one non-fragmented</span>
+          <span class="comment">// character match.</span>
+          <span class="comment">// TODO(daria): verify that this helps accuracy and does not</span>
+          <span class="comment">// hurt performance.</span>
+          (!max_of_non_fragments || !unicharset.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#af08440927e3b87f99bd3a3fbd8e126dc">get_fragment</a>(c))) {
+        max_count = norm_count_[c];
+      }
+    }
+    <span class="comment">// Prune Classes.</span>
+    pruning_threshold_ = (max_count * pruning_factor) &gt;&gt; 8;
+    <span class="comment">// Select Classes.</span>
+    <span class="keywordflow">if</span> (pruning_threshold_ &lt; 1)
+      pruning_threshold_ = 1;
+    num_classes_ = 0;
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> class_id = 0; class_id &lt; max_classes_; class_id++) {
+      <span class="keywordflow">if</span> (norm_count_[class_id] &gt;= pruning_threshold_) {
+          ++num_classes_;
+        sort_index_[num_classes_] = class_id;
+        sort_key_[num_classes_] = norm_count_[class_id];
+      }
+    }
+
+    <span class="comment">// Sort Classes using Heapsort Algorithm.</span>
+    <span class="keywordflow">if</span> (num_classes_ &gt; 1)
+      <a class="code" href="intmatcher_8cpp.html#a11a05eae2b34aea059f9d8c0d2a94484">HeapSort</a>(num_classes_, sort_key_, sort_index_);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a75b63ce092416765b95bbb109bbcd749"></a><!-- doxytag: member="tesseract::ClassPruner::SetupResults" ref="a75b63ce092416765b95bbb109bbcd749" args="(CP_RESULT_STRUCT *results) const " -->
@@ -373,6 +586,16 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intmatcher_8cpp_source.html#l00359">359</a> of file <a class="el" href="intmatcher_8cpp_source.html">intmatcher.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                    {
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> c = 0; c &lt; num_classes_; ++c) {
+      results[c].<a class="code" href="struct_c_p___r_e_s_u_l_t___s_t_r_u_c_t.html#ad2b66531391bf80336b3f3ddd8ebf19f">Class</a> = sort_index_[num_classes_ - c];
+      results[c].<a class="code" href="struct_c_p___r_e_s_u_l_t___s_t_r_u_c_t.html#a472c9aa05d204cccb7682b976f122276">Rating</a> = 1.0 - sort_key_[num_classes_ - c] /
+        (<span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(<a class="code" href="intproto_8h.html#a7066036227dc10f75035f6a785d03c5d">CLASS_PRUNER_CLASS_MASK</a>) * num_features_);
+    }
+    <span class="keywordflow">return</span> num_classes_;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="abfb31f80329481066c0ac1841443dbff"></a><!-- doxytag: member="tesseract::ClassPruner::SummarizeResult" ref="abfb31f80329481066c0ac1841443dbff" args="(const Classify &amp;classify, const INT_TEMPLATES_STRUCT *int_templates, const uinT16 *expected_num_features, int norm_multiplier, const uinT8 *normalization_factors) const " -->
@@ -418,10 +641,28 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="intmatcher_8cpp_source.html#l00336">336</a> of file <a class="el" href="intmatcher_8cpp_source.html">intmatcher.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                 {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;CP:%d classes, %d features:\n&quot;</span>, num_classes_, num_features_);
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; num_classes_; ++i) {
+      <span class="keywordtype">int</span> class_id = sort_index_[num_classes_ - i];
+      <a class="code" href="class_s_t_r_i_n_g.html">STRING</a> class_string = classify.ClassIDToDebugStr(int_templates,
+                                                       class_id, 0);
+      <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;%s:Initial=%d, E=%d, Xht-adj=%d, N=%d, Rat=%.2f\n&quot;</span>,
+              class_string.<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a>(),
+              class_count_[class_id],
+              expected_num_features[class_id],
+              (norm_multiplier * normalization_factors[class_id]) &gt;&gt; 8,
+              sort_key_[num_classes_ - i],
+              100.0 - 100.0 * sort_key_[num_classes_ - i] /
+                (<a class="code" href="intproto_8h.html#a7066036227dc10f75035f6a785d03c5d">CLASS_PRUNER_CLASS_MASK</a> * num_features_));
+    }
+  }
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>tesseract-ocr/classify/<a class="el" href="intmatcher_8cpp.html">intmatcher.cpp</a></li>
+<li>tesseract-ocr/classify/<a class="el" href="intmatcher_8cpp_source.html">intmatcher.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -444,7 +685,7 @@ Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:15 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:50 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

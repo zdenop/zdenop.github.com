@@ -208,7 +208,10 @@ Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_textord.html#aab4348a0c1b664744dd51ea9f2f88429">textord_blshift_maxshift</a> = 0.00</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_textord.html#ac24cbce43d478165e8ea18fd4a7f8557">textord_blshift_xfraction</a> = 9.99</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00039">39</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="aefff593dc9593239325054507c5cfaa8"></a><!-- doxytag: member="tesseract::Textord::Textord" ref="aefff593dc9593239325054507c5cfaa8" args="(CCStruct *ccstruct)" -->
 <div class="memitem">
 <div class="memproto">
@@ -224,6 +227,233 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="textord_8cpp_source.html#l00029">29</a> of file <a class="el" href="textord_8cpp_source.html">textord.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">    : ccstruct_(ccstruct), use_cjk_fp_model_(<span class="keyword">false</span>),
+      <span class="comment">// makerow.cpp ///////////////////////////////////////////</span>
+      <a class="code" href="params_8h.html#afe1760253f2b6e3b14c1bf275d8531d4">BOOL_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#ac0782bed2a5ddc7a91254b50a946c084">textord_single_height_mode</a>, <span class="keyword">false</span>,
+                  <span class="stringliteral">&quot;Script has no xheight, so use a single mode&quot;</span>,
+                  ccstruct_-&gt;params()),
+      <span class="comment">// tospace.cpp ///////////////////////////////////////////</span>
+      <a class="code" href="params_8h.html#afe1760253f2b6e3b14c1bf275d8531d4">BOOL_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#a38a5ba94f96692b64035e9136d9abe9e">tosp_old_to_method</a>, <span class="keyword">false</span>, <span class="stringliteral">&quot;Space stats use prechopping?&quot;</span>,
+                  ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#afe1760253f2b6e3b14c1bf275d8531d4">BOOL_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#a00ee11bd9a2e9863a963708b8ac7ec75">tosp_old_to_constrain_sp_kn</a>, <span class="keyword">false</span>,
+                  <span class="stringliteral">&quot;Constrain relative values of inter and intra-word gaps for &quot;</span>
+                  <span class="stringliteral">&quot;old_to_method.&quot;</span>,
+                  ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#afe1760253f2b6e3b14c1bf275d8531d4">BOOL_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#a3867af0ddf2ecb3c01d51dd6316ecfd8">tosp_only_use_prop_rows</a>, <span class="keyword">true</span>,
+                  <span class="stringliteral">&quot;Block stats to use fixed pitch rows?&quot;</span>,
+                  ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#afe1760253f2b6e3b14c1bf275d8531d4">BOOL_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#a413360af0f9fd017f8dbcb62ed859abb">tosp_force_wordbreak_on_punct</a>, <span class="keyword">false</span>,
+                  <span class="stringliteral">&quot;Force word breaks on punct to break long lines in non-space &quot;</span>
+                  <span class="stringliteral">&quot;delimited langs&quot;</span>,
+                  ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#afe1760253f2b6e3b14c1bf275d8531d4">BOOL_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#a4fd89616aebe863789ada6093b7d641d">tosp_use_pre_chopping</a>, <span class="keyword">false</span>,
+                  <span class="stringliteral">&quot;Space stats use prechopping?&quot;</span>,
+                  ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#afe1760253f2b6e3b14c1bf275d8531d4">BOOL_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#abd892dd13a35317fd3d7b25548eed855">tosp_old_to_bug_fix</a>, <span class="keyword">false</span>, <span class="stringliteral">&quot;Fix suspected bug in old code&quot;</span>,
+                  ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#afe1760253f2b6e3b14c1bf275d8531d4">BOOL_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#a11f7bc70a0fa121fe3a42a5343ccf661">tosp_block_use_cert_spaces</a>, <span class="keyword">true</span>,
+                  <span class="stringliteral">&quot;Only stat OBVIOUS spaces&quot;</span>,
+                  ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#afe1760253f2b6e3b14c1bf275d8531d4">BOOL_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#ae43efad094732c7f7cb1bd70d0b0a26d">tosp_row_use_cert_spaces</a>, <span class="keyword">true</span>, <span class="stringliteral">&quot;Only stat OBVIOUS spaces&quot;</span>,
+                  ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#afe1760253f2b6e3b14c1bf275d8531d4">BOOL_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#a6e9ef19adcfbdf99467cfc6303c49ab1">tosp_narrow_blobs_not_cert</a>, <span class="keyword">true</span>,
+            <span class="stringliteral">&quot;Only stat OBVIOUS spaces&quot;</span>,
+                  ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#afe1760253f2b6e3b14c1bf275d8531d4">BOOL_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#a73c88efacd5362cde976e99b87d549cf">tosp_row_use_cert_spaces1</a>, <span class="keyword">true</span>, <span class="stringliteral">&quot;Only stat OBVIOUS spaces&quot;</span>,
+                  ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#afe1760253f2b6e3b14c1bf275d8531d4">BOOL_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#a491a5a4b1811e7dd374ae7974a16b478">tosp_recovery_isolated_row_stats</a>, <span class="keyword">true</span>,
+                  <span class="stringliteral">&quot;Use row alone when inadequate cert spaces&quot;</span>,
+                  ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#afe1760253f2b6e3b14c1bf275d8531d4">BOOL_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#a0c02290df1620311a01bc6a891d5c8ed">tosp_only_small_gaps_for_kern</a>, <span class="keyword">false</span>, <span class="stringliteral">&quot;Better guess&quot;</span>,
+                  ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#afe1760253f2b6e3b14c1bf275d8531d4">BOOL_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#a2dc8df556638f30a6b6af41818b3c840">tosp_all_flips_fuzzy</a>, <span class="keyword">false</span>, <span class="stringliteral">&quot;Pass ANY flip to context?&quot;</span>,
+                  ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#afe1760253f2b6e3b14c1bf275d8531d4">BOOL_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#ab801f25e224c0160e6ea4677895e127b">tosp_fuzzy_limit_all</a>, <span class="keyword">true</span>,
+                  <span class="stringliteral">&quot;Dont restrict kn-&gt;sp fuzzy limit to tables&quot;</span>,
+                  ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#afe1760253f2b6e3b14c1bf275d8531d4">BOOL_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#a7a9deeb926b7892081ef9852040f588c">tosp_stats_use_xht_gaps</a>, <span class="keyword">true</span>,
+                  <span class="stringliteral">&quot;Use within xht gap for wd breaks&quot;</span>,
+                  ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#afe1760253f2b6e3b14c1bf275d8531d4">BOOL_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#a99e9cdddfb014ee795ab26839868bb3e">tosp_use_xht_gaps</a>, <span class="keyword">true</span>, <span class="stringliteral">&quot;Use within xht gap for wd breaks&quot;</span>,
+                  ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#afe1760253f2b6e3b14c1bf275d8531d4">BOOL_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#a006acde068aaaba56dbd1495deeda8fb">tosp_only_use_xht_gaps</a>, <span class="keyword">false</span>,
+                  <span class="stringliteral">&quot;Only use within xht gap for wd breaks&quot;</span>,
+                  ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#afe1760253f2b6e3b14c1bf275d8531d4">BOOL_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#a6c259d09d3a3c2b169f01c7bbf6aa0b1">tosp_rule_9_test_punct</a>, <span class="keyword">false</span>,
+                  <span class="stringliteral">&quot;Dont chng kn to space next to punct&quot;</span>,
+                  ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#afe1760253f2b6e3b14c1bf275d8531d4">BOOL_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#a813c7d78bc99e5cc61e2ac28dedac76c">tosp_flip_fuzz_kn_to_sp</a>, <span class="keyword">true</span>, <span class="stringliteral">&quot;Default flip&quot;</span>,
+                  ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#afe1760253f2b6e3b14c1bf275d8531d4">BOOL_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#a732a4cb816df9d6529d0e44ef22fa21e">tosp_flip_fuzz_sp_to_kn</a>, <span class="keyword">true</span>, <span class="stringliteral">&quot;Default flip&quot;</span>,
+                  ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#afe1760253f2b6e3b14c1bf275d8531d4">BOOL_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#a771914689c53c4bb81e66ac6747848aa">tosp_improve_thresh</a>, <span class="keyword">false</span>, <span class="stringliteral">&quot;Enable improvement heuristic&quot;</span>,
+                  ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#a05d4e03af9e317d4201155efa15d4d4a">INT_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#a28acd9fb9d4a5bef34a2fafb04ce1047">tosp_debug_level</a>, 0, <span class="stringliteral">&quot;Debug data&quot;</span>,
+                 ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#a05d4e03af9e317d4201155efa15d4d4a">INT_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#a9a12bf2721ebe5803674c53bb3778a40">tosp_enough_space_samples_for_median</a>, 3,
+           <span class="stringliteral">&quot;or should we use mean&quot;</span>,
+                 ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#a05d4e03af9e317d4201155efa15d4d4a">INT_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#a9a0d953120faab20f638f00a705f4312">tosp_redo_kern_limit</a>, 10,
+                 <span class="stringliteral">&quot;No.samples reqd to reestimate for row&quot;</span>,
+                 ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#a05d4e03af9e317d4201155efa15d4d4a">INT_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#a72d5f998daf8c48a584ae33283492f66">tosp_few_samples</a>, 40,
+                 <span class="stringliteral">&quot;No.gaps reqd with 1 large gap to treat as a table&quot;</span>,
+                 ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#a05d4e03af9e317d4201155efa15d4d4a">INT_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#a1bab9c33e6035444c909f1553ae9c93f">tosp_short_row</a>, 20,
+                 <span class="stringliteral">&quot;No.gaps reqd with few cert spaces to use certs&quot;</span>,
+                 ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#a05d4e03af9e317d4201155efa15d4d4a">INT_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#a50cd31f9200500db59791c14fbb1e918">tosp_sanity_method</a>, 1, <span class="stringliteral">&quot;How to avoid being silly&quot;</span>,
+                 ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#abc29757c0b64587fef3aa7556e2fd7b9">double_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#af44b33e9cbeee3c24da9e5c7301f8c8d">tosp_old_sp_kn_th_factor</a>, 2.0,
+                    <span class="stringliteral">&quot;Factor for defining space threshold in terms of space and &quot;</span>
+                    <span class="stringliteral">&quot;kern sizes&quot;</span>,
+                    ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#abc29757c0b64587fef3aa7556e2fd7b9">double_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#a5ef631641dab9d3914a8c6ca03998766">tosp_threshold_bias1</a>, 0,
+                    <span class="stringliteral">&quot;how far between kern and space?&quot;</span>,
+                    ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#abc29757c0b64587fef3aa7556e2fd7b9">double_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#a6a6405fec68dc5cc4285e899112fdb4a">tosp_threshold_bias2</a>, 0,
+                    <span class="stringliteral">&quot;how far between kern and space?&quot;</span>,
+                    ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#abc29757c0b64587fef3aa7556e2fd7b9">double_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#afe0d4bc4677fd6a26614e48e155ef0a0">tosp_narrow_fraction</a>, 0.3, <span class="stringliteral">&quot;Fract of xheight for narrow&quot;</span>,
+                    ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#abc29757c0b64587fef3aa7556e2fd7b9">double_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#af57498e42a2f7bca412ef0bd0b360dd7">tosp_narrow_aspect_ratio</a>, 0.48,
+                    <span class="stringliteral">&quot;narrow if w/h less than this&quot;</span>,
+                    ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#abc29757c0b64587fef3aa7556e2fd7b9">double_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#a07196d76d7b525b08830dfc0858fbe57">tosp_wide_fraction</a>, 0.52, <span class="stringliteral">&quot;Fract of xheight for wide&quot;</span>,
+                    ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#abc29757c0b64587fef3aa7556e2fd7b9">double_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#a23ae9a66767e47fdabf1ebfcfc92d99c">tosp_wide_aspect_ratio</a>, 0.0, <span class="stringliteral">&quot;wide if w/h less than this&quot;</span>,
+                    ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#abc29757c0b64587fef3aa7556e2fd7b9">double_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#a8ecadc4924c587995392443094b7212a">tosp_fuzzy_space_factor</a>, 0.6,
+                    <span class="stringliteral">&quot;Fract of xheight for fuzz sp&quot;</span>,
+                    ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#abc29757c0b64587fef3aa7556e2fd7b9">double_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#ad0f22b5f7497fdb68a2b1a861dc32f4f">tosp_fuzzy_space_factor1</a>, 0.5,
+                    <span class="stringliteral">&quot;Fract of xheight for fuzz sp&quot;</span>,
+                    ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#abc29757c0b64587fef3aa7556e2fd7b9">double_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#a1d79ac91c79d0844fc0852fa66bea349">tosp_fuzzy_space_factor2</a>, 0.72,
+                    <span class="stringliteral">&quot;Fract of xheight for fuzz sp&quot;</span>,
+                    ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#abc29757c0b64587fef3aa7556e2fd7b9">double_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#adb8fd12a73dbfe5abba3c2d37feb353b">tosp_gap_factor</a>, 0.83, <span class="stringliteral">&quot;gap ratio to flip sp-&gt;kern&quot;</span>,
+                    ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#abc29757c0b64587fef3aa7556e2fd7b9">double_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#a1bd19a3a0bccbc97dc64f26e622f372d">tosp_kern_gap_factor1</a>, 2.0, <span class="stringliteral">&quot;gap ratio to flip kern-&gt;sp&quot;</span>,
+                    ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#abc29757c0b64587fef3aa7556e2fd7b9">double_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#a534dc2a48eeabc66d383494e1b0e0535">tosp_kern_gap_factor2</a>, 1.3, <span class="stringliteral">&quot;gap ratio to flip kern-&gt;sp&quot;</span>,
+                    ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#abc29757c0b64587fef3aa7556e2fd7b9">double_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#ac4d2c2701fad7c0ec1010cd82b70a1a9">tosp_kern_gap_factor3</a>, 2.5, <span class="stringliteral">&quot;gap ratio to flip kern-&gt;sp&quot;</span>,
+                    ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#abc29757c0b64587fef3aa7556e2fd7b9">double_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#aef25a17dd5bba6e9f36bdbe9f2254859">tosp_ignore_big_gaps</a>, -1, <span class="stringliteral">&quot;xht multiplier&quot;</span>,
+                    ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#abc29757c0b64587fef3aa7556e2fd7b9">double_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#ad1e2c9105efa15f223d317ec9b52107a">tosp_ignore_very_big_gaps</a>, 3.5, <span class="stringliteral">&quot;xht multiplier&quot;</span>,
+                    ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#abc29757c0b64587fef3aa7556e2fd7b9">double_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#a6ba956c412d08474cb69cfd161b30980">tosp_rep_space</a>, 1.6, <span class="stringliteral">&quot;rep gap multiplier for space&quot;</span>,
+                    ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#abc29757c0b64587fef3aa7556e2fd7b9">double_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#a93a9101ad017979ca88d759ee020c42a">tosp_enough_small_gaps</a>, 0.65,
+                    <span class="stringliteral">&quot;Fract of kerns reqd for isolated row stats&quot;</span>,
+                    ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#abc29757c0b64587fef3aa7556e2fd7b9">double_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#ab5ec4164a4c968fab0d7bb72e400e04a">tosp_table_kn_sp_ratio</a>, 2.25,
+                    <span class="stringliteral">&quot;Min difference of kn &amp; sp in table&quot;</span>,
+                    ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#abc29757c0b64587fef3aa7556e2fd7b9">double_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#a22bd562721b03831a469e235ad1eec12">tosp_table_xht_sp_ratio</a>, 0.33,
+                    <span class="stringliteral">&quot;Expect spaces bigger than this&quot;</span>,
+                    ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#abc29757c0b64587fef3aa7556e2fd7b9">double_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#a079197bd07b3dca0a941ce27988747f5">tosp_table_fuzzy_kn_sp_ratio</a>, 3.0,
+                    <span class="stringliteral">&quot;Fuzzy if less than this&quot;</span>,
+                    ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#abc29757c0b64587fef3aa7556e2fd7b9">double_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#a1b7b01e146774cb66046738982e7cdbd">tosp_fuzzy_kn_fraction</a>, 0.5, <span class="stringliteral">&quot;New fuzzy kn alg&quot;</span>,
+                    ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#abc29757c0b64587fef3aa7556e2fd7b9">double_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#ac71a17a1bfbb55358ba1a7a8b5d3a0b5">tosp_fuzzy_sp_fraction</a>, 0.5, <span class="stringliteral">&quot;New fuzzy sp alg&quot;</span>,
+                    ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#abc29757c0b64587fef3aa7556e2fd7b9">double_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#a0266009f462f75f01e6b5df1ba76d2d9">tosp_min_sane_kn_sp</a>, 1.5,
+                    <span class="stringliteral">&quot;Dont trust spaces less than this time kn&quot;</span>,
+                    ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#abc29757c0b64587fef3aa7556e2fd7b9">double_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#aaf1c1c7bfcf5a3227989b656aad82711">tosp_init_guess_kn_mult</a>, 2.2,
+                    <span class="stringliteral">&quot;Thresh guess - mult kn by this&quot;</span>,
+                    ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#abc29757c0b64587fef3aa7556e2fd7b9">double_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#a1b3e40ab38618b9440767d00588b6ac2">tosp_init_guess_xht_mult</a>, 0.28,
+                    <span class="stringliteral">&quot;Thresh guess - mult xht by this&quot;</span>,
+                    ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#abc29757c0b64587fef3aa7556e2fd7b9">double_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#a889edf86ffc79a511285cc1beb0c7e21">tosp_max_sane_kn_thresh</a>, 5.0,
+                    <span class="stringliteral">&quot;Multiplier on kn to limit thresh&quot;</span>,
+                    ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#abc29757c0b64587fef3aa7556e2fd7b9">double_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#ae5daba015959f10bff6680fd824fac87">tosp_flip_caution</a>, 0.0,
+                    <span class="stringliteral">&quot;Dont autoflip kn to sp when large separation&quot;</span>,
+                    ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#abc29757c0b64587fef3aa7556e2fd7b9">double_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#a3186aaca3f8cc21b763bcc71c4a4c24c">tosp_large_kerning</a>, 0.19,
+                    <span class="stringliteral">&quot;Limit use of xht gap with large kns&quot;</span>,
+                    ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#abc29757c0b64587fef3aa7556e2fd7b9">double_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#a5f83fb3436e922a40510ff10043eecf1">tosp_dont_fool_with_small_kerns</a>, -1,
+                    <span class="stringliteral">&quot;Limit use of xht gap with odd small kns&quot;</span>,
+                    ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#abc29757c0b64587fef3aa7556e2fd7b9">double_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#aef92927925e16167bdb1865fad92bdee">tosp_near_lh_edge</a>, 0,
+                    <span class="stringliteral">&quot;Dont reduce box if the top left is non blank&quot;</span>,
+                    ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#abc29757c0b64587fef3aa7556e2fd7b9">double_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#a7782cf35729ee08bc65db3aff6719525">tosp_silly_kn_sp_gap</a>, 0.2,
+                    <span class="stringliteral">&quot;Dont let sp minus kn get too small&quot;</span>,
+                    ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#abc29757c0b64587fef3aa7556e2fd7b9">double_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#a15cc9748aa7d26727b8bb5654d05532b">tosp_pass_wide_fuzz_sp_to_context</a>, 0.75,
+                    <span class="stringliteral">&quot;How wide fuzzies need context&quot;</span>,
+                    ccstruct_-&gt;params()),
+      <span class="comment">// tordmain.cpp ///////////////////////////////////////////</span>
+      <a class="code" href="params_8h.html#afe1760253f2b6e3b14c1bf275d8531d4">BOOL_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#a34838ae15dc4966cbbd43c1d9d79e76b">textord_no_rejects</a>, <span class="keyword">false</span>, <span class="stringliteral">&quot;Don&#39;t remove noise blobs&quot;</span>,
+                  ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#afe1760253f2b6e3b14c1bf275d8531d4">BOOL_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#ac2af687f671ac3518f1daef79a053d59">textord_show_blobs</a>, <span class="keyword">false</span>, <span class="stringliteral">&quot;Display unsorted blobs&quot;</span>,
+                  ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#afe1760253f2b6e3b14c1bf275d8531d4">BOOL_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#a8532e581b3c4777fbe8e69e9b6f00062">textord_show_boxes</a>, <span class="keyword">false</span>, <span class="stringliteral">&quot;Display unsorted blobs&quot;</span>,
+                  ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#a05d4e03af9e317d4201155efa15d4d4a">INT_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#aefa72647ee61b8514c1aaa5eaed098fb">textord_max_noise_size</a>, 7, <span class="stringliteral">&quot;Pixel size of noise&quot;</span>,
+                  ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#abc29757c0b64587fef3aa7556e2fd7b9">double_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#a9d8e9220431188a161a7219c3dc2b153">textord_blob_size_bigile</a>, 95, <span class="stringliteral">&quot;Percentile for large blobs&quot;</span>,
+                    ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#abc29757c0b64587fef3aa7556e2fd7b9">double_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#abc7b58272999c83a7a53fd1413038ba1">textord_noise_area_ratio</a>, 0.7,
+                    <span class="stringliteral">&quot;Fraction of bounding box for noise&quot;</span>,
+                    ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#abc29757c0b64587fef3aa7556e2fd7b9">double_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#aad0cd48ecf36d5990cf393998e97987c">textord_blob_size_smallile</a>, 20,
+                    <span class="stringliteral">&quot;Percentile for small blobs&quot;</span>,
+                    ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#abc29757c0b64587fef3aa7556e2fd7b9">double_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#ad2e50b3af05ac549c90aa14017dfd322">textord_initialx_ile</a>, 0.75,
+                    <span class="stringliteral">&quot;Ile of sizes for xheight guess&quot;</span>,
+                    ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#abc29757c0b64587fef3aa7556e2fd7b9">double_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#a925972489d85bb3cc3ad2731dc8e8cbb">textord_initialasc_ile</a>, 0.90,
+                    <span class="stringliteral">&quot;Ile of sizes for xheight guess&quot;</span>,
+                    ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#a05d4e03af9e317d4201155efa15d4d4a">INT_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#ab3a9a94c765ba4044cc4017aeb919568">textord_noise_sizefraction</a>, 10,
+                 <span class="stringliteral">&quot;Fraction of size for maxima&quot;</span>,
+                 ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#abc29757c0b64587fef3aa7556e2fd7b9">double_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#a8cdf3b52346640bffc1e0b54f15d56a1">textord_noise_sizelimit</a>, 0.5,
+                    <span class="stringliteral">&quot;Fraction of x for big t count&quot;</span>,
+                    ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#a05d4e03af9e317d4201155efa15d4d4a">INT_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#a6446c61163e8998feafdbe26f11c8f9e">textord_noise_translimit</a>, 16, <span class="stringliteral">&quot;Transitions for normal blob&quot;</span>,
+                 ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#abc29757c0b64587fef3aa7556e2fd7b9">double_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#abb3c7b73249c3755df5441af646f71d7">textord_noise_normratio</a>, 2.0,
+                    <span class="stringliteral">&quot;Dot to norm ratio for deletion&quot;</span>,
+                    ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#afe1760253f2b6e3b14c1bf275d8531d4">BOOL_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#aecc071304af26ca648cbe745d3c9b247">textord_noise_rejwords</a>, <span class="keyword">true</span>, <span class="stringliteral">&quot;Reject noise-like words&quot;</span>,
+                  ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#afe1760253f2b6e3b14c1bf275d8531d4">BOOL_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#a5cd218dea2d83dd9024d0c90494574b0">textord_noise_rejrows</a>, <span class="keyword">true</span>, <span class="stringliteral">&quot;Reject noise-like rows&quot;</span>,
+                  ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#abc29757c0b64587fef3aa7556e2fd7b9">double_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#a871f2c835f67cc0d5fee91ea8d292559">textord_noise_syfract</a>, 0.2,
+                    <span class="stringliteral">&quot;xh fract height error for norm blobs&quot;</span>,
+                    ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#abc29757c0b64587fef3aa7556e2fd7b9">double_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#a7b816661fcfb50ad445cbe066de36240">textord_noise_sxfract</a>, 0.4,
+                    <span class="stringliteral">&quot;xh fract width error for norm blobs&quot;</span>,
+                    ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#abc29757c0b64587fef3aa7556e2fd7b9">double_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#acf07fa4b7e98c77c64b1dd8103602db9">textord_noise_hfract</a>, 1.0/64,
+                    <span class="stringliteral">&quot;Height fraction to discard outlines as speckle noise&quot;</span>,
+                    ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#a05d4e03af9e317d4201155efa15d4d4a">INT_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#ade728b99ae003f1e95d8168b117deaab">textord_noise_sncount</a>, 1, <span class="stringliteral">&quot;super norm blobs to save row&quot;</span>,
+                 ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#abc29757c0b64587fef3aa7556e2fd7b9">double_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#ac6212feab8ec9839c8e84cc08855fc95">textord_noise_rowratio</a>, 6.0,
+                    <span class="stringliteral">&quot;Dot to norm ratio for deletion&quot;</span>,
+                    ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#afe1760253f2b6e3b14c1bf275d8531d4">BOOL_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#aa06ff5844f7415b3e097f35bd6ae7233">textord_noise_debug</a>, <span class="keyword">false</span>, <span class="stringliteral">&quot;Debug row garbage detector&quot;</span>,
+                  ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#abc29757c0b64587fef3aa7556e2fd7b9">double_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#aab4348a0c1b664744dd51ea9f2f88429">textord_blshift_maxshift</a>, 0.00, <span class="stringliteral">&quot;Max baseline shift&quot;</span>,
+                    ccstruct_-&gt;params()),
+      <a class="code" href="params_8h.html#abc29757c0b64587fef3aa7556e2fd7b9">double_MEMBER</a>(<a class="code" href="classtesseract_1_1_textord.html#ac24cbce43d478165e8ea18fd4a7f8557">textord_blshift_xfraction</a>, 9.99,
+                    <span class="stringliteral">&quot;Min size of baseline shift&quot;</span>,
+                    ccstruct_-&gt;params()) {
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab6aec7eec28ee2ea9083e1788064bd3e"></a><!-- doxytag: member="tesseract::Textord::~Textord" ref="ab6aec7eec28ee2ea9083e1788064bd3e" args="()" -->
@@ -240,6 +470,10 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="textord_8cpp_source.html#l00256">256</a> of file <a class="el" href="textord_8cpp_source.html">textord.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                  {
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -268,6 +502,37 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="textord_8cpp_source.html#l00334">334</a> of file <a class="el" href="textord_8cpp_source.html">textord.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                         {
+  <span class="keywordflow">if</span> (<a class="code" href="publictypes_8h.html#afdf46de916303a79bbda2cfdffc42473">PSM_LINE_FIND_ENABLED</a>(pageseg_mode))
+    <span class="keywordflow">return</span>;  <span class="comment">// No cleanup required.</span>
+  <a class="code" href="class_p_a_g_e___r_e_s___i_t.html">PAGE_RES_IT</a> it(page_res);
+  <span class="comment">// Find the best row, being the greatest mean word conf.</span>
+  <span class="keywordtype">float</span> row_total_conf = 0.0f;
+  <span class="keywordtype">int</span> row_word_count = 0;
+  <a class="code" href="class_r_o_w___r_e_s.html">ROW_RES</a>* best_row = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordtype">float</span> best_conf = 0.0f;
+  <span class="keywordflow">for</span> (it.restart_page(); it.word() != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>; it.forward()) {
+    <a class="code" href="class_w_e_r_d___r_e_s.html">WERD_RES</a>* word = it.<a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a>();
+    row_total_conf += word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a1b25ef2b44d21a7204483a7ca804f293">certainty</a>();
+    ++row_word_count;
+    <span class="keywordflow">if</span> (it.next_row() != it.row()) {
+      row_total_conf /= row_word_count;
+      <span class="keywordflow">if</span> (best_row == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> || best_conf &lt; row_total_conf) {
+        best_row = it.<a class="code" href="class_r_o_w___r_e_s.html#ad3a856f3e9217c47b8f2f54cd3908721">row</a>();
+        best_conf = row_total_conf;
+      }
+      row_total_conf = 0.0f;
+      row_word_count = 0;
+    }
+  }
+  <span class="comment">// Now eliminate any word not in the best row.</span>
+  <span class="keywordflow">for</span> (it.restart_page(); it.word() != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>; it.forward()) {
+    <span class="keywordflow">if</span> (it.row() != best_row)
+      it.DeleteCurrentWord();
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="acaed60ac5b5ef00751e3d307347aa0e9"></a><!-- doxytag: member="tesseract::Textord::filter_blobs" ref="acaed60ac5b5ef00751e3d307347aa0e9" args="(ICOORD page_tr, TO_BLOCK_LIST *blocks, BOOL8 testing_on)" -->
@@ -301,6 +566,49 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tordmain_8cpp_source.html#l00239">239</a> of file <a class="el" href="tordmain_8cpp_source.html">tordmain.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                             {     <span class="comment">// for plotting</span>
+  TO_BLOCK_IT block_it = blocks;          <span class="comment">// destination iterator</span>
+  <a class="code" href="class_t_o___b_l_o_c_k.html">TO_BLOCK</a> *block;                        <span class="comment">// created block</span>
+
+<span class="preprocessor">  #ifndef GRAPHICS_DISABLED</span>
+<span class="preprocessor"></span>  <span class="keywordflow">if</span> (<a class="code" href="drawtord_8cpp.html#a65aeba67da16b0fd87082f9966362f0e">to_win</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <a class="code" href="drawtord_8cpp.html#a65aeba67da16b0fd87082f9966362f0e">to_win</a>-&gt;<a class="code" href="class_scroll_view.html#a5386b0da16d7cbdd33044e53b95313ac">Clear</a>();
+<span class="preprocessor">  #endif  // GRAPHICS_DISABLED</span>
+<span class="preprocessor"></span>
+  <span class="keywordflow">for</span> (block_it.mark_cycle_pt(); !block_it.cycled_list();
+       block_it.forward()) {
+    block = block_it.data();
+    block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#ab106233da0599f3e1595c1c765acadec">line_size</a> = filter_noise_blobs(&amp;block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#a5dd67c54162a6b60b0fd11500d4a3025">blobs</a>,
+      &amp;block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#aa6a3757d385e79ab76f34afb6e8fc684">noise_blobs</a>,
+      &amp;block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#ad16b1c18225b44c50674ca46841b0f5f">small_blobs</a>,
+      &amp;block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#aafe2a9baa69300ee71da42e6dc18cfee">large_blobs</a>);
+    block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#ac17b9c95641b2eebee9d972338c2e5f6">line_spacing</a> = block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#ab106233da0599f3e1595c1c765acadec">line_size</a> *
+        (<a class="code" href="classtesseract_1_1_c_c_struct.html#a7e8a361df0831d295edf1c150c3ca3a3">tesseract::CCStruct::kDescenderFraction</a> +
+         <a class="code" href="classtesseract_1_1_c_c_struct.html#a737fdb37b9401ad3d04371c1bd4a0b17">tesseract::CCStruct::kXHeightFraction</a> +
+         2 * <a class="code" href="classtesseract_1_1_c_c_struct.html#a9d71fddad74d9418e106713cd643b919">tesseract::CCStruct::kAscenderFraction</a>) /
+         <a class="code" href="classtesseract_1_1_c_c_struct.html#a737fdb37b9401ad3d04371c1bd4a0b17">tesseract::CCStruct::kXHeightFraction</a>;
+    block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#ab106233da0599f3e1595c1c765acadec">line_size</a> *= <a class="code" href="makerow_8cpp.html#acb7874c297cd608146eacd6782da2536">textord_min_linesize</a>;
+    block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#abda136ff240577928343ca37453aca7a">max_blob_size</a> = block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#ab106233da0599f3e1595c1c765acadec">line_size</a> * <a class="code" href="makerow_8cpp.html#a9dcb3e14fc8bb00dcde4f03e25f3ac5b">textord_excess_blobsize</a>;
+
+<span class="preprocessor">    #ifndef GRAPHICS_DISABLED</span>
+<span class="preprocessor"></span>    <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_textord.html#ac2af687f671ac3518f1daef79a053d59">textord_show_blobs</a> &amp;&amp; testing_on) {
+      <span class="keywordflow">if</span> (<a class="code" href="drawtord_8cpp.html#a65aeba67da16b0fd87082f9966362f0e">to_win</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+        <a class="code" href="drawtord_8cpp.html#a5e0654ca01b55c243387c6535b32860b">create_to_win</a>(page_tr);
+      block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#afd0504ca5c8fa605fbea3dbca2d8ee2e">plot_graded_blobs</a>(<a class="code" href="drawtord_8cpp.html#a65aeba67da16b0fd87082f9966362f0e">to_win</a>);
+    }
+    <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_textord.html#a8532e581b3c4777fbe8e69e9b6f00062">textord_show_boxes</a> &amp;&amp; testing_on) {
+      <span class="keywordflow">if</span> (<a class="code" href="drawtord_8cpp.html#a65aeba67da16b0fd87082f9966362f0e">to_win</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+        <a class="code" href="drawtord_8cpp.html#a5e0654ca01b55c243387c6535b32860b">create_to_win</a>(page_tr);
+      <a class="code" href="drawtord_8cpp.html#a5408725b0921a22271363f8c1adc293e">plot_box_list</a>(<a class="code" href="drawtord_8cpp.html#a65aeba67da16b0fd87082f9966362f0e">to_win</a>, &amp;block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#aa6a3757d385e79ab76f34afb6e8fc684">noise_blobs</a>, <a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8a0eab2b208fc9a5e2774f92cf3e768982">ScrollView::WHITE</a>);
+      <a class="code" href="drawtord_8cpp.html#a5408725b0921a22271363f8c1adc293e">plot_box_list</a>(<a class="code" href="drawtord_8cpp.html#a65aeba67da16b0fd87082f9966362f0e">to_win</a>, &amp;block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#ad16b1c18225b44c50674ca46841b0f5f">small_blobs</a>, <a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8a0eab2b208fc9a5e2774f92cf3e768982">ScrollView::WHITE</a>);
+      <a class="code" href="drawtord_8cpp.html#a5408725b0921a22271363f8c1adc293e">plot_box_list</a>(<a class="code" href="drawtord_8cpp.html#a65aeba67da16b0fd87082f9966362f0e">to_win</a>, &amp;block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#aafe2a9baa69300ee71da42e6dc18cfee">large_blobs</a>, <a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8a0eab2b208fc9a5e2774f92cf3e768982">ScrollView::WHITE</a>);
+      <a class="code" href="drawtord_8cpp.html#a5408725b0921a22271363f8c1adc293e">plot_box_list</a>(<a class="code" href="drawtord_8cpp.html#a65aeba67da16b0fd87082f9966362f0e">to_win</a>, &amp;block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#a5dd67c54162a6b60b0fd11500d4a3025">blobs</a>, <a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8a0eab2b208fc9a5e2774f92cf3e768982">ScrollView::WHITE</a>);
+    }
+<span class="preprocessor">    #endif  // GRAPHICS_DISABLED</span>
+<span class="preprocessor"></span>  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab478029b49bf4efadd59a547565327a7"></a><!-- doxytag: member="tesseract::Textord::find_components" ref="ab478029b49bf4efadd59a547565327a7" args="(Pix *pix, BLOCK_LIST *blocks, TO_BLOCK_LIST *to_blocks)" -->
@@ -334,6 +642,31 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tordmain_8cpp_source.html#l00208">208</a> of file <a class="el" href="tordmain_8cpp_source.html">tordmain.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                        {
+  <span class="keywordtype">int</span> width = pixGetWidth(pix);
+  <span class="keywordtype">int</span> height = pixGetHeight(pix);
+  <span class="keywordflow">if</span> (width &gt; <a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a> || height &gt; <a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a>) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Input image too large! (%d, %d)\n&quot;</span>, width, height);
+    <span class="keywordflow">return</span>;  <span class="comment">// Can&#39;t handle it.</span>
+  }
+
+  <a class="code" href="errcode_8h.html#ae281080023125653d85cd946e95f626c">set_global_loc_code</a>(<a class="code" href="errcode_8h.html#a6cf3e2234e6e986629417e519a3e75e5">LOC_EDGE_PROG</a>);
+
+  BLOCK_IT block_it(blocks);    <span class="comment">// iterator</span>
+  <span class="keywordflow">for</span> (block_it.mark_cycle_pt(); !block_it.cycled_list();
+       block_it.forward()) {
+    <a class="code" href="class_b_l_o_c_k.html">BLOCK</a>* block = block_it.data();
+    <span class="keywordflow">if</span> (block-&gt;<a class="code" href="class_p_d_b_l_k.html#a6670779c69aca2d574e4a0590d9b3939">poly_block</a>() == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> || block-&gt;<a class="code" href="class_p_d_b_l_k.html#a6670779c69aca2d574e4a0590d9b3939">poly_block</a>()-&gt;<a class="code" href="class_p_o_l_y___b_l_o_c_k.html#abd32dee532afe634cdbacffc0b53e660">IsText</a>()) {
+      <a class="code" href="edgblob_8cpp.html#a16ca13da58e65267e7e34355091ca891">extract_edges</a>(pix, block);
+    }
+  }
+
+  <a class="code" href="tordmain_8cpp.html#a24f7c51950d2ac0dd9968df80de0a577">assign_blobs_to_blocks2</a>(pix, blocks, to_blocks);
+  <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> page_tr(width, height);
+  <a class="code" href="classtesseract_1_1_textord.html#acaed60ac5b5ef00751e3d307347aa0e9">filter_blobs</a>(page_tr, to_blocks, !<a class="code" href="makerow_8cpp.html#a58237d13dfff6d1379f501ba5e14bc9b">textord_test_landscape</a>);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aca1e7ae6c3a435f0bf2b8260a2ca13e9"></a><!-- doxytag: member="tesseract::Textord::make_blob_words" ref="aca1e7ae6c3a435f0bf2b8260a2ca13e9" args="(TO_ROW *row, FCOORD rotation)" -->
@@ -361,6 +694,82 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tospace_8cpp_source.html#l01183">1183</a> of file <a class="el" href="tospace_8cpp_source.html">tospace.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                {
+  <span class="keywordtype">bool</span> bol;                      <span class="comment">// start of line</span>
+  <a class="code" href="class_r_o_w.html">ROW</a> *real_row;                 <span class="comment">// output row</span>
+  C_OUTLINE_IT cout_it;
+  C_BLOB_LIST cblobs;
+  C_BLOB_IT cblob_it = &amp;cblobs;
+  WERD_LIST words;
+  WERD_IT word_it;               <span class="comment">// new words</span>
+  <a class="code" href="class_w_e_r_d.html">WERD</a> *word;                    <span class="comment">// new word</span>
+  <span class="keywordtype">double</span> coeffs[3];              <span class="comment">// quadratic</span>
+  <a class="code" href="class_b_l_o_b_n_b_o_x.html">BLOBNBOX</a> *bblob;               <span class="comment">// current blob</span>
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> blob_box;                 <span class="comment">// bounding box</span>
+  BLOBNBOX_IT box_it;            <span class="comment">// iterator</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> word_count = 0;
+
+  cblob_it.set_to_list(&amp;cblobs);
+  box_it.set_to_list(row-&gt;<a class="code" href="class_t_o___r_o_w.html#a39cee94572e70d35179c27cdf21a3022">blob_list</a>());
+  word_it.set_to_list(&amp;words);
+  bol = <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+  <span class="keywordflow">if</span> (!box_it.empty()) {
+
+    <span class="keywordflow">do</span> {
+      bblob = box_it.data();
+      blob_box = bblob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a7b97b8bc16b1473a28f9c44011522f4e">bounding_box</a>();
+      <span class="keywordflow">if</span> (bblob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#af37f373c72851534101f4caf296a3cf7">joined_to_prev</a>()) {
+        <span class="keywordflow">if</span> (bblob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a483f44541a4dd818f02225c92f030e07">cblob</a>() != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+          cout_it.set_to_list(cblob_it.data()-&gt;out_list());
+          cout_it.move_to_last();
+          cout_it.add_list_after(bblob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a483f44541a4dd818f02225c92f030e07">cblob</a>()-&gt;<a class="code" href="class_c___b_l_o_b.html#ae510f3d0e7398fbb46608082429eac89">out_list</a>());
+          <span class="keyword">delete</span> bblob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a483f44541a4dd818f02225c92f030e07">cblob</a>();
+        }
+      } <span class="keywordflow">else</span> {
+        <span class="keywordflow">if</span> (bblob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a483f44541a4dd818f02225c92f030e07">cblob</a>() != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+          cblob_it.add_after_then_move(bblob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a483f44541a4dd818f02225c92f030e07">cblob</a>());
+      }
+      box_it.forward();         <span class="comment">// next one</span>
+      bblob = box_it.data();
+      blob_box = bblob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a7b97b8bc16b1473a28f9c44011522f4e">bounding_box</a>();
+
+      <span class="keywordflow">if</span> (!bblob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#af37f373c72851534101f4caf296a3cf7">joined_to_prev</a>() &amp;&amp; !cblobs.empty()) {
+        word = <span class="keyword">new</span> <a class="code" href="class_w_e_r_d.html">WERD</a>(&amp;cblobs, 1, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+        word_count++;
+        word_it.add_after_then_move(word);
+        <span class="keywordflow">if</span> (bol) {
+          word-&gt;<a class="code" href="class_w_e_r_d.html#aa42c9f53794ab51c95503cd277e89c60">set_flag</a>(<a class="code" href="werd_8h.html#ad6968adbf8f2cc44adf333ec96efb0beaff21d7c8c8992120fff35942408a00d2">W_BOL</a>, <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>);
+          bol = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+        }
+        <span class="keywordflow">if</span> (box_it.at_first()) { <span class="comment">// at end of line</span>
+          word-&gt;<a class="code" href="class_w_e_r_d.html#aa42c9f53794ab51c95503cd277e89c60">set_flag</a>(<a class="code" href="werd_8h.html#ad6968adbf8f2cc44adf333ec96efb0bea62efb985a62d85e014ee5ab039dd50ce">W_EOL</a>, <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>);
+        }
+      }
+    }
+    <span class="keywordflow">while</span> (!box_it.at_first()); <span class="comment">// until back at start</span>
+    <span class="comment">/* Setup the row with created words. */</span>
+    coeffs[0] = 0;
+    coeffs[1] = row-&gt;<a class="code" href="class_t_o___r_o_w.html#a51cc690153d9cabdc8217e2ac336d414">line_m</a>();
+    coeffs[2] = row-&gt;<a class="code" href="class_t_o___r_o_w.html#a22dc07e392af85d9ce625efdd13c6627">line_c</a>();
+    real_row = <span class="keyword">new</span> <a class="code" href="class_r_o_w.html">ROW</a>(row, (<a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>) row-&gt;<a class="code" href="class_t_o___r_o_w.html#a9fca8cf6eb34357e616e056a483e98d5">kern_size</a>, (<a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>) row-&gt;<a class="code" href="class_t_o___r_o_w.html#af15ca7af4b650c4089de86ecf8b6f6b2">space_size</a>);
+    word_it.set_to_list(real_row-&gt;<a class="code" href="class_r_o_w.html#ac9d07f978420b3564bf5508ad294fb70">word_list</a>());
+                                 <span class="comment">//put words in row</span>
+    word_it.add_list_after(&amp;words);
+    real_row-&gt;<a class="code" href="class_r_o_w.html#ad0341ee4465010249bfc0ae4882e43ec">recalc_bounding_box</a>();
+    <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_textord.html#a28acd9fb9d4a5bef34a2fafb04ce1047">tosp_debug_level</a> &gt; 4) {
+      <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a> (<span class="stringliteral">&quot;Row:Made %d words in row ((%d,%d)(%d,%d))\n&quot;</span>,
+        word_count,
+        real_row-&gt;<a class="code" href="class_r_o_w.html#a7bb838e55056e39e15d7e2cea8ebebb0">bounding_box</a>().<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>(),
+        real_row-&gt;<a class="code" href="class_r_o_w.html#a7bb838e55056e39e15d7e2cea8ebebb0">bounding_box</a>().<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>(),
+        real_row-&gt;<a class="code" href="class_r_o_w.html#a7bb838e55056e39e15d7e2cea8ebebb0">bounding_box</a>().<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>(),
+        real_row-&gt;<a class="code" href="class_r_o_w.html#a7bb838e55056e39e15d7e2cea8ebebb0">bounding_box</a>().<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>());
+    }
+    <span class="keywordflow">return</span> real_row;
+  }
+  <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a511e66f00128f6e4240f44c047730d72"></a><!-- doxytag: member="tesseract::Textord::make_prop_words" ref="a511e66f00128f6e4240f44c047730d72" args="(TO_ROW *row, FCOORD rotation)" -->
@@ -388,6 +797,295 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tospace_8cpp_source.html#l00886">886</a> of file <a class="el" href="tospace_8cpp_source.html">tospace.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                {
+  <a class="code" href="host_8h.html#a7712a7e28433d0ade59219a129549b6f">BOOL8</a> bol;                     <span class="comment">//start of line</span>
+  <span class="comment">/* prev_ values are for start of word being built. non prev_ values are for</span>
+<span class="comment">  the gap between the word being built and the next one. */</span>
+  <a class="code" href="host_8h.html#a7712a7e28433d0ade59219a129549b6f">BOOL8</a> prev_fuzzy_sp;           <span class="comment">//probably space</span>
+  <a class="code" href="host_8h.html#a7712a7e28433d0ade59219a129549b6f">BOOL8</a> prev_fuzzy_non;          <span class="comment">//probably not</span>
+  <a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a> prev_blanks;             <span class="comment">//in front of word</span>
+  <a class="code" href="host_8h.html#a7712a7e28433d0ade59219a129549b6f">BOOL8</a> fuzzy_sp;                <span class="comment">//probably space</span>
+  <a class="code" href="host_8h.html#a7712a7e28433d0ade59219a129549b6f">BOOL8</a> fuzzy_non;               <span class="comment">//probably not</span>
+  <a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a> blanks;                  <span class="comment">//in front of word</span>
+  <a class="code" href="host_8h.html#a7712a7e28433d0ade59219a129549b6f">BOOL8</a> prev_gap_was_a_space = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+  <a class="code" href="host_8h.html#a7712a7e28433d0ade59219a129549b6f">BOOL8</a> break_at_next_gap = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+  <a class="code" href="class_r_o_w.html">ROW</a> *real_row;                 <span class="comment">//output row</span>
+  C_OUTLINE_IT cout_it;
+  C_BLOB_LIST cblobs;
+  C_BLOB_IT cblob_it = &amp;cblobs;
+  WERD_LIST words;
+  WERD_IT word_it;               <span class="comment">//new words</span>
+  <a class="code" href="class_w_e_r_d.html">WERD</a> *word;                    <span class="comment">//new word</span>
+  WERD_IT rep_char_it;           <span class="comment">//repeated char words</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> next_rep_char_word_right = <a class="code" href="host_8h.html#aac62d87844689a18b6f5339a89ed6e7f">MAX_INT32</a>;
+  <span class="keywordtype">float</span> repetition_spacing;      <span class="comment">//gap between repetitions</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> xstarts[2];              <span class="comment">//row ends</span>
+  <span class="keywordtype">double</span> coeffs[3];              <span class="comment">//quadratic</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> prev_x;                  <span class="comment">//end of prev blob</span>
+  <a class="code" href="class_b_l_o_b_n_b_o_x.html">BLOBNBOX</a> *bblob;               <span class="comment">//current blob</span>
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> blob_box;                  <span class="comment">//bounding box</span>
+  BLOBNBOX_IT box_it;            <span class="comment">//iterator</span>
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> prev_blob_box;
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> next_blob_box;
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> prev_gap = <a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a>;
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> current_gap = <a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a>;
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> next_gap = <a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a>;
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> prev_within_xht_gap = <a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a>;
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> current_within_xht_gap = <a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a>;
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> next_within_xht_gap = <a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a>;
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> word_count = 0;
+
+  rep_char_it.set_to_list (&amp;(row-&gt;<a class="code" href="class_t_o___r_o_w.html#a93c01f889dc8031cfd19c45069d49aed">rep_words</a>));
+  <span class="keywordflow">if</span> (!rep_char_it.empty ()) {
+    next_rep_char_word_right =
+      rep_char_it.data ()-&gt;bounding_box ().right ();
+  }
+
+  prev_x = -<a class="code" href="host_8h.html#a3905e54374e49708219791e7d59c60fb">MAX_INT16</a>;
+  cblob_it.set_to_list (&amp;cblobs);
+  box_it.set_to_list (row-&gt;<a class="code" href="class_t_o___r_o_w.html#a39cee94572e70d35179c27cdf21a3022">blob_list</a> ());
+  word_it.set_to_list (&amp;words);
+  bol = <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+  prev_blanks = 0;
+  prev_fuzzy_sp = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+  prev_fuzzy_non = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+  <span class="keywordflow">if</span> (!box_it.empty ()) {
+    xstarts[0] = box_it.data ()-&gt;bounding_box ().left ();
+    <span class="keywordflow">if</span> (xstarts[0] &gt; next_rep_char_word_right) {
+      <span class="comment">/* We need to insert a repeated char word at the start of the row */</span>
+      word = rep_char_it.extract ();
+      word_it.add_after_then_move (word);
+      <span class="comment">/* Set spaces before repeated char word */</span>
+      word-&gt;<a class="code" href="class_w_e_r_d.html#aa42c9f53794ab51c95503cd277e89c60">set_flag</a> (<a class="code" href="werd_8h.html#ad6968adbf8f2cc44adf333ec96efb0beaff21d7c8c8992120fff35942408a00d2">W_BOL</a>, <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>);
+      bol = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+      word-&gt;<a class="code" href="class_w_e_r_d.html#a93ba22caf0b8b3b19a47fdf2c11f4bf6">set_blanks</a> (0);
+                                 <span class="comment">//NO uncertainty</span>
+      word-&gt;<a class="code" href="class_w_e_r_d.html#aa42c9f53794ab51c95503cd277e89c60">set_flag</a> (<a class="code" href="werd_8h.html#ad6968adbf8f2cc44adf333ec96efb0bea3580884b5b0335502fb928db4a0a2024">W_FUZZY_SP</a>, <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>);
+      word-&gt;<a class="code" href="class_w_e_r_d.html#aa42c9f53794ab51c95503cd277e89c60">set_flag</a> (<a class="code" href="werd_8h.html#ad6968adbf8f2cc44adf333ec96efb0bea675eadd051ea82d1f288751799bfa31c">W_FUZZY_NON</a>, <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>);
+      xstarts[0] = word-&gt;<a class="code" href="class_w_e_r_d.html#a151bbfb39ecdef93ab1a14b0f9e4ac74">bounding_box</a> ().<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a> ();
+      <span class="comment">/* Set spaces after repeated char word (and leave current word set) */</span>
+      repetition_spacing = find_mean_blob_spacing (word);
+      current_gap = box_it.data ()-&gt;bounding_box ().left () -
+        next_rep_char_word_right;
+      current_within_xht_gap = current_gap;
+      <span class="keywordflow">if</span> (current_gap &gt; <a class="code" href="classtesseract_1_1_textord.html#a6ba956c412d08474cb69cfd161b30980">tosp_rep_space</a> * repetition_spacing) {
+        prev_blanks = (<a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a>) floor (current_gap / row-&gt;<a class="code" href="class_t_o___r_o_w.html#af15ca7af4b650c4089de86ecf8b6f6b2">space_size</a>);
+        <span class="keywordflow">if</span> (prev_blanks &lt; 1)
+          prev_blanks = 1;
+      }
+      <span class="keywordflow">else</span>
+        prev_blanks = 0;
+      <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_textord.html#a28acd9fb9d4a5bef34a2fafb04ce1047">tosp_debug_level</a> &gt; 5)
+        <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a> (<span class="stringliteral">&quot;Repch wd at BOL(%d, %d). rep spacing %5.2f;  Rgap:%d  &quot;</span>,
+          box_it.data ()-&gt;bounding_box ().left (),
+          box_it.data ()-&gt;bounding_box ().bottom (),
+          repetition_spacing, current_gap);
+      prev_fuzzy_sp = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+      prev_fuzzy_non = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+      <span class="keywordflow">if</span> (rep_char_it.empty ()) {
+        next_rep_char_word_right = <a class="code" href="host_8h.html#aac62d87844689a18b6f5339a89ed6e7f">MAX_INT32</a>;
+      }
+      <span class="keywordflow">else</span> {
+        rep_char_it.forward ();
+        next_rep_char_word_right =
+          rep_char_it.data ()-&gt;bounding_box ().right ();
+      }
+    }
+
+    peek_at_next_gap(row,
+                     box_it,
+                     next_blob_box,
+                     next_gap,
+                     next_within_xht_gap);
+    <span class="keywordflow">do</span> {
+      bblob = box_it.data ();
+      blob_box = bblob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a7b97b8bc16b1473a28f9c44011522f4e">bounding_box</a> ();
+      <span class="keywordflow">if</span> (bblob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#af37f373c72851534101f4caf296a3cf7">joined_to_prev</a> ()) {
+        <span class="keywordflow">if</span> (bblob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a483f44541a4dd818f02225c92f030e07">cblob</a> () != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+          cout_it.set_to_list (cblob_it.data ()-&gt;out_list ());
+          cout_it.move_to_last ();
+          cout_it.add_list_after (bblob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a483f44541a4dd818f02225c92f030e07">cblob</a> ()-&gt;<a class="code" href="class_c___b_l_o_b.html#ae510f3d0e7398fbb46608082429eac89">out_list</a> ());
+          <span class="keyword">delete</span> bblob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a483f44541a4dd818f02225c92f030e07">cblob</a> ();
+        }
+      } <span class="keywordflow">else</span> {
+        <span class="keywordflow">if</span> (bblob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a483f44541a4dd818f02225c92f030e07">cblob</a>() != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+          cblob_it.add_after_then_move (bblob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a483f44541a4dd818f02225c92f030e07">cblob</a> ());
+        prev_x = blob_box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a> ();
+      }
+      box_it.forward ();         <span class="comment">//next one</span>
+      bblob = box_it.data ();
+      blob_box = bblob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a7b97b8bc16b1473a28f9c44011522f4e">bounding_box</a> ();
+
+      <span class="keywordflow">if</span> (!bblob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#af37f373c72851534101f4caf296a3cf7">joined_to_prev</a>() &amp;&amp; bblob-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a483f44541a4dd818f02225c92f030e07">cblob</a>() != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+        <span class="comment">/* Real Blob - not multiple outlines or pre-chopped */</span>
+        prev_gap = current_gap;
+        prev_within_xht_gap = current_within_xht_gap;
+        prev_blob_box = next_blob_box;
+        current_gap = next_gap;
+        current_within_xht_gap = next_within_xht_gap;
+        peek_at_next_gap(row,
+                         box_it,
+                         next_blob_box,
+                         next_gap,
+                         next_within_xht_gap);
+
+        <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> prev_gap_arg = prev_gap;
+        <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> next_gap_arg = next_gap;
+        <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_textord.html#a006acde068aaaba56dbd1495deeda8fb">tosp_only_use_xht_gaps</a>) {
+          prev_gap_arg = prev_within_xht_gap;
+          next_gap_arg = next_within_xht_gap;
+        }
+        <span class="comment">// Decide if a word-break should be inserted</span>
+        <span class="keywordflow">if</span> (blob_box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a> () &gt; next_rep_char_word_right ||
+            make_a_word_break(row, blob_box, prev_gap_arg, prev_blob_box,
+                              current_gap, current_within_xht_gap,
+                              next_blob_box, next_gap_arg,
+                              blanks, fuzzy_sp, fuzzy_non,
+                              prev_gap_was_a_space,
+                              break_at_next_gap) ||
+            box_it.at_first()) {
+          <span class="comment">/* Form a new word out of the blobs collected */</span>
+          word = <span class="keyword">new</span> <a class="code" href="class_w_e_r_d.html">WERD</a> (&amp;cblobs, prev_blanks, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+          word_count++;
+          word_it.add_after_then_move (word);
+          <span class="keywordflow">if</span> (bol) {
+            word-&gt;<a class="code" href="class_w_e_r_d.html#aa42c9f53794ab51c95503cd277e89c60">set_flag</a> (<a class="code" href="werd_8h.html#ad6968adbf8f2cc44adf333ec96efb0beaff21d7c8c8992120fff35942408a00d2">W_BOL</a>, <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>);
+            bol = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+          }
+          <span class="keywordflow">if</span> (prev_fuzzy_sp)
+                                 <span class="comment">//probably space</span>
+            word-&gt;<a class="code" href="class_w_e_r_d.html#aa42c9f53794ab51c95503cd277e89c60">set_flag</a> (<a class="code" href="werd_8h.html#ad6968adbf8f2cc44adf333ec96efb0bea3580884b5b0335502fb928db4a0a2024">W_FUZZY_SP</a>, <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>);
+          <span class="keywordflow">else</span> <span class="keywordflow">if</span> (prev_fuzzy_non)
+            word-&gt;<a class="code" href="class_w_e_r_d.html#aa42c9f53794ab51c95503cd277e89c60">set_flag</a> (<a class="code" href="werd_8h.html#ad6968adbf8f2cc44adf333ec96efb0bea675eadd051ea82d1f288751799bfa31c">W_FUZZY_NON</a>, <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>);
+          <span class="comment">//probably not</span>
+
+          <span class="keywordflow">if</span> (blob_box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a> () &gt; next_rep_char_word_right) {
+            <span class="comment">/* We need to insert a repeated char word */</span>
+            word = rep_char_it.extract ();
+            word_it.add_after_then_move (word);
+
+            <span class="comment">/* Set spaces before repeated char word */</span>
+            repetition_spacing = find_mean_blob_spacing (word);
+            current_gap = word-&gt;<a class="code" href="class_w_e_r_d.html#a151bbfb39ecdef93ab1a14b0f9e4ac74">bounding_box</a> ().<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a> () - prev_x;
+            current_within_xht_gap = current_gap;
+            <span class="keywordflow">if</span> (current_gap &gt; <a class="code" href="classtesseract_1_1_textord.html#a6ba956c412d08474cb69cfd161b30980">tosp_rep_space</a> * repetition_spacing) {
+              blanks =
+                (<a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a>) floor (current_gap / row-&gt;<a class="code" href="class_t_o___r_o_w.html#af15ca7af4b650c4089de86ecf8b6f6b2">space_size</a>);
+              <span class="keywordflow">if</span> (blanks &lt; 1)
+                blanks = 1;
+            }
+            <span class="keywordflow">else</span>
+              blanks = 0;
+            <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_textord.html#a28acd9fb9d4a5bef34a2fafb04ce1047">tosp_debug_level</a> &gt; 5)
+              <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>
+                (<span class="stringliteral">&quot;Repch wd (%d,%d) rep gap %5.2f;  Lgap:%d (%d blanks);&quot;</span>,
+                word-&gt;<a class="code" href="class_w_e_r_d.html#a151bbfb39ecdef93ab1a14b0f9e4ac74">bounding_box</a> ().<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a> (),
+                word-&gt;<a class="code" href="class_w_e_r_d.html#a151bbfb39ecdef93ab1a14b0f9e4ac74">bounding_box</a> ().<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a> (),
+                repetition_spacing, current_gap, blanks);
+            word-&gt;<a class="code" href="class_w_e_r_d.html#a93ba22caf0b8b3b19a47fdf2c11f4bf6">set_blanks</a> (blanks);
+                                 <span class="comment">//NO uncertainty</span>
+            word-&gt;<a class="code" href="class_w_e_r_d.html#aa42c9f53794ab51c95503cd277e89c60">set_flag</a> (<a class="code" href="werd_8h.html#ad6968adbf8f2cc44adf333ec96efb0bea3580884b5b0335502fb928db4a0a2024">W_FUZZY_SP</a>, <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>);
+            word-&gt;<a class="code" href="class_w_e_r_d.html#aa42c9f53794ab51c95503cd277e89c60">set_flag</a> (<a class="code" href="werd_8h.html#ad6968adbf8f2cc44adf333ec96efb0bea675eadd051ea82d1f288751799bfa31c">W_FUZZY_NON</a>, <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>);
+
+            <span class="comment">/* Set spaces after repeated char word (and leave current word set) */</span>
+            current_gap =
+              blob_box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a> () - next_rep_char_word_right;
+            <span class="keywordflow">if</span> (current_gap &gt; <a class="code" href="classtesseract_1_1_textord.html#a6ba956c412d08474cb69cfd161b30980">tosp_rep_space</a> * repetition_spacing) {
+              blanks = (<a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a>) (current_gap / row-&gt;<a class="code" href="class_t_o___r_o_w.html#af15ca7af4b650c4089de86ecf8b6f6b2">space_size</a>);
+              <span class="keywordflow">if</span> (blanks &lt; 1)
+                blanks = 1;
+            }
+            <span class="keywordflow">else</span>
+              blanks = 0;
+            <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_textord.html#a28acd9fb9d4a5bef34a2fafb04ce1047">tosp_debug_level</a> &gt; 5)
+              <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a> (<span class="stringliteral">&quot; Rgap:%d (%d blanks)\n&quot;</span>,
+                current_gap, blanks);
+            fuzzy_sp = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+            fuzzy_non = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+
+            <span class="keywordflow">if</span> (rep_char_it.empty ()) {
+              next_rep_char_word_right = <a class="code" href="host_8h.html#aac62d87844689a18b6f5339a89ed6e7f">MAX_INT32</a>;
+            }
+            <span class="keywordflow">else</span> {
+              rep_char_it.forward ();
+              next_rep_char_word_right =
+                rep_char_it.data ()-&gt;bounding_box ().right ();
+            }
+          }
+
+          <span class="keywordflow">if</span> (box_it.at_first () &amp;&amp; rep_char_it.empty ()) {
+                                 <span class="comment">//at end of line</span>
+            word-&gt;<a class="code" href="class_w_e_r_d.html#aa42c9f53794ab51c95503cd277e89c60">set_flag</a> (<a class="code" href="werd_8h.html#ad6968adbf8f2cc44adf333ec96efb0bea62efb985a62d85e014ee5ab039dd50ce">W_EOL</a>, <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>);
+            xstarts[1] = prev_x;
+          }
+          <span class="keywordflow">else</span> {
+            prev_blanks = blanks;
+            prev_fuzzy_sp = fuzzy_sp;
+            prev_fuzzy_non = fuzzy_non;
+          }
+        }
+      }
+    }
+    <span class="keywordflow">while</span> (!box_it.at_first ()); <span class="comment">//until back at start</span>
+
+    <span class="comment">/* Insert any further repeated char words */</span>
+    <span class="keywordflow">while</span> (!rep_char_it.empty ()) {
+      word = rep_char_it.extract ();
+      word_it.add_after_then_move (word);
+
+      <span class="comment">/* Set spaces before repeated char word */</span>
+      repetition_spacing = find_mean_blob_spacing (word);
+      current_gap = word-&gt;<a class="code" href="class_w_e_r_d.html#a151bbfb39ecdef93ab1a14b0f9e4ac74">bounding_box</a> ().<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a> () - prev_x;
+      <span class="keywordflow">if</span> (current_gap &gt; <a class="code" href="classtesseract_1_1_textord.html#a6ba956c412d08474cb69cfd161b30980">tosp_rep_space</a> * repetition_spacing) {
+        blanks = (<a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a>) floor (current_gap / row-&gt;<a class="code" href="class_t_o___r_o_w.html#af15ca7af4b650c4089de86ecf8b6f6b2">space_size</a>);
+        <span class="keywordflow">if</span> (blanks &lt; 1)
+          blanks = 1;
+      }
+      <span class="keywordflow">else</span>
+        blanks = 0;
+      <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_textord.html#a28acd9fb9d4a5bef34a2fafb04ce1047">tosp_debug_level</a> &gt; 5)
+        <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>
+          (<span class="stringliteral">&quot;Repch wd at EOL (%d,%d). rep spacing %d; Lgap:%d (%d blanks)\n&quot;</span>,
+          word-&gt;<a class="code" href="class_w_e_r_d.html#a151bbfb39ecdef93ab1a14b0f9e4ac74">bounding_box</a> ().<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a> (), word-&gt;<a class="code" href="class_w_e_r_d.html#a151bbfb39ecdef93ab1a14b0f9e4ac74">bounding_box</a> ().<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a> (),
+          repetition_spacing, current_gap, blanks);
+      word-&gt;<a class="code" href="class_w_e_r_d.html#a93ba22caf0b8b3b19a47fdf2c11f4bf6">set_blanks</a> (blanks);
+                                 <span class="comment">//NO uncertainty</span>
+      word-&gt;<a class="code" href="class_w_e_r_d.html#aa42c9f53794ab51c95503cd277e89c60">set_flag</a> (<a class="code" href="werd_8h.html#ad6968adbf8f2cc44adf333ec96efb0bea3580884b5b0335502fb928db4a0a2024">W_FUZZY_SP</a>, <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>);
+      word-&gt;<a class="code" href="class_w_e_r_d.html#aa42c9f53794ab51c95503cd277e89c60">set_flag</a> (<a class="code" href="werd_8h.html#ad6968adbf8f2cc44adf333ec96efb0bea675eadd051ea82d1f288751799bfa31c">W_FUZZY_NON</a>, <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>);
+      prev_x = word-&gt;<a class="code" href="class_w_e_r_d.html#a151bbfb39ecdef93ab1a14b0f9e4ac74">bounding_box</a> ().<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a> ();
+      <span class="keywordflow">if</span> (rep_char_it.empty ()) {
+                                 <span class="comment">//at end of line</span>
+        word-&gt;<a class="code" href="class_w_e_r_d.html#aa42c9f53794ab51c95503cd277e89c60">set_flag</a> (<a class="code" href="werd_8h.html#ad6968adbf8f2cc44adf333ec96efb0bea62efb985a62d85e014ee5ab039dd50ce">W_EOL</a>, <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>);
+        xstarts[1] = prev_x;
+      }
+      <span class="keywordflow">else</span> {
+        rep_char_it.forward ();
+      }
+    }
+    coeffs[0] = 0;
+    coeffs[1] = row-&gt;<a class="code" href="class_t_o___r_o_w.html#a51cc690153d9cabdc8217e2ac336d414">line_m</a> ();
+    coeffs[2] = row-&gt;<a class="code" href="class_t_o___r_o_w.html#a22dc07e392af85d9ce625efdd13c6627">line_c</a> ();
+    real_row = <span class="keyword">new</span> <a class="code" href="class_r_o_w.html">ROW</a> (row,
+      (<a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>) row-&gt;<a class="code" href="class_t_o___r_o_w.html#a9fca8cf6eb34357e616e056a483e98d5">kern_size</a>, (<a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>) row-&gt;<a class="code" href="class_t_o___r_o_w.html#af15ca7af4b650c4089de86ecf8b6f6b2">space_size</a>);
+    word_it.set_to_list (real_row-&gt;<a class="code" href="class_r_o_w.html#ac9d07f978420b3564bf5508ad294fb70">word_list</a> ());
+                                 <span class="comment">//put words in row</span>
+    word_it.add_list_after (&amp;words);
+    real_row-&gt;<a class="code" href="class_r_o_w.html#ad0341ee4465010249bfc0ae4882e43ec">recalc_bounding_box</a> ();
+
+    <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_textord.html#a28acd9fb9d4a5bef34a2fafb04ce1047">tosp_debug_level</a> &gt; 4) {
+      <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a> (<span class="stringliteral">&quot;Row: Made %d words in row ((%d,%d)(%d,%d))\n&quot;</span>,
+        word_count,
+        real_row-&gt;<a class="code" href="class_r_o_w.html#a7bb838e55056e39e15d7e2cea8ebebb0">bounding_box</a> ().<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a> (),
+        real_row-&gt;<a class="code" href="class_r_o_w.html#a7bb838e55056e39e15d7e2cea8ebebb0">bounding_box</a> ().<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a> (),
+        real_row-&gt;<a class="code" href="class_r_o_w.html#a7bb838e55056e39e15d7e2cea8ebebb0">bounding_box</a> ().<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a> (),
+        real_row-&gt;<a class="code" href="class_r_o_w.html#a7bb838e55056e39e15d7e2cea8ebebb0">bounding_box</a> ().<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a> ());
+    }
+    <span class="keywordflow">return</span> real_row;
+  }
+  <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7ec043fe83e21e8f8f12cfa863bd979d"></a><!-- doxytag: member="tesseract::Textord::set_use_cjk_fp_model" ref="a7ec043fe83e21e8f8f12cfa863bd979d" args="(bool flag)" -->
@@ -405,6 +1103,11 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00056">56</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                       {
+    use_cjk_fp_model_ = flag;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a640828031af476306b7b506fc8264444"></a><!-- doxytag: member="tesseract::Textord::TextordPage" ref="a640828031af476306b7b506fc8264444" args="(PageSegMode pageseg_mode, int width, int height, Pix *pix, BLOCK_LIST *blocks, TO_BLOCK_LIST *to_blocks)" -->
@@ -456,6 +1159,77 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="textord_8cpp_source.html#l00260">260</a> of file <a class="el" href="textord_8cpp_source.html">textord.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                        {
+  page_tr_.<a class="code" href="class_i_c_o_o_r_d.html#a94c586039b3a003b35cf659b33b938f3" title="rewrite function">set_x</a>(width);
+  page_tr_.<a class="code" href="class_i_c_o_o_r_d.html#aa9fb418d1c602c0533e426759da43d67" title="rewrite function">set_y</a>(height);
+  <span class="keywordflow">if</span> (to_blocks-&gt;empty()) {
+    <span class="comment">// AutoPageSeg was not used, so we need to find_components first.</span>
+    <a class="code" href="classtesseract_1_1_textord.html#ab478029b49bf4efadd59a547565327a7">find_components</a>(pix, blocks, to_blocks);
+  } <span class="keywordflow">else</span> {
+    <span class="comment">// AutoPageSeg does not need to find_components as it did that already.</span>
+    <span class="comment">// Filter_blobs sets up the TO_BLOCKs the same as find_components does.</span>
+    <a class="code" href="classtesseract_1_1_textord.html#acaed60ac5b5ef00751e3d307347aa0e9">filter_blobs</a>(page_tr_, to_blocks, <span class="keyword">true</span>);
+  }
+
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(!to_blocks-&gt;empty());
+  <span class="keywordflow">if</span> (pageseg_mode == <a class="code" href="namespacetesseract.html#a338d4c8b5d497b5ec3e6e4269d8ac66aa6d12cbb6be71dad8d3f090f214301630">PSM_SINGLE_BLOCK_VERT_TEXT</a>) {
+    <span class="keyword">const</span> <a class="code" href="class_f_c_o_o_r_d.html">FCOORD</a> anticlockwise90(0.0<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>, 1.0<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>);
+    <span class="keyword">const</span> <a class="code" href="class_f_c_o_o_r_d.html">FCOORD</a> clockwise90(0.0<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>, -1.0<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>);
+    TO_BLOCK_IT it(to_blocks);
+    <span class="keywordflow">for</span> (it.mark_cycle_pt(); !it.cycled_list(); it.forward()) {
+      <a class="code" href="class_t_o___b_l_o_c_k.html">TO_BLOCK</a>* to_block = it.data();
+      <a class="code" href="class_b_l_o_c_k.html">BLOCK</a>* block = to_block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#a16e698664028b0d6d2193db64560c16b">block</a>;
+      <span class="comment">// Create a fake poly_block in block from its bounding box.</span>
+      block-&gt;<a class="code" href="class_p_d_b_l_k.html#a60f8ad7b10ca32e3ece92bb04e3f2793" title="set the poly block">set_poly_block</a>(<span class="keyword">new</span> <a class="code" href="class_p_o_l_y___b_l_o_c_k.html">POLY_BLOCK</a>(block-&gt;<a class="code" href="class_p_d_b_l_k.html#a91950a96127b4a0bb9b237e1f5f889a4" title="get box">bounding_box</a>(),
+                                           <a class="code" href="publictypes_8h.html#a03566528a98c079dafeebf00502f2b60adf6b7dd3b8ca94923c3b94dfe53f230e">PT_VERTICAL_TEXT</a>));
+      <span class="comment">// Rotate the to_block along with its contained block and blobnbox lists.</span>
+      to_block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#ac0b7a4a071c9800f762554152dd395b2">rotate</a>(anticlockwise90);
+      <span class="comment">// Set the block&#39;s rotation values to obey the convention followed in</span>
+      <span class="comment">// layout analysis for vertical text.</span>
+      block-&gt;<a class="code" href="class_b_l_o_c_k.html#a006129cb98cd6e780049f157066bc03e">set_re_rotation</a>(clockwise90);
+      block-&gt;<a class="code" href="class_b_l_o_c_k.html#a43c63eaacdd0c10688846a03bfe31ef2">set_classify_rotation</a>(clockwise90);
+    }
+  }
+
+  TO_BLOCK_IT to_block_it(to_blocks);
+  <a class="code" href="class_t_o___b_l_o_c_k.html">TO_BLOCK</a>* to_block = to_block_it.data();
+  <span class="comment">// Make the rows in the block.</span>
+  <span class="keywordtype">float</span> gradient;
+  <span class="comment">// Do it the old fashioned way.</span>
+  <span class="keywordflow">if</span> (<a class="code" href="publictypes_8h.html#afdf46de916303a79bbda2cfdffc42473">PSM_LINE_FIND_ENABLED</a>(pageseg_mode)) {
+    gradient = <a class="code" href="makerow_8cpp.html#ade98619ec77aab7e466a06b0940088a5">make_rows</a>(page_tr_, to_blocks);
+  } <span class="keywordflow">else</span> {
+    <span class="comment">// SINGLE_LINE, SINGLE_WORD and SINGLE_CHAR all need a single row.</span>
+    gradient = <a class="code" href="makerow_8cpp.html#a8ebead3fdc06fe853348b0ea851a3e31">make_single_row</a>(page_tr_, to_block, to_blocks);
+  }
+  <span class="comment">// Now fit baselines. For now only old mode is available.</span>
+  fit_rows(gradient, page_tr_, to_blocks);
+  <span class="comment">// Now make the words in the lines.</span>
+  <span class="keywordflow">if</span> (<a class="code" href="publictypes_8h.html#a85d685f0c3e1a273c2e683533a06b34a">PSM_WORD_FIND_ENABLED</a>(pageseg_mode)) {
+    <span class="comment">// SINGLE_LINE uses the old word maker on the single line.</span>
+    <a class="code" href="wordseg_8cpp.html#a2a74f87b59b8f2a4e33ddac0933ab2e5">make_words</a>(<span class="keyword">this</span>, page_tr_, gradient, blocks, to_blocks);
+  } <span class="keywordflow">else</span> {
+    <span class="comment">// SINGLE_WORD and SINGLE_CHAR cram all the blobs into a</span>
+    <span class="comment">// single word, and in SINGLE_CHAR mode, all the outlines</span>
+    <span class="comment">// go in a single blob.</span>
+    <a class="code" href="class_t_o___b_l_o_c_k.html">TO_BLOCK</a>* to_block = to_block_it.data();
+    <a class="code" href="wordseg_8cpp.html#a962516b377eedea75f32f8ba004bfb49">make_single_word</a>(pageseg_mode == <a class="code" href="namespacetesseract.html#a338d4c8b5d497b5ec3e6e4269d8ac66aa7045cff7a3ae929fb1db5dbf031a4875" title="Treat the image as a single character.">PSM_SINGLE_CHAR</a>,
+                     to_block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#a4846ebdcc832b4b0a762d87c0d83a056">get_rows</a>(), to_block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#a16e698664028b0d6d2193db64560c16b">block</a>-&gt;<a class="code" href="class_b_l_o_c_k.html#ae9826e422b0bf17a7592dee8db3fe058" title="get rows">row_list</a>());
+  }
+  cleanup_blocks(blocks);  <span class="comment">// Remove empties.</span>
+
+  <span class="comment">// Compute the margins for each row in the block, to be used later for</span>
+  <span class="comment">// paragraph detection.</span>
+  BLOCK_IT b_it(blocks);
+  <span class="keywordflow">for</span> (b_it.mark_cycle_pt(); !b_it.cycled_list(); b_it.forward()) {
+    b_it.data()-&gt;compute_row_margins();
+  }
+<span class="preprocessor">#ifndef GRAPHICS_DISABLED</span>
+<span class="preprocessor"></span>  <a class="code" href="drawtord_8cpp.html#ad291cb9a7dce4bf45ccdbbdfaf26777d">close_to_win</a>();
+<span class="preprocessor">#endif</span>
+<span class="preprocessor"></span>}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a68f2d3489fecd72bd8817a888752edb3"></a><!-- doxytag: member="tesseract::Textord::to_spacing" ref="a68f2d3489fecd72bd8817a888752edb3" args="(ICOORD page_tr, TO_BLOCK_LIST *blocks)" -->
@@ -483,6 +1257,76 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="tospace_8cpp_source.html#l00035">35</a> of file <a class="el" href="tospace_8cpp_source.html">tospace.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                           {
+  TO_BLOCK_IT block_it;          <span class="comment">//iterator</span>
+  <a class="code" href="class_t_o___b_l_o_c_k.html">TO_BLOCK</a> *block;               <span class="comment">//current block;</span>
+  TO_ROW_IT row_it;              <span class="comment">//row iterator</span>
+  <a class="code" href="class_t_o___r_o_w.html">TO_ROW</a> *row;                   <span class="comment">//current row</span>
+  <span class="keywordtype">int</span> block_index;               <span class="comment">//block number</span>
+  <span class="keywordtype">int</span> row_index;                 <span class="comment">//row number</span>
+  <span class="comment">//estimated width of real spaces for whole block</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> block_space_gap_width;
+  <span class="comment">//estimated width of non space gaps for whole block</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> block_non_space_gap_width;
+  <a class="code" href="host_8h.html#a7712a7e28433d0ade59219a129549b6f">BOOL8</a> old_text_ord_proportional;<span class="comment">//old fixed/prop result</span>
+  <a class="code" href="class_g_a_p_m_a_p.html">GAPMAP</a> *gapmap = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;          <span class="comment">//map of big vert gaps in blk</span>
+
+  block_it.set_to_list (blocks);
+  block_index = 1;
+  <span class="keywordflow">for</span> (block_it.mark_cycle_pt (); !block_it.cycled_list ();
+  block_it.forward ()) {
+    block = block_it.data ();
+    gapmap = <span class="keyword">new</span> <a class="code" href="class_g_a_p_m_a_p.html">GAPMAP</a> (block);
+    block_spacing_stats(block,
+                        gapmap,
+                        old_text_ord_proportional,
+                        block_space_gap_width,
+                        block_non_space_gap_width);
+    <span class="comment">// Make sure relative values of block-level space and non-space gap</span>
+    <span class="comment">// widths are reasonable. The ratio of 1:3 is also used in</span>
+    <span class="comment">// block_spacing_stats, to corrrect the block_space_gap_width</span>
+    <span class="comment">// Useful for arabic and hindi, when the non-space gap width is</span>
+    <span class="comment">// often over-estimated and should not be trusted. A similar ratio</span>
+    <span class="comment">// is found in block_spacing_stats.</span>
+    <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_textord.html#a38a5ba94f96692b64035e9136d9abe9e">tosp_old_to_method</a> &amp;&amp; <a class="code" href="classtesseract_1_1_textord.html#a00ee11bd9a2e9863a963708b8ac7ec75">tosp_old_to_constrain_sp_kn</a> &amp;&amp;
+        (<span class="keywordtype">float</span>) block_space_gap_width / block_non_space_gap_width &lt; 3.0) {
+      block_non_space_gap_width = (<a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>) floor (block_space_gap_width / 3.0);
+    }
+    row_it.set_to_list (block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#a4846ebdcc832b4b0a762d87c0d83a056">get_rows</a> ());
+    row_index = 1;
+    <span class="keywordflow">for</span> (row_it.mark_cycle_pt (); !row_it.cycled_list (); row_it.forward ()) {
+      row = row_it.data ();
+      <span class="keywordflow">if</span> ((row-&gt;<a class="code" href="class_t_o___r_o_w.html#a86c03914f286e37cbbc30e341cf6c253">pitch_decision</a> == <a class="code" href="blobbox_8h.html#a4c698e96e1ebeb67e13f584c524fd154a9d6e380146149c1a17e58394bd40e438">PITCH_DEF_PROP</a>) ||
+      (row-&gt;<a class="code" href="class_t_o___r_o_w.html#a86c03914f286e37cbbc30e341cf6c253">pitch_decision</a> == <a class="code" href="blobbox_8h.html#a4c698e96e1ebeb67e13f584c524fd154aa44925f7147c8bb8948712ba9fbe55d3">PITCH_CORR_PROP</a>)) {
+        <span class="keywordflow">if</span> ((<a class="code" href="classtesseract_1_1_textord.html#a28acd9fb9d4a5bef34a2fafb04ce1047">tosp_debug_level</a> &gt; 0) &amp;&amp; !old_text_ord_proportional)
+          <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a> (<span class="stringliteral">&quot;Block %d Row %d: Now Proportional\n&quot;</span>,
+            block_index, row_index);
+        row_spacing_stats(row,
+                          gapmap,
+                          block_index,
+                          row_index,
+                          block_space_gap_width,
+                          block_non_space_gap_width);
+      }
+      <span class="keywordflow">else</span> {
+        <span class="keywordflow">if</span> ((<a class="code" href="classtesseract_1_1_textord.html#a28acd9fb9d4a5bef34a2fafb04ce1047">tosp_debug_level</a> &gt; 0) &amp;&amp; old_text_ord_proportional)
+          <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>
+            (<span class="stringliteral">&quot;Block %d Row %d: Now Fixed Pitch Decision:%d fp flag:%f\n&quot;</span>,
+            block_index, row_index, row-&gt;<a class="code" href="class_t_o___r_o_w.html#a86c03914f286e37cbbc30e341cf6c253">pitch_decision</a>,
+            row-&gt;<a class="code" href="class_t_o___r_o_w.html#a08041181b248c640984261653189212a">fixed_pitch</a>);
+      }
+<span class="preprocessor">#ifndef GRAPHICS_DISABLED</span>
+<span class="preprocessor"></span>      <span class="keywordflow">if</span> (<a class="code" href="tovars_8cpp.html#abeae1dcacd5ff0c6f404eb1ee299e389">textord_show_initial_words</a>)
+        <a class="code" href="drawtord_8cpp.html#acd118b7bee855305fd4c0f934ea2ac11">plot_word_decisions</a> (<a class="code" href="drawtord_8cpp.html#a65aeba67da16b0fd87082f9966362f0e">to_win</a>, (<a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>) row-&gt;<a class="code" href="class_t_o___r_o_w.html#a08041181b248c640984261653189212a">fixed_pitch</a>, row);
+<span class="preprocessor">#endif</span>
+<span class="preprocessor"></span>      row_index++;
+    }
+    <span class="keyword">delete</span> gapmap;
+    block_index++;
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a778130fceaedd598d138b25d8272e63c"></a><!-- doxytag: member="tesseract::Textord::use_cjk_fp_model" ref="a778130fceaedd598d138b25d8272e63c" args="() const " -->
@@ -499,6 +1343,11 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00053">53</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                {
+    <span class="keywordflow">return</span> use_cjk_fp_model_;
+  }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
@@ -514,6 +1363,8 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>"Percentile for large blobs" </p>
 
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00330">330</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="aad0cd48ecf36d5990cf393998e97987c"></a><!-- doxytag: member="tesseract::Textord::textord_blob_size_smallile" ref="aad0cd48ecf36d5990cf393998e97987c" args="" -->
@@ -527,6 +1378,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"Percentile for small blobs" </p>
+
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00333">333</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
 
 </div>
 </div>
@@ -542,6 +1395,8 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>"Max baseline shift" </p>
 
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00350">350</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ac24cbce43d478165e8ea18fd4a7f8557"></a><!-- doxytag: member="tesseract::Textord::textord_blshift_xfraction" ref="ac24cbce43d478165e8ea18fd4a7f8557" args="" -->
@@ -555,6 +1410,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"Min size of baseline shift" </p>
+
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00351">351</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
 
 </div>
 </div>
@@ -570,6 +1427,8 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>"Ile of sizes for xheight guess" </p>
 
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00335">335</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ad2e50b3af05ac549c90aa14017dfd322"></a><!-- doxytag: member="tesseract::Textord::textord_initialx_ile" ref="ad2e50b3af05ac549c90aa14017dfd322" args="" -->
@@ -583,6 +1442,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"Ile of sizes for xheight guess" </p>
+
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00334">334</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
 
 </div>
 </div>
@@ -598,6 +1459,8 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>"Pixel size of noise" </p>
 
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00329">329</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a34838ae15dc4966cbbd43c1d9d79e76b"></a><!-- doxytag: member="tesseract::Textord::textord_no_rejects" ref="a34838ae15dc4966cbbd43c1d9d79e76b" args="" -->
@@ -611,6 +1474,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"Don't remove noise blobs" </p>
+
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00326">326</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
 
 </div>
 </div>
@@ -626,6 +1491,8 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>"Fraction of bounding box for noise" </p>
 
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00332">332</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="aa06ff5844f7415b3e097f35bd6ae7233"></a><!-- doxytag: member="tesseract::Textord::textord_noise_debug" ref="aa06ff5844f7415b3e097f35bd6ae7233" args="" -->
@@ -639,6 +1506,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"Debug row garbage detector" </p>
+
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00349">349</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
 
 </div>
 </div>
@@ -654,6 +1523,8 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>"Height fraction to discard outlines as speckle noise" </p>
 
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00346">346</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="abb3c7b73249c3755df5441af646f71d7"></a><!-- doxytag: member="tesseract::Textord::textord_noise_normratio" ref="abb3c7b73249c3755df5441af646f71d7" args="" -->
@@ -667,6 +1538,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"Dot to norm ratio for deletion" </p>
+
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00339">339</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
 
 </div>
 </div>
@@ -682,6 +1555,8 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>"Reject noise-like rows" </p>
 
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00341">341</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="aecc071304af26ca648cbe745d3c9b247"></a><!-- doxytag: member="tesseract::Textord::textord_noise_rejwords" ref="aecc071304af26ca648cbe745d3c9b247" args="" -->
@@ -695,6 +1570,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"Reject noise-like words" </p>
+
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00340">340</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
 
 </div>
 </div>
@@ -710,6 +1587,8 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>"Dot to norm ratio for deletion" </p>
 
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00348">348</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ab3a9a94c765ba4044cc4017aeb919568"></a><!-- doxytag: member="tesseract::Textord::textord_noise_sizefraction" ref="ab3a9a94c765ba4044cc4017aeb919568" args="" -->
@@ -723,6 +1602,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"Fraction of size for maxima" </p>
+
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00336">336</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
 
 </div>
 </div>
@@ -738,6 +1619,8 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>"Fraction of x for big t count" </p>
 
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00337">337</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ade728b99ae003f1e95d8168b117deaab"></a><!-- doxytag: member="tesseract::Textord::textord_noise_sncount" ref="ade728b99ae003f1e95d8168b117deaab" args="" -->
@@ -751,6 +1634,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"super norm blobs to save row" </p>
+
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00347">347</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
 
 </div>
 </div>
@@ -766,6 +1651,8 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>"xh fract width error for norm blobs" </p>
 
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00344">344</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a871f2c835f67cc0d5fee91ea8d292559"></a><!-- doxytag: member="tesseract::Textord::textord_noise_syfract" ref="a871f2c835f67cc0d5fee91ea8d292559" args="" -->
@@ -779,6 +1666,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"xh fract error for norm blobs" </p>
+
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00342">342</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
 
 </div>
 </div>
@@ -794,6 +1683,8 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>"Transitions for normal blob" </p>
 
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00338">338</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ac2af687f671ac3518f1daef79a053d59"></a><!-- doxytag: member="tesseract::Textord::textord_show_blobs" ref="ac2af687f671ac3518f1daef79a053d59" args="" -->
@@ -807,6 +1698,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"Display unsorted blobs" </p>
+
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00327">327</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
 
 </div>
 </div>
@@ -822,6 +1715,8 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>"Display boxes" </p>
 
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00328">328</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ac0782bed2a5ddc7a91254b50a946c084"></a><!-- doxytag: member="tesseract::Textord::textord_single_height_mode" ref="ac0782bed2a5ddc7a91254b50a946c084" args="" -->
@@ -835,6 +1730,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"Script has no xheight, so use a single mode for horizontal text" </p>
+
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00214">214</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
 
 </div>
 </div>
@@ -850,6 +1747,8 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>"Pass ANY flip to context?" </p>
 
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00240">240</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a11f7bc70a0fa121fe3a42a5343ccf661"></a><!-- doxytag: member="tesseract::Textord::tosp_block_use_cert_spaces" ref="a11f7bc70a0fa121fe3a42a5343ccf661" args="" -->
@@ -863,6 +1762,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"Only stat OBVIOUS spaces" </p>
+
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00230">230</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
 
 </div>
 </div>
@@ -878,6 +1779,8 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>"Debug data" </p>
 
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00255">255</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a5f83fb3436e922a40510ff10043eecf1"></a><!-- doxytag: member="tesseract::Textord::tosp_dont_fool_with_small_kerns" ref="a5f83fb3436e922a40510ff10043eecf1" args="" -->
@@ -891,6 +1794,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"Limit use of xht gap with odd small kns" </p>
+
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00318">318</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
 
 </div>
 </div>
@@ -906,6 +1811,8 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>"Fract of kerns reqd for isolated row stats" </p>
 
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00296">296</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a9a12bf2721ebe5803674c53bb3778a40"></a><!-- doxytag: member="tesseract::Textord::tosp_enough_space_samples_for_median" ref="a9a12bf2721ebe5803674c53bb3778a40" args="" -->
@@ -919,6 +1826,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"or should we use mean" </p>
+
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00257">257</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
 
 </div>
 </div>
@@ -934,6 +1843,8 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>"No.gaps reqd with 1 large gap to treat as a table" </p>
 
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00261">261</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ae5daba015959f10bff6680fd824fac87"></a><!-- doxytag: member="tesseract::Textord::tosp_flip_caution" ref="ae5daba015959f10bff6680fd824fac87" args="" -->
@@ -947,6 +1858,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"Dont autoflip kn to sp when large separation" </p>
+
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00314">314</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
 
 </div>
 </div>
@@ -962,6 +1875,8 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>"Default flip" </p>
 
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00251">251</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a732a4cb816df9d6529d0e44ef22fa21e"></a><!-- doxytag: member="tesseract::Textord::tosp_flip_fuzz_sp_to_kn" ref="a732a4cb816df9d6529d0e44ef22fa21e" args="" -->
@@ -975,6 +1890,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"Default flip" </p>
+
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00252">252</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
 
 </div>
 </div>
@@ -990,6 +1907,8 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>"Force word breaks on punct to break long lines in non-space " "delimited langs" </p>
 
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00224">224</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a1b7b01e146774cb66046738982e7cdbd"></a><!-- doxytag: member="tesseract::Textord::tosp_fuzzy_kn_fraction" ref="a1b7b01e146774cb66046738982e7cdbd" args="" -->
@@ -1003,6 +1922,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"New fuzzy kn alg" </p>
+
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00303">303</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
 
 </div>
 </div>
@@ -1018,6 +1939,8 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>"Dont restrict kn-&gt;sp fuzzy limit to tables" </p>
 
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00242">242</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ac71a17a1bfbb55358ba1a7a8b5d3a0b5"></a><!-- doxytag: member="tesseract::Textord::tosp_fuzzy_sp_fraction" ref="ac71a17a1bfbb55358ba1a7a8b5d3a0b5" args="" -->
@@ -1031,6 +1954,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"New fuzzy sp alg" </p>
+
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00304">304</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
 
 </div>
 </div>
@@ -1046,6 +1971,8 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>"Fract of xheight for fuzz sp" </p>
 
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00280">280</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ad0f22b5f7497fdb68a2b1a861dc32f4f"></a><!-- doxytag: member="tesseract::Textord::tosp_fuzzy_space_factor1" ref="ad0f22b5f7497fdb68a2b1a861dc32f4f" args="" -->
@@ -1059,6 +1986,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"Fract of xheight for fuzz sp" </p>
+
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00282">282</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
 
 </div>
 </div>
@@ -1074,6 +2003,8 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>"Fract of xheight for fuzz sp" </p>
 
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00284">284</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="adb8fd12a73dbfe5abba3c2d37feb353b"></a><!-- doxytag: member="tesseract::Textord::tosp_gap_factor" ref="adb8fd12a73dbfe5abba3c2d37feb353b" args="" -->
@@ -1087,6 +2018,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"gap ratio to flip sp-&gt;kern" </p>
+
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00285">285</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
 
 </div>
 </div>
@@ -1102,6 +2035,8 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>"xht multiplier" </p>
 
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00292">292</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ad1e2c9105efa15f223d317ec9b52107a"></a><!-- doxytag: member="tesseract::Textord::tosp_ignore_very_big_gaps" ref="ad1e2c9105efa15f223d317ec9b52107a" args="" -->
@@ -1115,6 +2050,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"xht multiplier" </p>
+
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00293">293</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
 
 </div>
 </div>
@@ -1130,6 +2067,8 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>"Enable improvement heuristic" </p>
 
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00254">254</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="aaf1c1c7bfcf5a3227989b656aad82711"></a><!-- doxytag: member="tesseract::Textord::tosp_init_guess_kn_mult" ref="aaf1c1c7bfcf5a3227989b656aad82711" args="" -->
@@ -1143,6 +2082,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"Thresh guess - mult kn by this" </p>
+
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00308">308</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
 
 </div>
 </div>
@@ -1158,6 +2099,8 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>"Thresh guess - mult xht by this" </p>
 
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00310">310</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a1bd19a3a0bccbc97dc64f26e622f372d"></a><!-- doxytag: member="tesseract::Textord::tosp_kern_gap_factor1" ref="a1bd19a3a0bccbc97dc64f26e622f372d" args="" -->
@@ -1171,6 +2114,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"gap ratio to flip kern-&gt;sp" </p>
+
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00287">287</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
 
 </div>
 </div>
@@ -1186,6 +2131,8 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>"gap ratio to flip kern-&gt;sp" </p>
 
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00289">289</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ac4d2c2701fad7c0ec1010cd82b70a1a9"></a><!-- doxytag: member="tesseract::Textord::tosp_kern_gap_factor3" ref="ac4d2c2701fad7c0ec1010cd82b70a1a9" args="" -->
@@ -1199,6 +2146,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"gap ratio to flip kern-&gt;sp" </p>
+
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00291">291</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
 
 </div>
 </div>
@@ -1214,6 +2163,8 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>"Limit use of xht gap with large kns" </p>
 
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00316">316</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a889edf86ffc79a511285cc1beb0c7e21"></a><!-- doxytag: member="tesseract::Textord::tosp_max_sane_kn_thresh" ref="a889edf86ffc79a511285cc1beb0c7e21" args="" -->
@@ -1227,6 +2178,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"Multiplier on kn to limit thresh" </p>
+
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00312">312</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
 
 </div>
 </div>
@@ -1242,6 +2195,8 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>"Dont trust spaces less than this time kn" </p>
 
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00306">306</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="af57498e42a2f7bca412ef0bd0b360dd7"></a><!-- doxytag: member="tesseract::Textord::tosp_narrow_aspect_ratio" ref="af57498e42a2f7bca412ef0bd0b360dd7" args="" -->
@@ -1255,6 +2210,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"narrow if w/h less than this" </p>
+
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00275">275</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
 
 </div>
 </div>
@@ -1270,6 +2227,8 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>"Only stat OBVIOUS spaces" </p>
 
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00234">234</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="afe0d4bc4677fd6a26614e48e155ef0a0"></a><!-- doxytag: member="tesseract::Textord::tosp_narrow_fraction" ref="afe0d4bc4677fd6a26614e48e155ef0a0" args="" -->
@@ -1283,6 +2242,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"Fract of xheight for narrow" </p>
+
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00273">273</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
 
 </div>
 </div>
@@ -1298,6 +2259,8 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>"Dont reduce box if the top left is non blank" </p>
 
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00320">320</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="af44b33e9cbeee3c24da9e5c7301f8c8d"></a><!-- doxytag: member="tesseract::Textord::tosp_old_sp_kn_th_factor" ref="af44b33e9cbeee3c24da9e5c7301f8c8d" args="" -->
@@ -1311,6 +2274,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"Factor for defining space threshold in terms of space and " "kern sizes" </p>
+
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00267">267</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
 
 </div>
 </div>
@@ -1326,6 +2291,8 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>"Fix suspected bug in old code" </p>
 
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00228">228</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a00ee11bd9a2e9863a963708b8ac7ec75"></a><!-- doxytag: member="tesseract::Textord::tosp_old_to_constrain_sp_kn" ref="a00ee11bd9a2e9863a963708b8ac7ec75" args="" -->
@@ -1339,6 +2306,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"Constrain relative values of inter and intra-word gaps for " "old_to_method." </p>
+
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00219">219</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
 
 </div>
 </div>
@@ -1354,6 +2323,8 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>"Space stats use prechopping?" </p>
 
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00216">216</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a0c02290df1620311a01bc6a891d5c8ed"></a><!-- doxytag: member="tesseract::Textord::tosp_only_small_gaps_for_kern" ref="a0c02290df1620311a01bc6a891d5c8ed" args="" -->
@@ -1367,6 +2338,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"Better guess" </p>
+
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00239">239</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
 
 </div>
 </div>
@@ -1382,6 +2355,8 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>"Block stats to use fixed pitch rows?" </p>
 
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00221">221</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a006acde068aaaba56dbd1495deeda8fb"></a><!-- doxytag: member="tesseract::Textord::tosp_only_use_xht_gaps" ref="a006acde068aaaba56dbd1495deeda8fb" args="" -->
@@ -1395,6 +2370,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"Only use within xht gap for wd breaks" </p>
+
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00248">248</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
 
 </div>
 </div>
@@ -1410,6 +2387,8 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>"How wide fuzzies need context" </p>
 
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00324">324</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a491a5a4b1811e7dd374ae7974a16b478"></a><!-- doxytag: member="tesseract::Textord::tosp_recovery_isolated_row_stats" ref="a491a5a4b1811e7dd374ae7974a16b478" args="" -->
@@ -1423,6 +2402,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"Use row alone when inadequate cert spaces" </p>
+
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00238">238</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
 
 </div>
 </div>
@@ -1438,6 +2419,8 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>"No.samples reqd to reestimate for row" </p>
 
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00259">259</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a6ba956c412d08474cb69cfd161b30980"></a><!-- doxytag: member="tesseract::Textord::tosp_rep_space" ref="a6ba956c412d08474cb69cfd161b30980" args="" -->
@@ -1451,6 +2434,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"rep gap multiplier for space" </p>
+
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00294">294</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
 
 </div>
 </div>
@@ -1466,6 +2451,8 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>"Only stat OBVIOUS spaces" </p>
 
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00232">232</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a73c88efacd5362cde976e99b87d549cf"></a><!-- doxytag: member="tesseract::Textord::tosp_row_use_cert_spaces1" ref="a73c88efacd5362cde976e99b87d549cf" args="" -->
@@ -1479,6 +2466,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"Only stat OBVIOUS spaces" </p>
+
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00236">236</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
 
 </div>
 </div>
@@ -1494,6 +2483,8 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>"Dont chng kn to space next to punct" </p>
 
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00250">250</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a50cd31f9200500db59791c14fbb1e918"></a><!-- doxytag: member="tesseract::Textord::tosp_sanity_method" ref="a50cd31f9200500db59791c14fbb1e918" args="" -->
@@ -1507,6 +2498,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"How to avoid being silly" </p>
+
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00264">264</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
 
 </div>
 </div>
@@ -1522,6 +2515,8 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>"No.gaps reqd with few cert spaces to use certs" </p>
 
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00263">263</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a7782cf35729ee08bc65db3aff6719525"></a><!-- doxytag: member="tesseract::Textord::tosp_silly_kn_sp_gap" ref="a7782cf35729ee08bc65db3aff6719525" args="" -->
@@ -1535,6 +2530,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"Dont let sp minus kn get too small" </p>
+
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00322">322</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
 
 </div>
 </div>
@@ -1550,6 +2547,8 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>"Use within xht gap for wd breaks" </p>
 
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00244">244</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a079197bd07b3dca0a941ce27988747f5"></a><!-- doxytag: member="tesseract::Textord::tosp_table_fuzzy_kn_sp_ratio" ref="a079197bd07b3dca0a941ce27988747f5" args="" -->
@@ -1563,6 +2562,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"Fuzzy if less than this" </p>
+
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00302">302</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
 
 </div>
 </div>
@@ -1578,6 +2579,8 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>"Min difference of kn &amp; sp in table" </p>
 
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00298">298</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a22bd562721b03831a469e235ad1eec12"></a><!-- doxytag: member="tesseract::Textord::tosp_table_xht_sp_ratio" ref="a22bd562721b03831a469e235ad1eec12" args="" -->
@@ -1591,6 +2594,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"Expect spaces bigger than this" </p>
+
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00300">300</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
 
 </div>
 </div>
@@ -1606,6 +2611,8 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>"how far between kern and space?" </p>
 
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00269">269</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a6a6405fec68dc5cc4285e899112fdb4a"></a><!-- doxytag: member="tesseract::Textord::tosp_threshold_bias2" ref="a6a6405fec68dc5cc4285e899112fdb4a" args="" -->
@@ -1619,6 +2626,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"how far between kern and space?" </p>
+
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00271">271</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
 
 </div>
 </div>
@@ -1634,6 +2643,8 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>"Space stats use prechopping?" </p>
 
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00226">226</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a99e9cdddfb014ee795ab26839868bb3e"></a><!-- doxytag: member="tesseract::Textord::tosp_use_xht_gaps" ref="a99e9cdddfb014ee795ab26839868bb3e" args="" -->
@@ -1647,6 +2658,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>"Use within xht gap for wd breaks" </p>
+
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00246">246</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
 
 </div>
 </div>
@@ -1662,6 +2675,8 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>"wide if w/h less than this" </p>
 
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00278">278</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a07196d76d7b525b08830dfc0858fbe57"></a><!-- doxytag: member="tesseract::Textord::tosp_wide_fraction" ref="a07196d76d7b525b08830dfc0858fbe57" args="" -->
@@ -1676,15 +2691,17 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>"Fract of xheight for wide" </p>
 
+<p>Definition at line <a class="el" href="textord_8h_source.html#l00276">276</a> of file <a class="el" href="textord_8h_source.html">textord.h</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/textord/<a class="el" href="textord_8h_source.html">textord.h</a></li>
-<li>tesseract-ocr/textord/<a class="el" href="makerow_8cpp.html">makerow.cpp</a></li>
-<li>tesseract-ocr/textord/<a class="el" href="oldbasel_8cpp.html">oldbasel.cpp</a></li>
-<li>tesseract-ocr/textord/<a class="el" href="textord_8cpp.html">textord.cpp</a></li>
-<li>tesseract-ocr/textord/<a class="el" href="tordmain_8cpp.html">tordmain.cpp</a></li>
-<li>tesseract-ocr/textord/<a class="el" href="tospace_8cpp.html">tospace.cpp</a></li>
+<li>tesseract-ocr/textord/<a class="el" href="makerow_8cpp_source.html">makerow.cpp</a></li>
+<li>tesseract-ocr/textord/<a class="el" href="oldbasel_8cpp_source.html">oldbasel.cpp</a></li>
+<li>tesseract-ocr/textord/<a class="el" href="textord_8cpp_source.html">textord.cpp</a></li>
+<li>tesseract-ocr/textord/<a class="el" href="tordmain_8cpp_source.html">tordmain.cpp</a></li>
+<li>tesseract-ocr/textord/<a class="el" href="tospace_8cpp_source.html">tospace.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -1707,7 +2724,7 @@ Public Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:17 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:54 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

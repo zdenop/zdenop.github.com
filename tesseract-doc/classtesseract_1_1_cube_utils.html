@@ -131,7 +131,10 @@ Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="namespacetesseract.html#aea2c6172b0ca77907e29cd018595b425">char_32</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_cube_utils.html#ac051dbde8b019f824b1bd8ae8d69d10e">ToLower</a> (const <a class="el" href="namespacetesseract.html#aea2c6172b0ca77907e29cd018595b425">char_32</a> *str32, <a class="el" href="classtesseract_1_1_char_set.html">CharSet</a> *char_set)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="namespacetesseract.html#aea2c6172b0ca77907e29cd018595b425">char_32</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_cube_utils.html#ac5f9453d9b30ec4343940ad428a4638d">ToUpper</a> (const <a class="el" href="namespacetesseract.html#aea2c6172b0ca77907e29cd018595b425">char_32</a> *str32, <a class="el" href="classtesseract_1_1_char_set.html">CharSet</a> *char_set)</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="cube__utils_8h_source.html#l00036">36</a> of file <a class="el" href="cube__utils_8h_source.html">cube_utils.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a432565e7aa410467dff8d89d0073052a"></a><!-- doxytag: member="tesseract::CubeUtils::CubeUtils" ref="a432565e7aa410467dff8d89d0073052a" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -146,6 +149,10 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__utils_8cpp_source.html#l00028">28</a> of file <a class="el" href="cube__utils_8cpp_source.html">cube_utils.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                     {
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3c1af8e5f546426e1527fcdbb9c7e3c1"></a><!-- doxytag: member="tesseract::CubeUtils::~CubeUtils" ref="a3c1af8e5f546426e1527fcdbb9c7e3c1" args="()" -->
@@ -162,6 +169,10 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__utils_8cpp_source.html#l00031">31</a> of file <a class="el" href="cube__utils_8cpp_source.html">cube_utils.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                      {
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -208,6 +219,21 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__utils_8cpp_source.html#l00121">121</a> of file <a class="el" href="cube__utils_8cpp_source.html">cube_utils.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                         {
+  <span class="comment">// get the raw img data from the image</span>
+  <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *temp_buff = GetImageData(img, left, top, wid, hgt);
+  <span class="keywordflow">if</span> (temp_buff == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="comment">// create a char samp from temp buffer</span>
+  CharSamp *char_samp = <a class="code" href="classtesseract_1_1_char_samp.html#a6c14f9fa2793562c82515c4e99c34c92">CharSamp::FromRawData</a>(left, top, wid, hgt, temp_buff);
+  <span class="comment">// clean up temp buffer</span>
+  <span class="keyword">delete</span> []temp_buff;
+  <span class="keywordflow">return</span> char_samp;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6a9608a69634af76d33e9d514ac39cad"></a><!-- doxytag: member="tesseract::CubeUtils::CharSampleFromPix" ref="a6a9608a69634af76d33e9d514ac39cad" args="(Pix *pix, int left, int top, int wid, int hgt)" -->
@@ -253,6 +279,22 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__utils_8cpp_source.html#l00138">138</a> of file <a class="el" href="cube__utils_8cpp_source.html">cube_utils.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                         {
+  <span class="comment">// get the raw img data from the image</span>
+  <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *temp_buff = GetImageData(pix, left, top, wid, hgt);
+  <span class="keywordflow">if</span> (temp_buff == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="comment">// create a char samp from temp buffer</span>
+  CharSamp *char_samp = <a class="code" href="classtesseract_1_1_char_samp.html#a6c14f9fa2793562c82515c4e99c34c92">CharSamp::FromRawData</a>(left, top, wid, hgt, temp_buff);
+
+  <span class="comment">// clean up temp buffer</span>
+  <span class="keyword">delete</span> []temp_buff;
+  <span class="keywordflow">return</span> char_samp;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="abe90a391bde5178077826ef3dc574d1d"></a><!-- doxytag: member="tesseract::CubeUtils::Cost2Prob" ref="abe90a391bde5178077826ef3dc574d1d" args="(int cost)" -->
@@ -270,6 +312,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__utils_8cpp_source.html#l00043">43</a> of file <a class="el" href="cube__utils_8cpp_source.html">cube_utils.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                    {
+  <span class="keywordflow">return</span> exp(-cost / <a class="code" href="cube__const_8h.html#ab1e863295c568a5acf35176a474a87a9">PROB2COST_SCALE</a>);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="adc92a1d0b0f3948027ff26cccc25a450"></a><!-- doxytag: member="tesseract::CubeUtils::ImageFromCharSample" ref="adc92a1d0b0f3948027ff26cccc25a450" args="(CharSamp *char_samp)" -->
@@ -287,6 +334,50 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__utils_8cpp_source.html#l00155">155</a> of file <a class="el" href="cube__utils_8cpp_source.html">cube_utils.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                         {
+  <span class="comment">// parameter check</span>
+  <span class="keywordflow">if</span> (char_samp == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="comment">// get the raw data</span>
+  <span class="keywordtype">int</span> stride = char_samp-&gt;Stride(),
+    wid = char_samp-&gt;Width(),
+    hgt = char_samp-&gt;Height();
+
+  <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span>  *buff = char_samp-&gt;RawData();
+  <span class="keywordflow">if</span> (buff == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="comment">// create a new image object</span>
+  <a class="code" href="class_i_m_a_g_e.html">IMAGE</a> *img = <span class="keyword">new</span> <a class="code" href="class_i_m_a_g_e.html">IMAGE</a>();
+  <span class="keywordflow">if</span> (img == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="comment">// create a blank B/W image</span>
+  <span class="keywordflow">if</span> (img-&gt;<a class="code" href="class_i_m_a_g_e.html#aa827c8e72da25720295706017eda3d81">create</a>(wid, hgt, 1) == -1) {
+    <span class="keyword">delete</span> img;
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="comment">// copy the contents</span>
+  <a class="code" href="class_i_m_a_g_e_l_i_n_e.html">IMAGELINE</a> line;
+  line.<a class="code" href="class_i_m_a_g_e_l_i_n_e.html#a4cc90adaaa649d7fd24b35f57c517b7c">init</a>(wid);
+
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> y = 0, off = 0; y &lt; hgt ; y++, off += stride) {
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> x = 0; x &lt; wid; x++) {
+      line.<a class="code" href="class_i_m_a_g_e_l_i_n_e.html#a0bf967eba44b6352a126f74c1a057172" title="image pixels">pixels</a>[x] = (buff[off + x] == 0) ? 0 : 1;
+    }
+
+    img-&gt;<a class="code" href="class_i_m_a_g_e.html#a97634582d0c01e510827711338a50425">fast_put_line</a>(0, hgt - 1 - y, wid, &amp;line);
+  }
+
+  <span class="keywordflow">return</span> img;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a0c67516e85144e0d736f30c21208aeda"></a><!-- doxytag: member="tesseract::CubeUtils::IsCaseInvariant" ref="a0c67516e85144e0d736f30c21208aeda" args="(const char_32 *str32, CharSet *char_set)" -->
@@ -314,6 +405,61 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__utils_8cpp_source.html#l00361">361</a> of file <a class="el" href="cube__utils_8cpp_source.html">cube_utils.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                       {
+  <span class="keywordtype">bool</span> all_one_case = <span class="keyword">true</span>;
+  <span class="keywordtype">bool</span> capitalized;
+  <span class="keywordtype">bool</span> prev_upper;
+  <span class="keywordtype">bool</span> prev_lower;
+  <span class="keywordtype">bool</span> first_upper;
+  <span class="keywordtype">bool</span> first_lower;
+  <span class="keywordtype">bool</span> cur_upper;
+  <span class="keywordtype">bool</span> cur_lower;
+
+  <span class="keywordtype">string</span> str8;
+  <span class="keywordflow">if</span> (!char_set) {
+    <span class="comment">// If cube char_set is missing, use C-locale-dependent functions</span>
+    <span class="comment">// on UTF8 characters to determine case properties.</span>
+    first_upper = isupper(str32[0]);
+    first_lower = islower(str32[0]);
+    <span class="keywordflow">if</span> (first_upper)
+      capitalized = <span class="keyword">true</span>;
+    prev_upper = first_upper;
+    prev_lower = islower(str32[0]);
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> c = 1; str32[c] != 0; ++c) {
+      cur_upper = isupper(str32[c]);
+      cur_lower = islower(str32[c]);
+      <span class="keywordflow">if</span> ((prev_upper &amp;&amp; cur_lower) || (prev_lower &amp;&amp; cur_upper))
+        all_one_case = <span class="keyword">false</span>;
+      <span class="keywordflow">if</span> (cur_upper)
+        capitalized = <span class="keyword">false</span>;
+      prev_upper = cur_upper;
+      prev_lower = cur_lower;
+    }
+  } <span class="keywordflow">else</span> {
+    <a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html">UNICHARSET</a> *unicharset = char_set-&gt;InternalUnicharset();
+    <span class="comment">// Use UNICHARSET functions to determine case properties</span>
+    first_upper = unicharset-&gt;<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a482a94b3e6fcd4e5b9b9363bb9e0ee59">get_isupper</a>(char_set-&gt;ClassID(str32[0]));
+    first_lower = unicharset-&gt;<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a074096c823dd5b9bc02c02a59784bf34">get_islower</a>(char_set-&gt;ClassID(str32[0]));
+    <span class="keywordflow">if</span> (first_upper)
+      capitalized = <span class="keyword">true</span>;
+    prev_upper = first_upper;
+    prev_lower = unicharset-&gt;<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a074096c823dd5b9bc02c02a59784bf34">get_islower</a>(char_set-&gt;ClassID(str32[0]));
+
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> c = 1; c &lt; <a class="code" href="classtesseract_1_1_cube_utils.html#a88fe596e3dcadab7909c0bff64f61f59">StrLen</a>(str32); ++c) {
+      cur_upper = unicharset-&gt;<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a482a94b3e6fcd4e5b9b9363bb9e0ee59">get_isupper</a>(char_set-&gt;ClassID(str32[c]));
+      cur_lower = unicharset-&gt;<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a074096c823dd5b9bc02c02a59784bf34">get_islower</a>(char_set-&gt;ClassID(str32[c]));
+      <span class="keywordflow">if</span> ((prev_upper &amp;&amp; cur_lower) || (prev_lower &amp;&amp; cur_upper))
+        all_one_case = <span class="keyword">false</span>;
+      <span class="keywordflow">if</span> (cur_upper)
+        capitalized = <span class="keyword">false</span>;
+      prev_upper = cur_upper;
+      prev_lower = cur_lower;
+    }
+  }
+  <span class="keywordflow">return</span> all_one_case || capitalized;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a69f91bd3d7bc84afc582efe86cdfa2ed"></a><!-- doxytag: member="tesseract::CubeUtils::PixFromCharSample" ref="a69f91bd3d7bc84afc582efe86cdfa2ed" args="(CharSamp *char_samp)" -->
@@ -331,6 +477,38 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__utils_8cpp_source.html#l00199">199</a> of file <a class="el" href="cube__utils_8cpp_source.html">cube_utils.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                     {
+  <span class="comment">// parameter check</span>
+  <span class="keywordflow">if</span> (char_samp == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="comment">// get the raw data</span>
+  <span class="keywordtype">int</span> stride = char_samp-&gt;Stride();
+  <span class="keywordtype">int</span> wid = char_samp-&gt;Width();
+  <span class="keywordtype">int</span> hgt = char_samp-&gt;Height();
+
+  Pix *pix = pixCreate(wid, hgt, 1);
+  <span class="keywordflow">if</span> (pix == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="comment">// copy the contents</span>
+  <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> *line = char_samp-&gt;RawData();
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> y = 0; y &lt; hgt ; y++, line += stride) {
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> x = 0; x &lt; wid; x++) {
+      <span class="keywordflow">if</span> (line[x] != 0) {
+        pixSetPixel(pix, x, y, 0);
+      } <span class="keywordflow">else</span> {
+        pixSetPixel(pix, x, y, 255);
+      }
+    }
+  }
+
+  <span class="keywordflow">return</span> pix;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a0983096f5ebcb35879a1e0e6038c32f8"></a><!-- doxytag: member="tesseract::CubeUtils::Prob2Cost" ref="a0983096f5ebcb35879a1e0e6038c32f8" args="(double prob_val)" -->
@@ -348,6 +526,14 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__utils_8cpp_source.html#l00035">35</a> of file <a class="el" href="cube__utils_8cpp_source.html">cube_utils.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                        {
+  <span class="keywordflow">if</span> (prob_val &lt; <a class="code" href="cube__const_8h.html#a77709ecf4b96a5243f69dec32f214f61">MIN_PROB</a>)   {
+    <span class="keywordflow">return</span> <a class="code" href="cube__const_8h.html#a7d98e096ee6e9bda7836df456b6b25e6">MIN_PROB_COST</a>;
+  }
+  <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(-log(prob_val) * <a class="code" href="cube__const_8h.html#ab1e863295c568a5acf35176a474a87a9">PROB2COST_SCALE</a>);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac5c5bf284cd96f78f62f19938bec750a"></a><!-- doxytag: member="tesseract::CubeUtils::ReadFileToString" ref="ac5c5bf284cd96f78f62f19938bec750a" args="(const string &amp;file_name, string *str)" -->
@@ -375,6 +561,39 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__utils_8cpp_source.html#l00268">268</a> of file <a class="el" href="cube__utils_8cpp_source.html">cube_utils.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                     {
+  str-&gt;clear();
+  FILE *fp = fopen(file_name.c_str(), <span class="stringliteral">&quot;rb&quot;</span>);
+  <span class="keywordflow">if</span> (fp == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+
+  <span class="comment">// get the size of the size</span>
+  fseek(fp, 0, SEEK_END);
+  <span class="keywordtype">int</span> file_size = ftell(fp);
+  <span class="keywordflow">if</span> (file_size &lt; 1) {
+    fclose(fp);
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+  <span class="comment">// adjust string size</span>
+  str-&gt;reserve(file_size);
+  <span class="comment">// read the contents</span>
+  rewind(fp);
+  <span class="keywordtype">char</span> *buff = <span class="keyword">new</span> <span class="keywordtype">char</span>[file_size];
+  <span class="keywordflow">if</span> (buff == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    fclose(fp);
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+  <span class="keywordtype">int</span> read_bytes = fread(buff, 1, static_cast&lt;int&gt;(file_size), fp);
+  <span class="keywordflow">if</span> (read_bytes == file_size) {
+    str-&gt;append(buff, file_size);
+  }
+  <span class="keyword">delete</span> []buff;
+  fclose(fp);
+  <span class="keywordflow">return</span> (read_bytes == file_size);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="af7dea4521db1e7099c93606d0f5bf4a4"></a><!-- doxytag: member="tesseract::CubeUtils::SplitStringUsing" ref="af7dea4521db1e7099c93606d0f5bf4a4" args="(const string &amp;str, const string &amp;delims, vector&lt; string &gt; *str_vec)" -->
@@ -408,6 +627,38 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__utils_8cpp_source.html#l00301">301</a> of file <a class="el" href="cube__utils_8cpp_source.html">cube_utils.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                          {
+  <span class="comment">// Optimize the common case where delims is a single character.</span>
+  <span class="keywordflow">if</span> (delims[0] != <span class="charliteral">&#39;\0&#39;</span> &amp;&amp; delims[1] == <span class="charliteral">&#39;\0&#39;</span>) {
+    <span class="keywordtype">char</span> c = delims[0];
+    <span class="keyword">const</span> <span class="keywordtype">char</span>* p = str.data();
+    <span class="keyword">const</span> <span class="keywordtype">char</span>* end = p + str.size();
+    <span class="keywordflow">while</span> (p != end) {
+      <span class="keywordflow">if</span> (*p == c) {
+        ++p;
+      } <span class="keywordflow">else</span> {
+        <span class="keyword">const</span> <span class="keywordtype">char</span>* start = p;
+        <span class="keywordflow">while</span> (++p != end &amp;&amp; *p != c);
+        str_vec-&gt;push_back(<span class="keywordtype">string</span>(start, p - start));
+      }
+    }
+    <span class="keywordflow">return</span>;
+  }
+
+  string::size_type begin_index, end_index;
+  begin_index = str.find_first_not_of(delims);
+  <span class="keywordflow">while</span> (begin_index != string::npos) {
+    end_index = str.find_first_of(delims, begin_index);
+    <span class="keywordflow">if</span> (end_index == string::npos) {
+      str_vec-&gt;push_back(str.substr(begin_index));
+      <span class="keywordflow">return</span>;
+    }
+    str_vec-&gt;push_back(str.substr(begin_index, (end_index - begin_index)));
+    begin_index = str.find_first_not_of(delims, end_index);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad0ca280e451878dc769ce3e095c97ea0"></a><!-- doxytag: member="tesseract::CubeUtils::StrCmp" ref="ad0ca280e451878dc769ce3e095c97ea0" args="(const char_32 *str1, const char_32 *str2)" -->
@@ -435,6 +686,28 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__utils_8cpp_source.html#l00058">58</a> of file <a class="el" href="cube__utils_8cpp_source.html">cube_utils.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                              {
+  <span class="keyword">const</span> <a class="code" href="namespacetesseract.html#aea2c6172b0ca77907e29cd018595b425">char_32</a> *pch1 = str1;
+  <span class="keyword">const</span> <a class="code" href="namespacetesseract.html#aea2c6172b0ca77907e29cd018595b425">char_32</a> *pch2 = str2;
+
+  <span class="keywordflow">for</span> (; (*pch1) != 0 &amp;&amp; (*pch2) != 0; pch1++, pch2++) {
+    <span class="keywordflow">if</span> ((*pch1) != (*pch2)) {
+      <span class="keywordflow">return</span> (*pch1) - (*pch2);
+    }
+  }
+
+  <span class="keywordflow">if</span> ((*pch1) == 0) {
+    <span class="keywordflow">if</span> ((*pch2) == 0) {
+      <span class="keywordflow">return</span> 0;
+    } <span class="keywordflow">else</span> {
+      <span class="keywordflow">return</span> -1;
+    }
+  } <span class="keywordflow">else</span> {
+    <span class="keywordflow">return</span> 1;
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2cea16ea1fc9c8d1020c159617ed90e3"></a><!-- doxytag: member="tesseract::CubeUtils::StrDup" ref="a2cea16ea1fc9c8d1020c159617ed90e3" args="(const char_32 *str)" -->
@@ -452,6 +725,18 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__utils_8cpp_source.html#l00080">80</a> of file <a class="el" href="cube__utils_8cpp_source.html">cube_utils.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                               {
+  <span class="keywordtype">int</span> len = <a class="code" href="classtesseract_1_1_cube_utils.html#a88fe596e3dcadab7909c0bff64f61f59">StrLen</a>(str32);
+  <a class="code" href="namespacetesseract.html#aea2c6172b0ca77907e29cd018595b425">char_32</a> *new_str = <span class="keyword">new</span> <a class="code" href="namespacetesseract.html#aea2c6172b0ca77907e29cd018595b425">char_32</a>[len + 1];
+  <span class="keywordflow">if</span> (new_str == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  memcpy(new_str, str32, len * <span class="keyword">sizeof</span>(*str32));
+  new_str[len] = 0;
+  <span class="keywordflow">return</span> new_str;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a88fe596e3dcadab7909c0bff64f61f59"></a><!-- doxytag: member="tesseract::CubeUtils::StrLen" ref="a88fe596e3dcadab7909c0bff64f61f59" args="(const char_32 *str)" -->
@@ -469,6 +754,16 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__utils_8cpp_source.html#l00048">48</a> of file <a class="el" href="cube__utils_8cpp_source.html">cube_utils.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                {
+  <span class="keywordflow">if</span> (char_32_ptr == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">return</span> 0;
+  }
+  <span class="keywordtype">int</span> len = -1;
+  <span class="keywordflow">while</span> (char_32_ptr[++len]);
+  <span class="keywordflow">return</span> len;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac051dbde8b019f824b1bd8ae8d69d10e"></a><!-- doxytag: member="tesseract::CubeUtils::ToLower" ref="ac051dbde8b019f824b1bd8ae8d69d10e" args="(const char_32 *str32, CharSet *char_set)" -->
@@ -496,6 +791,40 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__utils_8cpp_source.html#l00415">415</a> of file <a class="el" href="cube__utils_8cpp_source.html">cube_utils.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                   {
+  <span class="keywordflow">if</span> (!char_set) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html">UNICHARSET</a> *unicharset = char_set-&gt;InternalUnicharset();
+  <span class="keywordtype">int</span> len = <a class="code" href="classtesseract_1_1_cube_utils.html#a88fe596e3dcadab7909c0bff64f61f59">StrLen</a>(str32);
+  <a class="code" href="namespacetesseract.html#aea2c6172b0ca77907e29cd018595b425">char_32</a> *lower = <span class="keyword">new</span> <a class="code" href="namespacetesseract.html#aea2c6172b0ca77907e29cd018595b425">char_32</a>[len + 1];
+  <span class="keywordflow">if</span> (!lower)
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; len; ++i) {
+    <a class="code" href="namespacetesseract.html#aea2c6172b0ca77907e29cd018595b425">char_32</a> ch = str32[i];
+    <span class="keywordflow">if</span> (ch == INVALID_UNICHAR_ID) {
+      <span class="keyword">delete</span> [] lower;
+      <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    }
+    <span class="comment">// convert upper-case characters to lower-case</span>
+    <span class="keywordflow">if</span> (unicharset-&gt;<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a482a94b3e6fcd4e5b9b9363bb9e0ee59">get_isupper</a>(char_set-&gt;ClassID(ch))) {
+      <a class="code" href="unichar_8h.html#a8578b19fa1ff5ca75080db1a18ecc32e">UNICHAR_ID</a> uid_lower = unicharset-&gt;<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a63bccb6db92175f2c198261f576e7fca">get_other_case</a>(char_set-&gt;ClassID(ch));
+      <span class="keyword">const</span> <a class="code" href="namespacetesseract.html#aea2c6172b0ca77907e29cd018595b425">char_32</a> *str32_lower = char_set-&gt;ClassString(uid_lower);
+      <span class="comment">// expect lower-case version of character to be a single character</span>
+      <span class="keywordflow">if</span> (!str32_lower || <a class="code" href="classtesseract_1_1_cube_utils.html#a88fe596e3dcadab7909c0bff64f61f59">StrLen</a>(str32_lower) != 1) {
+        <span class="keyword">delete</span> [] lower;
+        <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+      }
+      lower[i] = str32_lower[0];
+    } <span class="keywordflow">else</span> {
+      lower[i] = ch;
+    }
+  }
+  lower[len] = 0;
+  <span class="keywordflow">return</span> lower;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac5f9453d9b30ec4343940ad428a4638d"></a><!-- doxytag: member="tesseract::CubeUtils::ToUpper" ref="ac5f9453d9b30ec4343940ad428a4638d" args="(const char_32 *str32, CharSet *char_set)" -->
@@ -523,6 +852,40 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__utils_8cpp_source.html#l00448">448</a> of file <a class="el" href="cube__utils_8cpp_source.html">cube_utils.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                   {
+  <span class="keywordflow">if</span> (!char_set) {
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html">UNICHARSET</a> *unicharset = char_set-&gt;InternalUnicharset();
+  <span class="keywordtype">int</span> len = <a class="code" href="classtesseract_1_1_cube_utils.html#a88fe596e3dcadab7909c0bff64f61f59">StrLen</a>(str32);
+  <a class="code" href="namespacetesseract.html#aea2c6172b0ca77907e29cd018595b425">char_32</a> *upper = <span class="keyword">new</span> <a class="code" href="namespacetesseract.html#aea2c6172b0ca77907e29cd018595b425">char_32</a>[len + 1];
+  <span class="keywordflow">if</span> (!upper)
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; len; ++i) {
+    <a class="code" href="namespacetesseract.html#aea2c6172b0ca77907e29cd018595b425">char_32</a> ch = str32[i];
+    <span class="keywordflow">if</span> (ch == INVALID_UNICHAR_ID) {
+      <span class="keyword">delete</span> [] upper;
+      <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    }
+    <span class="comment">// convert lower-case characters to upper-case</span>
+    <span class="keywordflow">if</span> (unicharset-&gt;<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a074096c823dd5b9bc02c02a59784bf34">get_islower</a>(char_set-&gt;ClassID(ch))) {
+      <a class="code" href="unichar_8h.html#a8578b19fa1ff5ca75080db1a18ecc32e">UNICHAR_ID</a> uid_upper = unicharset-&gt;<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a63bccb6db92175f2c198261f576e7fca">get_other_case</a>(char_set-&gt;ClassID(ch));
+      <span class="keyword">const</span> <a class="code" href="namespacetesseract.html#aea2c6172b0ca77907e29cd018595b425">char_32</a> *str32_upper = char_set-&gt;ClassString(uid_upper);
+      <span class="comment">// expect upper-case version of character to be a single character</span>
+      <span class="keywordflow">if</span> (!str32_upper || <a class="code" href="classtesseract_1_1_cube_utils.html#a88fe596e3dcadab7909c0bff64f61f59">StrLen</a>(str32_upper) != 1) {
+        <span class="keyword">delete</span> [] upper;
+        <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+      }
+      upper[i] = str32_upper[0];
+    } <span class="keywordflow">else</span> {
+      upper[i] = ch;
+    }
+  }
+  upper[len] = 0;
+  <span class="keywordflow">return</span> upper;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a30c20693fc79e49a67c9694700f1d0b5"></a><!-- doxytag: member="tesseract::CubeUtils::UTF32ToUTF8" ref="a30c20693fc79e49a67c9694700f1d0b5" args="(const char_32 *utf32_str, string *str)" -->
@@ -550,6 +913,19 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__utils_8cpp_source.html#l00349">349</a> of file <a class="el" href="cube__utils_8cpp_source.html">cube_utils.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                 {
+  str-&gt;clear();
+  <span class="keywordflow">for</span> (<span class="keyword">const</span> <a class="code" href="namespacetesseract.html#aea2c6172b0ca77907e29cd018595b425">char_32</a> *ch_32 = utf32_str; (*ch_32) != 0; ch_32++)  {
+    <a class="code" href="class_u_n_i_c_h_a_r.html">UNICHAR</a> uni_ch((*ch_32));
+    <span class="keywordtype">char</span> *utf8 = uni_ch.utf8_str();
+    <span class="keywordflow">if</span> (utf8 != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      (*str) += utf8;
+      <span class="keyword">delete</span> []utf8;
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a911ee12931d18c46e7db79c6758a91cc"></a><!-- doxytag: member="tesseract::CubeUtils::UTF8ToUTF32" ref="a911ee12931d18c46e7db79c6758a91cc" args="(const char *utf8_str, string_32 *str32)" -->
@@ -577,11 +953,25 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="cube__utils_8cpp_source.html#l00335">335</a> of file <a class="el" href="cube__utils_8cpp_source.html">cube_utils.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                  {
+  str32-&gt;clear();
+  <span class="keywordtype">int</span> len = strlen(utf8_str);
+  <span class="keywordtype">int</span> step = 0;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> ch = 0; ch &lt; len; ch += step) {
+    step = <a class="code" href="class_u_n_i_c_h_a_r.html#a8182a4663f6c1df9f097700f1009ab22">UNICHAR::utf8_step</a>(utf8_str + ch);
+    <span class="keywordflow">if</span> (step &gt; 0) {
+      <a class="code" href="class_u_n_i_c_h_a_r.html">UNICHAR</a> uni_ch(utf8_str + ch, step);
+      (*str32) += uni_ch.first_uni();
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/cube/<a class="el" href="cube__utils_8h_source.html">cube_utils.h</a></li>
-<li>tesseract-ocr/cube/<a class="el" href="cube__utils_8cpp.html">cube_utils.cpp</a></li>
+<li>tesseract-ocr/cube/<a class="el" href="cube__utils_8cpp_source.html">cube_utils.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -604,7 +994,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:15 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:51 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

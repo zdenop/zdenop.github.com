@@ -118,7 +118,10 @@ Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_input_file_buffer.html#a9003010ef2e0de7572e35b30a0b492b2">file_name_</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">FILE *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_input_file_buffer.html#a5fb7e7fd1323146252c8cb33c2cc2090">fp_</a></td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="input__file__buffer_8h_source.html#l00019">19</a> of file <a class="el" href="input__file__buffer_8h_source.html">input_file_buffer.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="aed86a5afb385810d1d0da8e437fc68f9"></a><!-- doxytag: member="tesseract::InputFileBuffer::InputFileBuffer" ref="aed86a5afb385810d1d0da8e437fc68f9" args="(const string &amp;file_name)" -->
 <div class="memitem">
 <div class="memproto">
@@ -134,6 +137,11 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="input__file__buffer_8cpp_source.html#l00013">13</a> of file <a class="el" href="input__file__buffer_8cpp_source.html">input_file_buffer.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">  : <a class="code" href="classtesseract_1_1_input_file_buffer.html#a9003010ef2e0de7572e35b30a0b492b2">file_name_</a>(file_name) {
+  <a class="code" href="classtesseract_1_1_input_file_buffer.html#a5fb7e7fd1323146252c8cb33c2cc2090">fp_</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a111129fbf564c909312d69593b5c4b67"></a><!-- doxytag: member="tesseract::InputFileBuffer::~InputFileBuffer" ref="a111129fbf564c909312d69593b5c4b67" args="()" -->
@@ -150,6 +158,13 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="input__file__buffer_8cpp_source.html#l00019">19</a> of file <a class="el" href="input__file__buffer_8cpp_source.html">input_file_buffer.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                  {
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_input_file_buffer.html#a5fb7e7fd1323146252c8cb33c2cc2090">fp_</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    fclose(<a class="code" href="classtesseract_1_1_input_file_buffer.html#a5fb7e7fd1323146252c8cb33c2cc2090">fp_</a>);
+  }
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -178,6 +193,18 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="input__file__buffer_8cpp_source.html#l00026">26</a> of file <a class="el" href="input__file__buffer_8cpp_source.html">input_file_buffer.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                         {
+  <span class="comment">// open the file if necessary</span>
+  <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_input_file_buffer.html#a5fb7e7fd1323146252c8cb33c2cc2090">fp_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="classtesseract_1_1_input_file_buffer.html#a5fb7e7fd1323146252c8cb33c2cc2090">fp_</a> = fopen(<a class="code" href="classtesseract_1_1_input_file_buffer.html#a9003010ef2e0de7572e35b30a0b492b2">file_name_</a>.c_str(), <span class="stringliteral">&quot;rb&quot;</span>);
+    <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_input_file_buffer.html#a5fb7e7fd1323146252c8cb33c2cc2090">fp_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      <span class="keywordflow">return</span> 0;
+    }
+  }
+  <span class="keywordflow">return</span> fread(buffer, 1, bytes_to_read, <a class="code" href="classtesseract_1_1_input_file_buffer.html#a5fb7e7fd1323146252c8cb33c2cc2090">fp_</a>);
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
@@ -192,6 +219,8 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="input__file__buffer_8h_source.html#l00026">26</a> of file <a class="el" href="input__file__buffer_8h_source.html">input_file_buffer.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a5fb7e7fd1323146252c8cb33c2cc2090"></a><!-- doxytag: member="tesseract::InputFileBuffer::fp_" ref="a5fb7e7fd1323146252c8cb33c2cc2090" args="" -->
@@ -205,11 +234,13 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="input__file__buffer_8h_source.html#l00027">27</a> of file <a class="el" href="input__file__buffer_8h_source.html">input_file_buffer.h</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/neural_networks/runtime/<a class="el" href="input__file__buffer_8h_source.html">input_file_buffer.h</a></li>
-<li>tesseract-ocr/neural_networks/runtime/<a class="el" href="input__file__buffer_8cpp.html">input_file_buffer.cpp</a></li>
+<li>tesseract-ocr/neural_networks/runtime/<a class="el" href="input__file__buffer_8cpp_source.html">input_file_buffer.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -232,7 +263,7 @@ Protected Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:16 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:51 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

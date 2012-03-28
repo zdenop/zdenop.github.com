@@ -105,7 +105,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="textblock"><code>#include &quot;<a class="el" href="plotedges_8h_source.html">plotedges.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="render_8h_source.html">render.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="split_8h_source.html">split.h</a>&quot;</code><br/>
-</div><table class="memberdecls">
+</div>
+<p><a href="plotedges_8cpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="plotedges_8cpp.html#a4ce0ea2dbe7f9c1e27849c005309ad9f">display_edgepts</a> (<a class="el" href="baseapi_8h.html#aa200acf94add0e61783bfcd5965bb645">LIST</a> outlines)</td></tr>
@@ -132,6 +134,25 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="plotedges_8cpp_source.html#l00053">53</a> of file <a class="el" href="plotedges_8cpp_source.html">plotedges.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                    {
+  <span class="keywordtype">void</span> *window;
+  <span class="comment">/* Set up window */</span>
+  <span class="keywordflow">if</span> (<a class="code" href="plotedges_8cpp.html#a37713d15c49a322a3a468db0f0c26d98">edge_window</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="plotedges_8cpp.html#a37713d15c49a322a3a468db0f0c26d98">edge_window</a> = <a class="code" href="callcpp_8cpp.html#a34ec4ea9e8e6a9d755e3c7e5e6820583">c_create_window</a> (<span class="stringliteral">&quot;Edges&quot;</span>, 750, 150,
+      400, 128, -400.0, 400.0, 0.0, 256.0);
+  }
+  <span class="keywordflow">else</span> {
+    <a class="code" href="callcpp_8cpp.html#afdb928ca6fcb1a387ca1fa91f88130dc">c_clear_window</a>(<a class="code" href="plotedges_8cpp.html#a37713d15c49a322a3a468db0f0c26d98">edge_window</a>);
+  }
+  <span class="comment">/* Render the outlines */</span>
+  window = <a class="code" href="plotedges_8cpp.html#a37713d15c49a322a3a468db0f0c26d98">edge_window</a>;
+  <span class="comment">/* Reclaim old memory */</span>
+  <a class="code" href="oldlist_8h.html#a2cf19ba78be6b54f66823d58f34f2a53">iterate</a>(outlines) {
+    <a class="code" href="render_8cpp.html#a594cd620b80afd8116ac5388f0396a9e">render_edgepts</a> (window, (<a class="code" href="struct_e_d_g_e_p_t.html">EDGEPT</a> *) <a class="code" href="oldlist_8h.html#a69547be764424f18b0be535400747978">first_node</a> (outlines), <a class="code" href="callcpp_8h.html#a17bc059e437838f094a5a25c2d5ab88fab548046646b36c12aa6ba841de500094">White</a>);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae2440305a17a8a14c0e1c74e035934a3"></a><!-- doxytag: member="plotedges.cpp::draw_blob_edges" ref="ae2440305a17a8a14c0e1c74e035934a3" args="(TBLOB *blob)" -->
@@ -149,6 +170,19 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="plotedges_8cpp_source.html#l00077">77</a> of file <a class="el" href="plotedges_8cpp_source.html">plotedges.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                  {
+  <a class="code" href="struct_t_e_s_s_l_i_n_e.html">TESSLINE</a> *ol;
+  <a class="code" href="structlist__rec.html">LIST</a> edge_list = <a class="code" href="oldlist_8h.html#ae212530ca629c67513698e988c705a5a">NIL_LIST</a>;
+
+  <span class="keywordflow">if</span> (<a class="code" href="split_8cpp.html#ac251ee3f4ff4145a52a8ba54a1b26743">wordrec_display_splits</a>) {
+    <span class="keywordflow">for</span> (ol = blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a>; ol != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>; ol = ol-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0fb224d43ea53a791f0957fa92793bef">next</a>)
+      <a class="code" href="oldlist_8h.html#aa778d36cfea0e6a352bd500710cf5198">push_on</a> (edge_list, ol-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0ab1e26b1dae548f0bd3c096c6183b18">loop</a>);
+    <a class="code" href="plotedges_8cpp.html#a4ce0ea2dbe7f9c1e27849c005309ad9f">display_edgepts</a>(edge_list);
+    <a class="code" href="oldlist_8cpp.html#a338e68bdadcbdf51db4c7268c4529409">destroy</a>(edge_list);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a58186147d8297e9600d4176629dc4765"></a><!-- doxytag: member="plotedges.cpp::mark_outline" ref="a58186147d8297e9600d4176629dc4765" args="(EDGEPT *edgept)" -->
@@ -166,6 +200,34 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="plotedges_8cpp_source.html#l00095">95</a> of file <a class="el" href="plotedges_8cpp_source.html">plotedges.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                  {  <span class="comment">/* Start of point list */</span>
+  <span class="keywordtype">void</span> *window = <a class="code" href="plotedges_8cpp.html#a37713d15c49a322a3a468db0f0c26d98">edge_window</a>;
+  <span class="keywordtype">float</span> x = edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a>;
+  <span class="keywordtype">float</span> y = edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a>;
+
+  <a class="code" href="callcpp_8cpp.html#a48077e4a1f221a9febc643bdb5b4e8fe">c_line_color_index</a>(window, <a class="code" href="callcpp_8h.html#a17bc059e437838f094a5a25c2d5ab88fad3163c1fcda01965b692ec2c3122b743">Red</a>);
+  <a class="code" href="callcpp_8cpp.html#a411da919a36d0da4caf6a6775a66cea4">c_move</a>(window, x, y);
+
+  x -= 4;
+  y -= 12;
+  <a class="code" href="callcpp_8cpp.html#a1985867f80140c430e3fa0d8d7430a44">c_draw</a>(window, x, y);
+
+  x -= 2;
+  y += 4;
+  <a class="code" href="callcpp_8cpp.html#a1985867f80140c430e3fa0d8d7430a44">c_draw</a>(window, x, y);
+
+  x -= 4;
+  y += 2;
+  <a class="code" href="callcpp_8cpp.html#a1985867f80140c430e3fa0d8d7430a44">c_draw</a>(window, x, y);
+
+  x += 10;
+  y += 6;
+  <a class="code" href="callcpp_8cpp.html#a1985867f80140c430e3fa0d8d7430a44">c_draw</a>(window, x, y);
+
+  <a class="code" href="callcpp_8cpp.html#ac91d916a53eb48572d9937d0d93b558c">c_make_current</a>(window);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a528d6afbe6545a629d69f9c07084c92e"></a><!-- doxytag: member="plotedges.cpp::mark_split" ref="a528d6afbe6545a629d69f9c07084c92e" args="(SPLIT *split)" -->
@@ -183,6 +245,16 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="plotedges_8cpp_source.html#l00130">130</a> of file <a class="el" href="plotedges_8cpp_source.html">plotedges.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                              {
+  <span class="keywordtype">void</span> *window = <a class="code" href="plotedges_8cpp.html#a37713d15c49a322a3a468db0f0c26d98">edge_window</a>;
+
+  <a class="code" href="callcpp_8cpp.html#a48077e4a1f221a9febc643bdb5b4e8fe">c_line_color_index</a>(window, <a class="code" href="callcpp_8h.html#a17bc059e437838f094a5a25c2d5ab88fad0784a3f969fe736e8b271a5a161d106">Green</a>);
+  <a class="code" href="callcpp_8cpp.html#a411da919a36d0da4caf6a6775a66cea4">c_move</a> (window, (<span class="keywordtype">float</span>) split-&gt;<a class="code" href="structsplit__record.html#a2451170e7785bb495c0dd3d96fc71167">point1</a>-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a>, (<span class="keywordtype">float</span>) split-&gt;<a class="code" href="structsplit__record.html#a2451170e7785bb495c0dd3d96fc71167">point1</a>-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a>);
+  <a class="code" href="callcpp_8cpp.html#a1985867f80140c430e3fa0d8d7430a44">c_draw</a> (window, (<span class="keywordtype">float</span>) split-&gt;<a class="code" href="structsplit__record.html#adb5ec4152eddde15c1996133177a9a58">point2</a>-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a>, (<span class="keywordtype">float</span>) split-&gt;<a class="code" href="structsplit__record.html#adb5ec4152eddde15c1996133177a9a58">point2</a>-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a>);
+  <a class="code" href="callcpp_8cpp.html#ac91d916a53eb48572d9937d0d93b558c">c_make_current</a>(window);
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Variable Documentation</h2>
@@ -196,6 +268,8 @@ Variables</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="plotedges_8cpp_source.html#l00043">43</a> of file <a class="el" href="plotedges_8cpp_source.html">plotedges.cpp</a>.</p>
 
 </div>
 </div>
@@ -219,7 +293,7 @@ Variables</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:10 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:43 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

@@ -106,7 +106,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <code>#include &lt;stdlib.h&gt;</code><br/>
 <code>#include &quot;<a class="el" href="pageres_8h_source.html">pageres.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="blobs_8h_source.html">blobs.h</a>&quot;</code><br/>
-</div><table class="memberdecls">
+</div>
+<p><a href="pageres_8cpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="pageres_8cpp.html#a68ae7b6d65a2bc91c3bd87483e61a0ae">CLISTIZE</a> (<a class="el" href="class_b_l_o_c_k___r_e_s.html">BLOCK_RES</a>) ELISTIZE(<a class="el" href="class_r_o_w___r_e_s.html">ROW_RES</a>) ELISTIZE(<a class="el" href="class_w_e_r_d___r_e_s.html">WERD_RES</a>) <a class="el" href="class_p_a_g_e___r_e_s.html">PAGE_RES</a></td></tr>
@@ -142,6 +144,18 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8cpp_source.html#l00085">85</a> of file <a class="el" href="pageres_8cpp_source.html">pageres.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                             {
+  Init();
+  BLOCK_IT block_it(the_block_list);
+  BLOCK_RES_IT block_res_it(&amp;block_res_list);
+  <span class="keywordflow">for</span> (block_it.mark_cycle_pt();
+       !block_it.cycled_list(); block_it.forward()) {
+    block_res_it.add_to_end(<span class="keyword">new</span> <a class="code" href="class_b_l_o_c_k___r_e_s.html">BLOCK_RES</a>(block_it.data()));
+  }
+  prev_word_best_choice = prev_word_best_choice_ptr;
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Variable Documentation</h2>
@@ -156,6 +170,8 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8cpp_source.html#l00035">35</a> of file <a class="el" href="pageres_8cpp_source.html">pageres.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a4db1a8ed37b0eff0d2e038ff2a107c2c"></a><!-- doxytag: member="pageres.cpp::kBlameChopper" ref="a4db1a8ed37b0eff0d2e038ff2a107c2c" args="[]" -->
@@ -168,6 +184,8 @@ Variables</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="pageres_8cpp_source.html#l00029">29</a> of file <a class="el" href="pageres_8cpp_source.html">pageres.cpp</a>.</p>
 
 </div>
 </div>
@@ -182,6 +200,8 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8cpp_source.html#l00028">28</a> of file <a class="el" href="pageres_8cpp_source.html">pageres.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a5c0e7d2e8cba382e6de905c1612dad3b"></a><!-- doxytag: member="pageres.cpp::kBlameClassLMTradeoff" ref="a5c0e7d2e8cba382e6de905c1612dad3b" args="[]" -->
@@ -194,6 +214,8 @@ Variables</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="pageres_8cpp_source.html#l00030">30</a> of file <a class="el" href="pageres_8cpp_source.html">pageres.cpp</a>.</p>
 
 </div>
 </div>
@@ -208,6 +230,8 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8cpp_source.html#l00034">34</a> of file <a class="el" href="pageres_8cpp_source.html">pageres.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a939a828ea97a292eed52468bfc886f5f"></a><!-- doxytag: member="pageres.cpp::kBlameCorrect" ref="a939a828ea97a292eed52468bfc886f5f" args="[]" -->
@@ -220,6 +244,8 @@ Variables</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="pageres_8cpp_source.html#l00027">27</a> of file <a class="el" href="pageres_8cpp_source.html">pageres.cpp</a>.</p>
 
 </div>
 </div>
@@ -234,6 +260,8 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8cpp_source.html#l00037">37</a> of file <a class="el" href="pageres_8cpp_source.html">pageres.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="af5f1678db33a085c6a72c606584c8f6f"></a><!-- doxytag: member="pageres.cpp::kBlameNoTruthSplit" ref="af5f1678db33a085c6a72c606584c8f6f" args="[]" -->
@@ -246,6 +274,8 @@ Variables</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="pageres_8cpp_source.html#l00036">36</a> of file <a class="el" href="pageres_8cpp_source.html">pageres.cpp</a>.</p>
 
 </div>
 </div>
@@ -260,6 +290,8 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8cpp_source.html#l00031">31</a> of file <a class="el" href="pageres_8cpp_source.html">pageres.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a89e8d8eda8453e09c7b0c95d60a57f7c"></a><!-- doxytag: member="pageres.cpp::kBlameSegsearchHeur" ref="a89e8d8eda8453e09c7b0c95d60a57f7c" args="[]" -->
@@ -272,6 +304,8 @@ Variables</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="pageres_8cpp_source.html#l00032">32</a> of file <a class="el" href="pageres_8cpp_source.html">pageres.cpp</a>.</p>
 
 </div>
 </div>
@@ -286,6 +320,8 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8cpp_source.html#l00033">33</a> of file <a class="el" href="pageres_8cpp_source.html">pageres.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a5c9260acc89f21815ea4f8c8fc12e473"></a><!-- doxytag: member="pageres.cpp::kBlameUnknown" ref="a5c9260acc89f21815ea4f8c8fc12e473" args="[]" -->
@@ -298,6 +334,8 @@ Variables</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="pageres_8cpp_source.html#l00038">38</a> of file <a class="el" href="pageres_8cpp_source.html">pageres.cpp</a>.</p>
 
 </div>
 </div>
@@ -326,6 +364,8 @@ Variables</h2></td></tr>
     <a class="code" href="pageres_8cpp.html#a5c9260acc89f21815ea4f8c8fc12e473">kBlameUnknown</a>
 }
 </pre></div>
+<p>Definition at line <a class="el" href="pageres_8cpp_source.html#l00040">40</a> of file <a class="el" href="pageres_8cpp_source.html">pageres.cpp</a>.</p>
+
 </div>
 </div>
 </div>
@@ -348,7 +388,7 @@ Variables</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:09 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:40 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

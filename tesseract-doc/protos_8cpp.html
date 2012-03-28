@@ -115,7 +115,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <code>#include &quot;<a class="el" href="params_8h_source.html">params.h</a>&quot;</code><br/>
 <code>#include &lt;stdio.h&gt;</code><br/>
 <code>#include &lt;math.h&gt;</code><br/>
-</div><table class="memberdecls">
+</div>
+<p><a href="protos_8cpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr><td colspan="2"><h2><a name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetesseract.html">tesseract</a></td></tr>
@@ -218,6 +220,8 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="protos_8cpp_source.html#l00043">43</a> of file <a class="el" href="protos_8cpp_source.html">protos.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a84b07ab4cf4e8b013de05ee603af79e8"></a><!-- doxytag: member="protos.cpp::PROTO_INCREMENT" ref="a84b07ab4cf4e8b013de05ee603af79e8" args="" -->
@@ -230,6 +234,8 @@ Variables</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="protos_8cpp_source.html#l00042">42</a> of file <a class="el" href="protos_8cpp_source.html">protos.cpp</a>.</p>
 
 </div>
 </div>
@@ -249,6 +255,34 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="protos_8cpp_source.html#l00063">63</a> of file <a class="el" href="protos_8cpp_source.html">protos.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                       {
+  <span class="keywordtype">int</span> NewNumConfigs;
+  <span class="keywordtype">int</span> NewConfig;
+  <span class="keywordtype">int</span> MaxNumProtos;
+  <a class="code" href="bitvec_8h.html#a584fa1e33e36d105f97bc7e7288fb259">BIT_VECTOR</a> <a class="code" href="commontraining_8cpp.html#a1630a3dc82a9a7cef07bb6153df9eb9c">Config</a>;
+
+  MaxNumProtos = Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#ae5646d21fd1609343ad276deac642757">MaxNumProtos</a>;
+
+  <span class="keywordflow">if</span> (Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#a452c42efe7ec87439ef16f1e51d57f2c">NumConfigs</a> &gt;= Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#a35830ba1f40d31ef5bb3ad9d4e4596dc">MaxNumConfigs</a>) {
+    <span class="comment">/* add configs in CONFIG_INCREMENT chunks at a time */</span>
+    NewNumConfigs = (((Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#a35830ba1f40d31ef5bb3ad9d4e4596dc">MaxNumConfigs</a> + <a class="code" href="protos_8cpp.html#aab82a0eabce6034ba0e416fb1cd4757d">CONFIG_INCREMENT</a>) /
+      <a class="code" href="protos_8cpp.html#aab82a0eabce6034ba0e416fb1cd4757d">CONFIG_INCREMENT</a>) * <a class="code" href="protos_8cpp.html#aab82a0eabce6034ba0e416fb1cd4757d">CONFIG_INCREMENT</a>);
+
+    Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#ac5524279d10e5bafe306355d72309b69">Configurations</a> =
+      (<a class="code" href="protos_8h.html#a01152c0aa1c2675252db86b6790a0b6e">CONFIGS</a>) <a class="code" href="emalloc_8cpp.html#a92c09eaf43dcfc23a738fca16eb677b9">Erealloc</a> (Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#ac5524279d10e5bafe306355d72309b69">Configurations</a>,
+      sizeof (<a class="code" href="bitvec_8h.html#a584fa1e33e36d105f97bc7e7288fb259">BIT_VECTOR</a>) * NewNumConfigs);
+
+    Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#a35830ba1f40d31ef5bb3ad9d4e4596dc">MaxNumConfigs</a> = NewNumConfigs;
+  }
+  NewConfig = Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#a452c42efe7ec87439ef16f1e51d57f2c">NumConfigs</a>++;
+  Config = <a class="code" href="bitvec_8cpp.html#a502314dc3ee4b178df067713b324b868">NewBitVector</a> (MaxNumProtos);
+  Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#ac5524279d10e5bafe306355d72309b69">Configurations</a>[NewConfig] = <a class="code" href="commontraining_8cpp.html#a1630a3dc82a9a7cef07bb6153df9eb9c">Config</a>;
+  <a class="code" href="bitvec_8h.html#a33e25946d45a1e004a961dc46cb5226a">zero_all_bits</a> (Config, <a class="code" href="bitvec_8h.html#a905ff9b6c51cb231dd8baf1713a3c9b8">WordsInVectorOfSize</a> (MaxNumProtos));
+
+  <span class="keywordflow">return</span> (NewConfig);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a8a197adbd5718ec39c2b6a4a74694aa4"></a><!-- doxytag: member="protos.cpp::AddProtoToClass" ref="a8a197adbd5718ec39c2b6a4a74694aa4" args="(CLASS_TYPE Class)" -->
@@ -266,6 +300,41 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="protos_8cpp_source.html#l00099">99</a> of file <a class="el" href="protos_8cpp_source.html">protos.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                      {
+  <span class="keywordtype">int</span> i;
+  <span class="keywordtype">int</span> Bit;
+  <span class="keywordtype">int</span> NewNumProtos;
+  <span class="keywordtype">int</span> NewProto;
+  <a class="code" href="bitvec_8h.html#a584fa1e33e36d105f97bc7e7288fb259">BIT_VECTOR</a> <a class="code" href="commontraining_8cpp.html#a1630a3dc82a9a7cef07bb6153df9eb9c">Config</a>;
+
+  <span class="keywordflow">if</span> (Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#aed122893fec98b9ebccee234bbb00292">NumProtos</a> &gt;= Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#ae5646d21fd1609343ad276deac642757">MaxNumProtos</a>) {
+    <span class="comment">/* add protos in PROTO_INCREMENT chunks at a time */</span>
+    NewNumProtos = (((Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#ae5646d21fd1609343ad276deac642757">MaxNumProtos</a> + <a class="code" href="protos_8cpp.html#a84b07ab4cf4e8b013de05ee603af79e8">PROTO_INCREMENT</a>) /
+      <a class="code" href="protos_8cpp.html#a84b07ab4cf4e8b013de05ee603af79e8">PROTO_INCREMENT</a>) * <a class="code" href="protos_8cpp.html#a84b07ab4cf4e8b013de05ee603af79e8">PROTO_INCREMENT</a>);
+
+    Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#add1a2c4f7b02eb438c377242495013ef">Prototypes</a> = (<a class="code" href="protos_8h.html#a04b1cd7341d318ccc4e679aec5cfad0e">PROTO</a>) <a class="code" href="emalloc_8cpp.html#a92c09eaf43dcfc23a738fca16eb677b9">Erealloc</a> (Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#add1a2c4f7b02eb438c377242495013ef">Prototypes</a>,
+      sizeof (<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html">PROTO_STRUCT</a>) *
+      NewNumProtos);
+
+    Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#ae5646d21fd1609343ad276deac642757">MaxNumProtos</a> = NewNumProtos;
+
+    <span class="keywordflow">for</span> (i = 0; i &lt; Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#a452c42efe7ec87439ef16f1e51d57f2c">NumConfigs</a>; i++) {
+      Config = Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#ac5524279d10e5bafe306355d72309b69">Configurations</a>[i];
+      Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#ac5524279d10e5bafe306355d72309b69">Configurations</a>[i] = <a class="code" href="bitvec_8cpp.html#a74773bfbcc12095f8d32c11b28e2577d">ExpandBitVector</a> (Config, NewNumProtos);
+
+      <span class="keywordflow">for</span> (Bit = Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#aed122893fec98b9ebccee234bbb00292">NumProtos</a>; Bit &lt; NewNumProtos; Bit++)
+        <a class="code" href="bitvec_8h.html#a1209b8bb0fa7e6e7323cdb48b4165f0d">reset_bit</a>(Config, Bit);
+    }
+  }
+  NewProto = Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#aed122893fec98b9ebccee234bbb00292">NumProtos</a>++;
+  <span class="keywordflow">if</span> (Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#aed122893fec98b9ebccee234bbb00292">NumProtos</a> &gt; <a class="code" href="intproto_8h.html#a3e890a5d21d8456ad197510fd7caf277">MAX_NUM_PROTOS</a>) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Ouch! number of protos = %d, vs max of %d!&quot;</span>,
+            Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#aed122893fec98b9ebccee234bbb00292">NumProtos</a>, <a class="code" href="intproto_8h.html#a3e890a5d21d8456ad197510fd7caf277">MAX_NUM_PROTOS</a>);
+  }
+  <span class="keywordflow">return</span> (NewProto);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a86edcc690e99519f70be27f330896d0a"></a><!-- doxytag: member="protos.cpp::ClassConfigLength" ref="a86edcc690e99519f70be27f330896d0a" args="(CLASS_TYPE Class, BIT_VECTOR Config)" -->
@@ -293,6 +362,20 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="protos_8cpp_source.html#l00142">142</a> of file <a class="el" href="protos_8cpp_source.html">protos.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                               {
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> Pid;
+  <a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a> TotalLength = 0;
+
+  <span class="keywordflow">for</span> (Pid = 0; Pid &lt; Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#aed122893fec98b9ebccee234bbb00292">NumProtos</a>; Pid++) {
+    <span class="keywordflow">if</span> (<a class="code" href="bitvec_8h.html#a76a50c5a99dea7be5315fe76246036ce">test_bit</a> (<a class="code" href="commontraining_8cpp.html#a1630a3dc82a9a7cef07bb6153df9eb9c">Config</a>, Pid)) {
+
+      TotalLength += (<a class="code" href="protos_8h.html#a3def7bc87c3ad9ad793128f0dc5b8fce">ProtoIn</a> (Class, Pid))-&gt;Length;
+    }
+  }
+  <span class="keywordflow">return</span> (TotalLength);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a94f965f81092518090eed62f5d64973f"></a><!-- doxytag: member="protos.cpp::ClassProtoLength" ref="a94f965f81092518090eed62f5d64973f" args="(CLASS_TYPE Class)" -->
@@ -310,6 +393,17 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="protos_8cpp_source.html#l00163">163</a> of file <a class="el" href="protos_8cpp_source.html">protos.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                           {
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> Pid;
+  <a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a> TotalLength = 0;
+
+  <span class="keywordflow">for</span> (Pid = 0; Pid &lt; Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#aed122893fec98b9ebccee234bbb00292">NumProtos</a>; Pid++) {
+    TotalLength += (<a class="code" href="protos_8h.html#a3def7bc87c3ad9ad793128f0dc5b8fce">ProtoIn</a> (Class, Pid))-&gt;Length;
+  }
+  <span class="keywordflow">return</span> (TotalLength);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a070f62ac01ae76642e6793410da68770"></a><!-- doxytag: member="protos.cpp::CopyProto" ref="a070f62ac01ae76642e6793410da68770" args="(PROTO Src, PROTO Dest)" -->
@@ -337,6 +431,17 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="protos_8cpp_source.html#l00182">182</a> of file <a class="el" href="protos_8cpp_source.html">protos.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                      {
+  Dest-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#a54dd1cca86a1fd5c9ead8499cba99784">X</a> = Src-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#a54dd1cca86a1fd5c9ead8499cba99784">X</a>;
+  Dest-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#a8dcd81037c1bc672e97ef7a54306dd93">Y</a> = Src-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#a8dcd81037c1bc672e97ef7a54306dd93">Y</a>;
+  Dest-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#aa29d8aaab147327320e2bc94a821aad1">Length</a> = Src-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#aa29d8aaab147327320e2bc94a821aad1">Length</a>;
+  Dest-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#a6cc7458f385f9c4673e1ce9a6dc9e80a">Angle</a> = Src-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#a6cc7458f385f9c4673e1ce9a6dc9e80a">Angle</a>;
+  Dest-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#ae3211a725f109fbd40efc6cd154330f7">A</a> = Src-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#ae3211a725f109fbd40efc6cd154330f7">A</a>;
+  Dest-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#a884630c87acb7606ac02516d1ea4ea9e">B</a> = Src-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#a884630c87acb7606ac02516d1ea4ea9e">B</a>;
+  Dest-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#a09d1e20c0a8362582127fa3554bb83ae">C</a> = Src-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#a09d1e20c0a8362582127fa3554bb83ae">C</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac0d58978bbcf0c732ae94fb554bccd3b"></a><!-- doxytag: member="protos.cpp::FillABC" ref="ac0d58978bbcf0c732ae94fb554bccd3b" args="(PROTO Proto)" -->
@@ -354,6 +459,18 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="protos_8cpp_source.html#l00198">198</a> of file <a class="el" href="protos_8cpp_source.html">protos.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                          {
+  <a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a> Slope, Intercept, Normalizer;
+
+  Slope = tan (Proto-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#a6cc7458f385f9c4673e1ce9a6dc9e80a">Angle</a> * 2.0 * <a class="code" href="const_8h.html#a598a3330b3c21701223ee0ca14316eca">PI</a>);
+  Intercept = Proto-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#a8dcd81037c1bc672e97ef7a54306dd93">Y</a> - Slope * Proto-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#a54dd1cca86a1fd5c9ead8499cba99784">X</a>;
+  Normalizer = 1.0 / sqrt (Slope * Slope + 1.0);
+  Proto-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#ae3211a725f109fbd40efc6cd154330f7">A</a> = Slope * Normalizer;
+  Proto-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#a884630c87acb7606ac02516d1ea4ea9e">B</a> = -Normalizer;
+  Proto-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#a09d1e20c0a8362582127fa3554bb83ae">C</a> = Intercept * Normalizer;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a751a34c0eb8b7dcba1439287dd3eb3d5"></a><!-- doxytag: member="protos.cpp::FreeClass" ref="a751a34c0eb8b7dcba1439287dd3eb3d5" args="(CLASS_TYPE Class)" -->
@@ -371,6 +488,14 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="protos_8cpp_source.html#l00215">215</a> of file <a class="el" href="protos_8cpp_source.html">protos.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                 {
+  <span class="keywordflow">if</span> (Class) {
+    <a class="code" href="protos_8cpp.html#a8c42a896530af773ecb7de6ea5186b40">FreeClassFields</a>(Class);
+    <span class="keyword">delete</span> Class;
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a8c42a896530af773ecb7de6ea5186b40"></a><!-- doxytag: member="protos.cpp::FreeClassFields" ref="a8c42a896530af773ecb7de6ea5186b40" args="(CLASS_TYPE Class)" -->
@@ -388,6 +513,21 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="protos_8cpp_source.html#l00228">228</a> of file <a class="el" href="protos_8cpp_source.html">protos.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                       {
+  <span class="keywordtype">int</span> i;
+
+  <span class="keywordflow">if</span> (Class) {
+    <span class="keywordflow">if</span> (Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#ae5646d21fd1609343ad276deac642757">MaxNumProtos</a> &gt; 0)
+      <a class="code" href="freelist_8cpp.html#ab462a857e5edf360ae4881bcc92a0bcf">memfree</a> (Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#add1a2c4f7b02eb438c377242495013ef">Prototypes</a>);
+    <span class="keywordflow">if</span> (Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#a35830ba1f40d31ef5bb3ad9d4e4596dc">MaxNumConfigs</a> &gt; 0) {
+      <span class="keywordflow">for</span> (i = 0; i &lt; Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#a452c42efe7ec87439ef16f1e51d57f2c">NumConfigs</a>; i++)
+        <a class="code" href="bitvec_8cpp.html#adc1a7f52bb1fce0746e1e5725ad679f6">FreeBitVector</a> (Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#ac5524279d10e5bafe306355d72309b69">Configurations</a>[i]);
+      <a class="code" href="freelist_8cpp.html#ab462a857e5edf360ae4881bcc92a0bcf">memfree</a> (Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#ac5524279d10e5bafe306355d72309b69">Configurations</a>);
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae1b779964924a618a307d8d6f0ec6dff"></a><!-- doxytag: member="protos.cpp::NewClass" ref="ae1b779964924a618a307d8d6f0ec6dff" args="(int NumProtos, int NumConfigs)" -->
@@ -415,6 +555,26 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="protos_8cpp_source.html#l00248">248</a> of file <a class="el" href="protos_8cpp_source.html">protos.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                   {
+  <a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html">CLASS_TYPE</a> Class;
+
+  Class = <span class="keyword">new</span> <a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html">CLASS_STRUCT</a>;
+
+  <span class="keywordflow">if</span> (NumProtos &gt; 0)
+    Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#add1a2c4f7b02eb438c377242495013ef">Prototypes</a> = (<a class="code" href="protos_8h.html#a04b1cd7341d318ccc4e679aec5cfad0e">PROTO</a>) <a class="code" href="emalloc_8cpp.html#a55f2088f1a7b3333bb5c7275ab726bba">Emalloc</a> (NumProtos * <span class="keyword">sizeof</span> (<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html">PROTO_STRUCT</a>));
+
+  <span class="keywordflow">if</span> (NumConfigs &gt; 0)
+    Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#ac5524279d10e5bafe306355d72309b69">Configurations</a> = (<a class="code" href="protos_8h.html#a01152c0aa1c2675252db86b6790a0b6e">CONFIGS</a>) <a class="code" href="emalloc_8cpp.html#a55f2088f1a7b3333bb5c7275ab726bba">Emalloc</a> (NumConfigs *
+      <span class="keyword">sizeof</span> (<a class="code" href="bitvec_8h.html#a584fa1e33e36d105f97bc7e7288fb259">BIT_VECTOR</a>));
+  Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#ae5646d21fd1609343ad276deac642757">MaxNumProtos</a> = NumProtos;
+  Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#a35830ba1f40d31ef5bb3ad9d4e4596dc">MaxNumConfigs</a> = NumConfigs;
+  Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#aed122893fec98b9ebccee234bbb00292">NumProtos</a> = 0;
+  Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#a452c42efe7ec87439ef16f1e51d57f2c">NumConfigs</a> = 0;
+  <span class="keywordflow">return</span> (Class);
+
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a5c0c05c9986fd218a772e9acca9b02f6"></a><!-- doxytag: member="protos.cpp::PrintProtos" ref="a5c0c05c9986fd218a772e9acca9b02f6" args="(CLASS_TYPE Class)" -->
@@ -432,6 +592,19 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="protos_8cpp_source.html#l00273">273</a> of file <a class="el" href="protos_8cpp_source.html">protos.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                   {
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> Pid;
+
+  <span class="keywordflow">for</span> (Pid = 0; Pid &lt; Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#aed122893fec98b9ebccee234bbb00292">NumProtos</a>; Pid++) {
+    <a class="code" href="callcpp_8cpp.html#a21679e7fec2d69db23107348fa13c153">cprintf</a> (<span class="stringliteral">&quot;Proto %d:\t&quot;</span>, Pid);
+    <a class="code" href="protos_8h.html#aa80649ea9aed0280b09677f2f6868b5c">PrintProto</a> (<a class="code" href="protos_8h.html#a3def7bc87c3ad9ad793128f0dc5b8fce">ProtoIn</a> (Class, Pid));
+    <a class="code" href="callcpp_8cpp.html#a21679e7fec2d69db23107348fa13c153">cprintf</a> (<span class="stringliteral">&quot;\t&quot;</span>);
+    <a class="code" href="protos_8h.html#a2414185be2fdb0d265e6a37c223a4b7d">PrintProtoLine</a> (<a class="code" href="protos_8h.html#a3def7bc87c3ad9ad793128f0dc5b8fce">ProtoIn</a> (Class, Pid));
+    <a class="code" href="cutil_8h.html#a1185f064cc7bdd3f2a433da85a834c37">new_line</a>();
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a46b69bc764f35e3e56c3a429cab6a4b6"></a><!-- doxytag: member="protos.cpp::ReadClassFromFile" ref="a46b69bc764f35e3e56c3a429cab6a4b6" args="(FILE *File, UNICHAR_ID unichar_id)" -->
@@ -461,6 +634,17 @@ Variables</h2></td></tr>
 <p>ReadClassFromFile</p>
 <p>Read in a class description (protos and configs) from a file. Update the class structure record. </p>
 
+<p>Definition at line <a class="el" href="protos_8cpp_source.html#l00321">321</a> of file <a class="el" href="protos_8cpp_source.html">protos.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                          {
+  <a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html">CLASS_TYPE</a> Class;
+
+  Class = &amp;<a class="code" href="protos_8cpp.html#a7bd5364c17e272dee3bbad00a9b2874e">TrainingData</a>[unichar_id];
+
+  <a class="code" href="protos_8cpp.html#ac4837d0ecf5d8a7d6c292605f5451ddc">ReadProtos</a>(File, Class);
+
+  <a class="code" href="protos_8cpp.html#aabae696f18e1ac0f5a062849154dbd9f">ReadConfigs</a>(File, Class);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aabae696f18e1ac0f5a062849154dbd9f"></a><!-- doxytag: member="protos.cpp::ReadConfigs" ref="aabae696f18e1ac0f5a062849154dbd9f" args="(register FILE *File, CLASS_TYPE Class)" -->
@@ -490,6 +674,30 @@ Variables</h2></td></tr>
 <p>ReadConfigs</p>
 <p>Read the prototype configurations for this class from a file. Read the requested number of lines. </p>
 
+<p>Definition at line <a class="el" href="protos_8cpp_source.html#l00337">337</a> of file <a class="el" href="protos_8cpp_source.html">protos.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                        {
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> Cid;
+  <span class="keyword">register</span> <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> Wid;
+  <span class="keyword">register</span> <a class="code" href="bitvec_8h.html#a584fa1e33e36d105f97bc7e7288fb259">BIT_VECTOR</a> ThisConfig;
+  <span class="keywordtype">int</span> NumWords;
+  <span class="keywordtype">int</span> NumConfigs;
+
+  fscanf (File, <span class="stringliteral">&quot;%d %d\n&quot;</span>, &amp;NumConfigs, &amp;NumWords);
+  Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#a452c42efe7ec87439ef16f1e51d57f2c">NumConfigs</a> = NumConfigs;
+  Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#a35830ba1f40d31ef5bb3ad9d4e4596dc">MaxNumConfigs</a> = NumConfigs;
+  Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#ac5524279d10e5bafe306355d72309b69">Configurations</a> =
+    (<a class="code" href="protos_8h.html#a01152c0aa1c2675252db86b6790a0b6e">CONFIGS</a>) <a class="code" href="emalloc_8cpp.html#a55f2088f1a7b3333bb5c7275ab726bba">Emalloc</a> (<span class="keyword">sizeof</span> (<a class="code" href="bitvec_8h.html#a584fa1e33e36d105f97bc7e7288fb259">BIT_VECTOR</a>) * NumConfigs);
+  NumWords = <a class="code" href="bitvec_8h.html#a905ff9b6c51cb231dd8baf1713a3c9b8">WordsInVectorOfSize</a> (Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#aed122893fec98b9ebccee234bbb00292">NumProtos</a>);
+
+  <span class="keywordflow">for</span> (Cid = 0; Cid &lt; NumConfigs; Cid++) {
+
+    ThisConfig = <a class="code" href="bitvec_8cpp.html#a502314dc3ee4b178df067713b324b868">NewBitVector</a> (Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#aed122893fec98b9ebccee234bbb00292">NumProtos</a>);
+    <span class="keywordflow">for</span> (Wid = 0; Wid &lt; NumWords; Wid++)
+      fscanf (File, <span class="stringliteral">&quot;%x&quot;</span>, &amp;ThisConfig[Wid]);
+    Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#ac5524279d10e5bafe306355d72309b69">Configurations</a>[Cid] = ThisConfig;
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac4837d0ecf5d8a7d6c292605f5451ddc"></a><!-- doxytag: member="protos.cpp::ReadProtos" ref="ac4837d0ecf5d8a7d6c292605f5451ddc" args="(register FILE *File, CLASS_TYPE Class)" -->
@@ -519,6 +727,29 @@ Variables</h2></td></tr>
 <p>ReadProtos</p>
 <p>Read in all the prototype information from a file. Read the number of lines requested. </p>
 
+<p>Definition at line <a class="el" href="protos_8cpp_source.html#l00367">367</a> of file <a class="el" href="protos_8cpp_source.html">protos.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                       {
+  <span class="keyword">register</span> <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> Pid;
+  <span class="keyword">register</span> <a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html">PROTO</a> Proto;
+  <span class="keywordtype">int</span> NumProtos;
+
+  fscanf (File, <span class="stringliteral">&quot;%d\n&quot;</span>, &amp;NumProtos);
+  Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#aed122893fec98b9ebccee234bbb00292">NumProtos</a> = NumProtos;
+  Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#ae5646d21fd1609343ad276deac642757">MaxNumProtos</a> = NumProtos;
+  Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#add1a2c4f7b02eb438c377242495013ef">Prototypes</a> = (<a class="code" href="protos_8h.html#a04b1cd7341d318ccc4e679aec5cfad0e">PROTO</a>) <a class="code" href="emalloc_8cpp.html#a55f2088f1a7b3333bb5c7275ab726bba">Emalloc</a> (<span class="keyword">sizeof</span> (<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html">PROTO_STRUCT</a>) * NumProtos);
+
+  <span class="keywordflow">for</span> (Pid = 0; Pid &lt; NumProtos; Pid++) {
+    Proto = <a class="code" href="protos_8h.html#a3def7bc87c3ad9ad793128f0dc5b8fce">ProtoIn</a> (Class, Pid);
+    fscanf (File, <span class="stringliteral">&quot;%f %f %f %f %f %f %f\n&quot;</span>,
+      &amp;Proto-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#a54dd1cca86a1fd5c9ead8499cba99784">X</a>,
+      &amp;Proto-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#a8dcd81037c1bc672e97ef7a54306dd93">Y</a>,
+      &amp;Proto-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#aa29d8aaab147327320e2bc94a821aad1">Length</a>,
+      &amp;Proto-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#a6cc7458f385f9c4673e1ce9a6dc9e80a">Angle</a>,
+      &amp;Proto-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#ae3211a725f109fbd40efc6cd154330f7">A</a>,
+      &amp;Proto-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#a884630c87acb7606ac02516d1ea4ea9e">B</a>, &amp;Proto-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#a09d1e20c0a8362582127fa3554bb83ae">C</a>);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a1131c1c4e71727737b67abf1a154e456"></a><!-- doxytag: member="protos.cpp::SplitProto" ref="a1131c1c4e71727737b67abf1a154e456" args="(CLASS_TYPE Class, int OldPid)" -->
@@ -546,6 +777,22 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="protos_8cpp_source.html#l00399">399</a> of file <a class="el" href="protos_8cpp_source.html">protos.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                             {
+  <span class="keywordtype">int</span> i;
+  <span class="keywordtype">int</span> NewPid;
+  <a class="code" href="bitvec_8h.html#a584fa1e33e36d105f97bc7e7288fb259">BIT_VECTOR</a> <a class="code" href="commontraining_8cpp.html#a1630a3dc82a9a7cef07bb6153df9eb9c">Config</a>;
+
+  NewPid = <a class="code" href="protos_8cpp.html#a8a197adbd5718ec39c2b6a4a74694aa4">AddProtoToClass</a> (Class);
+
+  <span class="keywordflow">for</span> (i = 0; i &lt; Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#a452c42efe7ec87439ef16f1e51d57f2c">NumConfigs</a>; i++) {
+    Config = Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#ac5524279d10e5bafe306355d72309b69">Configurations</a>[i];
+    <span class="keywordflow">if</span> (<a class="code" href="bitvec_8h.html#a76a50c5a99dea7be5315fe76246036ce">test_bit</a> (Config, OldPid))
+      <a class="code" href="bitvec_8h.html#ab02d606cf8dca49ccadb00248bdbafe9">SET_BIT</a>(Config, NewPid);
+  }
+  <span class="keywordflow">return</span> (NewPid);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a8c25f68242f25174eaa1f7f78b28582e"></a><!-- doxytag: member="protos.cpp::WriteOldConfigFile" ref="a8c25f68242f25174eaa1f7f78b28582e" args="(FILE *File, CLASS_TYPE Class)" -->
@@ -582,6 +829,28 @@ Variables</h2></td></tr>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="protos_8cpp_source.html#l00425">425</a> of file <a class="el" href="protos_8cpp_source.html">protos.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                      {
+  <span class="keywordtype">int</span> Cid, Pid;
+  <a class="code" href="bitvec_8h.html#a584fa1e33e36d105f97bc7e7288fb259">BIT_VECTOR</a> <a class="code" href="commontraining_8cpp.html#a1630a3dc82a9a7cef07bb6153df9eb9c">Config</a>;
+
+  fprintf (File, <span class="stringliteral">&quot;%d %d\n&quot;</span>, Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#a452c42efe7ec87439ef16f1e51d57f2c">NumConfigs</a>, Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#aed122893fec98b9ebccee234bbb00292">NumProtos</a>);
+
+  <span class="keywordflow">for</span> (Cid = 0; Cid &lt; Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#a452c42efe7ec87439ef16f1e51d57f2c">NumConfigs</a>; Cid++) {
+    fprintf (File, <span class="stringliteral">&quot;1 &quot;</span>);
+
+    Config = Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#ac5524279d10e5bafe306355d72309b69">Configurations</a>[Cid];
+
+    <span class="keywordflow">for</span> (Pid = 0; Pid &lt; Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#aed122893fec98b9ebccee234bbb00292">NumProtos</a>; Pid++) {
+      <span class="keywordflow">if</span> (<a class="code" href="bitvec_8h.html#a76a50c5a99dea7be5315fe76246036ce">test_bit</a> (Config, Pid))
+        fprintf (File, <span class="stringliteral">&quot;1&quot;</span>);
+      <span class="keywordflow">else</span>
+        fprintf (File, <span class="stringliteral">&quot;0&quot;</span>);
+    }
+    fprintf (File, <span class="stringliteral">&quot;\n&quot;</span>);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4c7787282d7df33cf0d2d24b37922f65"></a><!-- doxytag: member="protos.cpp::WriteOldProtoFile" ref="a4c7787282d7df33cf0d2d24b37922f65" args="(FILE *File, CLASS_TYPE Class)" -->
@@ -609,6 +878,32 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="protos_8cpp_source.html#l00457">457</a> of file <a class="el" href="protos_8cpp_source.html">protos.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                     {
+  <span class="keywordtype">int</span> Pid;
+  <a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html">PROTO</a> Proto;
+
+  <span class="comment">/* print old header */</span>
+  fprintf (File, <span class="stringliteral">&quot;6\n&quot;</span>);
+  fprintf (File, <span class="stringliteral">&quot;linear   essential      -0.500000   0.500000\n&quot;</span>);
+  fprintf (File, <span class="stringliteral">&quot;linear   essential      -0.250000   0.750000\n&quot;</span>);
+  fprintf (File, <span class="stringliteral">&quot;linear   essential       0.000000   1.000000\n&quot;</span>);
+  fprintf (File, <span class="stringliteral">&quot;circular essential       0.000000   1.000000\n&quot;</span>);
+  fprintf (File, <span class="stringliteral">&quot;linear   non-essential  -0.500000   0.500000\n&quot;</span>);
+  fprintf (File, <span class="stringliteral">&quot;linear   non-essential  -0.500000   0.500000\n&quot;</span>);
+
+  <span class="keywordflow">for</span> (Pid = 0; Pid &lt; Class-&gt;<a class="code" href="struct_c_l_a_s_s___s_t_r_u_c_t.html#aed122893fec98b9ebccee234bbb00292">NumProtos</a>; Pid++) {
+    Proto = <a class="code" href="protos_8h.html#a3def7bc87c3ad9ad793128f0dc5b8fce">ProtoIn</a> (Class, Pid);
+
+    fprintf (File, <span class="stringliteral">&quot;significant   elliptical   1\n&quot;</span>);
+    fprintf (File, <span class="stringliteral">&quot;     %9.6f %9.6f %9.6f %9.6f %9.6f %9.6f\n&quot;</span>,
+      Proto-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#a54dd1cca86a1fd5c9ead8499cba99784">X</a>, Proto-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#a8dcd81037c1bc672e97ef7a54306dd93">Y</a>,
+      Proto-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#aa29d8aaab147327320e2bc94a821aad1">Length</a>, Proto-&gt;<a class="code" href="struct_p_r_o_t_o___s_t_r_u_c_t.html#a6cc7458f385f9c4673e1ce9a6dc9e80a">Angle</a>, 0.0, 0.0);
+    fprintf (File, <span class="stringliteral">&quot;     %9.6f %9.6f %9.6f %9.6f %9.6f %9.6f\n&quot;</span>,
+      0.0001, 0.0001, 0.0001, 0.0001, 0.0001, 0.0001);
+  }
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Variable Documentation</h2>
@@ -624,6 +919,8 @@ Variables</h2></td></tr>
 <div class="memdoc">
 <p>"Training file" </p>
 
+<p>Definition at line <a class="el" href="protos_8cpp_source.html#l00050">50</a> of file <a class="el" href="protos_8cpp_source.html">protos.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a7bd5364c17e272dee3bbad00a9b2874e"></a><!-- doxytag: member="protos.cpp::TrainingData" ref="a7bd5364c17e272dee3bbad00a9b2874e" args="[NUMBER_OF_CLASSES]" -->
@@ -636,6 +933,8 @@ Variables</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="protos_8cpp_source.html#l00048">48</a> of file <a class="el" href="protos_8cpp_source.html">protos.cpp</a>.</p>
 
 </div>
 </div>
@@ -659,7 +958,7 @@ Variables</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:09 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:41 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

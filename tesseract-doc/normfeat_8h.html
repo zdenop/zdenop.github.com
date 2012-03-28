@@ -135,6 +135,8 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>---------------------------------------------------------------------------- Include Files and Type Defines ---------------------------------------------------------------------------- </p>
 
+<p>Definition at line <a class="el" href="normfeat_8h_source.html#l00026">26</a> of file <a class="el" href="normfeat_8h_source.html">normfeat.h</a>.</p>
+
 </div>
 </div>
 <hr/><h2>Enumeration Type Documentation</h2>
@@ -161,6 +163,11 @@ Functions</h2></td></tr>
 </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="normfeat_8h_source.html#l00028">28</a> of file <a class="el" href="normfeat_8h_source.html">normfeat.h</a>.</p>
+<div class="fragment"><pre class="fragment">             {
+  <a class="code" href="normfeat_8h.html#ab5ff0a2380362fa488e17c0c1b858506a9309b18966f93d05a857e8ee0f81c557">CharNormY</a>, <a class="code" href="normfeat_8h.html#ab5ff0a2380362fa488e17c0c1b858506af859d8f455da531fb41201c80187dccf">CharNormLength</a>, <a class="code" href="normfeat_8h.html#ab5ff0a2380362fa488e17c0c1b858506a5a6745d4958b44c8c3481742021428f9">CharNormRx</a>, <a class="code" href="normfeat_8h.html#ab5ff0a2380362fa488e17c0c1b858506ac21a54078a6ec6e1470a21d65feb58d5">CharNormRy</a>
+} <a class="code" href="normfeat_8h.html#ab5ff0a2380362fa488e17c0c1b858506">NORM_PARAM_NAME</a>;
+</pre></div>
 </div>
 </div>
 <hr/><h2>Function Documentation</h2>
@@ -181,6 +188,11 @@ Functions</h2></td></tr>
 <p>---------------------------------------------------------------------------- Public Function Prototypes ----------------------------------------------------------------------------</p>
 <p>---------------------------------------------------------------------------- Include Files and Type Defines ---------------------------------------------------------------------------- ---------------------------------------------------------------------------- Public Code ---------------------------------------------------------------------------- </p>
 
+<p>Definition at line <a class="el" href="normfeat_8cpp_source.html#l00032">32</a> of file <a class="el" href="normfeat_8cpp_source.html">normfeat.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                             {
+  <span class="keywordflow">return</span> (Feature-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_t_r_u_c_t.html#ace52f36cfcba955504f4a24f86a897b4">Params</a>[<a class="code" href="normfeat_8h.html#ab5ff0a2380362fa488e17c0c1b858506af859d8f455da531fb41201c80187dccf">CharNormLength</a>] * <a class="code" href="normfeat_8h.html#a528f356e3cb082911b33645da06ccf04">LENGTH_COMPRESSION</a>);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a1ba63e8a45044344cc0b6db9c38f2c39"></a><!-- doxytag: member="normfeat.h::ExtractCharNormFeatures" ref="a1ba63e8a45044344cc0b6db9c38f2c39" args="(TBLOB *Blob, const DENORM &amp;denorm)" -->
@@ -208,6 +220,29 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="normfeat_8cpp_source.html#l00062">62</a> of file <a class="el" href="normfeat_8cpp_source.html">normfeat.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                       {
+  <a class="code" href="struct_f_e_a_t_u_r_e___s_e_t___s_t_r_u_c_t.html">FEATURE_SET</a> feature_set = <a class="code" href="ocrfeatures_8cpp.html#acdf1bcf73857cfc37fe8d667203bc875">NewFeatureSet</a>(1);
+  <a class="code" href="struct_f_e_a_t_u_r_e___s_t_r_u_c_t.html">FEATURE</a> feature = <a class="code" href="ocrfeatures_8cpp.html#a32a08c42617c8dd6a156c1c8d7fb2cbb">NewFeature</a>(&amp;CharNormDesc);
+
+  <a class="code" href="baseapi_8h.html#a544a6c7d78d215e9a4da202daecfeb52">INT_FEATURE_ARRAY</a> blfeatures;
+  <a class="code" href="baseapi_8h.html#a544a6c7d78d215e9a4da202daecfeb52">INT_FEATURE_ARRAY</a> cnfeatures;
+  <a class="code" href="struct_i_n_t___f_x___r_e_s_u_l_t___s_t_r_u_c_t.html">INT_FX_RESULT_STRUCT</a> FXInfo;
+
+  <a class="code" href="intfx_8cpp.html#a508a06732c67c00efc9db362bd8b970e">ExtractIntFeat</a>(blob, denorm, blfeatures, cnfeatures, &amp;FXInfo);
+
+  feature-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_t_r_u_c_t.html#ace52f36cfcba955504f4a24f86a897b4">Params</a>[<a class="code" href="normfeat_8h.html#ab5ff0a2380362fa488e17c0c1b858506a9309b18966f93d05a857e8ee0f81c557">CharNormY</a>] =
+      <a class="code" href="mfoutline_8h.html#a91645597f620e8307a65e8ab35d963b8">MF_SCALE_FACTOR</a> * (FXInfo.<a class="code" href="struct_i_n_t___f_x___r_e_s_u_l_t___s_t_r_u_c_t.html#a7acb1b39e74035eb698d8ab2ca8f689e">Ymean</a> - <a class="code" href="baseline_8h.html#a011c4f289bef07581a2aed5570f1918c">BASELINE_OFFSET</a>);
+  feature-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_t_r_u_c_t.html#ace52f36cfcba955504f4a24f86a897b4">Params</a>[<a class="code" href="normfeat_8h.html#ab5ff0a2380362fa488e17c0c1b858506af859d8f455da531fb41201c80187dccf">CharNormLength</a>] =
+      <a class="code" href="mfoutline_8h.html#a91645597f620e8307a65e8ab35d963b8">MF_SCALE_FACTOR</a> * FXInfo.<a class="code" href="struct_i_n_t___f_x___r_e_s_u_l_t___s_t_r_u_c_t.html#afea938630215615240c35afad4e6df0e">Length</a> / <a class="code" href="normfeat_8h.html#a528f356e3cb082911b33645da06ccf04">LENGTH_COMPRESSION</a>;
+  feature-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_t_r_u_c_t.html#ace52f36cfcba955504f4a24f86a897b4">Params</a>[<a class="code" href="normfeat_8h.html#ab5ff0a2380362fa488e17c0c1b858506a5a6745d4958b44c8c3481742021428f9">CharNormRx</a>] = <a class="code" href="mfoutline_8h.html#a91645597f620e8307a65e8ab35d963b8">MF_SCALE_FACTOR</a> * FXInfo.<a class="code" href="struct_i_n_t___f_x___r_e_s_u_l_t___s_t_r_u_c_t.html#a761357b2a8e539be5dd5be9ab6427535">Rx</a>;
+  feature-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_t_r_u_c_t.html#ace52f36cfcba955504f4a24f86a897b4">Params</a>[<a class="code" href="normfeat_8h.html#ab5ff0a2380362fa488e17c0c1b858506ac21a54078a6ec6e1470a21d65feb58d5">CharNormRy</a>] = <a class="code" href="mfoutline_8h.html#a91645597f620e8307a65e8ab35d963b8">MF_SCALE_FACTOR</a> * FXInfo.<a class="code" href="struct_i_n_t___f_x___r_e_s_u_l_t___s_t_r_u_c_t.html#a5bc44d7c44209bf894b7c806839cb62d">Ry</a>;
+
+  <a class="code" href="ocrfeatures_8cpp.html#a09f4fe91126bd64e3c8dcd3327343639">AddFeature</a>(feature_set, feature);
+
+  <span class="keywordflow">return</span> feature_set;
+}                                <span class="comment">/* ExtractCharNormFeatures */</span>
+</pre></div>
 </div>
 </div>
 </div>
@@ -230,7 +265,7 @@ Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:09 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:41 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

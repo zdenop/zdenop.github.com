@@ -145,6 +145,8 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ratngs_8h_source.html#l00438">438</a> of file <a class="el" href="ratngs_8h_source.html">ratngs.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a908dccc72289a9305272f9dfefba6c0a"></a><!-- doxytag: member="ratngs.h::WERD_CHOICE_LIST_VECTOR" ref="a908dccc72289a9305272f9dfefba6c0a" args="" -->
@@ -157,6 +159,8 @@ Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="ratngs_8h_source.html#l00439">439</a> of file <a class="el" href="ratngs_8h_source.html">ratngs.h</a>.</p>
 
 </div>
 </div>
@@ -176,6 +180,23 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ratngs_8h_source.html#l00158">158</a> of file <a class="el" href="ratngs_8h_source.html">ratngs.h</a>.</p>
+<div class="fragment"><pre class="fragment">                  {
+  NO_PERM,            <span class="comment">// 0</span>
+  PUNC_PERM,          <span class="comment">// 1</span>
+  TOP_CHOICE_PERM,    <span class="comment">// 2</span>
+  LOWER_CASE_PERM,    <span class="comment">// 3</span>
+  UPPER_CASE_PERM,    <span class="comment">// 4</span>
+  NGRAM_PERM,         <span class="comment">// 5</span>
+  NUMBER_PERM,        <span class="comment">// 6</span>
+  USER_PATTERN_PERM,  <span class="comment">// 7</span>
+  SYSTEM_DAWG_PERM,   <span class="comment">// 8</span>
+  DOC_DAWG_PERM,      <span class="comment">// 9</span>
+  USER_DAWG_PERM,     <span class="comment">// 10</span>
+  FREQ_DAWG_PERM,     <span class="comment">// 11</span>
+  COMPOUND_PERM,      <span class="comment">// 12</span>
+};
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a98992670ff5a4da6695f318643d48ca4"></a><!-- doxytag: member="ratngs.h::EqualIgnoringCaseAndTerminalPunct" ref="a98992670ff5a4da6695f318643d48ca4" args="(const WERD_CHOICE &amp;word1, const WERD_CHOICE &amp;word2)" -->
@@ -203,6 +224,24 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ratngs_8cpp_source.html#l00483">483</a> of file <a class="el" href="ratngs_8cpp_source.html">ratngs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                 {
+  <span class="keyword">const</span> <a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html">UNICHARSET</a> *uchset = word1.<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a5431f457a3617528f3f1aa6ddc7f34bc">unicharset</a>();
+  <span class="keywordflow">if</span> (word2.<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a5431f457a3617528f3f1aa6ddc7f34bc">unicharset</a>() != uchset) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordtype">int</span> w1start, w1end;
+  word1.<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a34205ac439b74d2b65e23a885852be3f">punct_stripped</a>(&amp;w1start, &amp;w1end);
+  <span class="keywordtype">int</span> w2start, w2end;
+  word2.<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a34205ac439b74d2b65e23a885852be3f">punct_stripped</a>(&amp;w2start, &amp;w2end);
+  <span class="keywordflow">if</span> (w1end - w1start != w2end - w2start) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; w1end - w1start; i++) {
+    <span class="keywordflow">if</span> (uchset-&gt;<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a00b50ec1de787807c383b204df642b44">to_lower</a>(word1.<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a6b917b2e6157f7956ff53ca230425ed3">unichar_id</a>(w1start + i)) !=
+        uchset-&gt;<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a00b50ec1de787807c383b204df642b44">to_lower</a>(word2.<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a6b917b2e6157f7956ff53ca230425ed3">unichar_id</a>(w2start + i))) {
+        <span class="keywordflow">return</span> <span class="keyword">false</span>;
+    }
+  }
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac0dbfacd7d5eec784a0d0fb6f605bd63"></a><!-- doxytag: member="ratngs.h::print_char_choices_list" ref="ac0dbfacd7d5eec784a0d0fb6f605bd63" args="(const char *msg, const BLOB_CHOICE_LIST_VECTOR &amp;char_choices, const UNICHARSET &amp;current_unicharset, BOOL8 detailed)" -->
@@ -243,6 +282,19 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>print_char_choices_list </p>
 
+<p>Definition at line <a class="el" href="ratngs_8cpp_source.html#l00610">610</a> of file <a class="el" href="ratngs_8cpp_source.html">ratngs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                             {
+  <span class="keywordflow">if</span> (*msg != <span class="charliteral">&#39;\0&#39;</span>) <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;%s\n&quot;</span>, msg);
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> x = 0; x &lt; char_choices.<a class="code" href="class_generic_vector.html#a690cd403343d371ed7763fdaf3ed71d2">length</a>(); ++x) {
+    BLOB_CHOICE_IT c_it;
+    c_it.set_to_list(char_choices.<a class="code" href="class_generic_vector.html#a33070cfea2a16a20c6b30bbcfecd8ecc">get</a>(x));
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;\nchar[%d]: %s\n&quot;</span>, x,
+            current_unicharset.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a2543f3cb2b8da0160a87088940cc58d2">debug_str</a>( c_it.data()-&gt;unichar_id()).<span class="keywordtype">string</span>());
+    <span class="keywordflow">if</span> (detailed)
+      <a class="code" href="ratngs_8cpp.html#a2de5b7d5a020bb9823091dbece4ea36e">print_ratings_list</a>(<span class="stringliteral">&quot;&quot;</span>, char_choices.<a class="code" href="class_generic_vector.html#a33070cfea2a16a20c6b30bbcfecd8ecc">get</a>(x), current_unicharset);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7dee03f4117cc2b55b03eb0ce8c06b5a"></a><!-- doxytag: member="ratngs.h::print_ratings_info" ref="a7dee03f4117cc2b55b03eb0ce8c06b5a" args="(FILE *fp, BLOB_CHOICE_LIST *ratings, const UNICHARSET &amp;current_unicharset)" -->
@@ -286,6 +338,48 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="ratngs_8cpp_source.html#l00564">564</a> of file <a class="el" href="ratngs_8cpp_source.html">ratngs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                              {
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> index;                    <span class="comment">// to list</span>
+  <span class="keyword">const</span> <span class="keywordtype">char</span>* first_char = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;  <span class="comment">// character</span>
+  <a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a> first_rat;              <span class="comment">// rating</span>
+  <a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a> first_cert;             <span class="comment">// certainty</span>
+  <span class="keyword">const</span> <span class="keywordtype">char</span>* sec_char = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;    <span class="comment">// character</span>
+  <a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a> sec_rat = 0.0f;         <span class="comment">// rating</span>
+  <a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a> sec_cert = 0.0f;        <span class="comment">// certainty</span>
+  BLOB_CHOICE_IT c_it = ratings;  <span class="comment">// iterator</span>
+
+  index = ratings-&gt;length();
+  <span class="keywordflow">if</span> (index &gt; 0) {
+    first_char = current_unicharset.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a421c0b6ebcbbe7547490252fb688c961">id_to_unichar</a>(c_it.data()-&gt;unichar_id());
+    first_rat = c_it.data()-&gt;rating();
+    first_cert = -c_it.data()-&gt;certainty();
+    <span class="keywordflow">if</span> (index &gt; 1) {
+      sec_char = current_unicharset.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a421c0b6ebcbbe7547490252fb688c961">id_to_unichar</a>(
+          c_it.data_relative(1)-&gt;unichar_id());
+      sec_rat = c_it.data_relative(1)-&gt;rating();
+      sec_cert = -c_it.data_relative(1)-&gt;certainty();
+    } <span class="keywordflow">else</span> {
+      sec_char = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+      sec_rat = -1;
+      sec_cert = -1;
+    }
+  } <span class="keywordflow">else</span> {
+    first_char = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    first_rat = -1;
+    first_cert = -1;
+  }
+  <span class="keywordflow">if</span> (first_char != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp; (*first_char == <span class="charliteral">&#39;\0&#39;</span> || *first_char == <span class="charliteral">&#39; &#39;</span>))
+    first_char = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordflow">if</span> (sec_char != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp; (*sec_char == <span class="charliteral">&#39;\0&#39;</span> || *sec_char == <span class="charliteral">&#39; &#39;</span>))
+    sec_char = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot; &quot;</span> <a class="code" href="host_8h.html#abe22434564efd658acebe9e8cf6235bc">INT32FORMAT</a> <span class="stringliteral">&quot; %s %g %g %s %g %g\n&quot;</span>,
+          ratings-&gt;length(),
+          first_char != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> ? first_char : <span class="stringliteral">&quot;~&quot;</span>,
+          first_rat, first_cert, sec_char != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> ? sec_char : <span class="stringliteral">&quot;~&quot;</span>,
+          sec_rat, sec_cert);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a996b16edcaaea6cc99d63d4d1f8851c0"></a><!-- doxytag: member="ratngs.h::print_ratings_list" ref="a996b16edcaaea6cc99d63d4d1f8851c0" args="(const char *msg, BLOB_CHOICE_LIST *ratings)" -->
@@ -315,6 +409,25 @@ Functions</h2></td></tr>
 <p>print_ratings_list</p>
 <p>Print ratings list (unichar ids only). </p>
 
+<p>Definition at line <a class="el" href="ratngs_8cpp_source.html#l00536">536</a> of file <a class="el" href="ratngs_8cpp_source.html">ratngs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                    {
+  <span class="keywordflow">if</span> (ratings-&gt;length() == 0) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;%s:&lt;none&gt;\n&quot;</span>, msg);
+    <span class="keywordflow">return</span>;
+  }
+  <span class="keywordflow">if</span> (*msg != <span class="charliteral">&#39;\0&#39;</span>) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;%s\n&quot;</span>, msg);
+  }
+  BLOB_CHOICE_IT c_it;
+  c_it.set_to_list(ratings);
+  <span class="keywordflow">for</span> (c_it.mark_cycle_pt(); !c_it.cycled_list(); c_it.forward()) {
+    c_it.data()-&gt;print(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+    <span class="keywordflow">if</span> (!c_it.at_last()) <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;\n&quot;</span>);
+  }
+  <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;\n&quot;</span>);
+  fflush(stdout);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2de5b7d5a020bb9823091dbece4ea36e"></a><!-- doxytag: member="ratngs.h::print_ratings_list" ref="a2de5b7d5a020bb9823091dbece4ea36e" args="(const char *msg, BLOB_CHOICE_LIST *ratings, const UNICHARSET &amp;current_unicharset)" -->
@@ -358,6 +471,25 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 
+<p>Definition at line <a class="el" href="ratngs_8cpp_source.html#l00511">511</a> of file <a class="el" href="ratngs_8cpp_source.html">ratngs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                              {
+  <span class="keywordflow">if</span> (ratings-&gt;length() == 0) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;%s:&lt;none&gt;\n&quot;</span>, msg);
+    <span class="keywordflow">return</span>;
+  }
+  <span class="keywordflow">if</span> (*msg != <span class="charliteral">&#39;\0&#39;</span>) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;%s\n&quot;</span>, msg);
+  }
+  BLOB_CHOICE_IT c_it;
+  c_it.set_to_list(ratings);
+  <span class="keywordflow">for</span> (c_it.mark_cycle_pt(); !c_it.cycled_list(); c_it.forward()) {
+    c_it.data()-&gt;print(&amp;current_unicharset);
+    <span class="keywordflow">if</span> (!c_it.at_last()) <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;\n&quot;</span>);
+  }
+  <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;\n&quot;</span>);
+  fflush(stdout);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4b2b4135f05db31c8fc16dbc473d70b8"></a><!-- doxytag: member="ratngs.h::print_word_alternates_list" ref="a4b2b4135f05db31c8fc16dbc473d70b8" args="(WERD_CHOICE *word, GenericVector&lt; WERD_CHOICE * &gt; *alternates)" -->
@@ -386,6 +518,19 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>print_word_alternates_list </p>
 
+<p>Definition at line <a class="el" href="ratngs_8cpp_source.html#l00628">628</a> of file <a class="el" href="ratngs_8cpp_source.html">ratngs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                              {
+  <span class="keywordflow">if</span> (!word || !alternates) <span class="keywordflow">return</span>;
+
+  <a class="code" href="class_s_t_r_i_n_g.html">STRING</a> alternates_str;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; alternates-&gt;<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>(); i++) {
+    <span class="keywordflow">if</span> (i &gt; 0) alternates_str += <span class="stringliteral">&quot;\&quot;, \&quot;&quot;</span>;
+    alternates_str += alternates-&gt;<a class="code" href="class_generic_vector.html#a33070cfea2a16a20c6b30bbcfecd8ecc">get</a>(i)-&gt;unichar_string();
+  }
+  <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Alternates for \&quot;%s\&quot;: {\&quot;%s\&quot;}\n&quot;</span>,
+          word-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a41d740f0accccdfb245d34d554122116">unichar_string</a>().<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a>(), alternates_str.<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a>());
+}
+</pre></div>
 </div>
 </div>
 </div>
@@ -408,7 +553,7 @@ Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:09 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:40 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

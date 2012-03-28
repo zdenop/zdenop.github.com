@@ -106,7 +106,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <code>#include &quot;<a class="el" href="mastertrainer_8h_source.html">mastertrainer.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="params_8h_source.html">params.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="strngs_8h_source.html">strngs.h</a>&quot;</code><br/>
-</div><table class="memberdecls">
+</div>
+<p><a href="shapeclustering_8cpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr><td colspan="2"><h2><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="shapeclustering_8cpp.html#ae24295f85aeea378392cf4b34b8d90d2">INT_PARAM_FLAG</a> (display_cloud_font,-1,&quot;Display cloud <a class="el" href="featdefs_8cpp.html#a66c7f757ef35e33a52ac2efe3f4e8247">of</a> this font, canonical_class1&quot;)</td></tr>
@@ -220,6 +222,34 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>---------------------------------------------------------------------------- Public Function Prototypes ---------------------------------------------------------------------------- </p>
 
+<p>Definition at line <a class="el" href="shapeclustering_8cpp_source.html#l00043">43</a> of file <a class="el" href="shapeclustering_8cpp_source.html">shapeclustering.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                {
+  <a class="code" href="commontraining_8cpp.html#a5177d61ebf73a60571198cb6eaa753ac">ParseArguments</a>(&amp;argc, &amp;argv);
+
+  <a class="code" href="class_s_t_r_i_n_g.html">STRING</a> file_prefix;
+  <a class="code" href="classtesseract_1_1_master_trainer.html">tesseract::MasterTrainer</a>* trainer = <a class="code" href="namespacetesseract.html#a2af3b74c1139cfc070d17e947f212b58">tesseract::LoadTrainingData</a>(
+      argc, argv, <span class="keyword">false</span>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, &amp;file_prefix);
+
+  <span class="keywordflow">if</span> (FLAGS_display_cloud_font &gt;= 0) {
+<span class="preprocessor">        #ifndef GRAPHICS_DISABLED </span>
+<span class="preprocessor"></span>    trainer-&gt;<a class="code" href="classtesseract_1_1_master_trainer.html#a180440eb25e7149056023d7975c34fd4">DisplaySamples</a>(FLAGS_canonical_class1.c_str(),
+                            FLAGS_display_cloud_font,
+                            FLAGS_canonical_class2.c_str(),
+                            FLAGS_display_canonical_font);
+<span class="preprocessor">    #endif  // GRAPHICS_DISABLED</span>
+<span class="preprocessor"></span>    <span class="keywordflow">return</span> 0;
+  } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (!FLAGS_canonical_class1.empty()) {
+    trainer-&gt;<a class="code" href="classtesseract_1_1_master_trainer.html#ab03d8639d3f122eb8c0705712ac44077">DebugCanonical</a>(FLAGS_canonical_class1.c_str(),
+                            FLAGS_canonical_class2.c_str());
+    <span class="keywordflow">return</span> 0;
+  }
+  trainer-&gt;<a class="code" href="classtesseract_1_1_master_trainer.html#a2dd43e518730bae0820c2f4baed81ac3">SetupMasterShapes</a>();
+  <a class="code" href="namespacetesseract.html#af6657e7cdbf17875a06df792c22cd28b">WriteShapeTable</a>(file_prefix, trainer-&gt;<a class="code" href="classtesseract_1_1_master_trainer.html#afd5dac7fae855b066e09ed16ce4a6d41">master_shapes</a>());
+  <span class="keyword">delete</span> trainer;
+
+  <span class="keywordflow">return</span> 0;
+} <span class="comment">/* main */</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4ff524054cac371250f62ac657a8b28f"></a><!-- doxytag: member="shapeclustering.cpp::STRING_PARAM_FLAG" ref="a4ff524054cac371250f62ac657a8b28f" args="(canonical_class1,&quot;&quot;,&quot;Class to show ambigs for&quot;)" -->
@@ -308,7 +338,7 @@ Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:10 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:43 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

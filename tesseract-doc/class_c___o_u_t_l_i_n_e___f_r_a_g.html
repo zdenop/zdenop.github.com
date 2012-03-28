@@ -134,7 +134,10 @@ Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html">C_OUTLINE_FRAG</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#af47b343a5b12475452c6ff6c14ea9d95">other_end</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#a58db00d6d620f9559bb4f9420928e0af">ycoord</a></td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="fpchop_8h_source.html#l00028">28</a> of file <a class="el" href="fpchop_8h_source.html">fpchop.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="af18f176358e802e53e51445157683639"></a><!-- doxytag: member="C_OUTLINE_FRAG::C_OUTLINE_FRAG" ref="af18f176358e802e53e51445157683639" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -149,6 +152,12 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="fpchop_8h_source.html#l00031">31</a> of file <a class="el" href="fpchop_8h_source.html">fpchop.h</a>.</p>
+<div class="fragment"><pre class="fragment">                     {  <span class="comment">//empty constructor</span>
+      <a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#aa3d89d6ff984029b96313eb1ffedf171">steps</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+      <a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#a48db13a611990a03339379b9125bd036">stepcount</a> = 0;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae0c72ccc4c022b941a7fba7dd0bda4d2"></a><!-- doxytag: member="C_OUTLINE_FRAG::~C_OUTLINE_FRAG" ref="ae0c72ccc4c022b941a7fba7dd0bda4d2" args="()" -->
@@ -165,6 +174,12 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="fpchop_8h_source.html#l00035">35</a> of file <a class="el" href="fpchop_8h_source.html">fpchop.h</a>.</p>
+<div class="fragment"><pre class="fragment">                       {
+      <span class="keywordflow">if</span> (<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#aa3d89d6ff984029b96313eb1ffedf171">steps</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+        <span class="keyword">delete</span> [] <a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#aa3d89d6ff984029b96313eb1ffedf171">steps</a>;
+    }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a812821bab9afa21741012b7558d3e150"></a><!-- doxytag: member="C_OUTLINE_FRAG::C_OUTLINE_FRAG" ref="a812821bab9afa21741012b7558d3e150" args="(ICOORD start_pt, ICOORD end_pt, C_OUTLINE *outline, inT16 start_index, inT16 end_index)" -->
@@ -210,6 +225,33 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="fpchop_8cpp_source.html#l00814">814</a> of file <a class="el" href="fpchop_8cpp_source.html">fpchop.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                {
+  <a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#ab73dd2ebe4d7766121e62353da385ae2">start</a> = start_pt;
+  <a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#a7265903e4d24691b1603aaabf1759c0b">end</a> = end_pt;
+  <a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#a58db00d6d620f9559bb4f9420928e0af">ycoord</a> = start_pt.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ();
+  <a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#a48db13a611990a03339379b9125bd036">stepcount</a> = end_index - start_index;
+  <span class="keywordflow">if</span> (<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#a48db13a611990a03339379b9125bd036">stepcount</a> &lt; 0)
+    <a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#a48db13a611990a03339379b9125bd036">stepcount</a> += outline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#afb87d87d3d48e964937b068f55f3ca3a">pathlength</a> ();
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a> (<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#a48db13a611990a03339379b9125bd036">stepcount</a> &gt; 0);
+  <a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#aa3d89d6ff984029b96313eb1ffedf171">steps</a> = <span class="keyword">new</span> <a class="code" href="class_d_i_r128.html">DIR128</a>[<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#a48db13a611990a03339379b9125bd036">stepcount</a>];
+  <span class="keywordflow">if</span> (end_index &gt; start_index) {
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = start_index; i &lt; end_index; ++i)
+      <a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#aa3d89d6ff984029b96313eb1ffedf171">steps</a>[i - start_index] = outline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#aadf769d4ac2a73d15f8d544fb152d1d9">step_dir</a>(i);
+  }
+  <span class="keywordflow">else</span> {
+    <span class="keywordtype">int</span> len = outline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#afb87d87d3d48e964937b068f55f3ca3a">pathlength</a>();
+    <span class="keywordtype">int</span> i = start_index;
+    <span class="keywordflow">for</span> (; i &lt; len; ++i)
+      <a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#aa3d89d6ff984029b96313eb1ffedf171">steps</a>[i - start_index] = outline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#aadf769d4ac2a73d15f8d544fb152d1d9">step_dir</a>(i);
+    <span class="keywordflow">if</span> (end_index &gt; 0)
+      <span class="keywordflow">for</span> (; i &lt; end_index + len; ++i)
+        <a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#aa3d89d6ff984029b96313eb1ffedf171">steps</a>[i - start_index] = outline-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e.html#aadf769d4ac2a73d15f8d544fb152d1d9">step_dir</a>(i - len);
+  }
+  <a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#af47b343a5b12475452c6ff6c14ea9d95">other_end</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keyword">delete</span> <a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#a9a96841ca88a927dcf89903fc8006829">close</a>();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="afeb95982ece18210bcba63c0dc5159bb"></a><!-- doxytag: member="C_OUTLINE_FRAG::C_OUTLINE_FRAG" ref="afeb95982ece18210bcba63c0dc5159bb" args="(C_OUTLINE_FRAG *head, inT16 tail_y)" -->
@@ -237,6 +279,16 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="fpchop_8cpp_source.html#l00846">846</a> of file <a class="el" href="fpchop_8cpp_source.html">fpchop.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                             {
+  <a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#a58db00d6d620f9559bb4f9420928e0af">ycoord</a> = tail_y;
+  <a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#af47b343a5b12475452c6ff6c14ea9d95">other_end</a> = head;
+  <a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#ab73dd2ebe4d7766121e62353da385ae2">start</a> = head-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#ab73dd2ebe4d7766121e62353da385ae2">start</a>;
+  <a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#a7265903e4d24691b1603aaabf1759c0b">end</a> = head-&gt;<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#a7265903e4d24691b1603aaabf1759c0b">end</a>;
+  <a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#aa3d89d6ff984029b96313eb1ffedf171">steps</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#a48db13a611990a03339379b9125bd036">stepcount</a> = 0;
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -254,6 +306,31 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="fpchop_8cpp_source.html#l01031">1031</a> of file <a class="el" href="fpchop_8cpp_source.html">fpchop.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                 {  <span class="comment">//join pieces</span>
+  <a class="code" href="class_d_i_r128.html">DIR128</a> *new_steps;              <span class="comment">//new steps</span>
+  <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> new_stepcount;           <span class="comment">//no of steps</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> fake_count;              <span class="comment">//fake steps</span>
+  <a class="code" href="class_d_i_r128.html">DIR128</a> fake_step;               <span class="comment">//step entry</span>
+
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a> (<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#ab73dd2ebe4d7766121e62353da385ae2">start</a>.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> () == <a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#a7265903e4d24691b1603aaabf1759c0b">end</a>.<a class="code" href="class_i_c_o_o_r_d.html#a59722a47c540007c58a539f0e35b3f33" title="access function">x</a> ());
+  fake_count = <a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#ab73dd2ebe4d7766121e62353da385ae2">start</a>.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> () - <a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#a7265903e4d24691b1603aaabf1759c0b">end</a>.<a class="code" href="class_i_c_o_o_r_d.html#a66bba6ff8a5f060775e1c2ca511f7f29" title="access_function">y</a> ();
+  <span class="keywordflow">if</span> (fake_count &lt; 0) {
+    fake_count = -fake_count;
+    fake_step = 32;
+  }
+  <span class="keywordflow">else</span>
+    fake_step = 96;
+
+  new_stepcount = <a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#a48db13a611990a03339379b9125bd036">stepcount</a> + fake_count;
+  new_steps = <span class="keyword">new</span> <a class="code" href="class_d_i_r128.html">DIR128</a>[new_stepcount];
+  memmove(new_steps, <a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#aa3d89d6ff984029b96313eb1ffedf171">steps</a>, <a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#a48db13a611990a03339379b9125bd036">stepcount</a>);
+  memset (new_steps + <a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#a48db13a611990a03339379b9125bd036">stepcount</a>, fake_step.<a class="code" href="class_d_i_r128.html#a20420b3fa5c0968a2ebb0763c7e43c2f">get_dir</a>(), fake_count);
+  <a class="code" href="class_c___o_u_t_l_i_n_e.html">C_OUTLINE</a>* result = <span class="keyword">new</span> <a class="code" href="coutln_8h.html#a33c25172cfe8e7ec617eb16413b61294">C_OUTLINE</a> (<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#ab73dd2ebe4d7766121e62353da385ae2">start</a>, new_steps, new_stepcount);
+  <span class="keyword">delete</span> [] new_steps;
+  <span class="keywordflow">return</span> result;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="afcbaa40761ee96414245f437746518e9"></a><!-- doxytag: member="C_OUTLINE_FRAG::operator=" ref="afcbaa40761ee96414245f437746518e9" args="(const C_OUTLINE_FRAG &amp;src)" -->
@@ -271,6 +348,20 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="fpchop_8cpp_source.html#l01063">1063</a> of file <a class="el" href="fpchop_8cpp_source.html">fpchop.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">  {
+  <span class="keywordflow">if</span> (<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#aa3d89d6ff984029b96313eb1ffedf171">steps</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <span class="keyword">delete</span> [] <a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#aa3d89d6ff984029b96313eb1ffedf171">steps</a>;
+
+  <a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#a48db13a611990a03339379b9125bd036">stepcount</a> = src.<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#a48db13a611990a03339379b9125bd036">stepcount</a>;
+  <a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#aa3d89d6ff984029b96313eb1ffedf171">steps</a> = <span class="keyword">new</span> <a class="code" href="class_d_i_r128.html">DIR128</a>[<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#a48db13a611990a03339379b9125bd036">stepcount</a>];
+  memmove (<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#aa3d89d6ff984029b96313eb1ffedf171">steps</a>, src.<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#aa3d89d6ff984029b96313eb1ffedf171">steps</a>, <a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#a48db13a611990a03339379b9125bd036">stepcount</a>);
+  <a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#ab73dd2ebe4d7766121e62353da385ae2">start</a> = src.<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#ab73dd2ebe4d7766121e62353da385ae2">start</a>;
+  <a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#a7265903e4d24691b1603aaabf1759c0b">end</a> = src.<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#a7265903e4d24691b1603aaabf1759c0b">end</a>;
+  <a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#a58db00d6d620f9559bb4f9420928e0af">ycoord</a> = src.<a class="code" href="class_c___o_u_t_l_i_n_e___f_r_a_g.html#a58db00d6d620f9559bb4f9420928e0af">ycoord</a>;
+  <span class="keywordflow">return</span> *<span class="keyword">this</span>;
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
@@ -285,6 +376,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="fpchop_8h_source.html#l00052">52</a> of file <a class="el" href="fpchop_8h_source.html">fpchop.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="af47b343a5b12475452c6ff6c14ea9d95"></a><!-- doxytag: member="C_OUTLINE_FRAG::other_end" ref="af47b343a5b12475452c6ff6c14ea9d95" args="" -->
@@ -297,6 +390,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="fpchop_8h_source.html#l00055">55</a> of file <a class="el" href="fpchop_8h_source.html">fpchop.h</a>.</p>
 
 </div>
 </div>
@@ -311,6 +406,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="fpchop_8h_source.html#l00051">51</a> of file <a class="el" href="fpchop_8h_source.html">fpchop.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a48db13a611990a03339379b9125bd036"></a><!-- doxytag: member="C_OUTLINE_FRAG::stepcount" ref="a48db13a611990a03339379b9125bd036" args="" -->
@@ -323,6 +420,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="fpchop_8h_source.html#l00054">54</a> of file <a class="el" href="fpchop_8h_source.html">fpchop.h</a>.</p>
 
 </div>
 </div>
@@ -337,6 +436,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="fpchop_8h_source.html#l00053">53</a> of file <a class="el" href="fpchop_8h_source.html">fpchop.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a58db00d6d620f9559bb4f9420928e0af"></a><!-- doxytag: member="C_OUTLINE_FRAG::ycoord" ref="a58db00d6d620f9559bb4f9420928e0af" args="" -->
@@ -350,11 +451,13 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="fpchop_8h_source.html#l00056">56</a> of file <a class="el" href="fpchop_8h_source.html">fpchop.h</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/textord/<a class="el" href="fpchop_8h_source.html">fpchop.h</a></li>
-<li>tesseract-ocr/textord/<a class="el" href="fpchop_8cpp.html">fpchop.cpp</a></li>
+<li>tesseract-ocr/textord/<a class="el" href="fpchop_8cpp_source.html">fpchop.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -376,7 +479,7 @@ Public Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:12 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:45 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

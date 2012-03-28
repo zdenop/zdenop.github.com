@@ -156,7 +156,10 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_training_sample_set.html#aa8a7f48e7004b719d9ee2eb2d7c54511">AddAllFontsForClass</a> (int class_id, <a class="el" href="classtesseract_1_1_shape.html">Shape</a> *shape) const </td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_training_sample_set.html#a0aa7725351aa2ea8a21c2abcae3a26db">DisplaySamplesWithFeature</a> (int f_index, const <a class="el" href="classtesseract_1_1_shape.html">Shape</a> &amp;shape, const <a class="el" href="classtesseract_1_1_int_feature_space.html">IntFeatureSpace</a> &amp;feature_space, <a class="el" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8">ScrollView::Color</a> color, <a class="el" href="class_scroll_view.html">ScrollView</a> *window) const </td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="trainingsampleset_8h_source.html#l00043">43</a> of file <a class="el" href="trainingsampleset_8h_source.html">trainingsampleset.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a12d0f6b42d499e6c1e9a203280784153"></a><!-- doxytag: member="tesseract::TrainingSampleSet::TrainingSampleSet" ref="a12d0f6b42d499e6c1e9a203280784153" args="(const UnicityTable&lt; FontInfo &gt; &amp;fontinfo_table)" -->
 <div class="memitem">
 <div class="memproto">
@@ -172,6 +175,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsampleset_8cpp_source.html#l00070">70</a> of file <a class="el" href="trainingsampleset_8cpp_source.html">trainingsampleset.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">  : num_raw_samples_(0), unicharset_size_(0),
+    font_class_array_(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>), fontinfo_table_(font_table) {
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad4a373a77c4484d2a5d294e62ea229fc"></a><!-- doxytag: member="tesseract::TrainingSampleSet::~TrainingSampleSet" ref="ad4a373a77c4484d2a5d294e62ea229fc" args="()" -->
@@ -188,6 +196,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsampleset_8cpp_source.html#l00075">75</a> of file <a class="el" href="trainingsampleset_8cpp_source.html">trainingsampleset.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                      {
+  <span class="keyword">delete</span> font_class_array_;
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -216,6 +229,14 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsampleset_8cpp_source.html#l00840">840</a> of file <a class="el" href="trainingsampleset_8cpp_source.html">trainingsampleset.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                            {
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> = 0; <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> &lt; font_id_map_.CompactSize(); ++<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>) {
+    <span class="keywordtype">int</span> font_id = font_id_map_.CompactToSparse(<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>);
+    shape-&gt;AddToShape(class_id, font_id);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a277711d46f9298fb058502dbcae3560d"></a><!-- doxytag: member="tesseract::TrainingSampleSet::AddSample" ref="a277711d46f9298fb058502dbcae3560d" args="(const char *unichar, TrainingSample *sample)" -->
@@ -243,6 +264,21 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsampleset_8cpp_source.html#l00130">130</a> of file <a class="el" href="trainingsampleset_8cpp_source.html">trainingsampleset.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                            {
+  <span class="keywordflow">if</span> (!unicharset_.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a9f8861ffb917e7341c821928da5865f0">contains_unichar</a>(unichar)) {
+    unicharset_.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#ab5198816dde686850da3530a1f8261fe">unichar_insert</a>(unichar);
+    <span class="keywordflow">if</span> (unicharset_.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#aa3e8073ebaf3e0022654c45f27135032">size</a>() &gt; <a class="code" href="matchdefs_8h.html#adcc52d7d059a8ca452172df64faa231c">MAX_NUM_CLASSES</a>) {
+      <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Error: Size of unicharset in TrainingSampleSet::AddSample is &quot;</span>
+              <span class="stringliteral">&quot;greater than MAX_NUM_CLASSES\n&quot;</span>);
+      <span class="keywordflow">return</span> -1;
+    }
+  }
+  <a class="code" href="unichar_8h.html#a8578b19fa1ff5ca75080db1a18ecc32e">UNICHAR_ID</a> char_id = unicharset_.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#ae786fa834962ef4d6dbf8300c6c5d456">unichar_to_id</a>(unichar);
+  <a class="code" href="classtesseract_1_1_training_sample_set.html#a277711d46f9298fb058502dbcae3560d">AddSample</a>(char_id, <a class="code" href="structsample.html">sample</a>);
+  <span class="keywordflow">return</span> char_id;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac198b3fe0b3346ca9d1db70de2f9e2b0"></a><!-- doxytag: member="tesseract::TrainingSampleSet::AddSample" ref="ac198b3fe0b3346ca9d1db70de2f9e2b0" args="(int unichar_id, TrainingSample *sample)" -->
@@ -270,6 +306,14 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsampleset_8cpp_source.html#l00146">146</a> of file <a class="el" href="trainingsampleset_8cpp_source.html">trainingsampleset.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                        {
+  <a class="code" href="structsample.html">sample</a>-&gt;set_class_id(unichar_id);
+  samples_.push_back(<a class="code" href="structsample.html">sample</a>);
+  num_raw_samples_ = samples_.size();
+  unicharset_size_ = unicharset_.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#aa3e8073ebaf3e0022654c45f27135032">size</a>();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4c13c167bc217d3e2e519d746764de49"></a><!-- doxytag: member="tesseract::TrainingSampleSet::charsetsize" ref="a4c13c167bc217d3e2e519d746764de49" args="() const " -->
@@ -286,6 +330,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsampleset_8h_source.html#l00067">67</a> of file <a class="el" href="trainingsampleset_8h_source.html">trainingsampleset.h</a>.</p>
+<div class="fragment"><pre class="fragment">                          {
+    <span class="keywordflow">return</span> unicharset_size_;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac43ab2ddfca3d7a77dfda920b65853ca"></a><!-- doxytag: member="tesseract::TrainingSampleSet::ClusterDistance" ref="ac43ab2ddfca3d7a77dfda920b65853ca" args="(int font_id1, int class_id1, int font_id2, int class_id2, const IntFeatureMap &amp;feature_map)" -->
@@ -331,6 +380,75 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsampleset_8cpp_source.html#l00297">297</a> of file <a class="el" href="trainingsampleset_8cpp_source.html">trainingsampleset.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                           {
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(font_class_array_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <span class="keywordtype">int</span> font_index1 = font_id_map_.SparseToCompact(font_id1);
+  <span class="keywordtype">int</span> font_index2 = font_id_map_.SparseToCompact(font_id2);
+  <span class="keywordflow">if</span> (font_index1 &lt; 0 || font_index2 &lt; 0)
+    <span class="keywordflow">return</span> 0.0f;
+  FontClassInfo&amp; fc_info = (*font_class_array_)(font_index1, class_id1);
+  <span class="keywordflow">if</span> (font_id1 == font_id2) {
+    <span class="comment">// Special case cache for speed.</span>
+    <span class="keywordflow">if</span> (fc_info.unichar_distance_cache.size() == 0)
+      fc_info.unichar_distance_cache.init_to_size(unicharset_size_, -1.0f);
+    <span class="keywordflow">if</span> (fc_info.unichar_distance_cache[class_id2] &lt; 0) {
+      <span class="comment">// Distance has to be calculated.</span>
+      <span class="keywordtype">float</span> result = <a class="code" href="classtesseract_1_1_training_sample_set.html#afa47d459869c3824552699a6965edd15">ComputeClusterDistance</a>(font_id1, class_id1,
+                                            font_id2, class_id2,
+                                            feature_map);
+      fc_info.unichar_distance_cache[class_id2] = result;
+      <span class="comment">// Copy to the symmetric cache entry.</span>
+      FontClassInfo&amp; fc_info2 = (*font_class_array_)(font_index2, class_id2);
+      <span class="keywordflow">if</span> (fc_info2.unichar_distance_cache.size() == 0)
+        fc_info2.unichar_distance_cache.init_to_size(unicharset_size_, -1.0f);
+      fc_info2.unichar_distance_cache[class_id1] = result;
+    }
+    <span class="keywordflow">return</span> fc_info.unichar_distance_cache[class_id2];
+  } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (class_id1 == class_id2) {
+    <span class="comment">// Another special-case cache for equal class-id.</span>
+    <span class="keywordflow">if</span> (fc_info.font_distance_cache.size() == 0)
+      fc_info.font_distance_cache.init_to_size(font_id_map_.CompactSize(),
+                                               -1.0f);
+    <span class="keywordflow">if</span> (fc_info.font_distance_cache[font_index2] &lt; 0) {
+      <span class="comment">// Distance has to be calculated.</span>
+      <span class="keywordtype">float</span> result = <a class="code" href="classtesseract_1_1_training_sample_set.html#afa47d459869c3824552699a6965edd15">ComputeClusterDistance</a>(font_id1, class_id1,
+                                            font_id2, class_id2,
+                                            feature_map);
+      fc_info.font_distance_cache[font_index2] = result;
+      <span class="comment">// Copy to the symmetric cache entry.</span>
+      FontClassInfo&amp; fc_info2 = (*font_class_array_)(font_index2, class_id2);
+      <span class="keywordflow">if</span> (fc_info2.font_distance_cache.size() == 0)
+        fc_info2.font_distance_cache.init_to_size(font_id_map_.CompactSize(),
+                                                  -1.0f);
+      fc_info2.font_distance_cache[font_index1] = result;
+    }
+    <span class="keywordflow">return</span> fc_info.font_distance_cache[font_index2];
+  }
+  <span class="comment">// Both font and class are different. Linear search for class_id2/font_id2</span>
+  <span class="comment">// in what is a hopefully short list of distances.</span>
+  <span class="keywordtype">int</span> cache_index = 0;
+  <span class="keywordflow">while</span> (cache_index &lt; fc_info.distance_cache.size() &amp;&amp;
+         (fc_info.distance_cache[cache_index].unichar_id != class_id2 ||
+          fc_info.distance_cache[cache_index].font_id != font_id2))
+    ++cache_index;
+  <span class="keywordflow">if</span> (cache_index == fc_info.distance_cache.size()) {
+    <span class="comment">// Distance has to be calculated.</span>
+    <span class="keywordtype">float</span> result = <a class="code" href="classtesseract_1_1_training_sample_set.html#afa47d459869c3824552699a6965edd15">ComputeClusterDistance</a>(font_id1, class_id1,
+                                          font_id2, class_id2,
+                                          feature_map);
+    FontClassDistance fc_dist = { class_id2, font_id2, result };
+    fc_info.distance_cache.push_back(fc_dist);
+    <span class="comment">// Copy to the symmetric cache entry. We know it isn&#39;t there already, as</span>
+    <span class="comment">// we always copy to the symmetric entry.</span>
+    FontClassInfo&amp; fc_info2 = (*font_class_array_)(font_index2, class_id2);
+    fc_dist.unichar_id = class_id1;
+    fc_dist.font_id = font_id1;
+    fc_info2.distance_cache.push_back(fc_dist);
+  }
+  <span class="keywordflow">return</span> fc_info.distance_cache[cache_index].distance;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa59d278ace2d056fede8cec5fa2d5d80"></a><!-- doxytag: member="tesseract::TrainingSampleSet::ComputeCanonicalFeatures" ref="aa59d278ace2d056fede8cec5fa2d5d80" args="()" -->
@@ -347,6 +465,23 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsampleset_8cpp_source.html#l00800">800</a> of file <a class="el" href="trainingsampleset_8cpp_source.html">trainingsampleset.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                 {
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(font_class_array_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <span class="keywordtype">int</span> font_size = font_id_map_.CompactSize();
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> font_index = 0; font_index &lt; font_size; ++font_index) {
+    <span class="keywordtype">int</span> font_id = font_id_map_.CompactToSparse(font_index);
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> c = 0; c &lt; unicharset_size_; ++c) {
+      <span class="keywordtype">int</span> <a class="code" href="classtesseract_1_1_training_sample_set.html#a6d2560a4ae24102d9919eb961d0bca34">num_samples</a> = <a class="code" href="classtesseract_1_1_training_sample_set.html#a7f5168960275b7cfed23408acd78d275">NumClassSamples</a>(font_id, c, <span class="keyword">false</span>);
+      <span class="keywordflow">if</span> (num_samples == 0)
+        <span class="keywordflow">continue</span>;
+      <span class="keyword">const</span> TrainingSample* <a class="code" href="structsample.html">sample</a> = <a class="code" href="classtesseract_1_1_training_sample_set.html#a37f9b8b95e9cd6e221524bc94f401783">GetCanonicalSample</a>(font_id, c);
+      FontClassInfo&amp; fcinfo = (*font_class_array_)(font_index, c);
+      fcinfo.canonical_features = sample-&gt;indexed_features();
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6cb57b891087c2d21adca1fde83d8d6f"></a><!-- doxytag: member="tesseract::TrainingSampleSet::ComputeCanonicalSamples" ref="a6cb57b891087c2d21adca1fde83d8d6f" args="(const IntFeatureMap &amp;map, bool debug)" -->
@@ -374,6 +509,111 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsampleset_8cpp_source.html#l00661">661</a> of file <a class="el" href="trainingsampleset_8cpp_source.html">trainingsampleset.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                            {
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(font_class_array_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  IntFeatureDist f_table;
+  <span class="keywordflow">if</span> (debug) <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;feature table size %d\n&quot;</span>, map.sparse_size());
+  f_table.Init(&amp;map);
+  <span class="keywordtype">int</span> worst_s1 = 0;
+  <span class="keywordtype">int</span> worst_s2 = 0;
+  <span class="keywordtype">double</span> global_worst_dist = 0.0;
+  <span class="comment">// Compute distances independently for each font and char index.</span>
+  <span class="keywordtype">int</span> font_size = font_id_map_.CompactSize();
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> font_index = 0; font_index &lt; font_size; ++font_index) {
+    <span class="keywordtype">int</span> font_id = font_id_map_.CompactToSparse(font_index);
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> c = 0; c &lt; unicharset_size_; ++c) {
+      <span class="keywordtype">int</span> samples_found = 0;
+      FontClassInfo&amp; fcinfo = (*font_class_array_)(font_index, c);
+      <span class="keywordflow">if</span> (fcinfo.samples.size() == 0 ||
+          (<a class="code" href="namespacetesseract.html#aedc256912be3e2d615b8899ba661300a">kTestChar</a> &gt;= 0 &amp;&amp; c != <a class="code" href="namespacetesseract.html#aedc256912be3e2d615b8899ba661300a">kTestChar</a>)) {
+        fcinfo.canonical_sample = -1;
+        fcinfo.canonical_dist = 0.0f;
+        <span class="keywordflow">if</span> (debug) <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Skipping class %d\n&quot;</span>, c);
+        <span class="keywordflow">continue</span>;
+      }
+      <span class="comment">// The canonical sample will be the one with the min_max_dist, which</span>
+      <span class="comment">// is the sample with the lowest maximum distance to all other samples.</span>
+      <span class="keywordtype">double</span> min_max_dist = 2.0;
+      <span class="comment">// We keep track of the farthest apart pair (max_s1, max_s2) which</span>
+      <span class="comment">// are max_max_dist apart, so we can see how bad the variability is.</span>
+      <span class="keywordtype">double</span> max_max_dist = 0.0;
+      <span class="keywordtype">int</span> max_s1 = 0;
+      <span class="keywordtype">int</span> max_s2 = 0;
+      fcinfo.canonical_sample = fcinfo.samples[0];
+      fcinfo.canonical_dist = 0.0f;
+      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; fcinfo.samples.size(); ++i) {
+        <span class="keywordtype">int</span> s1 = fcinfo.samples[i];
+        <span class="keyword">const</span> <a class="code" href="class_generic_vector.html">GenericVector&lt;int&gt;</a>&amp; features1 = samples_[s1]-&gt;indexed_features();
+        f_table.Set(features1, features1.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>(), <span class="keyword">true</span>);
+        <span class="keywordtype">double</span> max_dist = 0.0;
+        <span class="comment">// Run the full squared-order search for similar samples. It is still</span>
+        <span class="comment">// reasonably fast because f_table.FeatureDistance is fast, but we</span>
+        <span class="comment">// may have to reconsider if we start playing with too many samples</span>
+        <span class="comment">// of a single char/font.</span>
+        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; fcinfo.samples.size(); ++j) {
+          <span class="keywordtype">int</span> s2 = fcinfo.samples[j];
+          <span class="keywordflow">if</span> (samples_[s2]-&gt;class_id() != c  ||
+              samples_[s2]-&gt;font_id() != font_id ||
+              s2 == s1)
+            <span class="keywordflow">continue</span>;
+          <a class="code" href="class_generic_vector.html">GenericVector&lt;int&gt;</a> features2 = samples_[s2]-&gt;indexed_features();
+          <span class="keywordtype">double</span> dist = f_table.FeatureDistance(features2);
+          <span class="keywordtype">int</span> height = samples_[s2]-&gt;geo_feature(<a class="code" href="picofeat_8h.html#a41a4b5a66040b8b2deb004bd33909009af270e2a7660aa4121f6693faa62de67c">GeoTop</a>) -
+              samples_[s2]-&gt;geo_feature(<a class="code" href="picofeat_8h.html#a41a4b5a66040b8b2deb004bd33909009a45ab6326da25c47511791071ad13f62a">GeoBottom</a>);
+          <span class="keywordflow">if</span> (dist == 1.0 &amp;&amp; height &gt; 64) {
+            <span class="comment">// TODO(rays) rethink this when the polygonal approximation goes.</span>
+            <span class="comment">// Currently it is possible for dots and other small characters</span>
+            <span class="comment">// to be completely different, even within the same class.</span>
+            f_table.DebugFeatureDistance(features2);
+          }
+          <span class="keywordflow">if</span> (dist &gt; max_dist) {
+            max_dist = dist;
+            <span class="keywordflow">if</span> (dist &gt; max_max_dist) {
+              max_s1 = s1;
+              max_s2 = s2;
+            }
+          }
+        }
+        <span class="comment">// Using Set(..., false) is far faster than re initializing, due to</span>
+        <span class="comment">// the sparseness of the feature space.</span>
+        f_table.Set(features1, features1.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>(), <span class="keyword">false</span>);
+        samples_[s1]-&gt;set_max_dist(max_dist);
+        ++samples_found;
+        <span class="keywordflow">if</span> (max_dist &lt; min_max_dist) {
+          fcinfo.canonical_sample = s1;
+          fcinfo.canonical_dist = max_dist;
+        }
+        <a class="code" href="helpers_8h.html#a6eb00eb9bc5ed195953f334971c462ae">UpdateRange</a>(max_dist, &amp;min_max_dist, &amp;max_max_dist);
+      }
+      <span class="keywordflow">if</span> (max_max_dist &gt; global_worst_dist) {
+        <span class="comment">// Keep a record of the worst pair over all characters/fonts too.</span>
+        global_worst_dist = max_max_dist;
+        worst_s1 = max_s1;
+        worst_s2 = max_s2;
+      }
+      <span class="keywordflow">if</span> (debug) {
+        <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Found %d samples of class %d=%s, font %d, &quot;</span>
+                <span class="stringliteral">&quot;dist range [%g, %g], worst pair= %s, %s\n&quot;</span>,
+                samples_found, c, unicharset_.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a2543f3cb2b8da0160a87088940cc58d2">debug_str</a>(c).<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a>(),
+                font_index, min_max_dist, max_max_dist,
+                <a class="code" href="classtesseract_1_1_training_sample_set.html#a5e48aa19b8dcc15bdaca1fb0b5ec685c">SampleToString</a>(*samples_[max_s1]).<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a>(),
+                <a class="code" href="classtesseract_1_1_training_sample_set.html#a5e48aa19b8dcc15bdaca1fb0b5ec685c">SampleToString</a>(*samples_[max_s2]).<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a>());
+      }
+    }
+  }
+  <span class="keywordflow">if</span> (debug) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Global worst dist = %g, between sample %d and %d\n&quot;</span>,
+            global_worst_dist, worst_s1, worst_s2);
+    Pix* pix1 = DebugSample(unicharset_, samples_[worst_s1]);
+    Pix* pix2 = DebugSample(unicharset_, samples_[worst_s2]);
+    pixOr(pix1, pix1, pix2);
+    pixWrite(<span class="stringliteral">&quot;worstpair.png&quot;</span>, pix1, IFF_PNG);
+    pixDestroy(&amp;pix1);
+    pixDestroy(&amp;pix2);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a70b1a77e26913f05ea7be9d1cebc1f68"></a><!-- doxytag: member="tesseract::TrainingSampleSet::ComputeCloudFeatures" ref="a70b1a77e26913f05ea7be9d1cebc1f68" args="(int feature_space_size)" -->
@@ -391,6 +631,28 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsampleset_8cpp_source.html#l00818">818</a> of file <a class="el" href="trainingsampleset_8cpp_source.html">trainingsampleset.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                   {
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(font_class_array_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <span class="keywordtype">int</span> font_size = font_id_map_.CompactSize();
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> font_index = 0; font_index &lt; font_size; ++font_index) {
+    <span class="keywordtype">int</span> font_id = font_id_map_.CompactToSparse(font_index);
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> c = 0; c &lt; unicharset_size_; ++c) {
+      <span class="keywordtype">int</span> <a class="code" href="classtesseract_1_1_training_sample_set.html#a6d2560a4ae24102d9919eb961d0bca34">num_samples</a> = <a class="code" href="classtesseract_1_1_training_sample_set.html#a7f5168960275b7cfed23408acd78d275">NumClassSamples</a>(font_id, c, <span class="keyword">false</span>);
+      <span class="keywordflow">if</span> (num_samples == 0)
+        <span class="keywordflow">continue</span>;
+      FontClassInfo&amp; fcinfo = (*font_class_array_)(font_index, c);
+      fcinfo.cloud_features.Init(feature_space_size);
+      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> s = 0; s &lt; <a class="code" href="classtesseract_1_1_training_sample_set.html#a6d2560a4ae24102d9919eb961d0bca34">num_samples</a>; ++s) {
+        <span class="keyword">const</span> TrainingSample* <a class="code" href="structsample.html">sample</a> = <a class="code" href="classtesseract_1_1_training_sample_set.html#a8fa00414deb6726dcf6b770df5af6e8a">GetSample</a>(font_id, c, s);
+        <span class="keyword">const</span> <a class="code" href="class_generic_vector.html">GenericVector&lt;int&gt;</a>&amp; sample_features = sample-&gt;indexed_features();
+        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; sample_features.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>(); ++i)
+          fcinfo.cloud_features.SetBit(sample_features[i]);
+      }
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="afa47d459869c3824552699a6965edd15"></a><!-- doxytag: member="tesseract::TrainingSampleSet::ComputeClusterDistance" ref="afa47d459869c3824552699a6965edd15" args="(int font_id1, int class_id1, int font_id2, int class_id2, const IntFeatureMap &amp;feature_map) const " -->
@@ -436,6 +698,17 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsampleset_8cpp_source.html#l00368">368</a> of file <a class="el" href="trainingsampleset_8cpp_source.html">trainingsampleset.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                            {
+  <span class="keywordtype">int</span> dist = <a class="code" href="classtesseract_1_1_training_sample_set.html#a3b36d6df2a88be723a19bfb87cdde125">ReliablySeparable</a>(font_id1, class_id1, font_id2, class_id2,
+                               feature_map, <span class="keyword">false</span>);
+  dist += <a class="code" href="classtesseract_1_1_training_sample_set.html#a3b36d6df2a88be723a19bfb87cdde125">ReliablySeparable</a>(font_id2, class_id2, font_id1, class_id1,
+                            feature_map, <span class="keyword">false</span>);
+  <span class="keywordtype">int</span> denominator = <a class="code" href="classtesseract_1_1_training_sample_set.html#aeff8d3e8f232385ffd02e859b77c0573">GetCanonicalFeatures</a>(font_id1, class_id1).<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>();
+  denominator += <a class="code" href="classtesseract_1_1_training_sample_set.html#aeff8d3e8f232385ffd02e859b77c0573">GetCanonicalFeatures</a>(font_id2, class_id2).<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>();
+  <span class="keywordflow">return</span> <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(dist) / denominator;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab9a0b43789360afede97a841cb250dc6"></a><!-- doxytag: member="tesseract::TrainingSampleSet::DeleteableSample" ref="ab9a0b43789360afede97a841cb250dc6" args="(const TrainingSample *sample)" -->
@@ -453,6 +726,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsampleset_8cpp_source.html#l00582">582</a> of file <a class="el" href="trainingsampleset_8cpp_source.html">trainingsampleset.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                     {
+  <span class="keywordflow">return</span> <a class="code" href="structsample.html">sample</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> || <a class="code" href="structsample.html">sample</a>-&gt;class_id() &lt; 0;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4c605d59170dc00ddeec919984f80918"></a><!-- doxytag: member="tesseract::TrainingSampleSet::DeleteDeadSamples" ref="a4c605d59170dc00ddeec919984f80918" args="()" -->
@@ -469,6 +747,14 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsampleset_8cpp_source.html#l00573">573</a> of file <a class="el" href="trainingsampleset_8cpp_source.html">trainingsampleset.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                          {
+  samples_.compact(
+      <a class="code" href="tesscallback_8h.html#ad000c6729bae0f97075ca10a0b5bf7d6">NewPermanentTessCallback</a>(<span class="keyword">this</span>, &amp;<a class="code" href="classtesseract_1_1_training_sample_set.html#ab9a0b43789360afede97a841cb250dc6">TrainingSampleSet::DeleteableSample</a>));
+  num_raw_samples_ = samples_.size();
+  <span class="comment">// Samples must be re-organized now we have deleted a few.</span>
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae8670e468b3f35f4a0b961cdb0c31c52"></a><!-- doxytag: member="tesseract::TrainingSampleSet::DeleteOutliers" ref="ae8670e468b3f35f4a0b961cdb0c31c52" args="(const IntFeatureSpace &amp;feature_space, bool debug)" -->
@@ -496,6 +782,79 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsampleset_8cpp_source.html#l00493">493</a> of file <a class="el" href="trainingsampleset_8cpp_source.html">trainingsampleset.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                   {
+  <span class="keywordflow">if</span> (font_class_array_ == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <a class="code" href="classtesseract_1_1_training_sample_set.html#ab5d36eabedd79031e581e5d1b870de3a">OrganizeByFontAndClass</a>();
+  Pixa* pixa = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordflow">if</span> (debug)
+    pixa = pixaCreate(0);
+  <a class="code" href="class_generic_vector.html">GenericVector&lt;int&gt;</a> feature_counts;
+  <span class="keywordtype">int</span> fs_size = feature_space.Size();
+  <span class="keywordtype">int</span> font_size = font_id_map_.CompactSize();
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> font_index = 0; font_index &lt; font_size; ++font_index) {
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> c = 0; c &lt; unicharset_size_; ++c) {
+      <span class="comment">// Create a histogram of the features used by all samples of this</span>
+      <span class="comment">// font/class combination.</span>
+      feature_counts.<a class="code" href="class_generic_vector.html#a6751521fd3eb461d81fc83ef93a0def3">init_to_size</a>(fs_size, 0);
+      FontClassInfo&amp; fcinfo = (*font_class_array_)(font_index, c);
+      <span class="keywordtype">int</span> sample_count = fcinfo.samples.size();
+      <span class="keywordflow">if</span> (sample_count &lt; <a class="code" href="namespacetesseract.html#aaaac2947d8026a1e91fc20287ef90e3a">kMinOutlierSamples</a>)
+        <span class="keywordflow">continue</span>;
+      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; sample_count; ++i) {
+        <span class="keywordtype">int</span> s = fcinfo.samples[i];
+        <span class="keyword">const</span> <a class="code" href="class_generic_vector.html">GenericVector&lt;int&gt;</a>&amp; features = samples_[s]-&gt;indexed_features();
+        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> = 0; <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> &lt; features.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>(); ++<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>) {
+          ++feature_counts[features[<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>]];
+        }
+      }
+      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; sample_count; ++i) {
+        <span class="keywordtype">int</span> s = fcinfo.samples[i];
+        <span class="keyword">const</span> TrainingSample&amp; <a class="code" href="structsample.html">sample</a> = *samples_[s];
+        <span class="keyword">const</span> <a class="code" href="class_generic_vector.html">GenericVector&lt;int&gt;</a>&amp; features = sample.indexed_features();
+        <span class="comment">// A feature that has a histogram count of 1 is only used by this</span>
+        <span class="comment">// sample, making it &#39;bad&#39;. All others are &#39;good&#39;.</span>
+        <span class="keywordtype">int</span> good_features = 0;
+        <span class="keywordtype">int</span> bad_features = 0;
+        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> = 0; <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> &lt; features.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>(); ++<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>) {
+          <span class="keywordflow">if</span> (feature_counts[features[<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>]] &gt; 1)
+            ++good_features;
+          <span class="keywordflow">else</span>
+            ++bad_features;
+        }
+        <span class="comment">// If more than 1/3 features are bad, then this is an outlier.</span>
+        <span class="keywordflow">if</span> (bad_features * 2 &gt; good_features) {
+          <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Deleting outlier sample of %s, %d good, %d bad\n&quot;</span>,
+                  <a class="code" href="classtesseract_1_1_training_sample_set.html#a5e48aa19b8dcc15bdaca1fb0b5ec685c">SampleToString</a>(sample).<span class="keywordtype">string</span>(),
+                  good_features, bad_features);
+          <span class="keywordflow">if</span> (debug) {
+            pixaAddPix(pixa, sample.RenderToPix(&amp;unicharset_), L_INSERT);
+            <span class="comment">// Add the previous sample as well, so it is easier to see in</span>
+            <span class="comment">// the output what is wrong with this sample.</span>
+            <span class="keywordtype">int</span> t;
+            <span class="keywordflow">if</span> (i == 0)
+              t = fcinfo.samples[1];
+            <span class="keywordflow">else</span>
+              t = fcinfo.samples[i - 1];
+            <span class="keyword">const</span> TrainingSample &amp;csample = *samples_[t];
+            pixaAddPix(pixa, csample.RenderToPix(&amp;unicharset_), L_INSERT);
+          }
+          <span class="comment">// Mark the sample for deletion.</span>
+          <a class="code" href="classtesseract_1_1_training_sample_set.html#a6902b0cc52ff89dc5c319473d56bc3b6">KillSample</a>(samples_[s]);
+        }
+      }
+    }
+  }
+  <span class="comment">// Truly delete all bad samples and renumber everything.</span>
+  <a class="code" href="classtesseract_1_1_training_sample_set.html#a4c605d59170dc00ddeec919984f80918">DeleteDeadSamples</a>();
+  <span class="keywordflow">if</span> (pixa != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    Pix* pix = pixaDisplayTiledInRows(pixa, 1, 2600, 1.0, 0, 10, 10);
+    pixaDestroy(&amp;pixa);
+    pixWrite(<span class="stringliteral">&quot;outliers.png&quot;</span>, pix, IFF_PNG);
+    pixDestroy(&amp;pix);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a71116090704f3cea5b54b541460fe1e7"></a><!-- doxytag: member="tesseract::TrainingSampleSet::DeSerialize" ref="a71116090704f3cea5b54b541460fe1e7" args="(bool swap, FILE *fp)" -->
@@ -523,6 +882,27 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsampleset_8cpp_source.html#l00094">94</a> of file <a class="el" href="trainingsampleset_8cpp_source.html">trainingsampleset.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                       {
+  <span class="keywordflow">if</span> (!samples_.DeSerialize(swap, fp)) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  num_raw_samples_ = samples_.size();
+  <span class="keywordflow">if</span> (!unicharset_.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#af066ba55fdc20f996eaaed05618b377e">load_from_file</a>(fp)) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">if</span> (!font_id_map_.DeSerialize(swap, fp)) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">if</span> (font_class_array_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keyword">delete</span> font_class_array_;
+    font_class_array_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <a class="code" href="host_8h.html#a2ba4d271e85baf0d333318985cb3bced">inT8</a> not_null;
+  <span class="keywordflow">if</span> (fread(&amp;not_null, <span class="keyword">sizeof</span>(not_null), 1, fp) != 1) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">if</span> (not_null) {
+    FontClassInfo empty;
+    font_class_array_ = <span class="keyword">new</span> <a class="code" href="class_g_e_n_e_r_i_c__2_d___a_r_r_a_y.html">GENERIC_2D_ARRAY&lt;FontClassInfo &gt;</a>(1, 1 , empty);
+    <span class="keywordflow">if</span> (!font_class_array_-&gt;<a class="code" href="class_g_e_n_e_r_i_c__2_d___a_r_r_a_y.html#a34b8abb019eceb7baf3a6848ff0c02c3">DeSerializeClasses</a>(swap, fp)) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+  unicharset_size_ = unicharset_.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#aa3e8073ebaf3e0022654c45f27135032">size</a>();
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a0aa7725351aa2ea8a21c2abcae3a26db"></a><!-- doxytag: member="tesseract::TrainingSampleSet::DisplaySamplesWithFeature" ref="a0aa7725351aa2ea8a21c2abcae3a26db" args="(int f_index, const Shape &amp;shape, const IntFeatureSpace &amp;feature_space, ScrollView::Color color, ScrollView *window) const " -->
@@ -568,6 +948,23 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsampleset_8cpp_source.html#l00849">849</a> of file <a class="el" href="trainingsampleset_8cpp_source.html">trainingsampleset.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                            {
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> s = 0; s &lt; <a class="code" href="classtesseract_1_1_training_sample_set.html#af48888d68fc56c5b6911957530b59389">num_raw_samples</a>(); ++s) {
+    <span class="keyword">const</span> TrainingSample* <a class="code" href="structsample.html">sample</a> = <a class="code" href="classtesseract_1_1_training_sample_set.html#a8fa00414deb6726dcf6b770df5af6e8a">GetSample</a>(s);
+    <span class="keywordflow">if</span> (shape.ContainsUnichar(sample-&gt;class_id())) {
+      <a class="code" href="class_generic_vector.html">GenericVector&lt;int&gt;</a> indexed_features;
+      space.IndexAndSortFeatures(sample-&gt;features(), sample-&gt;num_features(),
+                                 &amp;indexed_features);
+      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> = 0; <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> &lt; indexed_features.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>(); ++<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>) {
+        <span class="keywordflow">if</span> (indexed_features[<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>] == f_index) {
+          sample-&gt;DisplayFeatures(color, window);
+        }
+      }
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a1b0e7917a335f65e0d8196e42435e278"></a><!-- doxytag: member="tesseract::TrainingSampleSet::extract_sample" ref="a1b0e7917a335f65e0d8196e42435e278" args="(int index)" -->
@@ -585,6 +982,13 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsampleset_8h_source.html#l00162">162</a> of file <a class="el" href="trainingsampleset_8h_source.html">trainingsampleset.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                            {
+    TrainingSample* <a class="code" href="structsample.html">sample</a> = samples_[index];
+    samples_[index] = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    <span class="keywordflow">return</span> sample;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a242c0410fb2460dc63fddd16e90b9c71"></a><!-- doxytag: member="tesseract::TrainingSampleSet::GetCanonicalDist" ref="a242c0410fb2460dc63fddd16e90b9c71" args="(int font_id, int class_id) const " -->
@@ -612,6 +1016,17 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsampleset_8cpp_source.html#l00475">475</a> of file <a class="el" href="trainingsampleset_8cpp_source.html">trainingsampleset.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                         {
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(font_class_array_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <span class="keywordtype">int</span> font_index = font_id_map_.SparseToCompact(font_id);
+  <span class="keywordflow">if</span> (font_index &lt; 0) <span class="keywordflow">return</span> 0.0f;
+  <span class="keywordflow">if</span> ((*font_class_array_)(font_index, class_id).canonical_sample &gt;= 0)
+    <span class="keywordflow">return</span> (*font_class_array_)(font_index, class_id).canonical_dist;
+  <span class="keywordflow">else</span>
+    <span class="keywordflow">return</span> 0.0f;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aeff8d3e8f232385ffd02e859b77c0573"></a><!-- doxytag: member="tesseract::TrainingSampleSet::GetCanonicalFeatures" ref="aeff8d3e8f232385ffd02e859b77c0573" args="(int font_id, int class_id) const " -->
@@ -639,6 +1054,13 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsampleset_8cpp_source.html#l00220">220</a> of file <a class="el" href="trainingsampleset_8cpp_source.html">trainingsampleset.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                     {
+  <span class="keywordtype">int</span> font_index = font_id_map_.SparseToCompact(font_id);
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(font_index &gt;= 0);
+  <span class="keywordflow">return</span> (*font_class_array_)(font_index, class_id).canonical_features;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a37f9b8b95e9cd6e221524bc94f401783"></a><!-- doxytag: member="tesseract::TrainingSampleSet::GetCanonicalSample" ref="a37f9b8b95e9cd6e221524bc94f401783" args="(int font_id, int class_id) const " -->
@@ -666,6 +1088,16 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsampleset_8cpp_source.html#l00463">463</a> of file <a class="el" href="trainingsampleset_8cpp_source.html">trainingsampleset.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                     {
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(font_class_array_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <span class="keywordtype">int</span> font_index = font_id_map_.SparseToCompact(font_id);
+  <span class="keywordflow">if</span> (font_index &lt; 0) <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordtype">int</span> sample_index = (*font_class_array_)(font_index,
+                                          class_id).canonical_sample;
+  <span class="keywordflow">return</span> sample_index &gt;= 0 ? samples_[sample_index] : <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a75dac50ffd51d39ef76894e88aa1b8a2"></a><!-- doxytag: member="tesseract::TrainingSampleSet::GetCloudFeatures" ref="a75dac50ffd51d39ef76894e88aa1b8a2" args="(int font_id, int class_id) const " -->
@@ -693,6 +1125,13 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsampleset_8cpp_source.html#l00212">212</a> of file <a class="el" href="trainingsampleset_8cpp_source.html">trainingsampleset.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                     {
+  <span class="keywordtype">int</span> font_index = font_id_map_.SparseToCompact(font_id);
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(font_index &gt;= 0);
+  <span class="keywordflow">return</span> (*font_class_array_)(font_index, class_id).cloud_features;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a8fa00414deb6726dcf6b770df5af6e8a"></a><!-- doxytag: member="tesseract::TrainingSampleSet::GetSample" ref="a8fa00414deb6726dcf6b770df5af6e8a" args="(int index) const " -->
@@ -710,6 +1149,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsampleset_8cpp_source.html#l00175">175</a> of file <a class="el" href="trainingsampleset_8cpp_source.html">trainingsampleset.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                  {
+  <span class="keywordflow">return</span> samples_[index];
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac4efbbfff22d098aa742c59ff652cd44"></a><!-- doxytag: member="tesseract::TrainingSampleSet::GetSample" ref="ac4efbbfff22d098aa742c59ff652cd44" args="(int font_id, int class_id, int index) const " -->
@@ -743,6 +1187,15 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsampleset_8cpp_source.html#l00181">181</a> of file <a class="el" href="trainingsampleset_8cpp_source.html">trainingsampleset.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                    {
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(font_class_array_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <span class="keywordtype">int</span> font_index = font_id_map_.SparseToCompact(font_id);
+  <span class="keywordflow">if</span> (font_index &lt; 0) <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordtype">int</span> sample_index = (*font_class_array_)(font_index, class_id).samples[index];
+  <span class="keywordflow">return</span> samples_[sample_index];
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="addf858e6da214cd31161a270e4365fe1"></a><!-- doxytag: member="tesseract::TrainingSampleSet::GlobalSampleIndex" ref="addf858e6da214cd31161a270e4365fe1" args="(int font_id, int class_id, int index) const " -->
@@ -776,6 +1229,14 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsampleset_8cpp_source.html#l00453">453</a> of file <a class="el" href="trainingsampleset_8cpp_source.html">trainingsampleset.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                          {
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(font_class_array_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <span class="keywordtype">int</span> font_index = font_id_map_.SparseToCompact(font_id);
+  <span class="keywordflow">if</span> (font_index &lt; 0) <span class="keywordflow">return</span> -1;
+  <span class="keywordflow">return</span> (*font_class_array_)(font_index, class_id).samples[index];
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4743698b780df97c2a31e9f28a0c4791"></a><!-- doxytag: member="tesseract::TrainingSampleSet::IndexFeatures" ref="a4743698b780df97c2a31e9f28a0c4791" args="(const IntFeatureSpace &amp;feature_space)" -->
@@ -793,6 +1254,12 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsampleset_8cpp_source.html#l00486">486</a> of file <a class="el" href="trainingsampleset_8cpp_source.html">trainingsampleset.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                          {
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> s = 0; s &lt; samples_.size(); ++s)
+    samples_[s]-&gt;<a class="code" href="classtesseract_1_1_training_sample_set.html#a4743698b780df97c2a31e9f28a0c4791">IndexFeatures</a>(feature_space);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6902b0cc52ff89dc5c319473d56bc3b6"></a><!-- doxytag: member="tesseract::TrainingSampleSet::KillSample" ref="a6902b0cc52ff89dc5c319473d56bc3b6" args="(TrainingSample *sample)" -->
@@ -810,6 +1277,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsampleset_8cpp_source.html#l00568">568</a> of file <a class="el" href="trainingsampleset_8cpp_source.html">trainingsampleset.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                         {
+  <a class="code" href="structsample.html">sample</a>-&gt;set_sample_index(-1);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7ea5c9008105e71b050cd8e6d528c7e8"></a><!-- doxytag: member="tesseract::TrainingSampleSet::LoadUnicharset" ref="a7ea5c9008105e71b050cd8e6d528c7e8" args="(const char *filename)" -->
@@ -827,6 +1299,19 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsampleset_8cpp_source.html#l00115">115</a> of file <a class="el" href="trainingsampleset_8cpp_source.html">trainingsampleset.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                           {
+  <span class="keywordflow">if</span> (!unicharset_.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#af066ba55fdc20f996eaaed05618b377e">load_from_file</a>(filename)) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Failed to load unicharset from file %s\n&quot;</span>
+            <span class="stringliteral">&quot;Building unicharset for boosting from scratch...\n&quot;</span>,
+            filename);
+    unicharset_.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#ad9060160cd52065e89cbc8927454f525">clear</a>();
+    <span class="comment">// Space character needed to represent NIL_LIST classification.</span>
+    unicharset_.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#ab5198816dde686850da3530a1f8261fe">unichar_insert</a>(<span class="stringliteral">&quot; &quot;</span>);
+  }
+  unicharset_size_ = unicharset_.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#aa3e8073ebaf3e0022654c45f27135032">size</a>();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad753995a898fee6ac9ad58b7af4ffc7e"></a><!-- doxytag: member="tesseract::TrainingSampleSet::mutable_sample" ref="ad753995a898fee6ac9ad58b7af4ffc7e" args="(int index)" -->
@@ -844,6 +1329,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsampleset_8h_source.html#l00158">158</a> of file <a class="el" href="trainingsampleset_8h_source.html">trainingsampleset.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                            {
+    <span class="keywordflow">return</span> samples_[index];
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="af960a1e74b485c6f7d0baad12c93a925"></a><!-- doxytag: member="tesseract::TrainingSampleSet::MutableSample" ref="af960a1e74b485c6f7d0baad12c93a925" args="(int font_id, int class_id, int index)" -->
@@ -877,6 +1367,15 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsampleset_8cpp_source.html#l00192">192</a> of file <a class="el" href="trainingsampleset_8cpp_source.html">trainingsampleset.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                            {
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(font_class_array_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <span class="keywordtype">int</span> font_index = font_id_map_.SparseToCompact(font_id);
+  <span class="keywordflow">if</span> (font_index &lt; 0) <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordtype">int</span> sample_index = (*font_class_array_)(font_index, class_id).samples[index];
+  <span class="keywordflow">return</span> samples_[sample_index];
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="af48888d68fc56c5b6911957530b59389"></a><!-- doxytag: member="tesseract::TrainingSampleSet::num_raw_samples" ref="af48888d68fc56c5b6911957530b59389" args="() const " -->
@@ -893,6 +1392,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsampleset_8h_source.html#l00058">58</a> of file <a class="el" href="trainingsampleset_8h_source.html">trainingsampleset.h</a>.</p>
+<div class="fragment"><pre class="fragment">                              {
+    <span class="keywordflow">return</span> num_raw_samples_;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6d2560a4ae24102d9919eb961d0bca34"></a><!-- doxytag: member="tesseract::TrainingSampleSet::num_samples" ref="a6d2560a4ae24102d9919eb961d0bca34" args="() const " -->
@@ -909,6 +1413,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsampleset_8h_source.html#l00055">55</a> of file <a class="el" href="trainingsampleset_8h_source.html">trainingsampleset.h</a>.</p>
+<div class="fragment"><pre class="fragment">                          {
+    <span class="keywordflow">return</span> samples_.size();
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7f5168960275b7cfed23408acd78d275"></a><!-- doxytag: member="tesseract::TrainingSampleSet::NumClassSamples" ref="a7f5168960275b7cfed23408acd78d275" args="(int font_id, int class_id, bool randomize) const " -->
@@ -942,6 +1451,23 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsampleset_8cpp_source.html#l00157">157</a> of file <a class="el" href="trainingsampleset_8cpp_source.html">trainingsampleset.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                             {
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(font_class_array_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <span class="keywordflow">if</span> (font_id &lt; 0 || class_id &lt; 0 ||
+      font_id &gt;= font_id_map_.SparseSize() || class_id &gt;= unicharset_size_) {
+    <span class="comment">// There are no samples because the font or class doesn&#39;t exist.</span>
+    <span class="keywordflow">return</span> 0;
+  }
+  <span class="keywordtype">int</span> font_index = font_id_map_.SparseToCompact(font_id);
+  <span class="keywordflow">if</span> (font_index &lt; 0)
+    <span class="keywordflow">return</span> 0;  <span class="comment">// The font has no samples.</span>
+  <span class="keywordflow">if</span> (randomize)
+    <span class="keywordflow">return</span> (*font_class_array_)(font_index, class_id).samples.size();
+  <span class="keywordflow">else</span>
+    <span class="keywordflow">return</span> (*font_class_array_)(font_index, class_id).<a class="code" href="classtesseract_1_1_training_sample_set.html#af48888d68fc56c5b6911957530b59389">num_raw_samples</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a106d93e244deeb4e10818b80343914b5"></a><!-- doxytag: member="tesseract::TrainingSampleSet::NumFonts" ref="a106d93e244deeb4e10818b80343914b5" args="() const " -->
@@ -958,6 +1484,11 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsampleset_8h_source.html#l00061">61</a> of file <a class="el" href="trainingsampleset_8h_source.html">trainingsampleset.h</a>.</p>
+<div class="fragment"><pre class="fragment">                       {
+    <span class="keywordflow">return</span> font_id_map_.SparseSize();
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab5d36eabedd79031e581e5d1b870de3a"></a><!-- doxytag: member="tesseract::TrainingSampleSet::OrganizeByFontAndClass" ref="ab5d36eabedd79031e581e5d1b870de3a" args="()" -->
@@ -974,6 +1505,43 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsampleset_8cpp_source.html#l00603">603</a> of file <a class="el" href="trainingsampleset_8cpp_source.html">trainingsampleset.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                               {
+  <span class="comment">// Font indexes are sparse, so we used a map to compact them, so we can</span>
+  <span class="comment">// have an efficient 2-d array of fonts and character classes.</span>
+  <a class="code" href="classtesseract_1_1_training_sample_set.html#ac1003d7e28f5dfb893a88ac3f60de6e5">SetupFontIdMap</a>();
+  <span class="keywordtype">int</span> compact_font_size = font_id_map_.CompactSize();
+  <span class="comment">// Get a 2-d array of generic vectors.</span>
+  <span class="keywordflow">if</span> (font_class_array_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <span class="keyword">delete</span> font_class_array_;
+  FontClassInfo empty;
+  font_class_array_ = <span class="keyword">new</span> <a class="code" href="class_g_e_n_e_r_i_c__2_d___a_r_r_a_y.html">GENERIC_2D_ARRAY&lt;FontClassInfo&gt;</a>(
+      compact_font_size, unicharset_size_, empty);
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> s = 0; s &lt; samples_.size(); ++s) {
+    <span class="keywordtype">int</span> font_id = samples_[s]-&gt;font_id();
+    <span class="keywordtype">int</span> class_id = samples_[s]-&gt;class_id();
+    <span class="keywordflow">if</span> (font_id &lt; 0 || font_id &gt;= font_id_map_.SparseSize()) {
+      <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Font id = %d/%d, class id = %d/%d on sample %d\n&quot;</span>,
+              font_id, font_id_map_.SparseSize(), class_id, unicharset_size_,
+              s);
+    }
+    <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(font_id &gt;= 0 &amp;&amp; font_id &lt; font_id_map_.SparseSize());
+    <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(class_id &gt;= 0 &amp;&amp; class_id &lt; unicharset_size_);
+    <span class="keywordtype">int</span> font_index = font_id_map_.SparseToCompact(font_id);
+    (*font_class_array_)(font_index, class_id).samples.push_back(s);
+  }
+  <span class="comment">// Set the num_raw_samples member of the FontClassInfo, to set the boundary</span>
+  <span class="comment">// between the raw samples and the replicated ones.</span>
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> = 0; <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> &lt; compact_font_size; ++<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>) {
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> c = 0; c &lt; unicharset_size_; ++c)
+      (*font_class_array_)(<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>, c).<a class="code" href="classtesseract_1_1_training_sample_set.html#af48888d68fc56c5b6911957530b59389">num_raw_samples</a> =
+          (*font_class_array_)(<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>, c).samples.size();
+  }
+  <span class="comment">// This is the global number of samples and also marks the boundary between</span>
+  <span class="comment">// real and replicated samples.</span>
+  num_raw_samples_ = samples_.size();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3b36d6df2a88be723a19bfb87cdde125"></a><!-- doxytag: member="tesseract::TrainingSampleSet::ReliablySeparable" ref="a3b36d6df2a88be723a19bfb87cdde125" args="(int font_id1, int class_id1, int font_id2, int class_id2, const IntFeatureMap &amp;feature_map, bool thorough) const " -->
@@ -1025,6 +1593,41 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsampleset_8cpp_source.html#l00414">414</a> of file <a class="el" href="trainingsampleset_8cpp_source.html">trainingsampleset.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                              {
+  <span class="keywordtype">int</span> result = 0;
+  <span class="keyword">const</span> TrainingSample* sample2 = <a class="code" href="classtesseract_1_1_training_sample_set.html#a37f9b8b95e9cd6e221524bc94f401783">GetCanonicalSample</a>(font_id2, class_id2);
+  <span class="keywordflow">if</span> (sample2 == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <span class="keywordflow">return</span> 0;  <span class="comment">// There are no canonical features.</span>
+  <span class="keyword">const</span> <a class="code" href="class_generic_vector.html">GenericVector&lt;int&gt;</a>&amp; canonical2 = <a class="code" href="classtesseract_1_1_training_sample_set.html#aeff8d3e8f232385ffd02e859b77c0573">GetCanonicalFeatures</a>(font_id2,
+                                                              class_id2);
+  <span class="keyword">const</span> BitVector&amp; cloud1 = <a class="code" href="classtesseract_1_1_training_sample_set.html#a75dac50ffd51d39ef76894e88aa1b8a2">GetCloudFeatures</a>(font_id1, class_id1);
+  <span class="keywordflow">if</span> (cloud1.size() == 0)
+    <span class="keywordflow">return</span> canonical2.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>();  <span class="comment">// There are no cloud features.</span>
+
+  <span class="comment">// Find a canonical2 feature that is not in cloud1.</span>
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> = 0; <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> &lt; canonical2.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>(); ++<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>) {
+    <span class="keywordtype">int</span> feature = canonical2[<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>];
+    <span class="keywordflow">if</span> (cloud1[feature])
+      <span class="keywordflow">continue</span>;
+    <span class="comment">// Gather the near neighbours of f.</span>
+    <a class="code" href="class_generic_vector.html">GenericVector&lt;int&gt;</a> good_features;
+    AddNearFeatures(feature_map, feature, 1, &amp;good_features);
+    <span class="comment">// Check that none of the good_features are in the cloud.</span>
+    <span class="keywordtype">int</span> i;
+    <span class="keywordflow">for</span> (i = 0; i &lt; good_features.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>(); ++i) {
+      <span class="keywordtype">int</span> good_f = good_features[i];
+      <span class="keywordflow">if</span> (cloud1[good_f]) {
+        <span class="keywordflow">break</span>;
+      }
+    }
+    <span class="keywordflow">if</span> (i &lt; good_features.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>())
+       <span class="keywordflow">continue</span>;  <span class="comment">// Found one in the cloud.</span>
+    ++result;
+  }
+  <span class="keywordflow">return</span> result;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae0d3970c33eaf47e869d19293e5f1d2b"></a><!-- doxytag: member="tesseract::TrainingSampleSet::ReplicateAndRandomizeSamples" ref="ae0d3970c33eaf47e869d19293e5f1d2b" args="()" -->
@@ -1041,6 +1644,32 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsampleset_8cpp_source.html#l00771">771</a> of file <a class="el" href="trainingsampleset_8cpp_source.html">trainingsampleset.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                     {
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(font_class_array_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  <span class="keywordtype">int</span> font_size = font_id_map_.CompactSize();
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> font_index = 0; font_index &lt; font_size; ++font_index) {
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> c = 0; c &lt; unicharset_size_; ++c) {
+      FontClassInfo&amp; fcinfo = (*font_class_array_)(font_index, c);
+      <span class="keywordtype">int</span> sample_count = fcinfo.samples.size();
+      <span class="keywordtype">int</span> min_samples = 2 * <a class="code" href="ndminx_8h.html#aacc3ee1a7f283f8ef65cea31f4436a95">MAX</a>(kSampleRandomSize, sample_count);
+      <span class="keywordflow">if</span> (sample_count &gt; 0 &amp;&amp; sample_count &lt; min_samples) {
+        <span class="keywordtype">int</span> base_count = sample_count;
+        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> base_index = 0; sample_count &lt; min_samples; ++sample_count) {
+          <span class="keywordtype">int</span> src_index = fcinfo.samples[base_index++];
+          <span class="keywordflow">if</span> (base_index &gt;= base_count) base_index = 0;
+          TrainingSample* <a class="code" href="structsample.html">sample</a> = samples_[src_index]-&gt;RandomizedCopy(
+              sample_count % kSampleRandomSize);
+          <span class="keywordtype">int</span> sample_index = samples_.size();
+          sample-&gt;set_sample_index(sample_index);
+          samples_.push_back(sample);
+          fcinfo.samples.push_back(sample_index);
+        }
+      }
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a5e48aa19b8dcc15bdaca1fb0b5ec685c"></a><!-- doxytag: member="tesseract::TrainingSampleSet::SampleToString" ref="a5e48aa19b8dcc15bdaca1fb0b5ec685c" args="(const TrainingSample &amp;sample) const " -->
@@ -1058,6 +1687,14 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsampleset_8cpp_source.html#l00203">203</a> of file <a class="el" href="trainingsampleset_8cpp_source.html">trainingsampleset.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                           {
+  <a class="code" href="class_s_t_r_i_n_g.html">STRING</a> boxfile_str;
+  <a class="code" href="boxread_8cpp.html#a12d56f93e661ff006a382fb8d7314898">MakeBoxFileStr</a>(unicharset_.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a421c0b6ebcbbe7547490252fb688c961">id_to_unichar</a>(<a class="code" href="structsample.html">sample</a>.class_id()),
+                 <a class="code" href="structsample.html">sample</a>.bounding_box(), <a class="code" href="structsample.html">sample</a>.page_num(), &amp;boxfile_str);
+  <span class="keywordflow">return</span> <a class="code" href="class_s_t_r_i_n_g.html">STRING</a>(fontinfo_table_.<a class="code" href="class_unicity_table.html#a3b3107bc72d9edfe501eaba7404de7eb" title="Return the object from an id.">get</a>(<a class="code" href="structsample.html">sample</a>.font_id()).name) + <span class="stringliteral">&quot; &quot;</span> + boxfile_str;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a68f083fa05878091a702900135658ee7"></a><!-- doxytag: member="tesseract::TrainingSampleSet::Serialize" ref="a68f083fa05878091a702900135658ee7" args="(FILE *fp) const " -->
@@ -1075,6 +1712,19 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsampleset_8cpp_source.html#l00080">80</a> of file <a class="el" href="trainingsampleset_8cpp_source.html">trainingsampleset.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                {
+  <span class="keywordflow">if</span> (!samples_.Serialize(fp)) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">if</span> (!unicharset_.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a1f82a51ad2d63d499a625b97ec806811">save_to_file</a>(fp)) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">if</span> (!font_id_map_.Serialize(fp)) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <a class="code" href="host_8h.html#a2ba4d271e85baf0d333318985cb3bced">inT8</a> not_null = font_class_array_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordflow">if</span> (fwrite(&amp;not_null, <span class="keyword">sizeof</span>(not_null), 1, fp) != 1) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">if</span> (not_null) {
+    <span class="keywordflow">if</span> (!font_class_array_-&gt;<a class="code" href="class_g_e_n_e_r_i_c__2_d___a_r_r_a_y.html#a79342ffa17a841cd11eec223dfffbc57">SerializeClasses</a>(fp)) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  }
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac1003d7e28f5dfb893a88ac3f60de6e5"></a><!-- doxytag: member="tesseract::TrainingSampleSet::SetupFontIdMap" ref="ac1003d7e28f5dfb893a88ac3f60de6e5" args="()" -->
@@ -1091,6 +1741,23 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsampleset_8cpp_source.html#l00641">641</a> of file <a class="el" href="trainingsampleset_8cpp_source.html">trainingsampleset.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                       {
+  <span class="comment">// Number of samples for each font_id.</span>
+  <a class="code" href="class_generic_vector.html">GenericVector&lt;int&gt;</a> font_counts;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> s = 0; s &lt; samples_.size(); ++s) {
+    <span class="keywordtype">int</span> font_id = samples_[s]-&gt;font_id();
+    <span class="keywordflow">while</span> (font_id &gt;= font_counts.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>())
+      font_counts.<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(0);
+    ++font_counts[font_id];
+  }
+  font_id_map_.Init(font_counts.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>(), <span class="keyword">false</span>);
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> = 0; <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> &lt; font_counts.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>(); ++<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>) {
+    font_id_map_.SetMap(<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>, font_counts[<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>] &gt; 0);
+  }
+  font_id_map_.Setup();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="afeb41df79aa69ffa132fc1a0e03cb040"></a><!-- doxytag: member="tesseract::TrainingSampleSet::UnicharDistance" ref="afeb41df79aa69ffa132fc1a0e03cb040" args="(const UnicharAndFonts &amp;uf1, const UnicharAndFonts &amp;uf2, bool matched_fonts, const IntFeatureMap &amp;feature_map)" -->
@@ -1130,6 +1797,67 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsampleset_8cpp_source.html#l00231">231</a> of file <a class="el" href="trainingsampleset_8cpp_source.html">trainingsampleset.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                           {
+  <span class="keywordtype">int</span> num_fonts1 = uf1.font_ids.size();
+  <span class="keywordtype">int</span> c1 = uf1.unichar_id;
+  <span class="keywordtype">int</span> num_fonts2 = uf2.font_ids.size();
+  <span class="keywordtype">int</span> c2 = uf2.unichar_id;
+  <span class="keywordtype">double</span> dist_sum = 0.0;
+  <span class="keywordtype">int</span> dist_count = 0;
+  <span class="keywordtype">bool</span> debug = <span class="keyword">false</span>;
+  <span class="keywordflow">if</span> (matched_fonts) {
+    <span class="comment">// Compute distances only where fonts match.</span>
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; num_fonts1; ++i) {
+      <span class="keywordtype">int</span> f1 = uf1.font_ids[i];
+      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; num_fonts2; ++j) {
+        <span class="keywordtype">int</span> f2 = uf2.font_ids[j];
+        <span class="keywordflow">if</span> (f1 == f2) {
+          dist_sum += <a class="code" href="classtesseract_1_1_training_sample_set.html#ac43ab2ddfca3d7a77dfda920b65853ca">ClusterDistance</a>(f1, c1, f2, c2, feature_map);
+          ++dist_count;
+        }
+      }
+    }
+  } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (num_fonts1 * num_fonts2 &lt;= <a class="code" href="namespacetesseract.html#aeaad2b6ef5a02069d1898468d26da372">kSquareLimit</a>) {
+    <span class="comment">// Small enough sets to compute all the distances.</span>
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; num_fonts1; ++i) {
+      <span class="keywordtype">int</span> f1 = uf1.font_ids[i];
+      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; num_fonts2; ++j) {
+        <span class="keywordtype">int</span> f2 = uf2.font_ids[j];
+        dist_sum += <a class="code" href="classtesseract_1_1_training_sample_set.html#ac43ab2ddfca3d7a77dfda920b65853ca">ClusterDistance</a>(f1, c1, f2, c2, feature_map);
+        <span class="keywordflow">if</span> (debug) {
+            <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Cluster dist %d %d %d %d = %g\n&quot;</span>,
+                    f1, c1, f2, c2,
+                    <a class="code" href="classtesseract_1_1_training_sample_set.html#ac43ab2ddfca3d7a77dfda920b65853ca">ClusterDistance</a>(f1, c1, f2, c2, feature_map));
+        }
+        ++dist_count;
+      }
+    }
+  } <span class="keywordflow">else</span> {
+    <span class="comment">// Subsample distances, using the largest set once, and stepping through</span>
+    <span class="comment">// the smaller set so as to ensure that all the pairs are different.</span>
+    <span class="keywordtype">int</span> increment = <a class="code" href="namespacetesseract.html#ab57f233601ee3f43a6bdcc4478b59547">kPrime1</a> != num_fonts2 ? <a class="code" href="namespacetesseract.html#ab57f233601ee3f43a6bdcc4478b59547">kPrime1</a> : <a class="code" href="namespacetesseract.html#a606492ee81ad0e6765a6b2f8dbb798df">kPrime2</a>;
+    <span class="keywordtype">int</span> index = 0;
+    <span class="keywordtype">int</span> <a class="code" href="classtesseract_1_1_training_sample_set.html#a6d2560a4ae24102d9919eb961d0bca34">num_samples</a> = <a class="code" href="ndminx_8h.html#aacc3ee1a7f283f8ef65cea31f4436a95">MAX</a>(num_fonts1, num_fonts2);
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="classtesseract_1_1_training_sample_set.html#a6d2560a4ae24102d9919eb961d0bca34">num_samples</a>; ++i, index += increment) {
+      <span class="keywordtype">int</span> f1 = uf1.font_ids[i % num_fonts1];
+      <span class="keywordtype">int</span> f2 = uf2.font_ids[index % num_fonts2];
+      <span class="keywordflow">if</span> (debug) {
+          <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Cluster dist %d %d %d %d = %g\n&quot;</span>,
+                  f1, c1, f2, c2, <a class="code" href="classtesseract_1_1_training_sample_set.html#ac43ab2ddfca3d7a77dfda920b65853ca">ClusterDistance</a>(f1, c1, f2, c2, feature_map));
+      }
+      dist_sum += <a class="code" href="classtesseract_1_1_training_sample_set.html#ac43ab2ddfca3d7a77dfda920b65853ca">ClusterDistance</a>(f1, c1, f2, c2, feature_map);
+      ++dist_count;
+    }
+  }
+  <span class="keywordflow">if</span> (dist_count == 0) {
+    <span class="keywordflow">if</span> (matched_fonts)
+      <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_training_sample_set.html#afeb41df79aa69ffa132fc1a0e03cb040">UnicharDistance</a>(uf1, uf2, <span class="keyword">false</span>, feature_map);
+    <span class="keywordflow">return</span> 0.0f;
+  }
+  <span class="keywordflow">return</span> dist_sum / dist_count;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aded0df876324870023182dc4e0a2b28b"></a><!-- doxytag: member="tesseract::TrainingSampleSet::unicharset" ref="aded0df876324870023182dc4e0a2b28b" args="() const " -->
@@ -1146,11 +1874,16 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsampleset_8h_source.html#l00064">64</a> of file <a class="el" href="trainingsampleset_8h_source.html">trainingsampleset.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                       {
+    <span class="keywordflow">return</span> unicharset_;
+  }
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/classify/<a class="el" href="trainingsampleset_8h_source.html">trainingsampleset.h</a></li>
-<li>tesseract-ocr/classify/<a class="el" href="trainingsampleset_8cpp.html">trainingsampleset.cpp</a></li>
+<li>tesseract-ocr/classify/<a class="el" href="trainingsampleset_8cpp_source.html">trainingsampleset.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -1173,7 +1906,7 @@ Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:15 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:50 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

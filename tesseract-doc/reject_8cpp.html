@@ -118,7 +118,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <code>#include &quot;<a class="el" href="helpers_8h_source.html">helpers.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="tesseractclass_8h_source.html">tesseractclass.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="notdll_8h_source.html">notdll.h</a>&quot;</code><br/>
-</div><table class="memberdecls">
+</div>
+<p><a href="reject_8cpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr><td colspan="2"><h2><a name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetesseract.html">tesseract</a></td></tr>
@@ -145,6 +147,233 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="reject_8cpp_source.html#l00055">55</a> of file <a class="el" href="reject_8cpp_source.html">reject.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                    {
+<span class="keywordtype">void</span> Tesseract::set_done(  <span class="comment">//set done flag</span>
+                         <a class="code" href="class_w_e_r_d___r_e_s.html">WERD_RES</a> *word,
+                         <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> pass) {
+  <span class="comment">/*</span>
+<span class="comment">  0: Original heuristic used in Tesseract and Ray&#39;s prototype Resaljet</span>
+<span class="comment">  */</span>
+  <span class="keywordflow">if</span> (tessedit_ok_mode == 0) {
+    <span class="comment">/* NOTE - done even if word contains some or all spaces !!! */</span>
+    word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a0920859a03bd9b0da26b8a0657d5440d">done</a> = word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#aa5509c182ff49d19cd95cd720ddf4d1a">tess_accepted</a>;
+  }
+  <span class="comment">/*</span>
+<span class="comment">  1: Reject words containing blanks and on pass 1 reject I/l/1 conflicts</span>
+<span class="comment">  */</span>
+  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (tessedit_ok_mode == 1) {
+    word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a0920859a03bd9b0da26b8a0657d5440d">done</a> = word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#aa5509c182ff49d19cd95cd720ddf4d1a">tess_accepted</a> &amp;&amp;
+      (strchr (word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a41d740f0accccdfb245d34d554122116">unichar_string</a>().<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a> (), <span class="charliteral">&#39; &#39;</span>) == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+
+    <span class="keywordflow">if</span> (word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a0920859a03bd9b0da26b8a0657d5440d">done</a> &amp;&amp; (pass == 1) &amp;&amp; one_ell_conflict (word, <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>))
+      word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a0920859a03bd9b0da26b8a0657d5440d">done</a> = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+  }
+  <span class="comment">/*</span>
+<span class="comment">  2: as 1 + only accept dict words or numerics in pass 1</span>
+<span class="comment">  */</span>
+  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (tessedit_ok_mode == 2) {
+    word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a0920859a03bd9b0da26b8a0657d5440d">done</a> = word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#aa5509c182ff49d19cd95cd720ddf4d1a">tess_accepted</a> &amp;&amp;
+      (strchr (word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a41d740f0accccdfb245d34d554122116">unichar_string</a>().<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a> (), <span class="charliteral">&#39; &#39;</span>) == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+
+    <span class="keywordflow">if</span> (word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a0920859a03bd9b0da26b8a0657d5440d">done</a> &amp;&amp; (pass == 1) &amp;&amp; one_ell_conflict (word, <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>))
+      word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a0920859a03bd9b0da26b8a0657d5440d">done</a> = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+
+    if (word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a0920859a03bd9b0da26b8a0657d5440d">done</a> &amp;&amp;
+      (pass == 1) &amp;&amp;
+      (word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a161ac137df2d063a6421728e6aa08fcb">permuter</a> () != SYSTEM_DAWG_PERM) &amp;&amp;
+      (word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a161ac137df2d063a6421728e6aa08fcb">permuter</a> () != FREQ_DAWG_PERM) &amp;&amp;
+      (word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a161ac137df2d063a6421728e6aa08fcb">permuter</a> () != USER_DAWG_PERM) &amp;&amp;
+    (word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a161ac137df2d063a6421728e6aa08fcb">permuter</a> () != NUMBER_PERM)) {
+<span class="preprocessor">      #ifndef SECURE_NAMES</span>
+<span class="preprocessor"></span>      <span class="keywordflow">if</span> (tessedit_rejection_debug)
+        <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a> (<span class="stringliteral">&quot;\nVETO Tess accepting poor word \&quot;%s\&quot;\n&quot;</span>,
+          word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a41d740f0accccdfb245d34d554122116">unichar_string</a>().<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a> ());
+<span class="preprocessor">      #endif</span>
+<span class="preprocessor"></span>      word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a0920859a03bd9b0da26b8a0657d5440d">done</a> = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+    }
+  }
+  <span class="comment">/*</span>
+<span class="comment">  3: as 2 + only accept dict words or numerics in pass 2 as well</span>
+<span class="comment">  */</span>
+  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (tessedit_ok_mode == 3) {
+    word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a0920859a03bd9b0da26b8a0657d5440d">done</a> = word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#aa5509c182ff49d19cd95cd720ddf4d1a">tess_accepted</a> &amp;&amp;
+      (strchr (word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a41d740f0accccdfb245d34d554122116">unichar_string</a>().<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a> (), <span class="charliteral">&#39; &#39;</span>) == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+
+    <span class="keywordflow">if</span> (word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a0920859a03bd9b0da26b8a0657d5440d">done</a> &amp;&amp; (pass == 1) &amp;&amp; one_ell_conflict (word, <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>))
+      word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a0920859a03bd9b0da26b8a0657d5440d">done</a> = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+
+    if (word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a0920859a03bd9b0da26b8a0657d5440d">done</a> &amp;&amp;
+      (word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a161ac137df2d063a6421728e6aa08fcb">permuter</a> () != SYSTEM_DAWG_PERM) &amp;&amp;
+      (word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a161ac137df2d063a6421728e6aa08fcb">permuter</a> () != FREQ_DAWG_PERM) &amp;&amp;
+      (word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a161ac137df2d063a6421728e6aa08fcb">permuter</a> () != USER_DAWG_PERM) &amp;&amp;
+    (word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a161ac137df2d063a6421728e6aa08fcb">permuter</a> () != NUMBER_PERM)) {
+<span class="preprocessor">      #ifndef SECURE_NAMES</span>
+<span class="preprocessor"></span>      <span class="keywordflow">if</span> (tessedit_rejection_debug)
+        <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a> (<span class="stringliteral">&quot;\nVETO Tess accepting poor word \&quot;%s\&quot;\n&quot;</span>,
+          word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a41d740f0accccdfb245d34d554122116">unichar_string</a>().<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a> ());
+<span class="preprocessor">      #endif</span>
+<span class="preprocessor"></span>      word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a0920859a03bd9b0da26b8a0657d5440d">done</a> = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+    }
+  }
+  <span class="comment">/*</span>
+<span class="comment">  4: as 2 + reject dict ambigs in pass 1</span>
+<span class="comment">  */</span>
+  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (tessedit_ok_mode == 4) {
+    word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a0920859a03bd9b0da26b8a0657d5440d">done</a> = word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#aa5509c182ff49d19cd95cd720ddf4d1a">tess_accepted</a> &amp;&amp;
+      (strchr (word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a41d740f0accccdfb245d34d554122116">unichar_string</a>().<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a> (), <span class="charliteral">&#39; &#39;</span>) == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+
+    <span class="keywordflow">if</span> (word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a0920859a03bd9b0da26b8a0657d5440d">done</a> &amp;&amp; (pass == 1) &amp;&amp; one_ell_conflict (word, <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>))
+      word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a0920859a03bd9b0da26b8a0657d5440d">done</a> = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+
+    if (word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a0920859a03bd9b0da26b8a0657d5440d">done</a> &amp;&amp;
+      (pass == 1) &amp;&amp;
+      (((word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a161ac137df2d063a6421728e6aa08fcb">permuter</a> () != SYSTEM_DAWG_PERM) &amp;&amp;
+      (word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a161ac137df2d063a6421728e6aa08fcb">permuter</a> () != FREQ_DAWG_PERM) &amp;&amp;
+      (word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a161ac137df2d063a6421728e6aa08fcb">permuter</a> () != USER_DAWG_PERM) &amp;&amp;
+      (word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a161ac137df2d063a6421728e6aa08fcb">permuter</a> () != NUMBER_PERM)) ||
+    (test_ambig_word (word)))) {
+<span class="preprocessor">      #ifndef SECURE_NAMES</span>
+<span class="preprocessor"></span>      <span class="keywordflow">if</span> (tessedit_rejection_debug)
+        <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a> (<span class="stringliteral">&quot;\nVETO Tess accepting poor word \&quot;%s\&quot;\n&quot;</span>,
+          word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a41d740f0accccdfb245d34d554122116">unichar_string</a>().<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a> ());
+<span class="preprocessor">      #endif</span>
+<span class="preprocessor"></span>      word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a0920859a03bd9b0da26b8a0657d5440d">done</a> = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+    }
+  }
+  <span class="comment">/*</span>
+<span class="comment">  5: as 3 + reject dict ambigs in both passes</span>
+<span class="comment">  */</span>
+  <span class="keywordflow">else</span> <span class="keywordflow">if</span> (tessedit_ok_mode == 5) {
+    word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a0920859a03bd9b0da26b8a0657d5440d">done</a> = word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#aa5509c182ff49d19cd95cd720ddf4d1a">tess_accepted</a> &amp;&amp;
+      (strchr (word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a41d740f0accccdfb245d34d554122116">unichar_string</a>().<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a> (), <span class="charliteral">&#39; &#39;</span>) == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+
+    <span class="keywordflow">if</span> (word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a0920859a03bd9b0da26b8a0657d5440d">done</a> &amp;&amp; (pass == 1) &amp;&amp; one_ell_conflict (word, <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>))
+      word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a0920859a03bd9b0da26b8a0657d5440d">done</a> = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+
+    if (word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a0920859a03bd9b0da26b8a0657d5440d">done</a> &amp;&amp;
+      (((word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a161ac137df2d063a6421728e6aa08fcb">permuter</a> () != SYSTEM_DAWG_PERM) &amp;&amp;
+      (word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a161ac137df2d063a6421728e6aa08fcb">permuter</a> () != FREQ_DAWG_PERM) &amp;&amp;
+      (word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a161ac137df2d063a6421728e6aa08fcb">permuter</a> () != USER_DAWG_PERM) &amp;&amp;
+      (word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a161ac137df2d063a6421728e6aa08fcb">permuter</a> () != NUMBER_PERM)) ||
+    (test_ambig_word (word)))) {
+<span class="preprocessor">      #ifndef SECURE_NAMES</span>
+<span class="preprocessor"></span>      <span class="keywordflow">if</span> (tessedit_rejection_debug)
+        <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a> (<span class="stringliteral">&quot;\nVETO Tess accepting poor word \&quot;%s\&quot;\n&quot;</span>,
+          word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a41d740f0accccdfb245d34d554122116">unichar_string</a>().<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a> ());
+<span class="preprocessor">      #endif</span>
+<span class="preprocessor"></span>      word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a0920859a03bd9b0da26b8a0657d5440d">done</a> = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+    }
+  }
+
+  <span class="keywordflow">else</span> {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a> (<span class="stringliteral">&quot;BAD tessedit_ok_mode\n&quot;</span>);
+    <a class="code" href="errcode_8h.html#a7da97df8ad833cd9bbae484fa4fc4f9a">err_exit</a>();
+  }
+}
+
+
+<span class="comment">/*************************************************************************</span>
+<span class="comment"> * make_reject_map()</span>
+<span class="comment"> *</span>
+<span class="comment"> * Sets the done flag to indicate whether the resylt is acceptable.</span>
+<span class="comment"> *</span>
+<span class="comment"> * Sets a reject map for the word.</span>
+<span class="comment"> *************************************************************************/</span>
+<span class="keywordtype">void</span> Tesseract::make_reject_map(      <span class="comment">//make rej map for wd //detailed results</span>
+                                <a class="code" href="class_w_e_r_d___r_e_s.html">WERD_RES</a> *word,
+                                BLOB_CHOICE_LIST_CLIST *blob_choices,
+                                <a class="code" href="class_r_o_w.html">ROW</a> *row,
+                                <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> pass  <span class="comment">//1st or 2nd?</span>
+                               ) {
+  <span class="keywordtype">int</span> i;
+  <span class="keywordtype">int</span> offset;
+
+  <a class="code" href="reject_8h.html#a619bb19b0a304dcfa4e73be192ace9c5">flip_0O</a>(word);
+  check_debug_pt(word, -1);     <span class="comment">// For trap only</span>
+  set_done(word, pass);  <span class="comment">// Set acceptance</span>
+  word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#ae24eb58be06cf275aee411d947fd31ef">reject_map</a>.<a class="code" href="class_r_e_j_m_a_p.html#a487e7d5d02b1fd1e142578ab4614f05b">initialise</a>(word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a93ab94b6fa6d5c0469fb52d66c62968c">unichar_lengths</a>().<a class="code" href="class_s_t_r_i_n_g.html#a168505a533eda60219c93e25adf4cdc5">length</a>());
+  <a class="code" href="reject_8cpp.html#a38678800d902519bdb0b6dcff44e5ee8">reject_blanks</a>(word);
+  <span class="comment">/*</span>
+<span class="comment">  0: Rays original heuristic - the baseline</span>
+<span class="comment">  */</span>
+  <span class="keywordflow">if</span> (tessedit_reject_mode == 0) {
+    <span class="keywordflow">if</span> (!word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a0920859a03bd9b0da26b8a0657d5440d">done</a>)
+      <a class="code" href="reject_8cpp.html#a02f131119330da54bfb3b91f96c01dd4">reject_poor_matches</a>(word, blob_choices);
+  } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (tessedit_reject_mode == 5) {
+    <span class="comment">/*</span>
+<span class="comment">    5: Reject I/1/l from words where there is no strong contextual confirmation;</span>
+<span class="comment">      the whole of any unacceptable words (incl PERM rej of dubious 1/I/ls);</span>
+<span class="comment">      and the whole of any words which are very small</span>
+<span class="comment">    */</span>
+    <span class="keywordflow">if</span> (<a class="code" href="normalis_8h.html#af974e6755e636c8bc7cbe57e3bcbdd73">kBlnXHeight</a> / word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a202d9d5d2a462d84012011c689e16605">denorm</a>.<a class="code" href="class_d_e_n_o_r_m.html#a712ca9b7a1041d92e53ee7023b870fc6">y_scale</a>() &lt;= min_sane_x_ht_pixels) {
+      word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#ae24eb58be06cf275aee411d947fd31ef">reject_map</a>.<a class="code" href="class_r_e_j_m_a_p.html#a7f6528c1228002276d930ed9407c556b">rej_word_small_xht</a>();
+    } <span class="keywordflow">else</span> {
+      one_ell_conflict(word, <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>);
+      <span class="comment">/*</span>
+<span class="comment">        Originally the code here just used the done flag. Now I have duplicated</span>
+<span class="comment">        and unpacked the conditions for setting the done flag so that each</span>
+<span class="comment">        mechanism can be turned on or off independently. This works WITHOUT</span>
+<span class="comment">        affecting the done flag setting.</span>
+<span class="comment">      */</span>
+      <span class="keywordflow">if</span> (rej_use_tess_accepted &amp;&amp; !word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#aa5509c182ff49d19cd95cd720ddf4d1a">tess_accepted</a>)
+        word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#ae24eb58be06cf275aee411d947fd31ef">reject_map</a>.<a class="code" href="class_r_e_j_m_a_p.html#a776b94463f9c008020c8cdf69c89b8c4">rej_word_not_tess_accepted</a> ();
+
+      <span class="keywordflow">if</span> (rej_use_tess_blanks &amp;&amp;
+        (strchr (word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a41d740f0accccdfb245d34d554122116">unichar_string</a>().<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a> (), <span class="charliteral">&#39; &#39;</span>) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>))
+        word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#ae24eb58be06cf275aee411d947fd31ef">reject_map</a>.<a class="code" href="class_r_e_j_m_a_p.html#acb01c2a1d8d28ecffdb51c6a7c3d22da">rej_word_contains_blanks</a> ();
+
+      <a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html">WERD_CHOICE</a>* best_choice = word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>;
+      <span class="keywordflow">if</span> (rej_use_good_perm) {
+        <span class="keywordflow">if</span> ((best_choice-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a161ac137df2d063a6421728e6aa08fcb">permuter</a>() == SYSTEM_DAWG_PERM ||
+             best_choice-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a161ac137df2d063a6421728e6aa08fcb">permuter</a>() == FREQ_DAWG_PERM ||
+             best_choice-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a161ac137df2d063a6421728e6aa08fcb">permuter</a>() == USER_DAWG_PERM) &amp;&amp;
+            (!rej_use_sensible_wd ||
+             acceptable_word_string(*word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a053a2aeeddc26a93a41a04fa08dd688a">uch_set</a>,
+                                    best_choice-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a41d740f0accccdfb245d34d554122116">unichar_string</a>().<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a>(),
+                                    best_choice-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a93ab94b6fa6d5c0469fb52d66c62968c">unichar_lengths</a>().<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a>()) !=
+                                        <a class="code" href="control_8h.html#af9ff5a7d7a1b9eeea7ce4106bffa7eeeaab0741a5a5ff9757ca343af255353ba0" title="Unacceptable word.">AC_UNACCEPTABLE</a>)) {
+          <span class="comment">// PASSED TEST</span>
+        } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (best_choice-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a161ac137df2d063a6421728e6aa08fcb">permuter</a>() == NUMBER_PERM) {
+          <span class="keywordflow">if</span> (rej_alphas_in_number_perm) {
+            <span class="keywordflow">for</span> (i = 0, offset = 0;
+                 best_choice-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a41d740f0accccdfb245d34d554122116">unichar_string</a>()[offset] != <span class="charliteral">&#39;\0&#39;</span>;
+                 offset += best_choice-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a93ab94b6fa6d5c0469fb52d66c62968c">unichar_lengths</a>()[i++]) {
+              <span class="keywordflow">if</span> (word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#ae24eb58be06cf275aee411d947fd31ef">reject_map</a>[i].accepted() &amp;&amp;
+                  word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a053a2aeeddc26a93a41a04fa08dd688a">uch_set</a>-&gt;<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#ad1dd0929edfb0e9e4905cc2fbeff42c2">get_isalpha</a>(
+                      best_choice-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a41d740f0accccdfb245d34d554122116">unichar_string</a>().<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a>() + offset,
+                      best_choice-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a93ab94b6fa6d5c0469fb52d66c62968c">unichar_lengths</a>()[i]))
+                word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#ae24eb58be06cf275aee411d947fd31ef">reject_map</a>[i].setrej_bad_permuter();
+              <span class="comment">// rej alpha</span>
+            }
+          }
+        } <span class="keywordflow">else</span> {
+          word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#ae24eb58be06cf275aee411d947fd31ef">reject_map</a>.<a class="code" href="class_r_e_j_m_a_p.html#a36d38c0c25d9792a85b5cb4b01e251fa">rej_word_bad_permuter</a>();
+        }
+      }
+      <span class="comment">/* Ambig word rejection was here once !!*/</span>
+    }
+  } <span class="keywordflow">else</span> {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;BAD tessedit_reject_mode\n&quot;</span>);
+    <a class="code" href="errcode_8h.html#a7da97df8ad833cd9bbae484fa4fc4f9a">err_exit</a>();
+  }
+
+  <span class="keywordflow">if</span> (tessedit_image_border &gt; -1)
+    reject_edge_blobs(word);
+
+  check_debug_pt (word, 10);
+  <span class="keywordflow">if</span> (tessedit_rejection_debug) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Permuter Type = %d\n&quot;</span>, word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a161ac137df2d063a6421728e6aa08fcb">permuter</a> ());
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Certainty: %f     Rating: %f\n&quot;</span>,
+      word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a1b25ef2b44d21a7204483a7ca804f293">certainty</a> (), word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a52ea24dcb5ff15ad8aee3fd774622216">rating</a> ());
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Dict word: %d\n&quot;</span>, dict_word(*(word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>)));
+  }
+
+  <a class="code" href="reject_8h.html#a24694172b77bc1092fb404873485b1c3">flip_hyphens</a>(word);
+  check_debug_pt(word, 20);
+}
+}  <span class="comment">// namespace tesseract</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa4e2bbe7bf554eb7a6fbf05c4817c30b"></a><!-- doxytag: member="reject.cpp::compute_reject_threshold" ref="aa4e2bbe7bf554eb7a6fbf05c4817c30b" args="(BLOB_CHOICE_LIST_CLIST *blob_choices)" -->
@@ -162,6 +391,55 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="reject_8cpp_source.html#l00370">370</a> of file <a class="el" href="reject_8cpp_source.html">reject.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                     {
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> index;                   <span class="comment">//to ratings</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> blob_count;              <span class="comment">//no of blobs in word</span>
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> ok_blob_count = 0;       <span class="comment">//non TESS rej blobs in word</span>
+  <span class="keywordtype">float</span> *ratings;                <span class="comment">//array of confidences</span>
+  <span class="keywordtype">float</span> threshold;               <span class="comment">//rejection threshold</span>
+  <span class="keywordtype">float</span> bestgap;                 <span class="comment">//biggest gap</span>
+  <span class="keywordtype">float</span> gapstart;                <span class="comment">//bottom of gap</span>
+                                 <span class="comment">//super iterator</span>
+  BLOB_CHOICE_LIST_C_IT list_it = blob_choices;
+  BLOB_CHOICE_IT choice_it;      <span class="comment">//real iterator</span>
+
+  blob_count = blob_choices-&gt;length ();
+  ratings = (<span class="keywordtype">float</span> *) <a class="code" href="memry_8cpp.html#a4c14b091498fb7866a1dd0af51a591fe">alloc_mem</a> (blob_count * <span class="keyword">sizeof</span> (<span class="keywordtype">float</span>));
+  <span class="keywordflow">for</span> (list_it.mark_cycle_pt (), index = 0;
+  !list_it.cycled_list (); list_it.forward (), index++) {
+    choice_it.set_to_list (list_it.data ());
+    <span class="keywordflow">if</span> (choice_it.length () &gt; 0) {
+      ratings[ok_blob_count] = choice_it.data ()-&gt;certainty ();
+      <span class="comment">//get in an array</span>
+      <span class="comment">//                 tprintf(&quot;Rating[%d]=%c %g %g\n&quot;,</span>
+      <span class="comment">//                         index,choice_it.data()-&gt;char_class(),</span>
+      <span class="comment">//                         choice_it.data()-&gt;rating(),choice_it.data()-&gt;certainty());</span>
+      ok_blob_count++;
+    }
+  }
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a> (index == blob_count);
+  qsort (ratings, ok_blob_count, <span class="keyword">sizeof</span> (<span class="keywordtype">float</span>), <a class="code" href="helpers_8h.html#a975e556a833acc19d7e6e21587366974">sort_floats</a>);
+  <span class="comment">//sort them</span>
+  bestgap = 0;
+  gapstart = ratings[0] - 1;     <span class="comment">//all reject if none better</span>
+  <span class="keywordflow">if</span> (ok_blob_count &gt;= 3) {
+    <span class="keywordflow">for</span> (index = 0; index &lt; ok_blob_count - 1; index++) {
+      <span class="keywordflow">if</span> (ratings[index + 1] - ratings[index] &gt; bestgap) {
+        bestgap = ratings[index + 1] - ratings[index];
+        <span class="comment">//find biggest</span>
+        gapstart = ratings[index];
+      }
+    }
+  }
+  threshold = gapstart + bestgap / 2;
+  <span class="comment">//      tprintf(&quot;First=%g, last=%g, gap=%g, threshold=%g\n&quot;,</span>
+  <span class="comment">//              ratings[0],ratings[index],bestgap,threshold);</span>
+
+  <a class="code" href="memry_8cpp.html#a9ef1862b8e026e23eef238af032858e4">free_mem</a>(ratings);
+  <span class="keywordflow">return</span> threshold;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a38678800d902519bdb0b6dcff44e5ee8"></a><!-- doxytag: member="reject.cpp::reject_blanks" ref="a38678800d902519bdb0b6dcff44e5ee8" args="(WERD_RES *word)" -->
@@ -179,6 +457,19 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="reject_8cpp_source.html#l00290">290</a> of file <a class="el" href="reject_8cpp_source.html">reject.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                   {
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> i;
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> offset;
+
+  <span class="keywordflow">for</span> (i = 0, offset = 0; word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a41d740f0accccdfb245d34d554122116">unichar_string</a>()[offset] != <span class="charliteral">&#39;\0&#39;</span>;
+       offset += word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a93ab94b6fa6d5c0469fb52d66c62968c">unichar_lengths</a>()[i], i += 1) {
+    <span class="keywordflow">if</span> (word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a41d740f0accccdfb245d34d554122116">unichar_string</a>()[offset] == <span class="charliteral">&#39; &#39;</span>)
+                                 <span class="comment">//rej unrecognised blobs</span>
+      word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#ae24eb58be06cf275aee411d947fd31ef">reject_map</a>[i].setrej_tess_failure ();
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a02f131119330da54bfb3b91f96c01dd4"></a><!-- doxytag: member="reject.cpp::reject_poor_matches" ref="a02f131119330da54bfb3b91f96c01dd4" args="(WERD_RES *word, BLOB_CHOICE_LIST_CLIST *blob_choices)" -->
@@ -206,6 +497,47 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="reject_8cpp_source.html#l00319">319</a> of file <a class="el" href="reject_8cpp_source.html">reject.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                               {
+  <span class="keywordtype">float</span> threshold;
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> i = 0;
+  <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> offset = 0;
+                                 <span class="comment">//super iterator</span>
+  BLOB_CHOICE_LIST_C_IT list_it = blob_choices;
+  BLOB_CHOICE_IT choice_it;      <span class="comment">//real iterator</span>
+
+<span class="preprocessor">  #ifndef SECURE_NAMES</span>
+<span class="preprocessor"></span>  <span class="keywordflow">if</span> (strlen(word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a93ab94b6fa6d5c0469fb52d66c62968c">unichar_lengths</a>().<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a>()) !=
+      list_it.length()) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>
+      (<span class="stringliteral">&quot;ASSERT FAIL string:\&quot;%s\&quot;; strlen=%d; choices len=%d; blob len=%d\n&quot;</span>,
+      word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a41d740f0accccdfb245d34d554122116">unichar_string</a>().<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a>(),
+      strlen (word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a93ab94b6fa6d5c0469fb52d66c62968c">unichar_lengths</a>().<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a>()), list_it.length(),
+      word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3a92c8c9750d78631d75998f008f366a">box_word</a>-&gt;<a class="code" href="classtesseract_1_1_box_word.html#afe001fe8fb7f2d3725b2ac2f542e9878">length</a>());
+  }
+<span class="preprocessor">  #endif</span>
+<span class="preprocessor"></span>  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a> (strlen (word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a93ab94b6fa6d5c0469fb52d66c62968c">unichar_lengths</a>().<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a> ()) ==
+    list_it.length ());
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3a92c8c9750d78631d75998f008f366a">box_word</a>-&gt;<a class="code" href="classtesseract_1_1_box_word.html#afe001fe8fb7f2d3725b2ac2f542e9878">length</a>() == list_it.length());
+  threshold = <a class="code" href="reject_8cpp.html#aa4e2bbe7bf554eb7a6fbf05c4817c30b">compute_reject_threshold</a> (blob_choices);
+
+  <span class="keywordflow">for</span> (list_it.mark_cycle_pt ();
+  !list_it.cycled_list (); list_it.forward (), i++,
+           offset += word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a93ab94b6fa6d5c0469fb52d66c62968c">unichar_lengths</a>()[i]) {
+    <span class="comment">/* NB - only compares the threshold against the TOP choice char in the</span>
+<span class="comment">      choices list for a blob !! - the selected one may be below the threshold</span>
+<span class="comment">    */</span>
+    choice_it.set_to_list (list_it.data ());
+    <span class="keywordflow">if</span> ((word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a41d740f0accccdfb245d34d554122116">unichar_string</a>()[offset] == <span class="charliteral">&#39; &#39;</span>) ||
+      (choice_it.length () == 0))
+                                 <span class="comment">//rej unrecognised blobs</span>
+      word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#ae24eb58be06cf275aee411d947fd31ef">reject_map</a>[i].setrej_tess_failure ();
+    <span class="keywordflow">else</span> <span class="keywordflow">if</span> (choice_it.data ()-&gt;certainty () &lt; threshold)
+                                 <span class="comment">//rej poor score blob</span>
+      word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#ae24eb58be06cf275aee411d947fd31ef">reject_map</a>[i].setrej_poor_match ();
+  }
+}
+</pre></div>
 </div>
 </div>
 </div>
@@ -228,7 +560,7 @@ Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:08 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:40 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

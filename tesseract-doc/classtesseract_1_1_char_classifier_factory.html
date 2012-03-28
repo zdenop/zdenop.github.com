@@ -111,7 +111,10 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classtesseract_1_1_char_classifier.html">CharClassifier</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_char_classifier_factory.html#a2d64213198e8eb30f9f8eb7cb2135437">Create</a> (const string &amp;data_file_path, const string &amp;lang, <a class="el" href="classtesseract_1_1_lang_model.html">LangModel</a> *lang_mod, <a class="el" href="classtesseract_1_1_char_set.html">CharSet</a> *char_set, <a class="el" href="classtesseract_1_1_tuning_params.html">TuningParams</a> *params)</td></tr>
 </table>
-<hr/><h2>Member Function Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="classifier__factory_8h_source.html#l00031">31</a> of file <a class="el" href="classifier__factory_8h_source.html">classifier_factory.h</a>.</p>
+</div><hr/><h2>Member Function Documentation</h2>
 <a class="anchor" id="a2d64213198e8eb30f9f8eb7cb2135437"></a><!-- doxytag: member="tesseract::CharClassifierFactory::Create" ref="a2d64213198e8eb30f9f8eb7cb2135437" args="(const string &amp;data_file_path, const string &amp;lang, LangModel *lang_mod, CharSet *char_set, TuningParams *params)" -->
 <div class="memitem">
 <div class="memproto">
@@ -155,11 +158,71 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="classifier__factory_8cpp_source.html#l00035">35</a> of file <a class="el" href="classifier__factory_8cpp_source.html">classifier_factory.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                    {
+  <span class="comment">// create the feature extraction object</span>
+  FeatureBase *feat_extract;
+
+  <span class="keywordflow">switch</span> (params-&gt;TypeFeature()) {
+    <span class="keywordflow">case</span> <a class="code" href="classtesseract_1_1_tuning_params.html#a2b1c025469e919800e21ac36d852b699a77a5e6adc522d14daee68de8385a3b8f">TuningParams::BMP</a>:
+      feat_extract = <span class="keyword">new</span> FeatureBmp(params);
+      <span class="keywordflow">break</span>;
+    <span class="keywordflow">case</span> <a class="code" href="classtesseract_1_1_tuning_params.html#a2b1c025469e919800e21ac36d852b699adb6668fd25628268552f4a6ebf81e47c">TuningParams::CHEBYSHEV</a>:
+      feat_extract = <span class="keyword">new</span> FeatureChebyshev(params);
+      <span class="keywordflow">break</span>;
+    <span class="keywordflow">case</span> <a class="code" href="classtesseract_1_1_tuning_params.html#a2b1c025469e919800e21ac36d852b699aec577e154f491c89dc750f02f51cfa08">TuningParams::HYBRID</a>:
+      feat_extract = <span class="keyword">new</span> FeatureHybrid(params);
+      <span class="keywordflow">break</span>;
+    <span class="keywordflow">default</span>:
+      fprintf(stderr, <span class="stringliteral">&quot;Cube ERROR (CharClassifierFactory::Create): invalid &quot;</span>
+              <span class="stringliteral">&quot;feature type.\n&quot;</span>);
+      <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="keywordflow">if</span> (feat_extract == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    fprintf(stderr, <span class="stringliteral">&quot;Cube ERROR (CharClassifierFactory::Create): unable &quot;</span>
+              <span class="stringliteral">&quot;to instantiate feature extraction object.\n&quot;</span>);
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="comment">// create the classifier object</span>
+  CharClassifier *classifier_obj;
+  <span class="keywordflow">switch</span> (params-&gt;TypeClassifier()) {
+    <span class="keywordflow">case</span> <a class="code" href="classtesseract_1_1_tuning_params.html#a4404799ff32c49a0307a47694bf2f94ba6e409d826f36c9474ea023130f02a232">TuningParams::NN</a>:
+      classifier_obj = <span class="keyword">new</span> ConvNetCharClassifier(char_set, params,
+                                                 feat_extract);
+      <span class="keywordflow">break</span>;
+    <span class="keywordflow">case</span> <a class="code" href="classtesseract_1_1_tuning_params.html#a4404799ff32c49a0307a47694bf2f94ba39ea8e61fbe13d025554076247e9ff3c">TuningParams::HYBRID_NN</a>:
+      classifier_obj = <span class="keyword">new</span> HybridNeuralNetCharClassifier(char_set, params,
+                                                         feat_extract);
+      <span class="keywordflow">break</span>;
+    <span class="keywordflow">default</span>:
+      fprintf(stderr, <span class="stringliteral">&quot;Cube ERROR (CharClassifierFactory::Create): invalid &quot;</span>
+              <span class="stringliteral">&quot;classifier type.\n&quot;</span>);
+      <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="keywordflow">if</span> (classifier_obj == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    fprintf(stderr, <span class="stringliteral">&quot;Cube ERROR (CharClassifierFactory::Create): error &quot;</span>
+            <span class="stringliteral">&quot;allocating memory for character classifier object.\n&quot;</span>);
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+
+  <span class="comment">// Init the classifier</span>
+  <span class="keywordflow">if</span> (!classifier_obj-&gt;Init(data_file_path, lang, lang_mod)) {
+    <span class="keyword">delete</span> classifier_obj;
+    fprintf(stderr, <span class="stringliteral">&quot;Cube ERROR (CharClassifierFactory::Create): unable &quot;</span>
+            <span class="stringliteral">&quot;to Init() character classifier object.\n&quot;</span>);
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  }
+  <span class="keywordflow">return</span> classifier_obj;
+}
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/cube/<a class="el" href="classifier__factory_8h_source.html">classifier_factory.h</a></li>
-<li>tesseract-ocr/cube/<a class="el" href="classifier__factory_8cpp.html">classifier_factory.cpp</a></li>
+<li>tesseract-ocr/cube/<a class="el" href="classifier__factory_8cpp_source.html">classifier_factory.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -182,7 +245,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:15 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:51 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

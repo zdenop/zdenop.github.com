@@ -109,7 +109,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <code>#include &quot;<a class="el" href="scanutils_8h_source.html">scanutils.h</a>&quot;</code><br/>
 <code>#include &lt;string.h&gt;</code><br/>
 <code>#include &lt;stdio.h&gt;</code><br/>
-</div><table class="memberdecls">
+</div>
+<p><a href="featdefs_8cpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr><td colspan="2"><h2><a name="define-members"></a>
 Defines</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="featdefs_8cpp.html#ada39950713e21f70f302841f185fba09">ILLEGAL_NUM_SETS</a>&#160;&#160;&#160;3001</td></tr>
@@ -160,6 +162,8 @@ Variables</h2></td></tr>
 <div class="memdoc">
 <p>define errors triggered by this module </p>
 
+<p>Definition at line <a class="el" href="featdefs_8cpp_source.html#l00034">34</a> of file <a class="el" href="featdefs_8cpp_source.html">featdefs.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="af9508e257a32a6046ee5b30079a50bdb"></a><!-- doxytag: member="featdefs.cpp::PICO_FEATURE_LENGTH" ref="af9508e257a32a6046ee5b30079a50bdb" args="" -->
@@ -172,6 +176,8 @@ Variables</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="featdefs_8cpp_source.html#l00036">36</a> of file <a class="el" href="featdefs_8cpp_source.html">featdefs.cpp</a>.</p>
 
 </div>
 </div>
@@ -574,6 +580,17 @@ Variables</h2></td></tr>
 <dd>
 History: Wed May 23 13:52:19 1990, DSJ, Created. </dd></dl>
 
+<p>Definition at line <a class="el" href="featdefs_8cpp_source.html#l00141">141</a> of file <a class="el" href="featdefs_8cpp_source.html">featdefs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                             {
+  <span class="keywordtype">int</span> i;
+
+  <span class="keywordflow">if</span> (CharDesc) {
+    <span class="keywordflow">for</span> (i = 0; i &lt; CharDesc-&gt;<a class="code" href="struct_c_h_a_r___d_e_s_c___s_t_r_u_c_t.html#a44c9d1024eb43636b98d19c92f4e4b0f">NumFeatureSets</a>; i++)
+      <a class="code" href="ocrfeatures_8cpp.html#a72b29c3d875eb9a2241385b1f1388b2d">FreeFeatureSet</a> (CharDesc-&gt;<a class="code" href="struct_c_h_a_r___d_e_s_c___s_t_r_u_c_t.html#ae04ec3a6b5e474d83930ff3e57a42acb">FeatureSets</a>[i]);
+    <a class="code" href="emalloc_8cpp.html#af846576ae65dc13e49ddc616e17baa27">Efree</a>(CharDesc);
+  }
+}                                <span class="comment">/* FreeCharDescription */</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6e4c84ab01e39577e4a74d9ab1eff68b"></a><!-- doxytag: member="featdefs.cpp::InitFeatureDefs" ref="a6e4c84ab01e39577e4a74d9ab1eff68b" args="(FEATURE_DEFS_STRUCT *featuredefs)" -->
@@ -591,6 +608,14 @@ History: Wed May 23 13:52:19 1990, DSJ, Created. </dd></dl>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="featdefs_8cpp_source.html#l00121">121</a> of file <a class="el" href="featdefs_8cpp_source.html">featdefs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                       {
+  featuredefs-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___d_e_f_s___s_t_r_u_c_t.html#af53b55f15e4be4712c2c713057e27d2f">NumFeatureTypes</a> = <a class="code" href="featdefs_8h.html#aff5d3186888ac3dbd87adcc54b7f2ecf">NUM_FEATURE_TYPES</a>;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; <a class="code" href="featdefs_8h.html#aff5d3186888ac3dbd87adcc54b7f2ecf">NUM_FEATURE_TYPES</a>; ++i) {
+    featuredefs-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___d_e_f_s___s_t_r_u_c_t.html#ab09a6d77d42a8a2b5882bbc27ee4f23c">FeatureDesc</a>[i] = DescDefs[i];
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a860f7517bac9477e79551e501df549ed"></a><!-- doxytag: member="featdefs.cpp::NewCharDescription" ref="a860f7517bac9477e79551e501df549ed" args="(const FEATURE_DEFS_STRUCT &amp;FeatureDefs)" -->
@@ -617,6 +642,21 @@ History: Wed May 23 13:52:19 1990, DSJ, Created. </dd></dl>
 <dd>
 History: Wed May 23 15:27:10 1990, DSJ, Created. </dd></dl>
 
+<p>Definition at line <a class="el" href="featdefs_8cpp_source.html#l00164">164</a> of file <a class="el" href="featdefs_8cpp_source.html">featdefs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                     {
+  <a class="code" href="struct_c_h_a_r___d_e_s_c___s_t_r_u_c_t.html">CHAR_DESC</a> CharDesc;
+  <span class="keywordtype">int</span> i;
+
+  CharDesc = (<a class="code" href="featdefs_8h.html#a41cfd9e7d2129a4e068683b2bafab0ee">CHAR_DESC</a>) <a class="code" href="emalloc_8cpp.html#a55f2088f1a7b3333bb5c7275ab726bba">Emalloc</a> (<span class="keyword">sizeof</span> (<a class="code" href="struct_c_h_a_r___d_e_s_c___s_t_r_u_c_t.html">CHAR_DESC_STRUCT</a>));
+  CharDesc-&gt;<a class="code" href="struct_c_h_a_r___d_e_s_c___s_t_r_u_c_t.html#a44c9d1024eb43636b98d19c92f4e4b0f">NumFeatureSets</a> = FeatureDefs.<a class="code" href="struct_f_e_a_t_u_r_e___d_e_f_s___s_t_r_u_c_t.html#af53b55f15e4be4712c2c713057e27d2f">NumFeatureTypes</a>;
+
+  <span class="keywordflow">for</span> (i = 0; i &lt; CharDesc-&gt;<a class="code" href="struct_c_h_a_r___d_e_s_c___s_t_r_u_c_t.html#a44c9d1024eb43636b98d19c92f4e4b0f">NumFeatureSets</a>; i++)
+    CharDesc-&gt;<a class="code" href="struct_c_h_a_r___d_e_s_c___s_t_r_u_c_t.html#ae04ec3a6b5e474d83930ff3e57a42acb">FeatureSets</a>[i] = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+
+  return (CharDesc);
+
+}                                <span class="comment">/* NewCharDescription */</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae1558f5d4119a9e651a85e10887be9f3"></a><!-- doxytag: member="featdefs.cpp::ReadCharDescription" ref="ae1558f5d4119a9e651a85e10887be9f3" args="(const FEATURE_DEFS_STRUCT &amp;FeatureDefs, FILE *File)" -->
@@ -667,6 +707,28 @@ History: Wed May 23 15:27:10 1990, DSJ, Created. </dd></dl>
 <dd>
 History: Wed May 23 17:32:48 1990, DSJ, Created. </dd></dl>
 
+<p>Definition at line <a class="el" href="featdefs_8cpp_source.html#l00259">259</a> of file <a class="el" href="featdefs_8cpp_source.html">featdefs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                          {
+  <span class="keywordtype">int</span> NumSetsToRead;
+  <span class="keywordtype">char</span> ShortName[<a class="code" href="ocrfeatures_8h.html#a988007e06743db204d076f3c68161469">FEAT_NAME_SIZE</a>];
+  <a class="code" href="struct_c_h_a_r___d_e_s_c___s_t_r_u_c_t.html">CHAR_DESC</a> CharDesc;
+  <span class="keywordtype">int</span> Type;
+
+  <span class="keywordflow">if</span> (fscanf (File, <span class="stringliteral">&quot;%d&quot;</span>, &amp;NumSetsToRead) != 1 ||
+    NumSetsToRead &lt; 0 || NumSetsToRead &gt; FeatureDefs.<a class="code" href="struct_f_e_a_t_u_r_e___d_e_f_s___s_t_r_u_c_t.html#af53b55f15e4be4712c2c713057e27d2f">NumFeatureTypes</a>)
+    <a class="code" href="danerror_8cpp.html#a480942fa88232bda23e9809e5afa9f25">DoError</a> (<a class="code" href="featdefs_8cpp.html#ada39950713e21f70f302841f185fba09">ILLEGAL_NUM_SETS</a>, <span class="stringliteral">&quot;Illegal number of feature sets&quot;</span>);
+
+  CharDesc = <a class="code" href="featdefs_8cpp.html#a860f7517bac9477e79551e501df549ed">NewCharDescription</a>(FeatureDefs);
+  <span class="keywordflow">for</span> (; NumSetsToRead &gt; 0; NumSetsToRead--) {
+    fscanf (File, <span class="stringliteral">&quot;%s&quot;</span>, ShortName);
+    Type = <a class="code" href="featdefs_8cpp.html#a46a09d60beb44b9c9156346595f352ee">ShortNameToFeatureType</a>(FeatureDefs, ShortName);
+    CharDesc-&gt;<a class="code" href="struct_c_h_a_r___d_e_s_c___s_t_r_u_c_t.html#ae04ec3a6b5e474d83930ff3e57a42acb">FeatureSets</a>[Type] =
+      <a class="code" href="ocrfeatures_8cpp.html#adbac3342338c1fb0f38aad20c3c324d8">ReadFeatureSet</a> (File, FeatureDefs.<a class="code" href="struct_f_e_a_t_u_r_e___d_e_f_s___s_t_r_u_c_t.html#ab09a6d77d42a8a2b5882bbc27ee4f23c">FeatureDesc</a>[Type]);
+  }
+  <span class="keywordflow">return</span> (CharDesc);
+
+}                                <span class="comment">// ReadCharDescription</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a46a09d60beb44b9c9156346595f352ee"></a><!-- doxytag: member="featdefs.cpp::ShortNameToFeatureType" ref="a46a09d60beb44b9c9156346595f352ee" args="(const FEATURE_DEFS_STRUCT &amp;FeatureDefs, const char *ShortName)" -->
@@ -712,6 +774,18 @@ History: Wed May 23 17:32:48 1990, DSJ, Created. </dd></dl>
 <dd>
 History: Wed May 23 15:36:05 1990, DSJ, Created. </dd></dl>
 
+<p>Definition at line <a class="el" href="featdefs_8cpp_source.html#l00297">297</a> of file <a class="el" href="featdefs_8cpp_source.html">featdefs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                  {
+  <span class="keywordtype">int</span> i;
+
+  <span class="keywordflow">for</span> (i = 0; i &lt; FeatureDefs.<a class="code" href="struct_f_e_a_t_u_r_e___d_e_f_s___s_t_r_u_c_t.html#af53b55f15e4be4712c2c713057e27d2f">NumFeatureTypes</a>; i++)
+    <span class="keywordflow">if</span> (!strcmp ((FeatureDefs.<a class="code" href="struct_f_e_a_t_u_r_e___d_e_f_s___s_t_r_u_c_t.html#ab09a6d77d42a8a2b5882bbc27ee4f23c">FeatureDesc</a>[i]-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___d_e_s_c___s_t_r_u_c_t.html#a11853141d8e7d72bdb9bc320001fa3d0">ShortName</a>), ShortName))
+      <span class="keywordflow">return</span> (i);
+  <a class="code" href="danerror_8cpp.html#a480942fa88232bda23e9809e5afa9f25">DoError</a> (<a class="code" href="featdefs_8h.html#a868936345759056133e0fbbc97d1a656">ILLEGAL_SHORT_NAME</a>, <span class="stringliteral">&quot;Illegal short name for a feature&quot;</span>);
+  <span class="keywordflow">return</span> 0;
+
+}                                <span class="comment">// ShortNameToFeatureType</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae28e25123f88c90765e80e52f1ec4699"></a><!-- doxytag: member="featdefs.cpp::StartParamDesc" ref="ae28e25123f88c90765e80e52f1ec4699" args="(MicroFeatureParams) DefineParam(0" -->
@@ -807,6 +881,26 @@ History: Wed May 23 15:36:05 1990, DSJ, Created. </dd></dl>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="featdefs_8cpp_source.html#l00218">218</a> of file <a class="el" href="featdefs_8cpp_source.html">featdefs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                              {
+  <span class="keywordtype">bool</span> anything_written = <span class="keyword">false</span>;
+  <span class="keywordtype">bool</span> well_formed = <span class="keyword">true</span>;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> Type = 0; Type &lt; CharDesc-&gt;<a class="code" href="struct_c_h_a_r___d_e_s_c___s_t_r_u_c_t.html#a44c9d1024eb43636b98d19c92f4e4b0f">NumFeatureSets</a>; Type++) {
+    <span class="keywordflow">if</span> (CharDesc-&gt;<a class="code" href="struct_c_h_a_r___d_e_s_c___s_t_r_u_c_t.html#ae04ec3a6b5e474d83930ff3e57a42acb">FeatureSets</a>[Type]) {
+      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; CharDesc-&gt;<a class="code" href="struct_c_h_a_r___d_e_s_c___s_t_r_u_c_t.html#ae04ec3a6b5e474d83930ff3e57a42acb">FeatureSets</a>[Type]-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_e_t___s_t_r_u_c_t.html#a154a6ca419f3f16fccf11b7217351570">NumFeatures</a>; i++) {
+        <a class="code" href="struct_f_e_a_t_u_r_e___s_t_r_u_c_t.html">FEATURE</a> feat = CharDesc-&gt;<a class="code" href="struct_c_h_a_r___d_e_s_c___s_t_r_u_c_t.html#ae04ec3a6b5e474d83930ff3e57a42acb">FeatureSets</a>[Type]-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_e_t___s_t_r_u_c_t.html#a4664d6a22a9d12f4011de4d877664c45">Features</a>[i];
+        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> p = 0; p &lt; feat-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_t_r_u_c_t.html#a1a034f275ff504afd63bd99643fae589">Type</a>-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___d_e_s_c___s_t_r_u_c_t.html#a0edbab02900ae01549f742582236eb6d">NumParams</a>; p++) {
+          <span class="keywordflow">if</span> (isnan(feat-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_t_r_u_c_t.html#ace52f36cfcba955504f4a24f86a897b4">Params</a>[p]) || isinf(feat-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_t_r_u_c_t.html#ace52f36cfcba955504f4a24f86a897b4">Params</a>[p]))
+            well_formed = <span class="keyword">false</span>;
+          <span class="keywordflow">else</span>
+            anything_written = <span class="keyword">true</span>;
+        }
+      }
+    }
+  }
+  <span class="keywordflow">return</span> anything_written &amp;&amp; well_formed;
+}                                <span class="comment">/* ValidCharDescription */</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a52fa2e188f92a8642277f83873efa212"></a><!-- doxytag: member="featdefs.cpp::WriteCharDescription" ref="a52fa2e188f92a8642277f83873efa212" args="(const FEATURE_DEFS_STRUCT &amp;FeatureDefs, FILE *File, CHAR_DESC CharDesc)" -->
@@ -856,6 +950,23 @@ History: Wed May 23 15:36:05 1990, DSJ, Created. </dd></dl>
 <dd>
 History: Wed May 23 17:21:18 1990, DSJ, Created. </dd></dl>
 
+<p>Definition at line <a class="el" href="featdefs_8cpp_source.html#l00199">199</a> of file <a class="el" href="featdefs_8cpp_source.html">featdefs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                          {
+  <span class="keywordtype">int</span> Type;
+  <span class="keywordtype">int</span> NumSetsToWrite = 0;
+
+  <span class="keywordflow">for</span> (Type = 0; Type &lt; CharDesc-&gt;<a class="code" href="struct_c_h_a_r___d_e_s_c___s_t_r_u_c_t.html#a44c9d1024eb43636b98d19c92f4e4b0f">NumFeatureSets</a>; Type++)
+    <span class="keywordflow">if</span> (CharDesc-&gt;<a class="code" href="struct_c_h_a_r___d_e_s_c___s_t_r_u_c_t.html#ae04ec3a6b5e474d83930ff3e57a42acb">FeatureSets</a>[Type])
+      NumSetsToWrite++;
+
+  fprintf (File, <span class="stringliteral">&quot; %d\n&quot;</span>, NumSetsToWrite);
+  <span class="keywordflow">for</span> (Type = 0; Type &lt; CharDesc-&gt;<a class="code" href="struct_c_h_a_r___d_e_s_c___s_t_r_u_c_t.html#a44c9d1024eb43636b98d19c92f4e4b0f">NumFeatureSets</a>; Type++)
+  <span class="keywordflow">if</span> (CharDesc-&gt;<a class="code" href="struct_c_h_a_r___d_e_s_c___s_t_r_u_c_t.html#ae04ec3a6b5e474d83930ff3e57a42acb">FeatureSets</a>[Type]) {
+    fprintf (File, <span class="stringliteral">&quot;%s &quot;</span>, (FeatureDefs.<a class="code" href="struct_f_e_a_t_u_r_e___d_e_f_s___s_t_r_u_c_t.html#ab09a6d77d42a8a2b5882bbc27ee4f23c">FeatureDesc</a>[Type])-&gt;ShortName);
+    <a class="code" href="ocrfeatures_8cpp.html#a9a2f4672497a1aa6d8378d083c0b70c8">WriteFeatureSet</a> (File, CharDesc-&gt;<a class="code" href="struct_c_h_a_r___d_e_s_c___s_t_r_u_c_t.html#ae04ec3a6b5e474d83930ff3e57a42acb">FeatureSets</a>[Type]);
+  }
+}                                <span class="comment">/* WriteCharDescription */</span>
+</pre></div>
 </div>
 </div>
 <hr/><h2>Variable Documentation</h2>
@@ -870,6 +981,8 @@ History: Wed May 23 17:21:18 1990, DSJ, Created. </dd></dl>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="featdefs_8cpp_source.html#l00042">42</a> of file <a class="el" href="featdefs_8cpp_source.html">featdefs.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="abada1502d146a88fadcc73af54ae7540"></a><!-- doxytag: member="featdefs.cpp::kGeoFeatureType" ref="abada1502d146a88fadcc73af54ae7540" args="" -->
@@ -882,6 +995,8 @@ History: Wed May 23 17:21:18 1990, DSJ, Created. </dd></dl>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="featdefs_8cpp_source.html#l00044">44</a> of file <a class="el" href="featdefs_8cpp_source.html">featdefs.cpp</a>.</p>
 
 </div>
 </div>
@@ -896,6 +1011,8 @@ History: Wed May 23 17:21:18 1990, DSJ, Created. </dd></dl>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="featdefs_8cpp_source.html#l00043">43</a> of file <a class="el" href="featdefs_8cpp_source.html">featdefs.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="ae706c172f0e1ba7f7cf1a99c560fd99a"></a><!-- doxytag: member="featdefs.cpp::kMicroFeatureType" ref="ae706c172f0e1ba7f7cf1a99c560fd99a" args="" -->
@@ -909,6 +1026,8 @@ History: Wed May 23 17:21:18 1990, DSJ, Created. </dd></dl>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="featdefs_8cpp_source.html#l00041">41</a> of file <a class="el" href="featdefs_8cpp_source.html">featdefs.cpp</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a66c7f757ef35e33a52ac2efe3f4e8247"></a><!-- doxytag: member="featdefs.cpp::of" ref="a66c7f757ef35e33a52ac2efe3f4e8247" args="" -->
@@ -921,6 +1040,8 @@ History: Wed May 23 17:21:18 1990, DSJ, Created. </dd></dl>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="featdefs_8cpp_source.html#l00108">108</a> of file <a class="el" href="featdefs_8cpp_source.html">featdefs.cpp</a>.</p>
 
 </div>
 </div>
@@ -944,7 +1065,7 @@ History: Wed May 23 17:21:18 1990, DSJ, Created. </dd></dl>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:09 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:41 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

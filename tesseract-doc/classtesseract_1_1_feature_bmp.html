@@ -128,7 +128,10 @@ Public Member Functions</h2></td></tr>
 Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_feature_bmp.html#adfb8ac24ffecf0cbb9da1ce5101d3b0a">conv_grid_size_</a></td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="feature__bmp_8h_source.html#l00033">33</a> of file <a class="el" href="feature__bmp_8h_source.html">feature_bmp.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a0d5080129dc96d784078bfaf546c884c"></a><!-- doxytag: member="tesseract::FeatureBmp::FeatureBmp" ref="a0d5080129dc96d784078bfaf546c884c" args="(TuningParams *params)" -->
 <div class="memitem">
 <div class="memproto">
@@ -144,6 +147,11 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="feature__bmp_8cpp_source.html#l00031">31</a> of file <a class="el" href="feature__bmp_8cpp_source.html">feature_bmp.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">    :<a class="code" href="classtesseract_1_1_feature_base.html#af731352f6bbd74d24e86cecfb27ebd34">FeatureBase</a>(params) {
+  <a class="code" href="classtesseract_1_1_feature_bmp.html#adfb8ac24ffecf0cbb9da1ce5101d3b0a">conv_grid_size_</a> = params-&gt;ConvGridSize();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a12b61dea0424089d0e614a38e5ca1c26"></a><!-- doxytag: member="tesseract::FeatureBmp::~FeatureBmp" ref="a12b61dea0424089d0e614a38e5ca1c26" args="()" -->
@@ -160,6 +168,10 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="feature__bmp_8cpp_source.html#l00036">36</a> of file <a class="el" href="feature__bmp_8cpp_source.html">feature_bmp.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                        {
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -180,6 +192,11 @@ Protected Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="classtesseract_1_1_feature_base.html#adaf3ad330751f301a10e8b45502146d2">tesseract::FeatureBase</a>.</p>
 
+<p>Definition at line <a class="el" href="feature__bmp_8cpp_source.html#l00041">41</a> of file <a class="el" href="feature__bmp_8cpp_source.html">feature_bmp.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                              {
+  <span class="keywordflow">return</span> char_samp-&gt;Scale(<a class="code" href="classtesseract_1_1_feature_bmp.html#adfb8ac24ffecf0cbb9da1ce5101d3b0a">conv_grid_size_</a>, <a class="code" href="classtesseract_1_1_feature_bmp.html#adfb8ac24ffecf0cbb9da1ce5101d3b0a">conv_grid_size_</a>);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a1dcb63cd05162261cbe576ab62eca4a6"></a><!-- doxytag: member="tesseract::FeatureBmp::ComputeFeatures" ref="a1dcb63cd05162261cbe576ab62eca4a6" args="(CharSamp *samp, float *features)" -->
@@ -209,6 +226,11 @@ Protected Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="classtesseract_1_1_feature_base.html#a48d4dc8529d3a878e4eef08c76101c0d">tesseract::FeatureBase</a>.</p>
 
+<p>Definition at line <a class="el" href="feature__bmp_8cpp_source.html#l00046">46</a> of file <a class="el" href="feature__bmp_8cpp_source.html">feature_bmp.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                     {
+  <span class="keywordflow">return</span> char_samp-&gt;ComputeFeatures(<a class="code" href="classtesseract_1_1_feature_bmp.html#adfb8ac24ffecf0cbb9da1ce5101d3b0a">conv_grid_size_</a>, features);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a273c553c1e638392a85d354fb7e2cdf3"></a><!-- doxytag: member="tesseract::FeatureBmp::FeatureCnt" ref="a273c553c1e638392a85d354fb7e2cdf3" args="()" -->
@@ -227,6 +249,11 @@ Protected Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="classtesseract_1_1_feature_base.html#a2ae28b0e5bc8361cac1cea91e96501e7">tesseract::FeatureBase</a>.</p>
 
+<p>Definition at line <a class="el" href="feature__bmp_8h_source.html#l00043">43</a> of file <a class="el" href="feature__bmp_8h_source.html">feature_bmp.h</a>.</p>
+<div class="fragment"><pre class="fragment">                           {
+    <span class="keywordflow">return</span> 5 + (<a class="code" href="classtesseract_1_1_feature_bmp.html#adfb8ac24ffecf0cbb9da1ce5101d3b0a">conv_grid_size_</a> * <a class="code" href="classtesseract_1_1_feature_bmp.html#adfb8ac24ffecf0cbb9da1ce5101d3b0a">conv_grid_size_</a>);
+  }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
@@ -241,11 +268,13 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="feature__bmp_8h_source.html#l00049">49</a> of file <a class="el" href="feature__bmp_8h_source.html">feature_bmp.h</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/cube/<a class="el" href="feature__bmp_8h_source.html">feature_bmp.h</a></li>
-<li>tesseract-ocr/cube/<a class="el" href="feature__bmp_8cpp.html">feature_bmp.cpp</a></li>
+<li>tesseract-ocr/cube/<a class="el" href="feature__bmp_8cpp_source.html">feature_bmp.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -268,7 +297,7 @@ Protected Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:15 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:51 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

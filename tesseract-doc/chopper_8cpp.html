@@ -120,7 +120,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <code>#include &quot;<a class="el" href="unicharset_8h_source.html">unicharset.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="wordclass_8h_source.html">wordclass.h</a>&quot;</code><br/>
 <code>#include &quot;<a class="el" href="wordrec_8h_source.html">wordrec.h</a>&quot;</code><br/>
-</div><table class="memberdecls">
+</div>
+<p><a href="chopper_8cpp_source.html">Go to the source code of this file.</a></p>
+<table class="memberdecls">
 <tr><td colspan="2"><h2><a name="namespaces"></a>
 Namespaces</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacetesseract.html">tesseract</a></td></tr>
@@ -176,6 +178,18 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="chopper_8cpp_source.html#l00289">289</a> of file <a class="el" href="chopper_8cpp_source.html">chopper.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                         {
+  <span class="keywordtype">int</span> length;
+  <span class="keywordtype">int</span> index;
+
+  length = <a class="code" href="tessarray_8h.html#a89ee8010120771c8612dc7058b327f84">array_count</a> (seam_list);
+  <span class="keywordflow">for</span> (index = 0; index &lt; length; index++)
+    <span class="keywordflow">if</span> (<a class="code" href="seam_8cpp.html#a1fcf833e097b1c5963a9374433f56497">shared_split_points</a> ((<a class="code" href="structseam__record.html">SEAM</a> *) <a class="code" href="tessarray_8h.html#a290cd2ea119e279ad48b57fbe5ca1aad">array_value</a> (seam_list, index), seam))
+      <span class="keywordflow">return</span> <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+  <span class="keywordflow">return</span> <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="adde6889c67dfb8661a9911b56bc05c96"></a><!-- doxytag: member="chopper.cpp::check_blob" ref="adde6889c67dfb8661a9911b56bc05c96" args="(TBLOB *blob)" -->
@@ -193,6 +207,25 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="chopper_8cpp_source.html#l00306">306</a> of file <a class="el" href="chopper_8cpp_source.html">chopper.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                            {
+  <a class="code" href="struct_t_e_s_s_l_i_n_e.html">TESSLINE</a> *outline;
+  <a class="code" href="struct_e_d_g_e_p_t.html">EDGEPT</a> *edgept;
+
+  <span class="keywordflow">for</span> (outline = blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a>; outline != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>; outline = outline-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0fb224d43ea53a791f0957fa92793bef">next</a>) {
+    edgept = outline-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0ab1e26b1dae548f0bd3c096c6183b18">loop</a>;
+    <span class="keywordflow">do</span> {
+      <span class="keywordflow">if</span> (edgept == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+        <span class="keywordflow">break</span>;
+      edgept = edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>;
+    }
+    <span class="keywordflow">while</span> (edgept != outline-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0ab1e26b1dae548f0bd3c096c6183b18">loop</a>);
+    <span class="keywordflow">if</span> (edgept == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+      <span class="keywordflow">return</span> 1;
+  }
+  <span class="keywordflow">return</span> 0;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a5b0b5e54a6dabe1f874383318ad2b172"></a><!-- doxytag: member="chopper.cpp::check_seam_order" ref="a5b0b5e54a6dabe1f874383318ad2b172" args="(TBLOB *blob, SEAM *seam)" -->
@@ -220,6 +253,42 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="chopper_8cpp_source.html#l00530">530</a> of file <a class="el" href="chopper_8cpp_source.html">chopper.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                {
+  <a class="code" href="struct_t_e_s_s_l_i_n_e.html">TESSLINE</a> *outline;
+  <a class="code" href="struct_t_e_s_s_l_i_n_e.html">TESSLINE</a> *last_outline;
+  <a class="code" href="host_8h.html#a2ba4d271e85baf0d333318985cb3bced">inT8</a> found_em[3];
+
+  <span class="keywordflow">if</span> (seam-&gt;<a class="code" href="structseam__record.html#a4161a1874921a7854bdd3d7a9f930729">split1</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> || seam-&gt;<a class="code" href="structseam__record.html#a4161a1874921a7854bdd3d7a9f930729">split1</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> || blob == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <span class="keywordflow">return</span> (<a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>);
+
+  found_em[0] = found_em[1] = found_em[2] = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
+
+  <span class="keywordflow">for</span> (outline = blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a3c9282cad4102157d214bcc6311cda07">outlines</a>; outline; outline = outline-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0fb224d43ea53a791f0957fa92793bef">next</a>) {
+    <span class="keywordflow">if</span> (!found_em[0] &amp;&amp;
+      ((seam-&gt;<a class="code" href="structseam__record.html#a4161a1874921a7854bdd3d7a9f930729">split1</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) ||
+    <a class="code" href="makechop_8h.html#a215ea46db3a9b6343a2186a48aaa3487">is_split_outline</a> (outline, seam-&gt;<a class="code" href="structseam__record.html#a4161a1874921a7854bdd3d7a9f930729">split1</a>))) {
+      found_em[0] = <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+    }
+    <span class="keywordflow">if</span> (!found_em[1] &amp;&amp;
+      ((seam-&gt;<a class="code" href="structseam__record.html#a75d831b3365583331780636979fbb321">split2</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) ||
+    <a class="code" href="makechop_8h.html#a215ea46db3a9b6343a2186a48aaa3487">is_split_outline</a> (outline, seam-&gt;<a class="code" href="structseam__record.html#a75d831b3365583331780636979fbb321">split2</a>))) {
+      found_em[1] = <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+    }
+    <span class="keywordflow">if</span> (!found_em[2] &amp;&amp;
+      ((seam-&gt;<a class="code" href="structseam__record.html#ad3878ea3c362e24fcdd063ed81f9ac5a">split3</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) ||
+    <a class="code" href="makechop_8h.html#a215ea46db3a9b6343a2186a48aaa3487">is_split_outline</a> (outline, seam-&gt;<a class="code" href="structseam__record.html#ad3878ea3c362e24fcdd063ed81f9ac5a">split3</a>))) {
+      found_em[2] = <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+    }
+    last_outline = outline;
+  }
+
+  <span class="keywordflow">if</span> (!found_em[0] || !found_em[1] || !found_em[2])
+    <span class="keywordflow">return</span> (<a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>);
+  <span class="keywordflow">else</span>
+    <span class="keywordflow">return</span> (<a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a0a3b9f61e193c679c40344dad4267e3d"></a><!-- doxytag: member="chopper.cpp::preserve_outline" ref="a0a3b9f61e193c679c40344dad4267e3d" args="(EDGEPT *start)" -->
@@ -237,6 +306,21 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="chopper_8cpp_source.html#l00065">65</a> of file <a class="el" href="chopper_8cpp_source.html">chopper.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                     {
+  <a class="code" href="struct_e_d_g_e_p_t.html">EDGEPT</a> *srcpt;
+
+  <span class="keywordflow">if</span> (start == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <span class="keywordflow">return</span>;
+  srcpt = start;
+  <span class="keywordflow">do</span> {
+    srcpt-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[1] = 1;
+    srcpt = srcpt-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>;
+  }
+  <span class="keywordflow">while</span> (srcpt != start);
+  srcpt-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[1] = 2;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="af2a51913c75408354ffd6e5344c30389"></a><!-- doxytag: member="chopper.cpp::preserve_outline_tree" ref="af2a51913c75408354ffd6e5344c30389" args="(TESSLINE *srcline)" -->
@@ -254,6 +338,15 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="chopper_8cpp_source.html#l00081">81</a> of file <a class="el" href="chopper_8cpp_source.html">chopper.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                              {
+  <a class="code" href="struct_t_e_s_s_l_i_n_e.html">TESSLINE</a> *outline;
+
+  <span class="keywordflow">for</span> (outline = srcline; outline != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>; outline = outline-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0fb224d43ea53a791f0957fa92793bef">next</a>) {
+    <a class="code" href="chopper_8cpp.html#a0a3b9f61e193c679c40344dad4267e3d">preserve_outline</a> (outline-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0ab1e26b1dae548f0bd3c096c6183b18">loop</a>);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aca09efda43c5297643be6ba8706ceb83"></a><!-- doxytag: member="chopper.cpp::restore_outline" ref="aca09efda43c5297643be6ba8706ceb83" args="(EDGEPT *start)" -->
@@ -271,6 +364,39 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="chopper_8cpp_source.html#l00095">95</a> of file <a class="el" href="chopper_8cpp_source.html">chopper.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                       {
+  <a class="code" href="struct_e_d_g_e_p_t.html">EDGEPT</a> *srcpt;
+  <a class="code" href="struct_e_d_g_e_p_t.html">EDGEPT</a> *real_start;
+  <a class="code" href="struct_e_d_g_e_p_t.html">EDGEPT</a> *deadpt;
+
+  <span class="keywordflow">if</span> (start == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  srcpt = start;
+  <span class="keywordflow">do</span> {
+    <span class="keywordflow">if</span> (srcpt-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[1] == 2)
+      <span class="keywordflow">break</span>;
+    srcpt = srcpt-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>;
+  }
+  <span class="keywordflow">while</span> (srcpt != start);
+  real_start = srcpt;
+  <span class="keywordflow">do</span> {
+    <span class="keywordflow">if</span> (srcpt-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7f92d543e033519df214c028e8737991">flags</a>[1] == 0) {
+      deadpt = srcpt;
+      srcpt = srcpt-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>;
+      srcpt-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a8326da8daf597bcdc5a05064a37cbbb1">prev</a> = deadpt-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a8326da8daf597bcdc5a05064a37cbbb1">prev</a>;
+      deadpt-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a8326da8daf597bcdc5a05064a37cbbb1">prev</a>-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a> = srcpt;
+      deadpt-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a8326da8daf597bcdc5a05064a37cbbb1">prev</a>-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a6da204ff253a65e00daae7753b82c9f7">vec</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> = srcpt-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a> - deadpt-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a8326da8daf597bcdc5a05064a37cbbb1">prev</a>-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a>;
+      deadpt-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a8326da8daf597bcdc5a05064a37cbbb1">prev</a>-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a6da204ff253a65e00daae7753b82c9f7">vec</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a> = srcpt-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a> - deadpt-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a8326da8daf597bcdc5a05064a37cbbb1">prev</a>-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a>;
+      <span class="keyword">delete</span> deadpt;
+    }
+    <span class="keywordflow">else</span>
+      srcpt = srcpt-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>;
+  }
+  <span class="keywordflow">while</span> (srcpt != real_start);
+  <span class="keywordflow">return</span> real_start;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a426bc9c96107b36d173f86d8a74f9e8c"></a><!-- doxytag: member="chopper.cpp::restore_outline_tree" ref="a426bc9c96107b36d173f86d8a74f9e8c" args="(TESSLINE *srcline)" -->
@@ -288,6 +414,16 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="chopper_8cpp_source.html#l00129">129</a> of file <a class="el" href="chopper_8cpp_source.html">chopper.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                             {
+  <a class="code" href="struct_t_e_s_s_l_i_n_e.html">TESSLINE</a> *outline;
+
+  <span class="keywordflow">for</span> (outline = srcline; outline != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>; outline = outline-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0fb224d43ea53a791f0957fa92793bef">next</a>) {
+    outline-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0ab1e26b1dae548f0bd3c096c6183b18">loop</a> = <a class="code" href="chopper_8cpp.html#aca09efda43c5297643be6ba8706ceb83">restore_outline</a> (outline-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0ab1e26b1dae548f0bd3c096c6183b18">loop</a>);
+    outline-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a6eddfefc04de79fe19712d90925de2fb">start</a> = outline-&gt;<a class="code" href="struct_t_e_s_s_l_i_n_e.html#a0ab1e26b1dae548f0bd3c096c6183b18">loop</a>-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>;
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a8e8e9f6cb587b621054e6ff626a46a23"></a><!-- doxytag: member="chopper.cpp::total_containment" ref="a8e8e9f6cb587b621054e6ff626a46a23" args="(TBLOB *blob1, TBLOB *blob2)" -->
@@ -315,6 +451,13 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="chopper_8cpp_source.html#l01026">1026</a> of file <a class="el" href="chopper_8cpp_source.html">chopper.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                    {
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> box1 = blob1-&gt;<a class="code" href="struct_t_b_l_o_b.html#a8f1f8f110170fe12cf8147d504cd0ea2">bounding_box</a>();
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> box2 = blob2-&gt;<a class="code" href="struct_t_b_l_o_b.html#a8f1f8f110170fe12cf8147d504cd0ea2">bounding_box</a>();
+  <span class="keywordflow">return</span> box1.<a class="code" href="class_t_b_o_x.html#a5d4e2c5f91b791e94d4c94e513180632">contains</a>(box2) || box2.<a class="code" href="class_t_b_o_x.html#a5d4e2c5f91b791e94d4c94e513180632">contains</a>(box1);
+}
+</pre></div>
 </div>
 </div>
 </div>
@@ -337,7 +480,7 @@ Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:10 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:43 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

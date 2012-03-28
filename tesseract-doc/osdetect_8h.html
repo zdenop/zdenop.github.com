@@ -161,6 +161,49 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="osdetect_8cpp_source.html#l00189">189</a> of file <a class="el" href="osdetect_8cpp_source.html">osdetect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                               {
+  <a class="code" href="class_s_t_r_i_n_g.html">STRING</a> name = filename;        <span class="comment">//truncated name</span>
+  <span class="keyword">const</span> <span class="keywordtype">char</span> *lastdot;           <span class="comment">//of name</span>
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> page_box;
+
+  lastdot = strrchr (name.<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a> (), <span class="charliteral">&#39;.&#39;</span>);
+  <span class="keywordflow">if</span> (lastdot != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    name[lastdot-name.<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a>()] = <span class="charliteral">&#39;\0&#39;</span>;
+
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(tess-&gt;pix_binary() != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+  <span class="keywordtype">int</span> width = pixGetWidth(tess-&gt;pix_binary());
+  <span class="keywordtype">int</span> height = pixGetHeight(tess-&gt;pix_binary());
+  <span class="keywordtype">int</span> resolution = pixGetXRes(tess-&gt;pix_binary());
+  <span class="comment">// Zero resolution messes up the algorithms, so make sure it is credible.</span>
+  <span class="keywordflow">if</span> (resolution &lt; <a class="code" href="osdetect_8cpp.html#af9f4de4278c712c02788092501b587f3">kMinCredibleResolution</a>)
+    resolution = <a class="code" href="osdetect_8cpp.html#ad3674a322dd444a002052c5b929b1976">kDefaultResolution</a>;
+
+  BLOCK_LIST blocks;
+  <span class="keywordflow">if</span> (!<a class="code" href="blread_8cpp.html#ab65373023a95c3043ea26b7906e29907">read_unlv_file</a>(name, width, height, &amp;blocks))
+    <a class="code" href="blread_8cpp.html#a6d4d883ff45201c5b6166b5941cb96a2">FullPageBlock</a>(width, height, &amp;blocks);
+
+  <span class="comment">// Try to remove non-text regions from consideration.</span>
+  TO_BLOCK_LIST land_blocks, port_blocks;
+  <a class="code" href="osdetect_8cpp.html#a0328b8314a9022034d90c11ac8a0b0ea">remove_nontext_regions</a>(tess, &amp;blocks, &amp;port_blocks);
+
+  <span class="keywordflow">if</span> (port_blocks.empty()) {
+    <span class="comment">// page segmentation did not succeed, so we need to find_components first.</span>
+    tess-&gt;mutable_textord()-&gt;find_components(tess-&gt;pix_binary(),
+                                             &amp;blocks, &amp;port_blocks);
+  } <span class="keywordflow">else</span> {
+    page_box.<a class="code" href="class_t_b_o_x.html#ae6151cd794841e100d8a346a0c4a46e6">set_left</a>(0);
+    page_box.<a class="code" href="class_t_b_o_x.html#a6f803b24b046883cb0f3882dc3d92302">set_bottom</a>(0);
+    page_box.<a class="code" href="class_t_b_o_x.html#a2246293d3667b28c52a52353a2d5caea">set_right</a>(width);
+    page_box.<a class="code" href="class_t_b_o_x.html#a7f40dfd290a907200bdc98c196f63f45">set_top</a>(height);
+    <span class="comment">// Filter_blobs sets up the TO_BLOCKs the same as find_components does.</span>
+    tess-&gt;mutable_textord()-&gt;filter_blobs(page_box.<a class="code" href="class_t_b_o_x.html#a02511fc69b598b332ac1f4af6c943f8f">topright</a>(),
+                                          &amp;port_blocks, <span class="keyword">true</span>);
+  }
+
+  <span class="keywordflow">return</span> <a class="code" href="osdetect_8cpp.html#a93fedb9cccbbcf81d3433b95bbc46bdd">os_detect</a>(&amp;port_blocks, osr, tess);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a94d19668c76dab0d8ab3832c765303da"></a><!-- doxytag: member="osdetect.h::OrientationIdToValue" ref="a94d19668c76dab0d8ab3832c765303da" args="(const int &amp;id)" -->
@@ -178,6 +221,22 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="osdetect_8cpp_source.html#l00534">534</a> of file <a class="el" href="osdetect_8cpp_source.html">osdetect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                              {
+  <span class="keywordflow">switch</span> (<span class="keywordtype">id</span>) {
+    <span class="keywordflow">case</span> 0:
+      <span class="keywordflow">return</span> 0;
+    <span class="keywordflow">case</span> 1:
+      <span class="keywordflow">return</span> 270;
+    <span class="keywordflow">case</span> 2:
+      <span class="keywordflow">return</span> 180;
+    <span class="keywordflow">case</span> 3:
+      <span class="keywordflow">return</span> 90;
+    <span class="keywordflow">default</span>:
+      <span class="keywordflow">return</span> -1;
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a93fedb9cccbbcf81d3433b95bbc46bdd"></a><!-- doxytag: member="osdetect.h::os_detect" ref="a93fedb9cccbbcf81d3433b95bbc46bdd" args="(TO_BLOCK_LIST *port_blocks, OSResults *osr, tesseract::Tesseract *tess)" -->
@@ -211,6 +270,42 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="osdetect_8cpp_source.html#l00236">236</a> of file <a class="el" href="osdetect_8cpp_source.html">osdetect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                        {
+  <span class="keywordtype">int</span> blobs_total = 0;
+  TO_BLOCK_IT block_it;
+  block_it.set_to_list(port_blocks);
+
+  BLOBNBOX_CLIST filtered_list;
+  BLOBNBOX_C_IT filtered_it(&amp;filtered_list);
+
+  <span class="keywordflow">for</span> (block_it.mark_cycle_pt(); !block_it.cycled_list();
+       block_it.forward ()) {
+    <a class="code" href="class_t_o___b_l_o_c_k.html">TO_BLOCK</a>* to_block = block_it.data();
+    <span class="keywordflow">if</span> (to_block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#a16e698664028b0d6d2193db64560c16b">block</a>-&gt;<a class="code" href="class_p_d_b_l_k.html#a6670779c69aca2d574e4a0590d9b3939">poly_block</a>() &amp;&amp;
+        !to_block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#a16e698664028b0d6d2193db64560c16b">block</a>-&gt;<a class="code" href="class_p_d_b_l_k.html#a6670779c69aca2d574e4a0590d9b3939">poly_block</a>()-&gt;<a class="code" href="class_p_o_l_y___b_l_o_c_k.html#abd32dee532afe634cdbacffc0b53e660">IsText</a>()) <span class="keywordflow">continue</span>;
+    BLOBNBOX_IT bbox_it;
+    bbox_it.set_to_list(&amp;to_block-&gt;<a class="code" href="class_t_o___b_l_o_c_k.html#a5dd67c54162a6b60b0fd11500d4a3025">blobs</a>);
+    <span class="keywordflow">for</span> (bbox_it.mark_cycle_pt (); !bbox_it.cycled_list ();
+         bbox_it.forward ()) {
+      <a class="code" href="class_b_l_o_b_n_b_o_x.html">BLOBNBOX</a>* bbox = bbox_it.data();
+      <a class="code" href="class_c___b_l_o_b.html">C_BLOB</a>*   blob = bbox-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a483f44541a4dd818f02225c92f030e07">cblob</a>();
+      <a class="code" href="class_t_b_o_x.html">TBOX</a>      box = blob-&gt;<a class="code" href="class_c___b_l_o_b.html#a77e52e29e2c622a3a63bb7edb110f6ab">bounding_box</a>();
+      ++blobs_total;
+
+      <span class="keywordtype">float</span> y_x = fabs((box.<a class="code" href="class_t_b_o_x.html#a8379d4bbc72bdbb1f069fc14790e632d">height</a>() * 1.0) / box.<a class="code" href="class_t_b_o_x.html#af95494a2ccacc70cc2b83820b2948619">width</a>());
+      <span class="keywordtype">float</span> x_y = 1.0f / y_x;
+      <span class="comment">// Select a &gt;= 1.0 ratio</span>
+      <span class="keywordtype">float</span> ratio = x_y &gt; y_x ? x_y : y_x;
+      <span class="comment">// Blob is ambiguous</span>
+      <span class="keywordflow">if</span> (ratio &gt; <a class="code" href="osdetect_8cpp.html#ac23eec99b25d1c109fb6ee2590a331bf">kSizeRatioToReject</a>) <span class="keywordflow">continue</span>;
+      <span class="keywordflow">if</span> (box.<a class="code" href="class_t_b_o_x.html#a8379d4bbc72bdbb1f069fc14790e632d">height</a>() &lt; <a class="code" href="osdetect_8cpp.html#aaba53b59683a4788881c7b8281f25fac">kMinAcceptableBlobHeight</a>) <span class="keywordflow">continue</span>;
+      filtered_it.add_to_end(bbox);
+    }
+  }
+  <span class="keywordflow">return</span> <a class="code" href="osdetect_8cpp.html#a1007e747656418b79d4ce9f8f14f2a7b">os_detect_blobs</a>(&amp;filtered_list, osr, tess);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="acd67dc649eafb2a0048434366730af2e"></a><!-- doxytag: member="osdetect.h::os_detect_blob" ref="acd67dc649eafb2a0048434366730af2e" args="(BLOBNBOX *bbox, OrientationDetector *o, ScriptDetector *s, OSResults *, tesseract::Tesseract *tess)" -->
@@ -256,6 +351,51 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="osdetect_8cpp_source.html#l00323">323</a> of file <a class="el" href="osdetect_8cpp_source.html">osdetect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                              {
+  tess-&gt;<a class="code" href="classtesseract_1_1_classify.html#a746dbbd1c99e99f3d213077cceedf80e">tess_cn_matching</a>.set_value(<span class="keyword">true</span>); <span class="comment">// turn it on</span>
+  tess-&gt;<a class="code" href="classtesseract_1_1_classify.html#a85fcc9966cddbc38adf1014dd0cd778c">tess_bn_matching</a>.set_value(<span class="keyword">false</span>);
+  <a class="code" href="class_c___b_l_o_b.html">C_BLOB</a>* blob = bbox-&gt;<a class="code" href="class_b_l_o_b_n_b_o_x.html#a483f44541a4dd818f02225c92f030e07">cblob</a>();
+  <a class="code" href="struct_t_b_l_o_b.html">TBLOB</a>* tblob = <a class="code" href="struct_t_b_l_o_b.html#a49b1279a5ff4e05d6dd0beacd2d99395">TBLOB::PolygonalCopy</a>(blob);
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> box = tblob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a8f1f8f110170fe12cf8147d504cd0ea2">bounding_box</a>();
+  <a class="code" href="class_f_c_o_o_r_d.html">FCOORD</a> current_rotation(1.0<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>, 0.0<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>);
+  <a class="code" href="class_f_c_o_o_r_d.html">FCOORD</a> rotation90(0.0<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>, 1.0<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>);
+  BLOB_CHOICE_LIST ratings[4];
+  <span class="comment">// Test the 4 orientations</span>
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; 4; ++i) {
+    <span class="comment">// Normalize the blob. Set the origin to the place we want to be the</span>
+    <span class="comment">// bottom-middle after rotation.</span>
+    <span class="comment">// Scaling is to make the rotated height the x-height.</span>
+    <span class="keywordtype">float</span> scaling = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(<a class="code" href="normalis_8h.html#af974e6755e636c8bc7cbe57e3bcbdd73">kBlnXHeight</a>) / box.<a class="code" href="class_t_b_o_x.html#a8379d4bbc72bdbb1f069fc14790e632d">height</a>();
+    <span class="keywordtype">float</span> x_origin = (box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>() + box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>()) / 2.0<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>;
+    <span class="keywordtype">float</span> y_origin = (box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>() + box.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>()) / 2.0<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>;
+    <span class="keywordflow">if</span> (i == 0 || i == 2) {
+      <span class="comment">// Rotation is 0 or 180.</span>
+      y_origin = i == 0 ? box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>() : box.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>();
+    } <span class="keywordflow">else</span> {
+      <span class="comment">// Rotation is 90 or 270.</span>
+      scaling = <span class="keyword">static_cast&lt;</span><span class="keywordtype">float</span><span class="keyword">&gt;</span>(<a class="code" href="normalis_8h.html#af974e6755e636c8bc7cbe57e3bcbdd73">kBlnXHeight</a>) / box.<a class="code" href="class_t_b_o_x.html#af95494a2ccacc70cc2b83820b2948619">width</a>();
+      x_origin = i == 1 ? box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>() : box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>();
+    }
+    <a class="code" href="class_d_e_n_o_r_m.html">DENORM</a> denorm;
+    denorm.<a class="code" href="class_d_e_n_o_r_m.html#ac667a208c574b073db800890e4e31255">SetupNormalization</a>(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, &amp;current_rotation, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>, 0,
+                              x_origin, y_origin, scaling, scaling,
+                              0.0<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>, static_cast&lt;float&gt;(<a class="code" href="normalis_8h.html#abe10ce41bf7240ae8a053dea471d6ed5">kBlnBaselineOffset</a>));
+    <a class="code" href="struct_t_b_l_o_b.html">TBLOB</a>* rotated_blob = <span class="keyword">new</span> <a class="code" href="struct_t_b_l_o_b.html">TBLOB</a>(*tblob);
+    rotated_blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a6c4c913279ff695055baf11bedd4158d">Normalize</a>(denorm);
+    tess-&gt;<a class="code" href="classtesseract_1_1_classify.html#a1f058451e32538b4dc2c853b82bc6600">AdaptiveClassifier</a>(rotated_blob, denorm, ratings + i, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+    <span class="keyword">delete</span> rotated_blob;
+    current_rotation.rotate(rotation90);
+  }
+  <span class="keyword">delete</span> tblob;
+
+  <span class="keywordtype">bool</span> stop = o-&gt;<a class="code" href="class_orientation_detector.html#a7f3ad682712b5ff3bfcecca0a8a5b086">detect_blob</a>(ratings);
+  s-&gt;<a class="code" href="class_script_detector.html#aa1626a91138960515d479a781a6b97ca">detect_blob</a>(ratings);
+  <span class="keywordtype">int</span> orientation = o-&gt;<a class="code" href="class_orientation_detector.html#a382b5269675f9db848485be62f35742e">get_orientation</a>();
+  stop = s-&gt;<a class="code" href="class_script_detector.html#a951bd4d3f5b14ee234d20afc91d44585">must_stop</a>(orientation) &amp;&amp; stop;
+  <span class="keywordflow">return</span> stop;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a1007e747656418b79d4ce9f8f14f2a7b"></a><!-- doxytag: member="osdetect.h::os_detect_blobs" ref="a1007e747656418b79d4ce9f8f14f2a7b" args="(BLOBNBOX_CLIST *blob_list, OSResults *osr, tesseract::Tesseract *tess)" -->
@@ -289,6 +429,51 @@ Variables</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="osdetect_8cpp_source.html#l00275">275</a> of file <a class="el" href="osdetect_8cpp_source.html">osdetect.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                              {
+  <a class="code" href="struct_o_s_results.html">OSResults</a> osr_;
+  <span class="keywordflow">if</span> (osr == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    osr = &amp;osr_;
+
+  osr-&gt;<a class="code" href="struct_o_s_results.html#a78ebdae52f3c685095b56790598ad97c">unicharset</a> = &amp;tess-&gt;<a class="code" href="classtesseract_1_1_c_c_util.html#a69c5179ac5f10a24f3f97e16ca09460f">unicharset</a>;
+  <a class="code" href="class_orientation_detector.html">OrientationDetector</a> o(osr);
+  <a class="code" href="class_script_detector.html">ScriptDetector</a> s(osr, tess);
+
+  BLOBNBOX_C_IT filtered_it(blob_list);
+  <span class="keywordtype">int</span> real_max = <a class="code" href="ndminx_8h.html#a74e75242132eaabbc1c512488a135926">MIN</a>(filtered_it.length(), <a class="code" href="osdetect_8cpp.html#ab1eb3d41a8092b2cc34e2c1d17886521">kMaxCharactersToTry</a>);
+  <span class="comment">// printf(&quot;Total blobs found = %d\n&quot;, blobs_total);</span>
+  <span class="comment">// printf(&quot;Number of blobs post-filtering = %d\n&quot;, filtered_it.length());</span>
+  <span class="comment">// printf(&quot;Number of blobs to try = %d\n&quot;, real_max);</span>
+
+  <span class="comment">// If there are too few characters, skip this page entirely.</span>
+  <span class="keywordflow">if</span> (real_max &lt; <a class="code" href="osdetect_8cpp.html#a1dcbb4454cb6c97be113fc6ae820c958">kMinCharactersToTry</a> / 2) {
+    printf(<span class="stringliteral">&quot;Too few characters. Skipping this page\n&quot;</span>);
+    <span class="keywordflow">return</span> 0;
+  }
+
+  <a class="code" href="class_b_l_o_b_n_b_o_x.html">BLOBNBOX</a>** blobs = <span class="keyword">new</span> <a class="code" href="class_b_l_o_b_n_b_o_x.html">BLOBNBOX</a>*[filtered_it.length()];
+  <span class="keywordtype">int</span> number_of_blobs = 0;
+  <span class="keywordflow">for</span> (filtered_it.mark_cycle_pt (); !filtered_it.cycled_list ();
+       filtered_it.forward ()) {
+    blobs[number_of_blobs++] = (<a class="code" href="class_b_l_o_b_n_b_o_x.html">BLOBNBOX</a>*)filtered_it.data();
+  }
+  <a class="code" href="class_q_r_sequence_generator.html">QRSequenceGenerator</a> sequence(number_of_blobs);
+  <span class="keywordtype">int</span> num_blobs_evaluated = 0;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; real_max; ++i) {
+    <span class="keywordflow">if</span> (<a class="code" href="osdetect_8cpp.html#a35fb2b0177ed2a774307373aeb7b13d1">os_detect_blob</a>(blobs[sequence.GetVal()], &amp;o, &amp;s, osr, tess)
+        &amp;&amp; i &gt; <a class="code" href="osdetect_8cpp.html#a1dcbb4454cb6c97be113fc6ae820c958">kMinCharactersToTry</a>) {
+      <span class="keywordflow">break</span>;
+    }
+    ++num_blobs_evaluated;
+  }
+  <span class="keyword">delete</span> [] blobs;
+
+  <span class="comment">// Make sure the best_result is up-to-date</span>
+  <span class="keywordtype">int</span> orientation = o.get_orientation();
+  osr-&gt;<a class="code" href="struct_o_s_results.html#ab796da60cc16d39f464c03fe4047c358">update_best_script</a>(orientation);
+  <span class="keywordflow">return</span> num_blobs_evaluated;
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Variable Documentation</h2>
@@ -302,6 +487,8 @@ Variables</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="osdetect_8h_source.html#l00036">36</a> of file <a class="el" href="osdetect_8h_source.html">osdetect.h</a>.</p>
 
 </div>
 </div>
@@ -325,7 +512,7 @@ Variables</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:08 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:40 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

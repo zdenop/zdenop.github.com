@@ -110,7 +110,10 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_in_memory_file_pointer.html#aeaeba797277a817f8973feddfea098f2">InMemoryFilePointer</a> (const char *memory, int mem_size)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_in_memory_file_pointer.html#a8551ddfe401336a8a75f81bd3c2677a4">fgets</a> (char *orig_dst, int size)</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="unicharset_8cpp_source.html#l00591">591</a> of file <a class="el" href="unicharset_8cpp_source.html">unicharset.cpp</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="aeaeba797277a817f8973feddfea098f2"></a><!-- doxytag: member="InMemoryFilePointer::InMemoryFilePointer" ref="aeaeba797277a817f8973feddfea098f2" args="(const char *memory, int mem_size)" -->
 <div class="memitem">
 <div class="memproto">
@@ -136,6 +139,9 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="unicharset_8cpp_source.html#l00593">593</a> of file <a class="el" href="unicharset_8cpp_source.html">unicharset.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">      : memory_(memory), fgets_ptr_(memory), mem_size_(mem_size) { }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -164,10 +170,27 @@ Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="unicharset_8cpp_source.html#l00596">596</a> of file <a class="el" href="unicharset_8cpp_source.html">unicharset.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                        {
+    <span class="keyword">const</span> <span class="keywordtype">char</span> *src_end = memory_ + mem_size_;
+    <span class="keywordtype">char</span> *dst_end = orig_dst + size - 1;
+    <span class="keywordflow">if</span> (size &lt; 1) {
+      <span class="keywordflow">return</span> fgets_ptr_ &lt; src_end ? orig_dst : <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    }
+
+    <span class="keywordtype">char</span> *dst = orig_dst;
+    <span class="keywordtype">char</span> ch = <span class="charliteral">&#39;^&#39;</span>;
+    <span class="keywordflow">while</span> (fgets_ptr_ &lt; src_end &amp;&amp; dst &lt; dst_end &amp;&amp; ch != <span class="charliteral">&#39;\n&#39;</span>) {
+      ch = *dst++ = *fgets_ptr_++;
+    }
+    *dst = 0;
+    <span class="keywordflow">return</span> (dst == orig_dst) ? <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> : orig_dst;
+  }
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>tesseract-ocr/ccutil/<a class="el" href="unicharset_8cpp.html">unicharset.cpp</a></li>
+<li>tesseract-ocr/ccutil/<a class="el" href="unicharset_8cpp_source.html">unicharset.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -189,7 +212,7 @@ Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:12 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:46 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

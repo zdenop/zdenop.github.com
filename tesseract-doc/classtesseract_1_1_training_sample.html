@@ -161,7 +161,10 @@ Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classtesseract_1_1_training_sample.html">TrainingSample</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_training_sample.html#a27caf67effba8d44e8ff327f38a4f575">CopyFromFeatures</a> (const <a class="el" href="struct_i_n_t___f_x___r_e_s_u_l_t___s_t_r_u_c_t.html">INT_FX_RESULT_STRUCT</a> &amp;fx_info, const <a class="el" href="struct_i_n_t___f_e_a_t_u_r_e___s_t_r_u_c_t.html">INT_FEATURE_STRUCT</a> *features, int num_features)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classtesseract_1_1_training_sample.html">TrainingSample</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_training_sample.html#ac1ddd7b77bf29d31b2b36135d6ffd75d">DeSerializeCreate</a> (bool swap, FILE *fp)</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="trainingsample_8h_source.html#l00053">53</a> of file <a class="el" href="trainingsample_8h_source.html">trainingsample.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a16644d35b7054101e7255b8564c0aabc"></a><!-- doxytag: member="tesseract::TrainingSample::TrainingSample" ref="a16644d35b7054101e7255b8564c0aabc" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -176,6 +179,15 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsample_8h_source.html#l00055">55</a> of file <a class="el" href="trainingsample_8h_source.html">trainingsample.h</a>.</p>
+<div class="fragment"><pre class="fragment">    : class_id_(INVALID_UNICHAR_ID), font_id_(0), page_num_(0),
+      num_features_(0), num_micro_features_(0),
+      features_(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>), micro_features_(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>), weight_(1.0),
+      max_dist_(0.0), sample_index_(0),
+      features_are_indexed_(<span class="keyword">false</span>), features_are_mapped_(<span class="keyword">false</span>),
+      is_error_(<span class="keyword">false</span>) {
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a746ed1e28ceac5a69411c451ac2882f0"></a><!-- doxytag: member="tesseract::TrainingSample::~TrainingSample" ref="a746ed1e28ceac5a69411c451ac2882f0" args="()" -->
@@ -192,6 +204,12 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsample_8cpp_source.html#l00040">40</a> of file <a class="el" href="trainingsample_8cpp_source.html">trainingsample.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                {
+  <span class="keyword">delete</span> [] features_;
+  <span class="keyword">delete</span> [] micro_features_;
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -209,6 +227,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsample_8h_source.html#l00131">131</a> of file <a class="el" href="trainingsample_8h_source.html">trainingsample.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                   {
+    <span class="keywordflow">return</span> bounding_box_;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa00151c48156e85a61bc11a2b7b2fe02"></a><!-- doxytag: member="tesseract::TrainingSample::class_id" ref="aa00151c48156e85a61bc11a2b7b2fe02" args="() const " -->
@@ -225,6 +248,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsample_8h_source.html#l00113">113</a> of file <a class="el" href="trainingsample_8h_source.html">trainingsample.h</a>.</p>
+<div class="fragment"><pre class="fragment">                              {
+    <span class="keywordflow">return</span> class_id_;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="afc65601f115f84c17b064c84a61c10c6"></a><!-- doxytag: member="tesseract::TrainingSample::cn_feature" ref="afc65601f115f84c17b064c84a61c10c6" args="(int index) const " -->
@@ -242,6 +270,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsample_8h_source.html#l00149">149</a> of file <a class="el" href="trainingsample_8h_source.html">trainingsample.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                    {
+    <span class="keywordflow">return</span> cn_feature_[index];
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a722dac43b2ec92fa0524a6b836fe2b3f"></a><!-- doxytag: member="tesseract::TrainingSample::Copy" ref="a722dac43b2ec92fa0524a6b836fe2b3f" args="() const " -->
@@ -258,6 +291,29 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsample_8cpp_source.html#l00149">149</a> of file <a class="el" href="trainingsample_8cpp_source.html">trainingsample.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                           {
+  <a class="code" href="classtesseract_1_1_training_sample.html#a16644d35b7054101e7255b8564c0aabc">TrainingSample</a>* <a class="code" href="structsample.html">sample</a> = <span class="keyword">new</span> <a class="code" href="classtesseract_1_1_training_sample.html#a16644d35b7054101e7255b8564c0aabc">TrainingSample</a>;
+  sample-&gt;class_id_ = class_id_;
+  sample-&gt;font_id_ = font_id_;
+  sample-&gt;weight_ = weight_;
+  sample-&gt;sample_index_ = sample_index_;
+  sample-&gt;num_features_ = num_features_;
+  <span class="keywordflow">if</span> (num_features_ &gt; 0) {
+    sample-&gt;features_ = <span class="keyword">new</span> <a class="code" href="struct_i_n_t___f_e_a_t_u_r_e___s_t_r_u_c_t.html">INT_FEATURE_STRUCT</a>[num_features_];
+    memcpy(sample-&gt;features_, features_, num_features_ * <span class="keyword">sizeof</span>(features_[0]));
+  }
+  sample-&gt;num_micro_features_ = num_micro_features_;
+  <span class="keywordflow">if</span> (num_micro_features_ &gt; 0) {
+    sample-&gt;micro_features_ = <span class="keyword">new</span> <a class="code" href="mf_8h.html#a29d1eef9328292867329303f9f60c5cb">MicroFeature</a>[num_micro_features_];
+    memcpy(sample-&gt;micro_features_, micro_features_,
+           num_micro_features_ * <span class="keyword">sizeof</span>(micro_features_[0]));
+  }
+  memcpy(sample-&gt;cn_feature_, cn_feature_, <span class="keyword">sizeof</span>(*cn_feature_) * kNumCNParams);
+  memcpy(sample-&gt;geo_feature_, geo_feature_, <span class="keyword">sizeof</span>(*geo_feature_) * <a class="code" href="picofeat_8h.html#a41a4b5a66040b8b2deb004bd33909009af5bbc18811bb7a574c082e4a6f654db7">GeoCount</a>);
+  <span class="keywordflow">return</span> sample;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a27caf67effba8d44e8ff327f38a4f575"></a><!-- doxytag: member="tesseract::TrainingSample::CopyFromFeatures" ref="a27caf67effba8d44e8ff327f38a4f575" args="(const INT_FX_RESULT_STRUCT &amp;fx_info, const INT_FEATURE_STRUCT *features, int num_features)" -->
@@ -291,6 +347,20 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsample_8cpp_source.html#l00110">110</a> of file <a class="el" href="trainingsample_8cpp_source.html">trainingsample.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                      {
+  <a class="code" href="classtesseract_1_1_training_sample.html#a16644d35b7054101e7255b8564c0aabc">TrainingSample</a>* <a class="code" href="structsample.html">sample</a> = <span class="keyword">new</span> <a class="code" href="classtesseract_1_1_training_sample.html#a16644d35b7054101e7255b8564c0aabc">TrainingSample</a>;
+  sample-&gt;num_features_ = <a class="code" href="classtesseract_1_1_training_sample.html#af3afdc90346e10f5f4497ea7a89882aa">num_features</a>;
+  sample-&gt;features_ = <span class="keyword">new</span> <a class="code" href="struct_i_n_t___f_e_a_t_u_r_e___s_t_r_u_c_t.html">INT_FEATURE_STRUCT</a>[<a class="code" href="classtesseract_1_1_training_sample.html#af3afdc90346e10f5f4497ea7a89882aa">num_features</a>];
+  memcpy(sample-&gt;features_, features, <a class="code" href="classtesseract_1_1_training_sample.html#af3afdc90346e10f5f4497ea7a89882aa">num_features</a> * <span class="keyword">sizeof</span>(features[0]));
+  sample-&gt;geo_feature_[<a class="code" href="picofeat_8h.html#a41a4b5a66040b8b2deb004bd33909009a45ab6326da25c47511791071ad13f62a">GeoBottom</a>] = fx_info.<a class="code" href="struct_i_n_t___f_x___r_e_s_u_l_t___s_t_r_u_c_t.html#af340efbaccbb3e9040e9ff940e7655c9">YBottom</a>;
+  sample-&gt;geo_feature_[<a class="code" href="picofeat_8h.html#a41a4b5a66040b8b2deb004bd33909009af270e2a7660aa4121f6693faa62de67c">GeoTop</a>] = fx_info.<a class="code" href="struct_i_n_t___f_x___r_e_s_u_l_t___s_t_r_u_c_t.html#a5ea3a43ce4f2e9f1e87e64b74a0eb6db">YTop</a>;
+  sample-&gt;geo_feature_[<a class="code" href="picofeat_8h.html#a41a4b5a66040b8b2deb004bd33909009a1840e5fe9bffa7db328236bd0ad20bd7">GeoWidth</a>] = fx_info.<a class="code" href="struct_i_n_t___f_x___r_e_s_u_l_t___s_t_r_u_c_t.html#a2028a95c91e8741203cca5bea174b2a2">Width</a>;
+  sample-&gt;features_are_indexed_ = <span class="keyword">false</span>;
+  sample-&gt;features_are_mapped_ = <span class="keyword">false</span>;
+  <span class="keywordflow">return</span> sample;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a00b6f4d287ceab08ffc32b4153ef13ba"></a><!-- doxytag: member="tesseract::TrainingSample::DeSerialize" ref="a00b6f4d287ceab08ffc32b4153ef13ba" args="(bool swap, FILE *fp)" -->
@@ -318,6 +388,36 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsample_8cpp_source.html#l00080">80</a> of file <a class="el" href="trainingsample_8cpp_source.html">trainingsample.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                    {
+  <span class="keywordflow">if</span> (fread(&amp;class_id_, <span class="keyword">sizeof</span>(class_id_), 1, fp) != 1) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">if</span> (fread(&amp;font_id_, <span class="keyword">sizeof</span>(font_id_), 1, fp) != 1) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">if</span> (fread(&amp;page_num_, <span class="keyword">sizeof</span>(page_num_), 1, fp) != 1) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">if</span> (!bounding_box_.<a class="code" href="class_t_b_o_x.html#af19281ad7906c2fe18a81caf9dd56ab1">DeSerialize</a>(swap, fp)) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">if</span> (fread(&amp;num_features_, <span class="keyword">sizeof</span>(num_features_), 1, fp) != 1) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">if</span> (fread(&amp;num_micro_features_, <span class="keyword">sizeof</span>(num_micro_features_), 1, fp) != 1)
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">if</span> (swap) {
+    <a class="code" href="helpers_8h.html#ae7eeeca49954d4b13d269729f2fecd5a">ReverseN</a>(&amp;class_id_, <span class="keyword">sizeof</span>(class_id_));
+    <a class="code" href="helpers_8h.html#ae7eeeca49954d4b13d269729f2fecd5a">ReverseN</a>(&amp;num_features_, <span class="keyword">sizeof</span>(num_features_));
+    <a class="code" href="helpers_8h.html#ae7eeeca49954d4b13d269729f2fecd5a">ReverseN</a>(&amp;num_micro_features_, <span class="keyword">sizeof</span>(num_micro_features_));
+  }
+  <span class="keyword">delete</span> [] features_;
+  features_ = <span class="keyword">new</span> <a class="code" href="struct_i_n_t___f_e_a_t_u_r_e___s_t_r_u_c_t.html">INT_FEATURE_STRUCT</a>[num_features_];
+  <span class="keywordflow">if</span> (fread(features_, <span class="keyword">sizeof</span>(*features_), num_features_, fp) != num_features_)
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keyword">delete</span> [] micro_features_;
+  micro_features_ = <span class="keyword">new</span> <a class="code" href="mf_8h.html#a29d1eef9328292867329303f9f60c5cb">MicroFeature</a>[num_micro_features_];
+  <span class="keywordflow">if</span> (fread(micro_features_, <span class="keyword">sizeof</span>(*micro_features_), num_micro_features_,
+            fp) != num_micro_features_)
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">if</span> (fread(cn_feature_, <span class="keyword">sizeof</span>(*cn_feature_), kNumCNParams, fp) !=
+            kNumCNParams) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">if</span> (fread(geo_feature_, <span class="keyword">sizeof</span>(*geo_feature_), <a class="code" href="picofeat_8h.html#a41a4b5a66040b8b2deb004bd33909009af5bbc18811bb7a574c082e4a6f654db7">GeoCount</a>, fp) != <a class="code" href="picofeat_8h.html#a41a4b5a66040b8b2deb004bd33909009af5bbc18811bb7a574c082e4a6f654db7">GeoCount</a>)
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac1ddd7b77bf29d31b2b36135d6ffd75d"></a><!-- doxytag: member="tesseract::TrainingSample::DeSerializeCreate" ref="ac1ddd7b77bf29d31b2b36135d6ffd75d" args="(bool swap, FILE *fp)" -->
@@ -345,6 +445,14 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsample_8cpp_source.html#l00071">71</a> of file <a class="el" href="trainingsample_8cpp_source.html">trainingsample.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                     {
+  <a class="code" href="classtesseract_1_1_training_sample.html#a16644d35b7054101e7255b8564c0aabc">TrainingSample</a>* <a class="code" href="structsample.html">sample</a> = <span class="keyword">new</span> <a class="code" href="classtesseract_1_1_training_sample.html#a16644d35b7054101e7255b8564c0aabc">TrainingSample</a>;
+  <span class="keywordflow">if</span> (sample-&gt;DeSerialize(swap, fp)) <span class="keywordflow">return</span> sample;
+  <span class="keyword">delete</span> sample;
+  <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a840b1b4a7c19a1447d543ddc858c974f"></a><!-- doxytag: member="tesseract::TrainingSample::DisplayFeatures" ref="a840b1b4a7c19a1447d543ddc858c974f" args="(ScrollView::Color color, ScrollView *window) const " -->
@@ -372,6 +480,15 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsample_8cpp_source.html#l00283">283</a> of file <a class="el" href="trainingsample_8cpp_source.html">trainingsample.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                               {
+<span class="preprocessor">  #ifndef GRAPHICS_DISABLED</span>
+<span class="preprocessor"></span>  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> = 0; <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> &lt; num_features_; ++<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>) {
+    <a class="code" href="intproto_8cpp.html#a83c43ef1a01f3be45cbf675da04c3930">RenderIntFeature</a>(window, &amp;features_[<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>], color);
+  }
+<span class="preprocessor">  #endif  // GRAPHICS_DISABLED</span>
+<span class="preprocessor"></span>}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="af79e693db88d9ef0320a6a2185eabb41"></a><!-- doxytag: member="tesseract::TrainingSample::ExtractCharDesc" ref="af79e693db88d9ef0320a6a2185eabb41" args="(int feature_type, int micro_type, int cn_type, int geo_type, CHAR_DESC_STRUCT *char_desc)" -->
@@ -417,6 +534,72 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsample_8cpp_source.html#l00172">172</a> of file <a class="el" href="trainingsample_8cpp_source.html">trainingsample.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                  {
+  <span class="comment">// Extract the INT features.</span>
+  <span class="keywordflow">if</span> (features_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) <span class="keyword">delete</span> [] features_;
+  <a class="code" href="struct_f_e_a_t_u_r_e___s_e_t___s_t_r_u_c_t.html">FEATURE_SET_STRUCT</a>* char_features = char_desc-&gt;<a class="code" href="struct_c_h_a_r___d_e_s_c___s_t_r_u_c_t.html#ae04ec3a6b5e474d83930ff3e57a42acb">FeatureSets</a>[int_feature_type];
+  <span class="keywordflow">if</span> (char_features == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Error: no features to train on of type %s\n&quot;</span>,
+            <a class="code" href="featdefs_8cpp.html#abf5c61b4ecdfe9301e0f998156474c6b">kIntFeatureType</a>);
+    num_features_ = 0;
+    features_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  } <span class="keywordflow">else</span> {
+    num_features_ = char_features-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_e_t___s_t_r_u_c_t.html#a154a6ca419f3f16fccf11b7217351570">NumFeatures</a>;
+    features_ = <span class="keyword">new</span> <a class="code" href="struct_i_n_t___f_e_a_t_u_r_e___s_t_r_u_c_t.html">INT_FEATURE_STRUCT</a>[num_features_];
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> = 0; <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> &lt; num_features_; ++<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>) {
+      features_[<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>].<a class="code" href="struct_i_n_t___f_e_a_t_u_r_e___s_t_r_u_c_t.html#a6b250df12a9b06b5ed0c1a7c403f0275">X</a> =
+          <span class="keyword">static_cast&lt;</span><a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a><span class="keyword">&gt;</span>(char_features-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_e_t___s_t_r_u_c_t.html#a4664d6a22a9d12f4011de4d877664c45">Features</a>[<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>]-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_t_r_u_c_t.html#ace52f36cfcba955504f4a24f86a897b4">Params</a>[<a class="code" href="picofeat_8h.html#a25c105f6b5ef77e1565388f318056f8ca52fc06c8638074204be3a7f9a35d65b1">IntX</a>]);
+      features_[<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>].<a class="code" href="struct_i_n_t___f_e_a_t_u_r_e___s_t_r_u_c_t.html#a09931683890fb52d22ec6c75048a2bce">Y</a> =
+          <span class="keyword">static_cast&lt;</span><a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a><span class="keyword">&gt;</span>(char_features-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_e_t___s_t_r_u_c_t.html#a4664d6a22a9d12f4011de4d877664c45">Features</a>[<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>]-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_t_r_u_c_t.html#ace52f36cfcba955504f4a24f86a897b4">Params</a>[<a class="code" href="picofeat_8h.html#a25c105f6b5ef77e1565388f318056f8ca87c5652cf1b4b1a9a7f7b91a9bc48808">IntY</a>]);
+      features_[<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>].<a class="code" href="struct_i_n_t___f_e_a_t_u_r_e___s_t_r_u_c_t.html#af4a2ea6a7d9a82cba06f6ca9a126461b">Theta</a> =
+          <span class="keyword">static_cast&lt;</span><a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a><span class="keyword">&gt;</span>(char_features-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_e_t___s_t_r_u_c_t.html#a4664d6a22a9d12f4011de4d877664c45">Features</a>[<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>]-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_t_r_u_c_t.html#ace52f36cfcba955504f4a24f86a897b4">Params</a>[<a class="code" href="picofeat_8h.html#a25c105f6b5ef77e1565388f318056f8ca37a015c1bac0b61d97b95193172240ed">IntDir</a>]);
+      features_[<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>].<a class="code" href="struct_i_n_t___f_e_a_t_u_r_e___s_t_r_u_c_t.html#a3350aaa73fdd186eb740dd43bff557a5">CP_misses</a> = 0;
+    }
+  }
+  <span class="comment">// Extract the Micro features.</span>
+  <span class="keywordflow">if</span> (micro_features_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) <span class="keyword">delete</span> [] micro_features_;
+  char_features = char_desc-&gt;<a class="code" href="struct_c_h_a_r___d_e_s_c___s_t_r_u_c_t.html#ae04ec3a6b5e474d83930ff3e57a42acb">FeatureSets</a>[micro_type];
+  <span class="keywordflow">if</span> (char_features == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Error: no features to train on of type %s\n&quot;</span>,
+            <a class="code" href="featdefs_8cpp.html#ae706c172f0e1ba7f7cf1a99c560fd99a">kMicroFeatureType</a>);
+    num_micro_features_ = 0;
+    micro_features_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  } <span class="keywordflow">else</span> {
+    num_micro_features_ = char_features-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_e_t___s_t_r_u_c_t.html#a154a6ca419f3f16fccf11b7217351570">NumFeatures</a>;
+    micro_features_ = <span class="keyword">new</span> <a class="code" href="mf_8h.html#a29d1eef9328292867329303f9f60c5cb">MicroFeature</a>[num_micro_features_];
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> = 0; <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> &lt; num_micro_features_; ++<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>) {
+      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> d = 0; d &lt; <a class="code" href="mf_8h.html#a0ae9eb66d190c70000f710f7c11977afa1c44793580a78fadeffdefc28065e682">MFCount</a>; ++d) {
+        micro_features_[<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>][d] = char_features-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_e_t___s_t_r_u_c_t.html#a4664d6a22a9d12f4011de4d877664c45">Features</a>[<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>]-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_t_r_u_c_t.html#ace52f36cfcba955504f4a24f86a897b4">Params</a>[d];
+      }
+    }
+  }
+  <span class="comment">// Extract the CN feature.</span>
+  char_features = char_desc-&gt;<a class="code" href="struct_c_h_a_r___d_e_s_c___s_t_r_u_c_t.html#ae04ec3a6b5e474d83930ff3e57a42acb">FeatureSets</a>[cn_type];
+  <span class="keywordflow">if</span> (char_features == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Error: no CN feature to train on.\n&quot;</span>);
+  } <span class="keywordflow">else</span> {
+    <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(char_features-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_e_t___s_t_r_u_c_t.html#a154a6ca419f3f16fccf11b7217351570">NumFeatures</a> == 1);
+    cn_feature_[<a class="code" href="normfeat_8h.html#ab5ff0a2380362fa488e17c0c1b858506a9309b18966f93d05a857e8ee0f81c557">CharNormY</a>] = char_features-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_e_t___s_t_r_u_c_t.html#a4664d6a22a9d12f4011de4d877664c45">Features</a>[0]-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_t_r_u_c_t.html#ace52f36cfcba955504f4a24f86a897b4">Params</a>[<a class="code" href="normfeat_8h.html#ab5ff0a2380362fa488e17c0c1b858506a9309b18966f93d05a857e8ee0f81c557">CharNormY</a>];
+    cn_feature_[<a class="code" href="normfeat_8h.html#ab5ff0a2380362fa488e17c0c1b858506af859d8f455da531fb41201c80187dccf">CharNormLength</a>] =
+        char_features-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_e_t___s_t_r_u_c_t.html#a4664d6a22a9d12f4011de4d877664c45">Features</a>[0]-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_t_r_u_c_t.html#ace52f36cfcba955504f4a24f86a897b4">Params</a>[<a class="code" href="normfeat_8h.html#ab5ff0a2380362fa488e17c0c1b858506af859d8f455da531fb41201c80187dccf">CharNormLength</a>];
+    cn_feature_[<a class="code" href="normfeat_8h.html#ab5ff0a2380362fa488e17c0c1b858506a5a6745d4958b44c8c3481742021428f9">CharNormRx</a>] = char_features-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_e_t___s_t_r_u_c_t.html#a4664d6a22a9d12f4011de4d877664c45">Features</a>[0]-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_t_r_u_c_t.html#ace52f36cfcba955504f4a24f86a897b4">Params</a>[<a class="code" href="normfeat_8h.html#ab5ff0a2380362fa488e17c0c1b858506a5a6745d4958b44c8c3481742021428f9">CharNormRx</a>];
+    cn_feature_[<a class="code" href="normfeat_8h.html#ab5ff0a2380362fa488e17c0c1b858506ac21a54078a6ec6e1470a21d65feb58d5">CharNormRy</a>] = char_features-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_e_t___s_t_r_u_c_t.html#a4664d6a22a9d12f4011de4d877664c45">Features</a>[0]-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_t_r_u_c_t.html#ace52f36cfcba955504f4a24f86a897b4">Params</a>[<a class="code" href="normfeat_8h.html#ab5ff0a2380362fa488e17c0c1b858506ac21a54078a6ec6e1470a21d65feb58d5">CharNormRy</a>];
+  }
+  <span class="comment">// Extract the Geo feature.</span>
+  char_features = char_desc-&gt;<a class="code" href="struct_c_h_a_r___d_e_s_c___s_t_r_u_c_t.html#ae04ec3a6b5e474d83930ff3e57a42acb">FeatureSets</a>[geo_type];
+  <span class="keywordflow">if</span> (char_features == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Error: no Geo feature to train on.\n&quot;</span>);
+  } <span class="keywordflow">else</span> {
+    <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(char_features-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_e_t___s_t_r_u_c_t.html#a154a6ca419f3f16fccf11b7217351570">NumFeatures</a> == 1);
+    geo_feature_[<a class="code" href="picofeat_8h.html#a41a4b5a66040b8b2deb004bd33909009a45ab6326da25c47511791071ad13f62a">GeoBottom</a>] = char_features-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_e_t___s_t_r_u_c_t.html#a4664d6a22a9d12f4011de4d877664c45">Features</a>[0]-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_t_r_u_c_t.html#ace52f36cfcba955504f4a24f86a897b4">Params</a>[<a class="code" href="picofeat_8h.html#a41a4b5a66040b8b2deb004bd33909009a45ab6326da25c47511791071ad13f62a">GeoBottom</a>];
+    geo_feature_[<a class="code" href="picofeat_8h.html#a41a4b5a66040b8b2deb004bd33909009af270e2a7660aa4121f6693faa62de67c">GeoTop</a>] = char_features-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_e_t___s_t_r_u_c_t.html#a4664d6a22a9d12f4011de4d877664c45">Features</a>[0]-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_t_r_u_c_t.html#ace52f36cfcba955504f4a24f86a897b4">Params</a>[<a class="code" href="picofeat_8h.html#a41a4b5a66040b8b2deb004bd33909009af270e2a7660aa4121f6693faa62de67c">GeoTop</a>];
+    geo_feature_[<a class="code" href="picofeat_8h.html#a41a4b5a66040b8b2deb004bd33909009a1840e5fe9bffa7db328236bd0ad20bd7">GeoWidth</a>] = char_features-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_e_t___s_t_r_u_c_t.html#a4664d6a22a9d12f4011de4d877664c45">Features</a>[0]-&gt;<a class="code" href="struct_f_e_a_t_u_r_e___s_t_r_u_c_t.html#ace52f36cfcba955504f4a24f86a897b4">Params</a>[<a class="code" href="picofeat_8h.html#a41a4b5a66040b8b2deb004bd33909009a1840e5fe9bffa7db328236bd0ad20bd7">GeoWidth</a>];
+  }
+  features_are_indexed_ = <span class="keyword">false</span>;
+  features_are_mapped_ = <span class="keyword">false</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a49c3df6faa918fc29a058e6bc434a7c9"></a><!-- doxytag: member="tesseract::TrainingSample::features" ref="a49c3df6faa918fc29a058e6bc434a7c9" args="() const " -->
@@ -433,6 +616,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsample_8h_source.html#l00140">140</a> of file <a class="el" href="trainingsample_8h_source.html">trainingsample.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                             {
+    <span class="keywordflow">return</span> features_;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a8d8f5ab27344a5f901b671b82d75eba2"></a><!-- doxytag: member="tesseract::TrainingSample::features_are_mapped" ref="a8d8f5ab27344a5f901b671b82d75eba2" args="() const " -->
@@ -449,6 +637,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsample_8h_source.html#l00173">173</a> of file <a class="el" href="trainingsample_8h_source.html">trainingsample.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                   {
+    <span class="keywordflow">return</span> features_are_mapped_;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7484179f49037aa4ad296eee68022480"></a><!-- doxytag: member="tesseract::TrainingSample::font_id" ref="a7484179f49037aa4ad296eee68022480" args="() const " -->
@@ -465,6 +658,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsample_8h_source.html#l00119">119</a> of file <a class="el" href="trainingsample_8h_source.html">trainingsample.h</a>.</p>
+<div class="fragment"><pre class="fragment">                      {
+    <span class="keywordflow">return</span> font_id_;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ace21638d002459e1be6486f876f2f097"></a><!-- doxytag: member="tesseract::TrainingSample::geo_feature" ref="ace21638d002459e1be6486f876f2f097" args="(int index) const " -->
@@ -482,6 +680,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsample_8h_source.html#l00152">152</a> of file <a class="el" href="trainingsample_8h_source.html">trainingsample.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                   {
+    <span class="keywordflow">return</span> geo_feature_[index];
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a31baec2560471f8a8dfa51a373275160"></a><!-- doxytag: member="tesseract::TrainingSample::GetSamplePix" ref="a31baec2560471f8a8dfa51a373275160" args="(int padding, Pix *page_pix) const " -->
@@ -509,6 +712,24 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsample_8cpp_source.html#l00296">296</a> of file <a class="el" href="trainingsample_8cpp_source.html">trainingsample.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                  {
+  <span class="keywordflow">if</span> (page_pix == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+  <span class="keywordtype">int</span> page_width = pixGetWidth(page_pix);
+  <span class="keywordtype">int</span> page_height = pixGetHeight(page_pix);
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> padded_box = <a class="code" href="classtesseract_1_1_training_sample.html#a42ab271533aecad834d5cac080bf436f">bounding_box</a>();
+  padded_box.<a class="code" href="class_t_b_o_x.html#ad78f4f7e9746def02b0d2e8e8a2b3ceb">pad</a>(padding, padding);
+  <span class="comment">// Clip the padded_box to the limits of the page</span>
+  <a class="code" href="class_t_b_o_x.html">TBOX</a> page_box(0, 0, page_width, page_height);
+  padded_box &amp;= page_box;
+  Box* box = boxCreate(page_box.left(), page_height - page_box.top(),
+                       page_box.width(), page_box.height());
+  Pix* sample_pix = pixClipRectangle(page_pix, box, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+  boxDestroy(&amp;box);
+  <span class="keywordflow">return</span> sample_pix;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab64d562e5c1e963288698f6299f0ae3c"></a><!-- doxytag: member="tesseract::TrainingSample::indexed_features" ref="ab64d562e5c1e963288698f6299f0ae3c" args="() const " -->
@@ -525,6 +746,12 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsample_8h_source.html#l00180">180</a> of file <a class="el" href="trainingsample_8h_source.html">trainingsample.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                     {
+    <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(features_are_indexed_);
+    <span class="keywordflow">return</span> mapped_features_;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7d0162a0f3e054408b21cff893b0d6bf"></a><!-- doxytag: member="tesseract::TrainingSample::IndexFeatures" ref="a7d0162a0f3e054408b21cff893b0d6bf" args="(const IntFeatureSpace &amp;feature_space)" -->
@@ -542,6 +769,15 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsample_8cpp_source.html#l00243">243</a> of file <a class="el" href="trainingsample_8cpp_source.html">trainingsample.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                       {
+  <a class="code" href="class_generic_vector.html">GenericVector&lt;int&gt;</a> <a class="code" href="classtesseract_1_1_training_sample.html#ab64d562e5c1e963288698f6299f0ae3c">indexed_features</a>;
+  feature_space.IndexAndSortFeatures(features_, num_features_,
+                                     &amp;mapped_features_);
+  features_are_indexed_ = <span class="keyword">true</span>;
+  features_are_mapped_ = <span class="keyword">false</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ae7a80094837b6989fae733275f99ef71"></a><!-- doxytag: member="tesseract::TrainingSample::is_error" ref="ae7a80094837b6989fae733275f99ef71" args="() const " -->
@@ -558,6 +794,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsample_8h_source.html#l00184">184</a> of file <a class="el" href="trainingsample_8h_source.html">trainingsample.h</a>.</p>
+<div class="fragment"><pre class="fragment">                        {
+    <span class="keywordflow">return</span> is_error_;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4cd7b66eb1934688b8fdf2e8a20ac06e"></a><!-- doxytag: member="tesseract::TrainingSample::MapFeatures" ref="a4cd7b66eb1934688b8fdf2e8a20ac06e" args="(const IntFeatureMap &amp;feature_map)" -->
@@ -575,6 +816,16 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsample_8cpp_source.html#l00253">253</a> of file <a class="el" href="trainingsample_8cpp_source.html">trainingsample.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                 {
+  <a class="code" href="class_generic_vector.html">GenericVector&lt;int&gt;</a> <a class="code" href="classtesseract_1_1_training_sample.html#ab64d562e5c1e963288698f6299f0ae3c">indexed_features</a>;
+  feature_map.feature_space().IndexAndSortFeatures(features_, num_features_,
+                                                   &amp;indexed_features);
+  feature_map.MapIndexedFeatures(indexed_features, &amp;mapped_features_);
+  features_are_indexed_ = <span class="keyword">false</span>;
+  features_are_mapped_ = <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa45f61d6553712990456c95303e56088"></a><!-- doxytag: member="tesseract::TrainingSample::mapped_features" ref="aa45f61d6553712990456c95303e56088" args="() const " -->
@@ -591,6 +842,12 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsample_8h_source.html#l00176">176</a> of file <a class="el" href="trainingsample_8h_source.html">trainingsample.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                    {
+    <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(features_are_mapped_);
+    <span class="keywordflow">return</span> mapped_features_;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a5696fbd8b6cd8bb64a748df0a34687ae"></a><!-- doxytag: member="tesseract::TrainingSample::max_dist" ref="a5696fbd8b6cd8bb64a748df0a34687ae" args="() const " -->
@@ -607,6 +864,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsample_8h_source.html#l00161">161</a> of file <a class="el" href="trainingsample_8h_source.html">trainingsample.h</a>.</p>
+<div class="fragment"><pre class="fragment">                          {
+    <span class="keywordflow">return</span> max_dist_;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7c73dab6b6b2d3557f86fc4fac781bb5"></a><!-- doxytag: member="tesseract::TrainingSample::micro_features" ref="a7c73dab6b6b2d3557f86fc4fac781bb5" args="() const " -->
@@ -623,6 +885,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsample_8h_source.html#l00146">146</a> of file <a class="el" href="trainingsample_8h_source.html">trainingsample.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                             {
+    <span class="keywordflow">return</span> micro_features_;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="af3afdc90346e10f5f4497ea7a89882aa"></a><!-- doxytag: member="tesseract::TrainingSample::num_features" ref="af3afdc90346e10f5f4497ea7a89882aa" args="() const " -->
@@ -639,6 +906,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsample_8h_source.html#l00137">137</a> of file <a class="el" href="trainingsample_8h_source.html">trainingsample.h</a>.</p>
+<div class="fragment"><pre class="fragment">                           {
+    <span class="keywordflow">return</span> num_features_;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4df5318e6847ef10410705f26c51de66"></a><!-- doxytag: member="tesseract::TrainingSample::num_micro_features" ref="a4df5318e6847ef10410705f26c51de66" args="() const " -->
@@ -655,6 +927,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsample_8h_source.html#l00143">143</a> of file <a class="el" href="trainingsample_8h_source.html">trainingsample.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                 {
+    <span class="keywordflow">return</span> num_micro_features_;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="af26c8bc49fb28b3020f94e31e82730e8"></a><!-- doxytag: member="tesseract::TrainingSample::page_num" ref="af26c8bc49fb28b3020f94e31e82730e8" args="() const " -->
@@ -671,6 +948,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsample_8h_source.html#l00125">125</a> of file <a class="el" href="trainingsample_8h_source.html">trainingsample.h</a>.</p>
+<div class="fragment"><pre class="fragment">                       {
+    <span class="keywordflow">return</span> page_num_;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a164de38223d7efe36a6e9deaecdd2a37"></a><!-- doxytag: member="tesseract::TrainingSample::RandomizedCopy" ref="a164de38223d7efe36a6e9deaecdd2a37" args="(int index) const " -->
@@ -688,6 +970,27 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsample_8cpp_source.html#l00128">128</a> of file <a class="el" href="trainingsample_8cpp_source.html">trainingsample.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                              {
+  <a class="code" href="classtesseract_1_1_training_sample.html#a16644d35b7054101e7255b8564c0aabc">TrainingSample</a>* <a class="code" href="structsample.html">sample</a> = <a class="code" href="classtesseract_1_1_training_sample.html#a722dac43b2ec92fa0524a6b836fe2b3f">Copy</a>();
+  <span class="keywordflow">if</span> (index &gt;= 0 &amp;&amp; index &lt; kSampleRandomSize) {
+    ++index;  <span class="comment">// Remove the first combination.</span>
+    <span class="keywordtype">int</span> yshift = kYShiftValues[index / kSampleScaleSize];
+    <span class="keywordtype">double</span> scaling = kScaleValues[index % kSampleScaleSize];
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; num_features_; ++i) {
+      <span class="keywordtype">double</span> result = (features_[i].<a class="code" href="struct_i_n_t___f_e_a_t_u_r_e___s_t_r_u_c_t.html#a6b250df12a9b06b5ed0c1a7c403f0275">X</a> - <a class="code" href="namespacetesseract.html#a8cf21e9037258ea336196c6097a889da">kRandomizingCenter</a>) * scaling;
+      result += <a class="code" href="namespacetesseract.html#a8cf21e9037258ea336196c6097a889da">kRandomizingCenter</a>;
+      sample-&gt;features_[i].X = <a class="code" href="helpers_8h.html#af8739168d5b3235996eeb25dac3c4044">ClipToRange</a>(static_cast&lt;int&gt;(result + 0.5), 0,
+                                           <a class="code" href="host_8h.html#a05682ca8de174141447ff05a2289a27c">MAX_UINT8</a>);
+      result = (features_[i].<a class="code" href="struct_i_n_t___f_e_a_t_u_r_e___s_t_r_u_c_t.html#a09931683890fb52d22ec6c75048a2bce">Y</a> - <a class="code" href="namespacetesseract.html#a8cf21e9037258ea336196c6097a889da">kRandomizingCenter</a>) * scaling;
+      result += <a class="code" href="namespacetesseract.html#a8cf21e9037258ea336196c6097a889da">kRandomizingCenter</a> + yshift;
+      sample-&gt;features_[i].Y = <a class="code" href="helpers_8h.html#af8739168d5b3235996eeb25dac3c4044">ClipToRange</a>(static_cast&lt;int&gt;(result + 0.5), 0,
+                                           <a class="code" href="host_8h.html#a05682ca8de174141447ff05a2289a27c">MAX_UINT8</a>);
+    }
+  }
+  <span class="keywordflow">return</span> sample;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a5d26db1b434530f2d73639c5e32989d4"></a><!-- doxytag: member="tesseract::TrainingSample::RenderToPix" ref="a5d26db1b434530f2d73639c5e32989d4" args="(const UNICHARSET *unicharset) const " -->
@@ -705,6 +1008,26 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsample_8cpp_source.html#l00263">263</a> of file <a class="el" href="trainingsample_8cpp_source.html">trainingsample.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                   {
+  Pix* pix = pixCreate(<a class="code" href="intfeaturespace_8h.html#a1ae640c2b25581cd33a392a5b614b1cd">kIntFeatureExtent</a>, <a class="code" href="intfeaturespace_8h.html#a1ae640c2b25581cd33a392a5b614b1cd">kIntFeatureExtent</a>, 1);
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> = 0; <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a> &lt; num_features_; ++<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>) {
+    <span class="keywordtype">int</span> start_x = features_[<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>].<a class="code" href="struct_i_n_t___f_e_a_t_u_r_e___s_t_r_u_c_t.html#a6b250df12a9b06b5ed0c1a7c403f0275">X</a>;
+    <span class="keywordtype">int</span> start_y = <a class="code" href="intfeaturespace_8h.html#a1ae640c2b25581cd33a392a5b614b1cd">kIntFeatureExtent</a> - features_[<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>].<a class="code" href="struct_i_n_t___f_e_a_t_u_r_e___s_t_r_u_c_t.html#a09931683890fb52d22ec6c75048a2bce">Y</a>;
+    <span class="keywordtype">double</span> dx = cos((features_[<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>].Theta / 256.0) * 2.0 * <a class="code" href="const_8h.html#a598a3330b3c21701223ee0ca14316eca">PI</a> - <a class="code" href="const_8h.html#a598a3330b3c21701223ee0ca14316eca">PI</a>);
+    <span class="keywordtype">double</span> dy = -sin((features_[<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>].Theta / 256.0) * 2.0 * <a class="code" href="const_8h.html#a598a3330b3c21701223ee0ca14316eca">PI</a> - <a class="code" href="const_8h.html#a598a3330b3c21701223ee0ca14316eca">PI</a>);
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt;= 5; ++i) {
+      <span class="keywordtype">int</span> x = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(start_x + dx * i);
+      <span class="keywordtype">int</span> y = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(start_y + dy * i);
+      <span class="keywordflow">if</span> (x &gt;= 0 &amp;&amp; x &lt; 256 &amp;&amp; y &gt;= 0 &amp;&amp; y &lt; 256)
+        pixSetPixel(pix, x, y, 1);
+    }
+  }
+  <span class="keywordflow">if</span> (unicharset != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+    pixSetText(pix, unicharset-&gt;<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a421c0b6ebcbbe7547490252fb688c961">id_to_unichar</a>(class_id_));
+  <span class="keywordflow">return</span> pix;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a27a97084c67306b4d327ef332fb4f9bc"></a><!-- doxytag: member="tesseract::TrainingSample::sample_index" ref="a27a97084c67306b4d327ef332fb4f9bc" args="() const " -->
@@ -721,6 +1044,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsample_8h_source.html#l00167">167</a> of file <a class="el" href="trainingsample_8h_source.html">trainingsample.h</a>.</p>
+<div class="fragment"><pre class="fragment">                           {
+    <span class="keywordflow">return</span> sample_index_;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="acbc5d9b5d935f7ea2eeaed0163855e8a"></a><!-- doxytag: member="tesseract::TrainingSample::Serialize" ref="acbc5d9b5d935f7ea2eeaed0163855e8a" args="(FILE *fp) const " -->
@@ -738,6 +1066,27 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsample_8cpp_source.html#l00049">49</a> of file <a class="el" href="trainingsample_8cpp_source.html">trainingsample.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                             {
+  <span class="keywordflow">if</span> (fwrite(&amp;class_id_, <span class="keyword">sizeof</span>(class_id_), 1, fp) != 1) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">if</span> (fwrite(&amp;font_id_, <span class="keyword">sizeof</span>(font_id_), 1, fp) != 1) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">if</span> (fwrite(&amp;page_num_, <span class="keyword">sizeof</span>(page_num_), 1, fp) != 1) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">if</span> (!bounding_box_.<a class="code" href="class_t_b_o_x.html#a85bcf6863c6479e2c84a71b0a8874188">Serialize</a>(fp)) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">if</span> (fwrite(&amp;num_features_, <span class="keyword">sizeof</span>(num_features_), 1, fp) != 1) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">if</span> (fwrite(&amp;num_micro_features_, <span class="keyword">sizeof</span>(num_micro_features_), 1, fp) != 1)
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">if</span> (fwrite(features_, <span class="keyword">sizeof</span>(*features_), num_features_, fp) != num_features_)
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">if</span> (fwrite(micro_features_, <span class="keyword">sizeof</span>(*micro_features_), num_micro_features_,
+             fp) != num_micro_features_)
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">if</span> (fwrite(cn_feature_, <span class="keyword">sizeof</span>(*cn_feature_), kNumCNParams, fp) !=
+      kNumCNParams) <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">if</span> (fwrite(geo_feature_, <span class="keyword">sizeof</span>(*geo_feature_), <a class="code" href="picofeat_8h.html#a41a4b5a66040b8b2deb004bd33909009af5bbc18811bb7a574c082e4a6f654db7">GeoCount</a>, fp) != <a class="code" href="picofeat_8h.html#a41a4b5a66040b8b2deb004bd33909009af5bbc18811bb7a574c082e4a6f654db7">GeoCount</a>)
+    <span class="keywordflow">return</span> <span class="keyword">false</span>;
+  <span class="keywordflow">return</span> <span class="keyword">true</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ac0c0e309ecce8fdbc6c05cb586587907"></a><!-- doxytag: member="tesseract::TrainingSample::set_bounding_box" ref="ac0c0e309ecce8fdbc6c05cb586587907" args="(const TBOX &amp;box)" -->
@@ -755,6 +1104,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsample_8h_source.html#l00134">134</a> of file <a class="el" href="trainingsample_8h_source.html">trainingsample.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                         {
+    bounding_box_ = box;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7ee7b72a1f7cc9b7255cadadd22dcb40"></a><!-- doxytag: member="tesseract::TrainingSample::set_class_id" ref="a7ee7b72a1f7cc9b7255cadadd22dcb40" args="(int id)" -->
@@ -772,6 +1126,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsample_8h_source.html#l00116">116</a> of file <a class="el" href="trainingsample_8h_source.html">trainingsample.h</a>.</p>
+<div class="fragment"><pre class="fragment">                            {
+    class_id_ = id;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a430ac509aa468c0eda381da30cd2044f"></a><!-- doxytag: member="tesseract::TrainingSample::set_font_id" ref="a430ac509aa468c0eda381da30cd2044f" args="(int id)" -->
@@ -789,6 +1148,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsample_8h_source.html#l00122">122</a> of file <a class="el" href="trainingsample_8h_source.html">trainingsample.h</a>.</p>
+<div class="fragment"><pre class="fragment">                           {
+    font_id_ = id;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa7fd3f7f0341bc78b7cf91c496fc692a"></a><!-- doxytag: member="tesseract::TrainingSample::set_is_error" ref="aa7fd3f7f0341bc78b7cf91c496fc692a" args="(bool value)" -->
@@ -806,6 +1170,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsample_8h_source.html#l00187">187</a> of file <a class="el" href="trainingsample_8h_source.html">trainingsample.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                {
+    is_error_ = value;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a0f0d0090d049f96774bd8b14869abc08"></a><!-- doxytag: member="tesseract::TrainingSample::set_max_dist" ref="a0f0d0090d049f96774bd8b14869abc08" args="(double value)" -->
@@ -823,6 +1192,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsample_8h_source.html#l00164">164</a> of file <a class="el" href="trainingsample_8h_source.html">trainingsample.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                  {
+    max_dist_ = value;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a78b2b5006dfd244d94e05a907f248b2a"></a><!-- doxytag: member="tesseract::TrainingSample::set_page_num" ref="a78b2b5006dfd244d94e05a907f248b2a" args="(int page)" -->
@@ -840,6 +1214,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsample_8h_source.html#l00128">128</a> of file <a class="el" href="trainingsample_8h_source.html">trainingsample.h</a>.</p>
+<div class="fragment"><pre class="fragment">                              {
+    page_num_ = page;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="afcf8f6411404ac680958c718c71837dc"></a><!-- doxytag: member="tesseract::TrainingSample::set_sample_index" ref="afcf8f6411404ac680958c718c71837dc" args="(int value)" -->
@@ -857,6 +1236,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsample_8h_source.html#l00170">170</a> of file <a class="el" href="trainingsample_8h_source.html">trainingsample.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                   {
+    sample_index_ = value;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a8b80a2463dec89385e2faa6f961b0f56"></a><!-- doxytag: member="tesseract::TrainingSample::set_weight" ref="a8b80a2463dec89385e2faa6f961b0f56" args="(double value)" -->
@@ -874,6 +1258,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsample_8h_source.html#l00158">158</a> of file <a class="el" href="trainingsample_8h_source.html">trainingsample.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                {
+    weight_ = value;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a8d7a88cad1df0ad922a25a0fdfc7f40b"></a><!-- doxytag: member="tesseract::TrainingSample::weight" ref="a8d7a88cad1df0ad922a25a0fdfc7f40b" args="() const " -->
@@ -890,11 +1279,16 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="trainingsample_8h_source.html#l00155">155</a> of file <a class="el" href="trainingsample_8h_source.html">trainingsample.h</a>.</p>
+<div class="fragment"><pre class="fragment">                        {
+    <span class="keywordflow">return</span> weight_;
+  }
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/classify/<a class="el" href="trainingsample_8h_source.html">trainingsample.h</a></li>
-<li>tesseract-ocr/classify/<a class="el" href="trainingsample_8cpp.html">trainingsample.cpp</a></li>
+<li>tesseract-ocr/classify/<a class="el" href="trainingsample_8cpp_source.html">trainingsample.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -917,7 +1311,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:15 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:50 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

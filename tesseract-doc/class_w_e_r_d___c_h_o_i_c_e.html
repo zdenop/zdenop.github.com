@@ -167,7 +167,10 @@ Public Member Functions</h2></td></tr>
 Static Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static const float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_w_e_r_d___c_h_o_i_c_e.html#aa831918b1d217afd4dc547033f642990">kBadRating</a></td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="ratngs_8h_source.html#l00177">177</a> of file <a class="el" href="ratngs_8h_source.html">ratngs.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="acf5c29e1f6124122924b4b51d91d62ff"></a><!-- doxytag: member="WERD_CHOICE::WERD_CHOICE" ref="acf5c29e1f6124122924b4b51d91d62ff" args="(const UNICHARSET *unicharset)" -->
 <div class="memitem">
 <div class="memproto">
@@ -183,6 +186,9 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ratngs_8h_source.html#l00181">181</a> of file <a class="el" href="ratngs_8h_source.html">ratngs.h</a>.</p>
+<div class="fragment"><pre class="fragment">    : unicharset_(unicharset) { this-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a2d794404e6a4a7f0620620a07cbba6f3">init</a>(8); }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="afec38a2d7d1bfc4eae9a71cd9b1223a7"></a><!-- doxytag: member="WERD_CHOICE::WERD_CHOICE" ref="afec38a2d7d1bfc4eae9a71cd9b1223a7" args="(const UNICHARSET *unicharset, int reserved)" -->
@@ -210,6 +216,9 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ratngs_8h_source.html#l00183">183</a> of file <a class="el" href="ratngs_8h_source.html">ratngs.h</a>.</p>
+<div class="fragment"><pre class="fragment">    : unicharset_(unicharset) { this-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a2d794404e6a4a7f0620620a07cbba6f3">init</a>(reserved); }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa3534f3abefce42d42de066522257975"></a><!-- doxytag: member="WERD_CHOICE::WERD_CHOICE" ref="aa3534f3abefce42d42de066522257975" args="(const char *src_string, const char *src_lengths, float src_rating, float src_certainty, uinT8 src_permuter, const UNICHARSET &amp;unicharset)" -->
@@ -261,6 +270,12 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ratngs_8h_source.html#l00185">185</a> of file <a class="el" href="ratngs_8h_source.html">ratngs.h</a>.</p>
+<div class="fragment"><pre class="fragment">    : unicharset_(&amp;unicharset) {
+    this-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a2d794404e6a4a7f0620620a07cbba6f3">init</a>(src_string, src_lengths, src_rating,
+               src_certainty, src_permuter);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a1e3f3b7f26bc6bf5e0a86d69fba1d792"></a><!-- doxytag: member="WERD_CHOICE::WERD_CHOICE" ref="a1e3f3b7f26bc6bf5e0a86d69fba1d792" args="(const char *src_string, const UNICHARSET &amp;unicharset)" -->
@@ -290,6 +305,23 @@ Static Public Attributes</h2></td></tr>
 <p><a class="el" href="class_w_e_r_d___c_h_o_i_c_e.html#acf5c29e1f6124122924b4b51d91d62ff">WERD_CHOICE::WERD_CHOICE</a></p>
 <p>Constructor to build a <a class="el" href="class_w_e_r_d___c_h_o_i_c_e.html">WERD_CHOICE</a> from the given string. The function assumes that src_string is not NULL. </p>
 
+<p>Definition at line <a class="el" href="ratngs_8cpp_source.html#l00112">112</a> of file <a class="el" href="ratngs_8cpp_source.html">ratngs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">    : unicharset_(&amp;unicharset){
+  <a class="code" href="class_s_t_r_i_n_g.html">STRING</a> src_lengths;
+  <span class="keyword">const</span> <span class="keywordtype">char</span> *ptr = src_string;
+  <span class="keyword">const</span> <span class="keywordtype">char</span> *end = src_string + strlen(src_string);
+  <span class="keywordtype">int</span> step = unicharset.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#ab18a1f069bcb107a7b316520d23fb57c">step</a>(ptr);
+  <span class="keywordflow">for</span> (; ptr &lt; end &amp;&amp; step &gt; 0;
+       step = unicharset.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#ab18a1f069bcb107a7b316520d23fb57c">step</a>(ptr), src_lengths += step, ptr += step);
+  <span class="keywordflow">if</span> (step != 0 &amp;&amp; ptr == end) {
+    this-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a2d794404e6a4a7f0620620a07cbba6f3">init</a>(src_string, src_lengths.<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a>(),
+               0.0, 0.0, NO_PERM);
+  } <span class="keywordflow">else</span> {  <span class="comment">// there must have been an invalid unichar in the string</span>
+    this-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a2d794404e6a4a7f0620620a07cbba6f3">init</a>(8);
+    this-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#aad71e860a573a615ce8958898b2657fb" title="Set the fields in this choice to be default (bad) values.">make_bad</a>();
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a178d8ea77b696a175941c9074a92c9a2"></a><!-- doxytag: member="WERD_CHOICE::WERD_CHOICE" ref="a178d8ea77b696a175941c9074a92c9a2" args="(const WERD_CHOICE &amp;word)" -->
@@ -307,6 +339,12 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ratngs_8h_source.html#l00196">196</a> of file <a class="el" href="ratngs_8h_source.html">ratngs.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                       : unicharset_(word.unicharset_) {
+    this-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a2d794404e6a4a7f0620620a07cbba6f3">init</a>(word.<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a7be59abe97b052dd3aaa324aea8c4a6c">length</a>());
+    this-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a691b56409847d23e720c013bf6599dfc">operator=</a>(word);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="adf2ed124acb9081291098e32f892957b"></a><!-- doxytag: member="WERD_CHOICE::~WERD_CHOICE" ref="adf2ed124acb9081291098e32f892957b" args="()" -->
@@ -324,6 +362,13 @@ Static Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p><a class="el" href="class_w_e_r_d___c_h_o_i_c_e.html#adf2ed124acb9081291098e32f892957b">WERD_CHOICE::~WERD_CHOICE</a> </p>
 
+<p>Definition at line <a class="el" href="ratngs_8cpp_source.html#l00168">168</a> of file <a class="el" href="ratngs_8cpp_source.html">ratngs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                          {
+  <span class="keyword">delete</span>[] unichar_ids_;
+  <span class="keyword">delete</span>[] fragment_lengths_;
+  delete_blob_choices();
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -366,6 +411,15 @@ Static Public Attributes</h2></td></tr>
 <p>append_unichar_id</p>
 <p>Make sure there is enough space in the word for the new unichar id and call <a class="el" href="class_w_e_r_d___c_h_o_i_c_e.html#a222ced86be88a66a119b6c5d10af23fb">append_unichar_id_space_allocated()</a>. </p>
 
+<p>Definition at line <a class="el" href="ratngs_8cpp_source.html#l00313">313</a> of file <a class="el" href="ratngs_8cpp_source.html">ratngs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                   {
+  <span class="keywordflow">if</span> (length_ == reserved_) {
+    this-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a5b6bf42443f90cbc2421560ba5757e46" title="Make more space in unichar_id_ and fragment_lengths_ arrays.">double_the_size</a>();
+  }
+  this-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a222ced86be88a66a119b6c5d10af23fb">append_unichar_id_space_allocated</a>(<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a6b917b2e6157f7956ff53ca230425ed3">unichar_id</a>, <a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a6f319ff5e8b21bf4698c6a5863cec27e">fragment_length</a>,
+                                          <a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a52ea24dcb5ff15ad8aee3fd774622216">rating</a>, <a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a1b25ef2b44d21a7204483a7ca804f293">certainty</a>);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a222ced86be88a66a119b6c5d10af23fb"></a><!-- doxytag: member="WERD_CHOICE::append_unichar_id_space_allocated" ref="a222ced86be88a66a119b6c5d10af23fb" args="(UNICHAR_ID unichar_id, char fragment_length, float rating, float certainty)" -->
@@ -406,6 +460,14 @@ Static Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>This function assumes that there is enough space reserved in the <a class="el" href="class_w_e_r_d___c_h_o_i_c_e.html">WERD_CHOICE</a> for adding another unichar. This is an efficient alternative to <a class="el" href="class_w_e_r_d___c_h_o_i_c_e.html#a76b0ea9f9f0d9c08b2e84b7372964001">append_unichar_id()</a>. </p>
 
+<p>Definition at line <a class="el" href="ratngs_8h_source.html#l00322">322</a> of file <a class="el" href="ratngs_8h_source.html">ratngs.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                     {
+    assert(reserved_ &gt; length_);
+    length_++;
+    this-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a8238d436806c40b2e01b9659dfab5eb3">set_unichar_id</a>(<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a6b917b2e6157f7956ff53ca230425ed3">unichar_id</a>, <a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a6f319ff5e8b21bf4698c6a5863cec27e">fragment_length</a>,
+                         <a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a52ea24dcb5ff15ad8aee3fd774622216">rating</a>, <a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a1b25ef2b44d21a7204483a7ca804f293">certainty</a>, length_-1);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4c443d01fbb5fcf092f002091d6f78c2"></a><!-- doxytag: member="WERD_CHOICE::blob_choices" ref="a4c443d01fbb5fcf092f002091d6f78c2" args="()" -->
@@ -422,6 +484,11 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ratngs_8h_source.html#l00235">235</a> of file <a class="el" href="ratngs_8h_source.html">ratngs.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                {
+    <span class="keywordflow">return</span> blob_choices_;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a1b25ef2b44d21a7204483a7ca804f293"></a><!-- doxytag: member="WERD_CHOICE::certainty" ref="a1b25ef2b44d21a7204483a7ca804f293" args="() const " -->
@@ -438,6 +505,11 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ratngs_8h_source.html#l00225">225</a> of file <a class="el" href="ratngs_8h_source.html">ratngs.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                 {
+    <span class="keywordflow">return</span> certainty_;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2df106c6d2af21ca16bce3d943ee3303"></a><!-- doxytag: member="WERD_CHOICE::contains_unichar_id" ref="a2df106c6d2af21ca16bce3d943ee3303" args="(UNICHAR_ID unichar_id) const " -->
@@ -457,6 +529,16 @@ Static Public Attributes</h2></td></tr>
 <p>contains_unichar_id</p>
 <p>Returns true if unichar_ids_ contain the given unichar_id, false otherwise. </p>
 
+<p>Definition at line <a class="el" href="ratngs_8cpp_source.html#l00197">197</a> of file <a class="el" href="ratngs_8cpp_source.html">ratngs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                 {
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; length_; ++i) {
+    <span class="keywordflow">if</span> (unichar_ids_[i] == <a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a6b917b2e6157f7956ff53ca230425ed3">unichar_id</a>) {
+      <span class="keywordflow">return</span> <span class="keyword">true</span>;
+    }
+  }
+  <span class="keywordflow">return</span> <span class="keyword">false</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9f084172bbfc8604af49788aad12da36"></a><!-- doxytag: member="WERD_CHOICE::debug_string" ref="a9f084172bbfc8604af49788aad12da36" args="() const " -->
@@ -473,6 +555,16 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ratngs_8h_source.html#l00364">364</a> of file <a class="el" href="ratngs_8h_source.html">ratngs.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                    {
+    <a class="code" href="class_s_t_r_i_n_g.html">STRING</a> word_str;
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; length_; ++i) {
+      word_str += unicharset_-&gt;<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a2543f3cb2b8da0160a87088940cc58d2">debug_str</a>(unichar_ids_[i]);
+      word_str += <span class="stringliteral">&quot; &quot;</span>;
+    }
+    <span class="keywordflow">return</span> word_str;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a5b6bf42443f90cbc2421560ba5757e46"></a><!-- doxytag: member="WERD_CHOICE::double_the_size" ref="a5b6bf42443f90cbc2421560ba5757e46" args="()" -->
@@ -491,6 +583,21 @@ Static Public Attributes</h2></td></tr>
 
 <p>Make more space in unichar_id_ and fragment_lengths_ arrays. </p>
 
+<p>Definition at line <a class="el" href="ratngs_8h_source.html#l00268">268</a> of file <a class="el" href="ratngs_8h_source.html">ratngs.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                {
+    <span class="keywordflow">if</span> (reserved_ &gt; 0) {
+      unichar_ids_ = <a class="code" href="class_generic_vector.html">GenericVector&lt;UNICHAR_ID&gt;::double_the_size_memcpy</a>(
+          reserved_, unichar_ids_);
+      fragment_lengths_ = <a class="code" href="class_generic_vector.html">GenericVector&lt;char&gt;::double_the_size_memcpy</a>(
+          reserved_, fragment_lengths_);
+      reserved_ *= 2;
+    } <span class="keywordflow">else</span> {
+      unichar_ids_ = <span class="keyword">new</span> <a class="code" href="unichar_8h.html#a8578b19fa1ff5ca75080db1a18ecc32e">UNICHAR_ID</a>[1];
+      fragment_lengths_ = <span class="keyword">new</span> <span class="keywordtype">char</span>[1];
+      reserved_ = 1;
+    }
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6f319ff5e8b21bf4698c6a5863cec27e"></a><!-- doxytag: member="WERD_CHOICE::fragment_length" ref="a6f319ff5e8b21bf4698c6a5863cec27e" args="(int index) const " -->
@@ -508,6 +615,12 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ratngs_8h_source.html#l00218">218</a> of file <a class="el" href="ratngs_8h_source.html">ratngs.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                     {
+    assert(index &lt; length_);
+    <span class="keywordflow">return</span> fragment_lengths_[index];
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad62ae184e9df1f3ed26c9af382b5e3f2"></a><!-- doxytag: member="WERD_CHOICE::fragment_lengths" ref="ad62ae184e9df1f3ed26c9af382b5e3f2" args="() const " -->
@@ -524,6 +637,11 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ratngs_8h_source.html#l00215">215</a> of file <a class="el" href="ratngs_8h_source.html">ratngs.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                              {
+    <span class="keywordflow">return</span> fragment_lengths_;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a8947564d0c2d01763958e633999e3c50"></a><!-- doxytag: member="WERD_CHOICE::fragment_mark" ref="a8947564d0c2d01763958e633999e3c50" args="() const " -->
@@ -540,6 +658,11 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ratngs_8h_source.html#l00232">232</a> of file <a class="el" href="ratngs_8h_source.html">ratngs.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                    {
+    <span class="keywordflow">return</span> fragment_mark_;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa874552f52090378886744ed595f0ab2"></a><!-- doxytag: member="WERD_CHOICE::has_rtl_unichar_id" ref="aa874552f52090378886744ed595f0ab2" args="() const " -->
@@ -558,6 +681,19 @@ Static Public Attributes</h2></td></tr>
 <p>has_rtl_unichar_id</p>
 <p>Returns true if unichar_ids contain at least one "strongly" RTL unichar. </p>
 
+<p>Definition at line <a class="el" href="ratngs_8cpp_source.html#l00276">276</a> of file <a class="el" href="ratngs_8cpp_source.html">ratngs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                           {
+  <span class="keywordtype">int</span> i;
+  <span class="keywordflow">for</span> (i = 0; i &lt; length_; ++i) {
+    <a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a31e06ec0b942a9d392db21b49cf40078">UNICHARSET::Direction</a> dir = unicharset_-&gt;<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a9f483f40e0030e839c614b9656bdb32c">get_direction</a>(unichar_ids_[i]);
+    <span class="keywordflow">if</span> (dir == <a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a31e06ec0b942a9d392db21b49cf40078ac979da8ecbc0d158b8cb516db7e3824d">UNICHARSET::U_RIGHT_TO_LEFT</a> ||
+        dir == <a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a31e06ec0b942a9d392db21b49cf40078ac6664fbc7421c2ed788911b3f1ba56c8">UNICHARSET::U_RIGHT_TO_LEFT_ARABIC</a>) {
+      <span class="keywordflow">return</span> <span class="keyword">true</span>;
+    }
+  }
+  <span class="keywordflow">return</span> <span class="keyword">false</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2d794404e6a4a7f0620620a07cbba6f3"></a><!-- doxytag: member="WERD_CHOICE::init" ref="a2d794404e6a4a7f0620620a07cbba6f3" args="(int reserved)" -->
@@ -576,6 +712,25 @@ Static Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>Initializes <a class="el" href="class_w_e_r_d___c_h_o_i_c_e.html">WERD_CHOICE</a> - reserves length slots in unichar_ids_ and fragment_length_ arrays. Sets other values to default (blank) values. </p>
 
+<p>Definition at line <a class="el" href="ratngs_8h_source.html#l00284">284</a> of file <a class="el" href="ratngs_8h_source.html">ratngs.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                 {
+    reserved_ = reserved;
+    <span class="keywordflow">if</span> (reserved &gt; 0) {
+      unichar_ids_ = <span class="keyword">new</span> <a class="code" href="unichar_8h.html#a8578b19fa1ff5ca75080db1a18ecc32e">UNICHAR_ID</a>[reserved];
+      fragment_lengths_ = <span class="keyword">new</span> <span class="keywordtype">char</span>[reserved];
+    } <span class="keywordflow">else</span> {
+      unichar_ids_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+      fragment_lengths_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    }
+    length_ = 0;
+    rating_ = 0.0;
+    certainty_ = <a class="code" href="host_8h.html#a9adcee815220ec9db98062213806ed04">MAX_FLOAT32</a>;
+    permuter_ = NO_PERM;
+    fragment_mark_ = <span class="keyword">false</span>;
+    blob_choices_ = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    unichars_in_script_order_ = <span class="keyword">false</span>;  <span class="comment">// Tesseract is strict left-to-right.</span>
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aab45bfb933928383b61b77361909ef10"></a><!-- doxytag: member="WERD_CHOICE::init" ref="aab45bfb933928383b61b77361909ef10" args="(const char *src_string, const char *src_lengths, float src_rating, float src_certainty, uinT8 src_permuter)" -->
@@ -625,6 +780,28 @@ Static Public Attributes</h2></td></tr>
 <p>Helper function to build a <a class="el" href="class_w_e_r_d___c_h_o_i_c_e.html">WERD_CHOICE</a> from the given string, fragment lengths, rating, certainty and permuter.</p>
 <p>The function assumes that src_string is not NULL. src_lengths argument could be NULL, in which case the unichars in src_string are assumed to all be of length 1. </p>
 
+<p>Definition at line <a class="el" href="ratngs_8cpp_source.html#l00140">140</a> of file <a class="el" href="ratngs_8cpp_source.html">ratngs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                           {
+  <span class="keywordtype">int</span> src_string_len = strlen(src_string);
+  <span class="keywordflow">if</span> (src_string_len == 0) {
+    this-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a2d794404e6a4a7f0620620a07cbba6f3">init</a>(8);
+  } <span class="keywordflow">else</span> {
+    this-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a2d794404e6a4a7f0620620a07cbba6f3">init</a>(src_lengths ? strlen(src_lengths): src_string_len);
+    length_ = reserved_;
+    <span class="keywordtype">int</span> offset = 0;
+    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; length_; ++i) {
+      <span class="keywordtype">int</span> unichar_length = src_lengths ? src_lengths[i] : 1;
+      unichar_ids_[i] =
+          unicharset_-&gt;<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#ae786fa834962ef4d6dbf8300c6c5d456">unichar_to_id</a>(src_string+offset, unichar_length);
+      fragment_lengths_[i] = 1;
+      offset += unichar_length;
+    }
+  }
+  rating_ = src_rating;
+  certainty_ = src_certainty;
+  permuter_ = src_permuter;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7be59abe97b052dd3aaa324aea8c4a6c"></a><!-- doxytag: member="WERD_CHOICE::length" ref="a7be59abe97b052dd3aaa324aea8c4a6c" args="() const " -->
@@ -641,6 +818,11 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ratngs_8h_source.html#l00205">205</a> of file <a class="el" href="ratngs_8h_source.html">ratngs.h</a>.</p>
+<div class="fragment"><pre class="fragment">                            {
+    <span class="keywordflow">return</span> length_;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aad71e860a573a615ce8958898b2657fb"></a><!-- doxytag: member="WERD_CHOICE::make_bad" ref="aad71e860a573a615ce8958898b2657fb" args="()" -->
@@ -659,6 +841,14 @@ Static Public Attributes</h2></td></tr>
 
 <p>Set the fields in this choice to be default (bad) values. </p>
 
+<p>Definition at line <a class="el" href="ratngs_8h_source.html#l00312">312</a> of file <a class="el" href="ratngs_8h_source.html">ratngs.h</a>.</p>
+<div class="fragment"><pre class="fragment">                         {
+    length_ = 0;
+    rating_ = <a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#aa831918b1d217afd4dc547033f642990">kBadRating</a>;
+    certainty_ = -<a class="code" href="host_8h.html#a9adcee815220ec9db98062213806ed04">MAX_FLOAT32</a>;
+    fragment_mark_ = <span class="keyword">false</span>;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a8f4811da1eae9e0cfccebdc08a34cb07"></a><!-- doxytag: member="WERD_CHOICE::operator+=" ref="a8f4811da1eae9e0cfccebdc08a34cb07" args="(const WERD_CHOICE &amp;second)" -->
@@ -678,6 +868,64 @@ Static Public Attributes</h2></td></tr>
 <p><a class="el" href="class_w_e_r_d___c_h_o_i_c_e.html#a8f4811da1eae9e0cfccebdc08a34cb07">WERD_CHOICE::operator+=</a></p>
 <p>Cat a second word rating on the end of this current one. The ratings are added and the confidence is the min. If the permuters are NOT the same the permuter is set to COMPOUND_PERM </p>
 
+<p>Definition at line <a class="el" href="ratngs_8cpp_source.html#l00330">330</a> of file <a class="el" href="ratngs_8cpp_source.html">ratngs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                 {
+  <span class="comment">// TODO(daria): find out why the choice was cleared this way if any</span>
+  <span class="comment">// of the pieces are empty. Add the description of this behavior</span>
+  <span class="comment">// to the comments.</span>
+  <span class="comment">// if (word_string.length () == 0 || second.word_string.length () == 0) {</span>
+  <span class="comment">//   word_string = NULL;          //make it empty</span>
+  <span class="comment">//   word_lengths = NULL;</span>
+  <span class="comment">//   delete_blob_choices();</span>
+  <span class="comment">// } else {</span>
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(unicharset_ == second.unicharset_);
+  <span class="keywordflow">while</span> (reserved_ &lt; length_ + second.<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a7be59abe97b052dd3aaa324aea8c4a6c">length</a>()) {
+    this-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a5b6bf42443f90cbc2421560ba5757e46" title="Make more space in unichar_id_ and fragment_lengths_ arrays.">double_the_size</a>();
+  }
+  <span class="keyword">const</span> <a class="code" href="unichar_8h.html#a8578b19fa1ff5ca75080db1a18ecc32e">UNICHAR_ID</a> *other_unichar_ids = second.<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a1f37c5559c8e72c4bd2d0ed40388a72b">unichar_ids</a>();
+  <span class="keyword">const</span> <span class="keywordtype">char</span> *other_fragment_lengths = second.<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#ad62ae184e9df1f3ed26c9af382b5e3f2">fragment_lengths</a>();
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; second.<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a7be59abe97b052dd3aaa324aea8c4a6c">length</a>(); ++i) {
+    unichar_ids_[length_ + i] = other_unichar_ids[i];
+    fragment_lengths_[length_ + i] = other_fragment_lengths[i];
+  }
+  length_ += second.<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a7be59abe97b052dd3aaa324aea8c4a6c">length</a>();
+  rating_ += second.<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a52ea24dcb5ff15ad8aee3fd774622216">rating</a>();  <span class="comment">// add ratings</span>
+  <span class="keywordflow">if</span> (second.<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a1b25ef2b44d21a7204483a7ca804f293">certainty</a>() &lt; certainty_) <span class="comment">// take min</span>
+    certainty_ = second.<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a1b25ef2b44d21a7204483a7ca804f293">certainty</a>();
+  <span class="keywordflow">if</span> (permuter_ == NO_PERM) {
+    permuter_ = second.<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a161ac137df2d063a6421728e6aa08fcb">permuter</a>();
+  } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (second.<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a161ac137df2d063a6421728e6aa08fcb">permuter</a>() != NO_PERM &amp;&amp;
+             second.<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a161ac137df2d063a6421728e6aa08fcb">permuter</a>() != permuter_) {
+    permuter_ = COMPOUND_PERM;
+  }
+
+  <span class="comment">// Append a deep copy of second blob_choices if it exists.</span>
+  <span class="keywordflow">if</span> (second.blob_choices_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    <span class="keywordflow">if</span> (this-&gt;blob_choices_ == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+      this-&gt;blob_choices_ = <span class="keyword">new</span> BLOB_CHOICE_LIST_CLIST;
+
+    BLOB_CHOICE_LIST_C_IT this_blob_choices_it;
+    BLOB_CHOICE_LIST_C_IT second_blob_choices_it;
+
+    this_blob_choices_it.set_to_list(this-&gt;blob_choices_);
+    this_blob_choices_it.move_to_last();
+
+    second_blob_choices_it.set_to_list(second.blob_choices_);
+
+    <span class="keywordflow">for</span> (second_blob_choices_it.mark_cycle_pt();
+         !second_blob_choices_it.cycled_list();
+         second_blob_choices_it.forward()) {
+
+      BLOB_CHOICE_LIST* blob_choices_copy = <span class="keyword">new</span> BLOB_CHOICE_LIST();
+      blob_choices_copy-&gt;deep_copy(second_blob_choices_it.data(),
+                                   &amp;<a class="code" href="class_b_l_o_b___c_h_o_i_c_e.html#af3f12ffe754a76bf2abbb82a001336f9">BLOB_CHOICE::deep_copy</a>);
+
+      this_blob_choices_it.add_after_then_move(blob_choices_copy);
+    }
+  }
+  <span class="keywordflow">return</span> *<span class="keyword">this</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a691b56409847d23e720c013bf6599dfc"></a><!-- doxytag: member="WERD_CHOICE::operator=" ref="a691b56409847d23e720c013bf6599dfc" args="(const WERD_CHOICE &amp;source)" -->
@@ -697,6 +945,52 @@ Static Public Attributes</h2></td></tr>
 <p><a class="el" href="class_w_e_r_d___c_h_o_i_c_e.html#a691b56409847d23e720c013bf6599dfc">WERD_CHOICE::operator=</a></p>
 <p>Allocate enough memory to hold a copy of source and copy over all the information from source to this <a class="el" href="class_w_e_r_d___c_h_o_i_c_e.html">WERD_CHOICE</a>. </p>
 
+<p>Definition at line <a class="el" href="ratngs_8cpp_source.html#l00394">394</a> of file <a class="el" href="ratngs_8cpp_source.html">ratngs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                             {
+  <span class="keywordflow">while</span> (reserved_ &lt; source.<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a7be59abe97b052dd3aaa324aea8c4a6c">length</a>()) {
+    this-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a5b6bf42443f90cbc2421560ba5757e46" title="Make more space in unichar_id_ and fragment_lengths_ arrays.">double_the_size</a>();
+  }
+
+  unicharset_ = source.unicharset_;
+  <span class="keyword">const</span> <a class="code" href="unichar_8h.html#a8578b19fa1ff5ca75080db1a18ecc32e">UNICHAR_ID</a> *other_unichar_ids = source.<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a1f37c5559c8e72c4bd2d0ed40388a72b">unichar_ids</a>();
+  <span class="keyword">const</span> <span class="keywordtype">char</span> *other_fragment_lengths = source.<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#ad62ae184e9df1f3ed26c9af382b5e3f2">fragment_lengths</a>();
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; source.<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a7be59abe97b052dd3aaa324aea8c4a6c">length</a>(); ++i) {
+    unichar_ids_[i] = other_unichar_ids[i];
+    fragment_lengths_[i] = other_fragment_lengths[i];
+  }
+  length_ = source.<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a7be59abe97b052dd3aaa324aea8c4a6c">length</a>();
+  rating_ = source.<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a52ea24dcb5ff15ad8aee3fd774622216">rating</a>();
+  certainty_ = source.<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a1b25ef2b44d21a7204483a7ca804f293">certainty</a>();
+  permuter_ = source.<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a161ac137df2d063a6421728e6aa08fcb">permuter</a>();
+  fragment_mark_ = source.<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a8947564d0c2d01763958e633999e3c50">fragment_mark</a>();
+
+  <span class="comment">// Delete existing blob_choices</span>
+  this-&gt;delete_blob_choices();
+
+  <span class="comment">// Deep copy blob_choices of source</span>
+  <span class="keywordflow">if</span> (source.blob_choices_ != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+    BLOB_CHOICE_LIST_C_IT this_blob_choices_it;
+    BLOB_CHOICE_LIST_C_IT source_blob_choices_it;
+
+    this-&gt;blob_choices_ = <span class="keyword">new</span> BLOB_CHOICE_LIST_CLIST();
+
+    this_blob_choices_it.set_to_list(this-&gt;blob_choices_);
+    source_blob_choices_it.set_to_list(source.blob_choices_);
+
+    <span class="keywordflow">for</span> (source_blob_choices_it.mark_cycle_pt();
+         !source_blob_choices_it.cycled_list();
+         source_blob_choices_it.forward()) {
+
+      BLOB_CHOICE_LIST* blob_choices_copy = <span class="keyword">new</span> BLOB_CHOICE_LIST();
+      blob_choices_copy-&gt;deep_copy(source_blob_choices_it.data(),
+                                   &amp;<a class="code" href="class_b_l_o_b___c_h_o_i_c_e.html#af3f12ffe754a76bf2abbb82a001336f9">BLOB_CHOICE::deep_copy</a>);
+
+      this_blob_choices_it.add_after_then_move(blob_choices_copy);
+    }
+  }
+  <span class="keywordflow">return</span> *<span class="keyword">this</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a161ac137df2d063a6421728e6aa08fcb"></a><!-- doxytag: member="WERD_CHOICE::permuter" ref="a161ac137df2d063a6421728e6aa08fcb" args="() const " -->
@@ -713,6 +1007,11 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ratngs_8h_source.html#l00228">228</a> of file <a class="el" href="ratngs_8h_source.html">ratngs.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                {
+    <span class="keywordflow">return</span> permuter_;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4a50ea8f60def206dca0053556e2df5f"></a><!-- doxytag: member="WERD_CHOICE::permuter_name" ref="a4a50ea8f60def206dca0053556e2df5f" args="() const " -->
@@ -729,6 +1028,11 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ratngs_8cpp_source.html#l00174">174</a> of file <a class="el" href="ratngs_8cpp_source.html">ratngs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                             {
+  <span class="keywordflow">return</span> kPermuterTypeNames[permuter_];
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa27589343655d5843a6482dbb3731d5a"></a><!-- doxytag: member="WERD_CHOICE::print" ref="aa27589343655d5843a6482dbb3731d5a" args="() const " -->
@@ -745,6 +1049,9 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ratngs_8h_source.html#l00397">397</a> of file <a class="el" href="ratngs_8h_source.html">ratngs.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ this-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#aa27589343655d5843a6482dbb3731d5a">print</a>(<span class="stringliteral">&quot;&quot;</span>); }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="abd6780c220245d64968c6a7bd7941d52"></a><!-- doxytag: member="WERD_CHOICE::print" ref="abd6780c220245d64968c6a7bd7941d52" args="(const char *msg) const " -->
@@ -764,6 +1071,33 @@ Static Public Attributes</h2></td></tr>
 <p><a class="el" href="class_w_e_r_d___c_h_o_i_c_e.html#aa27589343655d5843a6482dbb3731d5a">WERD_CHOICE::print</a></p>
 <p>Print <a class="el" href="class_w_e_r_d___c_h_o_i_c_e.html">WERD_CHOICE</a> to stdout. </p>
 
+<p>Definition at line <a class="el" href="ratngs_8cpp_source.html#l00457">457</a> of file <a class="el" href="ratngs_8cpp_source.html">ratngs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                   {
+  <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;%s WERD_CHOICE:\n&quot;</span>, msg);
+  <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;length_ %d reserved_ %d permuter_ %d\n&quot;</span>,
+         length_, reserved_, permuter_);
+  <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;rating_ %.4f certainty_ %.4f&quot;</span>, rating_, certainty_);
+  <span class="keywordflow">if</span> (fragment_mark_) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot; fragment_mark_ true&quot;</span>);
+  }
+  <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;\n&quot;</span>);
+  <span class="keywordflow">if</span> (unichar_string_.<a class="code" href="class_s_t_r_i_n_g.html#a168505a533eda60219c93e25adf4cdc5">length</a>() &gt; 0) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;unichar_string_ %s unichar_lengths_ %s\n&quot;</span>,
+            unichar_string_.<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a>(), unichar_lengths_.<a class="code" href="class_s_t_r_i_n_g.html#a32beee43ecab1bed8bebc3466896ad6e">string</a>());
+  }
+  <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;unichar_ids: &quot;</span>);
+  <span class="keywordtype">int</span> i;
+  <span class="keywordflow">for</span> (i = 0; i &lt; length_; ++i) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;%d &quot;</span>, unichar_ids_[i]);
+  }
+  <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;\nfragment_lengths_: &quot;</span>);
+  <span class="keywordflow">for</span> (i = 0; i &lt; length_; ++i) {
+    <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;%d &quot;</span>, fragment_lengths_[i]);
+  }
+  <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;\n&quot;</span>);
+  fflush(stdout);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a34205ac439b74d2b65e23a885852be3f"></a><!-- doxytag: member="WERD_CHOICE::punct_stripped" ref="a34205ac439b74d2b65e23a885852be3f" args="(int *start_core, int *end_core) const " -->
@@ -793,6 +1127,21 @@ Static Public Attributes</h2></td></tr>
 <p>punct_stripped</p>
 <p>Returns the half-open interval of unichar_id indices [start, end) which enclose the core portion of this word -- the part after stripping punctuation from the left and right. </p>
 
+<p>Definition at line <a class="el" href="ratngs_8cpp_source.html#l00245">245</a> of file <a class="el" href="ratngs_8cpp_source.html">ratngs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                           {
+  *start = 0;
+  *end = <a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a7be59abe97b052dd3aaa324aea8c4a6c">length</a>() - 1;
+  <span class="keywordflow">while</span> (*start &lt; <a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a7be59abe97b052dd3aaa324aea8c4a6c">length</a>() &amp;&amp;
+         <a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a5431f457a3617528f3f1aa6ddc7f34bc">unicharset</a>()-&gt;get_ispunctuation(<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a6b917b2e6157f7956ff53ca230425ed3">unichar_id</a>(*start))) {
+    (*start)++;
+  }
+  <span class="keywordflow">while</span> (*end &gt; -1 &amp;&amp;
+         <a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a5431f457a3617528f3f1aa6ddc7f34bc">unicharset</a>()-&gt;get_ispunctuation(<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a6b917b2e6157f7956ff53ca230425ed3">unichar_id</a>(*end))) {
+    (*end)--;
+  }
+  (*end)++;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a52ea24dcb5ff15ad8aee3fd774622216"></a><!-- doxytag: member="WERD_CHOICE::rating" ref="a52ea24dcb5ff15ad8aee3fd774622216" args="() const " -->
@@ -809,6 +1158,11 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ratngs_8h_source.html#l00222">222</a> of file <a class="el" href="ratngs_8h_source.html">ratngs.h</a>.</p>
+<div class="fragment"><pre class="fragment">                              {
+    <span class="keywordflow">return</span> rating_;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a5ae576ce7f7630e64a149fe67b737f4c"></a><!-- doxytag: member="WERD_CHOICE::remove_last_unichar_id" ref="a5ae576ce7f7630e64a149fe67b737f4c" args="()" -->
@@ -825,6 +1179,9 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ratngs_8h_source.html#l00347">347</a> of file <a class="el" href="ratngs_8h_source.html">ratngs.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ --length_; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a30ec4e48a346a379ab6900e69f8b12fa"></a><!-- doxytag: member="WERD_CHOICE::remove_unichar_id" ref="a30ec4e48a346a379ab6900e69f8b12fa" args="(int index)" -->
@@ -842,6 +1199,11 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ratngs_8h_source.html#l00348">348</a> of file <a class="el" href="ratngs_8h_source.html">ratngs.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                           {
+    this-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#abf79c2d6f32e73a073e088e30be2e711">remove_unichar_ids</a>(index, 1);
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="abf79c2d6f32e73a073e088e30be2e711"></a><!-- doxytag: member="WERD_CHOICE::remove_unichar_ids" ref="abf79c2d6f32e73a073e088e30be2e711" args="(int index, int num)" -->
@@ -871,6 +1233,16 @@ Static Public Attributes</h2></td></tr>
 <p>remove_unichar_ids</p>
 <p>Removes num unichar ids starting from index start from unichar_ids_ and updates length_ and fragment_lengths_ to reflect this change. Note: this function does not modify rating_ and certainty_. </p>
 
+<p>Definition at line <a class="el" href="ratngs_8cpp_source.html#l00213">213</a> of file <a class="el" href="ratngs_8cpp_source.html">ratngs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                       {
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(start &gt;= 0 &amp;&amp; start + num &lt;= length_);
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = start; i+num &lt; length_; ++i) {
+    unichar_ids_[i] = unichar_ids_[i+num];
+    fragment_lengths_[i] = fragment_lengths_[i+num];
+  }
+  length_ -= num;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aca0ce8c3551445893cc75af824fa67bc"></a><!-- doxytag: member="WERD_CHOICE::reverse_and_mirror_unichar_ids" ref="aca0ce8c3551445893cc75af824fa67bc" args="()" -->
@@ -889,6 +1261,18 @@ Static Public Attributes</h2></td></tr>
 <p>reverse_and_mirror_unichar_ids</p>
 <p>Reverses and mirrors unichars in unichar_ids. </p>
 
+<p>Definition at line <a class="el" href="ratngs_8cpp_source.html#l00227">227</a> of file <a class="el" href="ratngs_8cpp_source.html">ratngs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                 {
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; length_/2; ++i) {
+    <a class="code" href="unichar_8h.html#a8578b19fa1ff5ca75080db1a18ecc32e">UNICHAR_ID</a> tmp_id = unichar_ids_[i];
+    unichar_ids_[i] = unicharset_-&gt;<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a30af8eb685f6e249da0798a7e67bffc7">get_mirror</a>(unichar_ids_[length_-1-i]);
+    unichar_ids_[length_-1-i] = unicharset_-&gt;<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a30af8eb685f6e249da0798a7e67bffc7">get_mirror</a>(tmp_id);
+  }
+  <span class="keywordflow">if</span> (length_ % 2 != 0) {
+    unichar_ids_[length_/2] = unicharset_-&gt;<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a30af8eb685f6e249da0798a7e67bffc7">get_mirror</a>(unichar_ids_[length_/2]);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ad25fbd8b04dd1e3def8701fa55f1466d"></a><!-- doxytag: member="WERD_CHOICE::set_blob_choices" ref="ad25fbd8b04dd1e3def8701fa55f1466d" args="(BLOB_CHOICE_LIST_CLIST *blob_choices)" -->
@@ -908,6 +1292,14 @@ Static Public Attributes</h2></td></tr>
 <p><a class="el" href="class_w_e_r_d___c_h_o_i_c_e.html#ad25fbd8b04dd1e3def8701fa55f1466d">WERD_CHOICE::set_blob_choices</a></p>
 <p>Delete current blob_choices. Set the blob_choices to the given new list. </p>
 
+<p>Definition at line <a class="el" href="ratngs_8cpp_source.html#l00184">184</a> of file <a class="el" href="ratngs_8cpp_source.html">ratngs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                       {
+  <span class="keywordflow">if</span> (blob_choices_ != <a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a4c443d01fbb5fcf092f002091d6f78c2">blob_choices</a>) {
+    delete_blob_choices();
+    blob_choices_ = <a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a4c443d01fbb5fcf092f002091d6f78c2">blob_choices</a>;
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a0d8b3f73cb02eb5f6e492ffd1304fe85"></a><!-- doxytag: member="WERD_CHOICE::set_certainty" ref="a0d8b3f73cb02eb5f6e492ffd1304fe85" args="(float new_val)" -->
@@ -925,6 +1317,11 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ratngs_8h_source.html#l00249">249</a> of file <a class="el" href="ratngs_8h_source.html">ratngs.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                           {
+    certainty_ = new_val;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa40016768c05f59132378a876e536541"></a><!-- doxytag: member="WERD_CHOICE::set_fragment_length" ref="aa40016768c05f59132378a876e536541" args="(char flen, int index)" -->
@@ -952,6 +1349,12 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ratngs_8h_source.html#l00242">242</a> of file <a class="el" href="ratngs_8h_source.html">ratngs.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                        {
+    assert(index &lt; length_);
+    fragment_lengths_[index] = flen;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="accf71690995fdc99f3a65a6246943a53"></a><!-- doxytag: member="WERD_CHOICE::set_fragment_mark" ref="accf71690995fdc99f3a65a6246943a53" args="(bool new_fragment_mark)" -->
@@ -969,6 +1372,11 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ratngs_8h_source.html#l00255">255</a> of file <a class="el" href="ratngs_8h_source.html">ratngs.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                        {
+    fragment_mark_ = new_fragment_mark;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="af62059b10a06634f0cdcccb07b906193"></a><!-- doxytag: member="WERD_CHOICE::set_length" ref="af62059b10a06634f0cdcccb07b906193" args="(int len)" -->
@@ -986,6 +1394,12 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ratngs_8h_source.html#l00261">261</a> of file <a class="el" href="ratngs_8h_source.html">ratngs.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                  {
+    <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(reserved_ &gt;= len);
+    length_ = len;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a162d90ae016fbf55256591bbf01c0c03"></a><!-- doxytag: member="WERD_CHOICE::set_permuter" ref="a162d90ae016fbf55256591bbf01c0c03" args="(uinT8 perm)" -->
@@ -1003,6 +1417,11 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ratngs_8h_source.html#l00252">252</a> of file <a class="el" href="ratngs_8h_source.html">ratngs.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                       {
+    permuter_ = perm;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a8536420fe62adffbfda94a08796db533"></a><!-- doxytag: member="WERD_CHOICE::set_rating" ref="a8536420fe62adffbfda94a08796db533" args="(float new_val)" -->
@@ -1020,6 +1439,11 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ratngs_8h_source.html#l00246">246</a> of file <a class="el" href="ratngs_8h_source.html">ratngs.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                        {
+    rating_ = new_val;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a8238d436806c40b2e01b9659dfab5eb3"></a><!-- doxytag: member="WERD_CHOICE::set_unichar_id" ref="a8238d436806c40b2e01b9659dfab5eb3" args="(UNICHAR_ID unichar_id, int index)" -->
@@ -1047,6 +1471,12 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ratngs_8h_source.html#l00238">238</a> of file <a class="el" href="ratngs_8h_source.html">ratngs.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                               {
+    assert(index &lt; length_);
+    unichar_ids_[index] = <a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a6b917b2e6157f7956ff53ca230425ed3">unichar_id</a>;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="add0ea25141803201f1f495f0aa9d55ba"></a><!-- doxytag: member="WERD_CHOICE::set_unichar_id" ref="add0ea25141803201f1f495f0aa9d55ba" args="(UNICHAR_ID unichar_id, char fragment_length, float rating, float certainty, int index)" -->
@@ -1092,6 +1522,17 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ratngs_8h_source.html#l00334">334</a> of file <a class="el" href="ratngs_8h_source.html">ratngs.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                       {
+    assert(index &lt; length_);
+    unichar_ids_[index] = <a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a6b917b2e6157f7956ff53ca230425ed3">unichar_id</a>;
+    fragment_lengths_[index] = <a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a6f319ff5e8b21bf4698c6a5863cec27e">fragment_length</a>;
+    rating_ += <a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a52ea24dcb5ff15ad8aee3fd774622216">rating</a>;
+    <span class="keywordflow">if</span> (<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a1b25ef2b44d21a7204483a7ca804f293">certainty</a> &lt; certainty_) {
+      certainty_ = <a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a1b25ef2b44d21a7204483a7ca804f293">certainty</a>;
+    }
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a2632f7210781b5bb24e69c961fcf9401"></a><!-- doxytag: member="WERD_CHOICE::set_unichars_in_script_order" ref="a2632f7210781b5bb24e69c961fcf9401" args="(bool in_script_order)" -->
@@ -1109,6 +1550,11 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ratngs_8h_source.html#l00376">376</a> of file <a class="el" href="ratngs_8h_source.html">ratngs.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                          {
+    <span class="keywordflow">return</span> unichars_in_script_order_ = in_script_order;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a1c4b5bf179635b908fb603a6031406f3"></a><!-- doxytag: member="WERD_CHOICE::shallow_copy" ref="a1c4b5bf179635b908fb603a6031406f3" args="(int start, int end) const " -->
@@ -1136,6 +1582,19 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ratngs_8cpp_source.html#l00259">259</a> of file <a class="el" href="ratngs_8cpp_source.html">ratngs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                              {
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(start &gt;= 0 &amp;&amp; start &lt;= length_);
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(end &gt;= 0 &amp;&amp; end &lt;= length_);
+  <span class="keywordflow">if</span> (end &lt; start) { end = start; }
+  <a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html">WERD_CHOICE</a> retval(unicharset_, end - start);
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = start; i &lt; end; i++) {
+    retval.append_unichar_id_space_allocated(
+        unichar_ids_[i], fragment_lengths_[i], 0.0<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>, 0.0<a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>);
+  }
+  <span class="keywordflow">return</span> retval;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="acea958562bc7123b36f0089be7b8388e"></a><!-- doxytag: member="WERD_CHOICE::string_and_lengths" ref="acea958562bc7123b36f0089be7b8388e" args="(STRING *word_str, STRING *word_lengths_str) const " -->
@@ -1165,6 +1624,19 @@ Static Public Attributes</h2></td></tr>
 <p>string_and_lengths</p>
 <p>Populates the given word_str with unichars from unichar_ids and and word_lengths_str with the corresponding unichar lengths. </p>
 
+<p>Definition at line <a class="el" href="ratngs_8cpp_source.html#l00294">294</a> of file <a class="el" href="ratngs_8cpp_source.html">ratngs.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                     {
+  *word_str = <span class="stringliteral">&quot;&quot;</span>;
+  <span class="keywordflow">if</span> (word_lengths_str != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) *word_lengths_str = <span class="stringliteral">&quot;&quot;</span>;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; length_; ++i) {
+    <span class="keyword">const</span> <span class="keywordtype">char</span> *ch = unicharset_-&gt;<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a841e2c7277329f307c9ae8462ddc3ecf">id_to_unichar_ext</a>(unichar_ids_[i]);
+    *word_str += ch;
+    <span class="keywordflow">if</span> (word_lengths_str != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+      *word_lengths_str += strlen(ch);
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a6b917b2e6157f7956ff53ca230425ed3"></a><!-- doxytag: member="WERD_CHOICE::unichar_id" ref="a6b917b2e6157f7956ff53ca230425ed3" args="(int index) const " -->
@@ -1182,6 +1654,12 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ratngs_8h_source.html#l00211">211</a> of file <a class="el" href="ratngs_8h_source.html">ratngs.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                      {
+    assert(index &lt; length_);
+    <span class="keywordflow">return</span> unichar_ids_[index];
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a1f37c5559c8e72c4bd2d0ed40388a72b"></a><!-- doxytag: member="WERD_CHOICE::unichar_ids" ref="a1f37c5559c8e72c4bd2d0ed40388a72b" args="() const " -->
@@ -1198,6 +1676,11 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ratngs_8h_source.html#l00208">208</a> of file <a class="el" href="ratngs_8h_source.html">ratngs.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                               {
+    <span class="keywordflow">return</span> unichar_ids_;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a93ab94b6fa6d5c0469fb52d66c62968c"></a><!-- doxytag: member="WERD_CHOICE::unichar_lengths" ref="a93ab94b6fa6d5c0469fb52d66c62968c" args="() const " -->
@@ -1214,6 +1697,12 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ratngs_8h_source.html#l00393">393</a> of file <a class="el" href="ratngs_8h_source.html">ratngs.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                        {
+    this-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#acea958562bc7123b36f0089be7b8388e">string_and_lengths</a>(&amp;unichar_string_, &amp;unichar_lengths_);
+    <span class="keywordflow">return</span> unichar_lengths_;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a41d740f0accccdfb245d34d554122116"></a><!-- doxytag: member="WERD_CHOICE::unichar_string" ref="a41d740f0accccdfb245d34d554122116" args="() const " -->
@@ -1230,6 +1719,12 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ratngs_8h_source.html#l00386">386</a> of file <a class="el" href="ratngs_8h_source.html">ratngs.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                       {
+    this-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#acea958562bc7123b36f0089be7b8388e">string_and_lengths</a>(&amp;unichar_string_, &amp;unichar_lengths_);
+    <span class="keywordflow">return</span> unichar_string_;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="ab4e18807aad3dfba747b5b949da2631e"></a><!-- doxytag: member="WERD_CHOICE::unichars_in_script_order" ref="ab4e18807aad3dfba747b5b949da2631e" args="() const " -->
@@ -1246,6 +1741,11 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ratngs_8h_source.html#l00380">380</a> of file <a class="el" href="ratngs_8h_source.html">ratngs.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                        {
+    <span class="keywordflow">return</span> unichars_in_script_order_;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a5431f457a3617528f3f1aa6ddc7f34bc"></a><!-- doxytag: member="WERD_CHOICE::unicharset" ref="a5431f457a3617528f3f1aa6ddc7f34bc" args="() const " -->
@@ -1262,6 +1762,11 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ratngs_8h_source.html#l00202">202</a> of file <a class="el" href="ratngs_8h_source.html">ratngs.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                       {
+    <span class="keywordflow">return</span> unicharset_;
+  }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
@@ -1276,11 +1781,13 @@ Static Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="ratngs_8h_source.html#l00179">179</a> of file <a class="el" href="ratngs_8h_source.html">ratngs.h</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/ccstruct/<a class="el" href="ratngs_8h_source.html">ratngs.h</a></li>
-<li>tesseract-ocr/ccstruct/<a class="el" href="ratngs_8cpp.html">ratngs.cpp</a></li>
+<li>tesseract-ocr/ccstruct/<a class="el" href="ratngs_8cpp_source.html">ratngs.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -1302,7 +1809,7 @@ Static Public Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:14 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:48 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

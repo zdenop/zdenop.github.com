@@ -130,7 +130,10 @@ Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_o_w___r_e_s.html#aee04e075058db382613b9fd2d6302d1a">whole_word_rej_count</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">WERD_RES_LIST&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_r_o_w___r_e_s.html#aa3e74f91f38b1f242a6d4904212aa94b">word_res_list</a></td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00284">284</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a4fa646b9b1990df9e2760517d7ed0c29"></a><!-- doxytag: member="ROW_RES::ROW_RES" ref="a4fa646b9b1990df9e2760517d7ed0c29" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -145,6 +148,10 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00292">292</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
+<div class="fragment"><pre class="fragment">            {
+  }                            <span class="comment">// empty constructor</span>
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a4c96bbfbf18510f88518387181585603"></a><!-- doxytag: member="ROW_RES::ROW_RES" ref="a4c96bbfbf18510f88518387181585603" args="(ROW *the_row)" -->
@@ -162,6 +169,46 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8cpp_source.html#l00137">137</a> of file <a class="el" href="pageres_8cpp_source.html">pageres.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                             {
+  WERD_IT word_it(the_row-&gt;<a class="code" href="class_r_o_w.html#ac9d07f978420b3564bf5508ad294fb70">word_list</a>());
+  WERD_RES_IT word_res_it(&amp;<a class="code" href="class_r_o_w___r_e_s.html#aa3e74f91f38b1f242a6d4904212aa94b">word_res_list</a>);
+  <a class="code" href="class_w_e_r_d___r_e_s.html">WERD_RES</a> *combo = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;        <span class="comment">// current combination of fuzzies</span>
+  <a class="code" href="class_w_e_r_d___r_e_s.html">WERD_RES</a> *word_res;            <span class="comment">// current word</span>
+  <a class="code" href="class_w_e_r_d.html">WERD</a> *copy_word;
+
+  <a class="code" href="class_r_o_w___r_e_s.html#aad86ecebb53eb63c4038c5a95d932eea">char_count</a> = 0;
+  <a class="code" href="class_r_o_w___r_e_s.html#afe7c692eeef6f934ef1c3bd208dd115c">rej_count</a> = 0;
+  <a class="code" href="class_r_o_w___r_e_s.html#aee04e075058db382613b9fd2d6302d1a">whole_word_rej_count</a> = 0;
+
+  <a class="code" href="class_r_o_w___r_e_s.html#ad3a856f3e9217c47b8f2f54cd3908721">row</a> = the_row;
+  <span class="keywordflow">for</span> (word_it.mark_cycle_pt(); !word_it.cycled_list(); word_it.forward()) {
+    word_res = <span class="keyword">new</span> <a class="code" href="class_w_e_r_d___r_e_s.html">WERD_RES</a>(word_it.data());
+    word_res-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a42ec9dbb998f7da714ace13ee30cb86e">x_height</a> = the_row-&gt;<a class="code" href="class_r_o_w.html#a2954f94ec4eefe1e3729912e5b8ea779">x_height</a>();
+
+    <span class="keywordflow">if</span> (word_res-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#afc15fa7c1b5ad55d6772dea0d6865df1">word</a>-&gt;<a class="code" href="class_w_e_r_d.html#a81edde8597a3d9fd8a664d703d332c41">flag</a>(<a class="code" href="werd_8h.html#ad6968adbf8f2cc44adf333ec96efb0bea675eadd051ea82d1f288751799bfa31c">W_FUZZY_NON</a>)) {
+      <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(combo != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
+      word_res-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a475b98b66ae6678e6cf618ead08d5d02">part_of_combo</a> = <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+      combo-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3badcd252947547aadeb3d2bfe2f980b">copy_on</a>(word_res);
+    }
+    <span class="keywordflow">if</span> (word_it.data_relative(1)-&gt;flag(<a class="code" href="werd_8h.html#ad6968adbf8f2cc44adf333ec96efb0bea675eadd051ea82d1f288751799bfa31c">W_FUZZY_NON</a>)) {
+      <span class="keywordflow">if</span> (combo == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+        copy_word = <span class="keyword">new</span> <a class="code" href="class_w_e_r_d.html">WERD</a>;
+                                 <span class="comment">//deep copy</span>
+        *copy_word = *(word_it.data());
+        combo = <span class="keyword">new</span> <a class="code" href="class_w_e_r_d___r_e_s.html">WERD_RES</a>(copy_word);
+        combo-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a42ec9dbb998f7da714ace13ee30cb86e">x_height</a> = the_row-&gt;<a class="code" href="class_r_o_w.html#a2954f94ec4eefe1e3729912e5b8ea779">x_height</a>();
+        combo-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#aa93c58a60bedb04c73e3fbb586f72875">combination</a> = <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+        word_res_it.add_to_end(combo);
+      }
+      word_res-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a475b98b66ae6678e6cf618ead08d5d02">part_of_combo</a> = <a class="code" href="host_8h.html#aa8cecfc5c5c054d2875c03e77b7be15d">TRUE</a>;
+    } <span class="keywordflow">else</span> {
+      combo = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+    }
+    word_res_it.add_to_end(word_res);
+  }
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aed15ed5418a2caeb50aee536a6faa0bc"></a><!-- doxytag: member="ROW_RES::~ROW_RES" ref="aed15ed5418a2caeb50aee536a6faa0bc" args="()" -->
@@ -178,6 +225,10 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00297">297</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
+<div class="fragment"><pre class="fragment">             {                <span class="comment">// destructor</span>
+  }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
@@ -192,6 +243,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00287">287</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="afe7c692eeef6f934ef1c3bd208dd115c"></a><!-- doxytag: member="ROW_RES::rej_count" ref="afe7c692eeef6f934ef1c3bd208dd115c" args="" -->
@@ -204,6 +257,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00288">288</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
 
 </div>
 </div>
@@ -218,6 +273,8 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00286">286</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="aee04e075058db382613b9fd2d6302d1a"></a><!-- doxytag: member="ROW_RES::whole_word_rej_count" ref="aee04e075058db382613b9fd2d6302d1a" args="" -->
@@ -230,6 +287,8 @@ Public Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00289">289</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
 
 </div>
 </div>
@@ -244,11 +303,13 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="pageres_8h_source.html#l00290">290</a> of file <a class="el" href="pageres_8h_source.html">pageres.h</a>.</p>
+
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/ccstruct/<a class="el" href="pageres_8h_source.html">pageres.h</a></li>
-<li>tesseract-ocr/ccstruct/<a class="el" href="pageres_8cpp.html">pageres.cpp</a></li>
+<li>tesseract-ocr/ccstruct/<a class="el" href="pageres_8cpp_source.html">pageres.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -270,7 +331,7 @@ Public Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:13 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:46 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

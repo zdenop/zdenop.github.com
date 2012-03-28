@@ -139,7 +139,10 @@ Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_param.html#a414ce3507bf8bbeb057f836f27224552">init_</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_param.html#a77bba96272c09429b905beae0791f586">debug_</a></td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="params_8h_source.html#l00110">110</a> of file <a class="el" href="params_8h_source.html">params.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a444e54c9b76cb5353d96da157835ecdc"></a><!-- doxytag: member="tesseract::Param::~Param" ref="a444e54c9b76cb5353d96da157835ecdc" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -154,6 +157,9 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="params_8h_source.html#l00112">112</a> of file <a class="el" href="params_8h_source.html">params.h</a>.</p>
+<div class="fragment"><pre class="fragment">{}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7d2b3a9b8108f1c1b973f4f498114482"></a><!-- doxytag: member="tesseract::Param::Param" ref="a7d2b3a9b8108f1c1b973f4f498114482" args="(const char *name, const char *comment, bool init)" -->
@@ -187,6 +193,12 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="params_8h_source.html#l00129">129</a> of file <a class="el" href="params_8h_source.html">params.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                          :
+    <a class="code" href="classtesseract_1_1_param.html#a4b6738dba276ac5d1cb46b4848b93849">name_</a>(name), <a class="code" href="classtesseract_1_1_param.html#a738bc32b75735560ca5ce00f34f000ed">info_</a>(comment), <a class="code" href="classtesseract_1_1_param.html#a414ce3507bf8bbeb057f836f27224552">init_</a>(init) {
+    <a class="code" href="classtesseract_1_1_param.html#a77bba96272c09429b905beae0791f586">debug_</a> = (strstr(name, <span class="stringliteral">&quot;debug&quot;</span>) != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) || (strstr(name, <span class="stringliteral">&quot;display&quot;</span>));
+  }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -205,6 +217,17 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="params_8h_source.html#l00118">118</a> of file <a class="el" href="params_8h_source.html">params.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                                          {
+    <span class="keywordflow">return</span> (constraint == <a class="code" href="namespacetesseract.html#a0fc9989588ecf8f236da49b58f96a6c5a64d51904c77c536bd02b78e873f7a4ce">SET_PARAM_CONSTRAINT_NONE</a> ||
+            (constraint == <a class="code" href="namespacetesseract.html#a0fc9989588ecf8f236da49b58f96a6c5ab006bbe489e53081990e1f41174bb9e0">SET_PARAM_CONSTRAINT_DEBUG_ONLY</a> &amp;&amp;
+             this-&gt;<a class="code" href="classtesseract_1_1_param.html#abdecb1a38923ad78a94d23c03f85cfb3">is_debug</a>()) ||
+            (constraint == <a class="code" href="namespacetesseract.html#a0fc9989588ecf8f236da49b58f96a6c5a5f07aa438783c0f1bac049e6fcb11aa1">SET_PARAM_CONSTRAINT_NON_DEBUG_ONLY</a> &amp;&amp;
+             !this-&gt;<a class="code" href="classtesseract_1_1_param.html#abdecb1a38923ad78a94d23c03f85cfb3">is_debug</a>()) ||
+            (constraint == <a class="code" href="namespacetesseract.html#a0fc9989588ecf8f236da49b58f96a6c5a713c7bc13788ed69eb16dd9e5f309d12">SET_PARAM_CONSTRAINT_NON_INIT_ONLY</a> &amp;&amp;
+             !this-&gt;<a class="code" href="classtesseract_1_1_param.html#a224ae6f9910c15118cf9be6603b60d0f">is_init</a>()));
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a95b9d335f5757386b20e12444d3defb1"></a><!-- doxytag: member="tesseract::Param::info_str" ref="a95b9d335f5757386b20e12444d3defb1" args="() const " -->
@@ -221,6 +244,9 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="params_8h_source.html#l00115">115</a> of file <a class="el" href="params_8h_source.html">params.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_param.html#a738bc32b75735560ca5ce00f34f000ed">info_</a>; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="abdecb1a38923ad78a94d23c03f85cfb3"></a><!-- doxytag: member="tesseract::Param::is_debug" ref="abdecb1a38923ad78a94d23c03f85cfb3" args="() const " -->
@@ -237,6 +263,9 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="params_8h_source.html#l00117">117</a> of file <a class="el" href="params_8h_source.html">params.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_param.html#a77bba96272c09429b905beae0791f586">debug_</a>; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a224ae6f9910c15118cf9be6603b60d0f"></a><!-- doxytag: member="tesseract::Param::is_init" ref="a224ae6f9910c15118cf9be6603b60d0f" args="() const " -->
@@ -253,6 +282,9 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="params_8h_source.html#l00116">116</a> of file <a class="el" href="params_8h_source.html">params.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_param.html#a414ce3507bf8bbeb057f836f27224552">init_</a>; }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a7b3f28bb0864ffe9f71e35511f80a886"></a><!-- doxytag: member="tesseract::Param::name_str" ref="a7b3f28bb0864ffe9f71e35511f80a886" args="() const " -->
@@ -269,6 +301,9 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="params_8h_source.html#l00114">114</a> of file <a class="el" href="params_8h_source.html">params.h</a>.</p>
+<div class="fragment"><pre class="fragment">{ <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_param.html#a4b6738dba276ac5d1cb46b4848b93849">name_</a>; }
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Data Documentation</h2>
@@ -283,6 +318,8 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="params_8h_source.html#l00137">137</a> of file <a class="el" href="params_8h_source.html">params.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a738bc32b75735560ca5ce00f34f000ed"></a><!-- doxytag: member="tesseract::Param::info_" ref="a738bc32b75735560ca5ce00f34f000ed" args="" -->
@@ -295,6 +332,8 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="params_8h_source.html#l00135">135</a> of file <a class="el" href="params_8h_source.html">params.h</a>.</p>
 
 </div>
 </div>
@@ -309,6 +348,8 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="params_8h_source.html#l00136">136</a> of file <a class="el" href="params_8h_source.html">params.h</a>.</p>
+
 </div>
 </div>
 <a class="anchor" id="a4b6738dba276ac5d1cb46b4848b93849"></a><!-- doxytag: member="tesseract::Param::name_" ref="a4b6738dba276ac5d1cb46b4848b93849" args="" -->
@@ -321,6 +362,8 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+
+<p>Definition at line <a class="el" href="params_8h_source.html#l00134">134</a> of file <a class="el" href="params_8h_source.html">params.h</a>.</p>
 
 </div>
 </div>
@@ -348,7 +391,7 @@ Protected Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:15 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:50 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

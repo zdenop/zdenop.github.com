@@ -130,7 +130,10 @@ Public Member Functions</h2></td></tr>
 Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classtesseract_1_1_box_word.html">BoxWord</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_box_word.html#a326015b2c38fb45c0f5e47e120c02e5d">CopyFromNormalized</a> (const <a class="el" href="class_d_e_n_o_r_m.html">DENORM</a> *denorm, <a class="el" href="struct_t_w_e_r_d.html">TWERD</a> *tessword)</td></tr>
 </table>
-<hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
+<div class="textblock">
+<p>Definition at line <a class="el" href="boxword_8h_source.html#l00047">47</a> of file <a class="el" href="boxword_8h_source.html">boxword.h</a>.</p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a7467dd28609edc0c8635c6e2a53184ae"></a><!-- doxytag: member="tesseract::BoxWord::BoxWord" ref="a7467dd28609edc0c8635c6e2a53184ae" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -145,6 +148,10 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="boxword_8cpp_source.html#l00039">39</a> of file <a class="el" href="boxword_8cpp_source.html">boxword.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                 : length_(0) {
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa6a074005ff74e722edc46cc6dc35c80"></a><!-- doxytag: member="tesseract::BoxWord::BoxWord" ref="aa6a074005ff74e722edc46cc6dc35c80" args="(const BoxWord &amp;src)" -->
@@ -162,6 +169,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="boxword_8cpp_source.html#l00042">42</a> of file <a class="el" href="boxword_8cpp_source.html">boxword.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                   {
+  <a class="code" href="classtesseract_1_1_box_word.html#afabca4efb6b959b45ea2567aad48820d">CopyFrom</a>(src);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="abd3273e3c4b4a949fa89d7bbbee0e4d9"></a><!-- doxytag: member="tesseract::BoxWord::~BoxWord" ref="abd3273e3c4b4a949fa89d7bbbee0e4d9" args="()" -->
@@ -178,6 +190,10 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="boxword_8cpp_source.html#l00046">46</a> of file <a class="el" href="boxword_8cpp_source.html">boxword.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                  {
+}
+</pre></div>
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
@@ -196,6 +212,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="boxword_8h_source.html#l00102">102</a> of file <a class="el" href="boxword_8h_source.html">boxword.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                       {
+    <span class="keywordflow">return</span> boxes_[index];
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a64adbae1419bff690506f6b3a2dc7930"></a><!-- doxytag: member="tesseract::BoxWord::BlobPosition" ref="a64adbae1419bff690506f6b3a2dc7930" args="(int index) const " -->
@@ -213,6 +234,13 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="boxword_8h_source.html#l00105">105</a> of file <a class="el" href="boxword_8h_source.html">boxword.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                          {
+    <span class="keywordflow">if</span> (index &lt; 0 || index &gt;= script_pos_.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>())
+      <span class="keywordflow">return</span> <a class="code" href="namespacetesseract.html#a496c25ad3b69eb36c48ae9cbf15f2fe2a4aa5a5c8505a529a803f4a837d54c526">SP_NORMAL</a>;
+    <span class="keywordflow">return</span> script_pos_[index];
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aa3e49314fa288ca6b29fde03cc251cd9"></a><!-- doxytag: member="tesseract::BoxWord::bounding_box" ref="aa3e49314fa288ca6b29fde03cc251cd9" args="() const " -->
@@ -229,6 +257,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="boxword_8h_source.html#l00096">96</a> of file <a class="el" href="boxword_8h_source.html">boxword.h</a>.</p>
+<div class="fragment"><pre class="fragment">                                   {
+    <span class="keywordflow">return</span> bbox_;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="af74a52ee479f2e2172b5fb15d680f9fa"></a><!-- doxytag: member="tesseract::BoxWord::ClipToOriginalWord" ref="af74a52ee479f2e2172b5fb15d680f9fa" args="(const BLOCK *block, WERD *original_word)" -->
@@ -256,6 +289,44 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="boxword_8cpp_source.html#l00138">138</a> of file <a class="el" href="boxword_8cpp_source.html">boxword.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                        {
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; length_; ++i) {
+    <a class="code" href="class_t_b_o_x.html">TBOX</a> box = boxes_[i];
+    <span class="comment">// Expand by a single pixel, as the poly approximation error is 1 pixel.</span>
+    box = <a class="code" href="class_t_b_o_x.html">TBOX</a>(box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>() - 1, box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>() - 1,
+               box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>() + 1, box.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>() + 1);
+    <span class="comment">// Now find the original box that matches.</span>
+    <a class="code" href="class_t_b_o_x.html">TBOX</a> original_box;
+    C_BLOB_IT b_it(original_word-&gt;<a class="code" href="class_w_e_r_d.html#a174baefaa99afbfdbf444e4199f3b529">cblob_list</a>());
+    <span class="keywordflow">for</span> (b_it.mark_cycle_pt(); !b_it.cycled_list(); b_it.forward()) {
+      <a class="code" href="class_t_b_o_x.html">TBOX</a> blob_box = b_it.data()-&gt;bounding_box();
+      <span class="keywordflow">if</span> (block != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+        blob_box.<a class="code" href="class_t_b_o_x.html#a428e14544aeb44064bc8637d920211a0">rotate</a>(block-&gt;<a class="code" href="class_b_l_o_c_k.html#a820d5ff979ad26219ad3914551d70881">re_rotation</a>());
+      <span class="keywordflow">if</span> (blob_box.<a class="code" href="class_t_b_o_x.html#aeabe87a0ee3912ca63550ffee4fb4115">major_overlap</a>(box)) {
+        original_box += blob_box;
+      }
+    }
+    <span class="keywordflow">if</span> (!original_box.null_box()) {
+      <span class="keywordflow">if</span> (NearlyEqual&lt;int&gt;(original_box.left(), box.<a class="code" href="class_t_b_o_x.html#a724fabf566586b663577dfa944ffbc61">left</a>(), <a class="code" href="namespacetesseract.html#a03af8c63d879bb74722a52f7bee8c5de">kBoxClipTolerance</a>))
+        box.<a class="code" href="class_t_b_o_x.html#ae6151cd794841e100d8a346a0c4a46e6">set_left</a>(original_box.left());
+      <span class="keywordflow">if</span> (NearlyEqual&lt;int&gt;(original_box.right(), box.<a class="code" href="class_t_b_o_x.html#a8703081c1a1c26db3a4dddaca1028e34">right</a>(),
+                           <a class="code" href="namespacetesseract.html#a03af8c63d879bb74722a52f7bee8c5de">kBoxClipTolerance</a>))
+        box.<a class="code" href="class_t_b_o_x.html#a2246293d3667b28c52a52353a2d5caea">set_right</a>(original_box.right());
+      <span class="keywordflow">if</span> (NearlyEqual&lt;int&gt;(original_box.top(), box.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>(), <a class="code" href="namespacetesseract.html#a03af8c63d879bb74722a52f7bee8c5de">kBoxClipTolerance</a>))
+        box.<a class="code" href="class_t_b_o_x.html#a7f40dfd290a907200bdc98c196f63f45">set_top</a>(original_box.top());
+      <span class="keywordflow">if</span> (NearlyEqual&lt;int&gt;(original_box.bottom(), box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>(),
+                           <a class="code" href="namespacetesseract.html#a03af8c63d879bb74722a52f7bee8c5de">kBoxClipTolerance</a>))
+        box.<a class="code" href="class_t_b_o_x.html#a6f803b24b046883cb0f3882dc3d92302">set_bottom</a>(original_box.bottom());
+    }
+    original_box = original_word-&gt;<a class="code" href="class_w_e_r_d.html#a151bbfb39ecdef93ab1a14b0f9e4ac74">bounding_box</a>();
+    <span class="keywordflow">if</span> (block != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
+      original_box.<a class="code" href="class_t_b_o_x.html#a428e14544aeb44064bc8637d920211a0">rotate</a>(block-&gt;<a class="code" href="class_b_l_o_c_k.html#a820d5ff979ad26219ad3914551d70881">re_rotation</a>());
+    boxes_[i] = box.<a class="code" href="class_t_b_o_x.html#a33e45c7389737cdf1a908bca0af315c4">intersection</a>(original_box);
+  }
+  ComputeBoundingBox();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="afabca4efb6b959b45ea2567aad48820d"></a><!-- doxytag: member="tesseract::BoxWord::CopyFrom" ref="afabca4efb6b959b45ea2567aad48820d" args="(const BoxWord &amp;src)" -->
@@ -273,6 +344,16 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="boxword_8cpp_source.html#l00054">54</a> of file <a class="el" href="boxword_8cpp_source.html">boxword.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                         {
+  bbox_ = src.bbox_;
+  length_ = src.length_;
+  boxes_.<a class="code" href="class_generic_vector.html#a9cdbff49b186574b83e43afba606fdd9">clear</a>();
+  boxes_.<a class="code" href="class_generic_vector.html#aa225ea3fc9374961482bc804028317eb">reserve</a>(length_);
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; length_; ++i)
+    boxes_.<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(src.boxes_[i]);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a326015b2c38fb45c0f5e47e120c02e5d"></a><!-- doxytag: member="tesseract::BoxWord::CopyFromNormalized" ref="a326015b2c38fb45c0f5e47e120c02e5d" args="(const DENORM *denorm, TWERD *tessword)" -->
@@ -300,6 +381,43 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="boxword_8cpp_source.html#l00067">67</a> of file <a class="el" href="boxword_8cpp_source.html">boxword.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                      {
+  <a class="code" href="classtesseract_1_1_box_word.html#a7467dd28609edc0c8635c6e2a53184ae">BoxWord</a>* boxword = <span class="keyword">new</span> <a class="code" href="classtesseract_1_1_box_word.html#a7467dd28609edc0c8635c6e2a53184ae">BoxWord</a>();
+  <span class="comment">// Count the blobs.</span>
+  boxword-&gt;length_ = 0;
+  <span class="keywordflow">for</span> (<a class="code" href="struct_t_b_l_o_b.html">TBLOB</a>* tblob = tessword-&gt;<a class="code" href="struct_t_w_e_r_d.html#aeec31d57df04c8dac1cf3e6990d358a7">blobs</a>; tblob != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>; tblob = tblob-&gt;next)
+    ++boxword-&gt;length_;
+  <span class="comment">// Allocate memory.</span>
+  boxword-&gt;boxes_.reserve(boxword-&gt;length_);
+
+  <span class="keywordflow">for</span> (<a class="code" href="struct_t_b_l_o_b.html">TBLOB</a>* tblob = tessword-&gt;<a class="code" href="struct_t_w_e_r_d.html#aeec31d57df04c8dac1cf3e6990d358a7">blobs</a>; tblob != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>; tblob = tblob-&gt;next) {
+    <a class="code" href="class_t_b_o_x.html">TBOX</a> blob_box;
+    <span class="keywordflow">for</span> (<a class="code" href="struct_t_e_s_s_l_i_n_e.html">TESSLINE</a>* outline = tblob-&gt;outlines; outline != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
+         outline = outline-&gt;next) {
+      <a class="code" href="struct_e_d_g_e_p_t.html">EDGEPT</a>* edgept = outline-&gt;loop;
+      <span class="comment">// Iterate over the edges.</span>
+      <span class="keywordflow">do</span> {
+        <span class="keywordflow">if</span> (!edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7e6e4c9b9bcc3b1e66ab62bb7641c39a">IsHidden</a>() || !edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a8326da8daf597bcdc5a05064a37cbbb1">prev</a>-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a7e6e4c9b9bcc3b1e66ab62bb7641c39a">IsHidden</a>()) {
+          <a class="code" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a> pos(edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a>, edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a>);
+          <span class="keywordflow">if</span> (denorm != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
+            <a class="code" href="struct_t_p_o_i_n_t.html">TPOINT</a> denormed;
+            denorm-&gt;<a class="code" href="class_d_e_n_o_r_m.html#a7f208ca46e4fc576432c16bf16a504f0">DenormTransform</a>(edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#adee462d390e637a8393ba373c8d2a1bb">pos</a>, &amp;denormed);
+            pos.set_x(denormed.<a class="code" href="struct_t_p_o_i_n_t.html#aa9c98655c3a2a0437821e5a3d3418b0f">x</a>);
+            pos.set_y(denormed.<a class="code" href="struct_t_p_o_i_n_t.html#a6d62f015b74612e43975e439a096039c">y</a>);
+          }
+          <a class="code" href="class_t_b_o_x.html">TBOX</a> pt_box(pos, pos);
+          blob_box += pt_box;
+        }
+        edgept = edgept-&gt;<a class="code" href="struct_e_d_g_e_p_t.html#a196f7786194752f89e364a586d24884d">next</a>;
+      } <span class="keywordflow">while</span> (edgept != outline-&gt;loop);
+    }
+    boxword-&gt;boxes_.push_back(blob_box);
+  }
+  boxword-&gt;ComputeBoundingBox();
+  <span class="keywordflow">return</span> boxword;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aede79b94bea39b3223d32137bab439e2"></a><!-- doxytag: member="tesseract::BoxWord::DeleteAllBoxes" ref="aede79b94bea39b3223d32137bab439e2" args="()" -->
@@ -316,6 +434,13 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="boxword_8cpp_source.html#l00213">213</a> of file <a class="el" href="boxword_8cpp_source.html">boxword.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                             {
+  length_ = 0;
+  boxes_.<a class="code" href="class_generic_vector.html#a9cdbff49b186574b83e43afba606fdd9">clear</a>();
+  bbox_ = <a class="code" href="class_t_b_o_x.html">TBOX</a>();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a8a85de03e0800fe425990e498b00f87c"></a><!-- doxytag: member="tesseract::BoxWord::DeleteBox" ref="a8a85de03e0800fe425990e498b00f87c" args="(int index)" -->
@@ -333,6 +458,14 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="boxword_8cpp_source.html#l00205">205</a> of file <a class="el" href="boxword_8cpp_source.html">boxword.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                 {
+  <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(0 &lt;= index &amp;&amp; index &lt; length_);
+  boxes_.<a class="code" href="class_generic_vector.html#a3fd37a240a42f1c3052e8d28614d3702">remove</a>(index);
+  --length_;
+  ComputeBoundingBox();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a23d6471fdda275e6448db555aecee1f3"></a><!-- doxytag: member="tesseract::BoxWord::InsertBox" ref="a23d6471fdda275e6448db555aecee1f3" args="(int index, const TBOX &amp;box)" -->
@@ -360,6 +493,16 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="boxword_8cpp_source.html#l00194">194</a> of file <a class="el" href="boxword_8cpp_source.html">boxword.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                  {
+  <span class="keywordflow">if</span> (index &lt; length_)
+    boxes_.<a class="code" href="class_generic_vector.html#a57ca5259541548a97bcfd4d0925a27ff">insert</a>(box, index);
+  <span class="keywordflow">else</span>
+    boxes_.<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(box);
+  length_ = boxes_.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>();
+  ComputeBoundingBox();
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="afe001fe8fb7f2d3725b2ac2f542e9878"></a><!-- doxytag: member="tesseract::BoxWord::length" ref="afe001fe8fb7f2d3725b2ac2f542e9878" args="() const " -->
@@ -376,6 +519,11 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="boxword_8h_source.html#l00099">99</a> of file <a class="el" href="boxword_8h_source.html">boxword.h</a>.</p>
+<div class="fragment"><pre class="fragment">                           {
+    <span class="keywordflow">return</span> length_;
+  }
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a3a7da282c5432576b36cd7a8ec9702d8"></a><!-- doxytag: member="tesseract::BoxWord::MergeBoxes" ref="a3a7da282c5432576b36cd7a8ec9702d8" args="(int start, int end)" -->
@@ -403,6 +551,22 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="boxword_8cpp_source.html#l00177">177</a> of file <a class="el" href="boxword_8cpp_source.html">boxword.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                           {
+  start = <a class="code" href="helpers_8h.html#af8739168d5b3235996eeb25dac3c4044">ClipToRange</a>(start, 0, length_);
+  end = <a class="code" href="helpers_8h.html#af8739168d5b3235996eeb25dac3c4044">ClipToRange</a>(end, 0, length_);
+  <span class="keywordflow">if</span> (end &lt;= start + 1)
+    <span class="keywordflow">return</span>;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = start + 1; i &lt; end; ++i) {
+    boxes_[start] += boxes_[i];
+  }
+  <span class="keywordtype">int</span> shrinkage = end - 1 - start;
+  length_ -= shrinkage;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = start + 1; i &lt; length_; ++i)
+    boxes_[i] = boxes_[i + shrinkage];
+  boxes_.<a class="code" href="class_generic_vector.html#af1793745c45178626c9afe48c7a1e140">truncate</a>(length_);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a611c93e8803464085f680bd2b85b9c5e"></a><!-- doxytag: member="tesseract::BoxWord::operator=" ref="a611c93e8803464085f680bd2b85b9c5e" args="(const BoxWord &amp;src)" -->
@@ -420,6 +584,12 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="boxword_8cpp_source.html#l00049">49</a> of file <a class="el" href="boxword_8cpp_source.html">boxword.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                              {
+  <a class="code" href="classtesseract_1_1_box_word.html#afabca4efb6b959b45ea2567aad48820d">CopyFrom</a>(src);
+  <span class="keywordflow">return</span> *<span class="keyword">this</span>;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="aabd2c8e3b6f8dda66725754fa034cc8e"></a><!-- doxytag: member="tesseract::BoxWord::ProcessMatchedBlobs" ref="aabd2c8e3b6f8dda66725754fa034cc8e" args="(const TWERD &amp;other, TessCallback1&lt; int &gt; *cb) const " -->
@@ -447,6 +617,17 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="boxword_8cpp_source.html#l00229">229</a> of file <a class="el" href="boxword_8cpp_source.html">boxword.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                {
+  <a class="code" href="struct_t_b_l_o_b.html">TBLOB</a>* blob = other.<a class="code" href="struct_t_w_e_r_d.html#aeec31d57df04c8dac1cf3e6990d358a7">blobs</a>;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; length_ &amp;&amp; blob != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>; ++i, blob = blob-&gt;<a class="code" href="struct_t_b_l_o_b.html#a88a541f55c8bfd63a9f0c419189499bb">next</a>) {
+    <a class="code" href="class_t_b_o_x.html">TBOX</a> blob_box = blob-&gt;bounding_box();
+    <span class="keywordflow">if</span> (blob_box == boxes_[i])
+      cb-&gt;<a class="code" href="class_tess_callback1.html#a88dffeb940aea354ff6e4783ae33c260">Run</a>(i);
+  }
+  <span class="keyword">delete</span> cb;
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a9485999c9e0f1f1a9996229349417810"></a><!-- doxytag: member="tesseract::BoxWord::SetScriptPositions" ref="a9485999c9e0f1f1a9996229349417810" args="(const UNICHARSET &amp;unicharset, bool small_caps, TWERD *tessword, WERD_CHOICE *best_choice)" -->
@@ -486,11 +667,38 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="boxword_8cpp_source.html#l00108">108</a> of file <a class="el" href="boxword_8cpp_source.html">boxword.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                                            {
+  <span class="comment">// Allocate memory.</span>
+  script_pos_.<a class="code" href="class_generic_vector.html#a6751521fd3eb461d81fc83ef93a0def3">init_to_size</a>(length_, <a class="code" href="namespacetesseract.html#a496c25ad3b69eb36c48ae9cbf15f2fe2a4aa5a5c8505a529a803f4a837d54c526">SP_NORMAL</a>);
+
+  <span class="keywordtype">int</span> blob_index = 0;
+  <span class="keywordflow">for</span> (<a class="code" href="struct_t_b_l_o_b.html">TBLOB</a>* tblob = tessword-&gt;<a class="code" href="struct_t_w_e_r_d.html#aeec31d57df04c8dac1cf3e6990d358a7">blobs</a>; tblob != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>; tblob = tblob-&gt;next,
+       ++blob_index) {
+    <span class="keywordtype">int</span> class_id = best_choice-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a6b917b2e6157f7956ff53ca230425ed3">unichar_id</a>(blob_index);
+    <a class="code" href="class_t_b_o_x.html">TBOX</a> blob_box = tblob-&gt;bounding_box();
+    <span class="keywordtype">int</span> top = blob_box.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>();
+    <span class="keywordtype">int</span> bottom = blob_box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>();
+    <span class="keywordtype">int</span> min_bottom, max_bottom, min_top, max_top;
+    unicharset.<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#af2e0d12e80aa3aa985652d73eaf1e95f">get_top_bottom</a>(class_id, &amp;min_bottom, &amp;max_bottom,
+                              &amp;min_top, &amp;max_top);
+    <span class="keywordflow">if</span> (bottom &lt;= <a class="code" href="namespacetesseract.html#a084fccc7b63dce7abd842e07877397c6">kMaxDropCapBottom</a>) {
+      script_pos_[blob_index] = <a class="code" href="namespacetesseract.html#a496c25ad3b69eb36c48ae9cbf15f2fe2a39a9b42f2bd03c3cb815dcf93b3d00d4">SP_DROPCAP</a>;
+    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (!small_caps) {
+      <span class="keywordflow">if</span> (top + <a class="code" href="namespacetesseract.html#ade0750d1a21114a42d54a11b903ad72a">kMinSubscriptOffset</a> &lt; min_top) {
+        script_pos_[blob_index] = <a class="code" href="namespacetesseract.html#a496c25ad3b69eb36c48ae9cbf15f2fe2a0018c0645e510228c6701ff42d36bd01">SP_SUBSCRIPT</a>;
+      } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (bottom - <a class="code" href="namespacetesseract.html#aee3f1b44d026b8de929a0ba25591cc85">kMinSuperscriptOffset</a> &gt; max_bottom) {
+        script_pos_[blob_index] = <a class="code" href="namespacetesseract.html#a496c25ad3b69eb36c48ae9cbf15f2fe2a6160fc6d2a9bba3b56e3f673f84b24b8">SP_SUPERSCRIPT</a>;
+      }
+    }
+  }
+}
+</pre></div>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/ccstruct/<a class="el" href="boxword_8h_source.html">boxword.h</a></li>
-<li>tesseract-ocr/ccstruct/<a class="el" href="boxword_8cpp.html">boxword.cpp</a></li>
+<li>tesseract-ocr/ccstruct/<a class="el" href="boxword_8cpp_source.html">boxword.cpp</a></li>
 </ul>
 </div>
 </div>
@@ -513,7 +721,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 14 2012 22:31:14 for Tesseract by
+    <li class="footer">Generated on Wed Mar 28 2012 22:38:49 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>
