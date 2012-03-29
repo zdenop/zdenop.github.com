@@ -1140,6 +1140,26 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
+<p>Definition at line <a class="el" href="scrollview_8cpp_source.html#l00765">765</a> of file <a class="el" href="scrollview_8cpp_source.html">scrollview.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                              {
+  <span class="keywordtype">int</span> width = image-&gt;w;
+  <span class="keywordtype">int</span> height = image-&gt;h;
+  l_uint32 bpp = image-&gt;d;
+  ++image_index_;
+  <span class="comment">// PIX* do not have a unique identifier/name associated, so name them &quot;lept&quot;.</span>
+  <a class="code" href="class_scroll_view.html#a603f7d9313903b176ecbd9f49a7b6e1a" title="Send a message to the server, attaching the window id.">SendMsg</a>(<span class="stringliteral">&quot;createImage(&#39;lept%d&#39;,%d,%d,%d)&quot;</span>, image_index_, width, height, bpp);
+
+  <span class="keywordflow">if</span> (bpp == 32) {
+    Transfer32bppImage(image);
+  } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (bpp == 8) {
+    TransferGrayImage(image);
+  } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (bpp == 1) {
+    TransferBinaryImage(image);
+  }
+  <span class="comment">// PIX* do not have a unique identifier/name associated, so name them &quot;lept&quot;.</span>
+  <a class="code" href="class_scroll_view.html#a603f7d9313903b176ecbd9f49a7b6e1a" title="Send a message to the server, attaching the window id.">SendMsg</a>(<span class="stringliteral">&quot;drawImage(&#39;lept%d&#39;,%d,%d)&quot;</span>, image_index_, x_pos, y_pos);
+}
+</pre></div>
 </div>
 </div>
 <a class="anchor" id="a68bfeb426addd08adab87389472e4a79"></a><!-- doxytag: member="ScrollView::Image" ref="a68bfeb426addd08adab87389472e4a79" args="(const char *image, int x_pos, int y_pos)" -->
@@ -2045,7 +2065,7 @@ Static Public Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 28 2012 22:38:46 for Tesseract by
+    <li class="footer">Generated on Thu Mar 29 2012 23:42:20 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

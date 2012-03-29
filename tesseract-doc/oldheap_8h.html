@@ -383,7 +383,7 @@ Functions</h2></td></tr>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
     <tr><td class="paramname">Heap</td><td>heap whose data is to be freed </td></tr>
-    <tr><td class="paramname">Deallocator</td><td>function to be used to deallocate data</td></tr>
+    <tr><td class="paramname">destructor</td><td>function to be used to deallocate data</td></tr>
   </table>
   </dd>
 </dl>
@@ -527,7 +527,7 @@ History: 3/13/89, DSJ, Created. </dd></dl>
   <table class="params">
     <tr><td class="paramname">Heap</td><td>ptr to heap whose top is to be removed and returned </td></tr>
     <tr><td class="paramname">Key</td><td>place to put key of top heap item </td></tr>
-    <tr><td class="paramname">Data</td><td>place to put data of top heap item</td></tr>
+    <tr><td class="paramname">out_ptr</td><td>place to put data of top heap item</td></tr>
   </table>
   </dd>
 </dl>
@@ -613,7 +613,7 @@ History: 5/10/91, DSJ, Created (Modified from GetTopOfHeap). </dd></dl>
   <table class="params">
     <tr><td class="paramname">Heap</td><td>ptr to heap whose top is to be removed and returned </td></tr>
     <tr><td class="paramname">Key</td><td>place to put key of top heap item </td></tr>
-    <tr><td class="paramname">Data</td><td>place to put data of top heap item </td></tr>
+    <tr><td class="paramname">out_ptr</td><td>place to put data of top heap item </td></tr>
   </table>
   </dd>
 </dl>
@@ -912,7 +912,7 @@ History: 3/13/89, DSJ, Created. </dd></dl>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 28 2012 22:38:42 for Tesseract by
+    <li class="footer">Generated on Thu Mar 29 2012 23:42:16 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

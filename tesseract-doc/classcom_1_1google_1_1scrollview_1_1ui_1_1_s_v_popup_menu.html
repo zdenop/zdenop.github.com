@@ -172,7 +172,7 @@ Package Functions</h2></td></tr>
 <div class="memdoc">
 <p>A click on one of the items in our menubar has occured. Forward it to the item itself to let it decide what happens. </p>
 
-<p>Definition at line <a class="el" href="_s_v_popup_menu_8java_source.html#l00127">127</a> of file <a class="el" href="_s_v_popup_menu_8java_source.html">SVPopupMenu.java</a>.</p>
+<p>Definition at line <a class="el" href="_s_v_popup_menu_8java_source.html#l00129">129</a> of file <a class="el" href="_s_v_popup_menu_8java_source.html">SVPopupMenu.java</a>.</p>
 <div class="fragment"><pre class="fragment">                                             {
 
     <span class="comment">// Get the corresponding menuitem</span>
@@ -306,11 +306,13 @@ Package Functions</h2></td></tr>
     <tr><td class="paramname">parent</td><td>The menu we add our new entry to (should have been defined before). If the parent is "", we will add the entry to the root (top-level) </td></tr>
     <tr><td class="paramname">name</td><td>The caption of the new entry. </td></tr>
     <tr><td class="paramname">id</td><td>The Id of the new entry. If it is -1, the entry will be treated as a menu. </td></tr>
+    <tr><td class="paramname">value</td><td>The value of the new entry. </td></tr>
+    <tr><td class="paramname">desc</td><td>The description of the new entry. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="_s_v_popup_menu_8java_source.html#l00109">109</a> of file <a class="el" href="_s_v_popup_menu_8java_source.html">SVPopupMenu.java</a>.</p>
+<p>Definition at line <a class="el" href="_s_v_popup_menu_8java_source.html#l00111">111</a> of file <a class="el" href="_s_v_popup_menu_8java_source.html">SVPopupMenu.java</a>.</p>
 <div class="fragment"><pre class="fragment">                                                                                 {
     SVAbstractMenuItem jmi = items.get(parent);
     SVMenuItem mli = <span class="keyword">new</span> SVMenuItem(<span class="keywordtype">id</span>, name, value, desc);
@@ -357,7 +359,7 @@ Package Functions</h2></td></tr>
 <div class="memdoc">
 <p>Gets called by the <a class="el" href="class_s_v_event_handler.html">SVEventHandler</a> of the window to actually show the content of the popup menu. </p>
 
-<p>Definition at line <a class="el" href="_s_v_popup_menu_8java_source.html#l00139">139</a> of file <a class="el" href="_s_v_popup_menu_8java_source.html">SVPopupMenu.java</a>.</p>
+<p>Definition at line <a class="el" href="_s_v_popup_menu_8java_source.html#l00141">141</a> of file <a class="el" href="_s_v_popup_menu_8java_source.html">SVPopupMenu.java</a>.</p>
 <div class="fragment"><pre class="fragment">                                                    {
     root.show(Invoker, x, y);
   }
@@ -391,7 +393,7 @@ Package Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 28 2012 22:38:48 for Tesseract by
+    <li class="footer">Generated on Thu Mar 29 2012 23:42:22 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

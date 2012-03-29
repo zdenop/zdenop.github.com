@@ -191,6 +191,16 @@ Functions</h2></td></tr>
 <tr><td colspan="2"><div class="groupText"><p>Add a new proto to this class. Malloc new space and copy the old protos if necessary. Return the proto id for the new proto. Update all configurations so that each config which contained the specified old proto will also contain the new proto. The caller is responsible for actually filling in the appropriate proto params. </p>
 </div></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="protos_8cpp.html#a1131c1c4e71727737b67abf1a154e456">SplitProto</a> (<a class="el" href="protos_8h.html#ac6dd4312d295c65a9165f4a5401c75f7">CLASS_TYPE</a> Class, int OldPid)</td></tr>
+<tr><td colspan="2"><div class="groupHeader">WriteOldConfigFile</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000002">Deprecated:</a></b></dt><dd>Write the configs in the given class to the specified file in the old config format.</dd></dl>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">File</td><td>The file to write to </td></tr>
+    <tr><td class="paramname">Class</td><td>The class to write </td></tr>
+  </table>
+  </dd>
+</dl>
+</div></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="protos_8cpp.html#a8c25f68242f25174eaa1f7f78b28582e">WriteOldConfigFile</a> (FILE *File, <a class="el" href="protos_8h.html#ac6dd4312d295c65a9165f4a5401c75f7">CLASS_TYPE</a> Class)</td></tr>
 <tr><td colspan="2"><div class="groupHeader">WriteOldProtoFile</div></td></tr>
 <tr><td colspan="2"><div class="groupText"><dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000003">Deprecated:</a></b></dt><dd>Write the protos in the given class to the specified file in the old proto format.</dd></dl>
@@ -819,15 +829,6 @@ Variables</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000002">Deprecated:</a></b></dt><dd></dd></dl>
-<p>Write the configs in the given class to the specified file in the old config format.</p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table class="params">
-    <tr><td class="paramname">File</td><td>The file to write to </td></tr>
-    <tr><td class="paramname">Class</td><td>The class to write </td></tr>
-  </table>
-  </dd>
-</dl>
 
 <p>Definition at line <a class="el" href="protos_8cpp_source.html#l00425">425</a> of file <a class="el" href="protos_8cpp_source.html">protos.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                      {
@@ -958,7 +959,7 @@ Variables</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 28 2012 22:38:41 for Tesseract by
+    <li class="footer">Generated on Thu Mar 29 2012 23:42:15 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

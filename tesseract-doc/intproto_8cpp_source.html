@@ -1853,19 +1853,19 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l01808"></a>01808 
 <a name="l01809"></a>01809 <span class="comment">/*---------------------------------------------------------------------------*/</span>
 <a name="l01810"></a>01810 <span class="preprocessor">#ifndef GRAPHICS_DISABLED</span>
-<a name="l01811"></a><a class="code" href="intproto_8h.html#a83c43ef1a01f3be45cbf675da04c3930">01811</a> <span class="preprocessor"></span><span class="keywordtype">void</span> <a class="code" href="intproto_8cpp.html#a83c43ef1a01f3be45cbf675da04c3930">RenderIntFeature</a>(<a class="code" href="class_scroll_view.html">ScrollView</a> *window, <span class="keyword">const</span> <a class="code" href="struct_i_n_t___f_e_a_t_u_r_e___s_t_r_u_c_t.html">INT_FEATURE_STRUCT</a>* Feature,
-<a name="l01812"></a>01812                       <a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8">ScrollView::Color</a> color) {
-<a name="l01813"></a>01813 <span class="comment">/*</span>
-<a name="l01814"></a>01814 <span class="comment"> ** Parameters:</span>
-<a name="l01815"></a>01815 <span class="comment"> **   ShapeList shape list to add feature rendering to</span>
-<a name="l01816"></a>01816 <span class="comment"> **   Feature   feature to be rendered</span>
-<a name="l01817"></a>01817 <span class="comment"> **   Color   color to use for feature rendering</span>
-<a name="l01818"></a>01818 <span class="comment"> ** Globals: none</span>
-<a name="l01819"></a>01819 <span class="comment"> ** Operation: This routine renders the specified feature into ShapeList.</span>
-<a name="l01820"></a>01820 <span class="comment"> ** Return: New shape list with rendering of Feature added.</span>
-<a name="l01821"></a>01821 <span class="comment"> ** Exceptions: none</span>
-<a name="l01822"></a>01822 <span class="comment"> ** History: Thu Mar 21 14:57:41 1991, DSJ, Created.</span>
-<a name="l01823"></a>01823 <span class="comment"> */</span>
+<a name="l01811"></a>01811 <span class="preprocessor"></span><span class="comment">/*</span>
+<a name="l01812"></a>01812 <span class="comment"> * Parameters:</span>
+<a name="l01813"></a>01813 <span class="comment"> *   ShapeList shape list to add feature rendering to</span>
+<a name="l01814"></a>01814 <span class="comment"> *   Feature   feature to be rendered</span>
+<a name="l01815"></a>01815 <span class="comment"> *   Color   color to use for feature rendering</span>
+<a name="l01816"></a>01816 <span class="comment"> * Globals: none</span>
+<a name="l01817"></a>01817 <span class="comment"> * Operation: This routine renders the specified feature into ShapeList.</span>
+<a name="l01818"></a>01818 <span class="comment"> * Return: New shape list with rendering of Feature added.</span>
+<a name="l01819"></a>01819 <span class="comment"> * @note Exceptions: none</span>
+<a name="l01820"></a>01820 <span class="comment"> * @note History: Thu Mar 21 14:57:41 1991, DSJ, Created.</span>
+<a name="l01821"></a>01821 <span class="comment"> */</span>
+<a name="l01822"></a><a class="code" href="intproto_8h.html#a83c43ef1a01f3be45cbf675da04c3930">01822</a> <span class="keywordtype">void</span> <a class="code" href="intproto_8cpp.html#a83c43ef1a01f3be45cbf675da04c3930">RenderIntFeature</a>(<a class="code" href="class_scroll_view.html">ScrollView</a> *window, <span class="keyword">const</span> <a class="code" href="struct_i_n_t___f_e_a_t_u_r_e___s_t_r_u_c_t.html">INT_FEATURE_STRUCT</a>* Feature,
+<a name="l01823"></a>01823                       <a class="code" href="class_scroll_view.html#a100504544a5423a94222149ee9ed0fe8">ScrollView::Color</a> color) {
 <a name="l01824"></a>01824   <a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a> X, Y, Dx, Dy, Length;
 <a name="l01825"></a>01825 
 <a name="l01826"></a>01826   window-&gt;<a class="code" href="class_scroll_view.html#a79855c525ec660b452382e9813d2edb5">Pen</a>(color);
@@ -1886,6 +1886,22 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l01841"></a>01841 
 <a name="l01842"></a>01842 
 <a name="l01843"></a>01843 <span class="comment">/*---------------------------------------------------------------------------*/</span>
+<a name="l01844"></a>01844 <span class="comment">/*</span>
+<a name="l01845"></a>01845 <span class="comment"> * This routine extracts the parameters of the specified</span>
+<a name="l01846"></a>01846 <span class="comment"> * proto from the class description and adds a rendering of</span>
+<a name="l01847"></a>01847 <span class="comment"> * the proto onto the ShapeList.</span>
+<a name="l01848"></a>01848 <span class="comment"> *</span>
+<a name="l01849"></a>01849 <span class="comment"> * @param ShapeList   shape list to append proto rendering onto</span>
+<a name="l01850"></a>01850 <span class="comment"> * @param Class   class that proto is contained in</span>
+<a name="l01851"></a>01851 <span class="comment"> * @param ProtoId   id of proto to be rendered</span>
+<a name="l01852"></a>01852 <span class="comment"> * @param color   color to render proto in</span>
+<a name="l01853"></a>01853 <span class="comment"> *</span>
+<a name="l01854"></a>01854 <span class="comment"> * Globals: none</span>
+<a name="l01855"></a>01855 <span class="comment"> *</span>
+<a name="l01856"></a>01856 <span class="comment"> * @return New shape list with a rendering of one proto added.</span>
+<a name="l01857"></a>01857 <span class="comment"> * @note Exceptions: none</span>
+<a name="l01858"></a>01858 <span class="comment"> * @note History: Thu Mar 21 10:21:09 1991, DSJ, Created.</span>
+<a name="l01859"></a>01859 <span class="comment"> */</span>
 <a name="l01860"></a><a class="code" href="intproto_8cpp.html#a67948f52800e3964340ae96c2261c018">01860</a> <span class="keywordtype">void</span> <a class="code" href="intproto_8cpp.html#a67948f52800e3964340ae96c2261c018">RenderIntProto</a>(<a class="code" href="class_scroll_view.html">ScrollView</a> *window,
 <a name="l01861"></a>01861                     <a class="code" href="struct_i_n_t___c_l_a_s_s___s_t_r_u_c_t.html">INT_CLASS</a> Class,
 <a name="l01862"></a>01862                     <a class="code" href="matchdefs_8h.html#ac80a5d84c2805bfd10ac129d949f8b80">PROTO_ID</a> ProtoId,
@@ -2015,7 +2031,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 28 2012 22:38:36 for Tesseract by
+    <li class="footer">Generated on Thu Mar 29 2012 23:42:10 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

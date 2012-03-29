@@ -667,7 +667,7 @@ Public Attributes</h2></td></tr>
 
 <p>Returns true if the given best_choice is good enough to stop. </p>
 
-<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00174">174</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
+<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00170">170</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                  {
   <span class="keywordtype">float</span> CertaintyThreshold = <a class="code" href="classtesseract_1_1_dict.html#a793fa27917d4728c9d07b667a039c1e5">stopper_nondict_certainty_base</a>;
   <span class="keywordtype">int</span> WordSize;
@@ -745,7 +745,7 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>Returns false if the best choice for the current word is questionable and should be tried again on the second pass or should be flagged to the user. </p>
 
-<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00237">237</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
+<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00233">233</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                         {
   <span class="keywordtype">float</span> CertaintyThreshold = <a class="code" href="classtesseract_1_1_dict.html#a793fa27917d4728c9d07b667a039c1e5">stopper_nondict_certainty_base</a> - reject_offset_;
   <span class="keywordtype">int</span> WordSize;
@@ -898,7 +898,7 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>Increments the chunk count of the character in Choice which corresponds to Blob (index of the blob being split). </p>
 
-<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00765">765</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
+<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00763">763</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                     {
   <span class="keywordtype">int</span> i, LastChunk;
   <span class="keywordflow">for</span> (i = 0, LastChunk = 0; i &lt; Choice-&gt;<a class="code" href="class_v_i_a_b_l_e___c_h_o_i_c_e___s_t_r_u_c_t.html#a094ecf960979babf7ff7d1ca74b99c61">Length</a>; i++) {
@@ -1113,7 +1113,7 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>Returns true if there are no alternative choices for the current word or if all alternatives have an adjust factor worse than Threshold. </p>
 
-<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00282">282</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
+<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00278">278</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                        {
   <a class="code" href="structlist__rec.html">LIST</a> Alternatives;
   <a class="code" href="class_v_i_a_b_l_e___c_h_o_i_c_e___s_t_r_u_c_t.html">VIABLE_CHOICE</a> Choice;
@@ -1372,7 +1372,7 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>Compares the corresponding strings of WordChoice and ViableChoice and returns true if they are the same. </p>
 
-<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00855">855</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
+<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00853">853</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                   {
   <span class="keywordflow">return</span> (<a class="code" href="classtesseract_1_1_dict.html#a88ccbd663564a11a95cf9e592c69e8be">StringSameAs</a>(WordChoice, ViableChoice));
 }
@@ -1537,7 +1537,7 @@ Public Attributes</h2></td></tr>
 
 <p>Clears best_choices_ list accumulated by the stopper. </p>
 
-<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00441">441</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
+<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00437">437</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                {
   <span class="keywordflow">if</span> (best_choices_) <a class="code" href="oldlist_8cpp.html#a1a1efc1a269e5bb5bf16c1a174363ba4">destroy_nodes</a>(best_choices_, <a class="code" href="stopper_8cpp.html#a1ffdeffb9a38b2a9c556babf48984e28">DeleteViableChoiceStruct</a>);
   best_choices_ = <a class="code" href="oldlist_8h.html#ae212530ca629c67513698e988c705a5a">NIL_LIST</a>;
@@ -1662,7 +1662,7 @@ Public Attributes</h2></td></tr>
 
 <p>Returns the adjustment factor for the best choice for the current word. </p>
 
-<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00299">299</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
+<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00295">295</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                            {
   <a class="code" href="class_v_i_a_b_l_e___c_h_o_i_c_e___s_t_r_u_c_t.html">VIABLE_CHOICE</a> BestChoice;
   <span class="keywordflow">if</span> (best_choices_ == <a class="code" href="oldlist_8h.html#ae212530ca629c67513698e988c705a5a">NIL_LIST</a>)
@@ -1690,7 +1690,7 @@ Public Attributes</h2></td></tr>
 
 <p>Returns true if WordChoice is the same as the current best choice. </p>
 
-<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00294">294</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
+<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00290">290</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                            {
   <span class="keywordflow">return</span> (best_choices_ != <a class="code" href="oldlist_8h.html#ae212530ca629c67513698e988c705a5a">NIL_LIST</a> &amp;&amp;
           <a class="code" href="classtesseract_1_1_dict.html#a88ccbd663564a11a95cf9e592c69e8be">StringSameAs</a>(WordChoice, (<a class="code" href="class_v_i_a_b_l_e___c_h_o_i_c_e___s_t_r_u_c_t.html">VIABLE_CHOICE</a>)<a class="code" href="oldlist_8h.html#a69547be764424f18b0be535400747978">first_node</a>(best_choices_)));
@@ -1714,7 +1714,7 @@ Public Attributes</h2></td></tr>
 
 <p>Returns true if there are multiple good choices for the current word. </p>
 
-<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00308">308</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
+<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00304">304</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                            {
   <span class="keywordflow">return</span> (<a class="code" href="oldlist_8h.html#adb120d4c08ce52b5dfe524f0419a9154">list_rest</a> (best_choices_) != <a class="code" href="oldlist_8h.html#ae212530ca629c67513698e988c705a5a">NIL_LIST</a>);
 }
@@ -1864,7 +1864,7 @@ Public Attributes</h2></td></tr>
 
 <p>Prints the current choices for this word to stdout. </p>
 
-<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00313">313</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
+<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00309">309</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                            {
   <a class="code" href="structlist__rec.html">LIST</a> Choices;
   <span class="keywordtype">int</span> i;
@@ -2272,7 +2272,7 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00755">755</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
+<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00753">753</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">{}
 </pre></div>
 </div>
@@ -2315,7 +2315,7 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>Fill ViableChoice with information from WordChoice, AChoice, AdjustFactor, and Certainties. </p>
 
-<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00920">920</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
+<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00918">918</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                        {
   ViableChoice-&gt;<a class="code" href="class_v_i_a_b_l_e___c_h_o_i_c_e___s_t_r_u_c_t.html#a5c826e0dfb1ae9fff772735294f38f91">Init</a>(WordChoice, current_segmentation_, Certainties,
                      AdjustFactor);
@@ -2339,7 +2339,7 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>Removes from best_choices_ all choices which are not within a reasonable range of the best choice. </p>
 
-<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00358">358</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
+<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00354">354</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                             {
   <a class="code" href="struct_e_x_p_a_n_d_e_d___c_h_o_i_c_e.html">EXPANDED_CHOICE</a> BestChoice;
 
@@ -2399,7 +2399,7 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>Compares the best choice for the current word to the best raw choice to determine which characters were classified incorrectly by the classifier. Then places a separate threshold into Thresholds for each character in the word. If the classifier was correct, MaxRating is placed into Thresholds. If the classifier was incorrect, the avg. match rating (error percentage) of the classifier's incorrect choice minus some margin is placed into thresholds.This can then be used by the caller to try to create a new template for the desired class that will classify the character with a rating better than the threshold value. The match rating placed into Thresholds is never allowed to be below MinRating in order to prevent trying to make overly tight templates. MinRating limits how tight to make a template. MaxRating limits how loose to make a template. RatingMargin denotes the amount of margin to put in template. </p>
 
-<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00377">377</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
+<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00373">373</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                      {
   <a class="code" href="struct_e_x_p_a_n_d_e_d___c_h_o_i_c_e.html">EXPANDED_CHOICE</a> BestRaw;
   <a class="code" href="class_v_i_a_b_l_e___c_h_o_i_c_e___s_t_r_u_c_t.html">VIABLE_CHOICE</a> Choice;
@@ -2598,7 +2598,7 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00150">150</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
+<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00146">146</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                 {  <span class="comment">// EXPANDED_CHOICE *BestChoice</span>
   <span class="keywordtype">int</span> i, j, Chunk;
   <a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a> Threshold;
@@ -3628,7 +3628,7 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>Initializes the data structures used to keep track the good word choices found for a word. </p>
 
-<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00418">418</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
+<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00414">414</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                           {
   <a class="code" href="stopper_8h.html#a4d7126e47543723f816f1194475215e6">BLOB_WIDTH</a> *BlobWidth, *<a class="code" href="classtesseract_1_1_dict.html#a899e3d5588422e9dac68ac5049069dd4">End</a>;
 
@@ -3671,7 +3671,7 @@ Public Attributes</h2></td></tr>
 
 <p>Returns the length of the shortest alpha run in WordChoice. </p>
 
-<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00860">860</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
+<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00858">858</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                                {
   <span class="keywordtype">int</span> shortest = <a class="code" href="host_8h.html#aac62d87844689a18b6f5339a89ed6e7f">MAX_INT32</a>;
   <span class="keywordtype">int</span> curr_len = 0;
@@ -3935,7 +3935,7 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>Adds Choice to ChoicesList if the adjusted certainty for Choice is within a reasonable range of the best choice in ChoicesList. The ChoicesList list is kept in sorted order by rating. Duplicates are removed. WordChoice is the new choice for current word. AdjustFactor is an adjustment factor which was applied to choice. Certainties are certainties for each char in new choice. raw_choice indicates whether WordChoice is a raw or best choice. </p>
 
-<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00467">467</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
+<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00463">463</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                 {
   <a class="code" href="structlist__rec.html">LIST</a> ChoicesList;
   <a class="code" href="structlist__rec.html">LIST</a> Choices;
@@ -4044,7 +4044,7 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>Updates the blob widths in current_segmentation_ to be the same as provided in BlobWidth. BlobWidth[] contains the number of chunks in each blob in the current segmentation. </p>
 
-<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00446">446</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
+<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00442">442</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                    {
   <a class="code" href="stopper_8h.html#a4d7126e47543723f816f1194475215e6">BLOB_WIDTH</a> *Segmentation;
   <span class="keywordflow">for</span> (Segmentation = current_segmentation_; *BlobWidth != 0;
@@ -4071,7 +4071,7 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>Given Blob (the index of the blob that was split), adds 1 chunk to the specified blob for each choice in best_choices_ and for best_raw_choice_. </p>
 
-<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00454">454</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
+<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00450">450</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                               {
   <a class="code" href="structlist__rec.html">LIST</a> Choices;
   <span class="keywordflow">if</span> (best_raw_choice_) <a class="code" href="classtesseract_1_1_dict.html#a9c59eace80232070d11e04794078d7b8">AddNewChunk</a>(best_raw_choice_, Blob);
@@ -4119,7 +4119,7 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>Allocates a new viable choice data structure, copies WordChoice, Certainties, and current_segmentation_ into it, returns a pointer to the newly created VIABLE_CHOICE. WordChoice is a choice to be converted to a viable choice. AdjustFactor is a factor used to adjust ratings for WordChoice. Certainties contain certainty for each character in WordChoice. </p>
 
-<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00879">879</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
+<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00877">877</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                               {
   <span class="keywordtype">int</span> Length = WordChoice.<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a7be59abe97b052dd3aaa324aea8c4a6c">length</a>();
   assert (Length &lt;= MAX_NUM_CHUNKS &amp;&amp; Length &gt; 0);
@@ -4218,7 +4218,7 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00560">560</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
+<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00556">556</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                  {
   <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_dict.html#aae528f9618755dee3ab974f06f1794ea">stopper_debug_level</a> &gt; 2) {
     <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;\nRunning NoDangerousAmbig() for %s\n&quot;</span>,
@@ -4386,15 +4386,17 @@ Public Attributes</h2></td></tr>
         <span class="comment">// fragments is added to other functions.</span>
         <span class="keywordtype">int</span> orig_i = 0;
         <span class="keywordflow">for</span> (i = 0; i &lt; alt_word-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a7be59abe97b052dd3aaa324aea8c4a6c">length</a>(); ++i) {
-          <span class="keywordflow">if</span> (alt_word-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a6f319ff5e8b21bf4698c6a5863cec27e">fragment_length</a>(i) &gt; 1) {
-            fixpt-&gt;<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(<a class="code" href="struct_d_a_n_g_e_r_r___i_n_f_o.html">DANGERR_INFO</a>(
-                orig_i, orig_i+alt_word-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a6f319ff5e8b21bf4698c6a5863cec27e">fragment_length</a>(i)-1, <span class="keyword">true</span>,
-                <a class="code" href="classtesseract_1_1_dict.html#a635ce00ba9aa24247563d26ae26da631">getUnicharset</a>().<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a5c4c10b49cde94f3c12cd74996faad07">get_isngram</a>(alt_word-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a6b917b2e6157f7956ff53ca230425ed3">unichar_id</a>(i))));
-            <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_dict.html#aae528f9618755dee3ab974f06f1794ea">stopper_debug_level</a> &gt; 1) {
-              <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;fixpt-&gt;dangerous+=(%d %d %d %d)\n&quot;</span>, orig_i,
-                      (orig_i+alt_word-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a6f319ff5e8b21bf4698c6a5863cec27e">fragment_length</a>(i)-1), <span class="keyword">true</span>,
-                      <a class="code" href="classtesseract_1_1_dict.html#a635ce00ba9aa24247563d26ae26da631">getUnicharset</a>().<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a5c4c10b49cde94f3c12cd74996faad07">get_isngram</a>(alt_word-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a6b917b2e6157f7956ff53ca230425ed3">unichar_id</a>(i)));
-            }
+          <span class="keywordtype">bool</span> replacement_is_ngram =
+              <a class="code" href="classtesseract_1_1_dict.html#a635ce00ba9aa24247563d26ae26da631">getUnicharset</a>().<a class="code" href="class_u_n_i_c_h_a_r_s_e_t.html#a5c4c10b49cde94f3c12cd74996faad07">get_isngram</a>(alt_word-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a6b917b2e6157f7956ff53ca230425ed3">unichar_id</a>(i));
+          <span class="keywordtype">int</span> end_i = orig_i + alt_word-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a6f319ff5e8b21bf4698c6a5863cec27e">fragment_length</a>(i) - 1;
+          <span class="keywordflow">if</span> (alt_word-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a6f319ff5e8b21bf4698c6a5863cec27e">fragment_length</a>(i) &gt; 1 ||
+              (orig_i == end_i &amp;&amp; replacement_is_ngram)) {
+            fixpt-&gt;<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(<a class="code" href="struct_d_a_n_g_e_r_r___i_n_f_o.html">DANGERR_INFO</a>(orig_i, end_i, <span class="keyword">true</span>,
+                                          replacement_is_ngram));
+             <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_dict.html#aae528f9618755dee3ab974f06f1794ea">stopper_debug_level</a> &gt; 1) {
+               <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;fixpt-&gt;dangerous+=(%d %d %d %d)\n&quot;</span>, orig_i, end_i,
+                       <span class="keyword">true</span>, replacement_is_ngram);
+             }
           }
           orig_i += alt_word-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a6f319ff5e8b21bf4698c6a5863cec27e">fragment_length</a>(i);
         }
@@ -5546,7 +5548,7 @@ Public Attributes</h2></td></tr>
 
 <p>Print all the choices in raw_choices_ list for non 1-1 ambiguities. </p>
 
-<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00341">341</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
+<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00337">337</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                          {
   <a class="code" href="oldlist_8h.html#a2cf19ba78be6b54f66823d58f34f2a53">iterate</a>(raw_choices_) {
     <a class="code" href="class_v_i_a_b_l_e___c_h_o_i_c_e___s_t_r_u_c_t.html">VIABLE_CHOICE</a> Choice = (<a class="code" href="stopper_8h.html#a9c7e58acb827910c53c2db3c9d338a7a">VIABLE_CHOICE</a>)<a class="code" href="oldlist_8h.html#a69547be764424f18b0be535400747978">first_node</a>(raw_choices_);
@@ -5598,7 +5600,7 @@ Public Attributes</h2></td></tr>
 
 <p>Dumps a text representation of the specified Choice to File. </p>
 
-<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00889">889</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
+<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00887">887</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                                                {
   <span class="keywordtype">int</span> i, j;
   fprintf (File, <span class="stringliteral">&quot;%s&quot;</span>, Label);
@@ -5935,7 +5937,7 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>Replaces the corresponding wrong ngram in werd_choice with the correct one. We indicate that this newly inserted ngram unichar is composed from several fragments and modify the corresponding entries in blob_choices to contain fragments of the correct ngram unichar instead of the original unichars. Ratings and certainties of entries in blob_choices and werd_choice are unichaged. E.g. for werd_choice mystring'' and ambiguity ''-&gt;": werd_choice becomes mystring", first ' in blob_choices becomes |"|0|2, second one is set to |"|1|2. </p>
 
-<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00779">779</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
+<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00777">777</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                              {
   <span class="keywordtype">int</span> num_blobs_to_replace = 0;
   <span class="keywordtype">int</span> begin_blob_index = 0;
@@ -6139,7 +6141,7 @@ Public Attributes</h2></td></tr>
 
 <p>Sets up stopper variables in preparation for the first pass. </p>
 
-<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00757">757</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
+<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00755">755</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                              {
   reject_offset_ = 0.0;
 }
@@ -6162,7 +6164,7 @@ Public Attributes</h2></td></tr>
 
 <p>Sets up stopper variables in preparation for the second pass. </p>
 
-<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00761">761</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
+<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00759">759</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                              {
   reject_offset_ = <a class="code" href="classtesseract_1_1_dict.html#a73282067f0bb86fcaf689b9202bb6702">stopper_phase2_certainty_rejection_offset</a>;
 }
@@ -6252,7 +6254,7 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>Compares unichar ids in word_choice to those in viable_choice, returns true if they are the same. </p>
 
-<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00928">928</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
+<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00926">926</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                    {
   <span class="keywordflow">if</span> (WordChoice.<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a7be59abe97b052dd3aaa324aea8c4a6c">length</a>() != ViableChoice-&gt;<a class="code" href="class_v_i_a_b_l_e___c_h_o_i_c_e___s_t_r_u_c_t.html#a094ecf960979babf7ff7d1ca74b99c61">Length</a>) {
     <span class="keywordflow">return</span> <span class="keyword">false</span>;
@@ -6303,7 +6305,7 @@ Public Attributes</h2></td></tr>
 
 <p>Compares String to ViableChoice and returns true if they are the same. </p>
 
-<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00944">944</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
+<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00942">942</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                    {
   <a class="code" href="struct_c_h_a_r___c_h_o_i_c_e.html">CHAR_CHOICE</a> *Char;
   <span class="keywordtype">int</span> i;
@@ -6492,7 +6494,7 @@ Public Attributes</h2></td></tr>
 <div class="memdoc">
 <p>Returns true if the certainty of the BestChoice word is within a reasonable range of the average certainties for the best choices for each character in the segmentation. This test is used to catch words in which one character is much worse than the other characters in the word (i.e. false will be returned in that case). The algorithm computes the mean and std deviation of the certainties in the word with the worst certainty thrown out. </p>
 
-<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00963">963</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
+<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00961">961</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                            {
   <span class="keywordtype">float</span> Certainty;
   <span class="keywordtype">float</span> WorstCertainty = <a class="code" href="host_8h.html#a9adcee815220ec9db98062213806ed04">MAX_FLOAT32</a>;
@@ -7839,7 +7841,7 @@ Public Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 28 2012 22:38:51 for Tesseract by
+    <li class="footer">Generated on Thu Mar 29 2012 23:42:25 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

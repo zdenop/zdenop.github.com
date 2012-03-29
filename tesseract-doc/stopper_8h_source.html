@@ -168,22 +168,18 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <a name="l00071"></a><a class="code" href="class_v_i_a_b_l_e___c_h_o_i_c_e___s_t_r_u_c_t.html#a5b91c9de772bbeca40909bd3a30d0115">00071</a>   <span class="keywordtype">bool</span> <a class="code" href="class_v_i_a_b_l_e___c_h_o_i_c_e___s_t_r_u_c_t.html#a5b91c9de772bbeca40909bd3a30d0115">ComposedFromCharFragments</a>;
 <a name="l00072"></a><a class="code" href="class_v_i_a_b_l_e___c_h_o_i_c_e___s_t_r_u_c_t.html#ac8d4e0d1f5355092b5cb33f541aa54c2">00072</a>   <a class="code" href="struct_c_h_a_r___c_h_o_i_c_e.html">CHAR_CHOICE</a> *<a class="code" href="class_v_i_a_b_l_e___c_h_o_i_c_e___s_t_r_u_c_t.html#ac8d4e0d1f5355092b5cb33f541aa54c2">Blob</a>;
 <a name="l00073"></a>00073 
-<a name="l00074"></a>00074   <span class="comment">// segmentation_state: for each choice, how many consecutive blobs</span>
-<a name="l00075"></a>00075   <span class="comment">//     does it use?</span>
-<a name="l00076"></a><a class="code" href="class_v_i_a_b_l_e___c_h_o_i_c_e___s_t_r_u_c_t.html#aab5cf39f76528d5e73b9aace0f7b0393">00076</a>   <a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a> *<a class="code" href="class_v_i_a_b_l_e___c_h_o_i_c_e___s_t_r_u_c_t.html#aab5cf39f76528d5e73b9aace0f7b0393">segmentation_state</a>;
-<a name="l00077"></a>00077 
-<a name="l00078"></a>00078  <span class="keyword">private</span>:
-<a name="l00079"></a>00079   <span class="comment">// Disallow assignment and copy construction</span>
-<a name="l00080"></a>00080   <a class="code" href="class_v_i_a_b_l_e___c_h_o_i_c_e___s_t_r_u_c_t.html#aea1cff869a14e40a9fced9c229ccc31b">VIABLE_CHOICE_STRUCT</a>(<span class="keyword">const</span> <a class="code" href="class_v_i_a_b_l_e___c_h_o_i_c_e___s_t_r_u_c_t.html">VIABLE_CHOICE_STRUCT</a> &amp;other)
-<a name="l00081"></a>00081       : <a class="code" href="class_v_i_a_b_l_e___c_h_o_i_c_e___s_t_r_u_c_t.html#a094ecf960979babf7ff7d1ca74b99c61">Length</a>(0), <a class="code" href="class_v_i_a_b_l_e___c_h_o_i_c_e___s_t_r_u_c_t.html#ac8d4e0d1f5355092b5cb33f541aa54c2">Blob</a>(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>), <a class="code" href="class_v_i_a_b_l_e___c_h_o_i_c_e___s_t_r_u_c_t.html#aab5cf39f76528d5e73b9aace0f7b0393">segmentation_state</a>(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {}
-<a name="l00082"></a>00082   <a class="code" href="class_v_i_a_b_l_e___c_h_o_i_c_e___s_t_r_u_c_t.html">VIABLE_CHOICE_STRUCT</a> &amp;operator=(<span class="keyword">const</span> <a class="code" href="class_v_i_a_b_l_e___c_h_o_i_c_e___s_t_r_u_c_t.html">VIABLE_CHOICE_STRUCT</a> &amp;other) {
-<a name="l00083"></a>00083     <span class="keywordflow">return</span> *<span class="keyword">this</span>;
-<a name="l00084"></a>00084   }
-<a name="l00085"></a>00085 };
-<a name="l00086"></a>00086 
-<a name="l00087"></a><a class="code" href="stopper_8h.html#a9c7e58acb827910c53c2db3c9d338a7a">00087</a> <span class="keyword">typedef</span> <a class="code" href="class_v_i_a_b_l_e___c_h_o_i_c_e___s_t_r_u_c_t.html">VIABLE_CHOICE_STRUCT</a> *<a class="code" href="stopper_8h.html#a9c7e58acb827910c53c2db3c9d338a7a">VIABLE_CHOICE</a>;
-<a name="l00088"></a>00088 
-<a name="l00089"></a>00089 <span class="preprocessor">#endif</span>
+<a name="l00074"></a>00074  <span class="keyword">private</span>:
+<a name="l00075"></a>00075   <span class="comment">// Disallow assignment and copy construction</span>
+<a name="l00076"></a>00076   <a class="code" href="class_v_i_a_b_l_e___c_h_o_i_c_e___s_t_r_u_c_t.html#aea1cff869a14e40a9fced9c229ccc31b">VIABLE_CHOICE_STRUCT</a>(<span class="keyword">const</span> <a class="code" href="class_v_i_a_b_l_e___c_h_o_i_c_e___s_t_r_u_c_t.html">VIABLE_CHOICE_STRUCT</a> &amp;other)
+<a name="l00077"></a>00077       : <a class="code" href="class_v_i_a_b_l_e___c_h_o_i_c_e___s_t_r_u_c_t.html#a094ecf960979babf7ff7d1ca74b99c61">Length</a>(0), <a class="code" href="class_v_i_a_b_l_e___c_h_o_i_c_e___s_t_r_u_c_t.html#ac8d4e0d1f5355092b5cb33f541aa54c2">Blob</a>(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {}
+<a name="l00078"></a>00078   <a class="code" href="class_v_i_a_b_l_e___c_h_o_i_c_e___s_t_r_u_c_t.html">VIABLE_CHOICE_STRUCT</a> &amp;operator=(<span class="keyword">const</span> <a class="code" href="class_v_i_a_b_l_e___c_h_o_i_c_e___s_t_r_u_c_t.html">VIABLE_CHOICE_STRUCT</a> &amp;other) {
+<a name="l00079"></a>00079     <span class="keywordflow">return</span> *<span class="keyword">this</span>;
+<a name="l00080"></a>00080   }
+<a name="l00081"></a>00081 };
+<a name="l00082"></a>00082 
+<a name="l00083"></a><a class="code" href="stopper_8h.html#a9c7e58acb827910c53c2db3c9d338a7a">00083</a> <span class="keyword">typedef</span> <a class="code" href="class_v_i_a_b_l_e___c_h_o_i_c_e___s_t_r_u_c_t.html">VIABLE_CHOICE_STRUCT</a> *<a class="code" href="stopper_8h.html#a9c7e58acb827910c53c2db3c9d338a7a">VIABLE_CHOICE</a>;
+<a name="l00084"></a>00084 
+<a name="l00085"></a>00085 <span class="preprocessor">#endif</span>
 </pre></div></div>
 </div>
   <div id="nav-path" class="navpath">
@@ -204,7 +200,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 28 2012 22:38:37 for Tesseract by
+    <li class="footer">Generated on Thu Mar 29 2012 23:42:12 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

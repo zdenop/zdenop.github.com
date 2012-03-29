@@ -122,7 +122,6 @@ Public Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_v_i_a_b_l_e___c_h_o_i_c_e___s_t_r_u_c_t.html#a0f0a2441140b16e144665ecc0f8beb66">AdjustFactor</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_v_i_a_b_l_e___c_h_o_i_c_e___s_t_r_u_c_t.html#a5b91c9de772bbeca40909bd3a30d0115">ComposedFromCharFragments</a></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="struct_c_h_a_r___c_h_o_i_c_e.html">CHAR_CHOICE</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_v_i_a_b_l_e___c_h_o_i_c_e___s_t_r_u_c_t.html#ac8d4e0d1f5355092b5cb33f541aa54c2">Blob</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_v_i_a_b_l_e___c_h_o_i_c_e___s_t_r_u_c_t.html#aab5cf39f76528d5e73b9aace0f7b0393">segmentation_state</a></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
 <div class="textblock">
@@ -142,10 +141,9 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00107">107</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
+<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00106">106</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                           : <a class="code" href="class_v_i_a_b_l_e___c_h_o_i_c_e___s_t_r_u_c_t.html#a094ecf960979babf7ff7d1ca74b99c61">Length</a>(0) {
   <a class="code" href="class_v_i_a_b_l_e___c_h_o_i_c_e___s_t_r_u_c_t.html#ac8d4e0d1f5355092b5cb33f541aa54c2">Blob</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
-  <a class="code" href="class_v_i_a_b_l_e___c_h_o_i_c_e___s_t_r_u_c_t.html#aab5cf39f76528d5e73b9aace0f7b0393">segmentation_state</a> = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
 }
 </pre></div>
 </div>
@@ -168,7 +166,6 @@ Public Attributes</h2></td></tr>
 <p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00101">101</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">    : <a class="code" href="class_v_i_a_b_l_e___c_h_o_i_c_e___s_t_r_u_c_t.html#a094ecf960979babf7ff7d1ca74b99c61">Length</a>(length) {
   <a class="code" href="class_v_i_a_b_l_e___c_h_o_i_c_e___s_t_r_u_c_t.html#ac8d4e0d1f5355092b5cb33f541aa54c2">Blob</a> = <span class="keyword">new</span> <a class="code" href="struct_c_h_a_r___c_h_o_i_c_e.html">CHAR_CHOICE</a>[length];
-  <a class="code" href="class_v_i_a_b_l_e___c_h_o_i_c_e___s_t_r_u_c_t.html#aab5cf39f76528d5e73b9aace0f7b0393">segmentation_state</a> = <span class="keyword">new</span> <a class="code" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a>[length];
 }
 </pre></div>
 </div>
@@ -187,10 +184,9 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00112">112</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
+<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00110">110</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                            {
   <span class="keyword">delete</span> []<a class="code" href="class_v_i_a_b_l_e___c_h_o_i_c_e___s_t_r_u_c_t.html#ac8d4e0d1f5355092b5cb33f541aa54c2">Blob</a>;
-  <span class="keyword">delete</span> []<a class="code" href="class_v_i_a_b_l_e___c_h_o_i_c_e___s_t_r_u_c_t.html#aab5cf39f76528d5e73b9aace0f7b0393">segmentation_state</a>;
 }
 </pre></div>
 </div>
@@ -233,7 +229,7 @@ Public Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00117">117</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
+<p>Definition at line <a class="el" href="stopper_8cpp_source.html#l00114">114</a> of file <a class="el" href="stopper_8cpp_source.html">stopper.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                           {
   this-&gt;<a class="code" href="class_v_i_a_b_l_e___c_h_o_i_c_e___s_t_r_u_c_t.html#a651bc1b5ad4d2a7ce33c0f564c13ecb7">Rating</a> = word_choice.<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a52ea24dcb5ff15ad8aee3fd774622216">rating</a>();
   this-&gt;<a class="code" href="class_v_i_a_b_l_e___c_h_o_i_c_e___s_t_r_u_c_t.html#a88c4c888e5f46a1c56b3fc934726514f">Certainty</a> = word_choice.<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a1b25ef2b44d21a7204483a7ca804f293">certainty</a>();
@@ -253,7 +249,6 @@ Public Attributes</h2></td></tr>
       blob_choice-&gt;<a class="code" href="struct_c_h_a_r___c_h_o_i_c_e.html#ac928eaafcdc57fcd44d82ab9a56e9da3">NumChunks</a> += blob_width;
       this-&gt;<a class="code" href="class_v_i_a_b_l_e___c_h_o_i_c_e___s_t_r_u_c_t.html#a5b91c9de772bbeca40909bd3a30d0115">ComposedFromCharFragments</a> = <span class="keyword">true</span>;
     }
-    this-&gt;<a class="code" href="class_v_i_a_b_l_e___c_h_o_i_c_e___s_t_r_u_c_t.html#aab5cf39f76528d5e73b9aace0f7b0393">segmentation_state</a>[i] = blob_choice-&gt;<a class="code" href="struct_c_h_a_r___c_h_o_i_c_e.html#ac928eaafcdc57fcd44d82ab9a56e9da3">NumChunks</a>;
   }
 }
 </pre></div>
@@ -350,21 +345,6 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="aab5cf39f76528d5e73b9aace0f7b0393"></a><!-- doxytag: member="VIABLE_CHOICE_STRUCT::segmentation_state" ref="aab5cf39f76528d5e73b9aace0f7b0393" args="" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="host_8h.html#a458fe97f82495945f8071bb3c18d1783">uinT8</a>* <a class="el" href="class_v_i_a_b_l_e___c_h_o_i_c_e___s_t_r_u_c_t.html#aab5cf39f76528d5e73b9aace0f7b0393">VIABLE_CHOICE_STRUCT::segmentation_state</a></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-
-<p>Definition at line <a class="el" href="stopper_8h_source.html#l00076">76</a> of file <a class="el" href="stopper_8h_source.html">stopper.h</a>.</p>
-
-</div>
-</div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>tesseract-ocr/dict/<a class="el" href="stopper_8h_source.html">stopper.h</a></li>
 <li>tesseract-ocr/dict/<a class="el" href="stopper_8cpp_source.html">stopper.cpp</a></li>
@@ -389,7 +369,7 @@ Public Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 28 2012 22:38:48 for Tesseract by
+    <li class="footer">Generated on Thu Mar 29 2012 23:42:21 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

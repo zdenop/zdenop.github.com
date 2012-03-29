@@ -507,7 +507,7 @@ Protected Attributes</h2></td></tr>
 <dd>
 History: Thu May 30 14:25:06 1991, DSJ, Created. </dd></dl>
 
-<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l00895">895</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
+<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l00896">896</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                              {
   <span class="keywordtype">int</span> BestChoiceLength = BestChoiceWord.<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a7be59abe97b052dd3aaa324aea8c4a6c">length</a>();
   <span class="keywordtype">float</span> adaptable_score =
@@ -569,13 +569,14 @@ History: Mon Mar 11 10:00:58 1991, DSJ, Created.</dd></dl>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
     <tr><td class="paramdir"></td><td class="paramname">Blob</td><td>blob to be classified </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">denorm</td><td>normalization/denormalization parameters </td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">Choices</td><td>List of choices found by adaptive matcher. </td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">CPResults</td><td>Array of CPResultStruct of size MAX_NUM_CLASSES is filled on return with the choices found by the class pruner and the ratings therefrom. Also contains the detailed results of the integer matcher. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l00177">177</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
+<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l00178">178</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                                  {
   assert(Choices != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
   <a class="code" href="struct_a_d_a_p_t___r_e_s_u_l_t_s.html">ADAPT_RESULTS</a> *Results = <span class="keyword">new</span> <a class="code" href="struct_a_d_a_p_t___r_e_s_u_l_t_s.html">ADAPT_RESULTS</a>();
@@ -689,7 +690,7 @@ History: Mon Mar 11 10:00:58 1991, DSJ, Created.</dd></dl>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
     <tr><td class="paramname">Blob</td><td>blob to add to templates for ClassId </td></tr>
-    <tr><td class="paramname">LineStats</td><td>statistics about text line blob is in </td></tr>
+    <tr><td class="paramname">denorm</td><td>normalization/denormalization parameters </td></tr>
     <tr><td class="paramname">ClassId</td><td>class to add blob to </td></tr>
     <tr><td class="paramname">FontinfoId</td><td>font information from pre-trained templates </td></tr>
     <tr><td class="paramname">Threshold</td><td>minimum match rating to existing template</td></tr>
@@ -707,7 +708,7 @@ History: Mon Mar 11 10:00:58 1991, DSJ, Created.</dd></dl>
 <dd>
 History: Thu Mar 14 09:36:03 1991, DSJ, Created. </dd></dl>
 
-<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l00927">927</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
+<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l00928">928</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                              {
   <span class="keywordtype">int</span> NumFeatures;
   <a class="code" href="baseapi_8h.html#a544a6c7d78d215e9a4da202daecfeb52">INT_FEATURE_ARRAY</a> IntFeatures;
@@ -854,7 +855,7 @@ History: Thu Mar 14 09:36:03 1991, DSJ, Created. </dd></dl>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
     <tr><td class="paramname">Blob</td><td>blob to add to templates for ClassId </td></tr>
-    <tr><td class="paramname">LineStats</td><td>statistics about text line blob is in </td></tr>
+    <tr><td class="paramname">denorm</td><td>normalization/denormalization parameters </td></tr>
     <tr><td class="paramname">ClassId</td><td>class to add blob to </td></tr>
     <tr><td class="paramname">FontinfoId</td><td>font information from pre-trained teamples </td></tr>
     <tr><td class="paramname">Threshold</td><td>minimum match rating to existing template</td></tr>
@@ -869,7 +870,7 @@ History: Thu Mar 14 09:36:03 1991, DSJ, Created. </dd></dl>
 <dd>
 History: Thu Mar 14 09:36:03 1991, DSJ, Created. </dd></dl>
 
-<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l01076">1076</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
+<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l01077">1077</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                              {
   <a class="code" href="struct_a_d_a_p_t___r_e_s_u_l_t_s.html">ADAPT_RESULTS</a> *Results = <span class="keyword">new</span> <a class="code" href="struct_a_d_a_p_t___r_e_s_u_l_t_s.html">ADAPT_RESULTS</a>();
   <span class="keywordtype">int</span> i;
@@ -969,9 +970,10 @@ History: Thu Mar 14 09:36:03 1991, DSJ, Created. </dd></dl>
   <table class="params">
     <tr><td class="paramdir">[out]</td><td class="paramname">results</td><td>results to add new result to </td></tr>
     <tr><td class="paramdir"></td><td class="paramname">class_id</td><td>class of new result </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">shape_id</td><td>shape index </td></tr>
     <tr><td class="paramdir"></td><td class="paramname">rating</td><td>rating of new result </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">adapted</td><td>adapted match or not </td></tr>
     <tr><td class="paramdir"></td><td class="paramname">config</td><td>config id of new result </td></tr>
-    <tr><td class="paramdir"></td><td class="paramname">config2</td><td>config id of 2nd choice result </td></tr>
     <tr><td class="paramdir"></td><td class="paramname">fontinfo_id</td><td>font information of the new result </td></tr>
     <tr><td class="paramdir"></td><td class="paramname">fontinfo_id2</td><td>font information of the 2nd choice result</td></tr>
   </table>
@@ -981,7 +983,7 @@ History: Thu Mar 14 09:36:03 1991, DSJ, Created. </dd></dl>
 <dd>
 History: Tue Mar 12 18:19:29 1991, DSJ, Created. </dd></dl>
 
-<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l01135">1135</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
+<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l01137">1137</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                              {
   <a class="code" href="struct_scored_class.html">ScoredClass</a> *old_match = <a class="code" href="adaptmatch_8cpp.html#a3cedbdc7ad221f31895c55506410fd98">FindScoredUnichar</a>(results, class_id);
   <a class="code" href="struct_scored_class.html">ScoredClass</a> match =
@@ -1075,7 +1077,9 @@ History: Tue Mar 12 18:19:29 1991, DSJ, Created. </dd></dl>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
     <tr><td class="paramdir"></td><td class="paramname">Blob</td><td>blob to be classified </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">denorm</td><td>normalization/denormalization parameters </td></tr>
     <tr><td class="paramdir"></td><td class="paramname">Templates</td><td>built-in templates to classify against </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">Classes</td><td>adapted class templates </td></tr>
     <tr><td class="paramdir"></td><td class="paramname">Ambiguities</td><td>array of class id's to match against </td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">Results</td><td>place to put match results</td></tr>
   </table>
@@ -1085,7 +1089,7 @@ History: Tue Mar 12 18:19:29 1991, DSJ, Created. </dd></dl>
 <dd>
 History: Tue Mar 12 19:40:36 1991, DSJ, Created. </dd></dl>
 
-<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l01196">1196</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
+<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l01200">1200</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                       {
   <span class="keywordtype">int</span> NumFeatures;
   <a class="code" href="baseapi_8h.html#a544a6c7d78d215e9a4da202daecfeb52">INT_FEATURE_ARRAY</a> IntFeatures;
@@ -1176,6 +1180,7 @@ History: Tue Mar 12 19:40:36 1991, DSJ, Created. </dd></dl>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
     <tr><td class="paramname">Blob</td><td>blob to be classified </td></tr>
+    <tr><td class="paramname">denorm</td><td>normalization/denormalization parameters </td></tr>
     <tr><td class="paramname">Templates</td><td>current set of adapted templates </td></tr>
     <tr><td class="paramname">Results</td><td>place to put match results</td></tr>
   </table>
@@ -1186,7 +1191,7 @@ History: Tue Mar 12 19:40:36 1991, DSJ, Created. </dd></dl>
 <dd>
 History: Tue Mar 12 19:38:03 1991, DSJ, Created. </dd></dl>
 
-<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l01413">1413</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
+<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l01418">1418</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                                 {
   <span class="keywordtype">int</span> NumFeatures;
   <span class="keywordtype">int</span> NumClasses;
@@ -1269,6 +1274,7 @@ History: Tue Mar 12 19:38:03 1991, DSJ, Created. </dd></dl>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
     <tr><td class="paramname">Blob</td><td>blob to be classified </td></tr>
+    <tr><td class="paramname">denorm</td><td>normalization/denormalization parameters </td></tr>
     <tr><td class="paramname">Templates</td><td>templates to classify unknown against </td></tr>
     <tr><td class="paramname">Results</td><td>place to put match results</td></tr>
   </table>
@@ -1284,7 +1290,7 @@ History: Tue Mar 12 19:38:03 1991, DSJ, Created. </dd></dl>
 <dd>
 History: Tue Mar 12 16:02:52 1991, DSJ, Created. </dd></dl>
 
-<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l01476">1476</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
+<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l01482">1482</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                         {
   <span class="keywordtype">int</span> NumFeatures;
   <span class="keywordtype">int</span> NumClasses;
@@ -1357,7 +1363,7 @@ History: Tue Mar 12 16:02:52 1991, DSJ, Created. </dd></dl>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l01520">1520</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
+<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l01526">1526</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                                          {
   results-&gt;<a class="code" href="class_generic_vector.html#a9cdbff49b186574b83e43afba606fdd9">clear</a>();
   <a class="code" href="struct_a_d_a_p_t___r_e_s_u_l_t_s.html">ADAPT_RESULTS</a>* adapt_results = <span class="keyword">new</span> <a class="code" href="struct_a_d_a_p_t___r_e_s_u_l_t_s.html">ADAPT_RESULTS</a>();
@@ -1451,7 +1457,7 @@ History: Tue Mar 12 16:02:52 1991, DSJ, Created. </dd></dl>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l02715">2715</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
+<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l02734">2734</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                                           {
   <span class="keywordtype">int</span> font_set_id = <a class="code" href="classtesseract_1_1_classify.html#a64383806f917e682c4a644efdd71d530">PreTrainedTemplates</a>-&gt;<a class="code" href="struct_i_n_t___t_e_m_p_l_a_t_e_s___s_t_r_u_c_t.html#a2083307ebe623a6617ff38291a2f3614">Class</a>[class_id]-&gt;<a class="code" href="struct_i_n_t___c_l_a_s_s___s_t_r_u_c_t.html#af0d8fa528ac2dd07fe4f39ef84a6fd7c">font_set_id</a>;
   <span class="comment">// Older inttemps have no font_ids.</span>
@@ -1495,7 +1501,7 @@ History: Tue Mar 12 16:02:52 1991, DSJ, Created. </dd></dl>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l02702">2702</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
+<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l02721">2721</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                                      {
   <a class="code" href="class_s_t_r_i_n_g.html">STRING</a> class_string;
   <span class="keywordflow">if</span> (templates == <a class="code" href="classtesseract_1_1_classify.html#a64383806f917e682c4a644efdd71d530">PreTrainedTemplates</a> &amp;&amp; <a class="code" href="classtesseract_1_1_classify.html#a471b3e8f03ddc5281c167b37d8ddc5b5">shape_table_</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
@@ -1538,7 +1544,7 @@ History: Tue Mar 12 16:02:52 1991, DSJ, Created. </dd></dl>
 <dd>
 History: Tue Mar 12 18:36:52 1991, DSJ, Created. </dd></dl>
 
-<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l01604">1604</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
+<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l01610">1610</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                     {
   <span class="keyword">register</span> <a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a> Rating;
 
@@ -1625,7 +1631,7 @@ History: Wed Feb 20 11:20:54 1991, DSJ, Created. </dd></dl>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l02072">2072</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
+<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l02087">2087</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                          {
   <a class="code" href="classtesseract_1_1_classify.html#a3abc0b280fe8a88d57a35d2d578ef47a">ComputeIntCharNormArray</a>(*norm_feature, char_norm_array);
   <span class="keywordflow">if</span> (pruner_array != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
@@ -1721,7 +1727,7 @@ History: Wed Feb 20 11:20:54 1991, DSJ, Created. </dd></dl>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l01351">1351</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
+<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l01355">1355</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                                 {
   <span class="comment">// Compute class feature corrections.</span>
   <span class="keywordtype">double</span> cn_corrected = <a class="code" href="classtesseract_1_1_classify.html#a093af2c004819e86bfff80ad88f10c37">im_</a>.<a class="code" href="class_integer_matcher.html#ab943619d1ec5d510c5fd9a2ba7bbb55d">ApplyCNCorrection</a>(im_rating, blob_length,
@@ -2034,7 +2040,7 @@ History: Wed Feb 20 10:58:45 1991, DSJ, Created. </dd></dl>
 <div class="memdoc">
 <p>The function converts the given match ratings to the list of blob choices with ratings and certainties (used by the context checkers). If character fragments are present in the results, this function also makes sure that there is at least one non-fragmented classification included. For each classification result check the unicharset for "definite" ambiguities and modify the resulting Choices accordingly. </p>
 
-<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l01664">1664</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
+<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l01670">1670</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                                  {
   assert(Choices != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
   <a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a> Rating;
@@ -2291,6 +2297,7 @@ History: Wed Feb 20 10:58:45 1991, DSJ, Created. </dd></dl>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
     <tr><td class="paramname">Blob</td><td>blob whose classification is being debugged </td></tr>
+    <tr><td class="paramname">denorm</td><td>normalization/denormalization parameters </td></tr>
     <tr><td class="paramname">Results</td><td>results of match being debugged</td></tr>
   </table>
   </dd>
@@ -2300,7 +2307,7 @@ History: Wed Feb 20 10:58:45 1991, DSJ, Created. </dd></dl>
 <dd>
 History: Wed Mar 13 16:44:41 1991, DSJ, Created. </dd></dl>
 
-<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l01736">1736</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
+<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l01743">1743</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                               {
   <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; Results-&gt;<a class="code" href="struct_a_d_a_p_t___r_e_s_u_l_t_s.html#a5b86ffcce686898891300193f1998239">NumMatches</a>; i++) {
     <span class="keywordflow">if</span> (Results-&gt;<a class="code" href="struct_a_d_a_p_t___r_e_s_u_l_t_s.html#a6ea8673cf9af04e0f0559ddcea630e61">match</a>[i].<a class="code" href="struct_scored_class.html#aa410f972971cfb2df154972833783f72">rating</a> &lt; Results-&gt;<a class="code" href="struct_a_d_a_p_t___r_e_s_u_l_t_s.html#a7cfeae71a3b1fddd0e2dd1b369c6d15b">best_match</a>.<a class="code" href="struct_scored_class.html#aa410f972971cfb2df154972833783f72">rating</a>)
@@ -2367,7 +2374,7 @@ History: Wed Mar 13 16:44:41 1991, DSJ, Created. </dd></dl>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l01030">1030</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
+<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l01031">1031</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                               {
 <span class="preprocessor">#ifndef GRAPHICS_DISABLED</span>
 <span class="preprocessor"></span>  <span class="keywordtype">int</span> bloblength = 0;
@@ -2434,6 +2441,7 @@ History: Wed Mar 13 16:44:41 1991, DSJ, Created. </dd></dl>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
     <tr><td class="paramname">Blob</td><td>blob to be classified </td></tr>
+    <tr><td class="paramname">denorm</td><td>normalization/denormalization parameters </td></tr>
     <tr><td class="paramname">Results</td><td>place to put match results</td></tr>
   </table>
   </dd>
@@ -2448,7 +2456,7 @@ History: Wed Mar 13 16:44:41 1991, DSJ, Created. </dd></dl>
 <dd>
 History: Tue Mar 12 08:50:11 1991, DSJ, Created. </dd></dl>
 
-<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l01795">1795</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
+<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l01803">1803</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                       {
   <a class="code" href="unichar_8h.html#a8578b19fa1ff5ca75080db1a18ecc32e">UNICHAR_ID</a> *Ambiguities;
 
@@ -2508,7 +2516,7 @@ History: Tue Mar 12 08:50:11 1991, DSJ, Created. </dd></dl>
 <dd>
 History: Tue Mar 19 14:37:06 1991, DSJ, Created. </dd></dl>
 
-<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l00477">477</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
+<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l00478">478</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                     {
   <a class="code" href="class_s_t_r_i_n_g.html">STRING</a> Filename;
   FILE *File;
@@ -2634,7 +2642,7 @@ History: Tue Mar 19 14:37:06 1991, DSJ, Created. </dd></dl>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l01286">1286</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
+<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l01290">1290</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                                 {
   <span class="comment">// Compute the fontinfo_ids.</span>
   <span class="keywordtype">int</span> fontinfo_id = kBlankFontinfoId;
@@ -2908,7 +2916,6 @@ History: Tue Mar 19 14:37:06 1991, DSJ, Created. </dd></dl>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
     <tr><td class="paramdir"></td><td class="paramname">Blob</td><td>blob to extract features from </td></tr>
-    <tr><td class="paramdir"></td><td class="paramname">LineStats</td><td>statistics about text row blob is in </td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">IntFeatures</td><td>array to fill with integer features </td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">FloatFeatures</td><td>place to return actual floating-pt features</td></tr>
   </table>
@@ -2919,7 +2926,7 @@ History: Tue Mar 19 14:37:06 1991, DSJ, Created. </dd></dl>
 <dd>
 History: Tue Mar 12 17:55:18 1991, DSJ, Created. </dd></dl>
 
-<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l00855">855</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
+<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l00856">856</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                              {
   <a class="code" href="struct_f_e_a_t_u_r_e___s_e_t___s_t_r_u_c_t.html">FEATURE_SET</a> Features;
   <span class="keywordtype">int</span> NumFeatures;
@@ -2987,6 +2994,7 @@ History: Tue Mar 12 17:55:18 1991, DSJ, Created. </dd></dl>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
     <tr><td class="paramdir"></td><td class="paramname">Word</td><td>current word </td></tr>
+    <tr><td class="paramdir"></td><td class="paramname">denorm</td><td>normalization/denormalization parameters </td></tr>
     <tr><td class="paramdir"></td><td class="paramname">BestChoice</td><td>best choice for current word with context </td></tr>
     <tr><td class="paramdir"></td><td class="paramname">BestRawChoice</td><td>best choice for current word without context </td></tr>
     <tr><td class="paramdir">[out]</td><td class="paramname">Thresholds</td><td>array of thresholds to be filled in</td></tr>
@@ -3004,7 +3012,7 @@ History: Tue Mar 12 17:55:18 1991, DSJ, Created. </dd></dl>
 <dd>
 History: Fri May 31 09:22:08 1991, DSJ, Created. </dd></dl>
 
-<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l01855">1855</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
+<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l01864">1864</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                        {
   <a class="code" href="classtesseract_1_1_classify.html#a83e4207353a1bb07adfaa6a82a74c9ce">getDict</a>().FindClassifierErrors(<a class="code" href="classtesseract_1_1_classify.html#a3d9ace4f4ae0ddf01942ced19410adbe">matcher_perfect_threshold</a>,
                                  <a class="code" href="classtesseract_1_1_classify.html#adc3a809a1a219f741a9e45a32e0d11bc">matcher_good_threshold</a>,
@@ -3048,6 +3056,7 @@ History: Fri May 31 09:22:08 1991, DSJ, Created. </dd></dl>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
     <tr><td class="paramname">Blob</td><td>blob to get classification ambiguities for </td></tr>
+    <tr><td class="paramname">denorm</td><td>normalization/denormalization parameters </td></tr>
     <tr><td class="paramname">CorrectClass</td><td>correct class for Blob</td></tr>
   </table>
   </dd>
@@ -3062,7 +3071,7 @@ History: Fri May 31 09:22:08 1991, DSJ, Created. </dd></dl>
 <dd>
 History: Fri Mar 15 08:08:22 1991, DSJ, Created. </dd></dl>
 
-<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l01883">1883</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
+<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l01893">1893</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                            {
   <a class="code" href="struct_a_d_a_p_t___r_e_s_u_l_t_s.html">ADAPT_RESULTS</a> *Results = <span class="keyword">new</span> <a class="code" href="struct_a_d_a_p_t___r_e_s_u_l_t_s.html">ADAPT_RESULTS</a>();
   <a class="code" href="unichar_8h.html#a8578b19fa1ff5ca75080db1a18ecc32e">UNICHAR_ID</a> *Ambiguities;
@@ -3147,6 +3156,7 @@ History: Fri Mar 15 08:08:22 1991, DSJ, Created. </dd></dl>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
     <tr><td class="paramname">Blob</td><td>blob to extract features from </td></tr>
+    <tr><td class="paramname">denorm</td><td>normalization/denormalization parameters </td></tr>
     <tr><td class="paramname">Templates</td><td>used to compute char norm adjustments </td></tr>
     <tr><td class="paramname">IntFeatures</td><td>array to fill with integer features </td></tr>
     <tr><td class="paramname">CharNormArray</td><td>array to fill with dummy char norm adjustments </td></tr>
@@ -3166,7 +3176,7 @@ History: Fri Mar 15 08:08:22 1991, DSJ, Created. </dd></dl>
 <dd>
 History: Tue May 28 10:40:52 1991, DSJ, Created. </dd></dl>
 
-<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l01941">1941</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
+<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l01952">1952</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                     {
   <span class="keyword">register</span> <a class="code" href="struct_i_n_t___f_e_a_t_u_r_e___s_t_r_u_c_t.html">INT_FEATURE</a> Src, Dest, End;
 
@@ -3258,26 +3268,28 @@ History: Tue May 28 10:40:52 1991, DSJ, Created. </dd></dl>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
     <tr><td class="paramname">Blob</td><td>blob to extract features from </td></tr>
+    <tr><td class="paramname">denorm</td><td>normalization/denormalization parameters </td></tr>
     <tr><td class="paramname">Templates</td><td>used to compute char norm adjustments </td></tr>
     <tr><td class="paramname">IntFeatures</td><td>array to fill with integer features </td></tr>
+    <tr><td class="paramname">PrunerNormArray</td><td>Array of factors from blob normalization process </td></tr>
     <tr><td class="paramname">CharNormArray</td><td>array to fill with dummy char norm adjustments </td></tr>
-    <tr><td class="paramname">BlobLength</td><td>length of blob in baseline-normalized units</td></tr>
-  </table>
-  </dd>
-</dl>
-<p>Globals:</p>
-<ul>
+    <tr><td class="paramname">BlobLength</td><td>length of blob in baseline-normalized units </td></tr>
+    <tr><td class="paramname">FeatureOutlineArray</td><td>Globals:<ul>
 <li>FeaturesHaveBeenExtracted TRUE if fx has been done</li>
 <li>BaselineFeatures holds extracted baseline feat</li>
 <li>CharNormFeatures holds extracted char norm feat</li>
 <li>FXInfo holds misc. FX info</li>
 </ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>Number of features extracted or 0 if an error occured. </dd></dl>
 <dl class="note"><dt><b>Note:</b></dt><dd>Exceptions: none </dd>
 <dd>
 History: Tue May 28 10:40:52 1991, DSJ, Created. </dd></dl>
 
-<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l02025">2025</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
+<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l02040">2040</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                              {
   <span class="keyword">register</span> <a class="code" href="struct_i_n_t___f_e_a_t_u_r_e___s_t_r_u_c_t.html">INT_FEATURE</a> Src, Dest, End;
   <a class="code" href="struct_f_e_a_t_u_r_e___s_t_r_u_c_t.html">FEATURE</a> NormFeature;
@@ -3536,6 +3548,7 @@ History: Tue May 28 10:40:52 1991, DSJ, Created. </dd></dl>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
     <tr><td class="paramname">Blob</td><td>blob to model new class after </td></tr>
+    <tr><td class="paramname">denorm</td><td>normalization/denormalization parameters </td></tr>
     <tr><td class="paramname">ClassId</td><td>id of the class to be initialized </td></tr>
     <tr><td class="paramname">FontinfoId</td><td>font information inferred from pre-trained templates </td></tr>
     <tr><td class="paramname">Class</td><td>adapted class to be initialized </td></tr>
@@ -3553,7 +3566,7 @@ History: Tue May 28 10:40:52 1991, DSJ, Created. </dd></dl>
 <dd>
 History: Thu Mar 14 12:49:39 1991, DSJ, Created. </dd></dl>
 
-<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l00758">758</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
+<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l00760">760</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                           {
   <a class="code" href="struct_f_e_a_t_u_r_e___s_e_t___s_t_r_u_c_t.html">FEATURE_SET</a> Features;
   <span class="keywordtype">int</span> Fid, Pid;
@@ -3642,7 +3655,7 @@ History: Thu Mar 14 12:49:39 1991, DSJ, Created. </dd></dl>
 <p>This routine reads in the training information needed by the adaptive classifier and saves it into global variables. Parameters: load_pre_trained_templates Indicates whether the pre-trained templates (inttemp, normproto and pffmtable components) should be lodaded. Should only be set to true if the necesary classifier components are present in the [lang].traineddata file. Globals: BuiltInTemplatesFile file to get built-in temps from BuiltInCutoffsFile file to get avg. feat per class from classify_use_pre_adapted_templates enables use of pre-adapted templates </p>
 <dl class="note"><dt><b>Note:</b></dt><dd>History: Mon Mar 11 12:49:34 1991, DSJ, Created. </dd></dl>
 
-<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l00546">546</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
+<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l00547">547</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                                     {
   <span class="keywordflow">if</span> (!<a class="code" href="classtesseract_1_1_classify.html#adaa9bf9e188634ffa99c83204be2129f">classify_enable_adaptive_matcher</a>)
     <span class="keywordflow">return</span>;
@@ -3791,7 +3804,7 @@ History: Thu Mar 14 12:49:39 1991, DSJ, Created. </dd></dl>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l00395">395</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
+<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l00396">396</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                                     {
   <span class="comment">// TODO(daria) Remove/modify this if/when we want</span>
   <span class="comment">// to train and/or adapt to n-grams.</span>
@@ -3890,7 +3903,7 @@ History: Thu Mar 14 12:49:39 1991, DSJ, Created. </dd></dl>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l00255">255</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
+<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l00256">256</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                         {
   <span class="keywordtype">int</span> word_len = word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#ae524416d2398009c92a5678105f3cbfb">correct_text</a>.<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>();
   <span class="keywordflow">if</span> (word_len == 0) <span class="keywordflow">return</span>;
@@ -4048,7 +4061,7 @@ History: Thu Mar 14 12:49:39 1991, DSJ, Created. </dd></dl>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l01975">1975</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
+<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l01986">1986</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                                 {
   BLOB_CHOICE_LIST *ratings = <span class="keyword">new</span> BLOB_CHOICE_LIST();
   <a class="code" href="classtesseract_1_1_classify.html#a1f058451e32538b4dc2c853b82bc6600">AdaptiveClassifier</a>(blob, denorm, ratings, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
@@ -4137,7 +4150,7 @@ History: Thu Mar 14 12:49:39 1991, DSJ, Created. </dd></dl>
 <dd>
 History: Fri Mar 15 08:49:46 1991, DSJ, Created. </dd></dl>
 
-<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l02116">2116</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
+<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l02131">2131</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                      {
   <a class="code" href="struct_i_n_t___c_l_a_s_s___s_t_r_u_c_t.html">INT_CLASS</a> IClass;
   <a class="code" href="struct_a_d_a_p_t___c_l_a_s_s___s_t_r_u_c_t.html">ADAPT_CLASS</a> Class;
@@ -4274,7 +4287,7 @@ History: Fri Mar 15 08:49:46 1991, DSJ, Created. </dd></dl>
 <p>Globals: none</p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>Max proto id in class after all protos have been added. Exceptions: none History: Fri Mar 15 11:39:38 1991, DSJ, Created. </dd></dl>
 
-<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l02213">2213</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
+<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l02228">2228</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                               {
   <a class="code" href="matchdefs_8h.html#a2223404e7ad809dd36193cc195377f56">FEATURE_ID</a> *ProtoStart;
   <a class="code" href="matchdefs_8h.html#a2223404e7ad809dd36193cc195377f56">FEATURE_ID</a> *ProtoEnd;
@@ -4395,6 +4408,7 @@ History: Fri Mar 15 08:49:46 1991, DSJ, Created. </dd></dl>
     <tr><td class="paramname">Templates</td><td>current set of adaptive templates </td></tr>
     <tr><td class="paramname">ClassId</td><td>class containing config to be made permanent </td></tr>
     <tr><td class="paramname">ConfigId</td><td>config to be made permanent </td></tr>
+    <tr><td class="paramname">denorm</td><td>normalization/denormalization parameters </td></tr>
     <tr><td class="paramname">Blob</td><td>current blob being adapted to</td></tr>
   </table>
   </dd>
@@ -4404,7 +4418,7 @@ History: Fri Mar 15 08:49:46 1991, DSJ, Created. </dd></dl>
 <dd>
 History: Thu Mar 14 15:54:08 1991, DSJ, Created. </dd></dl>
 
-<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l02302">2302</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
+<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l02318">2318</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                          {
   <a class="code" href="unichar_8h.html#a8578b19fa1ff5ca75080db1a18ecc32e">UNICHAR_ID</a> *Ambigs;
   <a class="code" href="struct_t_e_m_p___c_o_n_f_i_g___s_t_r_u_c_t.html">TEMP_CONFIG</a> <a class="code" href="commontraining_8cpp.html#a1630a3dc82a9a7cef07bb6153df9eb9c">Config</a>;
@@ -4525,7 +4539,7 @@ History: Thu Mar 14 15:54:08 1991, DSJ, Created. </dd></dl>
 <div class="memdoc">
 <p>Factored-out calls to <a class="el" href="class_integer_matcher.html">IntegerMatcher</a> based on class pruner results. Returns integer matcher results inside CLASS_PRUNER_RESULTS structure. </p>
 
-<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l01248">1248</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
+<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l01252">1252</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                           {
   <span class="keywordtype">int</span> top = blob_box.<a class="code" href="class_t_b_o_x.html#adf92e9fdac1bdf11c10d1c4d1178791a">top</a>();
   <span class="keywordtype">int</span> bottom = blob_box.<a class="code" href="class_t_b_o_x.html#a4451d237f1cd18c4982d63fe36a11fc3">bottom</a>();
@@ -4569,7 +4583,7 @@ History: Thu Mar 14 15:54:08 1991, DSJ, Created. </dd></dl>
 <p>Allocates memory for adapted tempates. each char in unicharset to the newly created templates</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
-    <tr><td class="paramname">PopulateFromUnicharset</td><td>if true, add an empty class for </td></tr>
+    <tr><td class="paramname">InitFromUnicharset</td><td>if true, add an empty class for </td></tr>
   </table>
   </dd>
 </dl>
@@ -4805,7 +4819,7 @@ History: Wed Mar 20 13:35:29 1991, DSJ, Created. </dd></dl>
 <dd>
 History: Mon Mar 18 09:24:53 1991, DSJ, Created. </dd></dl>
 
-<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l02403">2403</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
+<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l02419">2419</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                                           {
   <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; Results-&gt;<a class="code" href="struct_a_d_a_p_t___r_e_s_u_l_t_s.html#a5b86ffcce686898891300193f1998239">NumMatches</a>; ++i) {
     <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;%s(%d), shape %d, %.2f  &quot;</span>,
@@ -4844,7 +4858,7 @@ History: Mon Mar 18 09:24:53 1991, DSJ, Created. </dd></dl>
 <dd>
 History: Thu Apr 18 14:37:37 1991, DSJ, Created. </dd></dl>
 
-<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l00660">660</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
+<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l00661">661</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                 {
 <span class="preprocessor">  #ifndef SECURE_NAMES</span>
 <span class="preprocessor"></span>
@@ -5584,7 +5598,7 @@ History: Mon Mar 18 15:18:10 1991, DSJ, Created. </dd></dl>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l00229">229</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
+<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l00230">230</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                                  {
 <span class="preprocessor">  #ifndef GRAPHICS_DISABLED</span>
 <span class="preprocessor"></span>  <span class="keyword">const</span> <span class="keywordtype">int</span> kSampleSpaceWidth = 500;
@@ -5634,7 +5648,7 @@ History: Mon Mar 18 15:18:10 1991, DSJ, Created. </dd></dl>
 <dd>
 History: Tue Mar 12 13:51:03 1991, DSJ, Created. </dd></dl>
 
-<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l02429">2429</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
+<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l02445">2445</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                      {
   <span class="keywordtype">int</span> Next, NextGood;
   <a class="code" href="host_8h.html#a6a3da5f1db8d485c0d2f5a7ba526c4a0">FLOAT32</a> BadMatchThreshold;
@@ -5695,7 +5709,12 @@ History: Tue Mar 12 13:51:03 1991, DSJ, Created. </dd></dl>
 </div>
 <div class="memdoc">
 <p>This routine steps thru each matching class in Results and removes it from the match list if its rating is worse than the BestRating plus a pad. In other words, all good matches get moved to the front of the classes array.</p>
-<p>Results contains matches to be filtered</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramname">Results</td><td>contains matches to be filtered</td></tr>
+  </table>
+  </dd>
+</dl>
 <p>Globals:</p>
 <ul>
 <li>matcher_bad_match_pad defines a "bad match"</li>
@@ -5704,7 +5723,7 @@ History: Tue Mar 12 13:51:03 1991, DSJ, Created. </dd></dl>
 <dd>
 History: Tue Mar 12 13:51:03 1991, DSJ, Created. </dd></dl>
 
-<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l02488">2488</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
+<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l02504">2504</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                      {
   <span class="keywordtype">int</span> Next, NextGood;
   <span class="keywordtype">int</span> punc_count;              <span class="comment">/*no of garbage characters */</span>
@@ -5752,7 +5771,7 @@ History: Tue Mar 12 13:51:03 1991, DSJ, Created. </dd></dl>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l00637">637</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
+<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l00638">638</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                               {
   <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_classify.html#af9e34f61db55f7f312f8e1531b2368bc">classify_learning_debug_level</a> &gt; 0) {
     <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;Resetting adaptive classifier (NumAdaptationsFailed=%d)\n&quot;</span>,
@@ -5779,7 +5798,7 @@ History: Tue Mar 12 13:51:03 1991, DSJ, Created. </dd></dl>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l01969">1969</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
+<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l01980">1980</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                              {
   FeaturesHaveBeenExtracted = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
 }
@@ -5815,7 +5834,7 @@ History: Tue Mar 12 13:51:03 1991, DSJ, Created. </dd></dl>
 <dd>
 History: Tue Apr 9 08:33:13 1991, DSJ, Created. </dd></dl>
 
-<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l02533">2533</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
+<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l02549">2549</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                     {
   Threshold = (Threshold == <a class="code" href="classtesseract_1_1_classify.html#adc3a809a1a219f741a9e45a32e0d11bc">matcher_good_threshold</a>) ? 0.9: (1.0 - Threshold);
   <a class="code" href="classtesseract_1_1_classify.html#a3d74369343952e81efa5ac8858d5e9d1">classify_adapt_proto_threshold</a>.set_value(
@@ -5849,7 +5868,7 @@ History: Tue Apr 9 08:33:13 1991, DSJ, Created. </dd></dl>
 <dd>
 History: Mon Apr 15 16:39:29 1991, DSJ, Created. </dd></dl>
 
-<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l00711">711</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
+<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l00712">712</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                           {
   <a class="code" href="classtesseract_1_1_classify.html#a7d0ccfd06421346d8cda0f1b76fd8516">EnableLearning</a> = <a class="code" href="classtesseract_1_1_classify.html#a7691700e9742ecdc10e0f8ee75682991">classify_enable_learning</a>;
 
@@ -5881,7 +5900,7 @@ History: Mon Apr 15 16:39:29 1991, DSJ, Created. </dd></dl>
 <dd>
 History: Mon Apr 15 16:39:29 1991, DSJ, Created. </dd></dl>
 
-<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l00731">731</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
+<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l00732">732</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                           {
   <a class="code" href="classtesseract_1_1_classify.html#a7d0ccfd06421346d8cda0f1b76fd8516">EnableLearning</a> = <a class="code" href="host_8h.html#aa93f0eb578d23995850d61f7d61c55c1">FALSE</a>;
   <a class="code" href="classtesseract_1_1_classify.html#a83e4207353a1bb07adfaa6a82a74c9ce">getDict</a>().SettupStopperPass2();
@@ -5926,7 +5945,7 @@ History: Mon Apr 15 16:39:29 1991, DSJ, Created. </dd></dl>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l02728">2728</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
+<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l02747">2747</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                 {
   <span class="keywordflow">for</span> (<span class="keywordtype">int</span> <span class="keywordtype">id</span> = 0; <span class="keywordtype">id</span> &lt; <a class="code" href="classtesseract_1_1_classify.html#a64383806f917e682c4a644efdd71d530">PreTrainedTemplates</a>-&gt;<a class="code" href="struct_i_n_t___t_e_m_p_l_a_t_e_s___s_t_r_u_c_t.html#a4735b2443aa7452909969d8d07e1877a">NumClasses</a>; ++id) {
     <span class="keywordtype">int</span> font_set_id = <a class="code" href="classtesseract_1_1_classify.html#a64383806f917e682c4a644efdd71d530">PreTrainedTemplates</a>-&gt;<a class="code" href="struct_i_n_t___t_e_m_p_l_a_t_e_s___s_t_r_u_c_t.html#a2083307ebe623a6617ff38291a2f3614">Class</a>[id]-&gt;<a class="code" href="struct_i_n_t___c_l_a_s_s___s_t_r_u_c_t.html#af0d8fa528ac2dd07fe4f39ef84a6fd7c">font_set_id</a>;
@@ -6001,9 +6020,12 @@ History: Mon Apr 15 16:39:29 1991, DSJ, Created. </dd></dl>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
     <tr><td class="paramname">Blob</td><td>blob to show best matching config for </td></tr>
+    <tr><td class="paramname">denorm</td><td>normalization/denormalization parameters </td></tr>
     <tr><td class="paramname">ClassId</td><td>class whose configs are to be searched </td></tr>
+    <tr><td class="paramname">shape_id</td><td>shape index </td></tr>
     <tr><td class="paramname">AdaptiveOn</td><td>TRUE if adaptive configs are enabled </td></tr>
-    <tr><td class="paramname">PreTrainedOn</td><td>TRUE if pretrained configs are enabled</td></tr>
+    <tr><td class="paramname">PreTrainedOn</td><td>TRUE if pretrained configs are enabled </td></tr>
+    <tr><td class="paramname">Results</td><td>results of match being debugged</td></tr>
   </table>
   </dd>
 </dl>
@@ -6018,7 +6040,7 @@ History: Mon Apr 15 16:39:29 1991, DSJ, Created. </dd></dl>
 <dd>
 History: Fri Mar 22 08:43:52 1991, DSJ, Created. </dd></dl>
 
-<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l02561">2561</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
+<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l02580">2580</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                        {
   <span class="keywordtype">int</span> NumCNFeatures = 0, NumBLFeatures = 0;
   <a class="code" href="baseapi_8h.html#a544a6c7d78d215e9a4da202daecfeb52">INT_FEATURE_ARRAY</a> CNFeatures, BLFeatures;
@@ -6230,7 +6252,7 @@ History: Fri Mar 22 08:43:52 1991, DSJ, Created. </dd></dl>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l02744">2744</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
+<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l02763">2763</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                             {
   <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_classify.html#af9e34f61db55f7f312f8e1531b2368bc">classify_learning_debug_level</a> &gt;= 1) {
     <a class="code" href="tprintf_8cpp.html#a0c2bcd4462ec67ab0971b34a0f610f55">tprintf</a>(<span class="stringliteral">&quot;NumTimesSeen for config of %s is %d\n&quot;</span>,
@@ -6300,7 +6322,7 @@ History: Fri Mar 22 08:43:52 1991, DSJ, Created. </dd></dl>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l02781">2781</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
+<p>Definition at line <a class="el" href="adaptmatch_8cpp_source.html#l02800">2800</a> of file <a class="el" href="adaptmatch_8cpp_source.html">adaptmatch.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                              {
   <span class="keyword">const</span> <a class="code" href="namespacetesseract.html#a3dad1b2dad5ed3069bdb4c971116b9c5">UnicharIdVector</a> *ambigs =
     <a class="code" href="classtesseract_1_1_classify.html#a83e4207353a1bb07adfaa6a82a74c9ce">getDict</a>().getUnicharAmbigs().ReverseAmbigsForAdaption(class_id);
@@ -7490,7 +7512,7 @@ History: Mon Mar 18 15:07:32 1991, DSJ, Created. </dd></dl>
 </div>
 
 
-    <li class="footer">Generated on Wed Mar 28 2012 22:38:50 for Tesseract by
+    <li class="footer">Generated on Thu Mar 29 2012 23:42:24 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>
