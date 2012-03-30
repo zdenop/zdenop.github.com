@@ -317,6 +317,7 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_wordrec.html#ad1164fd07a17960ed06585f0c8aadcdc">improve_by_chopping</a> (<a class="el" href="class_w_e_r_d___r_e_s.html">WERD_RES</a> *word, <a class="el" href="ratngs_8h.html#a78a6d74d56415802d31e350314b23e65">BLOB_CHOICE_LIST_VECTOR</a> *char_choices, <a class="el" href="struct_s_t_a_t_e.html">STATE</a> *best_state, <a class="el" href="ratngs_8h.html#a78a6d74d56415802d31e350314b23e65">BLOB_CHOICE_LIST_VECTOR</a> *best_char_choices, <a class="el" href="stopper_8h.html#ab342921d3994b07a86ad1c5e4e8dd7c5">DANGERR</a> *fixpt, bool *updated_best_choice)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="class_m_a_t_r_i_x.html">MATRIX</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_wordrec.html#a3581245a7778654f6fd22c4b3721cf06">word_associator</a> (bool only_create_ratings_matrtix, <a class="el" href="class_w_e_r_d___r_e_s.html">WERD_RES</a> *word, <a class="el" href="struct_s_t_a_t_e.html">STATE</a> *state, <a class="el" href="ratngs_8h.html#a78a6d74d56415802d31e350314b23e65">BLOB_CHOICE_LIST_VECTOR</a> *best_char_choices, <a class="el" href="stopper_8h.html#ab342921d3994b07a86ad1c5e4e8dd7c5">DANGERR</a> *fixpt, <a class="el" href="struct_s_t_a_t_e.html">STATE</a> *best_state)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_wordrec.html#a8fd3e86b711ba9d54c7eb500eb99c1c4">select_blob_to_split</a> (const <a class="el" href="ratngs_8h.html#a78a6d74d56415802d31e350314b23e65">BLOB_CHOICE_LIST_VECTOR</a> &amp;char_choices, float rating_ceiling, bool split_next_to_fragment)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_wordrec.html#a457f1ea04bad00c6e40883869700defb">select_blob_to_split_from_fixpt</a> (<a class="el" href="stopper_8h.html#ab342921d3994b07a86ad1c5e4e8dd7c5">DANGERR</a> *fixpt)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_wordrec.html#a2ed3fab8407177af31d446a794617149">set_chopper_blame</a> (<a class="el" href="class_w_e_r_d___r_e_s.html">WERD_RES</a> *word)</td></tr>
 <tr><td colspan="2"><h2><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -1275,7 +1276,7 @@ Protected Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="chopper_8cpp_source.html#l00432">432</a> of file <a class="el" href="chopper_8cpp_source.html">chopper.cpp</a>.</p>
+<p>Definition at line <a class="el" href="chopper_8cpp_source.html#l00441">441</a> of file <a class="el" href="chopper_8cpp_source.html">chopper.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                   {
   <a class="code" href="struct_t_b_l_o_b.html">TBLOB</a> *blob;
   <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> x = 0;
@@ -1365,7 +1366,7 @@ Protected Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="chopper_8cpp_source.html#l00493">493</a> of file <a class="el" href="chopper_8cpp_source.html">chopper.cpp</a>.</p>
+<p>Definition at line <a class="el" href="chopper_8cpp_source.html#l00502">502</a> of file <a class="el" href="chopper_8cpp_source.html">chopper.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                               {
   <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> blob_number;
   <a class="code" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> x = 0;
@@ -1501,7 +1502,7 @@ Protected Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="chopper_8cpp_source.html#l00574">574</a> of file <a class="el" href="chopper_8cpp_source.html">chopper.cpp</a>.</p>
+<p>Definition at line <a class="el" href="chopper_8cpp_source.html#l00583">583</a> of file <a class="el" href="chopper_8cpp_source.html">chopper.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                               {
   <a class="code" href="struct_t_b_l_o_b.html">TBLOB</a> *blob;
   <span class="keywordtype">int</span> index;
@@ -3203,15 +3204,13 @@ Protected Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="chopper_8cpp_source.html#l00732">732</a> of file <a class="el" href="chopper_8cpp_source.html">chopper.cpp</a>.</p>
+<p>Definition at line <a class="el" href="chopper_8cpp_source.html#l00741">741</a> of file <a class="el" href="chopper_8cpp_source.html">chopper.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                                {
   <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> blob_number;
   <span class="keywordtype">float</span> old_best;
-  <span class="keywordtype">int</span> fixpt_valid = 1;
   <span class="keywordtype">bool</span> updated_best_choice = <span class="keyword">false</span>;
 
   <span class="keywordflow">while</span> (1) {  <span class="comment">// improvement loop</span>
-    <span class="keywordflow">if</span> (!fixpt_valid) fixpt-&gt;<a class="code" href="class_generic_vector.html#a9cdbff49b186574b83e43afba606fdd9">clear</a>();
     old_best = word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a52ea24dcb5ff15ad8aee3fd774622216">rating</a>();
     <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_wordrec.html#acdc368cd46083bdc4c321dd0a42533a0">improve_one_blob</a>(word, char_choices,
                          &amp;blob_number, &amp;word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#adefe2273d7f4b36fcbe7ae420bfd077a">seam_array</a>,
@@ -3225,11 +3224,9 @@ Protected Member Functions</h2></td></tr>
 
       <span class="keywordflow">if</span> (old_best &gt; word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a3d42ac7ec121263e757c9b7160dfd50d">best_choice</a>-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a52ea24dcb5ff15ad8aee3fd774622216">rating</a>()) {
         <a class="code" href="states_8cpp.html#a4d7464b9adab39859eca306e1a41ba7e">set_n_ones</a>(best_state, char_choices-&gt;<a class="code" href="class_generic_vector.html#a690cd403343d371ed7763fdaf3ed71d2">length</a>() - 1);
-        fixpt_valid = 1;
-      }
-      <span class="keywordflow">else</span> {
+      } <span class="keywordflow">else</span> {
         <a class="code" href="states_8cpp.html#a5104caef86ae4abd56bbb88b463492f6">insert_new_chunk</a>(best_state, blob_number, char_choices-&gt;<a class="code" href="class_generic_vector.html#a690cd403343d371ed7763fdaf3ed71d2">length</a>() - 2);
-        fixpt_valid = 0;
+        fixpt-&gt;<a class="code" href="class_generic_vector.html#a9cdbff49b186574b83e43afba606fdd9">clear</a>();
       }
 
       <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_wordrec.html#a3f1c04cfbc1650eae6fc981984717248">chop_debug</a>)
@@ -3254,7 +3251,6 @@ Protected Member Functions</h2></td></tr>
     <span class="keywordflow">if</span> (updated_best_choice) <a class="code" href="classtesseract_1_1_wordrec.html#a6e9f488de12a12cd99ae4c2c55c87bc6">CopyCharChoices</a>(*char_choices, best_char_choices);
     <span class="keywordflow">if</span> (done) <span class="keywordflow">break</span>;
   }
-  <span class="keywordflow">if</span> (!fixpt_valid) fixpt-&gt;<a class="code" href="class_generic_vector.html#a9cdbff49b186574b83e43afba606fdd9">clear</a>();
 }
 </pre></div>
 </div>
@@ -3325,8 +3321,14 @@ Protected Member Functions</h2></td></tr>
   <a class="code" href="structseam__record.html">SEAM</a> *seam;
 
   <span class="keywordflow">do</span> {
-    *blob_number = <a class="code" href="classtesseract_1_1_wordrec.html#a8fd3e86b711ba9d54c7eb500eb99c1c4">select_blob_to_split</a>(*char_choices, rating_ceiling,
-                                        split_next_to_fragment);
+    *blob_number = <a class="code" href="classtesseract_1_1_wordrec.html#a457f1ea04bad00c6e40883869700defb">select_blob_to_split_from_fixpt</a>(fixpt);
+    <span class="keywordtype">bool</span> split_point_from_dict = (*blob_number != -1);
+    <span class="keywordflow">if</span> (split_point_from_dict) {
+      fixpt-&gt;<a class="code" href="class_generic_vector.html#a9cdbff49b186574b83e43afba606fdd9">clear</a>();
+    } <span class="keywordflow">else</span> {
+      *blob_number = <a class="code" href="classtesseract_1_1_wordrec.html#a8fd3e86b711ba9d54c7eb500eb99c1c4">select_blob_to_split</a>(*char_choices, rating_ceiling,
+                                          split_next_to_fragment);
+    }
     <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_wordrec.html#a3f1c04cfbc1650eae6fc981984717248">chop_debug</a>)
       <a class="code" href="callcpp_8cpp.html#a21679e7fec2d69db23107348fa13c153">cprintf</a>(<span class="stringliteral">&quot;blob_number = %d\n&quot;</span>, *blob_number);
     <span class="keywordflow">if</span> (*blob_number == -1)
@@ -3341,7 +3343,10 @@ Protected Member Functions</h2></td></tr>
     <span class="keywordflow">if</span> (answer == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
       <span class="keywordflow">return</span> <span class="keyword">false</span>;
     answer_it.set_to_list(answer);
-    rating_ceiling = answer_it.data()-&gt;rating();  <span class="comment">// try a different blob</span>
+    <span class="keywordflow">if</span> (!split_point_from_dict) {
+      <span class="comment">// We chopped the worst rated blob, try something else next time.</span>
+      rating_ceiling = answer_it.data()-&gt;rating();
+    }
   } <span class="keywordflow">while</span> (<span class="keyword">true</span>);
   <span class="comment">/* Split OK */</span>
   <span class="keywordflow">for</span> (blob = word-&gt;<a class="code" href="struct_t_w_e_r_d.html#aeec31d57df04c8dac1cf3e6990d358a7">blobs</a>; x &lt; *blob_number; x++) {
@@ -4031,7 +4036,7 @@ Protected Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="chopper_8cpp_source.html#l00394">394</a> of file <a class="el" href="chopper_8cpp_source.html">chopper.cpp</a>.</p>
+<p>Definition at line <a class="el" href="chopper_8cpp_source.html#l00403">403</a> of file <a class="el" href="chopper_8cpp_source.html">chopper.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                        {
   <span class="keywordtype">char</span> chop_index_string[2];
   <span class="keywordflow">if</span> (chop_index &lt;= 9) {
@@ -5487,7 +5492,7 @@ Protected Member Functions</h2></td></tr>
     <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; choice-&gt;<a class="code" href="class_v_i_a_b_l_e___c_h_o_i_c_e___s_t_r_u_c_t.html#a094ecf960979babf7ff7d1ca74b99c61">Length</a>; char_choice++, i++) {
       alt_choice-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a222ced86be88a66a119b6c5d10af23fb">append_unichar_id_space_allocated</a>(
           char_choice-&gt;<a class="code" href="struct_c_h_a_r___c_h_o_i_c_e.html#afae513ffd1d6fd0167baa1dce1b86c60">Class</a>, 1, 0, 0);
-      alt_state.<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(choice-&gt;segmentation_state[i]);
+      alt_state.<a class="code" href="class_generic_vector.html#a0dc89fe2a365b04a61017f9d78c1a303">push_back</a>(char_choice-&gt;<a class="code" href="struct_c_h_a_r___c_h_o_i_c_e.html#ac928eaafcdc57fcd44d82ab9a56e9da3">NumChunks</a>);
     }
     alt_choice-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a8536420fe62adffbfda94a08796db533">set_rating</a>(choice-&gt;<a class="code" href="class_v_i_a_b_l_e___c_h_o_i_c_e___s_t_r_u_c_t.html#a651bc1b5ad4d2a7ce33c0f564c13ecb7">Rating</a>);
     alt_choice-&gt;<a class="code" href="class_w_e_r_d___c_h_o_i_c_e.html#a0d8b3f73cb02eb5f6e492ffd1304fe85">set_certainty</a>(choice-&gt;<a class="code" href="class_v_i_a_b_l_e___c_h_o_i_c_e___s_t_r_u_c_t.html#a88c4c888e5f46a1c56b3fc934726514f">Certainty</a>);
@@ -5835,7 +5840,7 @@ Protected Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="wordrec_8h_source.html#l00519">519</a> of file <a class="el" href="wordrec_8h_source.html">wordrec.h</a>.</p>
+<p>Definition at line <a class="el" href="wordrec_8h_source.html#l00520">520</a> of file <a class="el" href="wordrec_8h_source.html">wordrec.h</a>.</p>
 <div class="fragment"><pre class="fragment">                                                            {
     <span class="keywordflow">return</span> (<a class="code" href="classtesseract_1_1_wordrec.html#a3d9fc3b086e0f174a2cd602ea8f421c6">language_model_</a>-&gt;AcceptableChoiceFound() ||
             num_futile_classifications &gt;=
@@ -5875,7 +5880,7 @@ Protected Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="chopper_8cpp_source.html#l00797">797</a> of file <a class="el" href="chopper_8cpp_source.html">chopper.cpp</a>.</p>
+<p>Definition at line <a class="el" href="chopper_8cpp_source.html#l00801">801</a> of file <a class="el" href="chopper_8cpp_source.html">chopper.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                                 {
   BLOB_CHOICE_IT blob_choice_it;
   <a class="code" href="class_b_l_o_b___c_h_o_i_c_e.html">BLOB_CHOICE</a> *blob_choice;
@@ -5966,6 +5971,37 @@ Protected Member Functions</h2></td></tr>
 </pre></div>
 </div>
 </div>
+<a class="anchor" id="a457f1ea04bad00c6e40883869700defb"></a><!-- doxytag: member="tesseract::Wordrec::select_blob_to_split_from_fixpt" ref="a457f1ea04bad00c6e40883869700defb" args="(DANGERR *fixpt)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="host_8h.html#a8d41499d38c24d39b221ab0c158fe5a8">inT16</a> tesseract::Wordrec::select_blob_to_split_from_fixpt </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="stopper_8h.html#ab342921d3994b07a86ad1c5e4e8dd7c5">DANGERR</a> *&#160;</td>
+          <td class="paramname"><em>fixpt</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Definition at line <a class="el" href="chopper_8cpp_source.html#l00898">898</a> of file <a class="el" href="chopper_8cpp_source.html">chopper.cpp</a>.</p>
+<div class="fragment"><pre class="fragment">                                                             {
+  <span class="keywordflow">if</span> (!fixpt)
+    <span class="keywordflow">return</span> -1;
+  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; fixpt-&gt;<a class="code" href="class_generic_vector.html#a111b51dd0bf1324cfb69ef70703d8e70">size</a>(); i++) {
+    <span class="keywordflow">if</span> ((*fixpt)[i].begin == (*fixpt)[i].end &amp;&amp;
+        (*fixpt)[i].dangerous &amp;&amp;
+        (*fixpt)[i].correct_is_ngram) {
+      <span class="keywordflow">return</span> (*fixpt)[i].begin;
+    }
+  }
+  <span class="keywordflow">return</span> -1;
+}
+</pre></div>
+</div>
+</div>
 <a class="anchor" id="a2ed3fab8407177af31d446a794617149"></a><!-- doxytag: member="tesseract::Wordrec::set_chopper_blame" ref="a2ed3fab8407177af31d446a794617149" args="(WERD_RES *word)" -->
 <div class="memitem">
 <div class="memproto">
@@ -5981,7 +6017,7 @@ Protected Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="chopper_8cpp_source.html#l00893">893</a> of file <a class="el" href="chopper_8cpp_source.html">chopper.cpp</a>.</p>
+<p>Definition at line <a class="el" href="chopper_8cpp_source.html#l00917">917</a> of file <a class="el" href="chopper_8cpp_source.html">chopper.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                              {
   <a class="code" href="struct_blamer_bundle.html">BlamerBundle</a> *blamer_bundle = word-&gt;<a class="code" href="class_w_e_r_d___r_e_s.html#a267e5d5e9fe67117e47223c5d336b8ba">blamer_bundle</a>;
   assert(blamer_bundle != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
@@ -6778,7 +6814,7 @@ Protected Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="chopper_8cpp_source.html#l00960">960</a> of file <a class="el" href="chopper_8cpp_source.html">chopper.cpp</a>.</p>
+<p>Definition at line <a class="el" href="chopper_8cpp_source.html#l00984">984</a> of file <a class="el" href="chopper_8cpp_source.html">chopper.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                    {
   <a class="code" href="struct_c_h_u_n_k_s___r_e_c_o_r_d.html">CHUNKS_RECORD</a> chunks_record;
   <a class="code" href="associate_8h.html#a72105980380289d1263c5a5058472a7e">BLOB_WEIGHTS</a> blob_weights;
@@ -6862,7 +6898,7 @@ Protected Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="wordrec_8h_source.html#l00511">511</a> of file <a class="el" href="wordrec_8h_source.html">wordrec.h</a>.</p>
+<p>Definition at line <a class="el" href="wordrec_8h_source.html#l00512">512</a> of file <a class="el" href="wordrec_8h_source.html">wordrec.h</a>.</p>
 
 </div>
 </div>
@@ -6877,7 +6913,7 @@ Protected Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="wordrec_8h_source.html#l00504">504</a> of file <a class="el" href="wordrec_8h_source.html">wordrec.h</a>.</p>
+<p>Definition at line <a class="el" href="wordrec_8h_source.html#l00505">505</a> of file <a class="el" href="wordrec_8h_source.html">wordrec.h</a>.</p>
 
 </div>
 </div>
@@ -7164,7 +7200,7 @@ Protected Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="wordrec_8h_source.html#l00513">513</a> of file <a class="el" href="wordrec_8h_source.html">wordrec.h</a>.</p>
+<p>Definition at line <a class="el" href="wordrec_8h_source.html#l00514">514</a> of file <a class="el" href="wordrec_8h_source.html">wordrec.h</a>.</p>
 
 </div>
 </div>
@@ -7291,7 +7327,7 @@ Protected Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="wordrec_8h_source.html#l00498">498</a> of file <a class="el" href="wordrec_8h_source.html">wordrec.h</a>.</p>
+<p>Definition at line <a class="el" href="wordrec_8h_source.html#l00499">499</a> of file <a class="el" href="wordrec_8h_source.html">wordrec.h</a>.</p>
 
 </div>
 </div>
@@ -7306,7 +7342,7 @@ Protected Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="wordrec_8h_source.html#l00505">505</a> of file <a class="el" href="wordrec_8h_source.html">wordrec.h</a>.</p>
+<p>Definition at line <a class="el" href="wordrec_8h_source.html#l00506">506</a> of file <a class="el" href="wordrec_8h_source.html">wordrec.h</a>.</p>
 
 </div>
 </div>
@@ -7337,7 +7373,7 @@ Protected Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="wordrec_8h_source.html#l00501">501</a> of file <a class="el" href="wordrec_8h_source.html">wordrec.h</a>.</p>
+<p>Definition at line <a class="el" href="wordrec_8h_source.html#l00502">502</a> of file <a class="el" href="wordrec_8h_source.html">wordrec.h</a>.</p>
 
 </div>
 </div>
@@ -7352,7 +7388,7 @@ Protected Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="wordrec_8h_source.html#l00503">503</a> of file <a class="el" href="wordrec_8h_source.html">wordrec.h</a>.</p>
+<p>Definition at line <a class="el" href="wordrec_8h_source.html#l00504">504</a> of file <a class="el" href="wordrec_8h_source.html">wordrec.h</a>.</p>
 
 </div>
 </div>
@@ -7367,7 +7403,7 @@ Protected Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="wordrec_8h_source.html#l00502">502</a> of file <a class="el" href="wordrec_8h_source.html">wordrec.h</a>.</p>
+<p>Definition at line <a class="el" href="wordrec_8h_source.html#l00503">503</a> of file <a class="el" href="wordrec_8h_source.html">wordrec.h</a>.</p>
 
 </div>
 </div>
@@ -7382,7 +7418,7 @@ Protected Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="wordrec_8h_source.html#l00499">499</a> of file <a class="el" href="wordrec_8h_source.html">wordrec.h</a>.</p>
+<p>Definition at line <a class="el" href="wordrec_8h_source.html#l00500">500</a> of file <a class="el" href="wordrec_8h_source.html">wordrec.h</a>.</p>
 
 </div>
 </div>
@@ -7397,7 +7433,7 @@ Protected Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="wordrec_8h_source.html#l00500">500</a> of file <a class="el" href="wordrec_8h_source.html">wordrec.h</a>.</p>
+<p>Definition at line <a class="el" href="wordrec_8h_source.html#l00501">501</a> of file <a class="el" href="wordrec_8h_source.html">wordrec.h</a>.</p>
 
 </div>
 </div>
@@ -7412,7 +7448,7 @@ Protected Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="wordrec_8h_source.html#l00509">509</a> of file <a class="el" href="wordrec_8h_source.html">wordrec.h</a>.</p>
+<p>Definition at line <a class="el" href="wordrec_8h_source.html#l00510">510</a> of file <a class="el" href="wordrec_8h_source.html">wordrec.h</a>.</p>
 
 </div>
 </div>
@@ -7724,7 +7760,7 @@ Protected Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Thu Mar 29 2012 23:42:28 for Tesseract by
+    <li class="footer">Generated on Fri Mar 30 2012 17:39:34 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>
