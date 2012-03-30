@@ -164,8 +164,9 @@ Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtesseract_1_1_page_iterator.html#a66e96ed36eeed8b9da723c397910f9e9">rect_height_</a></td></tr>
 </table>
 <hr/><a name="details" id="details"></a><h2>Detailed Description</h2>
-<div class="textblock">
-<p>Definition at line <a class="el" href="pageiterator_8h_source.html#l00049">49</a> of file <a class="el" href="pageiterator_8h_source.html">pageiterator.h</a>.</p>
+<div class="textblock"><p>Class to iterate over tesseract page structure, providing access to all levels of the page hierarchy, without including any tesseract headers or having to handle any tesseract structures. WARNING! This class points to data held within the <a class="el" href="classtesseract_1_1_tess_base_a_p_i.html">TessBaseAPI</a> class, and therefore can only be used while the <a class="el" href="classtesseract_1_1_tess_base_a_p_i.html">TessBaseAPI</a> class still exists and has not been subjected to a call of Init, SetImage, Recognize, Clear, End DetectOS, or anything else that changes the internal <a class="el" href="class_p_a_g_e___r_e_s.html">PAGE_RES</a>. See <a class="el" href="apitypes_8h.html">apitypes.h</a> for the definition of PageIteratorLevel. See also <a class="el" href="classtesseract_1_1_result_iterator.html">ResultIterator</a>, derived from <a class="el" href="classtesseract_1_1_page_iterator.html">PageIterator</a>, which adds in the ability to access OCR output with text-specific methods. </p>
+
+<p>Definition at line <a class="el" href="pageiterator_8h_source.html#l00051">51</a> of file <a class="el" href="pageiterator_8h_source.html">pageiterator.h</a>.</p>
 </div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="ad9f7980a1c4b008c90bb860d5aa82f48"></a><!-- doxytag: member="tesseract::PageIterator::PageIterator" ref="ad9f7980a1c4b008c90bb860d5aa82f48" args="(PAGE_RES *page_res, Tesseract *tesseract, int scale, int scaled_yres, int rect_left, int rect_top, int rect_width, int rect_height)" -->
 <div class="memitem">
@@ -227,6 +228,7 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>page_res and tesseract come directly from the BaseAPI. The rectangle parameters are copied indirectly from the Thresholder, via the BaseAPI. They represent the coordinates of some rectangle in an original image (in top-left-origin coordinates) and therefore the top-left needs to be added to any output boxes in order to specify coordinates in the original image. See <a class="el" href="group___advanced_a_p_i.html#ga284228c7e9d18bbbd3984d44e252d625">TessBaseAPI::SetRectangle</a>. The scale and scaled_yres are in case the Thresholder scaled the image rectangle prior to thresholding. Any coordinates in tesseract's image must be divided by scale before adding (rect_left, rect_top). The scaled_yres indicates the effective resolution of the binary image that tesseract has been given by the Thresholder. After the constructor, Begin has already been called. </p>
 
 <p>Definition at line <a class="el" href="pageiterator_8cpp_source.html#l00029">29</a> of file <a class="el" href="pageiterator_8cpp_source.html">pageiterator.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">  : <a class="code" href="classtesseract_1_1_page_iterator.html#a480fee3b9cf81df1745ab671c5f28788">page_res_</a>(page_res), <a class="code" href="classtesseract_1_1_page_iterator.html#acca34c1adcf494eca7dfefe74258f991">tesseract_</a>(tesseract),
@@ -276,8 +278,10 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Page/ResultIterators may be copied! This makes it possible to iterate over all the objects at a lower level, while maintaining an iterator to objects at a higher level. These constructors DO NOT CALL Begin, so iterations will continue from the location of src.</p>
+<p>PageIterators may be copied! This makes it possible to iterate over all the objects at a lower level, while maintaining an iterator to objects at a higher level. </p>
 
-<p>Definition at line <a class="el" href="pageiterator_8cpp_source.html#l00050">50</a> of file <a class="el" href="pageiterator_8cpp_source.html">pageiterator.cpp</a>.</p>
+<p>Definition at line <a class="el" href="pageiterator_8cpp_source.html#l00052">52</a> of file <a class="el" href="pageiterator_8cpp_source.html">pageiterator.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">  : <a class="code" href="classtesseract_1_1_page_iterator.html#a480fee3b9cf81df1745ab671c5f28788">page_res_</a>(src.page_res_), <a class="code" href="classtesseract_1_1_page_iterator.html#acca34c1adcf494eca7dfefe74258f991">tesseract_</a>(src.tesseract_),
     <a class="code" href="classtesseract_1_1_page_iterator.html#a409db505129bcd894cbe20b77f7663bb">word_</a>(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>), <a class="code" href="classtesseract_1_1_page_iterator.html#a5bcc04bef9fefefc856440bcfe15d9ab">word_length_</a>(src.word_length_),
     <a class="code" href="classtesseract_1_1_page_iterator.html#a98d81a4da55f06637a0db60ac33cc814">blob_index_</a>(src.blob_index_), <a class="code" href="classtesseract_1_1_page_iterator.html#a4ea0a38b584bbc0047792ebe6b0294ce">cblob_it_</a>(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>),
@@ -333,8 +337,10 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Returns the baseline of the current object at the given level. The baseline is the line that passes through (x1, y1) and (x2, y2). WARNING: with vertical text, baselines may be vertical! Returns false if there is no baseline at the current position.</p>
+<p>Returns the baseline of the current object at the given level. The baseline is the line that passes through (x1, y1) and (x2, y2). WARNING: with vertical text, baselines may be vertical! </p>
 
-<p>Definition at line <a class="el" href="pageiterator_8cpp_source.html#l00428">428</a> of file <a class="el" href="pageiterator_8cpp_source.html">pageiterator.cpp</a>.</p>
+<p>Definition at line <a class="el" href="pageiterator_8cpp_source.html#l00448">448</a> of file <a class="el" href="pageiterator_8cpp_source.html">pageiterator.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                                      {
   <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_page_iterator.html#a42df7b8e352be1e5a140787109419f93">it_</a>-&gt;<a class="code" href="class_p_a_g_e___r_e_s___i_t.html#ab84b4850200ba8802791c6197c113fd0">word</a>() == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) <span class="keywordflow">return</span> <span class="keyword">false</span>;  <span class="comment">// Already at the end!</span>
   <a class="code" href="class_r_o_w.html">ROW</a>* row = <a class="code" href="classtesseract_1_1_page_iterator.html#a42df7b8e352be1e5a140787109419f93">it_</a>-&gt;<a class="code" href="class_p_a_g_e___r_e_s___i_t.html#a312f58081e9410962396160eaf5f90e4">row</a>()-&gt;<a class="code" href="class_r_o_w___r_e_s.html#ad3a856f3e9217c47b8f2f54cd3908721">row</a>;
@@ -371,10 +377,12 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Moves the iterator to point to the start of the page to begin an iteration.</p>
+<p>Resets the iterator to point to the start of the page. </p>
 
 <p>Reimplemented in <a class="el" href="classtesseract_1_1_result_iterator.html#a36e6fd5587628440bb19b84648645676">tesseract::ResultIterator</a>.</p>
 
-<p>Definition at line <a class="el" href="pageiterator_8cpp_source.html#l00084">84</a> of file <a class="el" href="pageiterator_8cpp_source.html">pageiterator.cpp</a>.</p>
+<p>Definition at line <a class="el" href="pageiterator_8cpp_source.html#l00086">86</a> of file <a class="el" href="pageiterator_8cpp_source.html">pageiterator.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                         {
   <a class="code" href="classtesseract_1_1_page_iterator.html#a42df7b8e352be1e5a140787109419f93">it_</a>-&gt;<a class="code" href="class_p_a_g_e___r_e_s___i_t.html#a506e674e37c8d4518665eff1e00ac383">restart_page_with_empties</a>();
   <a class="code" href="classtesseract_1_1_page_iterator.html#a9075e98e75619ca5e1270a0a6eb2c352">BeginWord</a>(0);
@@ -396,8 +404,9 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Sets up the internal data for iterating the blobs of a new word, then moves the iterator to the given offset. </p>
 
-<p>Definition at line <a class="el" href="pageiterator_8cpp_source.html#l00514">514</a> of file <a class="el" href="pageiterator_8cpp_source.html">pageiterator.cpp</a>.</p>
+<p>Definition at line <a class="el" href="pageiterator_8cpp_source.html#l00536">536</a> of file <a class="el" href="pageiterator_8cpp_source.html">pageiterator.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                       {
   <a class="code" href="class_w_e_r_d___r_e_s.html">WERD_RES</a>* word_res = <a class="code" href="classtesseract_1_1_page_iterator.html#a42df7b8e352be1e5a140787109419f93">it_</a>-&gt;<a class="code" href="class_p_a_g_e___r_e_s___i_t.html#ab84b4850200ba8802791c6197c113fd0">word</a>();
   <span class="keywordflow">if</span> (word_res == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
@@ -454,8 +463,9 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Returns the type of the current block. See <a class="el" href="apitypes_8h.html">apitypes.h</a> for PolyBlockType. </p>
 
-<p>Definition at line <a class="el" href="pageiterator_8cpp_source.html#l00316">316</a> of file <a class="el" href="pageiterator_8cpp_source.html">pageiterator.cpp</a>.</p>
+<p>Definition at line <a class="el" href="pageiterator_8cpp_source.html#l00330">330</a> of file <a class="el" href="pageiterator_8cpp_source.html">pageiterator.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                            {
   <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_page_iterator.html#a42df7b8e352be1e5a140787109419f93">it_</a>-&gt;<a class="code" href="class_p_a_g_e___r_e_s___i_t.html#a8a349c5163802e1f127d5c88db044059">block</a>() == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> || <a class="code" href="classtesseract_1_1_page_iterator.html#a42df7b8e352be1e5a140787109419f93">it_</a>-&gt;<a class="code" href="class_p_a_g_e___r_e_s___i_t.html#a8a349c5163802e1f127d5c88db044059">block</a>()-&gt;<a class="code" href="class_b_l_o_c_k___r_e_s.html#ae7c240d4878247ebdfe78433446751bf">block</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
     <span class="keywordflow">return</span> <a class="code" href="publictypes_8h.html#a03566528a98c079dafeebf00502f2b60ac0b3cd1b4592e1a3c609ff4273fb505b">PT_UNKNOWN</a>;  <span class="comment">// Already at the end!</span>
@@ -508,8 +518,10 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Returns the bounding rectangle of the current object at the given level. See comment on coordinate system above. Returns false if there is no such object at the current position. The returned bounding box is guaranteed to match the size and position of the image returned by GetBinaryImage, but may clip foreground pixels from a grey image. The padding argument to GetImage can be used to expand the image to include more foreground pixels. See GetImage below.</p>
+<p>Returns the bounding rectangle of the current object at the given level in coordinates of the original image. See comment on coordinate system above. Returns false if there is no such object at the current position. </p>
 
-<p>Definition at line <a class="el" href="pageiterator_8cpp_source.html#l00289">289</a> of file <a class="el" href="pageiterator_8cpp_source.html">pageiterator.cpp</a>.</p>
+<p>Definition at line <a class="el" href="pageiterator_8cpp_source.html#l00303">303</a> of file <a class="el" href="pageiterator_8cpp_source.html">pageiterator.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                              {
   <span class="keywordflow">if</span> (!<a class="code" href="classtesseract_1_1_page_iterator.html#a2351fffe02706e3cd35b97cb89e6242d">BoundingBoxInternal</a>(level, left, top, right, bottom))
     <span class="keywordflow">return</span> <span class="keyword">false</span>;
@@ -569,8 +581,10 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Returns the bounding rectangle of the object in a coordinate system of the working image rectangle having its origin at (rect_left_, rect_top_) with respect to the original image and is scaled by a factor scale_.</p>
+<p>Returns the bounding rectangle of the current object at the given level in the coordinates of the working image that is pix_binary(). See comment on coordinate system above. Returns false if there is no such object at the current position. </p>
 
-<p>Definition at line <a class="el" href="pageiterator_8cpp_source.html#l00234">234</a> of file <a class="el" href="pageiterator_8cpp_source.html">pageiterator.cpp</a>.</p>
+<p>Definition at line <a class="el" href="pageiterator_8cpp_source.html#l00246">246</a> of file <a class="el" href="pageiterator_8cpp_source.html">pageiterator.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                                      {
   <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_page_iterator.html#ae1d2f1725fabeafb6e235ccb482d47d6">Empty</a>(level))
     <span class="keywordflow">return</span> <span class="keyword">false</span>;
@@ -636,8 +650,9 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Returns whether this iterator is positioned before other: -1 equal to other: 0 after other: 1 </p>
 
-<p>Definition at line <a class="el" href="pageiterator_8cpp_source.html#l00206">206</a> of file <a class="el" href="pageiterator_8cpp_source.html">pageiterator.cpp</a>.</p>
+<p>Definition at line <a class="el" href="pageiterator_8cpp_source.html#l00216">216</a> of file <a class="el" href="pageiterator_8cpp_source.html">pageiterator.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                     {
   <span class="keywordtype">int</span> word_cmp = <a class="code" href="classtesseract_1_1_page_iterator.html#a42df7b8e352be1e5a140787109419f93">it_</a>-&gt;<a class="code" href="class_p_a_g_e___r_e_s___i_t.html#a87374b2bfcaf014d65ad37c91a34badd">cmp</a>(*other.it_);
   <span class="keywordflow">if</span> (word_cmp != 0)
@@ -665,8 +680,10 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Returns whether there is no object of a given level.</p>
+<p>Return that there is no such object at a given level. </p>
 
-<p>Definition at line <a class="el" href="pageiterator_8cpp_source.html#l00307">307</a> of file <a class="el" href="pageiterator_8cpp_source.html">pageiterator.cpp</a>.</p>
+<p>Definition at line <a class="el" href="pageiterator_8cpp_source.html#l00321">321</a> of file <a class="el" href="pageiterator_8cpp_source.html">pageiterator.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                      {
   <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_page_iterator.html#a42df7b8e352be1e5a140787109419f93">it_</a>-&gt;<a class="code" href="class_p_a_g_e___r_e_s___i_t.html#a8a349c5163802e1f127d5c88db044059">block</a>() == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) <span class="keywordflow">return</span> <span class="keyword">true</span>;  <span class="comment">// Already at the end!</span>
   <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_page_iterator.html#a42df7b8e352be1e5a140787109419f93">it_</a>-&gt;<a class="code" href="class_p_a_g_e___r_e_s___i_t.html#ab84b4850200ba8802791c6197c113fd0">word</a>() == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp; level != <a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7a2dcea8d4208c16055353029d26f9bf49">RIL_BLOCK</a>) <span class="keywordflow">return</span> <span class="keyword">true</span>;  <span class="comment">// image block</span>
@@ -691,8 +708,10 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Returns a binary image of the current object at the given level. The position and size match the return from BoundingBoxInternal, and so this could be upscaled with respect to the original input image. Use pixDestroy to delete the image after use.</p>
+<p>Returns a binary image of the current object at the given level. The position and size match the return from BoundingBoxInternal, and so this could be upscaled with respect to the original input image. Use pixDestroy to delete the image after use. The following methods are used to generate the images: RIL_BLOCK: mask the page image with the block polygon. RIL_TEXTLINE: Clip the rectangle of the line box from the page image. TODO(rays) fix this to generate and use a line polygon. RIL_WORD: Clip the rectangle of the word box from the page image. RIL_SYMBOL: Render the symbol outline to an image for cblobs (prior to recognition) or the bounding box otherwise. A reconstruction of the original image (using xor to check for double representation) should be reasonably accurate, apart from removed noise, at the block level. Below the block level, the reconstruction will be missing images and line separators. At the symbol level, kerned characters will be invade the bounding box if rendered after recognition, making an xor reconstruction inaccurate, but an or construction better. Before recognition, symbol-level reconstruction should be good, even with xor, since the images come from the connected components. </p>
 
-<p>Definition at line <a class="el" href="pageiterator_8cpp_source.html#l00344">344</a> of file <a class="el" href="pageiterator_8cpp_source.html">pageiterator.cpp</a>.</p>
+<p>Definition at line <a class="el" href="pageiterator_8cpp_source.html#l00360">360</a> of file <a class="el" href="pageiterator_8cpp_source.html">pageiterator.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                               {
   <span class="keywordtype">int</span> left, top, right, bottom;
   <span class="keywordflow">if</span> (!<a class="code" href="classtesseract_1_1_page_iterator.html#a2351fffe02706e3cd35b97cb89e6242d">BoundingBoxInternal</a>(level, &amp;left, &amp;top, &amp;right, &amp;bottom))
@@ -772,8 +791,9 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Returns an image of the current object at the given level in greyscale if available in the input. To guarantee a binary image use BinaryImage. NOTE that in order to give the best possible image, the bounds are expanded slightly over the binary connected component, by the supplied padding, so the top-left position of the returned image is returned in (left,top). These will most likely not match the coordinates returned by BoundingBox. Use pixDestroy to delete the image after use. </p>
 
-<p>Definition at line <a class="el" href="pageiterator_8cpp_source.html#l00393">393</a> of file <a class="el" href="pageiterator_8cpp_source.html">pageiterator.cpp</a>.</p>
+<p>Definition at line <a class="el" href="pageiterator_8cpp_source.html#l00411">411</a> of file <a class="el" href="pageiterator_8cpp_source.html">pageiterator.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                       {
   <span class="keywordtype">int</span> right, bottom;
   <span class="keywordflow">if</span> (!<a class="code" href="classtesseract_1_1_page_iterator.html#a38f6d7da2a9b9ef8983286383729fa73">BoundingBox</a>(level, left, top, &amp;right, &amp;bottom))
@@ -821,10 +841,13 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Returns true if the iterator is at the start of an object at the given level.</p>
+<p>For instance, suppose an iterator it is pointed to the first symbol of the first word of the third line of the second paragraph of the first block in a page, then: it.IsAtBeginningOf(RIL_BLOCK) = false it.IsAtBeginningOf(RIL_PARA) = false it.IsAtBeginningOf(RIL_TEXTLINE) = true it.IsAtBeginningOf(RIL_WORD) = true it.IsAtBeginningOf(RIL_SYMBOL) = true</p>
+<p>Returns true if the iterator is at the start of an object at the given level. Possible uses include determining if a call to Next(RIL_WORD) moved to the start of a RIL_PARA. </p>
 
 <p>Reimplemented in <a class="el" href="classtesseract_1_1_result_iterator.html#a983b601204f2fee0428213c4fca779e1">tesseract::ResultIterator</a>.</p>
 
-<p>Definition at line <a class="el" href="pageiterator_8cpp_source.html#l00160">160</a> of file <a class="el" href="pageiterator_8cpp_source.html">pageiterator.cpp</a>.</p>
+<p>Definition at line <a class="el" href="pageiterator_8cpp_source.html#l00166">166</a> of file <a class="el" href="pageiterator_8cpp_source.html">pageiterator.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                                {
   <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_page_iterator.html#a42df7b8e352be1e5a140787109419f93">it_</a>-&gt;<a class="code" href="class_p_a_g_e___r_e_s___i_t.html#a8a349c5163802e1f127d5c88db044059">block</a>() == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) <span class="keywordflow">return</span> <span class="keyword">false</span>;  <span class="comment">// Already at the end!</span>
   <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_page_iterator.html#a42df7b8e352be1e5a140787109419f93">it_</a>-&gt;<a class="code" href="class_p_a_g_e___r_e_s___i_t.html#ab84b4850200ba8802791c6197c113fd0">word</a>() == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) <span class="keywordflow">return</span> <span class="keyword">true</span>;  <span class="comment">// In an image block.</span>
@@ -871,10 +894,14 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Returns whether the iterator is positioned at the last element in a given level. (e.g. the last word in a line, the last line in a block)</p>
+<p>Here's some two-paragraph example text. It starts off innocuously enough but quickly turns bizarre. The author inserts a cornucopia of words to guard against confused references.</p>
+<p>Now take an iterator it pointed to the start of "bizarre." it.IsAtFinalElement(RIL_PARA, RIL_SYMBOL) = false it.IsAtFinalElement(RIL_PARA, RIL_WORD) = true it.IsAtFinalElement(RIL_BLOCK, RIL_WORD) = false</p>
+<p>Returns whether the iterator is positioned at the last element in a given level. (e.g. the last word in a line, the last line in a block) </p>
 
 <p>Reimplemented in <a class="el" href="classtesseract_1_1_result_iterator.html#a4ba47a7d01d3bc7f0fbf777605f8297d">tesseract::ResultIterator</a>.</p>
 
-<p>Definition at line <a class="el" href="pageiterator_8cpp_source.html#l00182">182</a> of file <a class="el" href="pageiterator_8cpp_source.html">pageiterator.cpp</a>.</p>
+<p>Definition at line <a class="el" href="pageiterator_8cpp_source.html#l00190">190</a> of file <a class="el" href="pageiterator_8cpp_source.html">pageiterator.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                                     {
   <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_page_iterator.html#ae1d2f1725fabeafb6e235ccb482d47d6">Empty</a>(element)) <span class="keywordflow">return</span> <span class="keyword">true</span>;  <span class="comment">// Already at the end!</span>
   <span class="comment">// The result is true if we step forward by element and find we are</span>
@@ -909,8 +936,9 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Return whether this iterator points anywhere in the first textline of a paragraph. </p>
 
-<p>Definition at line <a class="el" href="pageiterator_8cpp_source.html#l00102">102</a> of file <a class="el" href="pageiterator_8cpp_source.html">pageiterator.cpp</a>.</p>
+<p>Definition at line <a class="el" href="pageiterator_8cpp_source.html#l00104">104</a> of file <a class="el" href="pageiterator_8cpp_source.html">pageiterator.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                          {
   <a class="code" href="classtesseract_1_1_page_iterator.html#ad9f7980a1c4b008c90bb860d5aa82f48">PageIterator</a> p_start(*<span class="keyword">this</span>);
   p_start.RestartParagraph();
@@ -933,10 +961,12 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Moves to the start of the next object at the given level in the page hierarchy, and returns false if the end of the page was reached. NOTE that RIL_SYMBOL will skip non-text blocks, but all other PageIteratorLevel level values will visit each non-text block once. Think of non text blocks as containing a single para, with a single line, with a single imaginary word. Calls to Next with different levels may be freely intermixed. This function iterates words in right-to-left scripts correctly, if the appropriate language has been loaded into <a class="el" href="classtesseract_1_1_tesseract.html">Tesseract</a>.</p>
+<p>Moves to the start of the next object at the given level in the page hierarchy, and returns false if the end of the page was reached. NOTE (CHANGED!) that ALL PageIteratorLevel level values will visit each non-text block at least once. Think of non text blocks as containing a single para, with at least one line, with a single imaginary word, containing a single symbol. The bounding boxes mark out any polygonal nature of the block, and PTIsTextType(BLockType()) is false for non-text blocks. Calls to Next with different levels may be freely intermixed. This function iterates words in right-to-left scripts correctly, if the appropriate language has been loaded into <a class="el" href="classtesseract_1_1_tesseract.html">Tesseract</a>. </p>
 
 <p>Reimplemented in <a class="el" href="classtesseract_1_1_result_iterator.html#abd8987e2387f1945b53cf23f99b663e1">tesseract::ResultIterator</a>.</p>
 
-<p>Definition at line <a class="el" href="pageiterator_8cpp_source.html#l00124">124</a> of file <a class="el" href="pageiterator_8cpp_source.html">pageiterator.cpp</a>.</p>
+<p>Definition at line <a class="el" href="pageiterator_8cpp_source.html#l00128">128</a> of file <a class="el" href="pageiterator_8cpp_source.html">pageiterator.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                               {
   <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_page_iterator.html#a42df7b8e352be1e5a140787109419f93">it_</a>-&gt;<a class="code" href="class_p_a_g_e___r_e_s___i_t.html#a8a349c5163802e1f127d5c88db044059">block</a>() == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) <span class="keywordflow">return</span> <span class="keyword">false</span>;  <span class="comment">// Already at the end!</span>
   <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_page_iterator.html#a42df7b8e352be1e5a140787109419f93">it_</a>-&gt;<a class="code" href="class_p_a_g_e___r_e_s___i_t.html#ab84b4850200ba8802791c6197c113fd0">word</a>() == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
@@ -987,7 +1017,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="pageiterator_8cpp_source.html#l00061">61</a> of file <a class="el" href="pageiterator_8cpp_source.html">pageiterator.cpp</a>.</p>
+<p>Definition at line <a class="el" href="pageiterator_8cpp_source.html#l00063">63</a> of file <a class="el" href="pageiterator_8cpp_source.html">pageiterator.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                                   {
   <a class="code" href="classtesseract_1_1_page_iterator.html#a480fee3b9cf81df1745ab671c5f28788">page_res_</a> = src.page_res_;
   <a class="code" href="classtesseract_1_1_page_iterator.html#acca34c1adcf494eca7dfefe74258f991">tesseract_</a> = src.tesseract_;
@@ -1041,8 +1071,9 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Returns orientation for the block the iterator points to. orientation, writing_direction, textline_order: see <a class="el" href="publictypes_8h.html">publictypes.h</a> deskew_angle: after rotating the block so the text orientation is upright, how many radians does one have to rotate the block anti-clockwise for it to be level? -Pi/4 &lt;= deskew_angle &lt;= Pi/4 </p>
 
-<p>Definition at line <a class="el" href="pageiterator_8cpp_source.html#l00450">450</a> of file <a class="el" href="pageiterator_8cpp_source.html">pageiterator.cpp</a>.</p>
+<p>Definition at line <a class="el" href="pageiterator_8cpp_source.html#l00470">470</a> of file <a class="el" href="pageiterator_8cpp_source.html">pageiterator.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                          {
   <a class="code" href="class_b_l_o_c_k.html">BLOCK</a>* block = <a class="code" href="classtesseract_1_1_page_iterator.html#a42df7b8e352be1e5a140787109419f93">it_</a>-&gt;<a class="code" href="class_p_a_g_e___r_e_s___i_t.html#a8a349c5163802e1f127d5c88db044059">block</a>()-&gt;<a class="code" href="class_b_l_o_c_k___r_e_s.html#ae7c240d4878247ebdfe78433446751bf">block</a>;
 
@@ -1124,8 +1155,10 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Returns information about the current paragraph, if available.</p>
+<p>justification - LEFT if ragged right, or fully justified and script is left-to-right. RIGHT if ragged left, or fully justified and script is right-to-left. unknown if it looks like source code or we have very few lines. is_list_item - true if we believe this is a member of an ordered or unordered list. is_crown - true if the first line of the paragraph is aligned with the other lines of the paragraph even though subsequent paragraphs have first line indents. This typically indicates that this is the continuation of a previous paragraph or that it is the very first paragraph in the chapter. first_line_indent - For LEFT aligned paragraphs, the first text line of paragraphs of this kind are indented this many pixels from the left edge of the rest of the paragraph. for RIGHT aligned paragraphs, the first text line of paragraphs of this kind are indented this many pixels from the right edge of the rest of the paragraph. NOTE 1: This value may be negative. NOTE 2: if *is_crown == true, the first line of this paragraph is actually flush, and first_line_indent is set to the "common" first_line_indent for subsequent paragraphs in this block of text. </p>
 
-<p>Definition at line <a class="el" href="pageiterator_8cpp_source.html#l00496">496</a> of file <a class="el" href="pageiterator_8cpp_source.html">pageiterator.cpp</a>.</p>
+<p>Definition at line <a class="el" href="pageiterator_8cpp_source.html#l00516">516</a> of file <a class="el" href="pageiterator_8cpp_source.html">pageiterator.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                               {
   *just = <a class="code" href="namespacetesseract.html#a550970d1662b3ac5830c6a28dba676b1a90150303905fef6037adc10dc2aa3689">tesseract::JUSTIFICATION_UNKNOWN</a>;
   <span class="keywordflow">if</span> (!<a class="code" href="classtesseract_1_1_page_iterator.html#a42df7b8e352be1e5a140787109419f93">it_</a>-&gt;<a class="code" href="class_p_a_g_e___r_e_s___i_t.html#a312f58081e9410962396160eaf5f90e4">row</a>() || !<a class="code" href="classtesseract_1_1_page_iterator.html#a42df7b8e352be1e5a140787109419f93">it_</a>-&gt;<a class="code" href="class_p_a_g_e___r_e_s___i_t.html#a312f58081e9410962396160eaf5f90e4">row</a>()-&gt;<a class="code" href="class_r_o_w___r_e_s.html#ad3a856f3e9217c47b8f2f54cd3908721">row</a> || !<a class="code" href="classtesseract_1_1_page_iterator.html#a42df7b8e352be1e5a140787109419f93">it_</a>-&gt;<a class="code" href="class_p_a_g_e___r_e_s___i_t.html#a312f58081e9410962396160eaf5f90e4">row</a>()-&gt;<a class="code" href="class_r_o_w___r_e_s.html#ad3a856f3e9217c47b8f2f54cd3908721">row</a>-&gt;<a class="code" href="class_r_o_w.html#a161b418770dc61197a0ba418c35fc997">para</a>() ||
@@ -1155,8 +1188,9 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Are we positioned at the same location as other? </p>
 
-<p>Definition at line <a class="el" href="pageiterator_8cpp_source.html#l00076">76</a> of file <a class="el" href="pageiterator_8cpp_source.html">pageiterator.cpp</a>.</p>
+<p>Definition at line <a class="el" href="pageiterator_8cpp_source.html#l00078">78</a> of file <a class="el" href="pageiterator_8cpp_source.html">pageiterator.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                                      {
   <span class="keywordflow">return</span> (<a class="code" href="classtesseract_1_1_page_iterator.html#a42df7b8e352be1e5a140787109419f93">it_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp; <a class="code" href="classtesseract_1_1_page_iterator.html#a42df7b8e352be1e5a140787109419f93">it_</a> == other) ||
      ((other != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) &amp;&amp; (<a class="code" href="classtesseract_1_1_page_iterator.html#a42df7b8e352be1e5a140787109419f93">it_</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) &amp;&amp; (*<a class="code" href="classtesseract_1_1_page_iterator.html#a42df7b8e352be1e5a140787109419f93">it_</a> == *other));
@@ -1177,8 +1211,9 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Moves the iterator to the beginning of the paragraph. This class implements this functionality by moving it to the zero indexed blob of the first (leftmost) word on the first row of the paragraph. </p>
 
-<p>Definition at line <a class="el" href="pageiterator_8cpp_source.html#l00089">89</a> of file <a class="el" href="pageiterator_8cpp_source.html">pageiterator.cpp</a>.</p>
+<p>Definition at line <a class="el" href="pageiterator_8cpp_source.html#l00091">91</a> of file <a class="el" href="pageiterator_8cpp_source.html">pageiterator.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                    {
   <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_page_iterator.html#a42df7b8e352be1e5a140787109419f93">it_</a>-&gt;<a class="code" href="class_p_a_g_e___r_e_s___i_t.html#a8a349c5163802e1f127d5c88db044059">block</a>() == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) <span class="keywordflow">return</span>; <span class="comment">// At end of the document.</span>
   <a class="code" href="class_p_a_g_e___r_e_s___i_t.html">PAGE_RES_IT</a> para(<a class="code" href="classtesseract_1_1_page_iterator.html#a480fee3b9cf81df1745ab671c5f28788">page_res_</a>);
@@ -1207,8 +1242,9 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Moves the iterator to the beginning of the text line. This class implements this functionality by moving it to the zero indexed blob of the first (leftmost) word of the row. </p>
 
-<p>Definition at line <a class="el" href="pageiterator_8cpp_source.html#l00108">108</a> of file <a class="el" href="pageiterator_8cpp_source.html">pageiterator.cpp</a>.</p>
+<p>Definition at line <a class="el" href="pageiterator_8cpp_source.html#l00110">110</a> of file <a class="el" href="pageiterator_8cpp_source.html">pageiterator.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                              {
   <a class="code" href="classtesseract_1_1_page_iterator.html#a42df7b8e352be1e5a140787109419f93">it_</a>-&gt;<a class="code" href="class_p_a_g_e___r_e_s___i_t.html#aab3a618b819763e0a6b2bcc52990736d">restart_row</a>();
   <a class="code" href="classtesseract_1_1_page_iterator.html#a9075e98e75619ca5e1270a0a6eb2c352">BeginWord</a>(0);
@@ -1227,8 +1263,9 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>The current blob index within the word. </p>
 
-<p>Definition at line <a class="el" href="pageiterator_8h_source.html#l00263">263</a> of file <a class="el" href="pageiterator_8h_source.html">pageiterator.h</a>.</p>
+<p>Definition at line <a class="el" href="pageiterator_8h_source.html#l00309">309</a> of file <a class="el" href="pageiterator_8h_source.html">pageiterator.h</a>.</p>
 
 </div>
 </div>
@@ -1242,8 +1279,9 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Iterator to the blobs within the word. If NULL, then we are iterating OCR results in the box_word. Owned by this <a class="el" href="classtesseract_1_1_result_iterator.html">ResultIterator</a>. </p>
 
-<p>Definition at line <a class="el" href="pageiterator_8h_source.html#l00267">267</a> of file <a class="el" href="pageiterator_8h_source.html">pageiterator.h</a>.</p>
+<p>Definition at line <a class="el" href="pageiterator_8h_source.html#l00315">315</a> of file <a class="el" href="pageiterator_8h_source.html">pageiterator.h</a>.</p>
 
 </div>
 </div>
@@ -1257,8 +1295,9 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>The iterator to the page_res_. Owned by this <a class="el" href="classtesseract_1_1_result_iterator.html">ResultIterator</a>. A pointer just to avoid dragging in <a class="el" href="classtesseract_1_1_tesseract.html">Tesseract</a> includes. </p>
 
-<p>Definition at line <a class="el" href="pageiterator_8h_source.html#l00256">256</a> of file <a class="el" href="pageiterator_8h_source.html">pageiterator.h</a>.</p>
+<p>Definition at line <a class="el" href="pageiterator_8h_source.html#l00300">300</a> of file <a class="el" href="pageiterator_8h_source.html">pageiterator.h</a>.</p>
 
 </div>
 </div>
@@ -1272,8 +1311,9 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Pointer to the page_res owned by the API. </p>
 
-<p>Definition at line <a class="el" href="pageiterator_8h_source.html#l00251">251</a> of file <a class="el" href="pageiterator_8h_source.html">pageiterator.h</a>.</p>
+<p>Definition at line <a class="el" href="pageiterator_8h_source.html#l00293">293</a> of file <a class="el" href="pageiterator_8h_source.html">pageiterator.h</a>.</p>
 
 </div>
 </div>
@@ -1288,7 +1328,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="pageiterator_8h_source.html#l00274">274</a> of file <a class="el" href="pageiterator_8h_source.html">pageiterator.h</a>.</p>
+<p>Definition at line <a class="el" href="pageiterator_8h_source.html#l00322">322</a> of file <a class="el" href="pageiterator_8h_source.html">pageiterator.h</a>.</p>
 
 </div>
 </div>
@@ -1303,7 +1343,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="pageiterator_8h_source.html#l00271">271</a> of file <a class="el" href="pageiterator_8h_source.html">pageiterator.h</a>.</p>
+<p>Definition at line <a class="el" href="pageiterator_8h_source.html#l00319">319</a> of file <a class="el" href="pageiterator_8h_source.html">pageiterator.h</a>.</p>
 
 </div>
 </div>
@@ -1318,7 +1358,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="pageiterator_8h_source.html#l00272">272</a> of file <a class="el" href="pageiterator_8h_source.html">pageiterator.h</a>.</p>
+<p>Definition at line <a class="el" href="pageiterator_8h_source.html#l00320">320</a> of file <a class="el" href="pageiterator_8h_source.html">pageiterator.h</a>.</p>
 
 </div>
 </div>
@@ -1333,7 +1373,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="pageiterator_8h_source.html#l00273">273</a> of file <a class="el" href="pageiterator_8h_source.html">pageiterator.h</a>.</p>
+<p>Definition at line <a class="el" href="pageiterator_8h_source.html#l00321">321</a> of file <a class="el" href="pageiterator_8h_source.html">pageiterator.h</a>.</p>
 
 </div>
 </div>
@@ -1347,8 +1387,9 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Parameters saved from the Thresholder. Needed to rebuild coordinates. </p>
 
-<p>Definition at line <a class="el" href="pageiterator_8h_source.html#l00269">269</a> of file <a class="el" href="pageiterator_8h_source.html">pageiterator.h</a>.</p>
+<p>Definition at line <a class="el" href="pageiterator_8h_source.html#l00317">317</a> of file <a class="el" href="pageiterator_8h_source.html">pageiterator.h</a>.</p>
 
 </div>
 </div>
@@ -1363,7 +1404,7 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="pageiterator_8h_source.html#l00270">270</a> of file <a class="el" href="pageiterator_8h_source.html">pageiterator.h</a>.</p>
+<p>Definition at line <a class="el" href="pageiterator_8h_source.html#l00318">318</a> of file <a class="el" href="pageiterator_8h_source.html">pageiterator.h</a>.</p>
 
 </div>
 </div>
@@ -1377,8 +1418,9 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Pointer to the <a class="el" href="classtesseract_1_1_tesseract.html">Tesseract</a> object owned by the API. </p>
 
-<p>Definition at line <a class="el" href="pageiterator_8h_source.html#l00253">253</a> of file <a class="el" href="pageiterator_8h_source.html">pageiterator.h</a>.</p>
+<p>Definition at line <a class="el" href="pageiterator_8h_source.html#l00295">295</a> of file <a class="el" href="pageiterator_8h_source.html">pageiterator.h</a>.</p>
 
 </div>
 </div>
@@ -1392,8 +1434,9 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>The current input <a class="el" href="class_w_e_r_d.html">WERD</a> being iterated. If there is an output from OCR, then word_ is NULL. Owned by the API </p>
 
-<p>Definition at line <a class="el" href="pageiterator_8h_source.html#l00259">259</a> of file <a class="el" href="pageiterator_8h_source.html">pageiterator.h</a>.</p>
+<p>Definition at line <a class="el" href="pageiterator_8h_source.html#l00305">305</a> of file <a class="el" href="pageiterator_8h_source.html">pageiterator.h</a>.</p>
 
 </div>
 </div>
@@ -1407,8 +1450,9 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>The length of the current word_. </p>
 
-<p>Definition at line <a class="el" href="pageiterator_8h_source.html#l00261">261</a> of file <a class="el" href="pageiterator_8h_source.html">pageiterator.h</a>.</p>
+<p>Definition at line <a class="el" href="pageiterator_8h_source.html#l00307">307</a> of file <a class="el" href="pageiterator_8h_source.html">pageiterator.h</a>.</p>
 
 </div>
 </div>
@@ -1437,7 +1481,7 @@ Protected Attributes</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Fri Mar 30 2012 17:39:28 for Tesseract by
+    <li class="footer">Generated on Fri Mar 30 2012 23:21:48 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

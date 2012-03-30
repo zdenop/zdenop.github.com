@@ -160,8 +160,9 @@ Protected Member Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p><a class="el" href="classtesseract_1_1_result_iterator.html">ResultIterator</a> is copy constructible! The default copy constructor works just fine for us. </p>
 
-<p>Definition at line <a class="el" href="resultiterator_8h_source.html#l00043">43</a> of file <a class="el" href="resultiterator_8h_source.html">resultiterator.h</a>.</p>
+<p>Definition at line <a class="el" href="resultiterator_8h_source.html#l00045">45</a> of file <a class="el" href="resultiterator_8h_source.html">resultiterator.h</a>.</p>
 <div class="fragment"><pre class="fragment">{}
 </pre></div>
 </div>
@@ -180,6 +181,7 @@ Protected Member Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>We presume the data associated with the given iterator will outlive us. NB: This is private because it does something that is non-obvious: it resets to the beginning of the paragraph instead of staying wherever resit might have pointed. </p>
 
 <p>Definition at line <a class="el" href="resultiterator_8cpp_source.html#l00033">33</a> of file <a class="el" href="resultiterator_8cpp_source.html">resultiterator.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">    : <a class="code" href="classtesseract_1_1_l_t_r_result_iterator.html#a51a228fb5f12fca58db098ae9d9c9d5d">LTRResultIterator</a>(resit) {
@@ -205,6 +207,7 @@ Protected Member Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Moves the iterator to point to the start of the page to begin an iteration. </p>
 
 <p>Reimplemented from <a class="el" href="classtesseract_1_1_page_iterator.html#a5cc369eb577150a3a677f9c342ce1240">tesseract::PageIterator</a>.</p>
 
@@ -249,6 +252,9 @@ Protected Member Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Yields the reading order as a sequence of indices and (optional) meta-marks for a set of words (given left-to-right). The meta marks are passed as negative values: kMinorRunStart Start of minor direction text. kMinorRunEnd End of minor direction text. kComplexWord The next indexed word contains both left-to-right and right-to-left characters and was treated as neutral.</p>
+<p>For example, suppose we have five words in a text line, indexed [0,1,2,3,4] from the leftmost side of the text line. The following are all believable reading_orders:</p>
+<p>Left-to-Right (in ltr paragraph): { 0, 1, 2, 3, 4 } Left-to-Right (in rtl paragraph): { kMinorRunStart, 0, 1, 2, 3, 4, kMinorRunEnd } Right-to-Left (in rtl paragraph): { 4, 3, 2, 1, 0 } Left-to-Right except for an RTL phrase in words 2, 3 in an ltr paragraph: { 0, 1, kMinorRunStart, 3, 2, kMinorRunEnd, 4 } </p>
 
 <p>Definition at line <a class="el" href="resultiterator_8cpp_source.html#l00248">248</a> of file <a class="el" href="resultiterator_8cpp_source.html">resultiterator.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                           {
@@ -335,10 +341,11 @@ Protected Member Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Returns the null terminated UTF-8 encoded text string for the current object at the given level. Use delete [] to free after use. </p>
 
 <p>Reimplemented from <a class="el" href="classtesseract_1_1_l_t_r_result_iterator.html#a48717a8736c388b8f86d617dd4d1e3b6">tesseract::LTRResultIterator</a>.</p>
 
-<p>Definition at line <a class="el" href="resultiterator_8cpp_source.html#l00547">547</a> of file <a class="el" href="resultiterator_8cpp_source.html">resultiterator.cpp</a>.</p>
+<p>Definition at line <a class="el" href="resultiterator_8cpp_source.html#l00551">551</a> of file <a class="el" href="resultiterator_8cpp_source.html">resultiterator.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                               {
   <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_page_iterator.html#a42df7b8e352be1e5a140787109419f93">it_</a>-&gt;<a class="code" href="class_p_a_g_e___r_e_s___i_t.html#ab84b4850200ba8802791c6197c113fd0">word</a>() == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;  <span class="comment">// Already at the end!</span>
   <a class="code" href="class_s_t_r_i_n_g.html">STRING</a> text;
@@ -398,6 +405,7 @@ Protected Member Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p><a class="el" href="classtesseract_1_1_result_iterator.html#a983b601204f2fee0428213c4fca779e1">IsAtBeginningOf()</a> returns whether we're at the logical beginning of the given level. (as opposed to ResultIterator's left-to-right top-to-bottom order). Otherwise, this acts the same as <a class="el" href="classtesseract_1_1_page_iterator.html#ad822e0b706ebba5c8ea55505438b4dee">PageIterator::IsAtBeginningOf()</a>. For a full description, see <a class="el" href="pageiterator_8h.html">pageiterator.h</a> </p>
 
 <p>Reimplemented from <a class="el" href="classtesseract_1_1_page_iterator.html#ad822e0b706ebba5c8ea55505438b4dee">tesseract::PageIterator</a>.</p>
 
@@ -459,10 +467,12 @@ Protected Member Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Implement PageIterator's IsAtFinalElement correctly in a BiDi context. For instance, IsAtFinalElement(RIL_PARA, RIL_WORD) returns whether we point at the last word in a paragraph. See <a class="el" href="classtesseract_1_1_page_iterator.html">PageIterator</a> for full comment.</p>
+<p>NOTE! This is an exact copy of <a class="el" href="classtesseract_1_1_page_iterator.html#af9db4780e93dd192f7cee28f11476cce">PageIterator::IsAtFinalElement</a> with the change that the variable next is now a <a class="el" href="classtesseract_1_1_result_iterator.html">ResultIterator</a> instead of a <a class="el" href="classtesseract_1_1_page_iterator.html">PageIterator</a>. </p>
 
 <p>Reimplemented from <a class="el" href="classtesseract_1_1_page_iterator.html#af9db4780e93dd192f7cee28f11476cce">tesseract::PageIterator</a>.</p>
 
-<p>Definition at line <a class="el" href="resultiterator_8cpp_source.html#l00525">525</a> of file <a class="el" href="resultiterator_8cpp_source.html">resultiterator.cpp</a>.</p>
+<p>Definition at line <a class="el" href="resultiterator_8cpp_source.html#l00527">527</a> of file <a class="el" href="resultiterator_8cpp_source.html">resultiterator.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                                       {
   <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_page_iterator.html#ae1d2f1725fabeafb6e235ccb482d47d6">Empty</a>(element)) <span class="keywordflow">return</span> <span class="keyword">true</span>;  <span class="comment">// Already at the end!</span>
   <span class="comment">// The result is true if we step forward by element and find we are</span>
@@ -498,6 +508,7 @@ Protected Member Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Moves to the start of the next object at the given level in the page hierarchy in the appropriate reading order and returns false if the end of the page was reached. NOTE that RIL_SYMBOL will skip non-text blocks, but all other PageIteratorLevel level values will visit each non-text block once. Think of non text blocks as containing a single para, with a single line, with a single imaginary word. Calls to Next with different levels may be freely intermixed. This function iterates words in right-to-left scripts correctly, if the appropriate language has been loaded into <a class="el" href="classtesseract_1_1_tesseract.html">Tesseract</a>. </p>
 
 <p>Reimplemented from <a class="el" href="classtesseract_1_1_page_iterator.html#a415ea7c61e24868bc67e676184be0bb9">tesseract::PageIterator</a>.</p>
 
@@ -592,6 +603,7 @@ Protected Member Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Return whether the current paragraph's dominant reading direction is left-to-right (as opposed to right-to-left). </p>
 
 <p>Definition at line <a class="el" href="resultiterator_8cpp_source.html#l00046">46</a> of file <a class="el" href="resultiterator_8cpp_source.html">resultiterator.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                          {
@@ -634,7 +646,7 @@ Protected Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="resultiterator_8h_source.html#l00112">112</a> of file <a class="el" href="resultiterator_8h_source.html">resultiterator.h</a>.</p>
+<p>Definition at line <a class="el" href="resultiterator_8h_source.html#l00129">129</a> of file <a class="el" href="resultiterator_8h_source.html">resultiterator.h</a>.</p>
 
 </div>
 </div>
@@ -649,7 +661,7 @@ Protected Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="resultiterator_8h_source.html#l00111">111</a> of file <a class="el" href="resultiterator_8h_source.html">resultiterator.h</a>.</p>
+<p>Definition at line <a class="el" href="resultiterator_8h_source.html#l00128">128</a> of file <a class="el" href="resultiterator_8h_source.html">resultiterator.h</a>.</p>
 
 </div>
 </div>
@@ -664,7 +676,7 @@ Protected Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="resultiterator_8h_source.html#l00110">110</a> of file <a class="el" href="resultiterator_8h_source.html">resultiterator.h</a>.</p>
+<p>Definition at line <a class="el" href="resultiterator_8h_source.html#l00127">127</a> of file <a class="el" href="resultiterator_8h_source.html">resultiterator.h</a>.</p>
 
 </div>
 </div>
@@ -693,7 +705,7 @@ Protected Member Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Fri Mar 30 2012 17:39:28 for Tesseract by
+    <li class="footer">Generated on Fri Mar 30 2012 23:21:49 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

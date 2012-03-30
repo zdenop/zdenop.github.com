@@ -154,9 +154,10 @@ Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Adapt to recognize the current image as the given character. The image must be preloaded and be just an image of a single character. </p>
+<p>Adapt to recognize the current image as the given character. The image must be preloaded and be just an image of a single character.</p>
+<p>Adapt to recognize the current image as the given character. The image must be preloaded into pix_binary_ and be just an image of a single character. </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01779">1779</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01876">1876</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                   {
   <a class="code" href="unichar_8h.html#a8578b19fa1ff5ca75080db1a18ecc32e">UNICHAR_ID</a> <span class="keywordtype">id</span> = <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;unicharset.unichar_to_id(unichar_repr, length);
   <a class="code" href="struct_t_b_l_o_b.html">TBLOB</a> *blob = <a class="code" href="namespacetesseract.html#a920259f2171a834a4e379e8a6a8460c5">make_tesseract_blob</a>(<a class="code" href="mfoutline_8h.html#a2a4b69f9a2827dc98bc4cbc233118865a83297de004f4e58b9be2108c6cd08a23">baseline</a>, xheight, descender, ascender,
@@ -206,7 +207,7 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>After text is recognized, break each paragraph into blocks. </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01832">1832</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01929">1929</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                  {
   <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a06084d66b830a388515663761d842041">paragraph_models_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
     <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a06084d66b830a388515663761d842041">paragraph_models_</a> = <span class="keyword">new</span> <a class="code" href="class_generic_vector.html">GenericVector&lt;ParagraphModel*&gt;</a>;
@@ -235,7 +236,7 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="baseapi_8h_source.html#l00712">712</a> of file <a class="el" href="baseapi_8h_source.html">baseapi.h</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8h_source.html#l00751">751</a> of file <a class="el" href="baseapi_8h_source.html">baseapi.h</a>.</p>
 <div class="fragment"><pre class="fragment">                                                {
     <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a12dda612630eba40e15f9d0b9955a04c" title="The page-level data.">page_res_</a>;
   };
@@ -258,7 +259,7 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>Recognize text doing one pass only, using settings for a given pass. </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01816">1816</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01913">1913</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                              {
   <a class="code" href="class_p_a_g_e___r_e_s.html">PAGE_RES</a> *page_res = <span class="keyword">new</span> <a class="code" href="class_p_a_g_e___r_e_s.html">PAGE_RES</a>(block_list,
                                     &amp;(<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;prev_word_best_choice_));
@@ -293,7 +294,7 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01823">1823</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01920">1920</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                                {
   <span class="keywordflow">if</span> (!pass1_result)
     pass1_result = <span class="keyword">new</span> <a class="code" href="class_p_a_g_e___r_e_s.html">PAGE_RES</a>(block_list,
@@ -366,7 +367,7 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>Extract the OCR results, costs (penalty points for uncertainty), and the bounding boxes of the characters. </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01913">1913</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l02012">2012</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                            {
   TESS_CHAR_LIST tess_chars;
   TESS_CHAR_IT tess_chars_it(&amp;tess_chars);
@@ -426,7 +427,7 @@ Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Fri Mar 30 2012 17:39:22 for Tesseract by
+    <li class="footer">Generated on Fri Mar 30 2012 23:21:43 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

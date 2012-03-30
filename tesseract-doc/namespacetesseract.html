@@ -1674,6 +1674,8 @@ Variables</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>When Tesseract/Cube is initialized we can choose to instantiate/load/run only the <a class="el" href="classtesseract_1_1_tesseract.html">Tesseract</a> part, only the Cube part or both along with the combiner. The preference of which engine to use is stored in tessedit_ocr_engine_mode.</p>
+<p>ATTENTION: When modifying this enum, please make sure to make the appropriate changes to all the enums mirroring it (e.g. OCREngine in cityblock/workflow/detection/detection_storage.proto). Such enums will mention the connection to OcrEngineMode in the comments. </p>
 <dl><dt><b>Enumerator: </b></dt><dd><table border="0" cellspacing="2" cellpadding="0">
 <tr><td valign="top"><em><a class="anchor" id="a04550a0ed1279562027bf2fc92c421aeaea8028f61e76a0f4def7cbe7905206cf"></a><!-- doxytag: member="OEM_TESSERACT_ONLY" ref="a04550a0ed1279562027bf2fc92c421aeaea8028f61e76a0f4def7cbe7905206cf" args="" -->OEM_TESSERACT_ONLY</em>&nbsp;</td><td>
 </td></tr>
@@ -1687,7 +1689,7 @@ Variables</h2></td></tr>
 </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="publictypes_8h_source.html#l00216">216</a> of file <a class="el" href="publictypes_8h_source.html">publictypes.h</a>.</p>
+<p>Definition at line <a class="el" href="publictypes_8h_source.html#l00234">234</a> of file <a class="el" href="publictypes_8h_source.html">publictypes.h</a>.</p>
 <div class="fragment"><pre class="fragment">                   {
   <a class="code" href="namespacetesseract.html#a04550a0ed1279562027bf2fc92c421aeaea8028f61e76a0f4def7cbe7905206cf">OEM_TESSERACT_ONLY</a>,           <span class="comment">// Run Tesseract only - fastest</span>
   <a class="code" href="namespacetesseract.html#a04550a0ed1279562027bf2fc92c421aea4de4c2ca439ebe56d793719da1a6b14a">OEM_CUBE_ONLY</a>,                <span class="comment">// Run Cube only - better accuracy, but slower</span>
@@ -1713,6 +1715,10 @@ Variables</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>+------------------+ Orientation Example: | 1 Aaaa Aaaa Aaaa | ==================== | Aaa aa aaa aa | To left is a diagram of some (1) English and | aaaaaa A aa aaa. | (2) Chinese text and a (3) photo credit. | 2 | | ####### c c C | Upright Latin characters are represented as A and a. | ####### c c c | '&lt;' represents a latin character rotated | &lt; ####### c c c | anti-clockwise 90 degrees. | &lt; ####### c c | | &lt; ####### . c | Upright Chinese characters are represented C and c. | 3 ####### c | +------------------+ NOTA BENE: enum values here should match goodoc.proto</p>
+<p>If you orient your head so that "up" aligns with Orientation, then the characters will appear "right side up" and readable.</p>
+<p>In the example above, both the English and Chinese paragraphs are oriented so their "up" is the top of the page (page up). The photo credit is read with one's head turned leftward ("up" is to page left).</p>
+<p>The values of this enum match the convention of Tesseract's <a class="el" href="osdetect_8h.html">osdetect.h</a> </p>
 <dl><dt><b>Enumerator: </b></dt><dd><table border="0" cellspacing="2" cellpadding="0">
 <tr><td valign="top"><em><a class="anchor" id="a76ce0248fd3ba576ca053e9bb82e492fa6e5beda212ea9e59ce8aad91ac47f248"></a><!-- doxytag: member="ORIENTATION_PAGE_UP" ref="a76ce0248fd3ba576ca053e9bb82e492fa6e5beda212ea9e59ce8aad91ac47f248" args="" -->ORIENTATION_PAGE_UP</em>&nbsp;</td><td>
 </td></tr>
@@ -1726,7 +1732,7 @@ Variables</h2></td></tr>
 </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="publictypes_8h_source.html#l00100">100</a> of file <a class="el" href="publictypes_8h_source.html">publictypes.h</a>.</p>
+<p>Definition at line <a class="el" href="publictypes_8h_source.html#l00104">104</a> of file <a class="el" href="publictypes_8h_source.html">publictypes.h</a>.</p>
 <div class="fragment"><pre class="fragment">                 {
   <a class="code" href="namespacetesseract.html#a76ce0248fd3ba576ca053e9bb82e492fa6e5beda212ea9e59ce8aad91ac47f248">ORIENTATION_PAGE_UP</a> = 0,
   <a class="code" href="namespacetesseract.html#a76ce0248fd3ba576ca053e9bb82e492fad8849c28e9fc9e0850a7645d285ae576">ORIENTATION_PAGE_RIGHT</a> = 1,
@@ -1746,6 +1752,7 @@ Variables</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>enum of the elements of the page hierarchy, used in <a class="el" href="classtesseract_1_1_result_iterator.html">ResultIterator</a> to provide functions that operate on each level without having to have 5x as many functions. </p>
 <dl><dt><b>Enumerator: </b></dt><dd><table border="0" cellspacing="2" cellpadding="0">
 <tr><td valign="top"><em><a class="anchor" id="aa26c22b65cc9765a0e747120f4287fd7a2dcea8d4208c16055353029d26f9bf49"></a><!-- doxytag: member="RIL_BLOCK" ref="aa26c22b65cc9765a0e747120f4287fd7a2dcea8d4208c16055353029d26f9bf49" args="" -->RIL_BLOCK</em>&nbsp;</td><td>
 </td></tr>
@@ -1761,7 +1768,7 @@ Variables</h2></td></tr>
 </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="publictypes_8h_source.html#l00171">171</a> of file <a class="el" href="publictypes_8h_source.html">publictypes.h</a>.</p>
+<p>Definition at line <a class="el" href="publictypes_8h_source.html#l00185">185</a> of file <a class="el" href="publictypes_8h_source.html">publictypes.h</a>.</p>
 <div class="fragment"><pre class="fragment">                       {
   <a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7a2dcea8d4208c16055353029d26f9bf49">RIL_BLOCK</a>,     <span class="comment">// Block of text/image/separator line.</span>
   <a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7a3e63980691bf64801c704f59bd795bd9">RIL_PARA</a>,      <span class="comment">// Paragraph within a block.</span>
@@ -1782,6 +1789,7 @@ Variables</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Possible modes for page layout analysis. These *must* be kept in order of decreasing amount of layout analysis to be done, except for OSD_ONLY, so that the inequality test macros below work. </p>
 <dl><dt><b>Enumerator: </b></dt><dd><table border="0" cellspacing="2" cellpadding="0">
 <tr><td valign="top"><em><a class="anchor" id="a338d4c8b5d497b5ec3e6e4269d8ac66aa319d6168eaa4b2002ac84c0558ba947d"></a><!-- doxytag: member="PSM_OSD_ONLY" ref="a338d4c8b5d497b5ec3e6e4269d8ac66aa319d6168eaa4b2002ac84c0558ba947d" args="" -->PSM_OSD_ONLY</em>&nbsp;</td><td>
 <p>Orientation and script detection only. </p>
@@ -1823,7 +1831,7 @@ Variables</h2></td></tr>
 </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="publictypes_8h_source.html#l00137">137</a> of file <a class="el" href="publictypes_8h_source.html">publictypes.h</a>.</p>
+<p>Definition at line <a class="el" href="publictypes_8h_source.html#l00147">147</a> of file <a class="el" href="publictypes_8h_source.html">publictypes.h</a>.</p>
 <div class="fragment"><pre class="fragment">                 {
   <a class="code" href="namespacetesseract.html#a338d4c8b5d497b5ec3e6e4269d8ac66aa319d6168eaa4b2002ac84c0558ba947d" title="Orientation and script detection only.">PSM_OSD_ONLY</a>,       
   <a class="code" href="namespacetesseract.html#a338d4c8b5d497b5ec3e6e4269d8ac66aa1f0a7b4dbb495bc92c36847c555a706b">PSM_AUTO_OSD</a>,       
@@ -1854,6 +1862,12 @@ Variables</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>JUSTIFICATION_UNKNONW The alignment is not clearly one of the other options. This could happen for example if there are only one or two lines of text or the text looks like source code or poetry.</p>
+<p>NOTA BENE: Fully justified paragraphs (text aligned to both left and right margins) are marked by <a class="el" href="classtesseract_1_1_tesseract.html">Tesseract</a> with JUSTIFICATION_LEFT if their text is written with a left-to-right script and with JUSTIFICATION_RIGHT if their text is written in a right-to-left script.</p>
+<p>Interpretation for text read in vertical lines: "Left" is wherever the starting reading position is.</p>
+<p>JUSTIFICATION_LEFT Each line, except possibly the first, is flush to the same left tab stop.</p>
+<p>JUSTIFICATION_CENTER The text lines of the paragraph are centered about a line going down through their middle of the text lines.</p>
+<p>JUSTIFICATION_RIGHT Each line, except possibly the first, is flush to the same right tab stop. </p>
 <dl><dt><b>Enumerator: </b></dt><dd><table border="0" cellspacing="2" cellpadding="0">
 <tr><td valign="top"><em><a class="anchor" id="a550970d1662b3ac5830c6a28dba676b1a90150303905fef6037adc10dc2aa3689"></a><!-- doxytag: member="JUSTIFICATION_UNKNOWN" ref="a550970d1662b3ac5830c6a28dba676b1a90150303905fef6037adc10dc2aa3689" args="" -->JUSTIFICATION_UNKNOWN</em>&nbsp;</td><td>
 </td></tr>
@@ -1867,7 +1881,7 @@ Variables</h2></td></tr>
 </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="publictypes_8h_source.html#l00201">201</a> of file <a class="el" href="publictypes_8h_source.html">publictypes.h</a>.</p>
+<p>Definition at line <a class="el" href="publictypes_8h_source.html#l00217">217</a> of file <a class="el" href="publictypes_8h_source.html">publictypes.h</a>.</p>
 <div class="fragment"><pre class="fragment">                            {
   <a class="code" href="namespacetesseract.html#a550970d1662b3ac5830c6a28dba676b1a90150303905fef6037adc10dc2aa3689">JUSTIFICATION_UNKNOWN</a>,
   <a class="code" href="namespacetesseract.html#a550970d1662b3ac5830c6a28dba676b1a0141f695e0959de2dc43e0eb94023ff6">JUSTIFICATION_LEFT</a>,
@@ -2151,6 +2165,9 @@ Variables</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>The text lines are read in the given sequence.</p>
+<p>In English, the order is top-to-bottom. In Chinese, vertical text lines are read right-to-left. Mongolian is written in vertical columns top to bottom like Chinese, but the lines order left-to right.</p>
+<p>Note that only some combinations make sense. For example, WRITING_DIRECTION_LEFT_TO_RIGHT implies TEXTLINE_ORDER_TOP_TO_BOTTOM </p>
 <dl><dt><b>Enumerator: </b></dt><dd><table border="0" cellspacing="2" cellpadding="0">
 <tr><td valign="top"><em><a class="anchor" id="a28b14f9ab9d686fb45e130abc15c1781a53344bdc7b64779b811381a96b55ae7a"></a><!-- doxytag: member="TEXTLINE_ORDER_LEFT_TO_RIGHT" ref="a28b14f9ab9d686fb45e130abc15c1781a53344bdc7b64779b811381a96b55ae7a" args="" -->TEXTLINE_ORDER_LEFT_TO_RIGHT</em>&nbsp;</td><td>
 </td></tr>
@@ -2162,7 +2179,7 @@ Variables</h2></td></tr>
 </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="publictypes_8h_source.html#l00128">128</a> of file <a class="el" href="publictypes_8h_source.html">publictypes.h</a>.</p>
+<p>Definition at line <a class="el" href="publictypes_8h_source.html#l00136">136</a> of file <a class="el" href="publictypes_8h_source.html">publictypes.h</a>.</p>
 <div class="fragment"><pre class="fragment">                   {
   <a class="code" href="namespacetesseract.html#a28b14f9ab9d686fb45e130abc15c1781a53344bdc7b64779b811381a96b55ae7a">TEXTLINE_ORDER_LEFT_TO_RIGHT</a> = 0,
   <a class="code" href="namespacetesseract.html#a28b14f9ab9d686fb45e130abc15c1781ac45389026475922de984d60559fe5594">TEXTLINE_ORDER_RIGHT_TO_LEFT</a> = 1,
@@ -2181,6 +2198,8 @@ Variables</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>The grapheme clusters within a line of text are laid out logically in this direction, judged when looking at the text line rotated so that its Orientation is "page up".</p>
+<p>For English text, the writing direction is left-to-right. For the Chinese text in the above example, the writing direction is top-to-bottom. </p>
 <dl><dt><b>Enumerator: </b></dt><dd><table border="0" cellspacing="2" cellpadding="0">
 <tr><td valign="top"><em><a class="anchor" id="acac5bfbc6e9f8ca26f42ea3bad95d84ea525638f610d97a0064cef8e3d25da586"></a><!-- doxytag: member="WRITING_DIRECTION_LEFT_TO_RIGHT" ref="acac5bfbc6e9f8ca26f42ea3bad95d84ea525638f610d97a0064cef8e3d25da586" args="" -->WRITING_DIRECTION_LEFT_TO_RIGHT</em>&nbsp;</td><td>
 </td></tr>
@@ -2192,7 +2211,7 @@ Variables</h2></td></tr>
 </dd>
 </dl>
 
-<p>Definition at line <a class="el" href="publictypes_8h_source.html#l00113">113</a> of file <a class="el" href="publictypes_8h_source.html">publictypes.h</a>.</p>
+<p>Definition at line <a class="el" href="publictypes_8h_source.html#l00119">119</a> of file <a class="el" href="publictypes_8h_source.html">publictypes.h</a>.</p>
 <div class="fragment"><pre class="fragment">                      {
   <a class="code" href="namespacetesseract.html#acac5bfbc6e9f8ca26f42ea3bad95d84ea525638f610d97a0064cef8e3d25da586">WRITING_DIRECTION_LEFT_TO_RIGHT</a> = 0,
   <a class="code" href="namespacetesseract.html#acac5bfbc6e9f8ca26f42ea3bad95d84ea876dcb2db2ae5333ff02decbe5628b24">WRITING_DIRECTION_RIGHT_TO_LEFT</a> = 1,
@@ -2896,8 +2915,9 @@ template&lt;typename T &gt; </div>
       </table>
 </div>
 <div class="memdoc">
+<p>Placeholder for call to Cube and test that the input data is correct. reskew is the direction of baselines in the skewed image in normalized (cos theta, sin theta) form, so (0.866, 0.5) would represent a 30 degree anticlockwise skew. </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00533">533</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00580">580</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                    {
   <span class="keywordtype">int</span> block_count = boxaGetCount(boxa_blocks);
   <a class="code" href="errcode_8h.html#a93a603f4063a6b9403d81caa245a583b">ASSERT_HOST</a>(block_count == pixaGetCount(pixa_blocks));
@@ -5379,8 +5399,9 @@ template&lt;typename T &gt; </div>
       </table>
 </div>
 <div class="memdoc">
+<p>Return a <a class="el" href="struct_t_b_l_o_b.html">TBLOB</a> * from the whole pix. To be freed later with delete. </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01762">1762</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01858">1858</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                        {
   <a class="code" href="struct_t_b_l_o_b.html">TBLOB</a> *tblob = TessBaseAPI::MakeTBLOB(pix);
 
@@ -7879,8 +7900,9 @@ template&lt;class BBC &gt; </div>
       </table>
 </div>
 <div class="memdoc">
+<p>Max bytes in the decimal representation of inT64. </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01056">1056</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01121">1121</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 
 </div>
 </div>
@@ -7894,8 +7916,9 @@ template&lt;class BBC &gt; </div>
       </table>
 </div>
 <div class="memdoc">
+<p>Multiplier for max expected textlength assumes (kBytesPerNumber + space) * kNumbersPerBlob plus the newline. Add to this the original UTF8 characters, and one kMaxBytesPerLine for safety. </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01053">1053</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01118">1118</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 
 </div>
 </div>
@@ -7910,7 +7933,7 @@ template&lt;class BBC &gt; </div>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01054">1054</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01119">1119</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 
 </div>
 </div>
@@ -7924,8 +7947,9 @@ template&lt;class BBC &gt; </div>
       </table>
 </div>
 <div class="memdoc">
+<p>The number of bytes taken by each number. Since we use inT16 for <a class="el" href="class_i_c_o_o_r_d.html" title="integer coordinate">ICOORD</a>, assume only 5 digits max. </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01049">1049</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01112">1112</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 
 </div>
 </div>
@@ -8441,8 +8465,9 @@ template&lt;class BBC &gt; </div>
       </table>
 </div>
 <div class="memdoc">
+<p>Filename used for input image file, from which to derive a name to search for a possible UNLV zone file, if none is specified by SetInputName. </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00076">76</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00078">78</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 
 </div>
 </div>
@@ -8489,8 +8514,9 @@ template&lt;class BBC &gt; </div>
 <b>Initial value:</b><div class="fragment"><pre class="fragment"> {
   0x00a2, 0x0022, 0x0022, 0x0027, 0x0027, 0x00b7, 0x002d, 0
 }
-</pre></div>
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01110">1110</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+</pre></div><p>Latin chars corresponding to the unicode chars above. </p>
+
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01181">1181</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 
 </div>
 </div>
@@ -8853,8 +8879,9 @@ template&lt;class BBC &gt; </div>
 <div class="memdoc">
 <b>Initial value:</b><div class="fragment"><pre class="fragment"> <a class="code" href="namespacetesseract.html#aa46d9454c58be9a34a7a91737d553900">kNumbersPerBlob</a> * (<a class="code" href="namespacetesseract.html#a6007ea2fe11067865156fb804c36079e">kBytesPer64BitNumber</a> + 1) + 1 +
     <a class="code" href="unichar_8h.html#a902bc40c9d89802bc063afe30ce9e708">UNICHAR_LEN</a>
-</pre></div>
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01061">1061</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+</pre></div><p>A maximal single box could occupy kNumbersPerBlob numbers at kBytesPer64BitNumber digits (if someone sneaks in a 64 bit value) and a space plus the newline and the maximum length of a <a class="el" href="class_u_n_i_c_h_a_r.html">UNICHAR</a>. Test against this on each iteration for safety. </p>
+
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01128">1128</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 
 </div>
 </div>
@@ -8958,8 +8985,9 @@ template&lt;class BBC &gt; </div>
       </table>
 </div>
 <div class="memdoc">
+<p>Maximum believable resolution. </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00085">85</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00089">89</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 
 </div>
 </div>
@@ -9108,8 +9136,9 @@ template&lt;class BBC &gt; </div>
       </table>
 </div>
 <div class="memdoc">
+<p>Max string length of an int. </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00080">80</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00082">82</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 
 </div>
 </div>
@@ -9755,8 +9784,9 @@ template&lt;class BBC &gt; </div>
 <div class="memdoc">
 
 <p>Minimum believable resolution. </p>
+<p>Minimum believable resolution. Used as a default if there is no other information, as it is safer to under-estimate than over-estimate. </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00083">83</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00087">87</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 
 </div>
 </div>
@@ -10117,6 +10147,7 @@ template&lt;class BBC &gt; </div>
       </table>
 </div>
 <div class="memdoc">
+<p>Minimum sensible image size to be worth running tesseract. </p>
 
 <p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00067">67</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 
@@ -10297,8 +10328,9 @@ template&lt;class BBC &gt; </div>
       </table>
 </div>
 <div class="memdoc">
+<p>The 5 numbers output for each box (the usual 4 and a page number.) </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01046">1046</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01107">1107</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 
 </div>
 </div>
@@ -10342,8 +10374,9 @@ template&lt;class BBC &gt; </div>
       </table>
 </div>
 <div class="memdoc">
+<p>Temp file used for storing current parameters before applying retry values. </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00078">78</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00080">80</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 
 </div>
 </div>
@@ -10944,6 +10977,7 @@ template&lt;class BBC &gt; </div>
       </table>
 </div>
 <div class="memdoc">
+<p>Character returned when <a class="el" href="classtesseract_1_1_tesseract.html">Tesseract</a> couldn't recognize as anything. </p>
 
 <p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00069">69</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 
@@ -11054,8 +11088,9 @@ template&lt;class BBC &gt; </div>
 <b>Initial value:</b><div class="fragment"><pre class="fragment"> {
   0x20ac, 0x201c, 0x201d, 0x2018, 0x2019, 0x2022, 0x2014, 0
 }
-</pre></div>
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01106">1106</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+</pre></div><p>Conversion table for non-latin characters. Maps characters out of the latin set into the latin set. TODO(rays) incorporate this translation into unicharset. </p>
+
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01177">1177</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 
 </div>
 </div>
@@ -11069,6 +11104,7 @@ template&lt;class BBC &gt; </div>
       </table>
 </div>
 <div class="memdoc">
+<p>Character used by UNLV error counter as a reject. </p>
 
 <p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00071">71</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 
@@ -11084,6 +11120,7 @@ template&lt;class BBC &gt; </div>
       </table>
 </div>
 <div class="memdoc">
+<p>Character used by UNLV as a suspect marker. </p>
 
 <p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00073">73</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 
@@ -11618,7 +11655,7 @@ template&lt;class BBC &gt; </div>
 </div>
 
 
-    <li class="footer">Generated on Fri Mar 30 2012 17:39:27 for Tesseract by
+    <li class="footer">Generated on Fri Mar 30 2012 23:21:48 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>

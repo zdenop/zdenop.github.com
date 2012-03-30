@@ -181,7 +181,7 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>Applies the given word to the adaptive classifier if possible. The word must be SPACE-DELIMITED UTF-8 - l i k e t h i s , so it can tell the boundaries of the graphemes. Assumes that SetImage/SetRectangle have been used to set the image to the given word. The mode arg should be PSM_SINGLE_WORD or PSM_CIRCLE_WORD, as that will be used to control layout analysis. The currently set PageSegMode is preserved. Returns false if adaption was not possible for some reason. </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01265">1265</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01338">1338</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                                      {
   <span class="keywordtype">int</span> debug = 0;
   <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a5923cccbe20988f0f99072844d1af573">GetIntVariable</a>(<span class="stringliteral">&quot;applybox_debug&quot;</span>, &amp;debug);
@@ -255,9 +255,10 @@ Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Returns all word confidences (between 0 and 100) in an array, terminated by -1. The calling function must delete [] after use. The number of confidences should correspond to the number of space- delimited words in GetUTF8Text. </p>
+<p>Returns all word confidences (between 0 and 100) in an array, terminated by -1. The calling function must delete [] after use. The number of confidences should correspond to the number of space- delimited words in GetUTF8Text.</p>
+<p>Returns an array of all word confidences, terminated by -1. </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01231">1231</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01304">1304</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                     {
   <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> ||
       (!<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a7d4627f300b1096d43a3e7d54d8aa5df" title="page_res_ contains recognition data.">recognition_done_</a> &amp;&amp; <a class="code" href="group___advanced_a_p_i.html#ga0e4065c20b142d69a2324ee0c74ae0b0">Recognize</a>(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) &lt; 0))
@@ -297,8 +298,10 @@ Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Runs page layout analysis in the mode set by SetPageSegMode. May optionally be called prior to Recognize to get access to just the page layout results. Returns an iterator to the results. Returns NULL on error. The returned iterator must be deleted after use. WARNING! This class points to data held within the <a class="el" href="classtesseract_1_1_tess_base_a_p_i.html">TessBaseAPI</a> class, and therefore can only be used while the <a class="el" href="classtesseract_1_1_tess_base_a_p_i.html">TessBaseAPI</a> class still exists and has not been subjected to a call of Init, SetImage, Recognize, Clear, End DetectOS, or anything else that changes the internal <a class="el" href="class_p_a_g_e___r_e_s.html">PAGE_RES</a>.</p>
+<p>Runs page layout analysis in the mode set by SetPageSegMode. May optionally be called prior to Recognize to get access to just the page layout results. Returns an iterator to the results. Returns NULL on error or an empty page. The returned iterator must be deleted after use. WARNING! This class points to data held within the <a class="el" href="classtesseract_1_1_tess_base_a_p_i.html">TessBaseAPI</a> class, and therefore can only be used while the <a class="el" href="classtesseract_1_1_tess_base_a_p_i.html">TessBaseAPI</a> class still exists and has not been subjected to a call of Init, SetImage, Recognize, Clear, End DetectOS, or anything else that changes the internal <a class="el" href="class_p_a_g_e___r_e_s.html">PAGE_RES</a>. </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00581">581</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00630">630</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                         {
   <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a86899716a1adde396be4efd57b547d27">FindLines</a>() == 0) {
     <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#ac22c36258b0cd727188505a9a1dbc7e1" title="The page layout.">block_list_</a>-&gt;empty())
@@ -329,7 +332,7 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>Free up recognition results and any stored image data, without actually freeing any recognition data that would be time-consuming to reload. Afterwards, you must call SetImage or TesseractRect before doing any Recognize or Get* operation. </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01327">1327</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01402">1402</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                        {
   <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a9d93e1d92ca230ae02b81d44bc88a55c" title="Image thresholding module.">thresholder_</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
     <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a9d93e1d92ca230ae02b81d44bc88a55c" title="Image thresholding module.">thresholder_</a>-&gt;Clear();
@@ -354,7 +357,7 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>Delete a block list. This is to keep BLOCK_LIST pointer opaque and let go of including the other headers. </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01695">1695</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01787">1787</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                        {
   <span class="keyword">delete</span> block_list;
 }
@@ -376,9 +379,10 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>Estimates the Orientation And Script of the image. </p>
-<dl class="return"><dt><b>Returns:</b></dt><dd>true if the image was processed successfully. </dd></dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>true if the image was processed successfully.</dd></dl>
+<p>Estimates the Orientation And Script of the image. Returns true if the image was processed successfully. </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01610">1610</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01698">1698</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                         {
   <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
     <span class="keywordflow">return</span> <span class="keyword">false</span>;
@@ -408,8 +412,9 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>Dump the internal binary image to a PGM file. </p>
 <dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000001">Deprecated:</a></b></dt><dd>Use GetThresholdedImage and write the image using pixWrite instead if possible. </dd></dl>
+<p>Dump the internal binary image to a PGM file. </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00511">511</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00556">556</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                              {
   <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
     <span class="keywordflow">return</span>;
@@ -445,7 +450,7 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>Close down tesseract and free up all memory. <a class="el" href="group___advanced_a_p_i.html#ga38027513ee9c0348de1790bddcdc3391">End()</a> is equivalent to destructing and reconstructing your <a class="el" href="classtesseract_1_1_tess_base_a_p_i.html">TessBaseAPI</a>. Once <a class="el" href="group___advanced_a_p_i.html#ga38027513ee9c0348de1790bddcdc3391">End()</a> has been used, none of the other API functions may be used other than Init and anything declared above it in the class definition. </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01337">1337</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01414">1414</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                      {
   <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a9d93e1d92ca230ae02b81d44bc88a55c" title="Image thresholding module.">thresholder_</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
     <span class="keyword">delete</span> <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a9d93e1d92ca230ae02b81d44bc88a55c" title="Image thresholding module.">thresholder_</a>;
@@ -513,7 +518,7 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>Find lines from the image making the BLOCK_LIST. </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01685">1685</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01775">1775</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                  {
   <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a86899716a1adde396be4efd57b547d27">FindLines</a>();
   BLOCK_LIST* result = <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#ac22c36258b0cd727188505a9a1dbc7e1" title="The page layout.">block_list_</a>;
@@ -565,8 +570,9 @@ Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>This method returns the row to which a box of specified dimensions would belong. If no good match is found, it returns NULL. </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01976">1976</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l02077">2077</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                                          {
   <a class="code" href="class_t_b_o_x.html">TBOX</a> box(left, bottom, right, <a class="code" href="structarray__record.html#ac669bc877615327b853410a841f48f4b">top</a>);
   BLOCK_IT b_it(blocks);
@@ -616,8 +622,12 @@ Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Return text orientation of each block as determined by an earlier run of layout analysis.</p>
+<p>Return text orientation of each block as determined in an earlier page layout analysis operation. Orientation is returned as the number of ccw 90-degree rotations (in [0..3]) required to make the text in the block upright (readable). Note that this may not necessary be the block orientation preferred for recognition (such as the case of vertical CJK text).</p>
+<p>Also returns whether the text in the block is believed to have vertical writing direction (when in an upright page orientation).</p>
+<p>The returned array is of length equal to the number of text blocks, which may be less than the total number of blocks. The ordering is intended to be consistent with GetTextLines(). </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01637">1637</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01727">1727</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                                    {
   <span class="keyword">delete</span>[] *block_orientation;
   *block_orientation = <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
@@ -677,9 +687,10 @@ Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>The recognized text is returned as a char* which is coded in the same format as a box file used in training. Returned string must be freed with the delete [] operator. Constructs coordinates in the original image - not just the rectangle. page_number is a 0-based page index that will appear in the box file. </p>
+<p>The recognized text is returned as a char* which is coded in the same format as a box file used in training. Returned string must be freed with the delete [] operator. Constructs coordinates in the original image - not just the rectangle. page_number is a 0-based page index that will appear in the box file.</p>
+<p>The recognized text is returned as a char* which is coded as a UTF8 box file and must be freed with the delete [] operator. page_number is a 0-base page index that will appear in the box file. </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01067">1067</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01136">1136</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                             {
   <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> ||
       (!<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a7d4627f300b1096d43a3e7d54d8aa5df" title="page_res_ contains recognition data.">recognition_done_</a> &amp;&amp; <a class="code" href="group___advanced_a_p_i.html#ga0e4065c20b142d69a2324ee0c74ae0b0">Recognize</a>(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) &lt; 0))
@@ -754,8 +765,9 @@ Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Get the given level kind of components (block, textline, word etc.) as a leptonica-style Boxa, Pixa pair, in reading order. Can be called before or after Recognize. If blockids is not NULL, the block-id of each component is also returned as an array of one element per component. delete [] after use. If text_only is true, then only text components are returned. </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00454">454</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00499">499</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                                   {
   PageIterator* page_it = <a class="code" href="group___advanced_a_p_i.html#ga52eee8b9a4f147c26e4b64c16b46bc04">GetIterator</a>();
   <span class="keywordflow">if</span> (page_it == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
@@ -813,14 +825,16 @@ Functions</h2></td></tr>
           <td class="memname">Boxa * tesseract::TessBaseAPI::GetConnectedComponents </td>
           <td>(</td>
           <td class="paramtype">Pixa **&#160;</td>
-          <td class="paramname"><em>cc</em></td><td>)</td>
+          <td class="paramname"><em>pixa</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Gets the individual connected (text) components (created after pages segmentation step, but before recognition) as a leptonica-style Boxa, Pixa pair, in reading order. Can be called before or after Recognize. Note: the caller is responsible for calling boxaDestroy() on the returned Boxa array and pixaDestroy() on cc array.</p>
+<p>Gets the individual connected (text) components (created after pages segmentation step, but before recognition) as a leptonica-style Boxa, Pixa pair, in reading order. Can be called before or after Recognize. </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00444">444</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00487">487</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                     {
   <span class="keywordflow">return</span> <a class="code" href="group___advanced_a_p_i.html#ga56369b1654400ef97e581bb65749ec3d">GetComponentImages</a>(<a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7adbd62c7f34a9ebdd6e3b813a34cd812d">RIL_SYMBOL</a>, <span class="keyword">true</span>, pixa, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
 }
@@ -840,8 +854,9 @@ Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Return a pointer to underlying <a class="el" href="classtesseract_1_1_cube_reco_context.html">CubeRecoContext</a> object if present. </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l02040">2040</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l02141">2141</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                       {
   <span class="keywordflow">return</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) ? <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> : <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;GetCubeRecoContext();
 }
@@ -864,7 +879,7 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>Return the pointer to the i-th dawg loaded into tesseract_ object. </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l02029">2029</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l02130">2130</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                            {
   <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> || i &gt;= <a class="code" href="group___advanced_a_p_i.html#gac0a13108ccd514cab99badcb014d2f43">NumDawgs</a>()) <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
   <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;getDict().GetDawg(i);
@@ -914,9 +929,10 @@ Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>This method returns the features associated with the input image. </p>
+<p>This method returns the features associated with the input image.</p>
+<p>This method returns the features associated with the input blob. </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01959">1959</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l02058">2058</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                               {
   <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>) {
     <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;ResetFeaturesHaveBeenExtracted();
@@ -945,9 +961,10 @@ Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Make a HTML-formatted string with hOCR markup from the internal data structures. page_number is 0-based but will appear in the output as 1-based. </p>
+<p>Make a HTML-formatted string with hOCR markup from the internal data structures. page_number is 0-based but will appear in the output as 1-based.</p>
+<p>Make a HTML-formatted string with hOCR markup from the internal data structures. page_number is 0-based but will appear in the output as 1-based. <a class="el" href="classtesseract_1_1_image.html">Image</a> name/input_file_ can be set by SetInputName before calling GetHOCRText STL removed from original patch submission and refactored by rays. </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00938">938</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00999">999</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                              {
   <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> ||
       (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a12dda612630eba40e15f9d0b9955a04c" title="The page-level data.">page_res_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> &amp;&amp; <a class="code" href="group___advanced_a_p_i.html#ga0e4065c20b142d69a2324ee0c74ae0b0">Recognize</a>(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) &lt; 0))
@@ -1070,8 +1087,9 @@ Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Get a reading-order iterator to the results of LayoutAnalysis and/or Recognize. The returned iterator must be deleted after use. WARNING! This class points to data held within the <a class="el" href="classtesseract_1_1_tess_base_a_p_i.html">TessBaseAPI</a> class, and therefore can only be used while the <a class="el" href="classtesseract_1_1_tess_base_a_p_i.html">TessBaseAPI</a> class still exists and has not been subjected to a call of Init, SetImage, Recognize, Clear, End DetectOS, or anything else that changes the internal <a class="el" href="class_p_a_g_e___r_e_s.html">PAGE_RES</a>. </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00877">877</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00934">934</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                         {
   <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> || <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a12dda612630eba40e15f9d0b9955a04c" title="The page-level data.">page_res_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
     <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
@@ -1096,8 +1114,9 @@ Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Get a mutable iterator to the results of LayoutAnalysis and/or Recognize. The returned iterator must be deleted after use. WARNING! This class points to data held within the <a class="el" href="classtesseract_1_1_tess_base_a_p_i.html">TessBaseAPI</a> class, and therefore can only be used while the <a class="el" href="classtesseract_1_1_tess_base_a_p_i.html">TessBaseAPI</a> class still exists and has not been subjected to a call of Init, SetImage, Recognize, Clear, End DetectOS, or anything else that changes the internal <a class="el" href="class_p_a_g_e___r_e_s.html">PAGE_RES</a>. </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00892">892</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00951">951</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                 {
   <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> || <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a12dda612630eba40e15f9d0b9955a04c" title="The page-level data.">page_res_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
     <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
@@ -1125,7 +1144,7 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>Get the result of page layout analysis as a leptonica-style Boxa, Pixa pair, in reading order. Can be called before or after Recognize. </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00411">411</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00446">446</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                         {
   <span class="keywordflow">return</span> <a class="code" href="group___advanced_a_p_i.html#ga56369b1654400ef97e581bb65749ec3d">GetComponentImages</a>(<a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7a2dcea8d4208c16055353029d26f9bf49">RIL_BLOCK</a>, <span class="keyword">false</span>, pixa, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
 }
@@ -1158,7 +1177,7 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>Get textlines and strips of image regions as a leptonica-style Boxa, Pixa pair, in reading order. Enables downstream handling of non-rectangular regions. Can be called before or after Recognize. If blockids is not NULL, the block-id of each line is also returned as an array of one element per line. delete [] after use. </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00429">429</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00468">468</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                        {
   <span class="keywordflow">return</span> <a class="code" href="group___advanced_a_p_i.html#ga56369b1654400ef97e581bb65749ec3d">GetComponentImages</a>(<a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7a5e87a35f16de644593c353159ede11d1">RIL_TEXTLINE</a>, <span class="keyword">false</span>, pixa, blockids);
 }
@@ -1190,7 +1209,7 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01394">1394</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01473">1473</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                                    {
   <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a12dda612630eba40e15f9d0b9955a04c" title="The page-level data.">page_res_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
     <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a86899716a1adde396be4efd57b547d27">FindLines</a>();
@@ -1246,7 +1265,7 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>Get the textlines as a leptonica-style Boxa, Pixa pair, in reading order. Can be called before or after Recognize. If blockids is not NULL, the block-id of each line is also returned as an array of one element per line. delete [] after use. </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00419">419</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00456">456</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                           {
   <span class="keywordflow">return</span> <a class="code" href="group___advanced_a_p_i.html#ga56369b1654400ef97e581bb65749ec3d">GetComponentImages</a>(<a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7a5e87a35f16de644593c353159ede11d1">RIL_TEXTLINE</a>, <span class="keyword">true</span>, pixa, blockids);
 }
@@ -1266,9 +1285,10 @@ Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Get a copy of the internal thresholded image from <a class="el" href="classtesseract_1_1_tesseract.html">Tesseract</a>. Caller takes ownership of the Pix and must pixDestroy it. May be called any time after SetImage, or after TesseractRect. </p>
+<p>Get a copy of the internal thresholded image from <a class="el" href="classtesseract_1_1_tesseract.html">Tesseract</a>. Caller takes ownership of the Pix and must pixDestroy it. May be called any time after SetImage, or after TesseractRect.</p>
+<p>ONLY available if you have Leptonica installed. Get a copy of the internal thresholded image from <a class="el" href="classtesseract_1_1_tesseract.html">Tesseract</a>. </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00400">400</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00433">433</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                      {
   <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
     <span class="keywordflow">return</span> <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>;
@@ -1292,8 +1312,9 @@ Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Returns the scale factor of the thresholded image that would be returned by <a class="el" href="group___advanced_a_p_i.html#gaee19c9ea78a647420bbe99a447569995">GetThresholdedImage()</a> and the various GetX() methods that call <a class="el" href="group___advanced_a_p_i.html#ga56369b1654400ef97e581bb65749ec3d">GetComponentImages()</a>. Returns 0 if no thresholder has been set. </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00503">503</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00548">548</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                      {
   <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a9d93e1d92ca230ae02b81d44bc88a55c" title="Image thresholding module.">thresholder_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
     <span class="keywordflow">return</span> 0;
@@ -1317,8 +1338,9 @@ Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>This method returns the string form of the specified unichar. </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l02024">2024</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l02125">2125</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                  {
   <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;unicharset.id_to_unichar(unichar_id);
 }
@@ -1340,7 +1362,7 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>The recognized text is returned as a char* which is coded as UNLV format Latin-1 with specific reject and suspect codes and must be freed with the delete [] operator. </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01117">1117</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01190">1190</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                               {
   <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> ||
       (!<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a7d4627f300b1096d43a3e7d54d8aa5df" title="page_res_ contains recognition data.">recognition_done_</a> &amp;&amp; <a class="code" href="group___advanced_a_p_i.html#ga0e4065c20b142d69a2324ee0c74ae0b0">Recognize</a>(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) &lt; 0))
@@ -1457,9 +1479,10 @@ Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>The recognized text is returned as a char* which is coded as UTF8 and must be freed with the delete [] operator. </p>
+<p>The recognized text is returned as a char* which is coded as UTF8 and must be freed with the delete [] operator.</p>
+<p>Make a text string from the internal data structures. </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00902">902</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00961">961</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                               {
   <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> ||
       (!<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a7d4627f300b1096d43a3e7d54d8aa5df" title="page_res_ contains recognition data.">recognition_done_</a> &amp;&amp; <a class="code" href="group___advanced_a_p_i.html#ga0e4065c20b142d69a2324ee0c74ae0b0">Recognize</a>(<a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) &lt; 0))
@@ -1496,7 +1519,7 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>Get the words as a leptonica-style Boxa, Pixa pair, in reading order. Can be called before or after Recognize. </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00436">436</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00477">477</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                       {
   <span class="keywordflow">return</span> <a class="code" href="group___advanced_a_p_i.html#ga56369b1654400ef97e581bb65749ec3d">GetComponentImages</a>(<a class="code" href="namespacetesseract.html#aa26c22b65cc9765a0e747120f4287fd7afd466aec253e5daa6f0c112b0f0e0610">RIL_WORD</a>, <span class="keyword">true</span>, pixa, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
 }
@@ -1518,7 +1541,7 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="baseapi_8h_source.html#l00621">621</a> of file <a class="el" href="baseapi_8h_source.html">baseapi.h</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8h_source.html#l00656">656</a> of file <a class="el" href="baseapi_8h_source.html">baseapi.h</a>.</p>
 <div class="fragment"><pre class="fragment">{ <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#ac7eaed7f3fedb15212eb39b747de0102">truth_cb_</a> = cb; }
 </pre></div>
 </div>
@@ -1539,9 +1562,10 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>Check whether a word is valid according to Tesseract's language model </p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>0 if the word is invalid, non-zero if valid. </dd></dl>
-<dl class="warning"><dt><b>Warning:</b></dt><dd>temporary! This function will be removed from here and placed in a separate API at some future time. </dd></dl>
+<dl class="warning"><dt><b>Warning:</b></dt><dd>temporary! This function will be removed from here and placed in a separate API at some future time.</dd></dl>
+<p>Check whether a word is valid according to Tesseract's language model returns 0 if the word is invalid, non-zero if valid </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01389">1389</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01468">1468</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                             {
   <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;getDict().valid_word(word);
 }
@@ -1562,8 +1586,10 @@ Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Returns a <a class="el" href="struct_t_b_l_o_b.html">TBLOB</a> corresponding to the entire input image.</p>
+<p>Creates a TBLOB* from the whole pix. </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01717">1717</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01809">1809</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                      {
   <span class="keywordtype">int</span> width = pixGetWidth(pix);
   <span class="keywordtype">int</span> height = pixGetHeight(pix);
@@ -1627,8 +1653,9 @@ Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Returns a <a class="el" href="class_r_o_w.html">ROW</a> object created from the input row specification. </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01700">1700</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01792">1792</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                 {
   <a class="code" href="host_8h.html#aba1f582fd0168f3ff9225d8c90fa9eb8">inT32</a> xstarts[] = {-32000};
   <span class="keywordtype">double</span> quad_coeffs[] = {0, 0, <a class="code" href="mfoutline_8h.html#a2a4b69f9a2827dc98bc4cbc233118865a83297de004f4e58b9be2108c6cd08a23">baseline</a>};
@@ -1657,9 +1684,10 @@ Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Returns the (average) confidence value between 0 and 100. </p>
+<p>Returns the (average) confidence value between 0 and 100.</p>
+<p>Returns the average word confidence for <a class="el" href="classtesseract_1_1_tesseract.html">Tesseract</a> page result. </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01219">1219</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01292">1292</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                              {
   <span class="keywordtype">int</span>* conf = <a class="code" href="group___advanced_a_p_i.html#ga4a67a12db21b3569b2b50ad05b9e146a">AllWordConfidences</a>();
   <span class="keywordflow">if</span> (!conf) <span class="keywordflow">return</span> 0;
@@ -1709,8 +1737,9 @@ Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>This method baseline normalizes a <a class="el" href="struct_t_b_l_o_b.html">TBLOB</a> in-place. The input row is used for normalization. The denorm is an optional parameter in which the normalization-antidote is returned. </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01745">1745</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01839">1839</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                                    {
   <a class="code" href="struct_t_w_e_r_d.html">TWERD</a> word;
   word.<a class="code" href="struct_t_w_e_r_d.html#aeec31d57df04c8dac1cf3e6990d358a7">blobs</a> = tblob;
@@ -1742,7 +1771,7 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>Return the number of dawgs loaded into tesseract_ object. </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l02035">2035</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l02136">2136</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                {
   <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a> ? 0 : <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;getDict().NumDawgs();
 }
@@ -1763,7 +1792,7 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="baseapi_8h_source.html#l00617">617</a> of file <a class="el" href="baseapi_8h_source.html">baseapi.h</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8h_source.html#l00652">652</a> of file <a class="el" href="baseapi_8h_source.html">baseapi.h</a>.</p>
 <div class="fragment"><pre class="fragment">                                  {
     <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#af9d4095a569fbf8687cefc005d2f58ee" title="Last ocr language mode requested.">last_oem_requested_</a>;
   }
@@ -1820,7 +1849,7 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>Recognizes a single page for ProcessPages, appending the text to text_out. The pix is the image processed - filename and page_index are metadata used by side-effect processes, such as reading a box file or formatting as hOCR. If non-zero timeout_millisec terminates processing after the timeout. If non-NULL and non-empty, and some page fails for some reason, the page is reprocessed with the retry_config config file. Useful for interactively debugging a bad page. The text is returned in text_out. Returns false on error. </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00796">796</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00849">849</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                {
   <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a896312e68d246b58e704a8f5576e6917">SetInputName</a>(filename);
   <a class="code" href="group___advanced_a_p_i.html#gaa463622111f3b11d8fca5863709cc699">SetImage</a>(pix);
@@ -1923,7 +1952,7 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>Recognizes all the pages in the named file, as a multi-page tiff or list of filenames, or single image, and gets the appropriate kind of text according to parameters: tessedit_create_boxfile, tessedit_make_boxes_from_boxes, tessedit_write_unlv, tessedit_create_hocr. Calls ProcessPage on each page in the input file, which may be a multi-page tiff, single-page other file format, or a plain text list of images to read. If tessedit_page_number is non-negative, processing begins at that page of a multi-page tiff file, or filelist. The text is returned in text_out. Returns false on error. If non-zero timeout_millisec terminates processing after the timeout on a single page. If non-NULL and non-empty, and some page fails for some reason, the page is reprocessed with the retry_config config file. Useful for interactively debugging a bad page. </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00700">700</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00752">752</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                 {
   <span class="keywordtype">int</span> page = <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;tessedit_page_number;
   <span class="keywordflow">if</span> (page &lt; 0)
@@ -2024,9 +2053,10 @@ Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Recognize the image from SetAndThresholdImage, generating <a class="el" href="classtesseract_1_1_tesseract.html">Tesseract</a> internal structures. Returns 0 on success. Optional. The Get*Text functions below will call Recognize if needed. After Recognize, the output is kept internally until the next SetImage. </p>
+<p>Recognize the image from SetAndThresholdImage, generating <a class="el" href="classtesseract_1_1_tesseract.html">Tesseract</a> internal structures. Returns 0 on success. Optional. The Get*Text functions below will call Recognize if needed. After Recognize, the output is kept internally until the next SetImage.</p>
+<p>Recognize the tesseract global image and return the result as <a class="el" href="classtesseract_1_1_tesseract.html">Tesseract</a> internal structures. </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00596">596</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00647">647</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                              {
   <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
     <span class="keywordflow">return</span> -1;
@@ -2101,9 +2131,10 @@ Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Methods to retrieve information after SetAndThresholdImage(), <a class="el" href="group___advanced_a_p_i.html#ga0e4065c20b142d69a2324ee0c74ae0b0">Recognize()</a> or <a class="el" href="classtesseract_1_1_tess_base_a_p_i.html#ad34c56e08d999ece9972f4c9a9301f93">TesseractRect()</a>. (Recognize is called implicitly if needed.) Variant on Recognize used for testing chopper. </p>
+<p>Methods to retrieve information after SetAndThresholdImage(), <a class="el" href="group___advanced_a_p_i.html#ga0e4065c20b142d69a2324ee0c74ae0b0">Recognize()</a> or <a class="el" href="classtesseract_1_1_tess_base_a_p_i.html#ad34c56e08d999ece9972f4c9a9301f93">TesseractRect()</a>. (Recognize is called implicitly if needed.) Variant on Recognize used for testing chopper.</p>
+<p>Tests the chopper by exhaustively running chop_one_blob. </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00655">655</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00706">706</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                         {
   <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
     <span class="keywordflow">return</span> -1;
@@ -2184,8 +2215,10 @@ Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Method to run adaptive classifier on a blob. It returns at max num_max_matches results.</p>
+<p>Method to run adaptive classifier on a blob. </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l02001">2001</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l02102">2102</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                                   {
   BLOB_CHOICE_LIST* choices = <span class="keyword">new</span> BLOB_CHOICE_LIST;
   <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;AdaptiveClassifier(blob, denorm, choices, <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>);
@@ -2221,7 +2254,7 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01621">1621</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01709">1709</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                          {
   <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;min_orientation_margin.set_value(margin);
 }
@@ -2244,7 +2277,7 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>Sets <a class="el" href="classtesseract_1_1_dict.html#a802de385e07531ace182d16653e35f71">Dict::letter_is_okay_</a> function to point to the given function. </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01422">1422</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01501">1501</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                        {
   <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
     <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;getDict().letter_is_okay_ = <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>;
@@ -2269,7 +2302,7 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>Sets <a class="el" href="classtesseract_1_1_wordrec.html#a7a4f5e2cb7957a5decbc91eb2d31f87c">Wordrec::fill_lattice_</a> function to point to the given function. </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01441">1441</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01523">1523</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                      {
   <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;fill_lattice_ = <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>;
 }
@@ -2320,7 +2353,7 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>Provide an image for <a class="el" href="classtesseract_1_1_tesseract.html">Tesseract</a> to recognize. Format is as TesseractRect above. Does not copy the image buffer, or take ownership. The source image may be destroyed after Recognize is called, either explicitly or implicitly via one of the Get*Text functions. SetImage clears all recognition results, and sets the rectangle to the full image, so it may be followed immediately by a GetUTF8Text, and it will automatically perform recognition. </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00360">360</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00387">387</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                                    {
   <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a17820a43c31b66c3a12eda59e0b51bba">InternalSetImage</a>())
     <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a9d93e1d92ca230ae02b81d44bc88a55c" title="Image thresholding module.">thresholder_</a>-&gt;SetImage(imagedata, width, height,
@@ -2345,7 +2378,7 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>Provide an image for <a class="el" href="classtesseract_1_1_tesseract.html">Tesseract</a> to recognize. As with SetImage above, <a class="el" href="classtesseract_1_1_tesseract.html">Tesseract</a> doesn't take a copy or ownership or pixDestroy the image, so it must persist until after Recognize. Pix vs raw, which to use? Use Pix where possible. A future version of <a class="el" href="classtesseract_1_1_tesseract.html">Tesseract</a> may choose to use Pix as its internal representation and discard <a class="el" href="class_i_m_a_g_e.html">IMAGE</a> altogether. Because of that, an implementation that sources and targets Pix may end up with less copies than an implementation that does not. </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00383">383</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00412">412</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                         {
   <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a17820a43c31b66c3a12eda59e0b51bba">InternalSetImage</a>())
     <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a9d93e1d92ca230ae02b81d44bc88a55c" title="Image thresholding module.">thresholder_</a>-&gt;SetImage(pix);
@@ -2369,7 +2402,7 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>Sets <a class="el" href="classtesseract_1_1_dict.html#a7ac1496aaae5e9977a31a2781e7866f0" title="Probability in context function used by the ngram permuter.">Dict::probability_in_context_</a> function to point to the given function. </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01429">1429</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l01511">1511</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                                        {
   <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>) {
     <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>-&gt;getDict().probability_in_context_ = <a class="code" href="imgscale_8cpp.html#a469169df397b589e709dc744f1346831">f</a>;
@@ -2421,7 +2454,7 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>Restrict recognition to a sub-rectangle of the image. Call after SetImage. Each SetRectangle clears the recogntion results so multiple rectangles can be recognized with the same image. </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00391">391</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00422">422</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                                                       {
   <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a9d93e1d92ca230ae02b81d44bc88a55c" title="Image thresholding module.">thresholder_</a> == <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
     <span class="keywordflow">return</span>;
@@ -2447,7 +2480,7 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>Set the resolution of the source image in pixels per inch so font size information can be calculated in results. Call this after <a class="el" href="group___advanced_a_p_i.html#gaa463622111f3b11d8fca5863709cc699">SetImage()</a>. </p>
 
-<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00368">368</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8cpp_source.html#l00395">395</a> of file <a class="el" href="baseapi_8cpp_source.html">baseapi.cpp</a>.</p>
 <div class="fragment"><pre class="fragment">                                             {
   <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a9d93e1d92ca230ae02b81d44bc88a55c" title="Image thresholding module.">thresholder_</a>)
     <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a9d93e1d92ca230ae02b81d44bc88a55c" title="Image thresholding module.">thresholder_</a>-&gt;SetSourceYResolution(ppi);
@@ -2473,7 +2506,7 @@ Functions</h2></td></tr>
 <div class="memdoc">
 <p>In extreme cases only, usually with a subclass of Thresholder, it is possible to provide a different Thresholder. The Thresholder may be preloaded with an image, settings etc, or they may be set after. Note that <a class="el" href="classtesseract_1_1_tesseract.html">Tesseract</a> takes ownership of the Thresholder and will delete it when it it is replaced or the API is destructed. </p>
 
-<p>Definition at line <a class="el" href="baseapi_8h_source.html#l00327">327</a> of file <a class="el" href="baseapi_8h_source.html">baseapi.h</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8h_source.html#l00343">343</a> of file <a class="el" href="baseapi_8h_source.html">baseapi.h</a>.</p>
 <div class="fragment"><pre class="fragment">                                                     {
     <span class="keywordflow">if</span> (<a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a9d93e1d92ca230ae02b81d44bc88a55c" title="Image thresholding module.">thresholder_</a> != <a class="code" href="host_8h.html#a070d2ce7b6bb7e5c05602aa8c308d0c4">NULL</a>)
       <span class="keyword">delete</span> <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a9d93e1d92ca230ae02b81d44bc88a55c" title="Image thresholding module.">thresholder_</a>;
@@ -2497,7 +2530,7 @@ Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 
-<p>Definition at line <a class="el" href="baseapi_8h_source.html#l00614">614</a> of file <a class="el" href="baseapi_8h_source.html">baseapi.h</a>.</p>
+<p>Definition at line <a class="el" href="baseapi_8h_source.html#l00648">648</a> of file <a class="el" href="baseapi_8h_source.html">baseapi.h</a>.</p>
 <div class="fragment"><pre class="fragment">                                     {
     <span class="keywordflow">return</span> <a class="code" href="classtesseract_1_1_tess_base_a_p_i.html#a247f50792f581df05afe336a2aeda402" title="The underlying data object.">tesseract_</a>;
   }
@@ -2523,7 +2556,7 @@ Functions</h2></td></tr>
 </div>
 
 
-    <li class="footer">Generated on Fri Mar 30 2012 17:39:22 for Tesseract by
+    <li class="footer">Generated on Fri Mar 30 2012 23:21:43 for Tesseract by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.5.1 </li>
    </ul>
